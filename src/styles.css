@@ -9,3 +9,6 @@ html, body {
 .full-height {
   height: 100%;
 }
+.card {
+  background-color: rgb(67, 67, 67);
+}
