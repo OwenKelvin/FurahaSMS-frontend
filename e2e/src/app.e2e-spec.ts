@@ -10,7 +10,7 @@ describe('workspace-project App', () => {
 
   it('should display welcome message', () => {
     page.navigateTo();
-    expect(page.getTitleText()).toEqual('furaha-smsT app is running!');
+    expect(page.getTitleText()).toContain('Furaha School Management System');
   });
 
   afterEach(async () => {
