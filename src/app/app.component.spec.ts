@@ -20,16 +20,16 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'furaha-smsT'`, () => {
+  it(`should have as title 'Furaha School Management System'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('furaha-smsT');
+    expect(app.title).toEqual('Furaha School Management System');
   });
 
   it('should render title', () => {
     const fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
     const compiled = fixture.debugElement.nativeElement;
-    expect(compiled.querySelector('.content span').textContent).toContain('furaha-smsT app is running!');
+    expect(compiled.querySelector('h1').textContent).toContain('Furaha School Management System');
   });
 });
