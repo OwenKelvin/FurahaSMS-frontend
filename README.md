@@ -1,7 +1,6 @@
 # FurahaApp
 
-[![Coverage Status](https://coveralls.io/repos/github/OwenKelvin/FurahaSMS-frontend/badge.svg?branch=develop)](https://coveralls.io/github/OwenKelvin/FurahaSMS-frontend?branch=develop) [![Known Vulnerabilities](https://snyk.io/test/github/OwenKelvin/FurahaSMS-frontend/badge.svg?targetFile=package.json)](https://snyk.io/test/github/OwenKelvin/FurahaSMS-frontend?targetFile=package.json)
-
+[![Coverage Status](https://coveralls.io/repos/github/OwenKelvin/FurahaSMS-frontend/badge.svg)](https://coveralls.io/github/OwenKelvin/FurahaSMS-frontend) [![Known Vulnerabilities](https://snyk.io/test/github/OwenKelvin/FurahaSMS-frontend/badge.svg?targetFile=package.json)](https://snyk.io/test/github/OwenKelvin/FurahaSMS-frontend?targetFile=package.json) [![Maintainability](https://api.codeclimate.com/v1/badges/79db6936542ef966acb6/maintainability)](https://codeclimate.com/github/OwenKelvin/FurahaSMS-frontend/maintainability) [![MIT license](https://img.shields.io/badge/License-MIT-blue.svg)](https://lbesson.mit-license.org/)
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.6.5.
 
 ## Development server
