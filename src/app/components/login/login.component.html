@@ -4,7 +4,7 @@
       <section class='card-header'>
         <h1>Login</h1>
       </section>
-      <form [formGroup]='loginForm' (ngSubmit)='submit()' class='card-body form-horizontal'>
+      <form [formGroup]='loginForm' (ngSubmit)='submitLogin()' class='card-body form-horizontal'>
         <section class='form-group d-flex flex-wrap'>
           <label class='col-lg-4 control-label' for='username'>Username</label>
           <section class='col-lg-8'>
@@ -20,7 +20,7 @@
               (blur)='validatePassword()' id='password' type='text'
               placeholder='label'
               formControlName='password'>
-            <span *ngIf='errors.password'> {{ errors.password}} </span>
+            <span *ngIf='errors.password' class='invalid-feedback'> {{ errors.password}} </span>
           </section>
         </section>
         <section class='d-flex justify-content-end'>
@@ -28,8 +28,8 @@
         </section>
       </form>
       <section class='card-footer d-flex justify-content-between'>
-        <span>forgot password? <a routerLink='/login/reset'>contact admin</a> | <a
-            routerLink='/login/contact-admin'>Reset</a></span>
+        <span>forgot password? <a routerLink='/login/contact-admin'>contact admin</a> | <a
+            routerLink='/login/reset'>Reset</a></span>
         <a title='go to home' routerLink='/'><i class='icon-home'></i></a>
       </section>
     </section>

@@ -42,7 +42,28 @@ describe('AppForm class', () => {
     it('should contain string "required" if field is required', () => {
       formItem.setValidators([Validators.required]);
       formItem.updateValueAndValidity();
+      formItem.markAsDirty();
       expect(appForm.getErrorMessage(formItem)).toContain('required');
+    });
+    it('should contain string "Username" if field is required and Username is passed as label', () => {
+      formItem.setValidators([Validators.required]);
+      formItem.updateValueAndValidity();
+      formItem.markAsDirty();
+      expect(appForm.getErrorMessage(formItem, 'Username')).toContain('Username');
+    });
+    it('should contain string "email" if field is email', () => {
+      formItem.setValidators([Validators.email]);
+      formItem.updateValueAndValidity();
+      formItem.patchValue('None email');
+      formItem.markAsDirty();
+      expect(appForm.getErrorMessage(formItem)).toContain('email');
+    });
+    it('should contain string "Username" if username is provided to email field', () => {
+      formItem.setValidators([Validators.email]);
+      formItem.updateValueAndValidity();
+      formItem.patchValue('None email');
+      formItem.markAsDirty();
+      expect(appForm.getErrorMessage(formItem, 'Username')).toContain('Username');
     });
   });
 });

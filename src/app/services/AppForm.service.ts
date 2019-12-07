@@ -11,6 +11,9 @@ export default class AppFormService {
     if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.required) {
       return (label ? (label + ' ') : '') + 'field is required';
     }
+    if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.email) {
+      return (label ? (label + ' ') : '') + 'field should be a valid email';
+    }
     return null;
   }
   triggerValidation(formControl: FormControl) {
