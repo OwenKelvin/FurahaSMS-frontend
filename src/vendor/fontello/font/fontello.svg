@@ -1,0 +1,18 @@
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg xmlns="http://www.w3.org/2000/svg">
+<metadata>Copyright (C) 2019 by original authors @ fontello.com</metadata>
+<defs>
+<font id="fontello" horiz-adv-x="1000" >
+<font-face font-family="fontello" font-weight="400" font-stretch="normal" units-per-em="1000" ascent="850" descent="-150" />
+<missing-glyph horiz-adv-x="1000" />
+<glyph glyph-name="star" unicode="&#xe800;" d="M2 460q11 37 101 37h225l69 207v1q19 56 44 75t49 0 43-75l1-1 68-207h226q58 0 85-17t14-47-59-63l-5-4-176-126 67-207 2-2q27-85-4-109t-105 29l-3 2-2 1-177 127-179-128-2-2q-73-52-105-29t-4 109l1 1v2l68 206-177 126-2 2-2 2q-73 52-61 90z" horiz-adv-x="931.2" />
+
+<glyph glyph-name="star-empty" unicode="&#xe801;" d="M3 436q-12 31 16 50t91 18h242l74 222v1q14 45 33 68t40 23q20 0 39-23t33-68l1-1 73-222h242q63 0 91-18t16-50-64-68l-5-4-190-135 74-221 1-3q19-60 11-91t-40-32q-37 0-88 38l-2 2-3 1-189 136-192-137-3-2q-52-39-88-39-31 0-40 32t11 92l1 3 74 221-190 135-2 3-3 1q-51 37-64 68z m165-26l203-145-21-65-57-173 206 147 205-147-57 173-21 65 203 145h-251l-21 65-58 175-80-240h-251z" horiz-adv-x="997.6" />
+
+<glyph glyph-name="play" unicode="&#xe802;" d="M178 15q-30-30-74-30-43 0-73 31t-31 74l0 520q0 44 31 74t73 31q44 0 74-30l343-335q-206-201-343-335z" horiz-adv-x="521" />
+
+<glyph glyph-name="home" unicode="&#xe803;" d="M786 296v-267q0-15-11-25t-25-11h-214v214h-143v-214h-214q-15 0-25 11t-11 25v267q0 1 0 2t0 2l321 264 321-264q1-1 1-4z m124 39l-34-41q-5-5-12-6h-2q-7 0-12 3l-386 322-386-322q-7-4-13-3-7 1-12 6l-35 41q-4 6-3 13t6 12l401 334q18 15 42 15t43-15l136-113v108q0 8 5 13t13 5h107q8 0 13-5t5-13v-227l122-102q6-4 6-12t-4-13z" horiz-adv-x="928.6" />
+</font>
+</defs>
+</svg>

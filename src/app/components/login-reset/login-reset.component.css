@@ -1,12 +1,8 @@
 h1 {
   font-size: 1.5rem;
 }
-
-a {
-  text-decoration: underline;
-}
 @media (min-width: 992px) {
   .card {
-  	min-width: 480px;
+  	min-width: 450px;
   }
 }
