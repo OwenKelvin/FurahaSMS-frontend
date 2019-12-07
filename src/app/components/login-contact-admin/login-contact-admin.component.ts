@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import AppFormService from 'src/app/services/AppForm.service';
-import AuthenticationService from 'src/app/services/authentication.service';
+import { AppFormService } from 'src/app/services/AppForm.service';
+import { AuthenticationService } from 'src/app/services/authentication.service';
 import { FullWithCenterComponent } from '../full-with-center/full-with-center.component';
 @Component({
   selector: 'app-login-contact-admin',

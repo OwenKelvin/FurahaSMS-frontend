@@ -1,5 +1,5 @@
 import { FormControl, FormBuilder, Validators, FormGroup } from '@angular/forms';
-import AppFormService from './AppForm.service';
+import { AppFormService } from './AppForm.service';
 
 describe('AppForm class', () => {
   const fb: FormBuilder = new FormBuilder();

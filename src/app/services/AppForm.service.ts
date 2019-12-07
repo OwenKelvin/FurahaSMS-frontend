@@ -4,7 +4,7 @@ import { Injectable } from '@angular/core';
 @Injectable({
   providedIn: 'root'
 })
-export default class AppFormService {
+export class AppFormService {
   constructor() { }
   getErrorMessage(formControl: FormControl, label?: string): null | string {
 

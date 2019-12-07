@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
-import {Observable, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
-export default class AuthenticationService {
+export class AuthenticationService {
 
   constructor() { }
 
