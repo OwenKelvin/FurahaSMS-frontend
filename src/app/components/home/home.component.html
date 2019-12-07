@@ -1,8 +1,18 @@
 <app-full-with-center>
-  <section class='col-lg-6 col-sm-12'>
-    <h1>Welcome To The {{ title }}</h1>
+  <section class='card'>
+    <section class='card-body'>
+      <section class='d-flex card-section flex-wrap justify-content-center align-items-center'>
+        <section class='col-xs-10 col-md-7 col-lg-6 col-sm-12'>
+          <h1>Welcome To The {{ title }}</h1>
+        </section>
+        <section class='col-md-3 col-lg-2'>
+          <a class='btn btn-success' routerLink='/login' routerLinkActive='active'>Login</a>
+        </section>
+      </section>
+    </section>
   </section>
-  <section class='col-lg-2'>
-    <a class='btn btn-success' routerLink='/login' routerLinkActive='active'>Login</a>
+  <section class='quote'>
+    <span>Don't Reinvent the wheel, just realign it </span>
+    <span><i>Anthony J. D'Angelo </i></span>
   </section>
 </app-full-with-center>
