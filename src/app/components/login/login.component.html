@@ -1,13 +1,37 @@
 <app-full-with-center>
-  <section class='card'>
-    <section class='card-header'>
-      Login
-    </section>
-    <section class='card-body'>
-      Login
-    </section>
-    <section class='card-footer'>
-      unable to login?
+  <section class='d-flex'>
+    <section class='card col-lg-12'>
+      <section class='card-header'>
+        <h1>Login</h1>
+      </section>
+      <form [formGroup]='loginForm' (ngSubmit)='submitLogin()' class='card-body form-horizontal'>
+        <section class='form-group d-flex flex-wrap'>
+          <label class='col-lg-4 control-label' for='username'>Username</label>
+          <section class='col-lg-8'>
+            <input formControlName='username' [class]='usernameFieldClass' (blur)='validateUsername()' id='username'
+              type='text' placeholder='label'>
+            <span *ngIf='errors.username' class='invalid-feedback'> {{ errors.username}} </span>
+          </section>
+        </section>
+        <section class='form-group d-flex flex-wrap'>
+          <label class='col-lg-4 control-label' for='username'>Password</label>
+          <section class='col-lg-8'>
+            <input [class]='passwordFieldClass' formControlName='password'
+              (blur)='validatePassword()' id='password' type='text'
+              placeholder='label'
+              formControlName='password'>
+            <span *ngIf='errors.password' class='invalid-feedback'> {{ errors.password}} </span>
+          </section>
+        </section>
+        <section class='d-flex justify-content-end'>
+          <input class='btn btn-success' type='submit' value='Login'>
+        </section>
+      </form>
+      <section class='card-footer d-flex justify-content-between'>
+        <span>forgot password? <a routerLink='/login/contact-admin'>contact admin</a> | <a
+            routerLink='/login/reset'>Reset</a></span>
+        <a title='go to home' routerLink='/'><i class='icon-home'></i></a>
+      </section>
     </section>
   </section>
 </app-full-with-center>

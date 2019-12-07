@@ -1,4 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
+
+@import './vendor/fontello/css/fontello.css';
+
 html, body {
   background: rgb(49, 49, 49);
   color: white;
@@ -11,4 +14,23 @@ html, body {
 }
 .card {
   background-color: rgb(67, 67, 67);
+  border: 1px solid lightblue;
+}
+.card-header {
+  border-bottom: 1px solid lightblue;
+}
+a {
+  color: lightblue;
+  box-shadow: white;
+}
+a:hover {
+  color: greenyellow;
+  text-decoration: underline;
+}
+
+.btn-success {
+  background: green;
+}
+.invalid-feedback {
+  color: rgb(240, 68, 68);
 }

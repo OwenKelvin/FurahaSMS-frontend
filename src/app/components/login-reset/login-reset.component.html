@@ -1,0 +1,24 @@
+<app-full-with-center>
+    <section class='card col-lg-12'>
+      <section class='card-header'>
+        <h1>Password Reset</h1>
+      </section>
+      <section class='card-body'>
+        <form (submit)='submitPasswordResetForm()' [formGroup]='passwordResetForm' class='form-horizontal'>
+          <section class='form-group d-flex flex-wrap'>
+            <label class='col-lg-4 control-label' for='email'>Email</label>
+            <section class='col-lg-8'>
+              <input (keyup)='updateEmailFieldValidation()' formControlName='email' [class]='emailFieldClass' (change)='validateEmail()' id='email'
+                type='text' placeholder='Please enter valid email'>
+              <span *ngIf='errors.email' class='invalid-feedback'> {{ errors.email}} </span>
+            </section>
+          </section>
+          <section class='d-flex justify-content-between'>
+            <button type="button" routerLink='/login' class='btn btn-secondary'>Cancel</button>
+            <button [disabled]='!passwordResetForm.valid' class='btn btn-success'>Submit</button>
+          </section>
+        </form>
+      </section>
+    </section>
+
+</app-full-with-center>
