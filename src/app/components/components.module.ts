@@ -8,10 +8,11 @@ import { FullWithCenterComponent } from './full-with-center/full-with-center.com
 import { ReactiveFormsModule } from '@angular/forms';
 import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
 import { LoginResetComponent } from './login-reset/login-reset.component';
+import { InputComponent } from './input/input.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, HomeComponent, FullWithCenterComponent, LoginContactAdminComponent, LoginResetComponent],
+  declarations: [LoginComponent, HomeComponent, FullWithCenterComponent, LoginContactAdminComponent, LoginResetComponent, InputComponent],
   imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule],
   exports: [LoginComponent, HomeComponent]
 })

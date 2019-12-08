@@ -27,19 +27,10 @@ export class LoginContactAdminComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]]
     });
   }
-  get email() {
+  get email(): FormControl {
     return this.loginContactAdminForm.get('email') as FormControl;
   }
-  validateEmail() {
-    this.errors.email = this.appFormService.getErrorMessage(this.email, 'Email');
-  }
-  get emailFieldClass() {
-    const formControlClass = 'form-control';
-    if (this.errors.email) {
-      return `${formControlClass} is-invalid`;
-    }
-    return formControlClass;
-  }
+
   submitLoginContactAdminForm() {
     if (this.loginContactAdminForm.valid) {
       this.authService.contactAdmin({email: this.email.value}).subscribe((success) => {
@@ -47,12 +38,6 @@ export class LoginContactAdminComponent implements OnInit {
       });
     } else {
       this.email.markAsTouched();
-      this.validateEmail();
-    }
-  }
-  updateEmailFieldValidation() {
-    if (this.errors.email) {
-      this.validateEmail();
     }
   }
 }
