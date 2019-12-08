@@ -5,15 +5,14 @@
         <h1>Contact Admin</h1>
       </section>
       <section class='card-body'>
-        <form (submit)='submitLoginContactAdminForm()' [formGroup]='loginContactAdminForm' class='form-horizontal'>
-          <section class='form-group d-flex flex-wrap'>
-            <label class='col-lg-4 control-label' for='email'>Email</label>
-            <section class='col-lg-8'>
-              <input (keyup)='updateEmailFieldValidation()' formControlName='email' [class]='emailFieldClass' (change)='validateEmail()' id='email'
-                type='text' placeholder='Please enter valid email'>
-              <span *ngIf='errors.email' class='invalid-feedback'> {{ errors.email}} </span>
-            </section>
-          </section>
+        <form (submit)='submitLoginContactAdminForm()' [formGroup]='loginContactAdminForm' class=''>
+          <app-input
+            label='Email'
+            placeholder='email@example.com'
+            id='email'
+            formControlName='email'
+            prependIcon='icon-mail'
+          ></app-input>
           <section class='d-flex justify-content-between'>
             <button type="button" routerLink='/login' class='btn btn-secondary'>Cancel</button>
             <button [disabled]='!loginContactAdminForm.valid' class='btn btn-success'>Submit</button>

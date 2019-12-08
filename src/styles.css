@@ -1,6 +1,7 @@
 /* You can add global styles to this file, and also import other style files */
 
 @import './vendor/fontello/css/fontello.css';
+@import './vendor/fontello/css/animation.css';
 
 html, body {
   background: rgb(49, 49, 49);
@@ -13,6 +14,7 @@ html, body {
   height: 100%;
 }
 .card {
+  width: 100%;
   background-color: rgb(67, 67, 67);
   border: 1px solid lightblue;
 }
