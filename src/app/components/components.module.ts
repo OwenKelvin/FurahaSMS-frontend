@@ -9,11 +9,23 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
 import { LoginResetComponent } from './login-reset/login-reset.component';
 import { InputComponent } from './input/input.component';
+import { DashboardComponent } from './dashboard/dashboard.component';
+import { LoginModule } from './login/login.module';
+import { ToastComponent } from './toast/toast.component';
 
 
 @NgModule({
-  declarations: [LoginComponent, HomeComponent, FullWithCenterComponent, LoginContactAdminComponent, LoginResetComponent, InputComponent],
-  imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule],
-  exports: [LoginComponent, HomeComponent]
+  declarations: [
+    LoginComponent,
+    HomeComponent,
+    FullWithCenterComponent,
+    LoginContactAdminComponent,
+    LoginResetComponent,
+    InputComponent,
+    DashboardComponent,
+    ToastComponent
+  ],
+  imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule, LoginModule],
+  exports: [LoginComponent, HomeComponent, ToastComponent]
 })
 export class ComponentsModule {}

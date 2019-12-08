@@ -26,6 +26,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() prependIcon: string;
   @Input() formControl: FormControl;
   @Input() triggerValidation: boolean;
+  @Input() autofocus: false;
   fieldError: string;
   disabled: boolean;
   onChanges: ($value) => void;
