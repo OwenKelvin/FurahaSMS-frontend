@@ -1,0 +1,62 @@
+form {
+    height: 40px;
+    margin-right: 30px;
+}
+.search {
+  display: inline-block;
+  position: relative;
+}
+
+.search:after {
+  content: "";
+  background: lightblue;
+  width: 3px;   
+  height: 15px;
+  position: absolute;
+  top: 20px;
+  right: -2px;
+  transform: rotate(135deg);
+  box-shadow: 1px 0 #0091c2;
+}
+
+.search > input {
+  color: white;
+  font-size: 16px;
+  background: transparent;
+  width: 25px;
+  height: 25px;
+  padding: 10px;
+  border: solid 2px lightblue;
+  outline: none;
+  border-radius: 35px;
+  box-shadow: 0 1px #0091c2;
+  transition: width 0.5s;
+}
+
+.search > input::placeholder {
+  color: #efefef;
+  opacity: 1;
+}
+
+.search > input::-ms-placeholder {
+  color: #efefef;
+}
+
+.search > input::-ms-input-placeholder {
+  color: #efefef;
+}
+
+.search > input:focus,
+.search > input:valid {
+  width: 200px;
+  padding: 10px;
+  height: 30px;
+}
+input::-webkit-search-cancel-button{
+   position:relative;
+    -webkit-appearance: none;
+    height: 10px;
+    width: 10px;
+    border-radius:5px;
+    background: red;
+}

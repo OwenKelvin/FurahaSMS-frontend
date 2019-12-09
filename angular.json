@@ -25,9 +25,8 @@
               "src/robots.txt"
             ],
             "styles": [
-               "./node_modules/bootstrap/dist/css/bootstrap.min.css",
+              "./node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.css"
-              
             ],
             "scripts": [
               "./node_modules/jquery/dist/jquery.min.js",
@@ -126,6 +125,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "furaha-sms"
+    }
+  },
+  "defaultProject": "furaha-sms",
+  "cli": {
+    "defaultCollection": "@ngrx/schematics"
+  }
 }

@@ -1,0 +1,27 @@
+.toast {
+  opacity: 0.8;
+  min-width: 250px;
+  max-width: 400px;
+  z-index: 1;
+}
+.toast-header {
+	background: green;
+	color: greenyellow;
+	border-bottom: 1px solid lightblue;
+}
+.toast-body {
+	background: forestgreen;
+	color: palegreen;
+}
+@media (max-width: 250px) {
+	.toast {
+		width: 100%;
+		min-width: 100px;
+	}
+}
+button {
+	color: crimson;
+}
+button:hover {
+	color: red;
+}

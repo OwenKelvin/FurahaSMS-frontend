@@ -1,15 +1,18 @@
 import { TestBed, async } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
+import { ToastComponent } from './components/toast/toast.component';
+import { Store, StoreModule } from '@ngrx/store';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        StoreModule.forRoot({}),
         RouterTestingModule
       ],
       declarations: [
-        AppComponent
+        AppComponent, ToastComponent
       ],
     }).compileComponents();
   }));

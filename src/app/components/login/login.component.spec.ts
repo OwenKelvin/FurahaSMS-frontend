@@ -4,7 +4,9 @@ import { LoginComponent } from './login.component';
 import { InputComponent } from './../input/input.component';
 import { FullWithCenterComponent } from '../full-with-center/full-with-center.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
+import { Store, StoreModule } from '@ngrx/store';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -12,7 +14,13 @@ describe('LoginComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        StoreModule.forRoot({})
+      ],
       declarations: [LoginComponent, FullWithCenterComponent, InputComponent ]
     }).compileComponents();
   }));

@@ -1,0 +1,14 @@
+<div class='d-flex' [class.toggled] = '(isMenuOpen$ | async) === false' id='wrapper' >
+  <app-sidebar></app-sidebar>
+
+  <!-- Page Content -->
+  <div id='page-content-wrapper'>
+    <app-header></app-header>
+
+    <div class='container-fluid'>
+      <router-outlet></router-outlet>
+    </div>
+  </div>
+  <!-- /#page-content-wrapper -->
+  <app-footer></app-footer>
+</div>

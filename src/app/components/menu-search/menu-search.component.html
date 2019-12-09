@@ -1,0 +1,13 @@
+<form [formGroup] = 'searchForm' class='d-flex align-items-center'>
+  <!-- <input formControlName='search' type="search" name="Search">
+  <i class='fa icon-search'></i> -->
+  <section class="search">
+  	<input  list='searches' formControlName='search' type="search" placeholder="Search . . ." required>
+  </section>
+  <datalist id='searches'>
+  	<option value='admissions'></option>
+  	<option value='admissions students'></option>
+  	<option value='admissions teaches'></option>
+  	<option value='library'></option>
+  </datalist>
+</form>
