@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, of, throwError } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { OauthInterface } from './../interfaces/oauth.interface';
+import { UserInterface } from './../interfaces/user.interface';
 import { PASSPORT_CLIENT } from './../configs/app.config';
 import { map, catchError } from 'rxjs/operators';
 
@@ -9,9 +10,17 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  private currentUserSubject: BehaviorSubject<UserInterface>;
+  public currentUser: Observable<UserInterface>;
+  constructor( private http: HttpClient ) {
+    const storedUser = localStorage.getItem('currentUser');
 
-  constructor(private http: HttpClient) { }
-
+    this.currentUserSubject = new BehaviorSubject<UserInterface>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUser = this.currentUserSubject.asObservable();
+  }
+  public get currentUserValue(): UserInterface {
+    return this.currentUserSubject.value;
+  }
   contactAdmin(data: {email: string}) {
     return of({
       message: 'Successfully Contacted Admin'
@@ -41,8 +50,10 @@ export class AuthenticationService {
     const userData = null;
     return this.http.post<any>(url, loginData, httpOptions)
       .pipe(
-        map( response => {
-          return response;
+        map( user => {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          return user;
         }),
         catchError( error => {
           return throwError(error);
