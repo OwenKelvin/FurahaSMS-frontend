@@ -2,7 +2,6 @@
 
 @import './vendor/fontello/css/fontello.css';
 @import './vendor/fontello/css/animation.css';
-@import './vendor/daneden/animate.css';
 
 html, body {
   background: rgb(49, 49, 49);

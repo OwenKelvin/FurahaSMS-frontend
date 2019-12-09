@@ -9,20 +9,17 @@
             [triggerValidation]='triggerValidation'
             label='Username'
             placeholder='Enter username/email'icon-lock-filled
-            id='username'
+            id='email'
             formControlName='username'
             prependIcon='icon-user'
-            autocomplete='username'
           ></app-input>
           <app-input
             [triggerValidation]='triggerValidation'
             label='Password'
             placeholder='Enter P@55w0rd!'
-            id='password'
+            id='email'
             formControlName='password'
             prependIcon='icon-lock-filled'
-            autocomplete='current-password'
-            type='password'
           ></app-input>
           <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show'>
             
