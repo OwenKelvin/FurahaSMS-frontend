@@ -26,11 +26,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() prependIcon: string;
   @Input() formControl: FormControl;
   @Input() triggerValidation: boolean;
-  @Input() autofocus: false;
-  @Input() autocomplete: string;
-  @Input() type: string;
   fieldError: string;
-  fieldType: string;
   disabled: boolean;
   onChanges: ($value) => void;
   onTouched: () => void;
@@ -38,10 +34,6 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   constructor(private appFormService: AppFormService) {}
 
   ngOnInit() {
-    this.fieldType = 'text';
-    if (['tel', 'phone', 'password', 'number'].includes(this.type)) {
-      this.fieldType = this.type;
-    }
     this.formControl = new FormControl();
   }
 
