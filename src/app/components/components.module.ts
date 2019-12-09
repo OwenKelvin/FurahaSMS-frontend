@@ -16,6 +16,10 @@ import { LogoutButtonComponent } from './logout-button/logout-button.component';
 import { LayoutComponent } from './layout/layout.component';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { SidebarComponent } from './sidebar/sidebar.component';
+import { NavbarTopComponent } from './navbar-top/navbar-top.component';
+import { UserButtonComponent } from './user-button/user-button.component';
+import { MenuSearchComponent } from './menu-search/menu-search.component';
 
 
 @NgModule({
@@ -32,6 +36,10 @@ import { FooterComponent } from './footer/footer.component';
     LayoutComponent,
     HeaderComponent,
     FooterComponent,
+    SidebarComponent,
+    NavbarTopComponent,
+    UserButtonComponent,
+    MenuSearchComponent,
   ],
   imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule, LoginModule],
   exports: [LoginComponent, HomeComponent, ToastComponent]

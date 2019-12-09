@@ -1,3 +1,18 @@
-<app-header></app-header>
+<!-- <app-header></app-header>
 <router-outlet></router-outlet>
 <app-footer></app-footer>
+ -->
+  <div class="d-flex" id="wrapper">
+    <app-sidebar></app-sidebar>
+
+    <!-- Page Content -->
+    <div id="page-content-wrapper">
+      <app-header></app-header>
+
+      <div class="container-fluid">
+        <router-outlet></router-outlet>
+      </div>
+    </div>
+    <!-- /#page-content-wrapper -->
+
+  </div>
