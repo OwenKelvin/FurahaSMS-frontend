@@ -1,15 +1,17 @@
-111
-  <div style="background: red; display: block" class='toast' style='position: absolute; top: 0; right: 0;'>
-    <div class='toast-header'>
-      
-      <strong class='mr-auto'>{{ toastHeader }}</strong>
-      <small>{{ toastTime }}</small>
-      <button type='button' class='ml-2 mb-1 close' data-dismiss='toast' aria-label='Close'>
-        <span class="icon-cancel-circled" aria-hidden='true'></span>
-      </button>
-    </div>
-    <div class='toast-body'>
-      {{ toastBody }}
-    </div>
+<div *ngIf='showToast$ | async' class='toast' style='position: absolute; top: 0; right: 0;'>
+  <div class='toast-header slideInDown slideOutUp'>
+    <strong class='mr-auto'>{{ toastHeader$ | async }}</strong>
+    <small>{{ toastTime$ | async }}</small>
+    <button
+      (click)='hideToast()'
+      type='button'
+      class='ml-2 mb-1 close'
+      data-dismiss='toast'
+      aria-label='Close'>
+       <span class="icon-cancel-circled" aria-hidden='true'></span>
+    </button>
   </div>
-  111>
+  <div class='toast-body'>
+    {{ toastBody$ | async }}
+  </div>
+</div>

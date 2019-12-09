@@ -4,6 +4,9 @@ import { AppFormService } from 'src/app/services/AppForm.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MessageInterface } from 'src/app/interfaces/message.interface';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadToastShowsSuccess } from './../../store/actions/toast-show.actions';
+import { AppState } from './../../store/reducers';
 
 @Component({
   selector: 'app-login',
@@ -18,6 +21,7 @@ export class LoginComponent implements OnInit {
   showErrorMessage: boolean;
   submitError: MessageInterface;
   constructor(
+    private store: Store<AppState>,
     private router: Router,
     private authService: AuthenticationService,
     private fb: FormBuilder,
@@ -46,6 +50,10 @@ export class LoginComponent implements OnInit {
       this.authService.login({ username, password })
         .subscribe(success => {
           this.submitInProgress = false;
+          this.store.dispatch(loadToastShowsSuccess({
+            toastHeader: 'Login Successful!',
+            toastBody: 'Successfully authenticated'
+          }));
           this.router.navigate(['/dashboard']);
         },
         error => {

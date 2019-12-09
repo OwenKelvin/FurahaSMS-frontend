@@ -5,8 +5,16 @@
 	  	<section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
 	      <span class='input-group-text' id='inputGroupPrepend3'><i [class]='prependIcon'></i></span>
 	    </section>
-	    <input [autofocus]='autofocus' [formControl]='formControl' (keyup)='updateFieldValidation()' [class]='fieldClass' (blur)='validateField()' [id]='[id]'
-	    type='text' [placeholder]='placeholder'>
+	    <input 
+	      [autocomplete]='autocomplete'
+	      [autofocus]='autofocus'
+	      [formControl]='formControl'
+	      (keyup)='updateFieldValidation()'
+	      [class]='fieldClass'
+	      (blur)='validateField()'
+	      [id]='[id]'
+	      [type]='fieldType'
+	      [placeholder]='placeholder'>
 	  </section>
 	  <section  *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;" > 
       <div class="arrow-up"></div>

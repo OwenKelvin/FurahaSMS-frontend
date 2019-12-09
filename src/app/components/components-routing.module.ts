@@ -5,21 +5,28 @@ import { LoginComponent } from './login/login.component';
 import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
 import { LoginResetComponent } from './login-reset/login-reset.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './../guards/auth.guard';
-
+import { GuestGuard } from './../guards/guest.guard';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     pathMatch: 'full',
-    canActivate: [AuthGuard],
+    canActivate: [GuestGuard],
   },
   {
     path: 'dashboard',
-    component: DashboardComponent,
+    component: LayoutComponent,
     canActivate: [AuthGuard],
-    pathMatch: 'full'
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: DashboardComponent
+      }
+    ]
   }
 ];
 

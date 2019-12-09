@@ -12,6 +12,10 @@ import { InputComponent } from './input/input.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LoginModule } from './login/login.module';
 import { ToastComponent } from './toast/toast.component';
+import { LogoutButtonComponent } from './logout-button/logout-button.component';
+import { LayoutComponent } from './layout/layout.component';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 
 @NgModule({
@@ -23,7 +27,11 @@ import { ToastComponent } from './toast/toast.component';
     LoginResetComponent,
     InputComponent,
     DashboardComponent,
-    ToastComponent
+    ToastComponent,
+    LogoutButtonComponent,
+    LayoutComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule, LoginModule],
   exports: [LoginComponent, HomeComponent, ToastComponent]
