@@ -1,6 +1,15 @@
 <!-- Sidebar -->
 <div class="bg-dark border-right" id="sidebar-wrapper">
-  <div class="sidebar-heading">Start Bootstrap </div>
+  <div class="sidebar-heading d-flex justify-content-between">
+    Furaha SMS
+    <button
+    (click)='toggleMenu()'
+    class="hidden-sm-up btn btn-secondary"
+    type="button">
+          <span class="icon-exchange"></span>
+    </button>
+
+  </div>
   <div class="list-group list-group-flush">
     <a href="#" class="list-group-item list-group-item-action bg-dark">Dashboard</a>
     <a href="#" class="list-group-item list-group-item-action bg-dark">Shortcuts</a>

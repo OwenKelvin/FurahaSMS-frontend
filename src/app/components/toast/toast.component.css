@@ -1,7 +1,8 @@
 .toast {
-  opacity: 1;
+  opacity: 0.8;
   min-width: 250px;
   max-width: 400px;
+  z-index: 1;
 }
 .toast-header {
 	background: green;

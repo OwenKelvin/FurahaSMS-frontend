@@ -38,6 +38,16 @@ a:hover {
 .invalid-feedback {
   color: rgb(240, 68, 68);
 }
+@media (max-width: 768px) {
+  .hidden-sm {
+    display: none;
+  }
+}
+@media (min-width: 768px) {
+  .hidden-sm-up {
+    display: none;
+  }
+}
 
 #sidebar-wrapper {
   min-height: 100vh;
