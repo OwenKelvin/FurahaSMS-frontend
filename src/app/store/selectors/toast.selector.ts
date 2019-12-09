@@ -4,7 +4,12 @@ import { AppState } from './../reducers';
 export const selectToastState = (state: AppState) => state.toast;
 export const selectShowToastMessage = createSelector(
   selectToastState,
-  toast => toast.showMessage
+  toast => {
+    if (toast) {
+      return toast.showMessage;
+    }
+    return false;
+  }
 );
 export const selectToastHeader = createSelector(
   selectToastState,

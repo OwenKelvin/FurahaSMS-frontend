@@ -31,7 +31,7 @@ import { FooterComponent } from './footer/footer.component';
     LogoutButtonComponent,
     LayoutComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
   ],
   imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule, LoginModule],
   exports: [LoginComponent, HomeComponent, ToastComponent]
