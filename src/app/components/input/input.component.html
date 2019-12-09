@@ -1,20 +1,12 @@
 <section class='form-group' style="position: relative;">
   <section class='d-flex flex-wrap'>
-  	<label class='col-md-4 col-lg-3 control-label' [for]='id'>{{ label }}</label>
-	  <section class='col-md-8 col-lg-9 input-group'>
+  	<label class='col-md-4 control-label' [for]='id'>{{ label }}</label>
+	  <section class='col-md-8 input-group'>
 	  	<section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
-	      <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
+	      <span class='input-group-text' id='inputGroupPrepend3'><i [class]='prependIcon'></i></span>
 	    </section>
-	    <input 
-	      [autocomplete]='autocomplete'
-	      [autofocus]='autofocus'
-	      [formControl]='formControl'
-	      (keyup)='updateFieldValidation()'
-	      [class]='fieldClass'
-	      (blur)='validateField()'
-	      [id]='[id]'
-	      [type]='fieldType'
-	      [placeholder]='placeholder'>
+	    <input [formControl]='formControl' (keyup)='updateFieldValidation()' [class]='fieldClass' (blur)='validateField()' [id]='[id]'
+	    type='text' [placeholder]='placeholder'>
 	  </section>
 	  <section  *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;" > 
       <div class="arrow-up"></div>

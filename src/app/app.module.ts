@@ -9,9 +9,6 @@ import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { environment } from './../environments/environment';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
-import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 @NgModule({
   declarations: [
@@ -23,21 +20,12 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     ComponentsModule,
     FormsModule,
     ReactiveFormsModule,
-    HttpClientModule,
-    StoreModule.forRoot(REDUCER_TOKEN, {
-      metaReducers,
-      runtimeChecks: {
-        strictStateImmutability: true,
-        strictActionImmutability: true,
-      }
-    }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    HttpClientModule
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    reducerProvider
   ],
   bootstrap: [AppComponent]
 })
