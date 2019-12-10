@@ -1,0 +1,6 @@
+<section
+  [routerLink]='"/" +link?.link'
+  class='d-flex flex-wrap justify-content-center flex-column dashboard-link-item'>
+  <section [class]='[link?.icon]'></section>
+  <section class='link'>{{ link?.name }}</section>
+</section>

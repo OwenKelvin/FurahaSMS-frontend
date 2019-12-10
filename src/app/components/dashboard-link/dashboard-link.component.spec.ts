@@ -1,27 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { MenuSearchComponent } from './menu-search.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { DashboardLinkComponent } from './dashboard-link.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from './../../store/reducers';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
 
-describe('MenuSearchComponent', () => {
-  let component: MenuSearchComponent;
-  let fixture: ComponentFixture<MenuSearchComponent>;
+describe('DashboardLinkComponent', () => {
+  let component: DashboardLinkComponent;
+  let fixture: ComponentFixture<DashboardLinkComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), ReactiveFormsModule, FormsModule, RouterTestingModule ],
-      declarations: [ MenuSearchComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
+      declarations: [ DashboardLinkComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MenuSearchComponent);
+    fixture = TestBed.createComponent(DashboardLinkComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

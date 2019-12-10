@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LinkInterface } from './../interfaces/link.interface';
-import { Observable, of } from 'rxjs';
+import { Observable, of, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,6 +9,33 @@ import { Observable, of } from 'rxjs';
 export class LinkService {
 
   constructor() { }
+  getLinks(type): Observable<LinkInterface[]> {
+    switch (type) {
+      case 'admissions':
+        return this.getAdmissionsLinks();
+      default:
+        return this.getDashboardLinks();
+    }
+  }
+  getAdmissionsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Student Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/students'
+      },
+      {
+        name: 'Teaching Staff Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/teachers'
+      },
+      {
+        name: 'Support Staff Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/support'
+      }
+    ]);
+  }
   getDashboardLinks(): Observable<LinkInterface[]> {
     return of([
       {
@@ -56,5 +84,11 @@ export class LinkService {
         link: 'page-under-maintenance'
       }
     ]);
+  }
+  getAllLinks(): Observable<LinkInterface[]> {
+    // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
+    // return $forkJoined;
+    return zip(this.getAdmissionsLinks(), this.getDashboardLinks())
+      .pipe(map(x => x[0].concat(x[1])));
   }
 }
