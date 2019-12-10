@@ -4,6 +4,7 @@ import { MenuSearchComponent } from './menu-search.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from './../../store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MenuSearchComponent', () => {
   let component: MenuSearchComponent;
@@ -12,7 +13,7 @@ describe('MenuSearchComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), ReactiveFormsModule, FormsModule ],
+      imports: [ StoreModule.forRoot({}), ReactiveFormsModule, FormsModule, RouterTestingModule ],
       declarations: [ MenuSearchComponent ]
     });
 

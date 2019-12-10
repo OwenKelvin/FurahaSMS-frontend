@@ -48,9 +48,15 @@ form {
 
 .search > input:focus,
 .search > input:valid {
-  width: 200px;
+  width: 350px;
   padding: 10px;
   height: 30px;
+}
+@media (max-width: 375px) {
+  .search>input:focus,
+  .search>input:valid {
+    width: 100%;
+  }
 }
 input::-webkit-search-cancel-button{
    position:relative;

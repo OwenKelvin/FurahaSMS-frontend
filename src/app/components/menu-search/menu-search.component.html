@@ -1,11 +1,9 @@
-<form [formGroup] = 'searchForm' class='d-flex align-items-center'>
-  <!-- <input formControlName='search' type="search" name="Search">
-  <i class='fa icon-search'></i> -->
-  <section class="search">
-  	<input  list='searches' formControlName='search' type="search" placeholder="Search . . ." required>
-  </section>
+<form (submit)='submitSearchForm()' [formGroup]='searchForm' class='d-flex align-items-center'>
+  <section class='input-group search'>
+  	<input  list='searches' formControlName='search' type='search' placeholder='Search . . .' required>
+	</section>
   <datalist id='searches'>
-  	<option value='admissions'></option>
+  	<option *ngFor='let listItem of listItems$ | async' [value]='listItem.name'></option>
   	<option value='admissions students'></option>
   	<option value='admissions teaches'></option>
   	<option value='library'></option>

@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { LinkInterface } from './../interfaces/link.interface';
-import { Observable, of } from 'rxjs';
+import { Observable, of, zip } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -83,5 +84,11 @@ export class LinkService {
         link: 'page-under-maintenance'
       }
     ]);
+  }
+  getAllLinks(): Observable<LinkInterface[]> {
+    // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
+    // return $forkJoined;
+    return zip(this.getAdmissionsLinks(), this.getDashboardLinks())
+      .pipe(map(x => x[0].concat(x[1])));
   }
 }
