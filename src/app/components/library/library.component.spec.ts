@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserButtonComponent } from './user-button.component';
+import { LibraryComponent } from './library.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from './../../store/reducers';
+import { AppState } from 'src/app/store/reducers';
 
-describe('UserButtonComponent', () => {
-  let component: UserButtonComponent;
-  let fixture: ComponentFixture<UserButtonComponent>;
+describe('LibraryComponent', () => {
+  let component: LibraryComponent;
+  let fixture: ComponentFixture<LibraryComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
-      declarations: [ UserButtonComponent ]
+      declarations: [ LibraryComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserButtonComponent);
+    fixture = TestBed.createComponent(LibraryComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

@@ -46,42 +46,42 @@ export class LinkService {
       {
         name: 'Library',
         icon: 'icon-library',
-        link: 'page-under-maintenance'
+        link: 'library'
       },
       {
         name: 'Accounts',
         icon: 'icon-bank',
-        link: 'page-under-maintenance'
+        link: 'accounts'
       },
       {
         name: 'Procuments',
         icon: 'icon-truck',
-        link: 'page-under-maintenance'
+        link: 'procurements'
       },
       {
         name: 'Sports',
         icon: 'icon-tennis',
-        link: 'page-under-maintenance'
+        link: 'sports'
       },
       {
         name: 'Management',
         icon: 'icon-flow-tree',
-        link: 'page-under-maintenance'
+        link: 'school-management'
       },
       {
         name: 'Time Table',
         icon: 'icon-clock',
-        link: 'page-under-maintenance'
+        link: 'time-table'
       },
       {
         name: 'Academics',
         icon: 'icon-book',
-        link: 'page-under-maintenance'
+        link: 'academics'
       },
       {
         name: 'Reports',
         icon: 'icon-doc-text-inv',
-        link: 'page-under-maintenance'
+        link: 'reports'
       }
     ]);
   }
