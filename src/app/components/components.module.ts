@@ -24,6 +24,9 @@ import { PageUnderMaintenanceComponent } from './page-under-maintenance/page-und
 import { ErrorModule } from './error/error.module';
 import { AdmissionsComponent } from './admissions/admissions.component';
 import { AdmissionsModule } from './admissions/admissions.module';
+import { DashboardLinkComponent } from './dashboard-link/dashboard-link.component';
+import { DashboardLinksComponent } from './dashboard-links/dashboard-links.component';
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
@@ -46,14 +49,17 @@ import { AdmissionsModule } from './admissions/admissions.module';
     MenuSearchComponent,
     PageUnderMaintenanceComponent,
     AdmissionsComponent,
+    DashboardLinkComponent,
+    DashboardLinksComponent,
+    PageNotFoundComponent,
   ],
   imports: [
     CommonModule,
     ComponentsRoutingModule,
     ReactiveFormsModule,
     LoginModule,
-    ErrorModule,
-    AdmissionsModule],
+    AdmissionsModule,
+    ErrorModule],
   exports: [LoginComponent, HomeComponent, ToastComponent]
 })
 export class ComponentsModule {}
