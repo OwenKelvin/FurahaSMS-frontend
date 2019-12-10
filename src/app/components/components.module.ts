@@ -20,6 +20,10 @@ import { SidebarComponent } from './sidebar/sidebar.component';
 import { NavbarTopComponent } from './navbar-top/navbar-top.component';
 import { UserButtonComponent } from './user-button/user-button.component';
 import { MenuSearchComponent } from './menu-search/menu-search.component';
+import { PageUnderMaintenanceComponent } from './page-under-maintenance/page-under-maintenance.component';
+import { ErrorModule } from './error/error.module';
+import { AdmissionsComponent } from './admissions/admissions.component';
+import { AdmissionsModule } from './admissions/admissions.module';
 
 
 @NgModule({
@@ -40,8 +44,16 @@ import { MenuSearchComponent } from './menu-search/menu-search.component';
     NavbarTopComponent,
     UserButtonComponent,
     MenuSearchComponent,
+    PageUnderMaintenanceComponent,
+    AdmissionsComponent,
   ],
-  imports: [CommonModule, ComponentsRoutingModule, ReactiveFormsModule, LoginModule],
+  imports: [
+    CommonModule,
+    ComponentsRoutingModule,
+    ReactiveFormsModule,
+    LoginModule,
+    ErrorModule,
+    AdmissionsModule],
   exports: [LoginComponent, HomeComponent, ToastComponent]
 })
 export class ComponentsModule {}

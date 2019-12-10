@@ -8,6 +8,7 @@ import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './../guards/auth.guard';
 import { GuestGuard } from './../guards/guest.guard';
+import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
