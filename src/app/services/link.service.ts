@@ -8,6 +8,33 @@ import { Observable, of } from 'rxjs';
 export class LinkService {
 
   constructor() { }
+  getLinks(type): Observable<LinkInterface[]> {
+    switch (type) {
+      case 'admissions':
+        return this.getAdmissionsLinks();
+      default:
+        return this.getDashboardLinks();
+    }
+  }
+  getAdmissionsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Student Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/students'
+      },
+      {
+        name: 'Teaching Staff Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/teachers'
+      },
+      {
+        name: 'Support Staff Admissions',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/support'
+      }
+    ]);
+  }
   getDashboardLinks(): Observable<LinkInterface[]> {
     return of([
       {
