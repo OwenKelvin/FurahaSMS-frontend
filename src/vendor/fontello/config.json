@@ -725,6 +725,84 @@
       "css": "transgender",
       "code": 61988,
       "src": "fontawesome"
+    },
+    {
+      "uid": "56a766cedf13005162899b02cf9546b9",
+      "css": "library",
+      "code": 59456,
+      "src": "maki"
+    },
+    {
+      "uid": "026007bd17bfc67f3fe013199676f620",
+      "css": "dollar",
+      "code": 61781,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "7f3d8ff1d5f6ee019f0c00ed7a86caec",
+      "css": "truck",
+      "code": 59457,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "f5053e43ef8be31afb905801449ae26d",
+      "css": "truck-1",
+      "code": 59458,
+      "src": "linecons"
+    },
+    {
+      "uid": "8a4eb4f98d8e0f3686a741c952b03c08",
+      "css": "tennis",
+      "code": 59459,
+      "src": "maki"
+    },
+    {
+      "uid": "9755f76110ae4d12ac5f9466c9152031",
+      "css": "book",
+      "code": 59460,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "554ee96588a6c9ee632624cd051fe6fc",
+      "css": "chart-pie",
+      "code": 61952,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "df9d9b2fb366c10427ffb727943db912",
+      "css": "bed",
+      "code": 62006,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "8a1d446e5555e76f82ddb1c8b526f579",
+      "css": "flow-tree",
+      "code": 59461,
+      "src": "entypo"
+    },
+    {
+      "uid": "j6xzwioffey3gxe90yx3ie56j5dlt902",
+      "css": "block",
+      "code": 59462,
+      "src": "typicons"
+    },
+    {
+      "uid": "2a6cc3252195b53ed77ad3bdd73391b3",
+      "css": "indent-left",
+      "code": 59463,
+      "src": "elusive"
+    },
+    {
+      "uid": "9efefb69aea6de9c20e56405a6aa2fd2",
+      "css": "indent-right",
+      "code": 59464,
+      "src": "elusive"
+    },
+    {
+      "uid": "eh1m4shhgsndy7pmdzx3ynrakadhozgr",
+      "css": "clock",
+      "code": 59465,
+      "src": "typicons"
     }
   ]
 }

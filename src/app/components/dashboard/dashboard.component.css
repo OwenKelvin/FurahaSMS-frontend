@@ -1,0 +1,23 @@
+.dashboard-link-item {
+	/*border: 2px solid lightblue;*/
+	margin: 20px 20px;
+	border-radius: 14px;
+	box-shadow: 5px 10px #888888;
+}
+.dashboard-link-item:hover {
+	border: lightblue solid 2px;
+	margin: 18px 20px;
+	cursor: pointer;
+	color: greenyellow;
+}
+.dashboard-link-item section {
+	/*margin: 10px;*/
+	text-align: center;
+
+}
+.dashboard-link-item section:first-child {
+	font-size: 50px;
+}
+.dashboard-link-item section:nth-child(2) {
+	font-size: 20px;
+}
