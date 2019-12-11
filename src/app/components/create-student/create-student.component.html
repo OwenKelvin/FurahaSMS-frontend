@@ -4,29 +4,29 @@
     <legend>
       <h2>School Id Number</h2>
     </legend>
-    <section class='container'>
-      <section class='group-gap'>
-        <h5 class='mb-3'>Generate Student Id</h5>
-        <section class='my-3'>
-          <section class='d-flex flex-wrap'>
-            <section class='col-lg-3'>
-              <section class='custom-control custom-radio'>
-                <input id='auto-generate' type='radio' class='custom-control-input' [value]='false' name='autoGenerateId'
-                  formControlName='autoGenerateId'>
-                <label class='custom-control-label' for='auto-generate'>Automatically Generate</label>
-              </section>
+    <app-label-star-required></app-label-star-required> 
+    <section class='group-gap'>
+      <h5 class='mb-3'>Generate Student Id</h5>
+      <section class='my-3'>
+        <section class='d-flex flex-wrap'>
+          <section class='col-lg-3'>
+            <section class='custom-control custom-radio'>
+              <input id='auto-generate' type='radio' class='custom-control-input' [value]='false' name='autoGenerateId'
+                formControlName='autoGenerateId'>
+              <label class='custom-control-label' for='auto-generate'>Automatically Generate</label>
             </section>
-            <section class='col-lg-3'>
-              <section class='custom-control custom-radio'>
-                <input id='auto-generate-false' type='radio' class='custom-control-input' [value]='true'
-                  name='autoGenerateId' formControlName='autoGenerateId'>
-                <label class='custom-control-label' for='auto-generate-false'>Enter Manually</label>
-              </section>
+          </section>
+          <section class='col-lg-3'>
+            <section class='custom-control custom-radio'>
+              <input id='auto-generate-false' type='radio' class='custom-control-input' [value]='true' name='autoGenerateId'
+                formControlName='autoGenerateId'>
+              <label class='custom-control-label' for='auto-generate-false'>Enter Manually</label>
             </section>
-            <section class='col'>
-              <app-input [triggerValidation]='triggerValidation' *ngIf='autoGenerate.value === true' formControlName='schoolIdNumber' label='School Id Number'
-                placeholder='Enter School Id Number'></app-input>
-            </section>
+          </section>
+          <section class='col'>
+            <app-input labelClass='col-lg-6' inputClass='col-sm-6 col-lg-6' [triggerValidation]='triggerValidation' *ngIf='autoGenerate.value === true'
+              formControlName='schoolIdNumber' label='School Id Number' placeholder='Enter School Id Number'>
+            </app-input>
           </section>
         </section>
       </section>
@@ -53,6 +53,21 @@
       <section class='col-lg-4 col-sm-6 col-xs-12'>
         <app-input placeholder='Enter Other Names' label='Other Names' formControlName='otherNames'></app-input>
       </section>
+    </section>
+  </fieldset>
+  <fieldset>
+    <legend>
+      <h2>Other Details</h2>
+    </legend>
+    <section class='d-flex flex-wrap'>
+      <section class='col-lg-5 col-md-6 col-sm-12 col-xs-12'>
+        <app-input labelClass='col-lg-6' inputClass='col-md-6 col-lg-6' type='date' [triggerValidation]='triggerValidation' placeholder='Enter Date Of Birth' id='dateOfBirth' label='Date Of Birth'
+          formControlName='dateOfBirth'>
+        </app-input>
+      </section>
+      <!-- <section class='col-lg-5 col-sm-6 col-xs-12'>
+        Test
+      </section> -->
     </section>
   </fieldset>
   <section class='d-flex justify-content-end'>

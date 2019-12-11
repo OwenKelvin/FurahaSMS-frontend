@@ -1,6 +1,6 @@
 .custom-control-input:checked~.custom-control-label::before {
-  border-color: #E91E63;
-  background-color: #E91E63;
+  border-color: mediumseagreen;
+  background-color: mediumaquamarine;
 }
 
 .custom-control-input:focus~.custom-control-label::before {
@@ -22,4 +22,7 @@
 
 .custom-control label {
   font-weight: 400;
+}
+.form {
+  padding-bottom: 400px;
 }

@@ -5,6 +5,8 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { Observable } from 'rxjs';
 import { IdNumberValidator } from 'src/app/validators/student-id-taken.validator';
+import { StudentService } from 'src/app/services/student.service';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-create-student',
@@ -17,7 +19,8 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private idNumberValidator: IdNumberValidator
+    private idNumberValidator: IdNumberValidator,
+    private studentService: StudentService
   ) { }
 
   ngOnInit() {
@@ -28,10 +31,15 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
       middleName: [''],
       otherNames: [''],
       autoGenerateId: [false, Validators.required],
+      namePrefix: [''],
+      gender: [null],
+      religion: [null],
+      dateOfBirth: [null, Validators.required],
     });
     this.autoGenerate.valueChanges.subscribe(checked => {
       if (checked) {
-        this.schoolIdNumber.setValidators([Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
+        this.schoolIdNumber.setValidators([Validators.required]);
+        this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
       } else {
         this.schoolIdNumber.setValidators(null);
       }
@@ -46,7 +54,12 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   }
   submitNewStudentForm() {
     if (this.newStudentForm.valid) {
-
+      this.studentService.createNewStudent(this.newStudentForm.value).subscribe(student => {
+        console.log(student);
+        this.store.dispatch(loadToastShowsSuccess({
+          showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
+        }))
+      });
     } else {
       this.triggerValidation = !this.triggerValidation;
     }

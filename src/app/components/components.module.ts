@@ -48,6 +48,7 @@ import { AcademicsModule } from './academics/academics.module';
 import { ReportsModule } from './reports/reports.module';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
+import { LabelStarRequiredComponent } from './label-star-required/label-star-required.component';
 
 
 @NgModule({
@@ -86,6 +87,7 @@ import { EditStudentComponent } from './edit-student/edit-student.component';
     SportsComponent,
     CreateStudentComponent,
     EditStudentComponent,
+    LabelStarRequiredComponent,
   ],
   imports: [
     CommonModule,
