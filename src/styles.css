@@ -12,6 +12,21 @@ html, body {
   /* overflow */
   overflow-x: hidden;
 }
+h1, h2, h3, h4 {
+  font-size: 2rem;
+  line-height: 2rem;
+  margin-top: 10px;
+  border-left: 7px solid lightblue;
+  padding: 0px 0px 5px 5px;
+  font-weight: bold;
+  color: aqua;
+}
+h2 {
+  font-size: 1.7rem;
+  margin-left: 10px;
+  line-height: 1.7rem;
+  font-weight: 500;
+}
 .full-height {
   height: 100%;
 }

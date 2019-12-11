@@ -46,6 +46,8 @@ import { SchoolManagementModule } from './management/management.module';
 import { TimeTableModule } from './time-table/time-table.module';
 import { AcademicsModule } from './academics/academics.module';
 import { ReportsModule } from './reports/reports.module';
+import { CreateStudentComponent } from './create-student/create-student.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
 
 
 @NgModule({
@@ -82,6 +84,8 @@ import { ReportsModule } from './reports/reports.module';
     ReportsComponent,
     ProcurementsComponent,
     SportsComponent,
+    CreateStudentComponent,
+    EditStudentComponent,
   ],
   imports: [
     CommonModule,

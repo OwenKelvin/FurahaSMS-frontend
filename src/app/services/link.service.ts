@@ -13,6 +13,8 @@ export class LinkService {
     switch (type) {
       case 'admissions':
         return this.getAdmissionsLinks();
+      case 'admissions:students':
+        return this.getStudentAdmissionsLinks();
       default:
         return this.getDashboardLinks();
     }
@@ -33,6 +35,20 @@ export class LinkService {
         name: 'Support Staff Admissions',
         icon: 'icon-user-plus',
         link: 'admissions/staff/support'
+      }
+    ]);
+  }
+  getStudentAdmissionsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'New Student Details',
+        icon: 'icon-user-plus',
+        link: 'admissions/students/create'
+      },
+      {
+        name: 'Edit Student Details',
+        icon: 'icon-user-plus',
+        link: 'admissions/students/edit'
       }
     ]);
   }

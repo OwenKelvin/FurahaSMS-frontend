@@ -5,12 +5,16 @@ import { AdmissionsComponent } from './admissions.component';
 import { StudentAdmissionComponent } from '../student-admission/student-admission.component';
 import { TeachingStaffAdmissionComponent } from '../teaching-staff-admission/teaching-staff-admission.component';
 import { SupportStaffAdmissionComponent } from '../support-staff-admission/support-staff-admission.component';
+import { CreateStudentComponent } from '../create-student/create-student.component';
+import { AuthGuard } from 'src/app/guards/auth.guard';
+import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 
 
 const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: 'admissions',
@@ -22,8 +26,18 @@ const routes: Routes = [
           },
           {
             path: 'students',
-            pathMatch: 'full',
-            component: StudentAdmissionComponent
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: StudentAdmissionComponent,
+              },
+              {
+                path: 'create',
+                component: CreateStudentComponent,
+                canDeactivate: [CanDeactivateGuard]
+              }
+            ]
           },
           {
             path: 'staff/teachers',
