@@ -74,6 +74,8 @@
     <button *ngIf='!newStudentForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
       class='btn btn-secondary'>Validate</button>
     &nbsp;&nbsp;&nbsp;&nbsp;
-    <button class='btn btn-primary' [disabled]='!newStudentForm.valid'>Save Details</button>
+    <button class='btn btn-primary' [disabled]='!newStudentForm.valid || isSubmitting'>
+      Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    </button>
   </section>
 </form>

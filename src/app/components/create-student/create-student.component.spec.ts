@@ -6,6 +6,8 @@ import { AppState } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LabelStarRequiredComponent } from '../label-star-required/label-star-required.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateStudentComponent', () => {
   let component: CreateStudentComponent;
@@ -14,8 +16,14 @@ describe('CreateStudentComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
-      declarations: [ CreateStudentComponent, InputComponent ]
+      imports: [
+        StoreModule.forRoot({}),
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
+      declarations: [ CreateStudentComponent, InputComponent, LabelStarRequiredComponent ]
     });
 
     await TestBed.compileComponents();

@@ -7,6 +7,8 @@ import { Observable } from 'rxjs';
 import { IdNumberValidator } from 'src/app/validators/student-id-taken.validator';
 import { StudentService } from 'src/app/services/student.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { Router } from '@angular/router';
+import { ErrorComponent } from '../error/error.component';
 
 @Component({
   selector: 'app-create-student',
@@ -16,11 +18,13 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   newStudentForm: FormGroup;
   triggerValidation: boolean;
+  isSubmitting: boolean;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
     private idNumberValidator: IdNumberValidator,
-    private studentService: StudentService
+    private studentService: StudentService,
+    private router: Router
   ) { }
 
   ngOnInit() {
@@ -53,12 +57,16 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     return this.newStudentForm.get('autoGenerateId') as FormControl;
   }
   submitNewStudentForm() {
+    this.isSubmitting = true;
     if (this.newStudentForm.valid) {
       this.studentService.createNewStudent(this.newStudentForm.value).subscribe(student => {
-        console.log(student);
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
-        }))
+        }));
+        this.isSubmitting = false;
+      }, error => {
+          console.log(error); // TODO Handle Student creation error
+          this.isSubmitting = false;
       });
     } else {
       this.triggerValidation = !this.triggerValidation;

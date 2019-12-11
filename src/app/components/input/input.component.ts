@@ -48,7 +48,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   }
   get isRequired(): boolean {
     if (this.formControl.validator) {
-      let validationResult = this.formControl.validator(this.formControl);
+      const validationResult = this.formControl.validator(this.formControl);
       return (validationResult !== null && validationResult.required === true);
     }
   }
