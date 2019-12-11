@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CreateStudentComponent', () => {
   let component: CreateStudentComponent;
@@ -13,7 +14,7 @@ describe('CreateStudentComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule ],
+      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
       declarations: [ CreateStudentComponent, InputComponent ]
     });
 

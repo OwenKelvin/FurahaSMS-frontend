@@ -18,15 +18,24 @@ export class AuthenticationService {
     this.currentUserSubject = new BehaviorSubject<UserInterface>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
+  get authorizationToken(): string | undefined {
+    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    if (currentUser) {
+      return `Bearer ${currentUser.access_token}`;
+    }
+
+  }
   public get currentUserValue(): UserInterface {
     return this.currentUserSubject.value;
   }
-  contactAdmin(data: {email: string}) {
+  contactAdmin(data: { email: string }) {
+    // TODO-me Authentication Service Contact admin
     return of({
       message: 'Successfully Contacted Admin'
     });
   }
-  resetPassword(data: {email: string}) {
+  resetPassword(data: { email: string }) {
+    // TODO-me Authentication Service reset Password
     return of({
       message: 'Password Reset Successful'
     });
@@ -47,7 +56,6 @@ export class AuthenticationService {
         'Content-Type': 'application/json',
       })
     };
-    const userData = null;
     return this.http.post<any>(url, loginData, httpOptions)
       .pipe(
         map( user => {
@@ -60,7 +68,13 @@ export class AuthenticationService {
       })
     );
   }
-  logout() {
-
+  logout(): Observable<any> {
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    return this.revokeToken();
+  }
+  revokeToken(): Observable<any> {
+    // TODO-me Authentication Service send request to invalidate token
+    return of(true);
   }
 }

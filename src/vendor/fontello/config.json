@@ -803,6 +803,18 @@
       "css": "clock",
       "code": 59465,
       "src": "typicons"
+    },
+    {
+      "uid": "0d20938846444af8deb1920dc85a29fb",
+      "css": "logout-2",
+      "code": 59467,
+      "src": "fontawesome"
+    },
+    {
+      "uid": "3a00327e61b997b58518bd43ed83c3df",
+      "css": "login",
+      "code": 59468,
+      "src": "fontawesome"
     }
   ]
 }

@@ -9,6 +9,7 @@ import { MenuSearchComponent } from './../menu-search/menu-search.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -20,7 +21,8 @@ describe('LayoutComponent', () => {
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot({}),
+        HttpClientTestingModule
       ],
       declarations: [
         SidebarComponent,

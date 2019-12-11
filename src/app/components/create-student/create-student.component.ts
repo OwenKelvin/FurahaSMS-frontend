@@ -4,6 +4,7 @@ import { AppState } from '../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { Observable } from 'rxjs';
+import { IdNumberValidator } from 'src/app/validators/student-id-taken.validator';
 
 @Component({
   selector: 'app-create-student',
@@ -13,7 +14,11 @@ import { Observable } from 'rxjs';
 export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   newStudentForm: FormGroup;
   triggerValidation: boolean;
-  constructor(private store: Store<AppState>, private fb: FormBuilder) { }
+  constructor(
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private idNumberValidator: IdNumberValidator
+  ) { }
 
   ngOnInit() {
     this.newStudentForm = this.fb.group({
@@ -26,7 +31,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     });
     this.autoGenerate.valueChanges.subscribe(checked => {
       if (checked) {
-        this.schoolIdNumber.setValidators([Validators.required]);
+        this.schoolIdNumber.setValidators([Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
       } else {
         this.schoolIdNumber.setValidators(null);
       }
@@ -38,18 +43,6 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   }
   get autoGenerate(): FormControl {
     return this.newStudentForm.get('autoGenerateId') as FormControl;
-  }
-  validateAutogenerate(value: boolean) {
-    this.autoGenerate.clearValidators();
-    if (value) {
-      this.autoGenerate.setValidators([Validators.required]);
-    } else {
-      this.autoGenerate.setValidators([]);
-    }
-    this.autoGenerate.updateValueAndValidity();
-    this.newStudentForm.updateValueAndValidity();
-    console.log(this.autoGenerate);
-
   }
   submitNewStudentForm() {
     if (this.newStudentForm.valid) {
