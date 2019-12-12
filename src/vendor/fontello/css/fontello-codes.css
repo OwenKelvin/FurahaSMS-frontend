@@ -73,6 +73,8 @@
 .icon-indent-left:before { content: '\e847'; } /* '' */
 .icon-indent-right:before { content: '\e848'; } /* '' */
 .icon-clock:before { content: '\e849'; } /* '' */
+.icon-logout-2:before { content: '\e84b'; } /* '' */
+.icon-login:before { content: '\e84c'; } /* '' */
 .icon-users-1:before { content: '\f064'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
 .icon-twitter:before { content: '\f099'; } /* '' */

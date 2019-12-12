@@ -1,0 +1,7 @@
+.container-fluid {
+  overflow: auto;
+  max-height: calc(100% );
+}
+#page-content-wrapper {
+  margin-bottom: 50px;
+}

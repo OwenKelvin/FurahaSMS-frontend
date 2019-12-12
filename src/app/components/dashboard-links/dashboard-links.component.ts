@@ -19,7 +19,13 @@ export class DashboardLinksComponent implements OnInit {
   ngOnInit() {
     this.links$ = this.linkService.getLinks(this.type);
     const item = [
-      {name: 'Admissions', type: 'admissions'}, {name: 'Dashboard', type: 'dashboard'}
+      {
+        name: 'Admissions', type: 'admissions'
+      }, {
+        name: 'Dashboard', type: 'dashboard'
+      }, {
+        name: 'Student Admissions', type: 'admissions:students'
+      }
     ].filter( title => title.type === this.type)[0];
     if (item) {
       this.title = item.name;

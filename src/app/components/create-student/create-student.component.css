@@ -1,0 +1,28 @@
+.custom-control-input:checked~.custom-control-label::before {
+  border-color: mediumseagreen;
+  background-color: mediumaquamarine;
+}
+
+.custom-control-input:focus~.custom-control-label::before {
+  box-shadow: none;
+}
+
+.custom-control-label {
+  cursor: pointer;
+}
+
+.error:focus,
+.error {
+  border-color: #E91E63;
+  color: #E91E63;
+}
+.custom-control {
+  margin-bottom: 5px;
+}
+
+.custom-control label {
+  font-weight: 400;
+}
+.form {
+  padding-bottom: 400px;
+}
