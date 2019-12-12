@@ -1,0 +1,52 @@
+<h1>Create Academic Year</h1>
+<form [formGroup]="academicYearForm" (submit)='submitAcademicYearForm()'>
+  <fieldset>
+    <legend>Academic Year Period</legend>
+    <section class="d-flex flex-wrap">
+      <section class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <app-input
+          id="name"
+          placeholder="Academic Year Name"
+          formControlName="name"
+          label="Academic Year Name"
+          labelClass="col-sm-12 col-md-12 col-lg-12"
+          inputClass="col-sm-12 col-md-12 col-lg-12"
+          [triggerValidation]='triggerValidation'
+        ></app-input>
+      </section>
+      <section class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <app-input
+          id='startDate'
+          placeholder="Start Date" 
+          formControlName="startDate"
+          label="Start Date"
+          type="date"
+          labelClass="col-sm-12 col-md-12 col-lg-12"
+          inputClass="col-sm-12 col-md-12 col-lg-12"
+          [triggerValidation]='triggerValidation'
+        ></app-input>
+      </section>
+      <section class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
+        <app-input
+          id='endDate'
+          placeholder="End Date" 
+          formControlName="endDate"
+          label="End Date"
+          type="date"
+          labelClass="col-sm-12 col-md-12 col-lg-12"
+          inputClass="col-sm-12 col-md-12 col-lg-12"
+          [triggerValidation]='triggerValidation'
+        ></app-input>
+      </section>
+    </section>
+  </fieldset>
+  <app-error *ngIf='showError'></app-error>
+  <section class='d-flex justify-content-end'>
+    <button *ngIf='!academicYearForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+      class='btn btn-secondary'>Validate</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button class='btn btn-primary' [disabled]='!academicYearForm.valid || isSubmitting'>
+      Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    </button>
+  </section>
+</form>

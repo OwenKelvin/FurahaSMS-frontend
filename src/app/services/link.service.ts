@@ -11,10 +11,14 @@ export class LinkService {
   constructor() { }
   getLinks(type): Observable<LinkInterface[]> {
     switch (type) {
+      case 'academics':
+        return this.getAcademicsLinks();
       case 'admissions':
         return this.getAdmissionsLinks();
       case 'admissions:students':
         return this.getStudentAdmissionsLinks();
+      case 'academics:academic-year':
+        return this.getAcademicYearLinks();
       default:
         return this.getDashboardLinks();
     }
@@ -101,10 +105,39 @@ export class LinkService {
       }
     ]);
   }
+  getAcademicsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Academic Year',
+        icon: 'icon-user-plus',
+        link: 'academics/academic-year'
+      }
+    ]);
+  }
+  getAcademicYearLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Create New',
+        icon: 'icon-user-plus',
+        link: 'academics/academic-year/create'
+      },
+      {
+        name: 'View Archives',
+        icon: 'icon-user-plus',
+        link: 'academics/academic-year/archives'
+      },
+    ]);
+  }
   getAllLinks(): Observable<LinkInterface[]> {
     // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
     // return $forkJoined;
-    return zip(this.getAdmissionsLinks(), this.getDashboardLinks())
+    return zip(
+      this.getAdmissionsLinks(),
+      this.getDashboardLinks(),
+      this.getAcademicYearLinks(),
+      this.getAdmissionsLinks(),
+      this.getAcademicsLinks()
+    )
       .pipe(map(x => x[0].concat(x[1])));
   }
 }
