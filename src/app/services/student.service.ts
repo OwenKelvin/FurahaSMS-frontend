@@ -40,15 +40,27 @@ export class StudentService {
       }));
     }
   }
-  getStudentWithSchoolId(idNumber: string): Observable<any> {
-
+  getStudentById(id: string): Observable<any> {
+    const url = `api/students?id=${id}`;
+    return this.http.get<any>(url)
+      .pipe(
+        map(user => ({
+          ...user,
+          firstName: user.first_name,
+          middleName: user.middle_name,
+          lastName: user.last_name,
+          otherNames: user.other_names,
+          dateOfBirth: user.date_of_birth,
+          studentId: user.student_id
+        })),
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
+  getStudentBySchoolId(idNumber: string): Observable<any> {
     const url = `api/student/id-number?q=${idNumber}`;
-    const httpOptions = {
-      headers: new HttpHeaders({
-        'Content-Type': 'application/json',
-      })
-    };
-    return this.http.get<any>(url, httpOptions)
+    return this.http.get<any>(url)
       .pipe(
         map(user => {
           return user;

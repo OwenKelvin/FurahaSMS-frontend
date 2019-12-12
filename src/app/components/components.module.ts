@@ -55,6 +55,7 @@ import { ViewStudentInfoComponent } from './view-student-info/view-student-info.
 import { StudentAdmissionsEditComponent } from './student-admissions-edit/student-admissions-edit.component';
 import { StudentSearchComponent } from './student-search/student-search.component';
 import { StudentsRecentlyCreatedComponent } from './students-recently-created/students-recently-created.component';
+import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.component';
 
 
 @NgModule({
@@ -99,6 +100,7 @@ import { StudentsRecentlyCreatedComponent } from './students-recently-created/st
     StudentAdmissionsEditComponent,
     StudentSearchComponent,
     StudentsRecentlyCreatedComponent,
+    LoadingBubbleComponent,
   ],
   imports: [
     CommonModule,

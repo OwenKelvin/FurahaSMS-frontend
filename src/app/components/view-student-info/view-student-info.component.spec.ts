@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewStudentInfoComponent } from './view-student-info.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 
 describe('ViewStudentInfoComponent', () => {
   let component: ViewStudentInfoComponent;
@@ -12,7 +13,7 @@ describe('ViewStudentInfoComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
-      declarations: [ ViewStudentInfoComponent ]
+      declarations: [ ViewStudentInfoComponent, LoadingBubbleComponent ]
     });
 
     await TestBed.compileComponents();

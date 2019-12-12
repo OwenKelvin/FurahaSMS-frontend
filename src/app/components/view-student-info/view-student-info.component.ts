@@ -1,7 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
+import { selectStudentProfile } from 'src/app/store/selectors/student-profile.selector';
 
 @Component({
   selector: 'app-view-student-info',
@@ -9,18 +10,11 @@ import { Observable, of } from 'rxjs';
   styleUrls: ['./view-student-info.component.css']
 })
 export class ViewStudentInfoComponent implements OnInit {
-  @Input() studentId;
-  viewStudentId$: Observable<any>;
   student$: Observable<any>;
   constructor(private store: Store<fromStore.AppState>) { }
 
   ngOnInit() {
-    console.log(this.studentId);
-    this.viewStudentId$ = of(1);
-    this.student$ = of({
-      dateOfBirth: '1/10/2023'
-    });
-
+    this.student$ = this.store.select(selectStudentProfile);
   }
 
 }

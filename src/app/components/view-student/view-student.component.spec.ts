@@ -4,6 +4,8 @@ import { ViewStudentComponent } from './view-student.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 
 describe('ViewStudentComponent', () => {
   let component: ViewStudentComponent;
@@ -12,8 +14,8 @@ describe('ViewStudentComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ ViewStudentComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
+      declarations: [ ViewStudentComponent, LoadingBubbleComponent ]
     });
 
     await TestBed.compileComponents();

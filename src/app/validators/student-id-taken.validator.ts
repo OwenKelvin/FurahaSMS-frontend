@@ -10,7 +10,7 @@ export class IdNumberValidator {
   studentIdTaken(control: FormControl): any {
 
     return new Promise((resolve, reject) => {
-      this.studentId.getStudentWithSchoolId(control.value).subscribe(
+      this.studentId.getStudentBySchoolId(control.value).subscribe(
         data => {
           if (data.id) {
             resolve({
