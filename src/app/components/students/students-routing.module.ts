@@ -12,20 +12,26 @@ const routes: Routes = [
     component: LayoutComponent,
     children: [
       {
-        path: 'students/:id',
-        component: ViewStudentComponent,
+        path: 'students',
         children: [
           {
-            path: '',
-            pathMatch: 'full',
-            redirectTo: 'info'
-          },
-          {
-            path: 'info',
-            component: ViewStudentInfoComponent
+            path: ':id',
+            component: ViewStudentComponent,
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'info'
+              },
+              {
+                path: 'info',
+                component: ViewStudentInfoComponent
+              }
+            ]
           }
         ]
       }
+
     ]
   }
 ];

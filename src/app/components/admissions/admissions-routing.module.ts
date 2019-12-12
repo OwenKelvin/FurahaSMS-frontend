@@ -8,6 +8,7 @@ import { SupportStaffAdmissionComponent } from '../support-staff-admission/suppo
 import { CreateStudentComponent } from '../create-student/create-student.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
+import { StudentAdmissionsEditComponent } from '../student-admissions-edit/student-admissions-edit.component';
 
 
 const routes: Routes = [
@@ -36,6 +37,10 @@ const routes: Routes = [
                 path: 'create',
                 component: CreateStudentComponent,
                 canDeactivate: [CanDeactivateGuard]
+              },
+              {
+                path: 'edit',
+                component: StudentAdmissionsEditComponent,
               }
             ]
           },

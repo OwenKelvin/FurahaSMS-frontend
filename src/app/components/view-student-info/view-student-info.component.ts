@@ -11,16 +11,16 @@ import { Observable, of } from 'rxjs';
 export class ViewStudentInfoComponent implements OnInit {
   @Input() studentId;
   viewStudentId$: Observable<any>;
-  student$: Observable<any>
+  student$: Observable<any>;
   constructor(private store: Store<fromStore.AppState>) { }
-  
+
   ngOnInit() {
-    console.log(this.studentId)
+    console.log(this.studentId);
     this.viewStudentId$ = of(1);
     this.student$ = of({
       dateOfBirth: '1/10/2023'
-    })
-    
+    });
+
   }
 
 }

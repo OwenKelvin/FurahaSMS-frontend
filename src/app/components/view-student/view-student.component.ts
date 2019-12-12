@@ -24,9 +24,9 @@ export class ViewStudentComponent implements OnInit {
     });
     this.fullName$ = this.student$.pipe(map(item => {
       const asAnyitem = item as any;
-      return asAnyitem.firstName + ' ' + asAnyitem.lastName + ' ' + asAnyitem.middleName + ' | ' + asAnyitem.schoolId 
-    }))
-    
+      return asAnyitem.firstName + ' ' + asAnyitem.lastName + ' ' + asAnyitem.middleName + ' | ' + asAnyitem.schoolId;
+    }));
+
   }
   // get fullName$() {
   //   return of("OKAY");

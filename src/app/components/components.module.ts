@@ -52,6 +52,9 @@ import { LabelStarRequiredComponent } from './label-star-required/label-star-req
 import { StudentsModule } from './students/students.module';
 import { ViewStudentComponent } from './view-student/view-student.component';
 import { ViewStudentInfoComponent } from './view-student-info/view-student-info.component';
+import { StudentAdmissionsEditComponent } from './student-admissions-edit/student-admissions-edit.component';
+import { StudentSearchComponent } from './student-search/student-search.component';
+import { StudentsRecentlyCreatedComponent } from './students-recently-created/students-recently-created.component';
 
 
 @NgModule({
@@ -93,6 +96,9 @@ import { ViewStudentInfoComponent } from './view-student-info/view-student-info.
     LabelStarRequiredComponent,
     ViewStudentComponent,
     ViewStudentInfoComponent,
+    StudentAdmissionsEditComponent,
+    StudentSearchComponent,
+    StudentsRecentlyCreatedComponent,
   ],
   imports: [
     CommonModule,

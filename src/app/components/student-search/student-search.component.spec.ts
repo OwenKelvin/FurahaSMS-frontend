@@ -1,26 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { ViewStudentComponent } from './view-student.component';
+import { StudentSearchComponent } from './student-search.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
 
-describe('ViewStudentComponent', () => {
-  let component: ViewStudentComponent;
-  let fixture: ComponentFixture<ViewStudentComponent>;
+describe('StudentSearchComponent', () => {
+  let component: StudentSearchComponent;
+  let fixture: ComponentFixture<StudentSearchComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ ViewStudentComponent ]
+      imports: [ StoreModule.forRoot({}) ],
+      declarations: [ StudentSearchComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(ViewStudentComponent);
+    fixture = TestBed.createComponent(StudentSearchComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 
