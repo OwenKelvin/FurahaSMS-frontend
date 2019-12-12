@@ -10,6 +10,7 @@ import { environment } from './../../../environments/environment';
 import * as fromToast from './toast.reducer';
 import * as fromMenuToggle from './menu-toggle.reducer';
 import * as fromStudentProfileUpdate from './student-profile-update.reducer';
+import * as fromErrorMessage from './error-message.reducer';
 
 
 export interface AppState {
@@ -17,15 +18,20 @@ export interface AppState {
   [fromToast.toastFeatureKey]: fromToast.ToastStateInterface;
   [fromMenuToggle.menuToggleFeatureKey]: fromMenuToggle.MenuStateInterface;
   [fromStudentProfileUpdate.studentProfileUpdateFeatureKey]: fromStudentProfileUpdate.StudentProfileStateInterface;
+  [fromErrorMessage.errorMessageFeatureKey]: fromErrorMessage.ErrorMessageStateInterface;
+
 
 }
 
 export const reducers: ActionReducerMap<AppState> = {
   [fromToast.toastFeatureKey]: fromToast.reducer,
 
-  [fromMenuToggle.menuToggleFeatureKey]: fromMenuToggle.reducer ,
+  [fromMenuToggle.menuToggleFeatureKey]: fromMenuToggle.reducer,
 
-  [fromStudentProfileUpdate.studentProfileUpdateFeatureKey]: fromStudentProfileUpdate.reducer};
+  [fromStudentProfileUpdate.studentProfileUpdateFeatureKey]: fromStudentProfileUpdate.reducer,
+
+  [fromErrorMessage.errorMessageFeatureKey]: fromErrorMessage.reducer,
+};
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('Registered Reducers');
 export const reducerProvider = { provide: REDUCER_TOKEN, useValue: reducers };

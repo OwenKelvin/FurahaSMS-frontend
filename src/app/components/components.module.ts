@@ -56,6 +56,8 @@ import { StudentAdmissionsEditComponent } from './student-admissions-edit/studen
 import { StudentSearchComponent } from './student-search/student-search.component';
 import { StudentsRecentlyCreatedComponent } from './students-recently-created/students-recently-created.component';
 import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.component';
+import { AcademicYearComponent } from './academic-year/academic-year.component';
+import { CreateAcademicYearComponent } from './create-academic-year/create-academic-year.component';
 
 
 @NgModule({
@@ -101,6 +103,8 @@ import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.componen
     StudentSearchComponent,
     StudentsRecentlyCreatedComponent,
     LoadingBubbleComponent,
+    AcademicYearComponent,
+    CreateAcademicYearComponent,
   ],
   imports: [
     CommonModule,
