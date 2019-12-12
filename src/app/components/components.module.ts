@@ -27,6 +27,35 @@ import { AdmissionsModule } from './admissions/admissions.module';
 import { DashboardLinkComponent } from './dashboard-link/dashboard-link.component';
 import { DashboardLinksComponent } from './dashboard-links/dashboard-links.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { StudentAdmissionComponent } from './student-admission/student-admission.component';
+import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teaching-staff-admission.component';
+import { SupportStaffAdmissionComponent } from './support-staff-admission/support-staff-admission.component';
+import { LibraryComponent } from './library/library.component';
+import { LibraryModule } from './library/library.module';
+import { SchoolManagementComponent } from './management/management.component';
+import { TimeTableComponent } from './time-table/time-table.component';
+import { AcademicsComponent } from './academics/academics.component';
+import { ReportsComponent } from './reports/reports.component';
+import { AccountsComponent } from './accounts/accounts.component';
+import { AccountsModule } from './accounts/accounts.module';
+import { ProcurementsComponent } from './procurements/procurements.component';
+import { ProcurementsModule } from './procurements/procurements.module';
+import { SportsComponent } from './sports/sports.component';
+import { SportsModule } from './sports/sports.module';
+import { SchoolManagementModule } from './management/management.module';
+import { TimeTableModule } from './time-table/time-table.module';
+import { AcademicsModule } from './academics/academics.module';
+import { ReportsModule } from './reports/reports.module';
+import { CreateStudentComponent } from './create-student/create-student.component';
+import { EditStudentComponent } from './edit-student/edit-student.component';
+import { LabelStarRequiredComponent } from './label-star-required/label-star-required.component';
+import { StudentsModule } from './students/students.module';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { ViewStudentInfoComponent } from './view-student-info/view-student-info.component';
+import { StudentAdmissionsEditComponent } from './student-admissions-edit/student-admissions-edit.component';
+import { StudentSearchComponent } from './student-search/student-search.component';
+import { StudentsRecentlyCreatedComponent } from './students-recently-created/students-recently-created.component';
+import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.component';
 
 
 @NgModule({
@@ -52,6 +81,26 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DashboardLinkComponent,
     DashboardLinksComponent,
     PageNotFoundComponent,
+    StudentAdmissionComponent,
+    TeachingStaffAdmissionComponent,
+    SupportStaffAdmissionComponent,
+    LibraryComponent,
+    AccountsComponent,
+    SchoolManagementComponent,
+    TimeTableComponent,
+    AcademicsComponent,
+    ReportsComponent,
+    ProcurementsComponent,
+    SportsComponent,
+    CreateStudentComponent,
+    EditStudentComponent,
+    LabelStarRequiredComponent,
+    ViewStudentComponent,
+    ViewStudentInfoComponent,
+    StudentAdmissionsEditComponent,
+    StudentSearchComponent,
+    StudentsRecentlyCreatedComponent,
+    LoadingBubbleComponent,
   ],
   imports: [
     CommonModule,
@@ -59,7 +108,17 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ReactiveFormsModule,
     LoginModule,
     AdmissionsModule,
-    ErrorModule],
+    LibraryModule,
+    AccountsModule,
+    ProcurementsModule,
+    SportsModule,
+    SchoolManagementModule,
+    TimeTableModule,
+    AcademicsModule,
+    ReportsModule,
+    StudentsModule,
+    ErrorModule
+  ],
   exports: [LoginComponent, HomeComponent, ToastComponent]
 })
 export class ComponentsModule {}

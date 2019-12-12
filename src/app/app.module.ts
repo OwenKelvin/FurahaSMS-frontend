@@ -11,10 +11,12 @@ import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { StoreModule } from '@ngrx/store';
 import { reducers, metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { CacheInterceptor } from './interceptors/cache.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,
@@ -34,6 +36,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
     reducerProvider

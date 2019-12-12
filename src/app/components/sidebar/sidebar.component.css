@@ -1,0 +1,8 @@
+.activated {
+  color: greenyellow !important;
+  background: rgb(41, 41, 41) !important;
+  border-left: 5px solid;
+}
+a:hover {
+  border-left: 5px solid lightblue !important;
+}

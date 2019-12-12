@@ -6,6 +6,7 @@ import { UserButtonComponent } from './../user-button/user-button.component';
 import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -13,7 +14,13 @@ describe('HeaderComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [ FormsModule, ReactiveFormsModule, StoreModule.forRoot({}), RouterTestingModule ],
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot({}),
+        RouterTestingModule,
+        HttpClientTestingModule
+      ],
       declarations: [ HeaderComponent, MenuSearchComponent, UserButtonComponent ]
     })
     .compileComponents();

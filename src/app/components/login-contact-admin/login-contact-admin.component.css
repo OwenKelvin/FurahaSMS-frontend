@@ -12,14 +12,10 @@ h1 {
   	min-width: 450px;
   }
 }
-@media (min-width: 400px) {
-  .card {
-  	min-width: 500px;
-  }
-}
 @media (max-width: 400px) {
   .card, .card-heading, .card-body {
   	padding: 0;
-  	margin: 0;
+    margin: 0px;
+    min-width: 100px;;
   }
 }

@@ -4,6 +4,8 @@ import { Observable } from 'rxjs';
 import { AppState } from './../../store/reducers';
 import { loadMenuTogglesFailure, loadMenuTogglesSuccess } from './../../store/actions/menu-toggle.actions';
 import { selectShowMenu } from './../../store/selectors/menu-toggle.selector';
+import { LinkInterface } from 'src/app/interfaces/link.interface';
+import { LinkService } from 'src/app/services/link.service';
 
 @Component({
   selector: 'app-sidebar',
@@ -12,9 +14,10 @@ import { selectShowMenu } from './../../store/selectors/menu-toggle.selector';
 })
 export class SidebarComponent implements OnInit {
   isMenuClosed$: Observable<boolean>;
+  listItems$: Observable<LinkInterface[]>;
   isMenuClosed: boolean;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>, private linkService: LinkService) { }
 
   ngOnInit() {
     this.isMenuClosed = true;
@@ -22,6 +25,7 @@ export class SidebarComponent implements OnInit {
     this.isMenuClosed$.subscribe(isMenuClosed => {
       this.isMenuClosed = isMenuClosed;
     });
+    this.listItems$ = this.linkService.getDashboardLinks();
   }
   toggleMenu(): void {
     if (this.isMenuClosed) {
@@ -29,6 +33,10 @@ export class SidebarComponent implements OnInit {
     } else {
       this.store.dispatch(loadMenuTogglesSuccess());
     }
+  }
+  goto($event: MouseEvent, b) {
+    $event.stopPropagation(); // Only seems to
+    $event.preventDefault(); // work with both
   }
 
 }

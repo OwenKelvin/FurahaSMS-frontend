@@ -29,6 +29,8 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() autofocus: false;
   @Input() autocomplete: string;
   @Input() type: string;
+  @Input() labelClass: string;
+  @Input() inputClass: string;
   fieldError: string;
   fieldType: string;
   disabled: boolean;
@@ -39,10 +41,16 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   ngOnInit() {
     this.fieldType = 'text';
-    if (['tel', 'phone', 'password', 'number'].includes(this.type)) {
+    if (['tel', 'phone', 'password', 'number', 'date'].includes(this.type)) {
       this.fieldType = this.type;
     }
     this.formControl = new FormControl();
+  }
+  get isRequired(): boolean {
+    if (this.formControl.validator) {
+      const validationResult = this.formControl.validator(this.formControl);
+      return (validationResult !== null && validationResult.required === true);
+    }
   }
 
   setDisabledState?(isDisabled: boolean): void {
