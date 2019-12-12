@@ -16,7 +16,7 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
   ],
   imports: [
     BrowserModule,

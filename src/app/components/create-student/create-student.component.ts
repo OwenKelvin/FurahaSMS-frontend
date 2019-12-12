@@ -19,6 +19,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   newStudentForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;
+  formSubmitted: boolean;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -29,8 +30,8 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
 
   ngOnInit() {
     this.newStudentForm = this.fb.group({
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       schoolIdNumber: [''],
       middleName: [''],
       otherNames: [''],
@@ -64,7 +65,10 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
           showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
         }));
         this.isSubmitting = false;
+        this.formSubmitted = true;
+        this.router.navigate(['/students', student.id]);
       }, error => {
+          this.formSubmitted = true;
           console.log(error); // TODO Handle Student creation error
           this.isSubmitting = false;
       });
@@ -73,7 +77,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     }
   }
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
-    if (this.newStudentForm.dirty) {
+    if (this.newStudentForm.dirty && !this.formSubmitted) {
       return confirm('Your changes are unsaved!! Do you like to exit');
     }
     return true;

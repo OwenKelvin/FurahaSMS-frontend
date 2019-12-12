@@ -49,6 +49,9 @@ import { ReportsModule } from './reports/reports.module';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { LabelStarRequiredComponent } from './label-star-required/label-star-required.component';
+import { StudentsModule } from './students/students.module';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { ViewStudentInfoComponent } from './view-student-info/view-student-info.component';
 
 
 @NgModule({
@@ -88,6 +91,8 @@ import { LabelStarRequiredComponent } from './label-star-required/label-star-req
     CreateStudentComponent,
     EditStudentComponent,
     LabelStarRequiredComponent,
+    ViewStudentComponent,
+    ViewStudentInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -103,6 +108,7 @@ import { LabelStarRequiredComponent } from './label-star-required/label-star-req
     TimeTableModule,
     AcademicsModule,
     ReportsModule,
+    StudentsModule,
     ErrorModule
   ],
   exports: [LoginComponent, HomeComponent, ToastComponent]

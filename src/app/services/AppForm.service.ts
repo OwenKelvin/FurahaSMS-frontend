@@ -14,6 +14,9 @@ export class AppFormService {
     if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.email) {
       return (label ? (label + ' ') : '') + 'field should be a valid email';
     }
+    if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.minlength) {
+      return (label ? (label + ' ') : '') + `field too short (min ${formControl.errors.minlength.requiredLength})`;
+    }
     return null;
   }
   triggerValidation(formControl: FormControl) {

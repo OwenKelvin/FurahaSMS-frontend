@@ -110,3 +110,10 @@ a:hover {
     margin-left: -15rem;
   }
 }
+.label-value {
+  border: rgba(211, 211, 211, 0.3) solid 2px;
+}
+.label-value, .label-name {
+ font-weight: bold;
+ line-height: 2em;
+}

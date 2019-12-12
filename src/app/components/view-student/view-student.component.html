@@ -1,0 +1,60 @@
+<section class='d-flex flex-wrap wrapper'>
+  <section class='col-md-4 col-lg-3'>
+    <img class='img-thumbnail img-fluid' src='./app/assets/images/{{image}}.jpg'
+      onerror='this.src="assets/images/default-user.jpg";' alt='' />
+  </section>
+  <section class='col-md-8 col-lg-9 d-flex align-items-lg-between flex-wrap'>
+    <h1>{{ fullName$ | async }}</h1>
+    <section class='d-flex flex-wrap justify-content-between align-items-lg-center name-field'>
+      <section class='col-lg-6'>
+        <section class='d-flex flex-wrap'>
+          <span class='labelcol-xs-12 col-sm-4 col-lg-4'>First:</span>
+          <span class='value col col-xs-12'> {{ (student$ | async).firstName }}</span>
+        </section>
+      </section>
+      <section class='col-lg-6'>
+        <section class='d-flex flex-wrap'>
+          <span class='label col-xs-12 col-sm-4 col-lg-4'>Last:</span>
+          <span class='value col col-xs-12'> {{ (student$ | async).lastName }}</span>
+        </section>
+      </section>
+      <section class='col-lg-6'>
+        <section class='d-flex flex-wrap'>
+          <span class='label col-xs-12 col-sm-4 col-lg-4'>Middle:</span>
+          <span class='value col col-xs-12'> {{ (student$ | async).middleName }}</span>
+        </section>
+      </section>
+      <section class='col-lg-6 flex-wrap'>
+        <section class='d-flex flex-wrap'>
+          <span class='label col-xs-12 col-sm-4 col-lg-4'>Others:</span>
+          <span class='value col col-xs-12'> {{ (student$ | async).middleName }}</span>
+        </section>
+      </section>
+    </section>
+  </section>
+  <section class='col-sm-12 mt-3'>
+    <ul class="nav nav-tabs nav-fill">
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/students/" + 46 + "/info"]' routerLinkActive='active'>Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/students/" + 46 + "/account"]' routerLinkActive='active'>Info</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" [routerLink]='["/students/" + 46 + "/academic"]' routerLinkActive='active'>Info</a>
+      </li>
+      <!-- <li class="nav-item">
+        <a class="nav-link" href="#">Longer nav link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li> -->
+    </ul>
+  </section>
+  <section class='col-sm-12 info-route'>
+    <router-outlet studentId='1'></router-outlet>
+  </section>
+</section>

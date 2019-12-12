@@ -1,0 +1,39 @@
+.wrapper {
+  margin-top: 20px;
+}
+.name-field .label, .name-field .value {
+ font-weight: bold;
+ line-height: 2em;
+}
+.name-field  .value {
+  border: rgba(211, 211, 211, 0.3) solid 2px;
+  margin-top: 5px;
+}
+h1 {
+  max-height: 40px;
+}
+.nav {
+  border-bottom: 0px;
+  margin-top: -5px;
+}
+.info-route {
+  
+  margin-right: 15px;
+  margin-left: 15px;
+  min-height: 250px;
+  background: rgb(35, 35, 35) !important;
+  margin-top: -1px;
+  border: 1px solid lightgrey;
+  z-index: 1;
+  position: relative;
+}
+.active {
+  color: greenyellow !important;
+  background: rgb(35, 35, 35) !important;
+  border-bottom: none !important;
+  z-index: 10;
+   position: relative;
+   border-top-left-radius: 15px;
+   border-top-right-radius: 15px;
+  
+}
