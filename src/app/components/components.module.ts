@@ -58,6 +58,7 @@ import { StudentsRecentlyCreatedComponent } from './students-recently-created/st
 import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.component';
 import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from './create-academic-year/create-academic-year.component';
+import { ViewAcademicYearComponent } from './view-academic-year/view-academic-year.component';
 
 
 @NgModule({
@@ -105,6 +106,7 @@ import { CreateAcademicYearComponent } from './create-academic-year/create-acade
     LoadingBubbleComponent,
     AcademicYearComponent,
     CreateAcademicYearComponent,
+    ViewAcademicYearComponent,
   ],
   imports: [
     CommonModule,

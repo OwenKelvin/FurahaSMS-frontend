@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
+import { TestBed, async } from '@angular/core/testing';
 
 import { AcademicYearService } from './academic-year.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('AcademicYearService', () => {
+describe('AcademicYearService', async () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [ HttpClientTestingModule]
   }));
