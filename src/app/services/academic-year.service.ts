@@ -29,6 +29,7 @@ export class AcademicYearService {
     );
   }
   get(data: { id: number; classLevels: 1 }) {
+
     const { id, classLevels } = data;
     let url = `api/academic-years/${id}/?`;
     if (classLevels === 1) {

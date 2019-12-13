@@ -12,12 +12,18 @@ import { LinkInterface } from './../../interfaces/link.interface';
 })
 export class DashboardLinksComponent implements OnInit {
   @Input() type: string;
+  @Input() params: {id: number};
   links$: Observable<LinkInterface[]>;
   title: string;
   constructor(private store: Store<fromStore.AppState>, private linkService: LinkService) { }
 
   ngOnInit() {
-    this.links$ = this.linkService.getLinks(this.type);
+    let params = {} 
+    if (this.params) {
+      params = this.params.id;
+    }
+    
+    this.links$ = this.linkService.getLinks({ type: this.type, id: params });
     const item = [
       {
         name: 'Admissions', type: 'admissions'
@@ -28,7 +34,9 @@ export class DashboardLinksComponent implements OnInit {
       }, {
         name: 'Academics', type: 'academics'
       }, {
-        name: 'Academic Year', type: 'academics:academic-year'
+        name: 'Academic Year', type: 'academics:academic-years'
+      }, {
+        name: null, type: 'academic-year' 
       }
     ].filter(title => title.type === this.type)[0];
     if (item) {

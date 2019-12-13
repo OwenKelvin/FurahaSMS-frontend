@@ -42,7 +42,7 @@ describe('ViewAcademicYearComponent', () => {
                 ]
               }
             }
-          } // you could use also jasmine.createSpyObj() for methods
+          } 
         }
       ]
     });

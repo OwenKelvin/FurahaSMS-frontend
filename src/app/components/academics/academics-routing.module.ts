@@ -6,6 +6,11 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 import { AcademicYearComponent } from '../academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from '../create-academic-year/create-academic-year.component';
 import { ViewAcademicYearComponent } from '../view-academic-year/view-academic-year.component';
+import { digitsMatcher } from '../matcher/digits.matcher';
+import { ViewAcademicYearInfoComponent } from '../view-academic-year-info/view-academic-year-info.component';
+import { PageNotFoundComponent } from '../page-not-found/page-not-found.component';
+import { AcademicYearFinancialPlanComponent } from '../academic-year-financial-plan/academic-year-financial-plan.component';
+import { AcademicYearSubjectUnitsComponent } from '../academic-year-subject-units/academic-year-subject-units.component';
 
 
 const routes: Routes = [
@@ -25,7 +30,7 @@ const routes: Routes = [
           {
             path: '',
             pathMatch: 'full',
-            component: AcademicsComponent
+            component: AcademicYearComponent
           },
           {
             path: 'create',
@@ -33,12 +38,22 @@ const routes: Routes = [
             component: CreateAcademicYearComponent
           },
           {
+            // matcher: digitsMatcher,
             path: ':id',
+            component: ViewAcademicYearComponent,
             children: [
               {
                 path: '',
                 pathMatch: 'full',
-                component: ViewAcademicYearComponent
+                component: ViewAcademicYearInfoComponent
+              },
+              {
+                path: 'financial-plan',
+                component: AcademicYearFinancialPlanComponent
+              },
+              {
+                path: 'units',
+                component: AcademicYearSubjectUnitsComponent
               }
             ]
           }

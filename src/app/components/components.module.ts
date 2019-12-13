@@ -59,6 +59,10 @@ import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.componen
 import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from './create-academic-year/create-academic-year.component';
 import { ViewAcademicYearComponent } from './view-academic-year/view-academic-year.component';
+import { AcademicYearArchivesComponent } from './academic-year-archives/academic-year-archives.component';
+import { ViewAcademicYearInfoComponent } from './view-academic-year-info/view-academic-year-info.component';
+import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
+import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
 
 
 @NgModule({
@@ -107,6 +111,10 @@ import { ViewAcademicYearComponent } from './view-academic-year/view-academic-ye
     AcademicYearComponent,
     CreateAcademicYearComponent,
     ViewAcademicYearComponent,
+    AcademicYearArchivesComponent,
+    ViewAcademicYearInfoComponent,
+    AcademicYearFinancialPlanComponent,
+    AcademicYearSubjectUnitsComponent,
   ],
   imports: [
     CommonModule,

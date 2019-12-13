@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class LinkService {
 
   constructor() { }
-  getLinks(type): Observable<LinkInterface[]> {
+  getLinks({ type, id }): Observable<LinkInterface[]> {
     switch (type) {
       case 'academics':
         return this.getAcademicsLinks();
@@ -17,8 +17,10 @@ export class LinkService {
         return this.getAdmissionsLinks();
       case 'admissions:students':
         return this.getStudentAdmissionsLinks();
-      case 'academics:academic-year':
-        return this.getAcademicYearLinks();
+      case 'academics:academic-years':
+        return this.getAcademicYearsLinks();
+      case 'academic-year':
+        return this.getAcademicYearLinks(id);
       default:
         return this.getDashboardLinks();
     }
@@ -114,7 +116,7 @@ export class LinkService {
       }
     ]);
   }
-  getAcademicYearLinks(): Observable<LinkInterface[]> {
+  getAcademicYearsLinks(): Observable<LinkInterface[]> {
     return of([
       {
         name: 'Create New',
@@ -128,13 +130,27 @@ export class LinkService {
       },
     ]);
   }
+  getAcademicYearLinks($id): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Financial Plan',
+        icon: 'icon-dollar',
+        link: `academics/academic-year/${$id}/financial-plan`
+      },
+      {
+        name: 'Subjects/ Units',
+        icon: 'icon-user-plus',
+        link: `academics/academic-year/${$id}/units`
+      },
+    ]);
+  }
   getAllLinks(): Observable<LinkInterface[]> {
     // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
     // return $forkJoined;
     return zip(
       this.getAdmissionsLinks(),
       this.getDashboardLinks(),
-      this.getAcademicYearLinks(),
+      this.getAcademicYearsLinks(),
       this.getAdmissionsLinks(),
       this.getAcademicsLinks()
     )
