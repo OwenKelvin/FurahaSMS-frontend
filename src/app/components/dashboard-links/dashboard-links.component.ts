@@ -26,25 +26,19 @@ export class DashboardLinksComponent implements OnInit {
     this.links$ = this.linkService.getLinks({ type: this.type, id: params });
     const item = [
       {
-        name: 'Admissions', type: 'admissions'
-      }, {
         name: 'Dashboard', type: 'dashboard'
       }, {
         name: 'Student Admissions', type: 'admissions:students'
       }, {
-        name: 'Academics', type: 'academics'
-      }, {
         name: 'Academic Year', type: 'academics:academic-years'
       }, {
         name: null, type: 'academic-year' 
-      }, {
-        name: 'Library', type: 'library'
       }
     ].filter(title => title.type === this.type)[0];
     if (item) {
       this.title = item.name;
     } else {
-      this.title = 'Dashboard';
+      this.title = this.type.split(':').map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(' ');
     }
   }
 

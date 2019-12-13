@@ -66,6 +66,11 @@ import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units
 import { LibrarySearchCatalogueComponent } from './library-search-catalogue/library-search-catalogue.component';
 import { LibraryMyAccountComponent } from './library-my-account/library-my-account.component';
 import { LibraryAdminComponent } from './library-admin/library-admin.component';
+import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
+import { AcademicsCurriculumUnitCategoriesComponent } from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units/academics-curriculum-units.component';
+import { AcademicsCurriculumClassLevelCategoriesComponent } from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
 
 
 @NgModule({
@@ -121,6 +126,11 @@ import { LibraryAdminComponent } from './library-admin/library-admin.component';
     LibrarySearchCatalogueComponent,
     LibraryMyAccountComponent,
     LibraryAdminComponent,
+    AcademicsCurriculumComponent,
+    AcademicsCurriculumUnitCategoriesComponent,
+    AcademicsCurriculumUnitsComponent,
+    AcademicsCurriculumClassLevelCategoriesComponent,
+    AcademicsCurriculumClassLevelsComponent,
   ],
   imports: [
     CommonModule,

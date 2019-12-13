@@ -23,9 +23,35 @@ export class LinkService {
         return this.getAcademicYearLinks(id);
       case 'library':
         return this.getLibraryLinks();
+      case 'academics:curriculum':
+        return this.getAcademicCurriculumLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  getAcademicCurriculumLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Subject Categories',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/unit-categories'
+      },
+      {
+        name: 'Subject Units',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/units'
+      },
+      {
+        name: 'Class Level Categories',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/class-level-categories'
+      },
+      {
+        name: 'Class Levels',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/class-levels'
+      },
+    ]);
   }
   getLibraryLinks(): Observable<LinkInterface[]> {
     return of([
@@ -132,6 +158,11 @@ export class LinkService {
         name: 'Academic Year',
         icon: 'icon-user-plus',
         link: 'academics/academic-year'
+      },
+      {
+        name: 'Curriculum',
+        icon: 'icon-book',
+        link: 'academics/curriculum'
       }
     ]);
   }
@@ -171,7 +202,8 @@ export class LinkService {
       this.getDashboardLinks(),
       this.getAcademicYearsLinks(),
       this.getAdmissionsLinks(),
-      this.getAcademicsLinks()
+      this.getAcademicsLinks(),
+      this.getLibraryLinks()
     )
       .pipe(map(x => x[0].concat(x[1])));
   }
