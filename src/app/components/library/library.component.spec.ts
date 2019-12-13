@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibraryComponent } from './library.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { DashboardLinksComponent } from '../dashboard-links/dashboard-links.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -12,7 +13,7 @@ describe('LibraryComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
-      declarations: [ LibraryComponent ]
+      declarations: [ LibraryComponent, DashboardLinksComponent ]
     });
 
     await TestBed.compileComponents();

@@ -63,6 +63,9 @@ import { AcademicYearArchivesComponent } from './academic-year-archives/academic
 import { ViewAcademicYearInfoComponent } from './view-academic-year-info/view-academic-year-info.component';
 import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
 import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
+import { LibrarySearchCatalogueComponent } from './library-search-catalogue/library-search-catalogue.component';
+import { LibraryMyAccountComponent } from './library-my-account/library-my-account.component';
+import { LibraryAdminComponent } from './library-admin/library-admin.component';
 
 
 @NgModule({
@@ -115,6 +118,9 @@ import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units
     ViewAcademicYearInfoComponent,
     AcademicYearFinancialPlanComponent,
     AcademicYearSubjectUnitsComponent,
+    LibrarySearchCatalogueComponent,
+    LibraryMyAccountComponent,
+    LibraryAdminComponent,
   ],
   imports: [
     CommonModule,

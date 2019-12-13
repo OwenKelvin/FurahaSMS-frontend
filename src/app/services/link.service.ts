@@ -21,9 +21,28 @@ export class LinkService {
         return this.getAcademicYearsLinks();
       case 'academic-year':
         return this.getAcademicYearLinks(id);
+      case 'library':
+        return this.getLibraryLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  getLibraryLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Search Catalogue',
+        icon: 'icon-search',
+        link: 'library/search-catalogue'
+      }, {
+        name: 'My Account',
+        icon: 'icon-user-circle-o',
+        link: 'library/my-account'
+      }, {
+        name: 'Admin',
+        icon: 'icon-user-secret',
+        link: 'library/admin'
+      }
+    ]);
   }
   getAdmissionsLinks(): Observable<LinkInterface[]> {
     return of([
