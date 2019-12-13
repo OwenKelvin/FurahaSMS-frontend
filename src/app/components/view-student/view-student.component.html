@@ -1,12 +1,13 @@
 <h1>Student Profile</h1>
 <section class='d-flex flex-wrap wrapper' *ngIf="student$ | async as profile; else profile_loading ">
   <section class='col-md-4 col-lg-3'>
-    <img class='img-thumbnail img-fluid' src='./app/assets/images/{{image}}.jpg'
+    <!-- TODO-me Load Correct image-->
+    <img class='img-thumbnail img-fluid' src='assets/images/default-user.jpg'
       onerror='this.src="assets/images/default-user.jpg";' alt='' />
   </section>
   <section class='col-md-8 col-lg-9 d-flex align-items-lg-between flex-wrap'>
     <section class='d-flex flex-wrap justify-content-between align-items-lg-center name-field'>
-      <section class='col-sm-12'><h2>{{ fullName }}</h2></section>
+      <section class='col-sm-12'><h2>{{ fullName | uppercase }}</h2></section>
       <section class='col-lg-6'>
         <section class='d-flex flex-wrap'>
           <span class='label col-xs-12 col-sm-4 col-lg-4'>First:</span>
@@ -39,10 +40,10 @@
         <a class="nav-link" [routerLink]='["/students/" + 46 + "/info"]' routerLinkActive='active'>Info</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/students/" + 46 + "/account"]' routerLinkActive='active'>Info</a>
+        <a class="nav-link" [routerLink]='["/students/" + 46 + "/guardians"]' routerLinkActive='active'>Guardians</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/students/" + 46 + "/academic"]' routerLinkActive='active'>Info</a>
+        <a class="nav-link" [routerLink]='["/students/" + 46 + "/academic"]' routerLinkActive='active'>Academics</a>
       </li>
     </ul>
   </section>

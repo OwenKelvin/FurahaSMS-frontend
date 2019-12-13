@@ -25,8 +25,12 @@ export class DashboardLinksComponent implements OnInit {
         name: 'Dashboard', type: 'dashboard'
       }, {
         name: 'Student Admissions', type: 'admissions:students'
+      }, {
+        name: 'Academics', type: 'academics'
+      }, {
+        name: 'Academic Year', type: 'academics:academic-year'
       }
-    ].filter( title => title.type === this.type)[0];
+    ].filter(title => title.type === this.type)[0];
     if (item) {
       this.title = item.name;
     } else {
