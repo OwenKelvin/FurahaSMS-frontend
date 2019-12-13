@@ -5,6 +5,7 @@ import { AcademicsComponent } from './academics.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
 import { AcademicYearComponent } from '../academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from '../create-academic-year/create-academic-year.component';
+import { ViewAcademicYearComponent } from '../view-academic-year/view-academic-year.component';
 
 
 const routes: Routes = [
@@ -31,6 +32,16 @@ const routes: Routes = [
             pathMatch: 'full',
             component: CreateAcademicYearComponent
           },
+          {
+            path: ':id',
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: ViewAcademicYearComponent
+              }
+            ]
+          }
         ]
       }
     ]

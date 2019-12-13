@@ -5,12 +5,12 @@ import { StudentService } from '../services/student.service';
   providedIn: 'root'
 })
 export class IdNumberValidator {
-  constructor(private studentId: StudentService) { }
+  constructor(private studentService: StudentService) { }
 
   studentIdTaken(control: FormControl): any {
 
     return new Promise((resolve, reject) => {
-      this.studentId.getStudentBySchoolId(control.value).subscribe(
+      this.studentService.getStudentBySchoolId(control.value).subscribe(
         data => {
           if (data.id) {
             resolve({

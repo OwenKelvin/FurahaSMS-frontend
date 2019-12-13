@@ -43,7 +43,7 @@ export class CreateAcademicYearComponent implements OnInit {
           toastBody: 'Successfully Created Academic Year',
           toastHeader: 'Success'
         }));
-        this.router.navigate(['/academic-year/', item.id]);
+        this.router.navigate(['/academics/academic-year/', item.id]);
       }, error => {
         this.store.dispatch(loadErrorMessagesSuccess({
           show: true,
@@ -57,9 +57,4 @@ export class CreateAcademicYearComponent implements OnInit {
     } else {
     }
   }
-
 }
-// help: "Academic year already exists"
-// message: "Unprocessable Entity: The given data was invalid."
-// status: 422
-// type: "error"
