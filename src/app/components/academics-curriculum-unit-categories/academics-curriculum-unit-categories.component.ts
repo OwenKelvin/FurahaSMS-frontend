@@ -1,6 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../store/reducers';
+import { AppState } from '../../store/reducers';
+import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interface';
+import { SubjectCategoryService } from 'src/app/services/subject-category.service';
+import {
+  CREATE_UNIT_CATEGORY_CURRICULUM,
+  EDIT_UNIT_CATEGORY_CURRICULUM,
+  VIEW_UNIT_CATEGORY_CURRICULUM
+} from 'src/app/helpers/links.helpers';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-academics-curriculum-unit-categories',
@@ -9,9 +17,21 @@ import * as fromStore from '../../store/reducers';
 })
 export class AcademicsCurriculumUnitCategoriesComponent implements OnInit {
 
-  constructor(private store: Store<fromStore.AppState>) { }
+  unitCategories$: Observable<UnitCategoryInterface[]>;
+  createUnitCategoryCurriculum: string;
+  editUnitCategoryCurriculum: any;
+  categories: any;
+  viewUnitCategoryCurriculum: (id: string | number) => string;
+  constructor(
+    private store: Store<AppState>,
+    private subjectCategories: SubjectCategoryService
+  ) { }
 
   ngOnInit() {
+    this.createUnitCategoryCurriculum = CREATE_UNIT_CATEGORY_CURRICULUM;
+    this.editUnitCategoryCurriculum = EDIT_UNIT_CATEGORY_CURRICULUM;
+    this.viewUnitCategoryCurriculum = VIEW_UNIT_CATEGORY_CURRICULUM;
+    this.categories = this.subjectCategories;
   }
 
 }
