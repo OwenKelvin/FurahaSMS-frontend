@@ -22,6 +22,7 @@ describe('DashboardLinksComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardLinksComponent);
     component = fixture.componentInstance;
+    component.type = 'admissions:students';
     store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();

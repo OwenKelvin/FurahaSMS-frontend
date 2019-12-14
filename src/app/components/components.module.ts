@@ -59,6 +59,28 @@ import { LoadingBubbleComponent } from './loading-bubble/loading-bubble.componen
 import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from './create-academic-year/create-academic-year.component';
 import { ViewAcademicYearComponent } from './view-academic-year/view-academic-year.component';
+import { AcademicYearArchivesComponent } from './academic-year-archives/academic-year-archives.component';
+import { ViewAcademicYearInfoComponent } from './view-academic-year-info/view-academic-year-info.component';
+import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
+import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
+import { LibrarySearchCatalogueComponent } from './library-search-catalogue/library-search-catalogue.component';
+import { LibraryMyAccountComponent } from './library-my-account/library-my-account.component';
+import { LibraryAdminComponent } from './library-admin/library-admin.component';
+import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
+import {
+  AcademicsCurriculumUnitCategoriesComponent
+} from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+import {
+  AcademicsCurriculumUnitsComponent
+} from './academics-curriculum-units/academics-curriculum-units.component';
+import {
+  AcademicsCurriculumClassLevelCategoriesComponent
+} from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+import {
+  AcademicsCurriculumClassLevelsComponent
+} from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
+import { ViewItemsComponent } from './view-items/view-items.component';
+import { ChipsComponent } from './chips/chips.component';
 
 
 @NgModule({
@@ -107,6 +129,20 @@ import { ViewAcademicYearComponent } from './view-academic-year/view-academic-ye
     AcademicYearComponent,
     CreateAcademicYearComponent,
     ViewAcademicYearComponent,
+    AcademicYearArchivesComponent,
+    ViewAcademicYearInfoComponent,
+    AcademicYearFinancialPlanComponent,
+    AcademicYearSubjectUnitsComponent,
+    LibrarySearchCatalogueComponent,
+    LibraryMyAccountComponent,
+    LibraryAdminComponent,
+    AcademicsCurriculumComponent,
+    AcademicsCurriculumUnitCategoriesComponent,
+    AcademicsCurriculumUnitsComponent,
+    AcademicsCurriculumClassLevelCategoriesComponent,
+    AcademicsCurriculumClassLevelsComponent,
+    ViewItemsComponent,
+    ChipsComponent,
   ],
   imports: [
     CommonModule,

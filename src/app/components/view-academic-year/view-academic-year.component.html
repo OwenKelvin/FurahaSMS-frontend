@@ -1,7 +1,7 @@
 <section *ngIf='(academicYear$ | async) as academicYear; else content_loading'>
   <h1>Academic Year <span class='icon-right-dir'></span> <small>{{academicYear.name}}</small></h1>
   <section>
-    Period: <strong>{{ academicYear.start_date | date: 'MMM dd, yyyy' }}</strong> TO
+    Period: <strong>{{ academicYear.start_date | date: 'MMM dd, yyyy' }}</strong> <span class='icon-right'></span>
     <strong>{{ academicYear.end_date | date: 'MMM dd, yyyy'}}</strong>
   </section>
 </section>
@@ -10,4 +10,4 @@
   <h1>Academic Year</h1>
   <app-loading-bubble></app-loading-bubble>
 </ng-template>
-<app-dashboard-links type='academic-year'></app-dashboard-links>
+<router-outlet></router-outlet>

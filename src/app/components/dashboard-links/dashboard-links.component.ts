@@ -12,29 +12,33 @@ import { LinkInterface } from './../../interfaces/link.interface';
 })
 export class DashboardLinksComponent implements OnInit {
   @Input() type: string;
+  @Input() params: {id: number};
   links$: Observable<LinkInterface[]>;
   title: string;
   constructor(private store: Store<fromStore.AppState>, private linkService: LinkService) { }
 
   ngOnInit() {
-    this.links$ = this.linkService.getLinks(this.type);
+    let params = {};
+    if (this.params) {
+      params = this.params.id;
+    }
+
+    this.links$ = this.linkService.getLinks({ type: this.type, id: params });
     const item = [
       {
-        name: 'Admissions', type: 'admissions'
-      }, {
         name: 'Dashboard', type: 'dashboard'
       }, {
         name: 'Student Admissions', type: 'admissions:students'
       }, {
-        name: 'Academics', type: 'academics'
+        name: 'Academic Year', type: 'academics:academic-years'
       }, {
-        name: 'Academic Year', type: 'academics:academic-year'
+        name: null, type: 'academic-year'
       }
     ].filter(title => title.type === this.type)[0];
     if (item) {
       this.title = item.name;
     } else {
-      this.title = 'Dashboard';
+      this.title = this.type.split(':').map(subString => subString.charAt(0).toUpperCase() + subString.slice(1)).join(' ');
     }
   }
 

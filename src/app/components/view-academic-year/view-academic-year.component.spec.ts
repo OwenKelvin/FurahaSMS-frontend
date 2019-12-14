@@ -17,7 +17,7 @@ describe('ViewAcademicYearComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
+      imports: [StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule],
       declarations: [
         ViewAcademicYearComponent,
         LoadingBubbleComponent,
@@ -29,20 +29,22 @@ describe('ViewAcademicYearComponent', () => {
           useValue: {
             routerState: {
               root: {
-                children: [
-                  {
-                    children: [{
-                      children: [{
-                        params: {
-                          subscribe: () => ({id: 3})
-                        }
-                      }]
-                    }]
+                firstChild: {
+                  firstChild: {
+                    firstChild: {
+                      params: {
+                        subscribe: () => ({ id: 3 })
+                      },
+                      firstChild: {
+                        children: [],
+
+                      }
+                    }
                   }
-                ]
+                }
               }
             }
-          } // you could use also jasmine.createSpyObj() for methods
+          }
         }
       ]
     });
