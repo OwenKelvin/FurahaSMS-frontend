@@ -7,21 +7,24 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+
+    path: 'time-table',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Time table'
+    },
     children: [
       {
-        path: 'time-table',
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: TimeTableComponent
-          }
-        ]
+        path: '',
+        pathMatch: 'full',
+        component: TimeTableComponent,
+        data: {
+          breadcrumb: null
+        },
       }
     ]
+
   }
 ];
 

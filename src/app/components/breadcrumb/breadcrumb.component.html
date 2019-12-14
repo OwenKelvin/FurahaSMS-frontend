@@ -1,5 +1,8 @@
-<nav aria-label="breadcrumb" *ngIf='breadcrumbs.length'>
-  <ol class="breadcrumb bg-dark">
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-dark" *ngIf='breadcrumbs.length; else dashboard'>
+    <li class="breadcrumb-item">
+      <a routerLinkActive='active' [routerLink]='["/dashboard"]'><span class='icon-home'></span></a>
+    </li>
     <li *ngFor="let breadcrumb of breadcrumbs.slice(0,breadcrumbs.length-1); let i = index" class="breadcrumb-item" >
       <a routerLinkActive='active' [routerLink]='["/dashboard"]' *ngIf='breadcrumb.label === "Home"; else nonHomeLink'><span class='icon-home'></span></a>
       <ng-template #nonHomeLink >
@@ -9,4 +12,11 @@
     </li>
     <li class="breadcrumb-item active" aria-current="page">{{ breadcrumbs[breadcrumbs.length-1].label }}</li>
   </ol>
+  <ng-template #dashboard>
+    <ol class="breadcrumb bg-dark">
+      <li class="breadcrumb-item active">
+        <span class='icon-home'></span>
+      </li>
+    </ol>
+  </ng-template>
 </nav>

@@ -7,19 +7,20 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'sports',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Sports'
+    },
     children: [
       {
-        path: 'sports',
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: SportsComponent
-          }
-        ]
+        path: '',
+        pathMatch: 'full',
+        component: SportsComponent,
+        data: {
+          breadcrumb: null
+        },
       }
     ]
   }
