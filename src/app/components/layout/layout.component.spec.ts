@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -30,7 +31,8 @@ describe('LayoutComponent', () => {
         HeaderComponent,
         FooterComponent,
         MenuSearchComponent,
-        UserButtonComponent
+        UserButtonComponent,
+        BreadcrumbComponent
       ]
     })
     .compileComponents();

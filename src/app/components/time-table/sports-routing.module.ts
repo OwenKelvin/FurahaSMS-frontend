@@ -8,14 +8,23 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'sports',
+        data: {
+          breadcrumb: 'Sports'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: SportsComponent
+            component: SportsComponent,
+            data: {
+              breadcrumb: null
+            },
           }
         ]
       }

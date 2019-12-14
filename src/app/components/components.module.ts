@@ -81,6 +81,7 @@ import {
 } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
 import { ViewItemsComponent } from './view-items/view-items.component';
 import { ChipsComponent } from './chips/chips.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 
 
 @NgModule({
@@ -143,6 +144,7 @@ import { ChipsComponent } from './chips/chips.component';
     AcademicsCurriculumClassLevelsComponent,
     ViewItemsComponent,
     ChipsComponent,
+    BreadcrumbComponent,
   ],
   imports: [
     CommonModule,

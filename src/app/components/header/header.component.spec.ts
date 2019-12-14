@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -21,7 +22,7 @@ describe('HeaderComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule
       ],
-      declarations: [ HeaderComponent, MenuSearchComponent, UserButtonComponent ]
+      declarations: [HeaderComponent, MenuSearchComponent, UserButtonComponent, BreadcrumbComponent ]
     })
     .compileComponents();
   }));

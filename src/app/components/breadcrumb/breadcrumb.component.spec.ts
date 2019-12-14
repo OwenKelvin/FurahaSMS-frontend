@@ -1,30 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels.component';
+import { BreadcrumbComponent } from './breadcrumb.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { ViewItemsComponent } from '../view-items/view-items.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ChipsComponent } from '../chips/chips.component';
-import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 
-describe('AcademicsCurriculumClassLevelsComponent', () => {
-  let component: AcademicsCurriculumClassLevelsComponent;
-  let fixture: ComponentFixture<AcademicsCurriculumClassLevelsComponent>;
+describe('BreadcrumbComponent', () => {
+  let component: BreadcrumbComponent;
+  let fixture: ComponentFixture<BreadcrumbComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule ],
-      declarations: [ AcademicsCurriculumClassLevelsComponent, ViewItemsComponent, ChipsComponent, LoadingBubbleComponent ]
+      declarations: [ BreadcrumbComponent, BreadcrumbComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AcademicsCurriculumClassLevelsComponent);
+    fixture = TestBed.createComponent(BreadcrumbComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 
