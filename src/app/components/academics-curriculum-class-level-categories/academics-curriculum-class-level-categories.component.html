@@ -1,43 +1,9 @@
-<h1>Subjects/Unit Categories</h1>
-<a [routerLink]="createUnitCategoryCurriculum" type="button" mat-raised-button color="primary">New </a>
-
-<table class="table table-bordered table-dark">
-  <thead>
-    <tr>
-      <th scope="col">#</th>
-      <th scope="col">Name</th>
-      <th scope="col">Description</th>
-      <th scope="col">Active</th>
-      <th scope="col">Actions</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr>
-      <td colspan="5"> No DATA</td>
-    </tr>
-    <tr *ngFor="let category of unitCategories;let i = index">
-      
-      <th scope="row">{{ i + 1 }}</th>
-      <td>{{ category.name }}</td>
-      <td>{{ category.description }}</td>
-      <td>
-        {{ category.active }}</td>
-      <td>
-        <button [routerLink]="editUnitCategoryCurriculum(category.id)"
-          attr.aria-label="{{ 'Edit subject category ' + category.name }}" title="Edit" type="button">
-          <i class="icon-edit" color="primary">edit</i>
-        </button>
-        <button (click)="deleteSubjectCategory(category.id)"
-          attr.aria-label="{{ 'Delete subject category ' + category.name }}" title="Delete Item" type="button"
-          >
-          <i class="icon-delete" color="primary">edit</i>
-        </button>
-        <button [routerLink]="viewUnitCategoryCurriculum(category.id)"
-          attr.aria-label="{{ 'View subject category ' + category.name }}" title="View Item" type="button"
-          >
-          <i class="icon-eye" color="primary">edit</i>
-        </button>
-      </td>
-    </tr>
-  </tbody>
-</table>
+<app-view-items
+  title='Subjects/Unit Categories'
+  [newItemUrl]='createUnitCategoryCurriculum'
+  [editItemUrl]='editUnitCategoryCurriculum'
+  [viewItemUrl]='viewUnitCategoryCurriculum'
+  [deleteIemUrl]='deleteSubjectCategory'
+  [itemService]='subjectCategories'
+> 
+</app-view-items>

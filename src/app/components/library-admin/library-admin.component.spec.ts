@@ -8,7 +8,7 @@ describe('LibraryAdminComponent', () => {
   let fixture: ComponentFixture<LibraryAdminComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ LibraryAdminComponent ]

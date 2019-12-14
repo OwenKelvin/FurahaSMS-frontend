@@ -8,7 +8,7 @@ describe('AcademicsCurriculumClassLevelCategoriesComponent', () => {
   let fixture: ComponentFixture<AcademicsCurriculumClassLevelCategoriesComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ AcademicsCurriculumClassLevelCategoriesComponent ]

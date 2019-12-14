@@ -12,7 +12,7 @@ import { loadActivePagesSuccess } from 'src/app/store/actions/active-page.action
   styleUrls: ['./view-academic-year.component.css']
 })
 export class ViewAcademicYearComponent implements OnInit {
-  academicYearId$: Observable<Params>
+  academicYearId$: Observable<Params>;
   academicYear$: Observable<any>;
   viewAcademicYearRouter: (id: any) => string;
   createAcademicYearRouter: string;
@@ -33,9 +33,9 @@ export class ViewAcademicYearComponent implements OnInit {
         this.academicYear$ = this.academicYearService.get({ id: item.id, classLevels: 1 });
         this.store.dispatch(loadActivePagesSuccess({
           id: item.id
-        }))
+        }));
       }
-     
+
     });
   }
 }

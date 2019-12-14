@@ -8,7 +8,7 @@ describe('ViewAcademicYearInfoComponent', () => {
   let fixture: ComponentFixture<ViewAcademicYearInfoComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ ViewAcademicYearInfoComponent ]

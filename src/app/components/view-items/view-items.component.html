@@ -1,0 +1,54 @@
+<h1>{{ title }}</h1>
+<a [routerLink]="newItemUrl" type="button" class="btn btn-primary">
+  New
+  <span class='icon-plus-circled'></span>
+</a>
+
+<table class="table table-bordered table-dark">
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Description</th>
+      <th scope="col">Active</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf='(items$ | async) as items; else data_loading'>
+      <tr *ngFor="let item of items;let i = index">
+
+        <th scope="row">{{ i + 1 }}</th>
+        <td *ngIf='true'>{{ item.name }}</td>
+        <td>{{ item.description }}</td>
+        <td>
+          <app-chips [value]='item.active'></app-chips>
+        </td>
+        <td class='d-flex  justify-content-between flex-wrap'>
+          <button class='btn btn-primary' [routerLink]="editItemUrl(item.id)"
+            attr.aria-label="{{ 'Edit subject item ' + item.name }}" title="Edit" type="button">
+            <i class="icon-edit" color="primary">edit</i>
+          </button>
+          <button class='btn btn-danger' (click)="deleteIemUrl({id: item.id, name: item.name})"
+            attr.aria-label="{{ 'Delete subject item ' + item.name }}" title="Delete Item" type="button">
+            <i class="icon-trash-1" color="primary">delete</i>
+          </button>
+          <button class='btn btn-info' [routerLink]="viewItemUrl(item.id)"
+            attr.aria-label="{{ 'View subject item ' + item.name }}" title="View Item" type="button">
+            <i class="icon-eye" color="primary">view</i>
+          </button>
+        </td>
+      </tr>
+    </ng-container>
+
+    <ng-template #data_loading>
+      <tr>
+        <td colspan="5">
+          <app-loading-bubble></app-loading-bubble>
+        </td>
+      </tr>
+
+    </ng-template>
+
+  </tbody>
+</table>

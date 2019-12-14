@@ -18,11 +18,11 @@ export class DashboardLinksComponent implements OnInit {
   constructor(private store: Store<fromStore.AppState>, private linkService: LinkService) { }
 
   ngOnInit() {
-    let params = {} 
+    let params = {};
     if (this.params) {
       params = this.params.id;
     }
-    
+
     this.links$ = this.linkService.getLinks({ type: this.type, id: params });
     const item = [
       {
@@ -32,13 +32,13 @@ export class DashboardLinksComponent implements OnInit {
       }, {
         name: 'Academic Year', type: 'academics:academic-years'
       }, {
-        name: null, type: 'academic-year' 
+        name: null, type: 'academic-year'
       }
     ].filter(title => title.type === this.type)[0];
     if (item) {
       this.title = item.name;
     } else {
-      this.title = this.type.split(':').map(item => item.charAt(0).toUpperCase() + item.slice(1)).join(' ');
+      this.title = this.type.split(':').map(_string => _string.charAt(0).toUpperCase() + _string.slice(1)).join(' ');
     }
   }
 

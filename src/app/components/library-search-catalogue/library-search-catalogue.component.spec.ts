@@ -8,7 +8,7 @@ describe('LibrarySearchCatalogueComponent', () => {
   let fixture: ComponentFixture<LibrarySearchCatalogueComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ LibrarySearchCatalogueComponent ]

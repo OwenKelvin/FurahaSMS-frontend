@@ -8,7 +8,7 @@ describe('AcademicsCurriculumUnitsComponent', () => {
   let fixture: ComponentFixture<AcademicsCurriculumUnitsComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ AcademicsCurriculumUnitsComponent ]

@@ -9,6 +9,7 @@ import {
   VIEW_UNIT_CATEGORY_CURRICULUM
 } from 'src/app/helpers/links.helpers';
 import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-academics-curriculum-class-level-categories',
@@ -17,7 +18,7 @@ import { map } from 'rxjs/operators';
 })
 export class AcademicsCurriculumClassLevelCategoriesComponent implements OnInit {
 
-  unitCategories: UnitCategoryInterface[];
+  unitCategories$: Observable<UnitCategoryInterface[]>;
   createUnitCategoryCurriculum: string;
   editUnitCategoryCurriculum: any;
   viewUnitCategoryCurriculum: (id: string | number) => string;
@@ -33,22 +34,19 @@ export class AcademicsCurriculumClassLevelCategoriesComponent implements OnInit 
     this.getItems();
   }
   getItems(): void {
-    this.subjectCategories.getAll().pipe(map(res => {
+    this.unitCategories$ = this.subjectCategories.getAll().pipe(map(res => {
       if (!res) {
         res = [];
       }
       return res.map(item => {
         return { ...item, description: item.description ? item.description : 'No Description Available!' };
       });
-    })).subscribe(items => {
-      this.unitCategories = items;
-    });
+    }));
   }
-  deleteSubjectCategory(category): void {
-    const toBeDeleted = this.unitCategories.find(item => item.id === category);
-    const deletionConfirmed = confirm('Are you sure you wish to delete' + toBeDeleted.name);
+  deleteSubjectCategory({id, name}: {id: number, name?: string}): void {
+    const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
     if (deletionConfirmed) {
-      this.subjectCategories.deleteItem(toBeDeleted.id).subscribe(res => {
+      this.subjectCategories.deleteItem(id).subscribe(res => {
         this.getItems();
       });
     }

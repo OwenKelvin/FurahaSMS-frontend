@@ -1,26 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan.component';
+import { ViewItemsComponent } from './view-items.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 
-describe('AcademicYearFinancialPlanComponent', () => {
-  let component: AcademicYearFinancialPlanComponent;
-  let fixture: ComponentFixture<AcademicYearFinancialPlanComponent>;
-  let store: Store<any>;
+describe('ViewItemsComponent', () => {
+  let component: ViewItemsComponent;
+  let fixture: ComponentFixture<ViewItemsComponent>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
-      declarations: [ AcademicYearFinancialPlanComponent ]
+      declarations: [ ViewItemsComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AcademicYearFinancialPlanComponent);
+    fixture = TestBed.createComponent(ViewItemsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

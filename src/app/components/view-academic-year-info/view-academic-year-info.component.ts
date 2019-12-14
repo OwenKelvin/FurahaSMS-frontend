@@ -11,7 +11,7 @@ import { Observable } from 'rxjs';
 })
 export class ViewAcademicYearInfoComponent implements OnInit {
   @Input() params: { id: number };
-  id$: Observable<number>
+  id$: Observable<number>;
   constructor(private store: Store<fromStore.AppState>) { }
 
   ngOnInit() {

@@ -8,7 +8,7 @@ describe('LibraryMyAccountComponent', () => {
   let fixture: ComponentFixture<LibraryMyAccountComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ LibraryMyAccountComponent ]

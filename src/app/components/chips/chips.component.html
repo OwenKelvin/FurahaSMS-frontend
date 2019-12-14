@@ -1,0 +1,6 @@
+<div class="chipsContainer">
+  <div class="badge chips" [class.badge-secondary]='!value' [class.badge-success]='value'>
+    {{ labelValue }}
+    <i *ngIf='!labelOnly' class="icon-times" (click)="removeItem()"></i>
+  </div>
+</div>
