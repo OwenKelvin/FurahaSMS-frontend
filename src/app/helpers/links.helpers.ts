@@ -26,7 +26,7 @@ export const EDIT_CLASS_LEVEL_CATEGORY_CURRICULUM = (id: string | number) => {
 export const VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM = (id: string | number) => {
   return '/academics/curriculum/class-level-categories/view/' + id;
 };
-  
+
 export const CREATE_UNIT_CATEGORY_CURRICULUM =
   '/academics/curriculum/subject-categories/create';
 export const EDIT_UNIT_CATEGORY_CURRICULUM = (id: string | number) => {

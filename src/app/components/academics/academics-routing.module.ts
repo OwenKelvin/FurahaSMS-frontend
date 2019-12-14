@@ -31,74 +31,122 @@ const routes: Routes = [
     path: 'academics',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Academics'
+    },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: AcademicsComponent
+        component: AcademicsComponent,
+        data: {
+          breadcrumb: null
+        },
       },
       {
         path: 'academic-year',
+        data: {
+          breadcrumb: 'Academic Year'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AcademicYearComponent
+            component: AcademicYearComponent,
+            data: {
+              breadcrumb: null
+            },
           },
           {
             path: 'create',
             pathMatch: 'full',
-            component: CreateAcademicYearComponent
+            component: CreateAcademicYearComponent,
+            data: {
+              breadcrumb: 'New Academic Year'
+            },
           },
           {
             path: 'archives',
             pathMatch: 'full',
-            component: AcademicYearArchivesComponent
+            component: AcademicYearArchivesComponent,
+            data: {
+              breadcrumb: 'Academic Year Archives'
+            },
           },
           {
             // matcher: digitsMatcher,
             path: ':id',
             component: ViewAcademicYearComponent,
+            data: {
+              breadcrumb: null
+            },
             children: [
               {
                 path: '',
                 pathMatch: 'full',
-                component: ViewAcademicYearInfoComponent
+                component: ViewAcademicYearInfoComponent,
+                data: {
+                  breadcrumb: null
+                },
               },
               {
                 path: 'financial-plan',
-                component: AcademicYearFinancialPlanComponent
+                component: AcademicYearFinancialPlanComponent,
+                data: {
+                  breadcrumb: null
+                },
               },
               {
                 path: 'units',
-                component: AcademicYearSubjectUnitsComponent
+                component: AcademicYearSubjectUnitsComponent,
+                data: {
+                  breadcrumb: null
+                },
               }
             ]
           }
         ]
       }, {
         path: 'curriculum',
+        data: {
+          breadcrumb: 'Curriculum'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AcademicsCurriculumComponent
+            component: AcademicsCurriculumComponent,
+            data: {
+              breadcrumb: null
+            },
           },
           {
             path: 'unit-categories',
-            component: AcademicsCurriculumUnitCategoriesComponent
+            component: AcademicsCurriculumUnitCategoriesComponent,
+            data: {
+              breadcrumb: 'Unit Categories'
+            },
           },
           {
             path: 'units',
-            component: AcademicsCurriculumUnitsComponent
+            component: AcademicsCurriculumUnitsComponent,
+            data: {
+              breadcrumb: 'Units'
+            },
           },
           {
             path: 'class-level-categories',
-            component: AcademicsCurriculumClassLevelCategoriesComponent
+            component: AcademicsCurriculumClassLevelCategoriesComponent,
+            data: {
+              breadcrumb: 'Class Level Categories'
+            },
           },
           {
             path: 'class-levels',
-            component: AcademicsCurriculumClassLevelsComponent
+            component: AcademicsCurriculumClassLevelsComponent,
+            data: {
+              breadcrumb: 'Class Levels'
+            },
           },
         ]
       }

@@ -3,6 +3,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AcademicsCurriculumUnitCategoriesComponent } from './academics-curriculum-unit-categories.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { ViewItemsComponent } from '../view-items/view-items.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ChipsComponent } from '../chips/chips.component';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 
 describe('AcademicsCurriculumUnitCategoriesComponent', () => {
   let component: AcademicsCurriculumUnitCategoriesComponent;
@@ -11,8 +16,12 @@ describe('AcademicsCurriculumUnitCategoriesComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ AcademicsCurriculumUnitCategoriesComponent ]
+      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule ],
+      declarations: [
+        AcademicsCurriculumUnitCategoriesComponent,
+        ViewItemsComponent,
+        ChipsComponent,
+        LoadingBubbleComponent]
     });
 
     await TestBed.compileComponents();

@@ -9,14 +9,23 @@ const routes: Routes = [
   {
     path: '',
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'page-under-maintenance',
-        component: PageUnderMaintenanceComponent
+        component: PageUnderMaintenanceComponent,
+        data: {
+          breadcrumb: null
+        },
       },
       {
         path: '**',
-        component: PageNotFoundComponent
+        component: PageNotFoundComponent,
+        data: {
+          breadcrumb: null
+        },
       }
     ]
   }

@@ -17,6 +17,7 @@ import { MenuSearchComponent } from '../menu-search/menu-search.component';
 import { UserButtonComponent } from '../user-button/user-button.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
+import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -44,7 +45,8 @@ describe('LibraryComponent', () => {
         HeaderComponent,
         FooterComponent,
         MenuSearchComponent,
-        UserButtonComponent
+        UserButtonComponent,
+        BreadcrumbComponent
       ]
     });
 

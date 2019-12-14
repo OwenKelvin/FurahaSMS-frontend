@@ -1,0 +1,12 @@
+ol {
+  margin: 0;
+  font-size: 1em;
+  line-height: 1em;
+  padding-top: 0.3em;
+  padding-bottom: 0.5em;
+  border: 1px solid rgba(173, 216, 230, 0.637);
+  margin: 2px;
+}
+.active {
+  color: beige;
+}
