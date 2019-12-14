@@ -1,0 +1,12 @@
+<nav aria-label="breadcrumb" *ngIf='breadcrumbs.length'>
+  <ol class="breadcrumb bg-dark">
+    <li *ngFor="let breadcrumb of breadcrumbs.slice(0,breadcrumbs.length-1); let i = index" class="breadcrumb-item" >
+      <a routerLinkActive='active' [routerLink]='["/dashboard"]' *ngIf='breadcrumb.label === "Home"; else nonHomeLink'><span class='icon-home'></span></a>
+      <ng-template #nonHomeLink >
+        <a [routerLink]="[breadcrumb.url]" [queryParams]="breadcrumb.params"> {{ breadcrumb.label }} </a>
+      </ng-template>
+     
+    </li>
+    <li class="breadcrumb-item active" aria-current="page">{{ breadcrumbs[breadcrumbs.length-1].label }}</li>
+  </ol>
+</nav>

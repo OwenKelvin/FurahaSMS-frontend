@@ -16,43 +16,70 @@ const routes: Routes = [
     path: '',
     component: LayoutComponent,
     canActivate: [AuthGuard],
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'admissions',
+        data: {
+          breadcrumb: 'Admissions'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AdmissionsComponent
+            component: AdmissionsComponent,
+            data: {
+              breadcrumb: null
+            }
           },
           {
             path: 'students',
+            data: {
+              breadcrumb: 'Students'
+            },
             children: [
               {
                 path: '',
                 pathMatch: 'full',
                 component: StudentAdmissionComponent,
+                data: {
+                  breadcrumb: null
+                },
               },
               {
                 path: 'create',
                 component: CreateStudentComponent,
-                canDeactivate: [CanDeactivateGuard]
+                canDeactivate: [CanDeactivateGuard],
+                data: {
+                  breadcrumb: 'Create Student'
+                },
               },
               {
                 path: 'edit',
                 component: StudentAdmissionsEditComponent,
+                data: {
+                  breadcrumb: 'Edit Student'
+                },
               }
             ]
           },
           {
             path: 'staff/teachers',
             pathMatch: 'full',
-            component: TeachingStaffAdmissionComponent
+            component: TeachingStaffAdmissionComponent,
+            data: {
+              breadcrumb: 'Teaching Staff'
+            },
           },
           {
             path: 'staff/support',
             pathMatch: 'full',
-            component: SupportStaffAdmissionComponent
+            component: SupportStaffAdmissionComponent,
+            data: {
+              breadcrumb: 'Support Staff'
+            },
           }
         ]
       }

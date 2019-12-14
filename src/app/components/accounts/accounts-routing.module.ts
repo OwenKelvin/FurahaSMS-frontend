@@ -10,14 +10,23 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'accounts',
+        data: {
+          breadcrumb: 'Accounts'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AccountsComponent
+            component: AccountsComponent,
+            data: {
+              breadcrumb: null
+            },
           }
         ]
       }

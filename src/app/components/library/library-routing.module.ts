@@ -13,26 +13,44 @@ const routes: Routes = [
     path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
+    data: {
+      breadcrumb: 'Home'
+    },
     children: [
       {
         path: 'library',
+        data: {
+          breadcrumb: 'Library'
+        },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: LibraryComponent
+            component: LibraryComponent,
+            data: {
+              breadcrumb: null
+            },
           },
           {
             path: 'search-catalogue',
-            component: LibrarySearchCatalogueComponent
+            component: LibrarySearchCatalogueComponent,
+            data: {
+              breadcrumb: 'Search'
+            },
           },
           {
             path: 'my-account',
-            component: LibraryMyAccountComponent
+            component: LibraryMyAccountComponent,
+            data: {
+              breadcrumb: 'My Account'
+            },
           },
           {
             path: 'admin',
-            component: LibraryAdminComponent
+            component: LibraryAdminComponent,
+            data: {
+              breadcrumb: 'Admin'
+            },
           }
         ]
       }
