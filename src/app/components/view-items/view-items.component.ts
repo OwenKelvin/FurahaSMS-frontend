@@ -33,7 +33,7 @@ export class ViewItemsComponent implements OnInit {
       if (!res) {
         res = [];
       }
-      return res.map(item => {
+      return (res as Array<any>).map(item => {
         return { ...item, description: item.description ? item.description : 'No Description Available!' };
       });
     }));
