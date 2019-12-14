@@ -2,16 +2,20 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AcademicsCurriculumComponent } from './academics-curriculum.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { DashboardLinksComponent } from '../dashboard-links/dashboard-links.component';
+import { DashboardLinkComponent } from '../dashboard-link/dashboard-link.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AcademicsCurriculumComponent', () => {
   let component: AcademicsCurriculumComponent;
   let fixture: ComponentFixture<AcademicsCurriculumComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ AcademicsCurriculumComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
+      declarations: [ AcademicsCurriculumComponent, DashboardLinksComponent, DashboardLinkComponent ]
     });
 
     await TestBed.compileComponents();
@@ -20,7 +24,7 @@ describe('AcademicsCurriculumComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AcademicsCurriculumComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

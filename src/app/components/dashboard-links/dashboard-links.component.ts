@@ -38,7 +38,7 @@ export class DashboardLinksComponent implements OnInit {
     if (item) {
       this.title = item.name;
     } else {
-      this.title = this.type.split(':').map(_string => _string.charAt(0).toUpperCase() + _string.slice(1)).join(' ');
+      this.title = this.type.split(':').map(subString => subString.charAt(0).toUpperCase() + subString.slice(1)).join(' ');
     }
   }
 

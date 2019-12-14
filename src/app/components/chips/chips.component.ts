@@ -9,7 +9,7 @@ export class ChipsComponent implements OnInit {
   @Input() labelOnly: boolean;
   @Input() successLabel: string;
   @Input() failureLabel: string;
-  @Output() close: EventEmitter<any>;
+  @Output() remove: EventEmitter<any>;
   @Input() value: boolean;
   constructor() { }
 
@@ -18,12 +18,12 @@ export class ChipsComponent implements OnInit {
   get labelValue() {
     // TODO-me change label for success and failure
     if (this.value) {
-      return 'Active'
+      return 'Active';
     }
     return 'Inactive';
   }
   removeItem() {
-    this.close.emit(true);
+    this.remove.emit(true);
   }
 
 }

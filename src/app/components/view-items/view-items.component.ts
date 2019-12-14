@@ -14,7 +14,6 @@ export class ViewItemsComponent implements OnInit {
   @Input() newItemUrl: string;
   @Input() editItemUrl: any;
   @Input() viewItemUrl: any;
-  @Input() deleteIemUrl: any;
   @Input() itemService: any;
 
   items$: Observable<any[]>;
@@ -38,7 +37,7 @@ export class ViewItemsComponent implements OnInit {
       });
     }));
   }
-  deleteSubjectCategory({ id, name }: { id: number, name?: string }): void {
+  deleteItem({ id, name }: { id: number, name?: string }): void {
     const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
     if (deletionConfirmed) {
       this.itemService.deleteItem(id).subscribe(res => {

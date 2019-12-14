@@ -21,6 +21,7 @@ export class AcademicsCurriculumClassLevelCategoriesComponent implements OnInit 
   unitCategories$: Observable<UnitCategoryInterface[]>;
   createUnitCategoryCurriculum: string;
   editUnitCategoryCurriculum: any;
+  categories: any;
   viewUnitCategoryCurriculum: (id: string | number) => string;
   constructor(
     private store: Store<AppState>,
@@ -31,25 +32,7 @@ export class AcademicsCurriculumClassLevelCategoriesComponent implements OnInit 
     this.createUnitCategoryCurriculum = CREATE_UNIT_CATEGORY_CURRICULUM;
     this.editUnitCategoryCurriculum = EDIT_UNIT_CATEGORY_CURRICULUM;
     this.viewUnitCategoryCurriculum = VIEW_UNIT_CATEGORY_CURRICULUM;
-    this.getItems();
-  }
-  getItems(): void {
-    this.unitCategories$ = this.subjectCategories.getAll().pipe(map(res => {
-      if (!res) {
-        res = [];
-      }
-      return res.map(item => {
-        return { ...item, description: item.description ? item.description : 'No Description Available!' };
-      });
-    }));
-  }
-  deleteSubjectCategory({id, name}: {id: number, name?: string}): void {
-    const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
-    if (deletionConfirmed) {
-      this.subjectCategories.deleteItem(id).subscribe(res => {
-        this.getItems();
-      });
-    }
+    this.categories = this.subjectCategories;
   }
 
 }

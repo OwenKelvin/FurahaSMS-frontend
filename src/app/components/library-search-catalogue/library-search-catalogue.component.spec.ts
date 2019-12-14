@@ -2,11 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LibrarySearchCatalogueComponent } from './library-search-catalogue.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 
 describe('LibrarySearchCatalogueComponent', () => {
   let component: LibrarySearchCatalogueComponent;
   let fixture: ComponentFixture<LibrarySearchCatalogueComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -20,7 +21,7 @@ describe('LibrarySearchCatalogueComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(LibrarySearchCatalogueComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

@@ -3,6 +3,10 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewItemsComponent } from './view-items.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ChipsComponent } from '../chips/chips.component';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { of } from 'rxjs';
 
 describe('ViewItemsComponent', () => {
   let component: ViewItemsComponent;
@@ -11,8 +15,8 @@ describe('ViewItemsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ ViewItemsComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
+      declarations: [ ViewItemsComponent, ChipsComponent, LoadingBubbleComponent ]
     });
 
     await TestBed.compileComponents();
@@ -21,6 +25,10 @@ describe('ViewItemsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewItemsComponent);
     component = fixture.componentInstance;
+    component.itemService = { getAll: () => of([{id: 1}]) };
+    component.viewItemUrl = () => { };
+    component.viewItemUrl = () => { };
+    component.editItemUrl = () => { };
     store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();

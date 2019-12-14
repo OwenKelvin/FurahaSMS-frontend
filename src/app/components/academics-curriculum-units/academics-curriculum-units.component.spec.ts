@@ -2,11 +2,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 
 describe('AcademicsCurriculumUnitsComponent', () => {
   let component: AcademicsCurriculumUnitsComponent;
   let fixture: ComponentFixture<AcademicsCurriculumUnitsComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -20,7 +21,7 @@ describe('AcademicsCurriculumUnitsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AcademicsCurriculumUnitsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
