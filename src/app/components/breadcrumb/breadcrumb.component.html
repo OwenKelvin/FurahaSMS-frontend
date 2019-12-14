@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-dark" *ngIf='breadcrumbs.length; else dashboard'>
     <li class="breadcrumb-item">
-      <a routerLinkActive='active' [routerLink]='["/dashboard"]'><span class='icon-home'></span></a>
+      <a aria-label='Home' routerLinkActive='active' [routerLink]='["/dashboard"]'><span class='icon-home'></span></a>
     </li>
     <li *ngFor="let breadcrumb of breadcrumbs.slice(0,breadcrumbs.length-1); let i = index" class="breadcrumb-item" >
       <a routerLinkActive='active' [routerLink]='["/dashboard"]' *ngIf='breadcrumb.label === "Home"; else nonHomeLink'><span class='icon-home'></span></a>
