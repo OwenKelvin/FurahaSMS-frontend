@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class LinkService {
 
   constructor() { }
-  getLinks(type): Observable<LinkInterface[]> {
+  getLinks({ type, id }): Observable<LinkInterface[]> {
     switch (type) {
       case 'academics':
         return this.getAcademicsLinks();
@@ -17,11 +17,58 @@ export class LinkService {
         return this.getAdmissionsLinks();
       case 'admissions:students':
         return this.getStudentAdmissionsLinks();
-      case 'academics:academic-year':
-        return this.getAcademicYearLinks();
+      case 'academics:academic-years':
+        return this.getAcademicYearsLinks();
+      case 'academic-year':
+        return this.getAcademicYearLinks(id);
+      case 'library':
+        return this.getLibraryLinks();
+      case 'academics:curriculum':
+        return this.getAcademicCurriculumLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  getAcademicCurriculumLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Subject Categories',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/unit-categories'
+      },
+      {
+        name: 'Subject Units',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/units'
+      },
+      {
+        name: 'Class Level Categories',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/class-level-categories'
+      },
+      {
+        name: 'Class Levels',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/class-levels'
+      },
+    ]);
+  }
+  getLibraryLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Search Catalogue',
+        icon: 'icon-search',
+        link: 'library/search-catalogue'
+      }, {
+        name: 'My Account',
+        icon: 'icon-user-circle-o',
+        link: 'library/my-account'
+      }, {
+        name: 'Admin',
+        icon: 'icon-user-secret',
+        link: 'library/admin'
+      }
+    ]);
   }
   getAdmissionsLinks(): Observable<LinkInterface[]> {
     return of([
@@ -111,10 +158,15 @@ export class LinkService {
         name: 'Academic Year',
         icon: 'icon-user-plus',
         link: 'academics/academic-year'
+      },
+      {
+        name: 'Curriculum',
+        icon: 'icon-book',
+        link: 'academics/curriculum'
       }
     ]);
   }
-  getAcademicYearLinks(): Observable<LinkInterface[]> {
+  getAcademicYearsLinks(): Observable<LinkInterface[]> {
     return of([
       {
         name: 'Create New',
@@ -128,15 +180,30 @@ export class LinkService {
       },
     ]);
   }
+  getAcademicYearLinks($id): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Financial Plan',
+        icon: 'icon-dollar',
+        link: `academics/academic-year/${$id}/financial-plan`
+      },
+      {
+        name: 'Subjects/ Units',
+        icon: 'icon-user-plus',
+        link: `academics/academic-year/${$id}/units`
+      },
+    ]);
+  }
   getAllLinks(): Observable<LinkInterface[]> {
     // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
     // return $forkJoined;
     return zip(
       this.getAdmissionsLinks(),
       this.getDashboardLinks(),
-      this.getAcademicYearLinks(),
+      this.getAcademicYearsLinks(),
       this.getAdmissionsLinks(),
-      this.getAcademicsLinks()
+      this.getAcademicsLinks(),
+      this.getLibraryLinks()
     )
       .pipe(map(x => x[0].concat(x[1])));
   }

@@ -11,6 +11,7 @@ import * as fromToast from './toast.reducer';
 import * as fromMenuToggle from './menu-toggle.reducer';
 import * as fromStudentProfileUpdate from './student-profile-update.reducer';
 import * as fromErrorMessage from './error-message.reducer';
+import * as fromActivePage from './active-page.reducer';
 
 
 export interface AppState {
@@ -19,6 +20,8 @@ export interface AppState {
   [fromMenuToggle.menuToggleFeatureKey]: fromMenuToggle.MenuStateInterface;
   [fromStudentProfileUpdate.studentProfileUpdateFeatureKey]: fromStudentProfileUpdate.StudentProfileStateInterface;
   [fromErrorMessage.errorMessageFeatureKey]: fromErrorMessage.ErrorMessageStateInterface;
+  [fromActivePage.activePageFeatureKey]: fromActivePage.ActivePageStateInterface;
+
 
 
 }
@@ -31,6 +34,8 @@ export const reducers: ActionReducerMap<AppState> = {
   [fromStudentProfileUpdate.studentProfileUpdateFeatureKey]: fromStudentProfileUpdate.reducer,
 
   [fromErrorMessage.errorMessageFeatureKey]: fromErrorMessage.reducer,
+
+  [fromActivePage.activePageFeatureKey]: fromActivePage.reducer,
 };
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('Registered Reducers');

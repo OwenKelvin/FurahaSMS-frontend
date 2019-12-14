@@ -1,0 +1,15 @@
+
+.chips{
+  border-radius: 15px !important;
+  font-size: 20px;
+  width: auto;
+}
+
+.chipsContainer{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.pointer{
+  cursor: pointer;
+}
