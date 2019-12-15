@@ -54,7 +54,6 @@ export class CreateUnitCategoriesComponent implements OnInit {
         });
       }
     }
-    console.log(this.newUnitCategoryForm);
   }
   generateForm(
     { id = null, active = true, name = '', description = '' }: UnitCategoryInterface = {
@@ -76,9 +75,6 @@ export class CreateUnitCategoriesComponent implements OnInit {
     return this.newUnitCategoryForm.get('units') as FormArray;
   }
   updateForm($event: FormGroup, i) {
-    // console.log($event.value)
-    // console.log(this.units.controls[i].value)
-    console.log(this.newUnitCategoryForm);
     this.units.controls[i].setValue($event.value);
 
 

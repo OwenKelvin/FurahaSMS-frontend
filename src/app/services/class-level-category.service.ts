@@ -54,4 +54,7 @@ export class ClassLevelCategoryService {
       })
     );
   }
+  deleteItem(id: number): Observable<any> {
+    return this.delete(id);
+  }
 }

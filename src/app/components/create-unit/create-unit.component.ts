@@ -35,6 +35,7 @@ export class CreateUnitComponent implements OnInit {
   unitCategorySelected: any;
   formId: any;
   @Input() category: number;
+  @Input() idIndex: number;
   @Input() submitButton = true;
   @Input() inputValue;
   @Input() hasCategories = true;
