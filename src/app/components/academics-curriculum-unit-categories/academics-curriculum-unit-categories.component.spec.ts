@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChipsComponent } from '../chips/chips.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { ErrorComponent } from '../error/error.component';
 
 describe('AcademicsCurriculumUnitCategoriesComponent', () => {
   let component: AcademicsCurriculumUnitCategoriesComponent;
@@ -21,7 +22,9 @@ describe('AcademicsCurriculumUnitCategoriesComponent', () => {
         AcademicsCurriculumUnitCategoriesComponent,
         ViewItemsComponent,
         ChipsComponent,
-        LoadingBubbleComponent]
+        LoadingBubbleComponent,
+        ErrorComponent
+      ]
     });
 
     await TestBed.compileComponents();

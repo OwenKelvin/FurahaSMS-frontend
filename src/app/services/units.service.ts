@@ -101,7 +101,7 @@ export class UnitsService {
     );
   }
   deleteItem(id): Observable<any> {
-    const url = 'api/curriculum/units/${id}';
+    const url = `api/curriculum/units/${id}`;
     return this.http.delete<any>(url).pipe(
       map(
         res => {
