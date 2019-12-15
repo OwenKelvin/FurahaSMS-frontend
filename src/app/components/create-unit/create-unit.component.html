@@ -9,7 +9,7 @@
           labelClass='col-md-12 col-lg-5'
           inputClass='col-md-12 col-lg-7'
           label='Name'
-          id="name"
+          [id]='"name" + (idIndex !== undefined ? idIndex: "")'
           type="text"
           placeholder="Name"
           formControlName="name" ></app-input>
@@ -23,13 +23,17 @@
           labelClass='col-md-12 col-lg-5'
           inputClass='col-md-12 col-lg-7'
           label='Subject/Unit abbreviation'
-          id="name-abbr" type="text"
+          [id]='"name-abbr" + (idIndex !== undefined ? idIndex: "")' type="text"
           placeholder="Subject/Unit Abbreviation" 
           formControlName="abbr" ></app-input>
       </section>
       <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
         <div class="custom-control custom-switch">
-          <input type="checkbox" class="custom-control-input" id="active" formControlName="active">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            [id]='"active" + (idIndex !== undefined ? idIndex: "")'
+            formControlName="active">
           <label class="custom-control-label" for="active">Subject Is Active</label>
         </div>
       </section>
