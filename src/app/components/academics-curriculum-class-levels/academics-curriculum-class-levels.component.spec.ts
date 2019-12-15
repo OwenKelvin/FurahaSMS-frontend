@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChipsComponent } from '../chips/chips.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { ErrorComponent } from '../error/error.component';
 
 describe('AcademicsCurriculumClassLevelsComponent', () => {
   let component: AcademicsCurriculumClassLevelsComponent;
@@ -17,7 +18,14 @@ describe('AcademicsCurriculumClassLevelsComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule ],
-      declarations: [ AcademicsCurriculumClassLevelsComponent, ViewItemsComponent, ChipsComponent, LoadingBubbleComponent ]
+      declarations: [
+        AcademicsCurriculumClassLevelsComponent,
+        ViewItemsComponent,
+        ChipsComponent,
+        LoadingBubbleComponent,
+        AcademicsCurriculumClassLevelsComponent,
+        ErrorComponent
+      ]
     });
 
     await TestBed.compileComponents();

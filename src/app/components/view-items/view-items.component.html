@@ -3,7 +3,7 @@
   New
   <span class='icon-plus-circled'></span>
 </a>
-
+<app-error></app-error>
 <table class="table table-bordered table-dark">
   <thead>
     <tr>
@@ -29,9 +29,9 @@
             attr.aria-label="{{ 'Edit subject item ' + item.name }}" title="Edit" type="button">
             <i class="icon-edit" color="primary">edit</i>
           </button>
-          <button class='btn btn-danger' (click)="deleteItem({id: item.id, name: item.name})"
+          <button [disabled]='deleting[i]' class='btn btn-danger' (click)="deleteItem({id: item.id, name: item.name, index: i})"
             attr.aria-label="{{ 'Delete subject item ' + item.name }}" title="Delete Item" type="button">
-            <i class="icon-trash-1" color="primary">delete</i>
+            <i class="icon-trash-1" [class.animate-spin]='deleting[i]' color="primary"></i>delete
           </button>
           <button class='btn btn-info' [routerLink]="viewItemUrl(item.id)"
             attr.aria-label="{{ 'View subject item ' + item.name }}" title="View Item" type="button">

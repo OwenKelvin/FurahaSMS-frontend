@@ -38,6 +38,8 @@ export class CreateUnitComponent implements OnInit {
   @Input() submitButton = true;
   @Input() inputValue;
   @Input() hasCategories = true;
+  @Output() valueChange: EventEmitter<any> = new EventEmitter();
+  @Input() hideSubmit: boolean;
   triggerValidation: boolean;
   isSubmitting: boolean;
   constructor(
@@ -61,7 +63,9 @@ export class CreateUnitComponent implements OnInit {
       active: [true],
       unitCategory: [null, Validators.required]
     });
-
+    this.unitForm.valueChanges.subscribe(item => {
+      this.valueChange.emit(this.unitForm);
+    });
   }
 
   submit() {
