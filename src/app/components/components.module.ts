@@ -94,6 +94,7 @@ import { EditClassLevelCategoryComponent } from './edit-class-level-category/edi
 import { EditClassLevelComponent } from './edit-class-level/edit-class-level.component';
 import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
 import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
+import { SelectComponent } from './select/select.component';
 
 
 @NgModule({
@@ -169,6 +170,7 @@ import { CreateClassLevelComponent } from './create-class-level/create-class-lev
     EditClassLevelComponent,
     ViewClassLevelComponent,
     CreateClassLevelComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,

@@ -32,7 +32,6 @@ export class AcademicsCurriculumClassLevelCategoriesComponent implements OnInit 
     this.createClassLevelCategoryCurriculum = CREATE_CLASS_LEVEL_CATEGORY_CURRICULUM;
     this.editClassLevelCategoryCurriculum = EDIT_CLASS_LEVEL_CATEGORY_CURRICULUM;
     this.viewClassLevelCategoryCurriculum = VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM;
-    console.log(this.classLevelCategories);
     this.categories = this.classLevelCategories;
 
   }
