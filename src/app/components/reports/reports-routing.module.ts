@@ -7,30 +7,23 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: '',
+    path: 'reports',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     data: {
-      breadcrumb: 'Home'
+      breadcrumb: 'Reports'
     },
     children: [
       {
-        path: 'reports',
+        path: '',
+        pathMatch: 'full',
+        component: ReportsComponent,
         data: {
-          breadcrumb: 'Reports'
+          breadcrumb: null
         },
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: ReportsComponent,
-            data: {
-              breadcrumb: null
-            },
-          }
-        ]
       }
     ]
+
   }
 ];
 

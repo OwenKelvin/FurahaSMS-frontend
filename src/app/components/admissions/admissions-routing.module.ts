@@ -13,77 +13,71 @@ import { StudentAdmissionsEditComponent } from '../student-admissions-edit/stude
 
 const routes: Routes = [
   {
-    path: '',
+
+    path: 'admissions',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     data: {
-      breadcrumb: 'Home'
+      breadcrumb: 'Admissions'
     },
     children: [
       {
-        path: 'admissions',
+        path: '',
+        pathMatch: 'full',
+        component: AdmissionsComponent,
         data: {
-          breadcrumb: 'Admissions'
+          breadcrumb: null
+        }
+      },
+      {
+        path: 'students',
+        data: {
+          breadcrumb: 'Students'
         },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AdmissionsComponent,
+            component: StudentAdmissionComponent,
             data: {
               breadcrumb: null
-            }
-          },
-          {
-            path: 'students',
-            data: {
-              breadcrumb: 'Students'
-            },
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                component: StudentAdmissionComponent,
-                data: {
-                  breadcrumb: null
-                },
-              },
-              {
-                path: 'create',
-                component: CreateStudentComponent,
-                canDeactivate: [CanDeactivateGuard],
-                data: {
-                  breadcrumb: 'Create Student'
-                },
-              },
-              {
-                path: 'edit',
-                component: StudentAdmissionsEditComponent,
-                data: {
-                  breadcrumb: 'Edit Student'
-                },
-              }
-            ]
-          },
-          {
-            path: 'staff/teachers',
-            pathMatch: 'full',
-            component: TeachingStaffAdmissionComponent,
-            data: {
-              breadcrumb: 'Teaching Staff'
             },
           },
           {
-            path: 'staff/support',
-            pathMatch: 'full',
-            component: SupportStaffAdmissionComponent,
+            path: 'create',
+            component: CreateStudentComponent,
+            canDeactivate: [CanDeactivateGuard],
             data: {
-              breadcrumb: 'Support Staff'
+              breadcrumb: 'Create Student'
+            },
+          },
+          {
+            path: 'edit',
+            component: StudentAdmissionsEditComponent,
+            data: {
+              breadcrumb: 'Edit Student'
             },
           }
         ]
+      },
+      {
+        path: 'staff/teachers',
+        pathMatch: 'full',
+        component: TeachingStaffAdmissionComponent,
+        data: {
+          breadcrumb: 'Teaching Staff'
+        },
+      },
+      {
+        path: 'staff/support',
+        pathMatch: 'full',
+        component: SupportStaffAdmissionComponent,
+        data: {
+          breadcrumb: 'Support Staff'
+        },
       }
     ]
+
   }
 ];
 

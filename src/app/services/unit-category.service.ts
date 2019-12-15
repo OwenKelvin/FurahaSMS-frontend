@@ -7,7 +7,7 @@ import { UnitCategoryInterface } from '../interfaces/unit-category.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectCategoryService {
+export class UnitCategoryService {
 
   constructor(
     private http: HttpClient,

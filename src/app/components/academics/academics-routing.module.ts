@@ -24,6 +24,18 @@ import {
 import {
   AcademicsCurriculumClassLevelsComponent
 } from '../academics-curriculum-class-levels/academics-curriculum-class-levels.component';
+import { CreateUnitCategoriesComponent } from '../create-unit-categories/create-unit-categories.component';
+import { ViewUnitCategoryComponent } from '../view-unit-category/view-unit-category.component';
+import { EditUnitCategoryComponent } from '../edit-unit-category/edit-unit-category.component';
+import { CreateUnitComponent } from '../create-unit/create-unit.component';
+import { ViewUnitComponent } from '../view-unit/view-unit.component';
+import { EditUnitComponent } from '../edit-unit/edit-unit.component';
+import { CreateClassLevelCategoryComponent } from '../create-class-level-category/create-class-level-category.component';
+import { ViewClassLevelCategoryComponent } from '../view-class-level-category/view-class-level-category.component';
+import { EditClassLevelCategoryComponent } from '../edit-class-level-category/edit-class-level-category.component';
+import { CreateClassLevelComponent } from '../create-class-level/create-class-level.component';
+import { ViewClassLevelComponent } from '../view-class-level/view-class-level.component';
+import { EditClassLevelComponent } from '../edit-class-level/edit-class-level.component';
 
 
 const routes: Routes = [
@@ -122,31 +134,193 @@ const routes: Routes = [
           },
           {
             path: 'unit-categories',
-            component: AcademicsCurriculumUnitCategoriesComponent,
             data: {
               breadcrumb: 'Unit Categories'
             },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: AcademicsCurriculumUnitCategoriesComponent,
+                data: {
+                  breadcrumb: null
+                }
+              },
+              {
+                path: 'create',
+                component: CreateUnitCategoriesComponent
+              },
+              {
+                path: ':id',
+                data: {
+                  breadcrumb: null
+                },
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'view'
+                  },
+                  {
+                    path: 'view',
+                    component: ViewUnitCategoryComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  },
+                  {
+                    path: 'edit',
+                    component: EditUnitCategoryComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  }
+                ]
+              }
+            ]
           },
           {
             path: 'units',
-            component: AcademicsCurriculumUnitsComponent,
+
             data: {
               breadcrumb: 'Units'
             },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: AcademicsCurriculumUnitsComponent,
+                data: {
+                  breadcrumb: null
+                }
+              },
+              {
+                path: 'create',
+                component: CreateUnitComponent
+              },
+              {
+                path: ':id',
+                data: {
+                  breadcrumb: null
+                },
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'view'
+                  },
+                  {
+                    path: 'view',
+                    component: ViewUnitComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  },
+                  {
+                    path: 'edit',
+                    component: EditUnitComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  }
+                ]
+              }
+            ]
+
           },
           {
             path: 'class-level-categories',
-            component: AcademicsCurriculumClassLevelCategoriesComponent,
             data: {
               breadcrumb: 'Class Level Categories'
             },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: AcademicsCurriculumClassLevelCategoriesComponent,
+                data: {
+                  breadcrumb: null
+                }
+              },
+              {
+                path: 'create',
+                component: CreateClassLevelCategoryComponent
+              },
+              {
+                path: ':id',
+                data: {
+                  breadcrumb: null
+                },
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'view'
+                  },
+                  {
+                    path: 'view',
+                    component: ViewClassLevelCategoryComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  },
+                  {
+                    path: 'edit',
+                    component: EditClassLevelCategoryComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  }
+                ]
+              }
+            ]
           },
           {
             path: 'class-levels',
-            component: AcademicsCurriculumClassLevelsComponent,
             data: {
               breadcrumb: 'Class Levels'
             },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: AcademicsCurriculumClassLevelsComponent,
+                data: {
+                  breadcrumb: null
+                }
+              },
+              {
+                path: 'create',
+                component: CreateClassLevelComponent
+              },
+              {
+                path: ':id',
+                data: {
+                  breadcrumb: null
+                },
+                children: [
+                  {
+                    path: '',
+                    pathMatch: 'full',
+                    redirectTo: 'view'
+                  },
+                  {
+                    path: 'view',
+                    component: ViewClassLevelComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  },
+                  {
+                    path: 'edit',
+                    component: EditClassLevelComponent,
+                    data: {
+                      breadcrumb: null
+                    },
+                  }
+                ]
+              }
+            ]
           },
         ]
       }

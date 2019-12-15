@@ -10,49 +10,42 @@ import { LibraryAdminComponent } from '../library-admin/library-admin.component'
 
 const routes: Routes = [
   {
-    path: '',
+
+    path: 'library',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     data: {
-      breadcrumb: 'Home'
+      breadcrumb: 'Library'
     },
     children: [
       {
-        path: 'library',
+        path: '',
+        pathMatch: 'full',
+        component: LibraryComponent,
         data: {
-          breadcrumb: 'Library'
+          breadcrumb: null
         },
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: LibraryComponent,
-            data: {
-              breadcrumb: null
-            },
-          },
-          {
-            path: 'search-catalogue',
-            component: LibrarySearchCatalogueComponent,
-            data: {
-              breadcrumb: 'Search'
-            },
-          },
-          {
-            path: 'my-account',
-            component: LibraryMyAccountComponent,
-            data: {
-              breadcrumb: 'My Account'
-            },
-          },
-          {
-            path: 'admin',
-            component: LibraryAdminComponent,
-            data: {
-              breadcrumb: 'Admin'
-            },
-          }
-        ]
+      },
+      {
+        path: 'search-catalogue',
+        component: LibrarySearchCatalogueComponent,
+        data: {
+          breadcrumb: 'Search'
+        },
+      },
+      {
+        path: 'my-account',
+        component: LibraryMyAccountComponent,
+        data: {
+          breadcrumb: 'My Account'
+        },
+      },
+      {
+        path: 'admin',
+        component: LibraryAdminComponent,
+        data: {
+          breadcrumb: 'Admin'
+        },
       }
     ]
   }

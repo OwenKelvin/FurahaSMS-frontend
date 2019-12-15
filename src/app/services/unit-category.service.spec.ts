@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 
-import { SubjectCategoryService } from './subject-category.service';
+import { UnitCategoryService } from './unit-category.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SubjectCategoryService', () => {
@@ -11,7 +11,7 @@ describe('SubjectCategoryService', () => {
   );
 
   it('should be created', () => {
-    const service: SubjectCategoryService = TestBed.get(SubjectCategoryService);
+    const service: UnitCategoryService = TestBed.get(UnitCategoryService);
     expect(service).toBeTruthy();
   });
 });
