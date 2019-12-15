@@ -82,6 +82,19 @@ import {
 import { ViewItemsComponent } from './view-items/view-items.component';
 import { ChipsComponent } from './chips/chips.component';
 import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { CreateUnitCategoriesComponent } from './create-unit-categories/create-unit-categories.component';
+import { EditUnitCategoryComponent } from './edit-unit-category/edit-unit-category.component';
+import { ViewUnitCategoryComponent } from './view-unit-category/view-unit-category.component';
+import { ViewUnitComponent } from './view-unit/view-unit.component';
+import { EditUnitComponent } from './edit-unit/edit-unit.component';
+import { CreateUnitComponent } from './create-unit/create-unit.component';
+import { CreateClassLevelCategoryComponent } from './create-class-level-category/create-class-level-category.component';
+import { ViewClassLevelCategoryComponent } from './view-class-level-category/view-class-level-category.component';
+import { EditClassLevelCategoryComponent } from './edit-class-level-category/edit-class-level-category.component';
+import { EditClassLevelComponent } from './edit-class-level/edit-class-level.component';
+import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
+import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
+import { SelectComponent } from './select/select.component';
 
 
 @NgModule({
@@ -145,6 +158,19 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
     ViewItemsComponent,
     ChipsComponent,
     BreadcrumbComponent,
+    CreateUnitCategoriesComponent,
+    EditUnitCategoryComponent,
+    ViewUnitCategoryComponent,
+    ViewUnitComponent,
+    EditUnitComponent,
+    CreateUnitComponent,
+    CreateClassLevelCategoryComponent,
+    ViewClassLevelCategoryComponent,
+    EditClassLevelCategoryComponent,
+    EditClassLevelComponent,
+    ViewClassLevelComponent,
+    CreateClassLevelComponent,
+    SelectComponent,
   ],
   imports: [
     CommonModule,

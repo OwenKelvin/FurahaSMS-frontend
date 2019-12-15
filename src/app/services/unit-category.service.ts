@@ -7,7 +7,7 @@ import { UnitCategoryInterface } from '../interfaces/unit-category.interface';
 @Injectable({
   providedIn: 'root'
 })
-export class SubjectCategoryService {
+export class UnitCategoryService {
 
   constructor(
     private http: HttpClient,
@@ -32,9 +32,22 @@ export class SubjectCategoryService {
     })) as Observable<UnitCategoryInterface[]>;
   }
   deleteItem(id): Observable<any> {
-    const url = 'api/curriculum/unit-categories/${id}';
+    const url = `api/curriculum/unit-categories/${id}`;
     return this.http.delete<any>(url).pipe(map(res => {
       return res;
     }));
+  }
+  submit(data: any): Observable<any> {
+    let url = 'api/curriculum/unit-categories';
+    if (data.id) {
+      url += '/' + data.id;
+      return this.http.patch<any>(url, data).pipe(map(res => {
+        return res;
+      }));
+    } else {
+      return this.http.post<any>(url, data).pipe(map(res => {
+        return res;
+      }));
+    }
   }
 }

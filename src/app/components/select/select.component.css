@@ -1,0 +1,45 @@
+@media (max-width: 400px) {
+  .input-group-prepend {
+  	display: none;
+  }
+}
+.is-invalid {
+	margin-bottom: 15px;
+}
+.invalid-feedback-message {
+	padding: 5px;
+	line-height: 80%;
+	font-size: 80%;
+	background: red;
+	right: 4%;
+	margin-top: 40px;
+	border-radius: 4px;
+}
+.arrow-up {
+  width: 0; 
+  height: 0; 
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  
+  border-bottom: 7px solid red;
+  position: absolute;
+  margin-top: -12px;
+  margin-left: 20px;
+}
+@media (max-width: 768px) {
+	.invalid-feedback-message {
+		margin-top: 72px;
+	}
+}
+.required {
+	font-size: 0.5em;
+	position: absolute;
+	left: 5px; top: 5px;
+	color: greenyellow;
+}
+.required-inVisible {
+	display: none;
+}
+label {
+  margin-left: -15px;
+}

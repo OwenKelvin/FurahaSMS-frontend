@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ChipsComponent } from '../chips/chips.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 import { of } from 'rxjs';
+import { ErrorComponent } from '../error/error.component';
 
 describe('ViewItemsComponent', () => {
   let component: ViewItemsComponent;
@@ -16,7 +17,7 @@ describe('ViewItemsComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ ViewItemsComponent, ChipsComponent, LoadingBubbleComponent ]
+      declarations: [ ViewItemsComponent, ChipsComponent, LoadingBubbleComponent, ErrorComponent ]
     });
 
     await TestBed.compileComponents();

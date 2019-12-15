@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
 import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interface';
-import { SubjectCategoryService } from 'src/app/services/subject-category.service';
+import { UnitCategoryService } from 'src/app/services/unit-category.service';
 import {
   CREATE_UNIT_CATEGORY_CURRICULUM,
   EDIT_UNIT_CATEGORY_CURRICULUM,
@@ -24,7 +24,7 @@ export class AcademicsCurriculumUnitCategoriesComponent implements OnInit {
   viewUnitCategoryCurriculum: (id: string | number) => string;
   constructor(
     private store: Store<AppState>,
-    private subjectCategories: SubjectCategoryService
+    private subjectCategories: UnitCategoryService
   ) { }
 
   ngOnInit() {
