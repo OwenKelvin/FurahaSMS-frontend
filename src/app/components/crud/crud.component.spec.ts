@@ -1,44 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateClassLevelComponent } from './create-class-level.component';
+import { CrudComponent } from './crud.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { CrudComponent } from '../crud/crud.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ErrorComponent } from '../error/error.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../input/input.component';
 import { SelectComponent } from '../select/select.component';
+import { ErrorComponent } from '../error/error.component';
 
-describe('CreateClassLevelComponent', () => {
-  let component: CreateClassLevelComponent;
-  let fixture: ComponentFixture<CreateClassLevelComponent>;
+describe('CrudComponent', () => {
+  let component: CrudComponent;
+  let fixture: ComponentFixture<CrudComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({}),
-        RouterTestingModule,
-        HttpClientTestingModule,
+      imports: [StoreModule.forRoot({}),
         FormsModule,
-        ReactiveFormsModule
-      ],
-      declarations: [
-        CreateClassLevelComponent,
-        CrudComponent,
-        ErrorComponent,
-        InputComponent,
-        SelectComponent
-      ]
+        RouterTestingModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule],
+      declarations: [ CrudComponent, InputComponent, SelectComponent, ErrorComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateClassLevelComponent);
+    fixture = TestBed.createComponent(CrudComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 
