@@ -3,21 +3,21 @@
   <fieldset>
     <section class="d-flex flex-wrap justify-content-start">
       <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-        <app-input [triggerValidation]='triggerValidation' labelClass='col-md-12 col-lg-5'
+        <app-input *ngIf='itemForm.get("name")' [triggerValidation]='triggerValidation' labelClass='col-md-12 col-lg-5'
           inputClass='col-md-12 col-lg-7' label='Name' [id]='"name" + (idIndex !== undefined ? idIndex: "")' type="text"
           placeholder="Name" formControlName="name"></app-input>
       </section>
-      <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+      <section *ngIf='itemForm.get("parentCategory")' class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
         <app-select [triggerValidation]='triggerValidation' id='classLevelCategory' [type]="parent"
           formControlName="parentCategory"></app-select>
       </section>
-      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+      <section *ngIf='itemForm.get("abbr")' class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
         <app-input [triggerValidation]='triggerValidation' labelClass='col-md-12 col-lg-5'
           inputClass='col-md-12 col-lg-7' label='abbreviation'
           [id]='"name-abbr" + (idIndex !== undefined ? idIndex: "")' type="text" [placeholder]='title + " Abbreviation"'
           formControlName="abbr"></app-input>
       </section>
-      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
+      <section  *ngIf='itemForm.get("active")'  class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
         <div class="custom-control custom-switch">
           <input type="checkbox" class="custom-control-input" [id]='"active" + (idIndex !== undefined ? idIndex: "")'
             formControlName="active">

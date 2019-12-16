@@ -21,11 +21,11 @@ export class CreateClassLevelComponent implements OnInit {
     this.classLevel = this.classLevelService;
     this.transforms = [
       {
-        from: "abbr", to: "abbreviation"
+        from: 'abbr', to: 'abbreviation'
       }, {
-        from: "parentCategory", to: "class_level_category_id"
+        from: 'parentCategory', to: 'classLevelCategory'
       }
-    ]
+    ];
   }
 
 }

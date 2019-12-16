@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ɵConsole } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -15,7 +15,7 @@ import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
 export class CrudComponent implements OnInit {
   @Input() newForm: boolean;
   @Input() title: boolean;
-  @Input() fields: any[];
+  @Input() fields: any[] = [];
   @Input() parent: string;
   @Input() viewLink: any;
   @Input() itemService: any;
@@ -27,36 +27,36 @@ export class CrudComponent implements OnInit {
 
   ngOnInit() {
     this.itemForm = this.fb.group({
-      
+
     });
-    
+
     if (this.fields.includes('name')) {
-      this.itemForm.setControl('name', this.fb.control('', [Validators.required]))
+      this.itemForm.setControl('name', this.fb.control('', [Validators.required]));
     }
     if (this.fields.includes('abbr')) {
-      this.itemForm.setControl('abbr', this.fb.control('', []))
+      this.itemForm.setControl('abbr', this.fb.control('', []));
     }
     if (this.parent) {
-      this.itemForm.setControl('parentCategory', this.fb.control(null, [Validators.required]))
+      this.itemForm.setControl('parentCategory', this.fb.control(null, [Validators.required]));
     }
     if (this.fields.includes('active')) {
-      this.itemForm.setControl('active', this.fb.control(true, [Validators.required]))
+      this.itemForm.setControl('active', this.fb.control(true, [Validators.required]));
     }
   }
   get submitData() {
-    let toSubmit = this.itemForm.value;
+    const toSubmit = this.itemForm.value;
     if (this.transforms) {
       this.transforms.forEach(item => {
-        
+
         toSubmit[item.to] = toSubmit[item.from];
-        
+
       });
     }
     return toSubmit;
   }
   submitForm() {
-    
-    this.isSubmitting= true;
+
+    this.isSubmitting = true;
     if (this.itemForm.valid) {
       this.itemService
         .submit(this.submitData)
