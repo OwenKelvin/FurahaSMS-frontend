@@ -95,6 +95,7 @@ import { EditClassLevelComponent } from './edit-class-level/edit-class-level.com
 import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
 import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
 import { SelectComponent } from './select/select.component';
+import { CrudComponent } from './crud/crud.component';
 
 
 @NgModule({
@@ -171,6 +172,7 @@ import { SelectComponent } from './select/select.component';
     ViewClassLevelComponent,
     CreateClassLevelComponent,
     SelectComponent,
+    CrudComponent,
   ],
   imports: [
     CommonModule,
