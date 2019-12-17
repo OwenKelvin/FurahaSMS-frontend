@@ -100,6 +100,7 @@ import { ViewComponent } from './view/view.component';
 import { DescriptionComponent } from './description/description.component';
 import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
 import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
+import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 
 
 @NgModule({
@@ -181,6 +182,7 @@ import { ViewStudentAcademicsComponent } from './view-student-academics/view-stu
     DescriptionComponent,
     ViewStudentGuardiansComponent,
     ViewStudentAcademicsComponent,
+    CreateStudentGuardianComponent,
   ],
   imports: [
     CommonModule,

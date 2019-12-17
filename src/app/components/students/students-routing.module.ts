@@ -6,6 +6,7 @@ import { ViewStudentComponent } from '../view-student/view-student.component';
 import { ViewStudentInfoComponent } from '../view-student-info/view-student-info.component';
 import { ViewStudentGuardiansComponent } from '../view-student-guardians/view-student-guardians.component';
 import { ViewStudentAcademicsComponent } from '../view-student-academics/view-student-academics.component';
+import { CreateStudentGuardianComponent } from '../create-student-guardian/create-student-guardian.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
       breadcrumb: 'Students'
     },
     children: [
+      {
+        path: ':id/guardians/create',
+        component: CreateStudentGuardianComponent
+      },
       {
         path: ':id',
         component: ViewStudentComponent,
@@ -38,7 +43,14 @@ const routes: Routes = [
           },
           {
             path: 'guardians',
-            component: ViewStudentGuardiansComponent
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                component: ViewStudentGuardiansComponent
+              }
+             
+            ]
           },
           {
             path: 'academics',
