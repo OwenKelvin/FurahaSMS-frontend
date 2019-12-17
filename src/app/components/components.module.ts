@@ -98,6 +98,8 @@ import { SelectComponent } from './select/select.component';
 import { CrudComponent } from './crud/crud.component';
 import { ViewComponent } from './view/view.component';
 import { DescriptionComponent } from './description/description.component';
+import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
+import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
 
 
 @NgModule({
@@ -177,6 +179,8 @@ import { DescriptionComponent } from './description/description.component';
     CrudComponent,
     ViewComponent,
     DescriptionComponent,
+    ViewStudentGuardiansComponent,
+    ViewStudentAcademicsComponent,
   ],
   imports: [
     CommonModule,
