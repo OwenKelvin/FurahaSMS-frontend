@@ -1,0 +1,11 @@
+
+<section *ngIf='(item$ | async) as item; else loading_block'>
+  <h1>{{ title }} : <small>{{ item.name }}</small>
+  </h1>
+  <app-chips [value]='item.active'></app-chips>
+  <app-description></app-description>
+</section>
+<ng-template #loading_block>
+  <h1>{{ title }}</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

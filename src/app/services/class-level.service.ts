@@ -37,6 +37,14 @@ export class ClassLevelService {
       })
     );
   }
+  getItemById(id): Observable<any> {
+    const url = `api/curriculum/class-levels/${id}`;
+    return this.http.get<any>(url).pipe(
+      map(res => {
+        return res;
+      })
+    );
+  }
   submit(data: ClassLevelInterface) {
     let url = `api/curriculum/class-levels`;
     if (data.id) {
