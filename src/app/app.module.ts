@@ -9,7 +9,7 @@ import { environment } from './../environments/environment';
 import { APIInterceptor } from './interceptors/api.interceptor';
 import { ErrorInterceptor } from './interceptors/error.interceptor';
 import { StoreModule } from '@ngrx/store';
-import { reducers, metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
+import { metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { CacheInterceptor } from './interceptors/cache.interceptor';

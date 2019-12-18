@@ -101,6 +101,7 @@ import { DescriptionComponent } from './description/description.component';
 import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
 import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
 import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
+import { OrdinalPipe } from '../pipes/ordinal.pipe';
 
 
 @NgModule({
@@ -183,6 +184,7 @@ import { CreateStudentGuardianComponent } from './create-student-guardian/create
     ViewStudentGuardiansComponent,
     ViewStudentAcademicsComponent,
     CreateStudentGuardianComponent,
+    OrdinalPipe
   ],
   imports: [
     CommonModule,
