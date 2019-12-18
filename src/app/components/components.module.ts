@@ -102,6 +102,7 @@ import { ViewStudentGuardiansComponent } from './view-student-guardians/view-stu
 import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
 import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 import { OrdinalPipe } from '../pipes/ordinal.pipe';
+import { TelInputComponent } from './tel-input/tel-input.component';
 
 
 @NgModule({
@@ -184,7 +185,8 @@ import { OrdinalPipe } from '../pipes/ordinal.pipe';
     ViewStudentGuardiansComponent,
     ViewStudentAcademicsComponent,
     CreateStudentGuardianComponent,
-    OrdinalPipe
+    OrdinalPipe,
+    TelInputComponent
   ],
   imports: [
     CommonModule,

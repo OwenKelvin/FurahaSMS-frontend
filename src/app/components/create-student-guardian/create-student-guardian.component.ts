@@ -98,6 +98,7 @@ export class CreateStudentGuardianComponent implements OnInit {
       //   Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)),
       birthCertNumber: [''],
       email: ['', this.validators.email],
+      phoneNumber: [''],
       phoneDetails: this.fb.group({
         phoneCode: [254],
         phoneNumber: ['']

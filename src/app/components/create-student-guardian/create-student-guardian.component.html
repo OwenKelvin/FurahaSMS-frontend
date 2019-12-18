@@ -14,7 +14,7 @@
           <h3>Email and Phone Number</h3>
         </legend>
         <section class="d-flex justify-content-between flex-wrap">
-          <section class="col-lg-6">
+          <section class="col-lg-5">
 
             <app-input label='Email' id="{{ 'email' + i }}" type="email" placeholder="Please Enter Email"
               formControlName="email"></app-input>
@@ -26,8 +26,15 @@
             <button (click)="clearEmail(i)" style="margin-left: 15px" type="button" mat-raised-button
               color="warn">No</button>
           </section>
-          <section [hidden]="confirmData[i]" formGroupName="phoneDetails" class="col-sm-6 col-md-4 col-lg-3"
+          <section class="col-lg-6">
+              <app-tel-input
+                label='Phone Number'
+                placeholder='Enter phone number'
+                formControlName="phoneNumber"></app-tel-input>
+            </section>
+          <section [hidden]="confirmData[i]" formGroupName="phoneDetails" class="col-sm-6 col-md-4 col-lg-6"
             class="phone">
+            
             <div class="input-group mb-3">
               <div class="input-group-prepend">
                 <select formControlName="phoneCode" (selected)="updateSelectedPhone(i)" [(value)]="selectedPhoneCode"
