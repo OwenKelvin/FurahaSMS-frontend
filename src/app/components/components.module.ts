@@ -103,6 +103,7 @@ import { ViewStudentAcademicsComponent } from './view-student-academics/view-stu
 import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 import { OrdinalPipe } from '../pipes/ordinal.pipe';
 import { TelInputComponent } from './tel-input/tel-input.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -190,6 +191,7 @@ import { TelInputComponent } from './tel-input/tel-input.component';
   ],
   imports: [
     CommonModule,
+    NgSelectModule,
     ComponentsRoutingModule,
     ReactiveFormsModule,
     LoginModule,

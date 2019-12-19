@@ -1,5 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
 @import './vendor/fontello/css/fontello.css';
 @import './vendor/fontello/css/animation.css';
 @import './vendor/daneden/animate.css';

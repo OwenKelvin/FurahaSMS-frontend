@@ -9,6 +9,14 @@
 			</section>
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
+					<ng-select bindLabel="name" placeholder="Select item" appendTo="body" [searchable]="true"
+						[clearable]="true">
+						<ng-option>KE (+254)</ng-option>
+						<ng-option [value]="item.id" [disabled]="item.disabled" *ngFor="let item of items">
+							<img src="./assets/{{item}}" width="20px" height="20px" />
+							{{item.name}}
+						</ng-option>
+					</ng-select>
 					<select formControlName="phoneCode" (selected)="updateSelectedPhone(i)" [(value)]="selectedPhoneCode"
 						(blur)="validatePhone(i)" id="{{ 'phoneCode' + i}}">
 						<option>KE(+254)</option>
