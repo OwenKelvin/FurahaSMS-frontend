@@ -22,6 +22,8 @@ export class CreateStudentGuardianComponent implements OnInit {
     namePrefix: [],
     dateOfBirth: [Validators.required],
     email: [
+      Validators.email,
+      Validators.required,
       Validators.pattern('^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$'), Validators.required]
   };
   triggerValidation: boolean;

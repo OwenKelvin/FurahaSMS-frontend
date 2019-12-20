@@ -4,6 +4,28 @@
 @import './vendor/fontello/css/animation.css';
 @import './vendor/daneden/animate.css';
 
+.ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
+
+  height: 100%;
+  margin: 0;
+}
+.ng-select .ng-select-container {
+  padding: 0;
+}
+.ng-input input {
+  width: 100%;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    padding: 4px;
+    text-align: center;
+    color: black;
+}
+.ng-dropdown-panel {
+  background: red;
+  min-width: 150px !important;
+  width: 150px !important;
+}
+
 html, body {
   background: rgb(49, 49, 49);
   color: white;
@@ -59,6 +81,7 @@ a:hover {
   background: green;
 }
 .invalid-feedback {
+  
   color: rgb(240, 68, 68);
 }
 @media (max-width: 768px) {

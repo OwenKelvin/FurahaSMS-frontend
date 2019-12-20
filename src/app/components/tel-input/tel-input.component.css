@@ -1,7 +1,2 @@
 @import '../input/input.component.css';
-.ng-select-container {
-  height: 100% !important;
-  
-}.ng-select .ng-select-container {
-     height: 100% !important;
-  }
+@import 'flag-icon-css/css/flag-icon.css';

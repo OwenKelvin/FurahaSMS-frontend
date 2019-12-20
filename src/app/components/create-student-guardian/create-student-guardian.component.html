@@ -1,14 +1,14 @@
 <h1>Student Guardian Details</h1>
 <form [formGroup]="userIdentificaionForm">
-  <button type="button" class='icon-plus-circled btn btn-primary mt-3' (click)="addGuardians()">add <span
+  <button type="button" class='icon-plus-circled btn btn-primary btn-sm mt-3' (click)="addGuardians()">add <span
       class="sr-only">Guardian form section</span></button>
   <section formArrayName="guardians">
-    <fieldset *ngFor="let guardian of guardians.controls; let i = index" [formGroupName]="i">
+    <fieldset class="guardians-container" *ngFor="let guardian of guardians.controls; let i = index" [formGroupName]="i">
       <legend>
         <h2>Enter Details for the {{ i + 1 | ordinal }} Guardian</h2>
       </legend>
       <button type="button" style="float: right" (click)="removeGuadian(i)" [disabled]="guardians.controls.length === 1"
-        class="btn btn-warning">remove</button>
+        class="btn btn-outline-danger btn-sm"><span class="icon-trash"></span>Delete</button>
       <fieldset>
         <legend>
           <h3>Email and Phone Number</h3>
@@ -16,7 +16,9 @@
         <section class="d-flex justify-content-between flex-wrap">
           <section class="col-lg-5">
 
-            <app-input label='Email' id="{{ 'email' + i }}" type="email" placeholder="Please Enter Email"
+            <app-input
+              [triggerValidation]="triggerValidation"
+              label='Email' id="{{ 'email' + i }}" type="email" placeholder="Please Enter Email"
               formControlName="email"></app-input>
           </section>
           <section class="col-sm-6 col-md-4 col-lg-3" *ngIf="confirmData[i]">
@@ -27,28 +29,8 @@
               color="warn">No</button>
           </section>
           <section class="col-lg-6">
-              <app-tel-input
-                label='Phone Number'
-                placeholder='Enter phone number'
-                formControlName="phoneNumber"></app-tel-input>
-            </section>
-          <section [hidden]="confirmData[i]" formGroupName="phoneDetails" class="col-sm-6 col-md-4 col-lg-6"
-            class="phone">
-            
-            <div class="input-group mb-3">
-              <div class="input-group-prepend">
-                <select formControlName="phoneCode" (selected)="updateSelectedPhone(i)" [(value)]="selectedPhoneCode"
-                  (blur)="validatePhone(i)" id="{{ 'phoneCode' + i}}">
-                  <option>KE(+254)</option>
-                  <option *ngFor="let country of countries" [value]="country.code">
-                    <span class="flag-icon flag-icon-{{ country.country | lowercase}}"></span>
-                    {{ country.country }} (+{{ country.code }})
-                  </option>
-                </select>
-                <input class="form-control" (blur)="validatePhone(i)" id="{{ 'phoneNumber' + i}}" type="tel"
-                  placeholder="Phone Number" formControlName="phoneNumber">
-              </div>
-            </div>
+            <app-tel-input [id]='"phone" + i' label='Phone Number' placeholder='Enter phone number' formControlName="phoneNumber">
+            </app-tel-input>
           </section>
         </section>
       </fieldset>
@@ -83,21 +65,30 @@
         <legend>
           <h2>Other Details</h2>
         </legend>
-        <section class='row'>
-          <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-            <input (keyup)="validateRelation(i)" id="{{ 'relation' + i }}" type="text"
-              placeholder="Relationship To Student" formControlName="relation" matInput>
+        <section class='d-flex flex-wrap'>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+               [triggerValidation]="triggerValidation"
+              id="{{ 'relation' + i }}" type="text" label="Relation"
+              placeholder="Relationship To Student" formControlName="relation" ></app-input>
           </section>
-          <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-            <app-select id="{{ 'gender' + i}}" formControlName="gender" placeholder="Gender" type='gender'>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-select label='Gender' id="{{ 'gender' + i}}" formControlName="gender" placeholder="Gender" type='gender'>
             </app-select>
           </section>
-          <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-            <app-input type='date' placeholder="Date Of Birth" formControlName="dateOfBirth"
-              (blur)="validateDateOfBirth(i)"></app-input>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+              [triggerValidation]="triggerValidation"
+              label='Date of Birth'
+              [id]='"dateOfBirth" + i'
+              type='date'
+              placeholder="Date Of Birth"
+              formControlName="dateOfBirth"></app-input>
           </section>
-          <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-            <app-input matInput placeholder="Birth Certificate Number" formControlName="birthCertNumber"></app-input>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+             [id]='"birth-cert-no-" + i'
+             label='Birth Cert No' matInput placeholder="Birth Certificate Number" formControlName="birthCertNumber"></app-input>
           </section>
           <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
 

@@ -49,7 +49,7 @@ const routes: Routes = [
                 pathMatch: 'full',
                 component: ViewStudentGuardiansComponent
               }
-             
+
             ]
           },
           {

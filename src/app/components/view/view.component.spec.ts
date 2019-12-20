@@ -13,7 +13,7 @@ describe('ViewComponent', () => {
   let fixture: ComponentFixture<ViewComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ ViewComponent, DescriptionComponent, LoadingBubbleComponent, ChipsComponent ]

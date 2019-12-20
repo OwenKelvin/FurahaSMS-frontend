@@ -2,13 +2,14 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewStudentAcademicsComponent } from './view-student-academics.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 
 describe('ViewStudentAcademicsComponent', () => {
   let component: ViewStudentAcademicsComponent;
   let fixture: ComponentFixture<ViewStudentAcademicsComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ ViewStudentAcademicsComponent ]
@@ -20,7 +21,7 @@ describe('ViewStudentAcademicsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewStudentAcademicsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

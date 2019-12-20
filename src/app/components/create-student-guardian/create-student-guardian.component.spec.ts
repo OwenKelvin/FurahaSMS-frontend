@@ -2,16 +2,32 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentGuardianComponent } from './create-student-guardian.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SelectComponent } from '../select/select.component';
+import { InputComponent } from '../input/input.component';
+import { TelInputComponent } from '../tel-input/tel-input.component';
+import { OrdinalPipe } from 'src/app/pipes/ordinal.pipe';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CreateStudentGuardianComponent', () => {
   let component: CreateStudentGuardianComponent;
   let fixture: ComponentFixture<CreateStudentGuardianComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ CreateStudentGuardianComponent ]
+      imports: [StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, NgSelectModule,
+        HttpClientTestingModule
+      ],
+      declarations: [
+        CreateStudentGuardianComponent,
+        SelectComponent,
+        InputComponent,
+        TelInputComponent,
+        OrdinalPipe
+      ]
     });
 
     await TestBed.compileComponents();
@@ -20,7 +36,7 @@ describe('CreateStudentGuardianComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateStudentGuardianComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

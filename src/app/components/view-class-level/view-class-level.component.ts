@@ -14,7 +14,7 @@ export class ViewClassLevelComponent implements OnInit {
   constructor(private store: Store<fromStore.AppState>, private classLevelService: ClassLevelService) { }
 
   ngOnInit() {
-    this.classLevel = this.classLevelService
+    this.classLevel = this.classLevelService;
   }
 
 }
