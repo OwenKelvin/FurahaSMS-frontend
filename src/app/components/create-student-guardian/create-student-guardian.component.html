@@ -1,5 +1,5 @@
 <h1>Student Guardian Details</h1>
-<form [formGroup]="userIdentificaionForm">
+<form [formGroup]="userIdentificaionForm" (submit)='submitGuardianForm()'>
   <button type="button" class='icon-plus-circled btn btn-primary btn-sm mt-3' (click)="addGuardians()">add <span
       class="sr-only">Guardian form section</span></button>
   <section formArrayName="guardians">
@@ -23,10 +23,16 @@
           </section>
           <section class="col-sm-6 col-md-4 col-lg-3" *ngIf="confirmData[i]">
             User with the email Exists. Do You wish to Use this Email?
-            <button (click)="updateFieldsForEmail(i)" style="margin-left: 15px" type="button" mat-raised-button
-              color="primary">Yes</button>
-            <button (click)="clearEmail(i)" style="margin-left: 15px" type="button" mat-raised-button
-              color="warn">No</button>
+            <button 
+              (click)="updateFieldsForEmail(i)"
+              style="margin-left: 15px" 
+              type="button"
+              class="btn btn-outline-primary">Yes</button>
+            <button
+              (click)="clearEmail(i)"
+              style="margin-left: 15px" 
+              type="button"
+              class="btn btn-outline-warning">No</button>
           </section>
           <section class="col-lg-6">
             <app-tel-input [id]='"phone" + i' label='Phone Number' placeholder='Enter phone number' formControlName="phoneNumber">
@@ -92,11 +98,19 @@
           </section>
           <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
 
-            <app-select id="{{ 'religion' + i}}" formControlName="religion" placeholder="Religion" label='religion'
+            <app-select placeholder='Enter Religion' id="{{ 'religion' + i}}" formControlName="religion" placeholder="Religion" label='religion'
               type='religion'></app-select>
           </section>
         </section>
       </fieldset>
     </fieldset>
+    <section class='d-flex justify-content-end'>
+      <button *ngIf='!userIdentificaionForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+        class='btn btn-secondary'>Validate</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button class='btn btn-primary' [disabled]='!userIdentificaionForm.valid || isSubmitting'>
+        Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+      </button>
+    </section>
   </section>
 </form>

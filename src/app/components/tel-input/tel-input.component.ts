@@ -1,5 +1,5 @@
 import { Component, OnInit, Input, forwardRef, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
-import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
+import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormGroup, FormBuilder } from '@angular/forms';
 import { AppFormService } from 'src/app/services/AppForm.service';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
@@ -29,7 +29,12 @@ export class TelInputComponent extends InputComponent implements OnInit, OnChang
   selectedPhoneCode: number | string;
   selectedPhone: { country: any, code: any };
   allowedPhoneCountries: any;
-  constructor(appFormService: AppFormService, private allowedPhoneNumbers: AllowedPhoneNumbersService) {
+  phoneNumberGroup: FormGroup;
+  constructor(
+    appFormService: AppFormService,
+    private allowedPhoneNumbers: AllowedPhoneNumbersService,
+    private fb: FormBuilder
+  ) {
     super(appFormService);
    }
 
@@ -39,6 +44,10 @@ export class TelInputComponent extends InputComponent implements OnInit, OnChang
       this.allowedPhoneCountries = data;
     });
     this.countries$ = this.allowedPhoneNumbers.getAllCountryCodes();
+    this.phoneNumberGroup = this.fb.group({
+      code: ['', []],
+      phone: ['', []],
+    });
   }
   validatePhone(phone): void {
     if (!this.allowedPhoneNumbers.isValidPhoneNumber(phone)) {

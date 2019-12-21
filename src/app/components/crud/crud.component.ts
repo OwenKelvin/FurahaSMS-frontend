@@ -20,6 +20,8 @@ export class CrudComponent implements OnInit {
   @Input() viewLink: any;
   @Input() itemService: any;
   @Input() transforms: TransformInterface[];
+  @Input() idIndex;
+  showErrorMessage: boolean;
   itemForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;

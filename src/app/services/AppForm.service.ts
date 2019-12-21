@@ -18,7 +18,7 @@ export class AppFormService {
       return (label ? (label + ' ') : '') + `field too short (min ${formControl.errors.minlength.requiredLength})`;
     }
     if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.pattern) {
-      return 'Pattern ' +(label ? ('for ' + label + ' ') : '') + 'not met';
+      return 'Pattern ' + (label ? ('for ' + label + ' ') : '') + 'not met';
     }
     return null;
   }

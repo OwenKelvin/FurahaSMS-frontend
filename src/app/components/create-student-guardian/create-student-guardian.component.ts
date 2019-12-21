@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@ang
 import { AppState } from 'src/app/store/reducers';
 import { debounceTime } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
+import { GuardiansService } from 'src/app/services/guardians.service';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-create-student-guardian',
@@ -27,7 +29,9 @@ export class CreateStudentGuardianComponent implements OnInit {
       Validators.pattern('^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$'), Validators.required]
   };
   triggerValidation: boolean;
+  isSubmitting: boolean;
   constructor(
+    private studentGuardian: GuardiansService,
     private users: UsersService,
     private store: Store<AppState>, private fb: FormBuilder) {
     this.usersData = [null];
@@ -83,6 +87,24 @@ export class CreateStudentGuardianComponent implements OnInit {
       this.confirmData.splice(i, 1);
     }
   }
+  clearEmail(i) {
+    this.guardians.controls[i].get('email').setValue('');
+    this.usersData[i] = null;
+    this.confirmData[i] = false;
+  }
+  updateFieldsForEmail(i) {
+    const data = this.usersData[i];
+    this.guardians.controls[i].get('firstName').setValue(data.first_name);
+    this.guardians.controls[i].get('lastName').setValue(data.last_name);
+    this.guardians.controls[i].get('middleName').setValue(data.middle_name);
+    this.guardians.controls[i].get('otherNames').setValue(data.other_names);
+    this.guardians.controls[i].get('namePrefix').setValue(data.name_prefix_id);
+    this.guardians.controls[i].get('dateOfBirth').setValue(data.date_of_birth);
+    this.guardians.controls[i].get('birthCertNumber').setValue(data.birth_cert_number);
+    this.guardians.controls[i].get('gender').setValue(data.gender_id);
+    this.guardians.controls[i].get('religion').setValue(data.religion_id);
+    this.confirmData[i] = false;
+  }
   buildGuardianProfile(): FormGroup {
     return this.fb.group({
       firstName: ['', this.validators.firstName],
@@ -109,5 +131,23 @@ export class CreateStudentGuardianComponent implements OnInit {
       relation: ['', Validators.required]
     });
   }
-
+  submitGuardianForm() {
+    // TODO admission number hard coded
+    this.isSubmitting = true;
+    if (this.userIdentificaionForm.valid) {
+      this.userIdentificaionForm.get('guardians').value.forEach(item => {
+        this.studentGuardian.submit({ ...item, student_id: 24 })
+          .subscribe(data => {
+            this.store.dispatch(loadToastShowsSuccess({
+              showMessage: true,
+              toastBody: 'Successfully created guardian',
+              toastHeader: 'Success',
+              toastTime: 'Just Now'
+            }));
+          });
+      });
+    } else {
+      this.triggerValidation = !this.triggerValidation;
+    }
+  }
 }

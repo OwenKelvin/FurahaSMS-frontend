@@ -23,6 +23,8 @@ import { UnitLevelService } from 'src/app/services/unit-level.service';
 import { AcademicYearService } from 'src/app/services/academic-year.service';
 import { Observable } from 'rxjs';
 import { AppFormService } from 'src/app/services/AppForm.service';
+import { GenderService } from 'src/app/services/gender.service';
+import { ReligionService } from 'src/app/services/religion.service';
 
 @Component({
   selector: 'app-select',
@@ -59,7 +61,9 @@ export class SelectComponent
     private unitLevel: UnitLevelService,
     private academicYearService: AcademicYearService,
     private store: Store<AppState>,
-    private appFormService: AppFormService
+    private appFormService: AppFormService,
+    private genderService: GenderService,
+    private religionService: ReligionService
   ) {
 
     this.formControl = new FormControl();
@@ -71,7 +75,9 @@ export class SelectComponent
     | 'academic-years:active'
     | 'class-level-categories'
     | 'class-levels:level'
-    | 'unit-levels';
+    | 'unit-levels'
+    | 'gender'
+    | 'religion';
   @Input() id: string;
   @Input() value: any;
   @Input() multiple: any;
@@ -200,10 +206,27 @@ export class SelectComponent
           .getFilter({ academicYear: this.parentId })
           .subscribe(items => { this.categories = items; });
         break;
+      case 'gender':
+        this.setParams({
+          label: 'Gender'
+        });
+        this.categories$ = this.genderService.getAll();
+        break;
+      case 'religion':
+        this.setParams({
+          label: 'Religion'
+        });
+        this.categories$ = this.religionService.getAll();
+        break;
       default:
         this.categories = [];
         break;
     }
+  }
+  setParams({label }: {label: string}) {
+    this.label = label;
+    this.error.required = `The ${label} field is required`;
+    this.hint = `Please select ${label}`;
   }
   ngOnChanges(changes: SimpleChanges) {
     const triggerValidation: SimpleChange = changes.triggerValidation;

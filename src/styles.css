@@ -3,6 +3,7 @@
 @import './vendor/fontello/css/fontello.css';
 @import './vendor/fontello/css/animation.css';
 @import './vendor/daneden/animate.css';
+@import 'flag-icon-css/css/flag-icon.css';
 
 .ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
 

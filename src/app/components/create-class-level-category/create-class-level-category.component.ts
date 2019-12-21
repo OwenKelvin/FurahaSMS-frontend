@@ -8,7 +8,7 @@ import { ClassLevelCategoryInterface } from 'src/app/interfaces/class-level-cate
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { map } from 'rxjs/operators';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
-import { VIEW_CLASS_LEVEL_CATEGORIES_CURRICULUM, VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
+import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
 
 @Component({
   selector: 'app-create-class-level-category',
@@ -17,6 +17,7 @@ import { VIEW_CLASS_LEVEL_CATEGORIES_CURRICULUM, VIEW_CLASS_LEVEL_CATEGORY_CURRI
 })
 export class CreateClassLevelCategoryComponent implements OnInit {
 
+  showErrorMessage: boolean;
   formId: any;
   submitInProgress: boolean;
   constructor(
@@ -103,6 +104,7 @@ export class CreateClassLevelCategoryComponent implements OnInit {
 
         }, error => {
             this.submitInProgress = false;
+            this.showErrorMessage = true;
             this.store.dispatch(loadErrorMessagesSuccess({
               body: error.help,
               show: true,

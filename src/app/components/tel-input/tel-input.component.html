@@ -1,4 +1,4 @@
-<section class='form-group' style="position: relative;">
+<section [formGroup]='phoneNumberGroup' class='form-group' style="position: relative;">
 	<section class='d-flex flex-wrap'>
 		<label [class]='"col-md-4 col-lg-4 control-label " + labelClass' [for]='id'>
 			<span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
@@ -10,14 +10,14 @@
 			<div class="input-group mb-3">
 				<div class="input-group-prepend">
 					<ng-select bindLabel="name" placeholder="code" appendTo="body" [searchable]="true"
-						[clearable]="false">
+						[clearable]="false" formControlName = 'code'>
 						<ng-option *ngFor="let country of countries$ | async" [value]="country.code">
 							<span class="flag-icon flag-icon-{{ country.country | lowercase}}"></span>
 							{{ country.country }} (+{{ country.code }})
 						</ng-option>
 					</ng-select>
 				</div>
-				<input [autocomplete]='autocomplete' [autofocus]='autofocus' [formControl]='formControl'
+				<input [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName = 'phone'
 					(keyup)='updateFieldValidation()' [class]='fieldClass + " form-control"' (blur)='validateField()' [id]='[id]'
 					type='tel' [placeholder]='placeholder'>
 
