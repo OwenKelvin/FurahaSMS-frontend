@@ -1,0 +1,116 @@
+<h1>Student Guardian Details</h1>
+<form [formGroup]="userIdentificaionForm" (submit)='submitGuardianForm()'>
+  <button type="button" class='icon-plus-circled btn btn-primary btn-sm mt-3' (click)="addGuardians()">add <span
+      class="sr-only">Guardian form section</span></button>
+  <section formArrayName="guardians">
+    <fieldset class="guardians-container" *ngFor="let guardian of guardians.controls; let i = index" [formGroupName]="i">
+      <legend>
+        <h2>Enter Details for the {{ i + 1 | ordinal }} Guardian</h2>
+      </legend>
+      <button type="button" style="float: right" (click)="removeGuadian(i)" [disabled]="guardians.controls.length === 1"
+        class="btn btn-outline-danger btn-sm"><span class="icon-trash"></span>Delete</button>
+      <fieldset>
+        <legend>
+          <h3>Email and Phone Number</h3>
+        </legend>
+        <section class="d-flex justify-content-between flex-wrap">
+          <section class="col-lg-5">
+
+            <app-input
+              [triggerValidation]="triggerValidation"
+              label='Email' id="{{ 'email' + i }}" type="email" placeholder="Please Enter Email"
+              formControlName="email"></app-input>
+          </section>
+          <section class="col-sm-6 col-md-4 col-lg-3" *ngIf="confirmData[i]">
+            User with the email Exists. Do You wish to Use this Email?
+            <button 
+              (click)="updateFieldsForEmail(i)"
+              style="margin-left: 15px" 
+              type="button"
+              class="btn btn-outline-primary">Yes</button>
+            <button
+              (click)="clearEmail(i)"
+              style="margin-left: 15px" 
+              type="button"
+              class="btn btn-outline-warning">No</button>
+          </section>
+          <section class="col-lg-6">
+            <app-tel-input [id]='"phone" + i' label='Phone Number' placeholder='Enter phone number' formControlName="phoneNumber">
+            </app-tel-input>
+          </section>
+        </section>
+      </fieldset>
+      <fieldset>
+        <legend>
+          <h3>Name</h3>
+        </legend>
+        <section class='d-flex flex-wrap'>
+          <section class='col-lg-4 col-sm-6 col-xs-12'>
+            <app-input [triggerValidation]='triggerValidation' placeholder='Enter First Name' [id]="'firstName' + i"
+              label='First Name' formControlName='firstName'>
+            </app-input>
+          </section>
+          <section class='col-lg-4 col-sm-6 col-xs-12'>
+            <app-input [triggerValidation]='triggerValidation' placeholder='Enter Last Name' [id]="'lastName' + i"
+              label='Last Name' formControlName='lastName'>
+            </app-input>
+          </section>
+          <section class='col-lg-4 col-sm-6 col-xs-12'>
+            <app-input [id]="'middleName' + i" placeholder='Enter Middle Name' label='middle Name'
+              formControlName='middleName'>
+            </app-input>
+          </section>
+          <section class='col-lg-4 col-sm-6 col-xs-12'>
+            <app-input [id]="'otherNames' + i" placeholder='Enter Other Names' label='Other Names'
+              formControlName='otherNames'>
+            </app-input>
+          </section>
+        </section>
+      </fieldset>
+      <fieldset [hidden]="confirmData[i]">
+        <legend>
+          <h2>Other Details</h2>
+        </legend>
+        <section class='d-flex flex-wrap'>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+               [triggerValidation]="triggerValidation"
+              id="{{ 'relation' + i }}" type="text" label="Relation"
+              placeholder="Relationship To Student" formControlName="relation" ></app-input>
+          </section>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-select label='Gender' id="{{ 'gender' + i}}" formControlName="gender" placeholder="Gender" type='gender'>
+            </app-select>
+          </section>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+              [triggerValidation]="triggerValidation"
+              label='Date of Birth'
+              [id]='"dateOfBirth" + i'
+              type='date'
+              placeholder="Date Of Birth"
+              formControlName="dateOfBirth"></app-input>
+          </section>
+          <section class='col-lg-6 col-md-4 col-sm-6 col-xs-12'>
+            <app-input
+             [id]='"birth-cert-no-" + i'
+             label='Birth Cert No' matInput placeholder="Birth Certificate Number" formControlName="birthCertNumber"></app-input>
+          </section>
+          <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
+
+            <app-select placeholder='Enter Religion' id="{{ 'religion' + i}}" formControlName="religion" placeholder="Religion" label='religion'
+              type='religion'></app-select>
+          </section>
+        </section>
+      </fieldset>
+    </fieldset>
+    <section class='d-flex justify-content-end'>
+      <button *ngIf='!userIdentificaionForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+        class='btn btn-secondary'>Validate</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button class='btn btn-primary' [disabled]='!userIdentificaionForm.valid || isSubmitting'>
+        Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+      </button>
+    </section>
+  </section>
+</form>

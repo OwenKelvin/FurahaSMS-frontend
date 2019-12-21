@@ -1,1 +1,9 @@
-<p>create-class-level works!</p>
+<app-crud
+  [viewLink]='viewLink'
+  [newForm]='true'
+  title='Class Level'
+  parent='class-level-categories'
+  [fields]='["name", "active", "abbr", "active"]'
+  [itemService]='classLevel'
+  [transforms]='transforms'
+></app-crud>

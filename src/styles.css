@@ -1,8 +1,31 @@
 /* You can add global styles to this file, and also import other style files */
-
+@import "~@ng-select/ng-select/themes/ant.design.theme.css";
 @import './vendor/fontello/css/fontello.css';
 @import './vendor/fontello/css/animation.css';
 @import './vendor/daneden/animate.css';
+@import 'flag-icon-css/css/flag-icon.css';
+
+.ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
+
+  height: 100%;
+  margin: 0;
+}
+.ng-select .ng-select-container {
+  padding: 0;
+}
+.ng-input input {
+  width: 100%;
+}
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+    padding: 4px;
+    text-align: center;
+    color: black;
+}
+.ng-dropdown-panel {
+  background: red;
+  min-width: 150px !important;
+  width: 150px !important;
+}
 
 html, body {
   background: rgb(49, 49, 49);
@@ -24,10 +47,16 @@ h1 {
   margin-top: 0px;
 }
 h2 {
-  font-size: 1.4rem;
+  font-size: 1.5rem;
   margin-left: 10px;
   line-height: 1.7rem;
   font-weight: 500;
+}
+h3 {
+  font-size: 1.2rem;
+  margin-left: 13px;
+  line-height: 1.7rem;
+  font-weight: 400;
 }
 .full-height {
   height: 100%;
@@ -53,6 +82,7 @@ a:hover {
   background: green;
 }
 .invalid-feedback {
+  
   color: rgb(240, 68, 68);
 }
 @media (max-width: 768px) {

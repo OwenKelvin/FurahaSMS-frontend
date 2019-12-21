@@ -95,6 +95,15 @@ import { EditClassLevelComponent } from './edit-class-level/edit-class-level.com
 import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
 import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
 import { SelectComponent } from './select/select.component';
+import { CrudComponent } from './crud/crud.component';
+import { ViewComponent } from './view/view.component';
+import { DescriptionComponent } from './description/description.component';
+import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
+import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
+import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
+import { OrdinalPipe } from '../pipes/ordinal.pipe';
+import { TelInputComponent } from './tel-input/tel-input.component';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -171,9 +180,18 @@ import { SelectComponent } from './select/select.component';
     ViewClassLevelComponent,
     CreateClassLevelComponent,
     SelectComponent,
+    CrudComponent,
+    ViewComponent,
+    DescriptionComponent,
+    ViewStudentGuardiansComponent,
+    ViewStudentAcademicsComponent,
+    CreateStudentGuardianComponent,
+    OrdinalPipe,
+    TelInputComponent
   ],
   imports: [
     CommonModule,
+    NgSelectModule,
     ComponentsRoutingModule,
     ReactiveFormsModule,
     LoginModule,

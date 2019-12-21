@@ -1,0 +1,41 @@
+<button
+  *ngIf='(studentId$ | async) as studentId'
+  class="btn btn-primary mt-4"
+  [routerLink]='"/students/"+studentId+"/guardians/create"'>
+  <span class="sr-only">Create</span><span class="icon-plus-circled">New</span><span class="sr-only">Student Guardian</span>
+</button>
+<table class="table table-dark">
+  <caption>Guardian List</caption>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Email</th>
+      <th scope="col">Tel</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">1</th>
+      <td>Mark</td>
+      <td>Otto</td>
+      <td>@mdo</td>
+      <td>@mdo</td>
+    </tr>
+    <tr>
+      <th scope="row">2</th>
+      <td>Jacob</td>
+      <td>Thornton</td>
+      <td>@fat</td>
+      <td>@fat</td>
+    </tr>
+    <tr>
+      <th scope="row">3</th>
+      <td>Larry</td>
+      <td>the Bird</td>
+      <td>@twitter</td>
+      <td>@twitter</td>
+    </tr>
+  </tbody>
+</table>

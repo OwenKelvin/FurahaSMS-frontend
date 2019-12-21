@@ -1,1 +1,37 @@
-<p>create-class-level-category works!</p>
+<h1> {{ newForm ? 'Create': 'Update'}} Class Level Category</h1>
+<form [formGroup]="classLevelCategoryForm" (submit)="submit()">
+  <fieldset>
+    <legend>General Details</legend>
+    <section class="d-flex flex-wrap">
+      <section class="col-lg-5 col-md-6 col-sm-12">
+        <app-input label='Category Name' id="name" placeholder="Name" formControlName="name">
+        </app-input>
+      </section>
+      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
+        <div class="custom-control custom-switch">
+          <input type="checkbox" class="custom-control-input" id="active" formControlName="active">
+          <label class="custom-control-label" for="active">Subject Is Active</label>
+        </div>
+      </section>
+      <section class="col-lg-12 col-md-12 col-sm-12">
+        <section>
+          <label for="description">Category Description</label>
+          <textarea class="form-control" id="description" placeholder="Subject Description"
+            formControlName="description"></textarea>
+        </section>
+      </section>
+    </section>
+
+  </fieldset>
+  <app-error ></app-error>
+  <section class='d-flex justify-content-end mt-2'>
+    
+    <button [disabled]='!classLevelCategoryForm.valid || submitInProgress || showErrorMessage' class='btn btn-success' type='submit'>
+      {{ newForm ? 'Create': 'Update'}} Class Level
+      <i *ngIf='classLevelCategoryForm.valid && !submitInProgress' class='icon-ok'></i>
+      <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
+    </button>
+  </section>
+
+</form>
+

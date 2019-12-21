@@ -1,0 +1,11 @@
+<h2>Description</h2>
+<p *ngIf='(description && description !== ""); else no_description'>
+  {{ description }}
+</p>
+<ng-template #no_description>
+  <section class='alert alert-info'>
+    No description Available;
+  </section>
+
+</ng-template>
+

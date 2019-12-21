@@ -32,7 +32,7 @@
           *ngFor="let unit of units.controls; let i = index">
           <span *ngIf="!unit.valid" class="text-warning float-right">*section is incomplete</span>
           <span *ngIf="unit.valid" class="text-success float-right">*section is complete</span>
-          <app-create-unit [hideSubmit]='true' [hasCategories]="false" [inputValue]="unit"
+          <app-create-unit [idIndex]='i' [hideSubmit]='true' [hasCategories]="false" [inputValue]="unit"
             (valueChange)="updateForm($event, i)" [submitButton]="false">
           </app-create-unit>
           <section class="float-left">
@@ -52,11 +52,6 @@
         <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
       </button>
 
-    </section>
-    <section class="col-lg-2 col-md-3 col-sm-6 mt-2">
-      <button [disabled]="!(newUnitCategoryForm.valid && newUnitCategoryForm.touched && allSectionsValid())"
-        type="submit" mat-raised-button color="primary">
-        {{ newForm ? 'Create': 'Update'}} Category</button>
     </section>
 
   </form>
