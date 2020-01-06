@@ -21,26 +21,29 @@
               label='Email' id="{{ 'email' + i }}" type="email" placeholder="Please Enter Email"
               formControlName="email"></app-input>
           </section>
-          <section class="col-sm-6 col-md-4 col-lg-3" *ngIf="confirmData[i]">
-            User with the email Exists. Do You wish to Use this Email?
+          <section class="col-sm-12 col-md-12 col-lg-7" *ngIf="confirmData[i]">
+            <span [id]='"email-confirm-" + i'>User with the email Exists. Do You wish to Use this Email?</span>
             <button 
+              aria-label="Yes"
+              aria-describedby='"email-confirm-" + i'
               (click)="updateFieldsForEmail(i)"
               style="margin-left: 15px" 
               type="button"
               class="btn btn-outline-primary">Yes</button>
             <button
+              aria-describedby='"email-confirm-" + i'
               (click)="clearEmail(i)"
               style="margin-left: 15px" 
               type="button"
               class="btn btn-outline-warning">No</button>
           </section>
-          <section class="col-lg-6">
-            <app-tel-input [id]='"phone" + i' label='Phone Number' placeholder='Enter phone number' formControlName="phoneNumber">
+          <section class="col-lg-6" *ngIf="confirmedData[i]">
+            <app-tel-input [id]='"phone" + i' label='Phone Number' placeholder='Enter phone number' formControlName="phone">
             </app-tel-input>
           </section>
         </section>
       </fieldset>
-      <fieldset>
+      <fieldset *ngIf="confirmedData[i]">
         <legend>
           <h3>Name</h3>
         </legend>
@@ -67,7 +70,7 @@
           </section>
         </section>
       </fieldset>
-      <fieldset [hidden]="confirmData[i]">
+      <fieldset *ngIf="confirmedData[i]">
         <legend>
           <h2>Other Details</h2>
         </legend>

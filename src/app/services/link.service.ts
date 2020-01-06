@@ -25,9 +25,35 @@ export class LinkService {
         return this.getLibraryLinks();
       case 'academics:curriculum':
         return this.getAcademicCurriculumLinks();
+      case 'library:admin':
+        return this.getLibraryAdminLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  getLibraryAdminLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Users Management',
+        icon: 'icon-users-1',
+        link: 'library/admin/users'
+      },
+      {
+        name: 'Books Management',
+        icon: 'icon-book',
+        link: 'library/admin/books'
+      },
+      {
+        name: 'Authors Management',
+        icon: 'icon-pencil',
+        link: 'library/admin/authors'
+      },
+      {
+        name: 'Publishers Management',
+        icon: 'icon-library',
+        link: 'library/admin/publishers'
+      }
+    ]);
   }
   getAcademicCurriculumLinks(): Observable<LinkInterface[]> {
     return of([

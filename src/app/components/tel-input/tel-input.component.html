@@ -1,31 +1,34 @@
-<section [formGroup]='phoneNumberGroup' class='form-group' style="position: relative;">
-	<section class='d-flex flex-wrap'>
-		<label [class]='"col-md-4 col-lg-4 control-label " + labelClass' [for]='id'>
-			<span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
-		</label>
-		<section [class]='inputClass ? inputClass + " input-group" : "col-md-8 col-lg-8 " + inputClass + " input-group"'>
-			<section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
-				<span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
-			</section>
-			<div class="input-group mb-3">
-				<div class="input-group-prepend">
-					<ng-select bindLabel="name" placeholder="code" appendTo="body" [searchable]="true"
-						[clearable]="false" formControlName = 'code'>
-						<ng-option *ngFor="let country of countries$ | async" [value]="country.code">
-							<span class="flag-icon flag-icon-{{ country.country | lowercase}}"></span>
-							{{ country.country }} (+{{ country.code }})
-						</ng-option>
-					</ng-select>
-				</div>
-				<input [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName = 'phone'
-					(keyup)='updateFieldValidation()' [class]='fieldClass + " form-control"' (blur)='validateField()' [id]='[id]'
-					type='tel' [placeholder]='placeholder'>
+<section [formGroup]='phoneNumberGroup' class='form-group' style="position: relative;" [id]='id + "-container"'>
+  <section class='d-flex flex-wrap'>
+    <label [class]='"col-md-4 col-lg-4 control-label " + labelClass' [for]='id'>
+      <span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
+    </label>
+    <section [class]='inputClass ? inputClass + " input-group" : "col-md-8 col-lg-8 " + inputClass + " input-group"'>
+      <section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
+        <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
+      </section>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <ng-select [closeOnSelect]='true' aria-label="Enter Country Code" bindLabel="code" placeholder="code" appendTo="body" [searchable]="true" [clearable]="false"
+            formControlName='code'>
+            <div role='option' value="">
+              Code...
+            </div>
+            <ng-option role='option' *ngFor="let country of countries$ | async" [value]="country.code">
+              <span class="flag-icon flag-icon-{{ country.country | lowercase}}"></span>
+              {{ country.country }} (+{{ country.code }})
+            </ng-option>
+          </ng-select>
+        </div>
+        <input [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName='phone_number'
+          (keyup)='updateFieldValidation()' [class]='fieldClass + " form-control"' (blur)='validateField()' [id]='[id]'
+          type='tel' [placeholder]='placeholder'>
 
-			</div>
-		</section>
-		<section *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;">
-			<div class="arrow-up"></div>
-			{{ fieldError }}
-		</section>
-	</section>
+      </div>
+    </section>
+    <section *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;">
+      <div class="arrow-up"></div>
+      {{ fieldError }}
+    </section>
+  </section>
 </section>

@@ -77,7 +77,8 @@ export class SelectComponent
     | 'class-levels:level'
     | 'unit-levels'
     | 'gender'
-    | 'religion';
+    | 'religion'
+    | 'support-staffs';
   @Input() id: string;
   @Input() value: any;
   @Input() multiple: any;
@@ -197,6 +198,15 @@ export class SelectComponent
           }
         });
         break;
+      case 'support-staffs':
+        this.label = 'Units';
+        this.error.required = 'The units field is required';
+        this.hint = 'Please select units';
+        this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
+        this.unitLevel
+          .getFilter({ academicYear: this.parentId })
+          .subscribe(items => { this.categories = items; });
+        break;
       case 'units:academic-year':
         this.label = 'Units';
         this.error.required = 'The units field is required';
@@ -249,7 +259,7 @@ export class SelectComponent
     this.formControl = control;
   }
   validateField() {
-    this.onTouched();
+    // this.onTouched();
     this.fieldError = this.appFormService.getErrorMessage(this.formControl, this.label);
   }
   removeSelect(id) {

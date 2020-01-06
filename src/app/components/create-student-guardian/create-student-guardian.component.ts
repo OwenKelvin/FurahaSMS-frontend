@@ -30,12 +30,14 @@ export class CreateStudentGuardianComponent implements OnInit {
   };
   triggerValidation: boolean;
   isSubmitting: boolean;
+  confirmedData: boolean[];
   constructor(
     private studentGuardian: GuardiansService,
     private users: UsersService,
     private store: Store<AppState>, private fb: FormBuilder) {
     this.usersData = [null];
     this.confirmData = [false];
+    this.confirmedData = [false];
   }
 
   ngOnInit() {
@@ -44,6 +46,7 @@ export class CreateStudentGuardianComponent implements OnInit {
       guardians: this.fb.array([this.buildGuardianProfile()])
     });
     this.subscribeToEmailChecking();
+    // this.guardians.valueChanges.subscribe(e => console.log(e))
   }
   get guardians(): FormArray {
     return this.userIdentificaionForm.get('guardians') as FormArray;
@@ -53,6 +56,7 @@ export class CreateStudentGuardianComponent implements OnInit {
       this.guardians.push(this.buildGuardianProfile());
       this.usersData.push(null);
       this.confirmData.push(false);
+      this.confirmedData.push(false);
       this.subscribeToEmailChecking();
     } else {
       this.triggerValidation = true;
@@ -72,6 +76,7 @@ export class CreateStudentGuardianComponent implements OnInit {
                 this.confirmData[i] = true;
               }
               this.usersData[i] = data;
+              this.confirmedData[i] = true;
             });
           }
         }
@@ -79,18 +84,21 @@ export class CreateStudentGuardianComponent implements OnInit {
     });
   }
   removeGuadian(i): void {
-    this.guardians.controls[i].get('phoneDetails').get('phoneNumber').setErrors(null);
+    this.guardians.controls[i].get('phone').setErrors(null);
     const confirmed = confirm(' Are You sure you wish to remove Item?');
     if (confirmed) {
       this.guardians.controls.splice(i, 1);
       this.usersData.splice(i, 1);
       this.confirmData.splice(i, 1);
+      this.confirmedData.splice(i, 1);
     }
+    this.guardians.updateValueAndValidity();
   }
   clearEmail(i) {
     this.guardians.controls[i].get('email').setValue('');
     this.usersData[i] = null;
     this.confirmData[i] = false;
+    this.confirmedData[i] = false;
   }
   updateFieldsForEmail(i) {
     const data = this.usersData[i];
@@ -104,6 +112,7 @@ export class CreateStudentGuardianComponent implements OnInit {
     this.guardians.controls[i].get('gender').setValue(data.gender_id);
     this.guardians.controls[i].get('religion').setValue(data.religion_id);
     this.confirmData[i] = false;
+    this.confirmedData[i] = true;
   }
   buildGuardianProfile(): FormGroup {
     return this.fb.group({
@@ -122,11 +131,6 @@ export class CreateStudentGuardianComponent implements OnInit {
       //   Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)),
       birthCertNumber: [''],
       email: ['', this.validators.email],
-      phoneNumber: [''],
-      phoneDetails: this.fb.group({
-        phoneCode: [254],
-        phoneNumber: ['']
-      }),
       phone: [''],
       relation: ['', Validators.required]
     });
