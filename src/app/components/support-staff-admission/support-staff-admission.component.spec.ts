@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { SupportStaffAdmissionComponent } from './support-staff-admission.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { SelectComponent } from '../select/select.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SupportStaffAdmissionComponent', () => {
   let component: SupportStaffAdmissionComponent;
@@ -11,8 +14,8 @@ describe('SupportStaffAdmissionComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ SupportStaffAdmissionComponent ]
+      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
+      declarations: [ SupportStaffAdmissionComponent, SelectComponent ]
     });
 
     await TestBed.compileComponents();

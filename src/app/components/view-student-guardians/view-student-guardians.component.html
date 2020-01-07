@@ -15,27 +15,26 @@
       <th scope="col">Actions</th>
     </tr>
   </thead>
-  <tbody>
-    <tr>
-      <th scope="row">1</th>
-      <td>Mark</td>
-      <td>Otto</td>
-      <td>@mdo</td>
-      <td>@mdo</td>
+  <tbody  *ngIf='guardians$ | async as guardians; else loading_guardians' >
+    
+    <tr *ngFor='let guardian of guardians; let i = index'>
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="col">{{ guardian.first_name }} {{ guardian.last_name }}</th>
+      <th scope="col">{{ guardian.email }}</th>
+      <th scope="col">{{ guardian.phone }}</th>
+      <td>
+        <button [attr.aria-label]='"View Guardian" + guardian.first_name' class="btn btn-primary btn-sm"><span class="icon-eye"></span></button>
+      </td>
     </tr>
-    <tr>
-      <th scope="row">2</th>
-      <td>Jacob</td>
-      <td>Thornton</td>
-      <td>@fat</td>
-      <td>@fat</td>
-    </tr>
-    <tr>
-      <th scope="row">3</th>
-      <td>Larry</td>
-      <td>the Bird</td>
-      <td>@twitter</td>
-      <td>@twitter</td>
-    </tr>
+    
   </tbody>
+  <ng-template #loading_guardians>
+    <tbody>
+      <tr>
+        <td>
+          <app-loading-bubble></app-loading-bubble>
+        </td>
+      </tr>
+    </tbody>
+  </ng-template>
 </table>
