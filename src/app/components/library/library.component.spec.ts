@@ -18,6 +18,7 @@ import { UserButtonComponent } from '../user-button/user-button.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { NetworkErrorComponent } from '../network-error/network-error.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -46,7 +47,8 @@ describe('LibraryComponent', () => {
         FooterComponent,
         MenuSearchComponent,
         UserButtonComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        NetworkErrorComponent
       ]
     });
 

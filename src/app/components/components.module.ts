@@ -104,6 +104,8 @@ import { CreateStudentGuardianComponent } from './create-student-guardian/create
 import { OrdinalPipe } from '../pipes/ordinal.pipe';
 import { TelInputComponent } from './tel-input/tel-input.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ProcurementsRequestComponent } from './procurements-request/procurements-request.component';
+import { NetworkErrorComponent } from './network-error/network-error.component';
 
 
 @NgModule({
@@ -187,7 +189,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ViewStudentAcademicsComponent,
     CreateStudentGuardianComponent,
     OrdinalPipe,
-    TelInputComponent
+    TelInputComponent,
+    ProcurementsRequestComponent,
+    NetworkErrorComponent
   ],
   imports: [
     CommonModule,

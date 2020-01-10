@@ -27,9 +27,20 @@ export class LinkService {
         return this.getAcademicCurriculumLinks();
       case 'library:admin':
         return this.getLibraryAdminLinks();
+      case 'procurements':
+        return this.getProcurementLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  getProcurementLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Request items',
+        icon: 'icon-basket',
+        link: 'procurements/request'
+      }
+    ]);
   }
   getLibraryAdminLinks(): Observable<LinkInterface[]> {
     return of([

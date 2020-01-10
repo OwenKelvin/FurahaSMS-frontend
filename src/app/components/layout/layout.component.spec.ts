@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { NetworkErrorComponent } from '../network-error/network-error.component';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -32,7 +33,8 @@ describe('LayoutComponent', () => {
         FooterComponent,
         MenuSearchComponent,
         UserButtonComponent,
-        BreadcrumbComponent
+        BreadcrumbComponent,
+        NetworkErrorComponent
       ]
     })
     .compileComponents();

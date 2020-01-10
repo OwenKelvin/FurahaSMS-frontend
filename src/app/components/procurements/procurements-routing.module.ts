@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { ProcurementsComponent } from './procurements.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { ProcurementsRequestComponent } from '../procurements-request/procurements-request.component';
 
 
 const routes: Routes = [
@@ -18,6 +19,14 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: ProcurementsComponent,
+        data: {
+          breadcrumb: null
+        },
+      },
+      {
+        path: 'request',
+        pathMatch: 'full',
+        component: ProcurementsRequestComponent,
         data: {
           breadcrumb: null
         },

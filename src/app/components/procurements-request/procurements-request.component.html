@@ -1,0 +1,38 @@
+<h1>Procurement Request</h1>
+<form (submit)='submitProcurementRequestForm()' [formGroup]='procurementRequestForm' class='d-flex flex-wrap'>
+  <section class='col-lg-6'>
+    <app-input [triggerValidation]='triggerValidation' id='name' label='name' placeholder='Enter Name'
+      formControlName='name'></app-input>
+  </section>
+  <section class='col-lg-6'>
+    <app-select type='procurement:items-categories' [triggerValidation]='triggerValidation' id='category' label='name'
+      placeholder='Enter Name' formControlName='category'></app-select>
+  </section>
+  <section class='col-lg-6'>
+    <app-input [triggerValidation]='triggerValidation' id='quantity' label='Quantity'
+      placeholder='Enter Quantity Description' formControlName='quantity'>
+    </app-input>
+  </section>
+  <section class='col-lg-6'>
+    <section class="form-group">
+      <label for="description">Description</label>
+      <textarea formControlName='description' class='form-control' id="description"></textarea>
+    </section>
+  </section>
+  <!-- <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show'>
+
+    <strong class='alert-heading'><i class='icon-user-times'></i> {{ submitError.status }} :
+      {{ submitError.message }}</strong>
+    <p class='mb-0'>{{ submitError.help }}</p>
+    <button type='button' class='close' data-dismiss='alert' (click)='showErrorMessage = false'>&times;</button>
+
+  </section> -->
+  <section class='d-flex justify-content-end'>
+    <button *ngIf='!procurementRequestForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+      class='btn btn-secondary'>Validate</button>
+    &nbsp;&nbsp;&nbsp;&nbsp;
+    <button class='btn btn-primary' [disabled]='!procurementRequestForm.valid || isSubmitting'>
+      Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    </button>
+  </section>
+</form>
