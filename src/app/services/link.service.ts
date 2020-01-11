@@ -36,10 +36,21 @@ export class LinkService {
   getProcurementLinks(): Observable<LinkInterface[]> {
     return of([
       {
+        name: 'My Requests',
+        icon: 'icon-user',
+        link: 'procurements/my-requests'
+      },
+      {
         name: 'Request items',
         icon: 'icon-basket',
         link: 'procurements/request'
+      },
+      {
+        name: 'Pending Approval',
+        icon: 'icon-ok-1',
+        link: 'procurements/requests/approve'
       }
+    
     ]);
   }
   getLibraryAdminLinks(): Observable<LinkInterface[]> {

@@ -29,7 +29,7 @@ export class ProcurementsRequestComponent implements OnInit {
     this.triggerValidation = true;
     this.procurementRequestForm = this.fb.group({
       name: ['q', [Validators.required]],
-      category: ['q', [Validators.required]],
+      category: [1, [Validators.required]],
       description: ['q'],
       quantity: ['q', [Validators.required]],
     });

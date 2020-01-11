@@ -33,6 +33,7 @@ export class ViewItemsComponent implements OnInit {
   }
   getItems(): void {
     this.items$ = this.itemService.getAll().pipe(map(res => {
+      console.log(res)
       if (!res) {
         res = [];
       }

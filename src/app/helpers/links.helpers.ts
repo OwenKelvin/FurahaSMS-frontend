@@ -36,3 +36,12 @@ export const VIEW_UNIT_CATEGORY_CURRICULUM = (id: string | number) => {
   return `/academics/curriculum/unit-categories/${id}/view`;
 };
 
+export const CREATE_PROCUREMENT_PROPOSAL_REQUEST =
+  '/procurements/request';
+export const EDIT_PROCUREMENT_PROPOSAL_REQUEST = (id: string | number) => {
+  return `/procurements/requests/${id}/edit`;
+};
+export const VIEW__PROCUREMENT_PROPOSAL_REQUEST = (id: string | number) => {
+  return `/procurements/requests/${id}/view`;
+};
+

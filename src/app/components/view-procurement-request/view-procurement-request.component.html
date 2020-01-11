@@ -1,0 +1,35 @@
+<h1>View Procurement Request </h1>
+<section *ngIf='(procurementItem$ | async) as procurementItem; else item_loading'>
+  
+  <table class="table table-bordered bg-dark text-light">
+    <caption>Procurement Item Request Description</caption>
+    <thead>
+     <tr>
+        <th>Title</th>
+        <th>Description</th>
+     </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Request ID</td>
+        <td>#{{ procurementItem.id }}</td>
+      </tr>
+      <tr>
+        <td>Item Name</td>
+        <td>{{ procurementItem.name }}</td>
+      </tr>
+      <tr>
+        <td>Quantity</td>
+        <td>{{ procurementItem.description }}</td>
+      </tr>
+      <tr>
+        <td>Requested by</td>
+        <td>{{ procurementItem.user.first_name }} {{procurementItem.user.last_name}}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<ng-template #item_loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>
+

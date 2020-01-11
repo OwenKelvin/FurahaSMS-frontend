@@ -106,6 +106,10 @@ import { TelInputComponent } from './tel-input/tel-input.component';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ProcurementsRequestComponent } from './procurements-request/procurements-request.component';
 import { NetworkErrorComponent } from './network-error/network-error.component';
+import { MyProcurementsRequestComponent } from './my-procurements-request/my-procurements-request.component';
+import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
+import { EditProcurementRequestComponent } from './edit-procurement-request/edit-procurement-request.component';
+import { ApproveProcurementRequestComponent } from './approve-procurement-request/approve-procurement-request.component';
 
 
 @NgModule({
@@ -191,7 +195,11 @@ import { NetworkErrorComponent } from './network-error/network-error.component';
     OrdinalPipe,
     TelInputComponent,
     ProcurementsRequestComponent,
-    NetworkErrorComponent
+    NetworkErrorComponent,
+    MyProcurementsRequestComponent,
+    ViewProcurementRequestComponent,
+    EditProcurementRequestComponent,
+    ApproveProcurementRequestComponent
   ],
   imports: [
     CommonModule,
