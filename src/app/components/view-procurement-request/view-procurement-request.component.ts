@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./view-procurement-request.component.css']
 })
 export class ViewProcurementRequestComponent implements OnInit {
-  procurementItem$: Observable<any>
+  procurementItem$: Observable<any>;
   constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) { }
 
   ngOnInit() {

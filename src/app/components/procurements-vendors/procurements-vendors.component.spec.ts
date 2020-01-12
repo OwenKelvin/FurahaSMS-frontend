@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { MyProcurementsRequestComponent } from './my-procurements-request.component';
+import { ProcurementsVendorsComponent } from './procurements-vendors.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { ViewItemsComponent } from '../view-items/view-items.component';
@@ -10,16 +10,16 @@ import { ChipsComponent } from '../chips/chips.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('MyProcurementsRequestComponent', () => {
-  let component: MyProcurementsRequestComponent;
-  let fixture: ComponentFixture<MyProcurementsRequestComponent>;
-  let store: Store<any>;
+describe('ProcurementsVendorsComponent', () => {
+  let component: ProcurementsVendorsComponent;
+  let fixture: ComponentFixture<ProcurementsVendorsComponent>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
       declarations: [
-        MyProcurementsRequestComponent,
+        ProcurementsVendorsComponent,
         ViewItemsComponent,
         ErrorComponent,
         ChipsComponent,
@@ -31,7 +31,7 @@ describe('MyProcurementsRequestComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(MyProcurementsRequestComponent);
+    fixture = TestBed.createComponent(ProcurementsVendorsComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

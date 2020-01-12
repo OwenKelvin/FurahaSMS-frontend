@@ -2,16 +2,19 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewProcurementRequestComponent } from './view-procurement-request.component';
 import { Store, StoreModule } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ViewProcurementRequestComponent', () => {
   let component: ViewProcurementRequestComponent;
   let fixture: ComponentFixture<ViewProcurementRequestComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ ViewProcurementRequestComponent ]
+      imports: [ StoreModule.forRoot({}), HttpClientTestingModule ],
+      declarations: [ ViewProcurementRequestComponent, LoadingBubbleComponent ]
     });
 
     await TestBed.compileComponents();
@@ -20,7 +23,7 @@ describe('ViewProcurementRequestComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewProcurementRequestComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store>(Store);
+    store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

@@ -45,3 +45,12 @@ export const VIEW__PROCUREMENT_PROPOSAL_REQUEST = (id: string | number) => {
   return `/procurements/requests/${id}/view`;
 };
 
+export const CREATE_PROCUREMENT_VENDOR =
+  '/procurements/vendors/create';
+export const EDIT_PROCUREMENT_VENDOR = (id: string | number) => {
+  return `/procurements/vendors/${id}/edit`;
+};
+export const VIEW_PROCUREMENT_VENDOR = (id: string | number) => {
+  return `/procurements/vendors/${id}/view`;
+};
+

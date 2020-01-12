@@ -91,6 +91,9 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
     this.validatePhone(this.phoneNumberString);
   }
   validate(c: FormControl) {
+    if (!c.hasError('required') && c.value !== '') {
+      return null;
+    }
     super.validate(c);
     if (c.hasError('required')) {
       return {
@@ -99,9 +102,7 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
         }
       };
     }
-    if (!c.hasError('required') && c.value === '') {
-      return null;
-    }
+
     return (this.phoneNumbers.isValidPhoneNumber(this.phoneNumberString)) ? null : {
       format: {
         valid: false,

@@ -110,6 +110,12 @@ import { MyProcurementsRequestComponent } from './my-procurements-request/my-pro
 import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
 import { EditProcurementRequestComponent } from './edit-procurement-request/edit-procurement-request.component';
 import { ApproveProcurementRequestComponent } from './approve-procurement-request/approve-procurement-request.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
+import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
+import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view-procurements-vendor.component';
+
 
 
 @NgModule({
@@ -199,7 +205,10 @@ import { ApproveProcurementRequestComponent } from './approve-procurement-reques
     MyProcurementsRequestComponent,
     ViewProcurementRequestComponent,
     EditProcurementRequestComponent,
-    ApproveProcurementRequestComponent
+    ApproveProcurementRequestComponent,
+    ProcurementsVendorsComponent,
+    CreateProcurementsVendorsComponent,
+    ViewProcurementsVendorComponent
   ],
   imports: [
     CommonModule,
@@ -217,7 +226,10 @@ import { ApproveProcurementRequestComponent } from './approve-procurement-reques
     AcademicsModule,
     ReportsModule,
     StudentsModule,
-    ErrorModule
+    ErrorModule,
+    AccordionModule.forRoot(),
+    TabsModule.forRoot()
+
   ],
   exports: [LoginComponent, HomeComponent, ToastComponent]
 })

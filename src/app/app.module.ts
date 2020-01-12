@@ -13,6 +13,9 @@ import { metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { CacheInterceptor } from './interceptors/cache.interceptor';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
         strictActionImmutability: true,
       }
     }),
-    !environment.production ? StoreDevtoolsModule.instrument() : []
+    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    ModalModule.forRoot(),
+    AccordionModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },

@@ -33,6 +33,7 @@ export class LinkService {
         return this.getDashboardLinks();
     }
   }
+
   getProcurementLinks(): Observable<LinkInterface[]> {
     return of([
       {
@@ -49,8 +50,13 @@ export class LinkService {
         name: 'Pending Approval',
         icon: 'icon-ok-1',
         link: 'procurements/requests/approve'
+      },
+      {
+        name: 'Vendors',
+        icon: 'icon-truck-1',
+        link: 'procurements/vendors'
       }
-    
+
     ]);
   }
   getLibraryAdminLinks(): Observable<LinkInterface[]> {

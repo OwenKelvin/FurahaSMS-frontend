@@ -3,7 +3,11 @@ import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { Observable } from 'rxjs';
-import { CREATE_PROCUREMENT_PROPOSAL_REQUEST, EDIT_PROCUREMENT_PROPOSAL_REQUEST, VIEW__PROCUREMENT_PROPOSAL_REQUEST } from 'src/app/helpers/links.helpers';
+import {
+  CREATE_PROCUREMENT_PROPOSAL_REQUEST,
+  EDIT_PROCUREMENT_PROPOSAL_REQUEST,
+  VIEW__PROCUREMENT_PROPOSAL_REQUEST
+} from 'src/app/helpers/links.helpers';
 
 @Component({
   selector: 'app-my-procurements-request',
@@ -25,10 +29,10 @@ export class MyProcurementsRequestComponent implements OnInit {
       ...this.procurementService,
       getAll: this.procurementService.getMyRequests,
       deleteItem: this.procurementService.deleteProcurementRequest
-    }
+    };
     this.createNewProcurementRequest = CREATE_PROCUREMENT_PROPOSAL_REQUEST;
     this.editProcurementRequest = EDIT_PROCUREMENT_PROPOSAL_REQUEST;
-    this.viewProcurementRequest = VIEW__PROCUREMENT_PROPOSAL_REQUEST
+    this.viewProcurementRequest = VIEW__PROCUREMENT_PROPOSAL_REQUEST;
   }
 
 }

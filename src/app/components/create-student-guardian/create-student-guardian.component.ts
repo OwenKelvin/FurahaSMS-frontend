@@ -46,7 +46,6 @@ export class CreateStudentGuardianComponent implements OnInit {
       guardians: this.fb.array([this.buildGuardianProfile()])
     });
     this.subscribeToEmailChecking();
-    // this.guardians.valueChanges.subscribe(e => console.log(e))
   }
   get guardians(): FormArray {
     return this.userIdentificaionForm.get('guardians') as FormArray;
