@@ -12,6 +12,12 @@ import { ProcurementsVendorsComponent } from '../procurements-vendors/procuremen
 import { CreateProcurementsVendorsComponent } from '../create-procurements-vendors/create-procurements-vendors.component';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 import { ViewProcurementsVendorComponent } from '../view-procurements-vendor/view-procurements-vendor.component';
+import {
+  ViewProcurementsApprovedRequestsComponent
+} from '../view-procurements-approved-requests/view-procurements-approved-requests.component';
+import { CreateProcurementTenderComponent } from '../create-procurement-tender/create-procurement-tender.component';
+import { ProcurementTendersBidsComponent } from '../procurement-tenders-bids/procurement-tenders-bids.component';
+import { ViewProcurementTendersBidsComponent } from '../view-procurement-tenders-bids/view-procurement-tenders-bids.component';
 
 
 const routes: Routes = [
@@ -48,6 +54,47 @@ const routes: Routes = [
         },
       },
       {
+        path: 'tender',
+
+        data: {
+          breadcrumb: 'Tenders'
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: ViewProcurementsApprovedRequestsComponent,
+            data: {
+              breadcrumb: null
+            }
+
+          }
+        ]
+      },
+      {
+        path: 'tenders',
+        data: {
+          breadcrumb: 'Tenders'
+        },
+        children: [
+          {
+            path: 'bids',
+            pathMatch: 'full',
+            component: ProcurementTendersBidsComponent,
+            data: {
+              breadcrumb: 'Biddings'
+            }
+          },
+          {
+            path: ':id/bids',
+            component: ViewProcurementTendersBidsComponent,
+            data: {
+              breadcrumb: 'Biddings'
+            }
+          }
+        ]
+      },
+      {
         path: 'requests',
         children: [
           {
@@ -65,12 +112,20 @@ const routes: Routes = [
             },
           },
           {
+            path: ':id/tender',
+            component: CreateProcurementTenderComponent,
+            data: {
+              breadcrumb: 'Tender'
+            },
+          },
+          {
             path: 'approve',
             component: ApproveProcurementRequestComponent,
             data: {
               breadcrumb: null
             },
-          }
+          },
+
         ],
         data: {
           breadcrumb: 'View Request'

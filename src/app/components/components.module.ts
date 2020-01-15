@@ -115,6 +115,16 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
 import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
 import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view-procurements-vendor.component';
+import {
+  ViewProcurementsApprovedRequestsComponent
+} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
+import { CreateProcurementTenderComponent } from './create-procurement-tender/create-procurement-tender.component';
+import { ProcurementItemComponent } from './procurement-item/procurement-item.component';
+import { ProcurementTendersBidsComponent } from './procurement-tenders-bids/procurement-tenders-bids.component';
+import { ViewProcurementTendersBidsComponent } from './view-procurement-tenders-bids/view-procurement-tenders-bids.component';
+import { CreateProcurementTenderBidComponent } from './create-procurement-tender-bid/create-procurement-tender-bid.component';
+import { ViewProcurementTenderBidsComponent } from './view-procurement-tender-bids/view-procurement-tender-bids.component';
+import { ValidateSubmitButtonsComponent } from './validate-submit-buttons/validate-submit-buttons.component';
 
 
 
@@ -208,7 +218,15 @@ import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view
     ApproveProcurementRequestComponent,
     ProcurementsVendorsComponent,
     CreateProcurementsVendorsComponent,
-    ViewProcurementsVendorComponent
+    ViewProcurementsVendorComponent,
+    ViewProcurementsApprovedRequestsComponent,
+    CreateProcurementTenderComponent,
+    ProcurementItemComponent,
+    ProcurementTendersBidsComponent,
+    ViewProcurementTendersBidsComponent,
+    CreateProcurementTenderBidComponent,
+    ViewProcurementTenderBidsComponent,
+    ValidateSubmitButtonsComponent
   ],
   imports: [
     CommonModule,
@@ -231,6 +249,7 @@ import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view
     TabsModule.forRoot()
 
   ],
-  exports: [LoginComponent, HomeComponent, ToastComponent]
+  exports: [LoginComponent, HomeComponent, ToastComponent],
+  entryComponents: [CreateProcurementTenderBidComponent]
 })
 export class ComponentsModule {}

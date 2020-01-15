@@ -55,6 +55,16 @@ export class LinkService {
         name: 'Vendors',
         icon: 'icon-truck-1',
         link: 'procurements/vendors'
+      },
+      {
+        name: 'Tender',
+        icon: 'icon-cart-plus',
+        link: 'procurements/tender',
+      },
+      {
+        name: 'Bids',
+        icon: 'icon-chat',
+        link: 'procurements/tenders/bids',
       }
 
     ]);

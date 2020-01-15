@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-procurement-request',
@@ -11,10 +12,16 @@ import { Observable } from 'rxjs';
 })
 export class ViewProcurementRequestComponent implements OnInit {
   procurementItem$: Observable<any>;
-  constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) { }
+  constructor(
+    private route: ActivatedRoute ,
+    private store: Store<fromStore.AppState>,
+    private procurementService: ProcurementService) { }
 
   ngOnInit() {
-    this.procurementItem$ = this.procurementService.getProcurementRequestWithId(1);
+    this.route.paramMap.subscribe(params => {
+      this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
+    });
+
   }
 
 }

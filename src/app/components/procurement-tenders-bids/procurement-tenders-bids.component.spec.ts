@@ -1,26 +1,27 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { EditProcurementRequestComponent } from './edit-procurement-request.component';
+import { ProcurementTendersBidsComponent } from './procurement-tenders-bids.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppState } from 'src/app/store/reducers';
 
-describe('EditProcurementRequestComponent', () => {
-  let component: EditProcurementRequestComponent;
-  let fixture: ComponentFixture<EditProcurementRequestComponent>;
+describe('ProcurementTendersBidsComponent', () => {
+  let component: ProcurementTendersBidsComponent;
+  let fixture: ComponentFixture<ProcurementTendersBidsComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ EditProcurementRequestComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
+      declarations: [ ProcurementTendersBidsComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(EditProcurementRequestComponent);
+    fixture = TestBed.createComponent(ProcurementTendersBidsComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

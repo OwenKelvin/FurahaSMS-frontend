@@ -27,12 +27,14 @@ export class ApproveProcurementRequestComponent implements OnInit {
     this.isApproving[i] = true;
     this.procurementService.approveRequest({ procurement_request_id: procurementItemId, approve: true }).subscribe(res => {
       this.procurementItems$ = this.procurementService.getRequestsPendingApproval();
+      this.isApproving[i] = false;
     });
 
   }
   reject(procurementItemId: number, i: number) {
     this.isRejecting[i] = true;
     this.procurementService.approveRequest({ procurement_request_id: procurementItemId, approve: false }).subscribe(res => {
+      this.isRejecting[i] = false;
       this.procurementItems$ = this.procurementService.getRequestsPendingApproval();
     });
   }

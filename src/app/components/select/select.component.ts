@@ -82,6 +82,7 @@ export class SelectComponent
     | 'religion'
     | 'support-staffs'
     | 'procurement:items-categories'
+    | 'vendor'
     ;
   @Input() id: string;
   @Input() value: any;
@@ -134,6 +135,13 @@ export class SelectComponent
     this.categorySelected = '';
     this.categories = [];
     switch (this.type) {
+      case 'vendor':
+        this.label = 'Vendor';
+        this.error.required = 'Vendor is required';
+        this.hint = 'Please select a vendor';
+        this.categories$ = this.procurementService
+          .getVendors();
+        break;
       case 'procurement:items-categories':
         this.label = 'Item Category';
         this.error.required = 'Item Category is required';

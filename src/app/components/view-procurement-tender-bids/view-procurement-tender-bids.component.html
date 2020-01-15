@@ -1,0 +1,39 @@
+<section *ngIf='(bids$ | async) as bids; else loading'>
+
+    <accordion [closeOthers]=[true]>
+      <accordion-group class="mt-2" *ngFor='let bid of bids; let i = index' [(isOpen)]="isOpen[i]">
+    
+        <section class="active" accordion-heading class="d-flex justify-content-between">
+          <h3>{{ bid.vendor_name }}</h3>
+          <section>
+            <button class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpen[i]'
+                [class.icon-up-dir]='isOpen[i]'></span>View</button>
+          </section>
+        </section>
+    
+        <section>
+          <section class="d-flex justify-content-end mt-0 mb-0">
+            <button [disabled]='awarding[i]' (click)='awardBidTo(bid.vendor_id, i)' class='btn btn-success btn-sm mr-2'>
+              <span class='icon-flag-checkered'></span>
+              <span *ngIf='!awarding[i]'>Award Tender</span>
+              <span *ngIf='awarding[i]'>Awarding...</span>
+            </button>
+          </section>
+          <h4>Pricing</h4>
+          {{ bid.unit_description }} @ {{ bid.price_per_unit }}
+          <h4>Description</h4>
+          {{ bid.description }}
+         qwerty
+        </section>
+       
+      </accordion-group>
+    </accordion>
+  <ng-template #noBids>
+    <section class="alert alert-info">
+      No Bids
+    </section>
+  </ng-template>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

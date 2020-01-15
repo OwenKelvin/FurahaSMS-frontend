@@ -1,0 +1,60 @@
+<h1>Procurements -Approved Requests</h1>
+<section *ngIf='(procurementItems$ | async) as procurementItems; else loading'>
+  <section *ngIf='procurementItems.length === 0' class="alert alert-info">No Pending Items!</section>
+
+  <accordion [closeOthers]=[true]>
+    <accordion-group class="mt-2" *ngFor='let procurementItem of procurementItems; let i = index'
+      [(isOpen)]="isOpen[i]">
+
+      <section class="active" accordion-heading class="d-flex justify-content-between">
+        <h2>{{ procurementItem.name }}</h2>
+        <section>
+          <button class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpen[i]'
+              [class.icon-up-dir]='isOpen[i]'></span>View</button>
+        </section>
+      </section>
+
+      <section>
+        <table class="table table-bordered bg-dark text-light">
+          <caption>Procurement Item Request Description</caption>
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Request ID</td>
+              <td>#{{ procurementItem.id }}</td>
+            </tr>
+            <tr>
+              <td>Item Name</td>
+              <td>{{ procurementItem.name }}</td>
+            </tr>
+            <tr>
+              <td>Quantity</td>
+              <td>{{ procurementItem.quantity_description }}</td>
+            </tr>
+            <tr>
+              <td>Description</td>
+              <td>{{ procurementItem.description }}</td>
+            </tr>
+            <tr>
+              <td>Requested by</td>
+              <td>{{ procurementItem.user?.first_name }} {{procurementItem.user?.last_name}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+      <section class="d-flex justify-content-end mt-3">
+        <button [routerLink]='["/procurements", "requests", procurementItem.id, "tender"]' class='btn btn-success btn-sm mr-2'>
+          Create Tender For Item
+        </button>
+      </section>
+    </accordion-group>
+  </accordion>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>
