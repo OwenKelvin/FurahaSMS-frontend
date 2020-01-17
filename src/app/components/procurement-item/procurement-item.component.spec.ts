@@ -16,6 +16,7 @@ describe('ProcurementItemComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ProcurementItemComponent);
     component = fixture.componentInstance;
+    component.item = { id: 1 };
     fixture.detectChanges();
   });
 

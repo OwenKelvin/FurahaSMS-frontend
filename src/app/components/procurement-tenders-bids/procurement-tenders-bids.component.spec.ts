@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppState } from 'src/app/store/reducers';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 
 describe('ProcurementTendersBidsComponent', () => {
   let component: ProcurementTendersBidsComponent;
@@ -14,7 +15,7 @@ describe('ProcurementTendersBidsComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ ProcurementTendersBidsComponent ]
+      declarations: [ ProcurementTendersBidsComponent, LoadingBubbleComponent ]
     });
 
     await TestBed.compileComponents();

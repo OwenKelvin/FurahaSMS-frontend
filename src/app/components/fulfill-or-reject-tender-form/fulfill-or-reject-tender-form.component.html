@@ -9,10 +9,11 @@
         Fulfilled
       </label>
     </section>
-    <section>
+    <section class="mb-3">
       <label for="comment">Comments</label>
       <textarea formControlName='comment' id="comment" class='form-control'></textarea>
     </section>
+    <app-error></app-error>
     <section class='d-flex justify-content-between mt-3'>
       <button (click)='closeDialog()' type='button' class='btn btn-danger'>Cancel</button>
       <app-validate-submit-buttons [isSubmitting]='isSubmitting'

@@ -8,6 +8,8 @@ import { SelectComponent } from '../select/select.component';
 import { InputComponent } from '../input/input.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { ValidateSubmitButtonsComponent } from '../validate-submit-buttons/validate-submit-buttons.component';
 
 describe('ProcurementsRequestComponent', () => {
   let component: ProcurementsRequestComponent;
@@ -17,7 +19,13 @@ describe('ProcurementsRequestComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ ProcurementsRequestComponent, SelectComponent, InputComponent ]
+      declarations: [
+        ProcurementsRequestComponent,
+        SelectComponent,
+        InputComponent,
+        LoadingBubbleComponent,
+        ValidateSubmitButtonsComponent
+      ]
     });
 
     await TestBed.compileComponents();

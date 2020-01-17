@@ -4,6 +4,11 @@ import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-f
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { InputComponent } from '../input/input.component';
+import { ErrorComponent } from '../error/error.component';
+import { ValidateSubmitButtonsComponent } from '../validate-submit-buttons/validate-submit-buttons.component';
 
 describe('FulfillOrRejectTenderFormComponent', () => {
   let component: FulfillOrRejectTenderFormComponent;
@@ -12,8 +17,15 @@ describe('FulfillOrRejectTenderFormComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), HttpClientTestingModule ],
-      declarations: [ FulfillOrRejectTenderFormComponent ]
+      imports: [StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule,
+        FormsModule,
+        ReactiveFormsModule
+      ],
+      declarations: [
+        FulfillOrRejectTenderFormComponent,
+        InputComponent,
+        ValidateSubmitButtonsComponent,
+        ErrorComponent]
     });
 
     await TestBed.compileComponents();

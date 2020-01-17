@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidateSubmitButtonsComponent } from './validate-submit-buttons.component';
+import { FormGroup } from '@angular/forms';
 
 describe('ValidateSubmitButtonsComponent', () => {
   let component: ValidateSubmitButtonsComponent;
@@ -16,6 +17,7 @@ describe('ValidateSubmitButtonsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ValidateSubmitButtonsComponent);
     component = fixture.componentInstance;
+    component.formItem = new FormGroup({});
     fixture.detectChanges();
   });
 

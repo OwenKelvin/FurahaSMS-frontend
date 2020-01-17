@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateProcurementTenderBidComponent } from '../create-procurement-tender-bid/create-procurement-tender-bid.component';
@@ -24,7 +24,6 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
   componentActive = true;
   constructor(
     private modalService: BsModalService,
-    private router: Router,
     private route: ActivatedRoute,
     private store: Store<fromStore.AppState>,
     private procurementService: ProcurementService) { }

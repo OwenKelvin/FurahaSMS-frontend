@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InputComponent } from '../input/input.component';
+import { SelectComponent } from '../select/select.component';
 
 describe('CreateProcurementTenderBidComponent', () => {
   let component: CreateProcurementTenderBidComponent;
@@ -15,7 +16,7 @@ describe('CreateProcurementTenderBidComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
-      declarations: [ CreateProcurementTenderBidComponent, InputComponent ]
+      declarations: [ CreateProcurementTenderBidComponent, InputComponent, SelectComponent ]
     });
 
     await TestBed.compileComponents();

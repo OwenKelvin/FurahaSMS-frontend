@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewProcurementsApprovedRequestsComponent', () => {
   let component: ViewProcurementsApprovedRequestsComponent;
@@ -14,7 +15,7 @@ describe('ViewProcurementsApprovedRequestsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, AccordionModule.forRoot() ],
+      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, AccordionModule.forRoot(), RouterTestingModule ],
       declarations: [ ViewProcurementsApprovedRequestsComponent, LoadingBubbleComponent ]
     });
 

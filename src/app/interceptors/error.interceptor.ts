@@ -64,7 +64,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
       }
-      if (err.status === 400 || err.status === 405) {
+      if (err.status === 400 || err.status === 405 || err.status === 409) {
         this.message = {
           message: error,
           type: 'error',

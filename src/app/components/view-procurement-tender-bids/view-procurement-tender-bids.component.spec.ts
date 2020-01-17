@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 describe('ViewProcurementTenderBidsComponent', () => {
   let component: ViewProcurementTenderBidsComponent;
@@ -13,7 +14,7 @@ describe('ViewProcurementTenderBidsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), HttpClientTestingModule ],
+      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, AccordionModule.forRoot() ],
       declarations: [ ViewProcurementTenderBidsComponent, LoadingBubbleComponent ]
     });
 
@@ -23,6 +24,7 @@ describe('ViewProcurementTenderBidsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewProcurementTenderBidsComponent);
     component = fixture.componentInstance;
+    component.items = [];
     store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
@@ -30,6 +32,7 @@ describe('ViewProcurementTenderBidsComponent', () => {
   });
 
   it('should create', () => {
+    fixture.detectChanges();
     expect(component).toBeTruthy();
   });
 });

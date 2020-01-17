@@ -6,6 +6,8 @@ import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { BrowserDynamicTestingModule } from '@angular/platform-browser-dynamic/testing';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('ViewProcurementTendersAwardedComponent', () => {
   let component: ViewProcurementTendersAwardedComponent;
@@ -14,8 +16,12 @@ describe('ViewProcurementTendersAwardedComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule],
+      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule, ModalModule.forRoot()],
       declarations: [ ViewProcurementTendersAwardedComponent, LoadingBubbleComponent ]
+    }).overrideModule(BrowserDynamicTestingModule, {
+      set: {
+        entryComponents: [ViewProcurementTendersAwardedComponent]
+      }
     });
 
     await TestBed.compileComponents();

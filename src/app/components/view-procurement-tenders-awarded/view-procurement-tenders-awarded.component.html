@@ -15,11 +15,26 @@
         <td>#{{ procurementTender.id }}</td>
         <td>{{ procurementTender.requested_item_name }}</td>
         <td>{{ procurementTender.vendor_name }}</td>
-        <td><span class='badge badge-secondary p-2'>Pending</span></td>
+        <td>
+          <span *ngIf='procurementTender.fulfilled' class='badge badge-success p-2'>Delivered</span>
+          <span *ngIf='procurementTender.fulfilled === false || procurementTender.fulfilled === 0' class='badge badge-danger p-2'>Unfulfilled</span>
+          <span *ngIf='procurementTender.fulfilled === undefined || procurementTender.fulfilled === null' class='badge badge-secondary p-2'>Pending</span>
+        </td>
         <td class='d-flex justify-content-between'>
-          <button (click)='openModalWithComponent(procurementTender.id, false)' aria-label='Mark as NotFulfilled' class='icon-cancel btn btn-sm btn-danger'></button>
-          <button [routerLink]='["/procurements", "tenders", procurementTender.id, "bids"]' aria-label='Mark as Fulfilled' class='icon-eye btn btn-sm btn-primary'></button>
-          <button (click)='openModalWithComponent(procurementTender.id, true)'aria-label='Mark as Fulfilled' class='icon-ok-1 btn btn-sm btn-success'></button>
+          <button 
+            [disabled]='!(procurementTender.fulfilled === undefined || procurementTender.fulfilled === null)' 
+            (click)='openModalWithComponent(procurementTender.id, false)' 
+            aria-label='Mark as NotFulfilled' 
+            class='icon-cancel btn btn-sm btn-danger'>
+          </button>
+          <button 
+            [disabled]='!(procurementTender.fulfilled === undefined || procurementTender.fulfilled === null)' 
+            (click)='openModalWithComponent(procurementTender.id, true)'
+            aria-label='Mark as Fulfilled' 
+            class='icon-ok-1 btn btn-sm btn-success'>
+          </button>
+          <button [routerLink]='["/procurements", "tenders", procurementTender.id, "bids"]' aria-label='Mark as Fulfilled'
+            class='icon-eye btn btn-sm btn-primary'></button>
         </td>
       </tr>
     </tbody>
