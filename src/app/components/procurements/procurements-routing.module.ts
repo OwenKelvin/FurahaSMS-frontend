@@ -3,27 +3,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { ProcurementsComponent } from './procurements.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
-import { ProcurementsRequestComponent } from '../procurements-request/procurements-request.component';
+import { ProcurementsRequestComponent } from './procurements-request/procurements-request.component';
 import { MyProcurementsRequestComponent } from '../my-procurements-request/my-procurements-request.component';
-import { ViewProcurementRequestComponent } from '../view-procurement-request/view-procurement-request.component';
+import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
 import { EditProcurementRequestComponent } from '../edit-procurement-request/edit-procurement-request.component';
 import { ApproveProcurementRequestComponent } from '../approve-procurement-request/approve-procurement-request.component';
-import { ProcurementsVendorsComponent } from '../procurements-vendors/procurements-vendors.component';
-import { CreateProcurementsVendorsComponent } from '../create-procurements-vendors/create-procurements-vendors.component';
+import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
+import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
-import { ViewProcurementsVendorComponent } from '../view-procurements-vendor/view-procurements-vendor.component';
+import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view-procurements-vendor.component';
 import {
   ViewProcurementsApprovedRequestsComponent
-} from '../view-procurements-approved-requests/view-procurements-approved-requests.component';
-import { CreateProcurementTenderComponent } from '../create-procurement-tender/create-procurement-tender.component';
-import { ProcurementTendersBidsComponent } from '../procurement-tenders-bids/procurement-tenders-bids.component';
-import { ViewProcurementTendersBidsComponent } from '../view-procurement-tenders-bids/view-procurement-tenders-bids.component';
-import { ViewProcurementTendersAwardedComponent } from '../view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
+} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
+import { CreateProcurementTenderComponent } from './create-procurement-tender/create-procurement-tender.component';
+import { ProcurementTendersBidsComponent } from './procurement-tenders-bids/procurement-tenders-bids.component';
+import { ViewProcurementTendersBidsComponent } from './view-procurement-tenders-bids/view-procurement-tenders-bids.component';
+import { ViewProcurementTendersAwardedComponent } from './view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
 
 
 const routes: Routes = [
   {
-    path: 'procurements',
+    path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     data: {

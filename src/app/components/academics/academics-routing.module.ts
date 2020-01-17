@@ -3,27 +3,27 @@ import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
 import { AcademicsComponent } from './academics.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
-import { AcademicYearComponent } from '../academic-year/academic-year.component';
+import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from '../create-academic-year/create-academic-year.component';
 import { ViewAcademicYearComponent } from '../view-academic-year/view-academic-year.component';
 import { digitsMatcher } from '../matcher/digits.matcher';
 import { ViewAcademicYearInfoComponent } from '../view-academic-year-info/view-academic-year-info.component';
-import { AcademicYearFinancialPlanComponent } from '../academic-year-financial-plan/academic-year-financial-plan.component';
-import { AcademicYearSubjectUnitsComponent } from '../academic-year-subject-units/academic-year-subject-units.component';
-import { AcademicsCurriculumComponent } from '../academics-curriculum/academics-curriculum.component';
-import { AcademicYearArchivesComponent } from '../academic-year-archives/academic-year-archives.component';
+import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
+import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
+import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
+import { AcademicYearArchivesComponent } from './academic-year-archives/academic-year-archives.component';
 import {
   AcademicsCurriculumUnitCategoriesComponent
-} from '../academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+} from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
 import {
   AcademicsCurriculumUnitsComponent
-} from '../academics-curriculum-units/academics-curriculum-units.component';
+} from './academics-curriculum-units/academics-curriculum-units.component';
 import {
   AcademicsCurriculumClassLevelCategoriesComponent
-} from '../academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+} from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import {
   AcademicsCurriculumClassLevelsComponent
-} from '../academics-curriculum-class-levels/academics-curriculum-class-levels.component';
+} from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
 import { CreateUnitCategoriesComponent } from '../create-unit-categories/create-unit-categories.component';
 import { ViewUnitCategoryComponent } from '../view-unit-category/view-unit-category.component';
 import { EditUnitCategoryComponent } from '../edit-unit-category/edit-unit-category.component';

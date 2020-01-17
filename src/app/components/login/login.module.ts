@@ -7,7 +7,7 @@ import { LoginContactAdminComponent } from './login-contact-admin/login-contact-
 import { LoginResetComponent } from './login-reset/login-reset.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
-import { AppLayoutModule } from 'src/app/modules/layout.module';
+import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 
 
 @NgModule({

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateProcurementTenderComponent } from './create-procurement-tender.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from './node_modules/src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { ProcurementItemComponent } from '../procurement-item/procurement-item.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';

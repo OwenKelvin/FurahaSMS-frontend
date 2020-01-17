@@ -16,7 +16,7 @@ import { CacheInterceptor } from './interceptors/cache.interceptor';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { AppLayoutModule } from './modules/layout.module';
+import { AppLayoutModule } from './modules/app-layout.module';
 
 @NgModule({
   declarations: [

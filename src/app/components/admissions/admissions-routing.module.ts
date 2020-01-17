@@ -14,7 +14,7 @@ import { StudentAdmissionsEditComponent } from '../student-admissions-edit/stude
 const routes: Routes = [
   {
 
-    path: 'admissions',
+    path: '',
     component: LayoutComponent,
     canActivate: [AuthGuard],
     data: {
