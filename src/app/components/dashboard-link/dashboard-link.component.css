@@ -17,8 +17,8 @@
 
 }
 .dashboard-link-item section:first-child {
-	font-size: 50px;
+	font-size: 3rem;
 }
 .dashboard-link-item section:nth-child(2) {
-	font-size: 20px;
+	font-size: 0.8rem;
 }

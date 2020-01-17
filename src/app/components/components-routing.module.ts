@@ -1,14 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeComponent } from './home/home.component';
-import { LoginComponent } from './login/login.component';
-import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
-import { LoginResetComponent } from './login-reset/login-reset.component';
+import { HomeComponent } from './home/home.component';;
 import { DashboardComponent } from './dashboard/dashboard.component';
 import { LayoutComponent } from './layout/layout.component';
 import { AuthGuard } from './../guards/auth.guard';
 import { GuestGuard } from './../guards/guest.guard';
-import { CommonModule } from '@angular/common';
 
 const routes: Routes = [
   {
@@ -28,6 +24,14 @@ const routes: Routes = [
         component: DashboardComponent
       }
     ]
+  },
+  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then(m => m.LoginModule)
+  },
+  {
+    path: 'procurements',
+    loadChildren: () => import('./procurements/procurements.module').then(m => m.ProcurementsModule)
   }
 ];
 

@@ -2,15 +2,15 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ComponentsRoutingModule } from './components-routing.module';
-import { LoginComponent } from './login/login.component';
+// import { LoginComponent } from './login/login.component';
 import { HomeComponent } from './home/home.component';
-import { FullWithCenterComponent } from './full-with-center/full-with-center.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
-import { LoginResetComponent } from './login-reset/login-reset.component';
-import { InputComponent } from './input/input.component';
+// import { FullWithCenterComponent } from './full-with-center/full-with-center.component';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+// import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
+// import { LoginResetComponent } from './login-reset/login-reset.component';
+// import { InputComponent } from './input/input.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
-import { LoginModule } from './login/login.module';
+// import { LoginModule } from './login/login.module';
 import { ToastComponent } from './toast/toast.component';
 import { LogoutButtonComponent } from './logout-button/logout-button.component';
 import { LayoutComponent } from './layout/layout.component';
@@ -94,7 +94,7 @@ import { EditClassLevelCategoryComponent } from './edit-class-level-category/edi
 import { EditClassLevelComponent } from './edit-class-level/edit-class-level.component';
 import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
 import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
-import { SelectComponent } from './select/select.component';
+// import { SelectComponent } from './select/select.component';
 import { CrudComponent } from './crud/crud.component';
 import { ViewComponent } from './view/view.component';
 import { DescriptionComponent } from './description/description.component';
@@ -127,17 +127,19 @@ import { ViewProcurementTenderBidsComponent } from './view-procurement-tender-bi
 import { ValidateSubmitButtonsComponent } from './validate-submit-buttons/validate-submit-buttons.component';
 import { ViewProcurementTendersAwardedComponent } from './view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
 import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-form/fulfill-or-reject-tender-form.component';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppLayoutModule } from '../modules/layout.module';
 
 
 
 @NgModule({
   declarations: [
-    LoginComponent,
+    // LoginComponent,
     HomeComponent,
-    FullWithCenterComponent,
-    LoginContactAdminComponent,
-    LoginResetComponent,
-    InputComponent,
+    // FullWithCenterComponent,
+    // LoginContactAdminComponent,
+    // LoginResetComponent,
+    // InputComponent,
     DashboardComponent,
     ToastComponent,
     LogoutButtonComponent,
@@ -203,7 +205,7 @@ import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-f
     EditClassLevelComponent,
     ViewClassLevelComponent,
     CreateClassLevelComponent,
-    SelectComponent,
+    // SelectComponent,
     CrudComponent,
     ViewComponent,
     DescriptionComponent,
@@ -237,7 +239,7 @@ import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-f
     NgSelectModule,
     ComponentsRoutingModule,
     ReactiveFormsModule,
-    LoginModule,
+    // LoginModule,
     AdmissionsModule,
     LibraryModule,
     AccountsModule,
@@ -250,10 +252,15 @@ import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-f
     StudentsModule,
     ErrorModule,
     AccordionModule.forRoot(),
-    TabsModule.forRoot()
+    TabsModule.forRoot(),
+    AppInputModule,
+    AppLayoutModule,
 
   ],
-  exports: [LoginComponent, HomeComponent, ToastComponent],
+  exports: [
+    // LoginComponent,
+    HomeComponent,
+    ToastComponent],
   entryComponents: [CreateProcurementTenderBidComponent, FulfillOrRejectTenderFormComponent]
 })
 export class ComponentsModule {}
