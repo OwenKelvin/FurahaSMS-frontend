@@ -125,6 +125,8 @@ import { ViewProcurementTendersBidsComponent } from './view-procurement-tenders-
 import { CreateProcurementTenderBidComponent } from './create-procurement-tender-bid/create-procurement-tender-bid.component';
 import { ViewProcurementTenderBidsComponent } from './view-procurement-tender-bids/view-procurement-tender-bids.component';
 import { ValidateSubmitButtonsComponent } from './validate-submit-buttons/validate-submit-buttons.component';
+import { ViewProcurementTendersAwardedComponent } from './view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
+import { FulfillOrRejectTenderFormComponent } from './fulfill-or-reject-tender-form/fulfill-or-reject-tender-form.component';
 
 
 
@@ -226,7 +228,9 @@ import { ValidateSubmitButtonsComponent } from './validate-submit-buttons/valida
     ViewProcurementTendersBidsComponent,
     CreateProcurementTenderBidComponent,
     ViewProcurementTenderBidsComponent,
-    ValidateSubmitButtonsComponent
+    ValidateSubmitButtonsComponent,
+    ViewProcurementTendersAwardedComponent,
+    FulfillOrRejectTenderFormComponent
   ],
   imports: [
     CommonModule,
@@ -250,6 +254,6 @@ import { ValidateSubmitButtonsComponent } from './validate-submit-buttons/valida
 
   ],
   exports: [LoginComponent, HomeComponent, ToastComponent],
-  entryComponents: [CreateProcurementTenderBidComponent]
+  entryComponents: [CreateProcurementTenderBidComponent, FulfillOrRejectTenderFormComponent]
 })
 export class ComponentsModule {}

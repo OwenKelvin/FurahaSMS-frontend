@@ -18,6 +18,7 @@ import {
 import { CreateProcurementTenderComponent } from '../create-procurement-tender/create-procurement-tender.component';
 import { ProcurementTendersBidsComponent } from '../procurement-tenders-bids/procurement-tenders-bids.component';
 import { ViewProcurementTendersBidsComponent } from '../view-procurement-tenders-bids/view-procurement-tenders-bids.component';
+import { ViewProcurementTendersAwardedComponent } from '../view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
 
 
 const routes: Routes = [
@@ -90,6 +91,13 @@ const routes: Routes = [
             component: ViewProcurementTendersBidsComponent,
             data: {
               breadcrumb: 'Biddings'
+            }
+          },
+          {
+            path: 'awarded',
+            component: ViewProcurementTendersAwardedComponent,
+            data: {
+              breadcrumb: 'Awarded Tenders'
             }
           }
         ]

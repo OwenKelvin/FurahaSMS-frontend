@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
 import { filter } from 'rxjs/operators';
+import { Location } from '@angular/common';
 
 interface BreadcrumbInterface {
   label: string;
@@ -20,7 +21,8 @@ export class BreadcrumbComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private router: Router
+    private router: Router,
+    private location: Location
   ) {
     this.breadcrumbs = [];
   }
@@ -35,7 +37,9 @@ export class BreadcrumbComponent implements OnInit {
     });
   }
 
-  private getBreadcrumbs(route: ActivatedRoute, url: string = '', breadcrumbs: BreadcrumbInterface[] = []): BreadcrumbInterface[] {
+  private getBreadcrumbs(
+    route: ActivatedRoute, url: string = '',
+    breadcrumbs: BreadcrumbInterface[] = []): BreadcrumbInterface[] {
     const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
     const children: ActivatedRoute[] = route.children;
@@ -67,6 +71,9 @@ export class BreadcrumbComponent implements OnInit {
       }
       return this.getBreadcrumbs(child, url, breadcrumbs);
     }
+  }
+  backClicked() {
+    this.location.back();
   }
 
 }

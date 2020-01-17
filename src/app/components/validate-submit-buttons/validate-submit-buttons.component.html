@@ -1,5 +1,5 @@
 <section class='d-flex justify-content-end'>
-  <button *ngIf='!formItem.valid' (click)='triggerValidation = !triggerValidation' type='button'
+  <button *ngIf='!formItem.valid' (click)='triggerValidation()' type='button'
     class='btn btn-secondary mr-4'>Validate</button>
 
   <button class='btn btn-success'

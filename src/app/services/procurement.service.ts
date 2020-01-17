@@ -62,10 +62,10 @@ export class ProcurementService {
   }
 
   createTender(data: any): Observable<any> {
-    return this.http.post('api/procurements/tender', data);
+    return this.http.post('api/procurements/tenders', data);
   }
   getRequestsTendered(): Observable<any> {
-    return this.http.get('api/procurements/tender/?tendered=1');
+    return this.http.get('api/procurements/tenders/?tendered=1');
   }
   createBid({ tenderId, data }) {
     return this.http.post(`api/procurements/tenders/${tenderId}/bids`, {
@@ -78,8 +78,18 @@ export class ProcurementService {
   getBids({ procurementRequestId }) {
     return this.http.get(`api/procurements/tenders/${procurementRequestId}/bids`);
   }
-  awardBid({ tenderId, data }) {
-    return this.http.patch(`api/procurements/tenders/${tenderId}`, data);
+  awardBid({ tenderId, bidId, data }) {
+    return this.http.patch(`api/procurements/tenders/${tenderId}/bids/${bidId}`, data);
 
+  }
+  getAwardedTenders(): Observable<any> {
+    return this.http.get('api/procurements/tenders/?awarded=1');
+  }
+  setFulfillment({tenderId, comment, fulfilled}): Observable<any> {
+    return this.http.post(`api/procurements/tenders/${tenderId}/fulfilled`, {
+      fulfilled,
+      comment
+
+    });
   }
 }

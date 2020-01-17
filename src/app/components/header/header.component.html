@@ -5,7 +5,7 @@
     (click)='toggleMenu()'
     class='btn btn-secondary hidden-sm'
     id='menu-toggle'>Menu <span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
-    <i [class]='isMenuClosed ? "icon-left-big": "icon-right-big"'></i></button>
+    <i [class]='isMenuClosed ? "icon-left-open": "icon-right-open"'></i></button>
   <span *ngIf='!isMenuClosed' class="hidden-sm-up">&nbsp;</span>
   <button
     [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'

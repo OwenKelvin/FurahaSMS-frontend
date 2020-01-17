@@ -11,7 +11,7 @@ export class ValidateSubmitButtonsComponent implements OnInit {
 
   @Input() formItem: FormGroup;
   @Input() isSubmitting: boolean;
-  @Output() validationButtonClicked = new EventEmitter();;
+  @Output() validationButtonClicked = new EventEmitter();
 
   constructor() { }
 

@@ -6,6 +6,7 @@ import { ProcurementService } from 'src/app/services/procurement.service';
 import { selectErrorState } from 'src/app/store/selectors/error-message.selector';
 import { Observable } from 'rxjs';
 import { closeDialog } from 'src/app/store/actions/dialog.actions';
+import { loadErrorMessagesFailure } from 'src/app/store/actions/error-message.actions';
 
 @Component({
   selector: 'app-create-procurement-tender-bid',
@@ -31,6 +32,9 @@ export class CreateProcurementTenderBidComponent implements OnInit {
       description: ['']
     });
   }
+  closeMessage() {
+    this.store.dispatch(loadErrorMessagesFailure());
+  }
   closeDialog() {
     const dialogCloseConfirmed = confirm('Are you sure you wish to close add bid form?');
     if (dialogCloseConfirmed) {
@@ -42,6 +46,7 @@ export class CreateProcurementTenderBidComponent implements OnInit {
     const data = { data: this.newBidForm.value, tenderId: this.tenderId };
     this.procurementService.createBid(data).subscribe(res => {
       this.isSubmitting = false;
+      this.store.dispatch(closeDialog());
     }, err => {
         this.isSubmitting = false;
     });

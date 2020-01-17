@@ -16,9 +16,6 @@ export class ProcurementTendersBidsComponent implements OnInit {
 
   ngOnInit() {
     this.procurementItems$ = this.procurementService.getRequestsTendered();
-    this.procurementItems$.subscribe(item => {
-      console.log(item);
-    });
   }
 
 }

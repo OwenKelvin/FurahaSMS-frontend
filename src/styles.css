@@ -48,15 +48,17 @@ h1 {
 }
 h2 {
   font-size: 1.5rem;
-  margin-left: 10px;
+  /* margin-left: 10px; */
   line-height: 1.7rem;
   font-weight: 500;
+  border-left: 10px solid lightblue;
 }
 h3 {
   font-size: 1.2rem;
-  margin-left: 13px;
+  /* margin-left: 13px; */
   line-height: 1.7rem;
   font-weight: 400;
+  border-left: 15px solid lightblue;
 }
 .full-height {
   height: 100%;
@@ -149,4 +151,7 @@ a:hover {
 .label-value, .label-name {
  font-weight: bold;
  line-height: 2em;
+}
+.modal-container {
+   border: black solid 4px
 }

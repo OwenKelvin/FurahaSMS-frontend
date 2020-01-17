@@ -11,25 +11,27 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
   styleUrls: ['./view-procurement-tender-bids.component.css']
 })
 export class ViewProcurementTenderBidsComponent implements OnInit {
-  @Input() procurementRequestId;
-  bids$: Observable<any>;
+  // @Input() procurementRequestId;
+  // bids$: Observable<any>;
+  @Input() items;
+  bids: any[];
   isOpen: boolean[];
   awarding: boolean[];
+  isAwarded: boolean;
   constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) { }
 
   ngOnInit() {
     this.isOpen = [false];
     this.awarding = [false];
-    this.bids$ = this.procurementService.getBids({ procurementRequestId: this.procurementRequestId });
-    this.bids$.subscribe(e => console.log(e[0]));
+    this.bids = this.items;
+    this.isAwarded = this.bids.every(bid => bid.awarded);
   }
-  awardBidTo(bidId, i) {
+  awardBidTo(tenderId, bidId, i) {
     this.awarding[i] = true;
-    const tenderId = 1;
     const data = {
-      awarded_to: 1
+      awarded: true
     };
-    this.procurementService.awardBid({ tenderId, data }).subscribe(res => {
+    this.procurementService.awardBid({ tenderId, bidId, data }).subscribe(res => {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
         toastBody: 'Bid Successfully awarded'

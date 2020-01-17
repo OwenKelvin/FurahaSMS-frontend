@@ -31,7 +31,8 @@ export class CreateProcurementTenderComponent implements OnInit {
     this.procurementItem$ = this.procurementService.getProcurementRequestWithId(id);
     this.tenderForm = this.fb.group({
       expiryDatetime: ['', [Validators.required]],
-      description: ['']
+      // expiryDatetime: ['', [Validators.required, Validators.pattern('[0-30]')]],
+      description: ['', Validators.required]
     });
 
   }

@@ -8,7 +8,7 @@
 <section>
   <form (submit)='submitTenderForm()' [formGroup]='tenderForm' class="d-flex flex-wrap">
     <section class="col-lg-6">
-      <app-input id='expiryDatetime' formControlName='expiryDatetime' placeholder='Enter Expiry Date and Time' label='Expiry Date' type='datetime'></app-input>
+      <app-input id='expiryDatetime' formControlName='expiryDatetime' placeholder='eg. 22-10-2010 10:30' label='Expiry Date' type='datetime-local'></app-input>
     </section>
     <section class="col-lg-6">
       <app-input id='description' formControlName='description' placeholder='Enter Description' label='Description'

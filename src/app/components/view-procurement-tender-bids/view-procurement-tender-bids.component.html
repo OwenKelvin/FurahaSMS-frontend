@@ -1,4 +1,4 @@
-<section *ngIf='(bids$ | async) as bids; else loading'>
+<section *ngIf='bids; else loading'>
 
     <accordion [closeOthers]=[true]>
       <accordion-group class="mt-2" *ngFor='let bid of bids; let i = index' [(isOpen)]="isOpen[i]">
@@ -13,11 +13,14 @@
     
         <section>
           <section class="d-flex justify-content-end mt-0 mb-0">
-            <button [disabled]='awarding[i]' (click)='awardBidTo(bid.vendor_id, i)' class='btn btn-success btn-sm mr-2'>
+            <button *ngIf='!bid.awarded; else awarded_label' [disabled]='awarding[i] || isAwarded' (click)='awardBidTo(bid.tender_id, bid.id, i)' class='btn btn-success btn-sm mr-2'>
               <span class='icon-flag-checkered'></span>
               <span *ngIf='!awarding[i]'>Award Tender</span>
               <span *ngIf='awarding[i]'>Awarding...</span>
             </button>
+            <ng-template #awarded_label>
+              <span class='badge badge-success p-2'> <i class='icon-star-empty'></i>Awarded </span>
+            </ng-template>
           </section>
           <h4>Pricing</h4>
           {{ bid.unit_description }} @ {{ bid.price_per_unit }}

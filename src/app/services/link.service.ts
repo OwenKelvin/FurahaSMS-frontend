@@ -65,6 +65,11 @@ export class LinkService {
         name: 'Bids',
         icon: 'icon-chat',
         link: 'procurements/tenders/bids',
+      },
+      {
+        name: 'Awarded Tenders',
+        icon: 'icon-star',
+        link: 'procurements/tenders/awarded',
       }
 
     ]);
