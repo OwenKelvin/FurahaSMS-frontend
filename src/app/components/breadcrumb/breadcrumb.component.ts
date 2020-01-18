@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart } from '@angular/router';
-import { filter } from 'rxjs/operators';
+import { filter, takeWhile } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
 interface BreadcrumbInterface {
@@ -14,11 +14,12 @@ interface BreadcrumbInterface {
   templateUrl: './breadcrumb.component.html',
   styleUrls: ['./breadcrumb.component.css']
 })
-export class BreadcrumbComponent implements OnInit {
+export class BreadcrumbComponent implements OnInit, OnDestroy {
 
   public breadcrumbs: BreadcrumbInterface[];
   
   showSpinner: boolean;
+  componentIsActive: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -29,15 +30,21 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
-    const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
+    console.log(this.breadcrumbs)
+    // const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(event => {
       this.showSpinner = false;
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
-    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
+    this.router.events.pipe(filter(event => event instanceof NavigationStart))
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(event => {
       this.showSpinner = true;
     });
   }
@@ -79,6 +86,9 @@ export class BreadcrumbComponent implements OnInit {
   }
   backClicked() {
     this.location.back();
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

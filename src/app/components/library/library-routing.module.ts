@@ -1,8 +1,6 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from '../layout/layout.component';
 import { LibraryComponent } from './library.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 import { LibrarySearchCatalogueComponent } from './library-search-catalogue/library-search-catalogue.component';
 import { LibraryMyAccountComponent } from './library-my-account/library-my-account.component';
 import { LibraryAdminComponent } from './library-admin/library-admin.component';
@@ -14,76 +12,68 @@ import { LibraryAdminPublishersComponent } from './library-admin-publishers/libr
 
 const routes: Routes = [
   {
-
     path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
+    pathMatch: 'full',
+    component: LibraryComponent,
     data: {
-      breadcrumb: 'Library'
+      breadcrumb: null
+    },
+  },
+  {
+    path: 'search-catalogue',
+    component: LibrarySearchCatalogueComponent,
+    data: {
+      breadcrumb: 'Search'
+    },
+  },
+  {
+    path: 'my-account',
+    component: LibraryMyAccountComponent,
+    data: {
+      breadcrumb: 'My Account'
+    },
+  },
+  {
+    path: 'admin',
+    data: {
+      breadcrumb: 'Admin'
     },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: LibraryComponent,
+        component: LibraryAdminComponent,
         data: {
           breadcrumb: null
-        },
+        }
       },
       {
-        path: 'search-catalogue',
-        component: LibrarySearchCatalogueComponent,
+        path: 'users',
+        component: LibraryAdminUsersComponent,
         data: {
-          breadcrumb: 'Search'
-        },
+          breadcrumb: 'Users'
+        }
       },
       {
-        path: 'my-account',
-        component: LibraryMyAccountComponent,
+        path: 'books',
+        component: LibraryAdminBooksComponent,
         data: {
-          breadcrumb: 'My Account'
-        },
+          breadcrumb: 'Books'
+        }
       },
       {
-        path: 'admin',
+        path: 'authors',
+        component: LibraryAdminAuthorsComponent,
         data: {
-          breadcrumb: 'Admin'
-        },
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: LibraryAdminComponent,
-          },
-          {
-            path: 'users',
-            component: LibraryAdminUsersComponent,
-            data: {
-              breadcrumb: 'Users'
-            }
-          },
-          {
-            path: 'books',
-            component: LibraryAdminBooksComponent,
-            data: {
-              breadcrumb: 'Books'
-            }
-          },
-          {
-            path: 'authors',
-            component: LibraryAdminAuthorsComponent,
-            data: {
-              breadcrumb: 'Authors'
-            }
-          },
-          {
-            path: 'publishers',
-            component: LibraryAdminPublishersComponent,
-            data: {
-              breadcrumb: 'Publishers'
-            }
-          }
-        ]
+          breadcrumb: 'Authors'
+        }
+      },
+      {
+        path: 'publishers',
+        component: LibraryAdminPublishersComponent,
+        data: {
+          breadcrumb: 'Publishers'
+        }
       }
     ]
   }

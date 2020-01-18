@@ -1,12 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from '../layout/layout.component';
 import { AcademicsComponent } from './academics.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 import { AcademicYearComponent } from './academic-year/academic-year.component';
 import { CreateAcademicYearComponent } from '../create-academic-year/create-academic-year.component';
 import { ViewAcademicYearComponent } from '../view-academic-year/view-academic-year.component';
-import { digitsMatcher } from '../matcher/digits.matcher';
 import { ViewAcademicYearInfoComponent } from '../view-academic-year-info/view-academic-year-info.component';
 import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
 import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
@@ -41,54 +38,109 @@ import { EditClassLevelComponent } from '../edit-class-level/edit-class-level.co
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
+    pathMatch: 'full',
+    component: AcademicsComponent,
     data: {
-      breadcrumb: 'Academics'
+      breadcrumb: null
+    },
+  },
+  {
+    path: 'academic-year',
+    data: {
+      breadcrumb: 'Academic Year'
     },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: AcademicsComponent,
+        component: AcademicYearComponent,
         data: {
           breadcrumb: null
         },
       },
       {
-        path: 'academic-year',
+        path: 'create',
+        pathMatch: 'full',
+        component: CreateAcademicYearComponent,
         data: {
-          breadcrumb: 'Academic Year'
+          breadcrumb: 'New Academic Year'
+        },
+      },
+      {
+        path: 'archives',
+        pathMatch: 'full',
+        component: AcademicYearArchivesComponent,
+        data: {
+          breadcrumb: 'Academic Year Archives'
+        },
+      },
+      {
+        // matcher: digitsMatcher,
+        path: ':id',
+        component: ViewAcademicYearComponent,
+        data: {
+          breadcrumb: null
         },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AcademicYearComponent,
+            component: ViewAcademicYearInfoComponent,
             data: {
               breadcrumb: null
             },
           },
           {
+            path: 'financial-plan',
+            component: AcademicYearFinancialPlanComponent,
+            data: {
+              breadcrumb: null
+            },
+          },
+          {
+            path: 'units',
+            component: AcademicYearSubjectUnitsComponent,
+            data: {
+              breadcrumb: null
+            },
+          }
+        ]
+      }
+    ]
+  }, {
+    path: 'curriculum',
+    data: {
+      breadcrumb: 'Curriculum'
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: AcademicsCurriculumComponent,
+        data: {
+          breadcrumb: null
+        },
+      },
+      {
+        path: 'unit-categories',
+        data: {
+          breadcrumb: 'Unit Categories'
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: AcademicsCurriculumUnitCategoriesComponent,
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
             path: 'create',
-            pathMatch: 'full',
-            component: CreateAcademicYearComponent,
-            data: {
-              breadcrumb: 'New Academic Year'
-            },
+            component: CreateUnitCategoriesComponent
           },
           {
-            path: 'archives',
-            pathMatch: 'full',
-            component: AcademicYearArchivesComponent,
-            data: {
-              breadcrumb: 'Academic Year Archives'
-            },
-          },
-          {
-            // matcher: digitsMatcher,
             path: ':id',
-            component: ViewAcademicYearComponent,
             data: {
               breadcrumb: null
             },
@@ -96,21 +148,18 @@ const routes: Routes = [
               {
                 path: '',
                 pathMatch: 'full',
-                component: ViewAcademicYearInfoComponent,
+                redirectTo: 'view'
+              },
+              {
+                path: 'view',
+                component: ViewUnitCategoryComponent,
                 data: {
                   breadcrumb: null
                 },
               },
               {
-                path: 'financial-plan',
-                component: AcademicYearFinancialPlanComponent,
-                data: {
-                  breadcrumb: null
-                },
-              },
-              {
-                path: 'units',
-                component: AcademicYearSubjectUnitsComponent,
+                path: 'edit',
+                component: EditUnitCategoryComponent,
                 data: {
                   breadcrumb: null
                 },
@@ -118,212 +167,150 @@ const routes: Routes = [
             ]
           }
         ]
-      }, {
-        path: 'curriculum',
+      },
+      {
+        path: 'units',
+
         data: {
-          breadcrumb: 'Curriculum'
+          breadcrumb: 'Units'
         },
         children: [
           {
             path: '',
             pathMatch: 'full',
-            component: AcademicsCurriculumComponent,
+            component: AcademicsCurriculumUnitsComponent,
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
+            path: 'create',
+            component: CreateUnitComponent
+          },
+          {
+            path: ':id',
             data: {
               breadcrumb: null
             },
-          },
-          {
-            path: 'unit-categories',
-            data: {
-              breadcrumb: 'Unit Categories'
-            },
             children: [
               {
                 path: '',
                 pathMatch: 'full',
-                component: AcademicsCurriculumUnitCategoriesComponent,
-                data: {
-                  breadcrumb: null
-                }
+                redirectTo: 'view'
               },
               {
-                path: 'create',
-                component: CreateUnitCategoriesComponent
-              },
-              {
-                path: ':id',
+                path: 'view',
+                component: ViewUnitComponent,
                 data: {
                   breadcrumb: null
                 },
-                children: [
-                  {
-                    path: '',
-                    pathMatch: 'full',
-                    redirectTo: 'view'
-                  },
-                  {
-                    path: 'view',
-                    component: ViewUnitCategoryComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  },
-                  {
-                    path: 'edit',
-                    component: EditUnitCategoryComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            path: 'units',
-
-            data: {
-              breadcrumb: 'Units'
-            },
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                component: AcademicsCurriculumUnitsComponent,
-                data: {
-                  breadcrumb: null
-                }
               },
               {
-                path: 'create',
-                component: CreateUnitComponent
-              },
-              {
-                path: ':id',
+                path: 'edit',
+                component: EditUnitComponent,
                 data: {
                   breadcrumb: null
                 },
-                children: [
-                  {
-                    path: '',
-                    pathMatch: 'full',
-                    redirectTo: 'view'
-                  },
-                  {
-                    path: 'view',
-                    component: ViewUnitComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  },
-                  {
-                    path: 'edit',
-                    component: EditUnitComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  }
-                ]
               }
             ]
-
-          },
-          {
-            path: 'class-level-categories',
-            data: {
-              breadcrumb: 'Class Level Categories'
-            },
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                component: AcademicsCurriculumClassLevelCategoriesComponent,
-                data: {
-                  breadcrumb: null
-                }
-              },
-              {
-                path: 'create',
-                component: CreateClassLevelCategoryComponent
-              },
-              {
-                path: ':id',
-                data: {
-                  breadcrumb: null
-                },
-                children: [
-                  {
-                    path: '',
-                    pathMatch: 'full',
-                    redirectTo: 'view'
-                  },
-                  {
-                    path: 'view',
-                    component: ViewClassLevelCategoryComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  },
-                  {
-                    path: 'edit',
-                    component: EditClassLevelCategoryComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  }
-                ]
-              }
-            ]
-          },
-          {
-            path: 'class-levels',
-            data: {
-              breadcrumb: 'Class Levels'
-            },
-            children: [
-              {
-                path: '',
-                pathMatch: 'full',
-                component: AcademicsCurriculumClassLevelsComponent,
-                data: {
-                  breadcrumb: null
-                }
-              },
-              {
-                path: 'create',
-                component: CreateClassLevelComponent
-              },
-              {
-                path: ':id',
-                data: {
-                  breadcrumb: null
-                },
-                children: [
-                  {
-                    path: '',
-                    pathMatch: 'full',
-                    redirectTo: 'view'
-                  },
-                  {
-                    path: 'view',
-                    component: ViewClassLevelComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  },
-                  {
-                    path: 'edit',
-                    component: EditClassLevelComponent,
-                    data: {
-                      breadcrumb: null
-                    },
-                  }
-                ]
-              }
-            ]
-          },
+          }
         ]
-      }
+
+      },
+      {
+        path: 'class-level-categories',
+        data: {
+          breadcrumb: 'Class Level Categories'
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: AcademicsCurriculumClassLevelCategoriesComponent,
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
+            path: 'create',
+            component: CreateClassLevelCategoryComponent
+          },
+          {
+            path: ':id',
+            data: {
+              breadcrumb: null
+            },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'view'
+              },
+              {
+                path: 'view',
+                component: ViewClassLevelCategoryComponent,
+                data: {
+                  breadcrumb: null
+                },
+              },
+              {
+                path: 'edit',
+                component: EditClassLevelCategoryComponent,
+                data: {
+                  breadcrumb: null
+                },
+              }
+            ]
+          }
+        ]
+      },
+      {
+        path: 'class-levels',
+        data: {
+          breadcrumb: 'Class Levels'
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: AcademicsCurriculumClassLevelsComponent,
+            data: {
+              breadcrumb: null
+            }
+          },
+          {
+            path: 'create',
+            component: CreateClassLevelComponent
+          },
+          {
+            path: ':id',
+            data: {
+              breadcrumb: null
+            },
+            children: [
+              {
+                path: '',
+                pathMatch: 'full',
+                redirectTo: 'view'
+              },
+              {
+                path: 'view',
+                component: ViewClassLevelComponent,
+                data: {
+                  breadcrumb: null
+                },
+              },
+              {
+                path: 'edit',
+                component: EditClassLevelComponent,
+                data: {
+                  breadcrumb: null
+                },
+              }
+            ]
+          }
+        ]
+      },
     ]
   }
 ];

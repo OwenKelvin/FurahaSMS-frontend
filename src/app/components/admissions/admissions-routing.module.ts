@@ -1,83 +1,69 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from './../layout/layout.component';
 import { AdmissionsComponent } from './admissions.component';
 import { StudentAdmissionComponent } from '../student-admission/student-admission.component';
 import { TeachingStaffAdmissionComponent } from '../teaching-staff-admission/teaching-staff-admission.component';
 import { SupportStaffAdmissionComponent } from '../support-staff-admission/support-staff-admission.component';
 import { CreateStudentComponent } from '../create-student/create-student.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 import { StudentAdmissionsEditComponent } from '../student-admissions-edit/student-admissions-edit.component';
 
 
 const routes: Routes = [
   {
-
     path: '',
-    component: LayoutComponent,
-    canActivate: [AuthGuard],
+    pathMatch: 'full',
+    component: AdmissionsComponent,
     data: {
-      breadcrumb: 'Admissions'
-    },
+      breadcrumb: null
+        }
+  },
+  {
+    path: 'students',
+    data: {
+      breadcrumb: 'Students'
+        },
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: AdmissionsComponent,
+        component: StudentAdmissionComponent,
         data: {
           breadcrumb: null
-        }
+            },
       },
       {
-        path: 'students',
+        path: 'create',
+        component: CreateStudentComponent,
+        canDeactivate: [CanDeactivateGuard],
         data: {
-          breadcrumb: 'Students'
-        },
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: StudentAdmissionComponent,
-            data: {
-              breadcrumb: null
+          breadcrumb: 'Create Student'
             },
-          },
-          {
-            path: 'create',
-            component: CreateStudentComponent,
-            canDeactivate: [CanDeactivateGuard],
-            data: {
-              breadcrumb: 'Create Student'
-            },
-          },
-          {
-            path: 'edit',
-            component: StudentAdmissionsEditComponent,
-            data: {
-              breadcrumb: 'Edit Student'
-            },
-          }
-        ]
       },
       {
-        path: 'staff/teachers',
-        pathMatch: 'full',
-        component: TeachingStaffAdmissionComponent,
+        path: 'edit',
+        component: StudentAdmissionsEditComponent,
         data: {
-          breadcrumb: 'Teaching Staff'
-        },
-      },
-      {
-        path: 'staff/support',
-        pathMatch: 'full',
-        component: SupportStaffAdmissionComponent,
-        data: {
-          breadcrumb: 'Support Staff'
-        },
+          breadcrumb: 'Edit Student'
+            },
       }
     ]
-
+  },
+  {
+    path: 'staff/teachers',
+    pathMatch: 'full',
+    component: TeachingStaffAdmissionComponent,
+    data: {
+      breadcrumb: 'Teaching Staff'
+        },
+  },
+  {
+    path: 'staff/support',
+    pathMatch: 'full',
+    component: SupportStaffAdmissionComponent,
+    data: {
+      breadcrumb: 'Support Staff'
+        },
   }
 ];
 
