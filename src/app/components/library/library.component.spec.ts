@@ -19,6 +19,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { NetworkErrorComponent } from '../network-error/network-error.component';
+import { LibraryAdminUsersComponent } from './library-admin-users/library-admin-users.component';
+import { LibraryAdminBooksComponent } from './library-admin-books/library-admin-books.component';
+import { LibraryAdminAuthorsComponent } from './library-admin-authors/library-admin-authors.component';
+import { LibraryAdminPublishersComponent } from './library-admin-publishers/library-admin-publishers.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -48,7 +52,11 @@ describe('LibraryComponent', () => {
         MenuSearchComponent,
         UserButtonComponent,
         BreadcrumbComponent,
-        NetworkErrorComponent
+        NetworkErrorComponent,
+        LibraryAdminUsersComponent,
+        LibraryAdminBooksComponent,
+        LibraryAdminAuthorsComponent,
+        LibraryAdminPublishersComponent
       ]
     });
 

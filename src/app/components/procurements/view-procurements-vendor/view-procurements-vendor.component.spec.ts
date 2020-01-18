@@ -6,7 +6,9 @@ import { AppState } from 'src/app/store/reducers';
 import { LoadingBubbleComponent } from '../../loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+// import { Router } from '@angular/router';
 
 describe('ViewProcurementsVendorComponent', () => {
   let component: ViewProcurementsVendorComponent;
@@ -14,24 +16,14 @@ describe('ViewProcurementsVendorComponent', () => {
   let store: Store<AppState>;
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule ],
+      imports: [StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule],
       declarations: [ViewProcurementsVendorComponent, LoadingBubbleComponent],
       providers: [{
-        provide: Router,
+        provide: ActivatedRoute,
         useValue: {
-          routerState: {
-            snapshot: {
-              root: {
-                firstChild: {
-                  firstChild: {
-                    firstChild: {
-                      params: { id: 1 }
-                    }
-                  }
-                }
-              }
-            }
-          }
+          paramMap: of({
+            get: (id) => 1
+          })
         }
       }]
     });

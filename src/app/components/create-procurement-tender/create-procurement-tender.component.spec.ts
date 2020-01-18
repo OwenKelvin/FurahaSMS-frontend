@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
-import { CreateProcurementTenderComponent } from './create-procurement-tender.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from './node_modules/src/app/store/reducers';
-import { ProcurementItemComponent } from '../procurement-item/procurement-item.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingBubbleComponent } from '../../loading-bubble/loading-bubble.component';
-import { InputComponent } from '../../input/input.component';
+import { CreateProcurementTenderComponent } from '../procurements/create-procurement-tender/create-procurement-tender.component';
+import { AppState } from 'src/app/store/reducers';
+import { ProcurementItemComponent } from '../procurements/procurement-item/procurement-item.component';
+import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { InputComponent } from '../input/input.component';
+
 
 describe('CreateProcurementTenderComponent', () => {
   let component: CreateProcurementTenderComponent;

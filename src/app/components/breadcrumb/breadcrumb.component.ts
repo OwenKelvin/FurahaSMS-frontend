@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart } from '@angular/router';
 import { filter } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
@@ -17,7 +17,8 @@ interface BreadcrumbInterface {
 export class BreadcrumbComponent implements OnInit {
 
   public breadcrumbs: BreadcrumbInterface[];
-
+  
+  showSpinner: boolean;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -32,8 +33,12 @@ export class BreadcrumbComponent implements OnInit {
     const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
     this.router.events.pipe(filter(event => event instanceof NavigationEnd)).subscribe(event => {
+      this.showSpinner = false;
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
+    });
+    this.router.events.pipe(filter(event => event instanceof NavigationStart)).subscribe(event => {
+      this.showSpinner = true;
     });
   }
 
