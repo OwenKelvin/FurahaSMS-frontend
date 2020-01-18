@@ -5,21 +5,27 @@ import { RouterModule } from '@angular/router';
 import { ErrorModule } from '../components/error/error.module';
 import { AppChipsModule } from './app-chip.module';
 import { AppLoadingBubbleModule } from './app-loading-bubble';
+import { ViewComponent } from '../components/view/view.component';
+import { AppDescriptionModule } from './app-description.module';
 
 
 @NgModule({
   declarations: [
-    ViewItemsComponent
+    ViewItemsComponent,
+    ViewComponent
   ],
   exports: [
-    ViewItemsComponent
+    ViewItemsComponent,
+    ViewComponent
   ],
   imports: [
     CommonModule,
     RouterModule,
     ErrorModule,
     AppChipsModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    AppDescriptionModule
+    
   ]
 })
 export class AppViewItemsModule { }

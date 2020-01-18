@@ -40,7 +40,7 @@ import { EditClassLevelComponent } from '../edit-class-level/edit-class-level.co
 
 const routes: Routes = [
   {
-    path: 'academics',
+    path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     data: {

@@ -1,33 +1,27 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { LayoutComponent } from '../layout/layout.component';
-import { SportsComponent } from './sports.component';
 import { AuthGuard } from 'src/app/guards/auth.guard';
+import { DashboardComponent } from './dashboard.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    canActivate: [AuthGuard],
     component: LayoutComponent,
-    data: {
-      breadcrumb: 'Sports'
-    },
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
         pathMatch: 'full',
-        component: SportsComponent,
-        data: {
-          breadcrumb: null
-        },
+        component: DashboardComponent
       }
     ]
-  }
+  },
 ];
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class SportsRoutingModule { }
+export class DashboardRoutingModule { }

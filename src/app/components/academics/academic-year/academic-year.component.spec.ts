@@ -3,8 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AcademicYearComponent } from './academic-year.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { DashboardLinksComponent } from '../../dashboard-links/dashboard-links.component';
-import { DashboardLinkComponent } from '../../dashboard-link/dashboard-link.component';
+import { DashboardLinksComponent } from '../../dashboard/dashboard-links/dashboard-links.component';
+import { DashboardLinkComponent } from '../../dashboard/dashboard-link/dashboard-link.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AcademicYearComponent', () => {

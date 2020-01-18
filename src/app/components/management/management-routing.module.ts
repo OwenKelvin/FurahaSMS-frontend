@@ -7,7 +7,7 @@ import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
-    path: 'school-management',
+    path: '',
     canActivate: [AuthGuard],
     component: LayoutComponent,
     data: {

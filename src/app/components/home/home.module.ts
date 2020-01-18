@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { SportsRoutingModule } from './sports-routing.module';
-import { SportsComponent } from './sports.component';
+import { HomeRoutingModule } from './home-routing.module';
+import { HomeComponent } from 'src/app/components/home/home.component';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 
 
 @NgModule({
-  declarations: [SportsComponent],
+  declarations: [HomeComponent],
   imports: [
     CommonModule,
-    SportsRoutingModule,
+    HomeRoutingModule,
     AppLayoutModule
   ]
 })
-export class SportsModule { }
+export class HomeModule { }

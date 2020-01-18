@@ -1,8 +1,8 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AdmissionsComponent } from './admissions.component';
-import { DashboardLinksComponent } from './../dashboard-links/dashboard-links.component';
-import { DashboardLinkComponent } from './../dashboard-link/dashboard-link.component';
+import { DashboardLinksComponent } from '../dashboard/dashboard-links/dashboard-links.component';
+import { DashboardLinkComponent } from '../dashboard/dashboard-link/dashboard-link.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from './../../store/reducers';
 

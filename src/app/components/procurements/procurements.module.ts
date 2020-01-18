@@ -27,6 +27,9 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { ErrorModule } from '../error/error.module';
+import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { ProcurementsComponent } from './procurements.component';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 
 
 @NgModule({
@@ -48,6 +51,7 @@ import { ErrorModule } from '../error/error.module';
     ViewProcurementTendersAwardedComponent,
     FulfillOrRejectTenderFormComponent,
     ProcurementsRequestComponent,
+    ProcurementsComponent
   ],
   imports: [
     CommonModule,
@@ -60,7 +64,9 @@ import { ErrorModule } from '../error/error.module';
     AppInputModule,
     TabsModule.forRoot(),
     AppTelInputModule,
-    ErrorModule
+    ErrorModule,
+    AppLayoutModule,
+    AppDashboardLinksModule
   ],
   entryComponents: [CreateProcurementTenderBidComponent, FulfillOrRejectTenderFormComponent]
 })

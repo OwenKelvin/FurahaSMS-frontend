@@ -9,21 +9,14 @@ import { GuestGuard } from './../guards/guest.guard';
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent,
     pathMatch: 'full',
     canActivate: [GuestGuard],
+    loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
   },
+  
   {
     path: 'dashboard',
-    component: LayoutComponent,
-    canActivate: [AuthGuard],
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: DashboardComponent
-      }
-    ]
+    loadChildren: () => import('./dashboard/dashboard.module').then(m => m.DashboardModule)
   },
   {
     path: 'login',
@@ -36,6 +29,34 @@ const routes: Routes = [
   {
     path: 'admissions',
     loadChildren: () => import('./admissions/admissions.module').then(m => m.AdmissionsModule)
+  },
+  {
+    path: 'library',
+    loadChildren: () => import('./library/library.module').then(m => m.LibraryModule)
+  },
+  {
+    path: 'academics',
+    loadChildren: () => import('./academics/academics.module').then(m => m.AcademicsModule)
+  },
+  {
+    path: 'accounts',
+    loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule)
+  },
+  {
+    path: 'sports',
+    loadChildren: () => import('./sports/sports.module').then(m => m.SportsModule)
+  },
+  {
+    path: 'school-management',
+    loadChildren: () => import('./management/management.module').then(m => m.SchoolManagementModule)
+  },
+  {
+    path: 'time-table',
+    loadChildren: () => import('./time-table/time-table.module').then(m => m.TimeTableModule)
+  },
+  {
+    path: 'reports',
+    loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule)
   }
 ];
 

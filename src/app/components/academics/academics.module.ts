@@ -26,10 +26,20 @@ import { AcademicsCurriculumUnitCategoriesComponent } from './academics-curricul
 import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units/academics-curriculum-units.component';
 import { AcademicsCurriculumClassLevelCategoriesComponent } from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ErrorModule } from '../error/error.module';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
+import { AppCrudModule } from 'src/app/modules/app-crud.module';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { AcademicsComponent } from './academics.component';
 
 
 @NgModule({
   declarations: [
+    AcademicsComponent,
     CreateUnitCategoriesComponent,
     EditUnitCategoryComponent,
     ViewUnitCategoryComponent,
@@ -57,7 +67,16 @@ import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-
   ],
   imports: [
     CommonModule,
-    AcademicsRoutingModule
+    AcademicsRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    ErrorModule,
+    AppInputModule,
+    AppViewItemsModule,
+    AppCrudModule,
+    AppDashboardLinksModule,
+    AppLoadingBubbleModule,
+    AppLayoutModule
   ]
 })
 export class AcademicsModule { }
