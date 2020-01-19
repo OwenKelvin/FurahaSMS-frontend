@@ -32,7 +32,7 @@ const routes: Routes = [
       },
       {
         path: 'procurements',
-        loadChildren: () => import('../components/procurements/procurements.module').then(m => m.ProcurementsModule),
+        loadChildren: () => import('./procurements/procurements.module').then(m => m.ProcurementsModule),
         data: {
           breadcrumb: 'Procurements'
         }

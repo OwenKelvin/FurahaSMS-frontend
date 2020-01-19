@@ -4,7 +4,7 @@ import { EditProcurementRequestComponent } from './edit-procurement-request.comp
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ProcurementsRequestComponent } from '../procurements/procurements-request/procurements-request.component';
+import { ProcurementsRequestComponent } from '../../pages/procurements/procurements-request/procurements-request.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 import { InputComponent } from '../input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
