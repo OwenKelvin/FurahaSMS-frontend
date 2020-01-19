@@ -1,0 +1,27 @@
+<table class="table table-bordered bg-dark text-light">
+  <caption>Procurement Item Request Description</caption>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Request ID</td>
+      <td>#{{ procurementItem.id }}</td>
+    </tr>
+    <tr>
+      <td>Item Name</td>
+      <td>{{ procurementItem.name }}</td>
+    </tr>
+    <tr>
+      <td>Quantity</td>
+      <td>{{ procurementItem.description }}</td>
+    </tr>
+    <tr>
+      <td>Requested by</td>
+      <td>{{ procurementItem.user?.first_name }} {{procurementItem.user?.last_name}}</td>
+    </tr>
+  </tbody>
+</table>

@@ -3,7 +3,6 @@
   New
   <span class='icon-plus-circled'></span>
 </a>
-<app-error></app-error>
 <table class="table table-bordered table-dark">
   <thead>
     <tr>
@@ -25,18 +24,25 @@
           <app-chips [value]='item.active'></app-chips>
         </td>
         <td class='d-flex  justify-content-between flex-wrap'>
-          <button class='btn btn-primary' [routerLink]="editItemUrl(item.id)"
+          <button class='btn btn-primary btn-sm' [routerLink]="editItemUrl(item.id)"
             attr.aria-label="{{ 'Edit subject item ' + item.name }}" title="Edit" type="button">
-            <i class="icon-edit" color="primary">edit</i>
+            <i class="icon-edit" color="primary"></i><span class="sr-only">edit</span>
           </button>
-          <button [disabled]='deleting[i]' class='btn btn-danger' (click)="deleteItem({id: item.id, name: item.name, index: i})"
+          <button [disabled]='deleting[i]' class='btn btn-danger btn-sm'
+            (click)="deleteItem({id: item.id, name: item.name, index: i})"
             attr.aria-label="{{ 'Delete subject item ' + item.name }}" title="Delete Item" type="button">
-            <i class="icon-trash-1" [class.animate-spin]='deleting[i]' color="primary"></i>delete
+            <i class="icon-trash-1" [class.animate-spin]='deleting[i]' color="primary"></i><span
+              class="sr-only">delete</span>
           </button>
-          <button class='btn btn-info' [routerLink]="viewItemUrl(item.id)"
+          <button class='btn btn-info btn-sm' [routerLink]="viewItemUrl(item.id)"
             attr.aria-label="{{ 'View subject item ' + item.name }}" title="View Item" type="button">
-            <i class="icon-eye" color="primary">view</i>
+            <i class="icon-eye" color="primary"></i><span class="sr-only">view</span>
           </button>
+        </td>
+      </tr>
+      <tr *ngIf='items.length === 0'>
+        <td colspan="5">
+          <section class='alert alert-info'><span class="icon-info-circled"></span>No {{ title }} Found!</section>
         </td>
       </tr>
     </ng-container>

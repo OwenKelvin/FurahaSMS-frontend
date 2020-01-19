@@ -25,9 +25,101 @@ export class LinkService {
         return this.getLibraryLinks();
       case 'academics:curriculum':
         return this.getAcademicCurriculumLinks();
+      case 'library:admin':
+        return this.getLibraryAdminLinks();
+      case 'procurements':
+        return this.getProcurementLinks();
+      case 'library:admin:books':
+        return this.getLibraryAdminBooksLinks();
+      case 'library:admin:users':
+        return this.getLibraryAdminUsersLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+
+  getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
+    return of([
+      {
+        name: 'Add Library Book',
+        icon: ' icon-plus-squared',
+        link: 'library/admin/books/create'
+      },
+    ]);
+  }
+  getLibraryAdminUsersLinks(): Observable<LinkInterface[]>  {
+    return of([
+      {
+        name: 'Add Library User',
+        icon: 'icon-user-plus',
+        link: 'library/admin/users/add'
+      },
+    ]);
+  }
+
+  getProcurementLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'My Requests',
+        icon: 'icon-user',
+        link: 'procurements/my-requests'
+      },
+      {
+        name: 'Request items',
+        icon: 'icon-basket',
+        link: 'procurements/request'
+      },
+      {
+        name: 'Pending Approval',
+        icon: 'icon-ok-1',
+        link: 'procurements/requests/approve'
+      },
+      {
+        name: 'Vendors',
+        icon: 'icon-truck-1',
+        link: 'procurements/vendors'
+      },
+      {
+        name: 'Tender',
+        icon: 'icon-cart-plus',
+        link: 'procurements/tender',
+      },
+      {
+        name: 'Bids',
+        icon: 'icon-chat',
+        link: 'procurements/tenders/bids',
+      },
+      {
+        name: 'Awarded Tenders',
+        icon: 'icon-star',
+        link: 'procurements/tenders/awarded',
+      }
+
+    ]);
+  }
+  getLibraryAdminLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'Users Management',
+        icon: 'icon-users-1',
+        link: 'library/admin/users'
+      },
+      {
+        name: 'Books Management',
+        icon: 'icon-book',
+        link: 'library/admin/books'
+      },
+      {
+        name: 'Authors Management',
+        icon: 'icon-pencil',
+        link: 'library/admin/authors'
+      },
+      {
+        name: 'Publishers Management',
+        icon: 'icon-library',
+        link: 'library/admin/publishers'
+      }
+    ]);
   }
   getAcademicCurriculumLinks(): Observable<LinkInterface[]> {
     return of([

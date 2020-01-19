@@ -1,0 +1,48 @@
+<section class="bg-dark p-3">
+  <h1>Create Bid Form</h1>
+  <form (submit)='submitNewBidForm()' [formGroup]='newBidForm' class="d-flex flex-wrap">
+    <section class="col-lg-12 mb-2">
+      <app-select labelClass='col-lg-12' inputClass='col-lg-12' type='vendor' [triggerValidation]='triggerValidation' id='vendorName' formControlName='vendorName'
+        placeholder='Enter Vendor Name' label='Vendor Name' ></app-select>
+    </section>
+    <section class="col-lg-12">
+      <app-input labelClass='col-lg-12' inputClass='col-lg-12' [triggerValidation]='triggerValidation' id='unitDescription' formControlName='unitDescription'
+        placeholder='Enter Unit description' label='Enter Unit description'>
+      </app-input>
+    </section>
+    <section class="col-lg-12">
+      <app-input labelClass='col-lg-12' inputClass='col-lg-12' [triggerValidation]='triggerValidation' id='pricePerUnit' formControlName='pricePerUnit'
+        placeholder='Enter Price Per Unit(KES)' label='Price Per Unit'>
+      </app-input>
+    </section>
+    <section class="col-lg-12">
+      <app-input labelClass='col-lg-12' inputClass='col-lg-12' [triggerValidation]='triggerValidation' id='description' formControlName='description'
+        placeholder='Enter Description' label='Description'>
+      </app-input>
+    </section>
+    <section  class="col-lg-12" *ngIf='(errorBody$ | async) as errorBody'>
+      <section *ngIf='errorBody.show' class="alert alert-danger alert-dismissible fade show">
+        <p class='icon-attention'><strong>{{ errorBody.status + ': ' }}{{ errorBody.title }}</strong></p>
+        <p>{{ errorBody.body }}</p>
+        <button (click)='closeMessage()' type="button" class="close" data-dismiss="alert" aria-label="Close">
+          <span class='icon-cancel-circled close'></span>
+        </button>
+      </section>
+    </section>
+    <section class="col-lg-12">
+      <section class='d-flex justify-content-between flex-wrap'>
+        <button (click)='closeDialog()' type='button'
+          class='btn btn-danger'>Cancel</button>
+        <button *ngIf='!newBidForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+          class='btn btn-secondary'>Validate</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button class='btn btn-success' [disabled]='!newBidForm.valid || isSubmitting'>
+          Save Bid Info
+          <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+          <i *ngIf='!isSubmitting && newBidForm.valid' class='icon-ok-1'></i>
+        </button>
+      </section>
+    </section>
+    
+  </form>
+</section>

@@ -1,0 +1,33 @@
+<h1>View Tender Bids</h1>
+
+<section *ngIf='procurementRequest$ | async as procurementRequest; else loading'>
+  <h2>Procurement Request</h2>
+  <app-procurement-item [item]='procurementRequest'></app-procurement-item>
+  <h2>Tender Info</h2>
+  <section *ngIf='procurementRequest.tenders?.length > 0; else noTenders'>
+    <section *ngFor='let tender of procurementRequest.tenders; let i = index'>
+      <h3>General Info</h3>
+      <p>{{ tender.description }}</p>
+      <p > Expiry Date: <span [class.current-expiry-date]="procurementRequest.tenders.length !== (i + 1)">{{ tender.expiry_datetime | date }}</span></p>
+      <h3>Bids <button (click)="openModalWithComponent()" class="btn btn-sm btn-primary"><span
+            class='icon-plus-circled'></span>Add Bid</button></h3>
+      <app-view-procurement-tender-bids [items]='tender.bids'></app-view-procurement-tender-bids>
+    </section>
+    
+  </section>
+  <ng-template #noTenders>
+    <section class="alert alert-info">
+      No Tenders Created Yet 
+      <button 
+        [routerLink]='["/procurements", "requests" , procurementRequest.id , "tender"]' 
+        class='btn btn-info'>Create Tender</button>
+    </section>
+  </ng-template>
+ 
+  
+ 
+  
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

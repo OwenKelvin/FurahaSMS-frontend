@@ -40,4 +40,10 @@ export class GuardiansService {
       }));
     }
   }
+  getForStudent(userId: number) {
+    const url = 'api/students/' + userId + '/guardians';
+    return this.http.get<any>(url).pipe(map(user => {
+      return user;
+    }));
+  }
 }

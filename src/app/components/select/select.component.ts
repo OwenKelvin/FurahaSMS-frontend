@@ -25,6 +25,7 @@ import { Observable } from 'rxjs';
 import { AppFormService } from 'src/app/services/AppForm.service';
 import { GenderService } from 'src/app/services/gender.service';
 import { ReligionService } from 'src/app/services/religion.service';
+import { ProcurementService } from 'src/app/services/procurement.service';
 
 @Component({
   selector: 'app-select',
@@ -63,7 +64,8 @@ export class SelectComponent
     private store: Store<AppState>,
     private appFormService: AppFormService,
     private genderService: GenderService,
-    private religionService: ReligionService
+    private religionService: ReligionService,
+    private procurementService: ProcurementService
   ) {
 
     this.formControl = new FormControl();
@@ -77,7 +79,11 @@ export class SelectComponent
     | 'class-levels:level'
     | 'unit-levels'
     | 'gender'
-    | 'religion';
+    | 'religion'
+    | 'support-staffs'
+    | 'procurement:items-categories'
+    | 'vendor'
+    ;
   @Input() id: string;
   @Input() value: any;
   @Input() multiple: any;
@@ -129,6 +135,20 @@ export class SelectComponent
     this.categorySelected = '';
     this.categories = [];
     switch (this.type) {
+      case 'vendor':
+        this.label = 'Vendor';
+        this.error.required = 'Vendor is required';
+        this.hint = 'Please select a vendor';
+        this.categories$ = this.procurementService
+          .getVendors();
+        break;
+      case 'procurement:items-categories':
+        this.label = 'Item Category';
+        this.error.required = 'Item Category is required';
+        this.hint = 'Please select an Item Category';
+        this.categories$ = this.procurementService
+          .getItemCaterories();
+        break;
       case 'academic-years:active':
         this.label = 'Academic Year';
         this.error.required = 'Academic Year is required';
@@ -197,6 +217,15 @@ export class SelectComponent
           }
         });
         break;
+      case 'support-staffs':
+        this.label = 'Units';
+        this.error.required = 'The units field is required';
+        this.hint = 'Please select units';
+        this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
+        this.unitLevel
+          .getFilter({ academicYear: this.parentId })
+          .subscribe(items => { this.categories = items; });
+        break;
       case 'units:academic-year':
         this.label = 'Units';
         this.error.required = 'The units field is required';
@@ -249,7 +278,7 @@ export class SelectComponent
     this.formControl = control;
   }
   validateField() {
-    this.onTouched();
+    // this.onTouched();
     this.fieldError = this.appFormService.getErrorMessage(this.formControl, this.label);
   }
   removeSelect(id) {

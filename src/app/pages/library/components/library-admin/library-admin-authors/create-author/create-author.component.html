@@ -1,0 +1,26 @@
+<section>
+  <h1 >{{ editPage ? 'Edit': 'Create' }} Book Author</h1>
+  <form (submit)='submitNewBookAuthorForm()' [formGroup]='newBookAuthorForm' *ngIf='!isLoading; else loading'>
+    <section class='col-lg-7'>
+      <app-input 
+        labelClass='col-lg-5'
+        inputClass='col-lg-7'
+        formControlName='name' [triggerValidation]='triggerValidation' id='name' placeholder='Enter Authors Name'
+        label="Author's Name"></app-input>
+    </section>
+    <section class='col-lg-12'>
+      <label for="biography">Biography</label>
+      <textarea placeholder="Enter Authors Biography" formControlName="biography" id="biography" cols="15" rows="5"
+        class="form-control"></textarea>
+    </section>
+    <section class='col-lg-12 mt-3'>
+      <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+        (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookAuthorForm'>
+      </app-validate-submit-buttons>
+    </section>
+  </form>
+  <ng-template #loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+</section>
+

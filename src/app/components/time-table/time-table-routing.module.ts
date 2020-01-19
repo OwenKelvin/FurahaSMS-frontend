@@ -1,30 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { LayoutComponent } from '../layout/layout.component';
 import { TimeTableComponent } from './time-table.component';
-import { AuthGuard } from 'src/app/guards/auth.guard';
 
 
 const routes: Routes = [
   {
-
-    path: 'time-table',
-    canActivate: [AuthGuard],
-    component: LayoutComponent,
+    path: '',
+    pathMatch: 'full',
+    component: TimeTableComponent,
     data: {
-      breadcrumb: 'Time table'
+      breadcrumb: null
     },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: TimeTableComponent,
-        data: {
-          breadcrumb: null
-        },
-      }
-    ]
-
   }
 ];
 

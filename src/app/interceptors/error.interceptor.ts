@@ -5,15 +5,16 @@ import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from './../services/authentication.service';
 import { Router } from '@angular/router';
-// import { Store } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { MessageInterface } from './../interfaces/message.interface';
-// import { TOGGLE_DIALOGUE } from 'src/app/store/reducers';
+import { AppState } from '../store/reducers';
+import { loadErrorMessagesSuccess } from '../store/actions/error-message.actions';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
   private message: MessageInterface;
   constructor(
-    // private store: Store<any>,
+    private store: Store<AppState>,
     private authenticationService: AuthenticationService,
     private router: Router
   ) { }
@@ -63,7 +64,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         this.authenticationService.logout();
         this.router.navigate(['/login']);
       }
-      if (err.status === 400 || err.status === 405) {
+      if (err.status === 400 || err.status === 405 || err.status === 409) {
         this.message = {
           message: error,
           type: 'error',
@@ -71,10 +72,12 @@ export class ErrorInterceptor implements HttpInterceptor {
           help: err.error.message
         };
       }
-      // this.store.dispatch({
-      //   type: TOGGLE_DIALOGUE,
-      //   payload: this.message
-      // });
+      this.store.dispatch(loadErrorMessagesSuccess({
+        body: this.message.help,
+        show: true,
+        title: this.message.message,
+        status: this.message.status
+      }));
 
       return throwError(this.message);
     }));

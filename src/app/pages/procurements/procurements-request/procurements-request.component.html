@@ -1,0 +1,43 @@
+<div *ngIf='loadingContents; else main'>
+  <h1>Edit Procurement Request</h1>
+  <app-loading-bubble></app-loading-bubble>
+</div>
+<ng-template #main>
+  <h1><span *ngIf='procurementRequestForm.get("id").value !== 0'>Edit </span>Procurement Request</h1>
+  <form (submit)='submitProcurementRequestForm()' [formGroup]='procurementRequestForm' class='d-flex flex-wrap mt-3'>
+    <section class='col-lg-6'>
+      <app-input [triggerValidation]='triggerValidation' id='name' label='name' placeholder='Enter Name'
+        formControlName='name'></app-input>
+    </section>
+    <section class='col-lg-6'>
+      <app-select type='procurement:items-categories' [triggerValidation]='triggerValidation' id='category' label='name'
+        placeholder='Enter Name' formControlName='category'></app-select>
+    </section>
+    <section class='col-lg-6'>
+      <app-input [triggerValidation]='triggerValidation' id='quantity' label='Quantity'
+        placeholder='Enter Quantity Description' formControlName='quantity'>
+      </app-input>
+    </section>
+    <section class='col-lg-6'>
+      <section class="form-group">
+        <label for="description">Description</label>
+        <textarea formControlName='description' class='form-control' id="description"></textarea>
+      </section>
+    </section>
+    <!-- <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show'>
+  
+      <strong class='alert-heading'><i class='icon-user-times'></i> {{ submitError.status }} :
+        {{ submitError.message }}</strong>
+      <p class='mb-0'>{{ submitError.help }}</p>
+      <button type='button' class='close' data-dismiss='alert' (click)='showErrorMessage = false'>&times;</button>
+  
+    </section> -->
+    <section class='col-lg-12'>
+      <app-validate-submit-buttons 
+        [isSubmitting]='isSubmitting'
+        (validationButtonClicked)='triggerValidation = !triggerValidation'
+        [formItem]='procurementRequestForm'
+      ></app-validate-submit-buttons>
+    </section>
+  </form>
+</ng-template>

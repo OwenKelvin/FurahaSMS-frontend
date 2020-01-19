@@ -41,7 +41,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
 
   ngOnInit() {
     this.fieldType = 'text';
-    if (['tel', 'phone', 'password', 'number', 'date'].includes(this.type)) {
+    if (['tel', 'phone', 'password', 'number', 'date', 'datetime-local'].includes(this.type)) {
       this.fieldType = this.type;
     }
     this.formControl = new FormControl();

@@ -6,3 +6,6 @@
 a:hover {
   border-left: 5px solid lightblue !important;
 }
+.list-group-item {
+  font-size: 0.8rem;
+}

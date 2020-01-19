@@ -1,0 +1,10 @@
+<section class='d-flex justify-content-end'>
+  <button *ngIf='!formItem.valid' (click)='triggerValidation()' type='button'
+    class='btn btn-secondary mr-4'>Validate</button>
+
+  <button class='btn btn-success'
+    [disabled]='!formItem.dirty || !formItem.valid || isSubmitting'>
+    Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    <i *ngIf='!isSubmitting && formItem.valid && formItem.dirty' class='icon-ok-1'></i>
+  </button>
+</section>

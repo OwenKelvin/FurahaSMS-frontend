@@ -1,0 +1,24 @@
+<h1>Procurement Tender Bids</h1>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Quantity</th>
+      <th>No. of Bids <span class="sr-only">Number of bids</span></th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf='(procurementItems$ | async) as procurementItems; else loading'>
+    <tr *ngFor='let procurementItem of procurementItems'>
+      <td>{{ procurementItem.name }}</td>
+      <td>{{ procurementItem.quantity_description }}</td>
+      <td>{{ procurementItem.bids?.length }}</td>
+      <td><button [routerLink]='["/procurements/tenders/" + procurementItem.id + "/bids"]' class="btn btn-primary btn-sm"><span class="icon-eye"></span></button></td>
+    </tr>
+  </tbody>
+  <ng-template #loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+
+</table>

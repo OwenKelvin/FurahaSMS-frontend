@@ -1,18 +1,22 @@
 <nav class='navbar navbar-expand-lg navbar-dark bg-dark border-bottom'>
   <button
+    aria-live="polite"
+    [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'
     (click)='toggleMenu()'
     class='btn btn-secondary hidden-sm'
-    id='menu-toggle'>Menu 
-    <i [class]='isMenuClosed ? "icon-left-big": "icon-right-big"'></i></button>
+    id='menu-toggle'>Menu <span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
+    <i [class]='isMenuClosed ? "icon-left-open": "icon-right-open"'></i></button>
   <span *ngIf='!isMenuClosed' class="hidden-sm-up">&nbsp;</span>
   <button
+    [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'
     *ngIf='isMenuClosed'
     (click)='toggleMenu()'
     class="hidden-sm-up btn btn-secondary"
     type="button">
           <span class=" icon-indent-left"></span>
+          <span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
   </button>
-  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+  <button aria-label='Toggle Menu' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
 

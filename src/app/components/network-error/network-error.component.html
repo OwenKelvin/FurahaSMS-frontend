@@ -1,0 +1,9 @@
+<section *ngIf='errorMessage$ | async as errorMessage' aria-live="polite" aria-atomic="true">
+  <div *ngIf='errorMessage.title' [hidden]='!errorMessage.title' class="alert alert-danger alert-dismissible" role="alert">
+  <strong>{{ errorMessage.status }} : {{ errorMessage.title }} : </strong> {{ errorMessage.body }}
+  <button id='network-error-close' (click)='closeMessage()' type="button" class="close" data-dismiss="alert" aria-label="Close">
+    <span aria-hidden="true" class="icon-cancel"></span>
+  </button>
+</div>
+</section>
+

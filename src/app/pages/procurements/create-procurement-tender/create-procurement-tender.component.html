@@ -1,0 +1,30 @@
+<h1>Create Tender</h1>
+<section *ngIf='procurementItem$ | async as procurementItem; else loading'>
+  <app-procurement-item [item]='procurementItem'></app-procurement-item>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>
+<section>
+  <form (submit)='submitTenderForm()' [formGroup]='tenderForm' class="d-flex flex-wrap">
+    <section class="col-lg-6">
+      <app-input id='expiryDatetime' formControlName='expiryDatetime' placeholder='eg. 22-10-2010 10:30' label='Expiry Date' type='datetime-local'></app-input>
+    </section>
+    <section class="col-lg-6">
+      <app-input id='description' formControlName='description' placeholder='Enter Description' label='Description'
+        ></app-input>
+    </section>
+    <section class="col-lg-12">
+      <section class='d-flex justify-content-end'>
+        <button *ngIf='!tenderForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+          class='btn btn-secondary'>Validate</button>
+        &nbsp;&nbsp;&nbsp;&nbsp;
+        <button class='btn btn-success' [disabled]='!tenderForm.valid || isSubmitting'>
+          Save Details
+          <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+          <i *ngIf='!isSubmitting && tenderForm.valid' class='icon-ok-1'></i>
+        </button>
+      </section>
+    </section>
+  </form>
+</section>

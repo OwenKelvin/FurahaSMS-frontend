@@ -1,0 +1,45 @@
+<h1>Awarded Tenders</h1>
+<section *ngIf='procurementTenders$ | async as procurementTenders; else loading'>
+  <table class='table table-dark'>
+    <thead>
+      <tr>
+        <th><span class='sr-only'>Id</span>#</th>
+        <th>Item</th>
+        <th>Vendor</th>
+        <th>Status</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor='let procurementTender of procurementTenders'>
+        <td>#{{ procurementTender.id }}</td>
+        <td>{{ procurementTender.requested_item_name }}</td>
+        <td>{{ procurementTender.vendor_name }}</td>
+        <td>
+          <span *ngIf='procurementTender.fulfilled' class='badge badge-success p-2'>Delivered</span>
+          <span *ngIf='procurementTender.fulfilled === false || procurementTender.fulfilled === 0' class='badge badge-danger p-2'>Unfulfilled</span>
+          <span *ngIf='procurementTender.fulfilled === undefined || procurementTender.fulfilled === null' class='badge badge-secondary p-2'>Pending</span>
+        </td>
+        <td class='d-flex justify-content-between'>
+          <button 
+            [disabled]='!(procurementTender.fulfilled === undefined || procurementTender.fulfilled === null)' 
+            (click)='openModalWithComponent(procurementTender.id, false)' 
+            aria-label='Mark as NotFulfilled' 
+            class='icon-cancel btn btn-sm btn-danger'>
+          </button>
+          <button 
+            [disabled]='!(procurementTender.fulfilled === undefined || procurementTender.fulfilled === null)' 
+            (click)='openModalWithComponent(procurementTender.id, true)'
+            aria-label='Mark as Fulfilled' 
+            class='icon-ok-1 btn btn-sm btn-success'>
+          </button>
+          <button [routerLink]='["/procurements", "tenders", procurementTender.id, "bids"]' aria-label='Mark as Fulfilled'
+            class='icon-eye btn btn-sm btn-primary'></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

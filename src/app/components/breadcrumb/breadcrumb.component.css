@@ -10,3 +10,7 @@ ol {
 .active {
   color: beige;
 }
+.breadcrumb-item button {
+  padding: 0 5px 0 5px;
+  margin-top: -5px;
+}

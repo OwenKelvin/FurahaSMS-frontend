@@ -1,0 +1,8 @@
+<h1>View Procurement Vendor</h1>
+<section *ngIf='(procurementVendor$ | async) as vendor ;else loading'>
+  <h2>{{vendor.name}}</h2>
+  {{ vendor.description }}
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

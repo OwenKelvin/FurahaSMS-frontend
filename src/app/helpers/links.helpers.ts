@@ -36,3 +36,30 @@ export const VIEW_UNIT_CATEGORY_CURRICULUM = (id: string | number) => {
   return `/academics/curriculum/unit-categories/${id}/view`;
 };
 
+export const CREATE_PROCUREMENT_PROPOSAL_REQUEST =
+  '/procurements/request';
+export const EDIT_PROCUREMENT_PROPOSAL_REQUEST = (id: string | number) => {
+  return `/procurements/requests/${id}/edit`;
+};
+export const VIEW__PROCUREMENT_PROPOSAL_REQUEST = (id: string | number) => {
+  return `/procurements/requests/${id}/view`;
+};
+
+export const CREATE_PROCUREMENT_VENDOR =
+  '/procurements/vendors/create';
+export const EDIT_PROCUREMENT_VENDOR = (id: string | number) => {
+  return `/procurements/vendors/${id}/edit`;
+};
+export const VIEW_PROCUREMENT_VENDOR = (id: string | number) => {
+  return `/procurements/vendors/${id}/view`;
+};
+
+export const CREATE_LIBRARY_AUTHOR =
+  '/library/admin/authors/create';
+export const EDIT_LIBRARY_AUTHOR = (id: string | number) => {
+  return `/library/admin/authors/${id}/edit`;
+};
+export const VIEW_LIBRARY_AUTHOR = (id: string | number) => {
+  return `/library/admin/authors/${id}/view`;
+};
+

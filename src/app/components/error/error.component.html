@@ -1,6 +1,6 @@
 <section *ngIf='(errorBody$ | async) as errorBody'>
   <section *ngIf='errorBody.show'class="alert alert-danger alert-dismissible fade show">
-    <p class='icon-attention'><strong>{{ errorBody.status + ': ' }}{{ errorBody.title }}</strong></p>
+    <p class='icon-attention mt-0'><strong>{{ errorBody.status + ': ' }}{{ errorBody.title }}</strong></p>
     <p>{{ errorBody.body }}</p>
     <button (click)='closeMessage()' type="button" class="close" data-dismiss="alert" aria-label="Close">
       <span class='icon-cancel-circled close'></span>
