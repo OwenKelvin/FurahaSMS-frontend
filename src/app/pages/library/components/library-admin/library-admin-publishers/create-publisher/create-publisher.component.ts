@@ -16,7 +16,7 @@ export class CreatePublisherComponent implements OnInit {
   isLoading: boolean;
   isSubmitting: boolean;
   triggerValidation: boolean;
-  private newBookPublisherForm: FormGroup;
+  newBookPublisherForm: FormGroup;
   editPage: boolean;
   constructor(
     private libraryPublisher: LibraryPublisherService,
