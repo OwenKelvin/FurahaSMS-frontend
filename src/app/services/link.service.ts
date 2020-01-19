@@ -118,6 +118,11 @@ export class LinkService {
         name: 'Publishers Management',
         icon: 'icon-library',
         link: 'library/admin/publishers'
+      },
+      {
+        name: 'Tags Management',
+        icon: 'icon-tag',
+        link: 'library/admin/tags'
       }
     ]);
   }

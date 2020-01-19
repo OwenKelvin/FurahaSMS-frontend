@@ -32,6 +32,10 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromLibraryEffects from './store/effects';
 import { LibraryBookAuthorEffects } from './store/effects/library-book-authors.effects';
 import { LibraryAuthorService } from './services/library-author.service';
+import { CreateTagComponent } from './components/library-admin/library-admin-tags/create-tag/create-tag.component';
+import { EditTagComponent } from './components/library-admin/library-admin-tags/edit-tag/edit-tag.component';
+import { ViewTagComponent } from './components/library-admin/library-admin-tags/view-tag/view-tag.component';
+import { LibraryAdminTagsComponent } from './components/library-admin/library-admin-tags/library-admin-tags.component';
 
 
 @NgModule({
@@ -53,6 +57,10 @@ import { LibraryAuthorService } from './services/library-author.service';
     CreatePublisherComponent,
     ViewPublisherComponent,
     EditPublisherComponent,
+    CreateTagComponent,
+    EditTagComponent,
+    ViewTagComponent,
+    LibraryAdminTagsComponent,
   ],
   imports: [
     CommonModule,
