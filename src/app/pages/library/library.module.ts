@@ -51,8 +51,8 @@ import { EditAuthorComponent } from './components/library-admin/library-admin-au
     AppInputModule,
     AppViewItemsModule,
     AppLoadingBubbleModule,
-    
-  
+
+
   ]
 })
 export class LibraryModule { }

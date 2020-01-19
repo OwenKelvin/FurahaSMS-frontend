@@ -39,9 +39,9 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarTopComponent,
     MenuSearchComponent,
     BreadcrumbComponent,
-    
+
   ],
-  
+
   imports: [
     CommonModule,
     ErrorModule,

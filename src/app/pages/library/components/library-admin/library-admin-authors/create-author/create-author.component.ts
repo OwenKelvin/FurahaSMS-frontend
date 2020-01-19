@@ -59,7 +59,7 @@ export class CreateAuthorComponent implements OnInit {
         toastBody: res.message,
         toastHeader: 'Success'
       }));
-      this.router.navigate(["library", "admin", "authors", res.data.id, "view"]);
+      this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']);
     }, err => {
       this.isSubmitting = false;
     });

@@ -23,7 +23,7 @@ import { AppLayoutModule } from 'src/app/modules/app-layout.module';
     LoginRoutingModule,
     AppInputModule,
     AppLayoutModule
-    
+
   ],
   exports: []
 })

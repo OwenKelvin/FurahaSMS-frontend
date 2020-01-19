@@ -25,7 +25,7 @@ import { AppDescriptionModule } from './app-description.module';
     AppChipsModule,
     AppLoadingBubbleModule,
     AppDescriptionModule
-    
+
   ]
 })
 export class AppViewItemsModule { }

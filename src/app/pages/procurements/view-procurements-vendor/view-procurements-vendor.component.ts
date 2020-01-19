@@ -20,14 +20,14 @@ export class ViewProcurementsVendorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     // const id = this.router.routerState.snapshot.root.firstChild.firstChild.firstChild.params.id;
     this.route.paramMap.subscribe(params => {
-      
-      this.procurementVendor$ = this.procurementService.getVendor(+params.get('id'));
-    })
 
-    
+      this.procurementVendor$ = this.procurementService.getVendor(+params.get('id'));
+    });
+
+
   }
 
 }

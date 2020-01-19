@@ -23,6 +23,17 @@ import { MenuSearchComponent } from 'src/app/components/menu-search/menu-search.
 import { UserButtonComponent } from 'src/app/components/user-button/user-button.component';
 import { BreadcrumbComponent } from 'src/app/components/breadcrumb/breadcrumb.component';
 import { NetworkErrorComponent } from 'src/app/components/network-error/network-error.component';
+import { AddBookComponent } from './components/library-admin/library-admin-books/add-book/add-book.component';
+import { EditBookComponent } from './components/library-admin/library-admin-books/edit-book/edit-book.component';
+import { ViewBookComponent } from './components/library-admin/library-admin-books/view-book/view-book.component';
+import { CreateAuthorComponent } from './components/library-admin/library-admin-authors/create-author/create-author.component';
+import { ViewAuthorComponent } from './components/library-admin/library-admin-authors/view-author/view-author.component';
+import { EditAuthorComponent } from './components/library-admin/library-admin-authors/edit-author/edit-author.component';
+import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -36,27 +47,28 @@ describe('LibraryComponent', () => {
         LibraryRoutingModule,
         ReactiveFormsModule,
         FormsModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AppLayoutModule,
+        AppDashboardLinksModule,
+        AppViewItemsModule,
+        AppInputModule,
+        AppLoadingBubbleModule
       ],
       declarations: [
         LibrarySearchCatalogueComponent,
         LibraryComponent,
-        DashboardLinksComponent,
-        DashboardLinkComponent,
-        LayoutComponent,
         LibraryMyAccountComponent,
         LibraryAdminComponent,
-        SidebarComponent,
-        HeaderComponent,
-        FooterComponent,
-        MenuSearchComponent,
-        UserButtonComponent,
-        BreadcrumbComponent,
-        NetworkErrorComponent,
         LibraryAdminUsersComponent,
         LibraryAdminBooksComponent,
         LibraryAdminAuthorsComponent,
-        LibraryAdminPublishersComponent
+        LibraryAdminPublishersComponent,
+        AddBookComponent,
+        EditBookComponent,
+        ViewBookComponent,
+        CreateAuthorComponent,
+        ViewAuthorComponent,
+        EditAuthorComponent
       ]
     });
 

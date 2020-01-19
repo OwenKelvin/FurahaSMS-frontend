@@ -10,7 +10,7 @@ import { LoadingBubbleComponent } from '../components/loading-bubble/loading-bub
   exports: [
     LoadingBubbleComponent
   ],
-  
+
   imports: [
     CommonModule,
   ]

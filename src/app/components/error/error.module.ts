@@ -18,8 +18,8 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
   imports: [
     CommonModule,
     ErrorRoutingModule,
-    
-    
+
+
   ],
   exports: [ErrorComponent, NetworkErrorComponent]
 })

@@ -8,11 +8,11 @@ import * as fromStore from '../../../../../../store/reducers';
   styleUrls: ['./edit-author.component.css']
 })
 export class EditAuthorComponent implements OnInit {
-  constructor( 
+  constructor(
   private store: Store<fromStore.AppState>) { }
 
   ngOnInit() {
-    
+
   }
 
 }

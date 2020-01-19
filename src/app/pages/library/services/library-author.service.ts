@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class LibraryAuthorService {
 
   constructor(private http: HttpClient) { }
-  
+
   getAll(): Observable<any> {
     return this.http.get('/api/library-books/authors/all');
   }

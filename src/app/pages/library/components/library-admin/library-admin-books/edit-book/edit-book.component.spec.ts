@@ -9,7 +9,7 @@ describe('EditBookComponent', () => {
   let fixture: ComponentFixture<EditBookComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
       declarations: [ EditBookComponent ]

@@ -17,7 +17,7 @@ interface BreadcrumbInterface {
 export class BreadcrumbComponent implements OnInit, OnDestroy {
 
   public breadcrumbs: BreadcrumbInterface[];
-  
+
   showSpinner: boolean;
   componentIsActive: boolean;
 

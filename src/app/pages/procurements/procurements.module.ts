@@ -8,8 +8,12 @@ import { EditProcurementRequestComponent } from '../../components/edit-procureme
 import { ApproveProcurementRequestComponent } from '../../components/approve-procurement-request/approve-procurement-request.component';
 import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
 import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
-import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view-procurements-vendor.component';
-import { ViewProcurementsApprovedRequestsComponent } from './view-procurements-approved-requests/view-procurements-approved-requests.component';
+import {
+  ViewProcurementsVendorComponent
+} from './view-procurements-vendor/view-procurements-vendor.component';
+import {
+  ViewProcurementsApprovedRequestsComponent
+} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
 import { CreateProcurementTenderComponent } from './create-procurement-tender/create-procurement-tender.component';
 import { ProcurementItemComponent } from './procurement-item/procurement-item.component';
 import { ProcurementTendersBidsComponent } from './procurement-tenders-bids/procurement-tenders-bids.component';

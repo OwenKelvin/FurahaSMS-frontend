@@ -4,6 +4,7 @@ import { LibraryAdminUsersComponent } from './library-admin-users.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { RouterTestingModule } from '@angular/router/testing';
 
 
 describe('LibraryAdminUsersComponent', () => {
@@ -11,9 +12,12 @@ describe('LibraryAdminUsersComponent', () => {
   let fixture: ComponentFixture<LibraryAdminUsersComponent>;
   let store: Store<any>;
 
-  beforeEach(async() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), AppDashboardLinksModule ],
+      imports: [StoreModule.forRoot({}),
+        AppDashboardLinksModule,
+        RouterTestingModule
+      ],
       declarations: [ LibraryAdminUsersComponent]
     });
 

@@ -12,7 +12,7 @@ import { AccountsComponent } from './accounts.component';
     CommonModule,
     AccountsRoutingModule,
     AppLayoutModule,
-    
+
   ]
 })
 export class AccountsModule { }

@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
-import { LibraryAuthorService } from './library-author.service';
+import { BookPublisherService } from './book-publisher.service';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-describe('LibraryAuthorService', () => {
+describe('BookPublisherService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [HttpClientTestingModule]
   }));
 
   it('should be created', () => {
-    const service: LibraryAuthorService = TestBed.get(LibraryAuthorService);
+    const service: BookPublisherService = TestBed.get(BookPublisherService);
     expect(service).toBeTruthy();
   });
 });

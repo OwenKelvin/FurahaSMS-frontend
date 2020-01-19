@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { NetworkErrorComponent } from '../network-error/network-error.component';
+import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -24,18 +25,10 @@ describe('LayoutComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         StoreModule.forRoot({}),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        AppLayoutModule
       ],
-      declarations: [
-        SidebarComponent,
-        LayoutComponent,
-        HeaderComponent,
-        FooterComponent,
-        MenuSearchComponent,
-        UserButtonComponent,
-        BreadcrumbComponent,
-        NetworkErrorComponent
-      ]
+      declarations: []
     })
     .compileComponents();
   }));

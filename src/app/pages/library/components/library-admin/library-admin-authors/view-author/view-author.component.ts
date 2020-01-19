@@ -21,8 +21,8 @@ export class ViewAuthorComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.author$ = this.libraryAuthorService.getAuthorWithId(+params.get('id'))
-    })
+      this.author$ = this.libraryAuthorService.getAuthorWithId(+params.get('id'));
+    });
   }
 
 }

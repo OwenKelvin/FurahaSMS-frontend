@@ -22,9 +22,13 @@ import { ViewAcademicYearInfoComponent } from '../view-academic-year-info/view-a
 import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
 import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
 import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
-import { AcademicsCurriculumUnitCategoriesComponent } from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+import {
+  AcademicsCurriculumUnitCategoriesComponent
+} from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
 import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units/academics-curriculum-units.component';
-import { AcademicsCurriculumClassLevelCategoriesComponent } from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+import {
+  AcademicsCurriculumClassLevelCategoriesComponent
+} from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorModule } from '../error/error.module';

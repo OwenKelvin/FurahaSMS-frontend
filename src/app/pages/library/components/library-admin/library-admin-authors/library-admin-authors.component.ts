@@ -18,10 +18,10 @@ export class LibraryAdminAuthorsComponent implements OnInit {
   constructor(private store: Store<fromStore.AppState>, private authorService: LibraryAuthorService) { }
 
   ngOnInit() {
-    this.categories = this.authorService
-    this.createAuthor = CREATE_LIBRARY_AUTHOR
-    this.editAuthor = EDIT_LIBRARY_AUTHOR
-    this.viewAuthor = VIEW_LIBRARY_AUTHOR
+    this.categories = this.authorService;
+    this.createAuthor = CREATE_LIBRARY_AUTHOR;
+    this.editAuthor = EDIT_LIBRARY_AUTHOR;
+    this.viewAuthor = VIEW_LIBRARY_AUTHOR;
   }
 
 }

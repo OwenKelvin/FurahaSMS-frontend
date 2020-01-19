@@ -37,7 +37,7 @@ export class LinkService {
         return this.getDashboardLinks();
     }
   }
-  
+
   getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
     return of([
       {
@@ -45,7 +45,7 @@ export class LinkService {
         icon: ' icon-plus-squared',
         link: 'library/admin/books/create'
       },
-    ])
+    ]);
   }
   getLibraryAdminUsersLinks(): Observable<LinkInterface[]>  {
     return of([
@@ -54,7 +54,7 @@ export class LinkService {
         icon: 'icon-user-plus',
         link: 'library/admin/users/add'
       },
-    ])
+    ]);
   }
 
   getProcurementLinks(): Observable<LinkInterface[]> {
