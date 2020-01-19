@@ -11,18 +11,8 @@ import { LibraryAdminPublishersComponent } from './components/library-admin/libr
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LibrarySearchCatalogueComponent } from './components/library-search-catalogue/library-search-catalogue.component';
-import { DashboardLinksComponent } from 'src/app/components/dashboard/dashboard-links/dashboard-links.component';
-import { DashboardLinkComponent } from 'src/app/components/dashboard/dashboard-link/dashboard-link.component';
-import { LayoutComponent } from 'src/app/components/layout/layout.component';
 import { LibraryMyAccountComponent } from './components/library-my-account/library-my-account.component';
 import { LibraryAdminComponent } from './components/library-admin/library-admin.component';
-import { SidebarComponent } from 'src/app/components/sidebar/sidebar.component';
-import { HeaderComponent } from 'src/app/components/header/header.component';
-import { FooterComponent } from 'src/app/components/footer/footer.component';
-import { MenuSearchComponent } from 'src/app/components/menu-search/menu-search.component';
-import { UserButtonComponent } from 'src/app/components/user-button/user-button.component';
-import { BreadcrumbComponent } from 'src/app/components/breadcrumb/breadcrumb.component';
-import { NetworkErrorComponent } from 'src/app/components/network-error/network-error.component';
 import { AddBookComponent } from './components/library-admin/library-admin-books/add-book/add-book.component';
 import { EditBookComponent } from './components/library-admin/library-admin-books/edit-book/edit-book.component';
 import { ViewBookComponent } from './components/library-admin/library-admin-books/view-book/view-book.component';

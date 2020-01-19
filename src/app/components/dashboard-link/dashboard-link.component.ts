@@ -1,7 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../../store/reducers';
-import { LinkInterface } from '../../../interfaces/link.interface';
+import * as fromStore from '../../store/reducers';
+import { LinkInterface } from '../../interfaces/link.interface';
 
 @Component({
   selector: 'app-dashboard-link',

@@ -1,9 +1,9 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../../store/reducers';
-import { LinkService } from '../../../services/link.service';
+import * as fromStore from '../../store/reducers';
+import { LinkService } from '../../services/link.service';
 import { Observable } from 'rxjs';
-import { LinkInterface } from '../../../interfaces/link.interface';
+import { LinkInterface } from '../../interfaces/link.interface';
 
 @Component({
   selector: 'app-dashboard-links',

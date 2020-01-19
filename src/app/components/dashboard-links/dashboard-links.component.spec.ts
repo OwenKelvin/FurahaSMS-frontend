@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardLinksComponent } from './dashboard-links.component';
 import { DashboardLinkComponent } from './../dashboard-link/dashboard-link.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from '../../../store/reducers';
+import { AppState } from '../../store/reducers';
 
 describe('DashboardLinksComponent', () => {
   let component: DashboardLinksComponent;
