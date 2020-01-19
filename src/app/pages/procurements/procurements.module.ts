@@ -2,9 +2,9 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { ProcurementsRoutingModule } from './procurements-routing.module';
-import { MyProcurementsRequestComponent } from '../../components/my-procurements-request/my-procurements-request.component';
+import { MyProcurementsRequestComponent } from './my-procurements-request/my-procurements-request.component';
 import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
-import { EditProcurementRequestComponent } from '../../components/edit-procurement-request/edit-procurement-request.component';
+import { EditProcurementRequestComponent } from './edit-procurement-request/edit-procurement-request.component';
 import { ApproveProcurementRequestComponent } from './approve-procurement-request/approve-procurement-request.component';
 import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
 import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';

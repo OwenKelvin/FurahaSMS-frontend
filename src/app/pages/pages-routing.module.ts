@@ -39,7 +39,7 @@ const routes: Routes = [
       },
       {
         path: 'admissions',
-        loadChildren: () => import('../components/admissions/admissions.module').then(m => m.AdmissionsModule),
+        loadChildren: () => import('./admissions/admissions.module').then(m => m.AdmissionsModule),
         data: {
           breadcrumb: 'Admissions'
         }
@@ -60,7 +60,7 @@ const routes: Routes = [
       },
       {
         path: 'accounts',
-        loadChildren: () => import('../components/accounts/accounts.module').then(m => m.AccountsModule),
+        loadChildren: () => import('./accounts/accounts.module').then(m => m.AccountsModule),
         data: {
           breadcrumb: 'Accounts'
         }
@@ -88,7 +88,7 @@ const routes: Routes = [
       },
       {
         path: 'reports',
-        loadChildren: () => import('../components/reports/reports.module').then(m => m.ReportsModule),
+        loadChildren: () => import('./reports/reports.module').then(m => m.ReportsModule),
         data: {
           breadcrumb: 'Reports'
         }
