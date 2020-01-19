@@ -5,7 +5,7 @@ import { ProcurementsRequestComponent } from './procurements-request/procurement
 import { MyProcurementsRequestComponent } from '../../components/my-procurements-request/my-procurements-request.component';
 import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
 import { EditProcurementRequestComponent } from '../../components/edit-procurement-request/edit-procurement-request.component';
-import { ApproveProcurementRequestComponent } from '../../components/approve-procurement-request/approve-procurement-request.component';
+import { ApproveProcurementRequestComponent } from './approve-procurement-request/approve-procurement-request.component';
 import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
 import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
+import { AppState } from '../../../store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClassLevelCategoryService } from 'src/app/services/class-level-category.service';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';

@@ -53,7 +53,7 @@ const routes: Routes = [
       },
       {
         path: 'academics',
-        loadChildren: () => import('../components/academics/academics.module').then(m => m.AcademicsModule),
+        loadChildren: () => import('./academics/academics.module').then(m => m.AcademicsModule),
         data: {
           breadcrumb: 'Academics'
         }

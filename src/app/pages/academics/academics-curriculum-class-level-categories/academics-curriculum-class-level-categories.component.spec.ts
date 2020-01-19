@@ -3,12 +3,12 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AcademicsCurriculumClassLevelCategoriesComponent } from './academics-curriculum-class-level-categories.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { ViewItemsComponent } from '../../view-items/view-items.component';
+import { ViewItemsComponent } from '../../../components/view-items/view-items.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ChipsComponent } from '../../chips/chips.component';
-import { LoadingBubbleComponent } from '../../loading-bubble/loading-bubble.component';
+import { ChipsComponent } from '../../../components/chips/chips.component';
+import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ErrorComponent } from '../../error/error.component';
+import { ErrorComponent } from '../../../components/error/error.component';
 
 describe('AcademicsCurriculumClassLevelCategoriesComponent', () => {
   let component: AcademicsCurriculumClassLevelCategoriesComponent;

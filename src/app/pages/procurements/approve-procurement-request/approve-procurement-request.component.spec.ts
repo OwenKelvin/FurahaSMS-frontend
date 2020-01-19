@@ -4,7 +4,7 @@ import { ApproveProcurementRequestComponent } from './approve-procurement-reques
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
+import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ApproveProcurementRequestComponent', () => {

@@ -1,28 +1,28 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { AcademicsCurriculumComponent } from './academics-curriculum.component';
+import { AcademicsComponent } from './academics.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { DashboardLinksComponent } from '../../dashboard/dashboard-links/dashboard-links.component';
-import { DashboardLinkComponent } from '../../dashboard/dashboard-link/dashboard-link.component';
+import { DashboardLinksComponent } from '../../components/dashboard/dashboard-links/dashboard-links.component';
+import { DashboardLinkComponent } from '../../components/dashboard/dashboard-link/dashboard-link.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('AcademicsCurriculumComponent', () => {
-  let component: AcademicsCurriculumComponent;
-  let fixture: ComponentFixture<AcademicsCurriculumComponent>;
+describe('AcademicsComponent', () => {
+  let component: AcademicsComponent;
+  let fixture: ComponentFixture<AcademicsComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ AcademicsCurriculumComponent, DashboardLinksComponent, DashboardLinkComponent ]
+      declarations: [ AcademicsComponent, DashboardLinksComponent, DashboardLinkComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(AcademicsCurriculumComponent);
+    fixture = TestBed.createComponent(AcademicsComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

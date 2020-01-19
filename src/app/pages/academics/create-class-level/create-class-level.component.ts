@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
+import { AppState } from '../../../store/reducers';
 import { VIEW_CLASS_LEVEL_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';

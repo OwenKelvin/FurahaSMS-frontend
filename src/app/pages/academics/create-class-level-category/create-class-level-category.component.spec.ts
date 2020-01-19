@@ -1,35 +1,35 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CreateAcademicYearComponent } from './create-academic-year.component';
+import { CreateClassLevelCategoryComponent } from './create-class-level-category.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputComponent } from '../input/input.component';
-import { ErrorComponent } from '../error/error.component';
+import { InputComponent } from '../../../components/input/input.component';
+import { ErrorComponent } from '../../../components/error/error.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('CreateAcademicYearComponent', () => {
-  let component: CreateAcademicYearComponent;
-  let fixture: ComponentFixture<CreateAcademicYearComponent>;
+describe('CreateClassLevelCategoryComponent', () => {
+  let component: CreateClassLevelCategoryComponent;
+  let fixture: ComponentFixture<CreateClassLevelCategoryComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [
-        StoreModule.forRoot({}),
+      imports: [StoreModule.forRoot({}),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule],
-      declarations: [ CreateAcademicYearComponent, InputComponent, ErrorComponent  ]
+        RouterTestingModule
+      ],
+      declarations: [ CreateClassLevelCategoryComponent, InputComponent, ErrorComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(CreateAcademicYearComponent);
+    fixture = TestBed.createComponent(CreateClassLevelCategoryComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 
