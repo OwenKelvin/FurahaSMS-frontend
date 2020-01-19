@@ -8,7 +8,6 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ViewComponent } from 'src/app/components/view/view.component';
 import { ChipsComponent } from 'src/app/components/chips/chips.component';
 import { DescriptionComponent } from 'src/app/components/description/description.component';
-import { LoadingBubbleComponent } from 'src/app/components/loading-bubble/loading-bubble.component';
 
 describe('ViewClassLevelComponent', () => {
   let component: ViewClassLevelComponent;
@@ -27,7 +26,6 @@ describe('ViewClassLevelComponent', () => {
         ViewComponent,
         ChipsComponent,
         DescriptionComponent,
-        LoadingBubbleComponent
       ]
     });
 

@@ -1,8 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginComponent } from './login.component';
-import { InputComponent } from './../input/input.component';
-import { FullWithCenterComponent } from '../full-with-center/full-with-center.component';
+import { InputComponent } from '../../components/input/input.component';
+import { FullWithCenterComponent } from '../../components/full-with-center/full-with-center.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';

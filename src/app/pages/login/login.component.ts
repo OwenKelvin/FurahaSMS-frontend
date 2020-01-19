@@ -5,8 +5,8 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MessageInterface } from 'src/app/interfaces/message.interface';
 import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { loadToastShowsSuccess } from './../../store/actions/toast-show.actions';
-import { AppState } from './../../store/reducers';
+import { loadToastShowsSuccess } from '../../store/actions/toast-show.actions';
+import { AppState } from '../../store/reducers';
 
 @Component({
   selector: 'app-login',

@@ -1,9 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginContactAdminComponent } from './login-contact-admin.component';
-import { InputComponent } from '../../input/input.component';
+import { InputComponent } from '../../../components/input/input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { FullWithCenterComponent } from '../../full-with-center/full-with-center.component';
+import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
 import { By } from '@angular/platform-browser';
 
 describe('LoginContactAdminComponent', () => {
