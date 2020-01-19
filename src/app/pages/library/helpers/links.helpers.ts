@@ -1,8 +1,8 @@
 export const CREATE_LIBRARY_PUBLISHER =
-  '/library/admin/authors/create';
+  '/library/admin/publishers/create';
 export const EDIT_LIBRARY_PUBLISHER = (id: string | number) => {
-  return `/library/admin/authors/${id}/edit`;
+  return `/library/admin/publishers/${id}/edit`;
 };
 export const VIEW_LIBRARY_PUBLISHER = (id: string | number) => {
-  return `/library/admin/authors/${id}/view`;
+  return `/library/admin/publishers/${id}/view`;
 };

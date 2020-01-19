@@ -22,6 +22,9 @@ import { CreateAuthorComponent } from './components/library-admin/library-admin-
 import { ViewAuthorComponent } from './components/library-admin/library-admin-authors/view-author/view-author.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { EditAuthorComponent } from './components/library-admin/library-admin-authors/edit-author/edit-author.component';
+import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
+import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
+import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
 
 
 @NgModule({
@@ -40,6 +43,9 @@ import { EditAuthorComponent } from './components/library-admin/library-admin-au
     CreateAuthorComponent,
     ViewAuthorComponent,
     EditAuthorComponent,
+    CreatePublisherComponent,
+    ViewPublisherComponent,
+    EditPublisherComponent,
   ],
   imports: [
     CommonModule,

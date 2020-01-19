@@ -1,8 +1,11 @@
 <section>
   <h1 >{{ editPage ? 'Edit': 'Create' }} Book Author</h1>
   <form (submit)='submitNewBookAuthorForm()' [formGroup]='newBookAuthorForm' *ngIf='!isLoading; else loading'>
-    <section class='col-lg-12'>
-      <app-input formControlName='name' [triggerValidation]='triggerValidation' id='name' placeholder='Enter Authors Name'
+    <section class='col-lg-7'>
+      <app-input 
+        labelClass='col-lg-5'
+        inputClass='col-lg-7'
+        formControlName='name' [triggerValidation]='triggerValidation' id='name' placeholder='Enter Authors Name'
         label="Author's Name"></app-input>
     </section>
     <section class='col-lg-12'>
