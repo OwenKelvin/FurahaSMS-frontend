@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../../store/reducers';
-import { LibraryAuthorService } from 'src/app/services/library-author.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
+import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
 
 @Component({
   selector: 'app-view-author',

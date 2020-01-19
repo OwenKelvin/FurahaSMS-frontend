@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
-import { LibraryAuthorService } from 'src/app/services/library-author.service';
+import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
 import { CREATE_LIBRARY_AUTHOR, EDIT_LIBRARY_AUTHOR, VIEW_LIBRARY_AUTHOR } from 'src/app/helpers/links.helpers';
 
 @Component({

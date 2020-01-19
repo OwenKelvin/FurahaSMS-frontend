@@ -3,10 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibraryAdminComponent } from './library-admin.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { DashboardComponent } from '../../../dashboard/dashboard.component';
-import { DashboardLinksComponent } from '../../../dashboard/dashboard-links/dashboard-links.component';
-import { DashboardLinkComponent } from '../../../dashboard/dashboard-link/dashboard-link.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 
 describe('LibraryAdminComponent', () => {
   let component: LibraryAdminComponent;
@@ -15,8 +13,8 @@ describe('LibraryAdminComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ LibraryAdminComponent, DashboardLinksComponent, DashboardLinkComponent ]
+      imports: [ StoreModule.forRoot({}), RouterTestingModule, AppDashboardLinksModule ],
+      declarations: [ LibraryAdminComponent]
     });
 
     await TestBed.compileComponents();

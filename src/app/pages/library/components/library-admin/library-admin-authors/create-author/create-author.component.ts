@@ -2,9 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LibraryAuthorService } from 'src/app/services/library-author.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router, ActivatedRoute } from '@angular/router';
+import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
 
 @Component({
   selector: 'app-create-author',
