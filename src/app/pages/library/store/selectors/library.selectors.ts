@@ -1,7 +1,7 @@
 import { createFeatureSelector, createSelector } from '@ngrx/store';
 import * as fromLibrary from '../reducers';
 
-export const selectLibraryState = createFeatureSelector<fromLibrary.State>(
+export const selectLibraryState = createFeatureSelector<fromLibrary.LibraryState>(
   fromLibrary.libraryFeatureKey
 );
 

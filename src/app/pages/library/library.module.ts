@@ -29,7 +29,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { StoreModule } from '@ngrx/store';
 import * as fromLibrary from './store/reducers';
 import { EffectsModule } from '@ngrx/effects';
-import LibraryEffects from './store/effects';
+import * as fromLibraryEffects from './store/effects';
+import { LibraryBookAuthorEffects } from './store/effects/library-book-authors.effects';
+import { LibraryAuthorService } from './services/library-author.service';
 
 
 @NgModule({
@@ -64,7 +66,10 @@ import LibraryEffects from './store/effects';
     AppLoadingBubbleModule,
     NgSelectModule,
     StoreModule.forFeature(fromLibrary.libraryFeatureKey, fromLibrary.reducers),
-    EffectsModule.forFeature(LibraryEffects)
+    EffectsModule.forFeature([
+      fromLibraryEffects.LibraryBookAuthorEffects,
+      fromLibraryEffects.LibraryBookPublisherEffects
+    ])
 
 
   ]

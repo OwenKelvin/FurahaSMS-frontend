@@ -1,12 +1,13 @@
 import * as fromLibrary from '../reducers';
-import { selectLibraryState } from './library.selectors';
+import { selectLibraryState, selectLibraryBookAuthors } from './library.selectors';
 
 describe('Library Selectors', () => {
   it('should select the feature state', () => {
-    const result = selectLibraryState({
-      [fromLibrary.libraryFeatureKey]: {}
+    const result = selectLibraryBookAuthors({
+      libraryBookAuthors: [], libraryBookPublishers: []
+      // [fromLibrary.libraryFeatureKey]: {}
     });
 
-    expect(result).toEqual({});
+    expect(result).toEqual([]);
   });
 });

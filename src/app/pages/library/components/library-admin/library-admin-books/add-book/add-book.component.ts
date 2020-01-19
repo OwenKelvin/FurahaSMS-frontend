@@ -37,8 +37,8 @@ export class AddBookComponent implements OnInit {
     });
     this.store.dispatch(loadBookAuthors());
     this.store.dispatch(loadLibraryBookPublishers());
-    this.bookAuthors$ = this.store.pipe(select(selectLibraryBookAuthors))
-    this.bookPublishers$ = this.store.pipe(select(selectLibraryBookPublishers))
+    this.bookAuthors$ = this.store.pipe(select(selectLibraryBookAuthors));
+    this.bookPublishers$ = this.store.pipe(select(selectLibraryBookPublishers));
   }
   submitNewBookForm() {
     this.isSubmitting = true;

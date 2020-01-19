@@ -16,7 +16,7 @@ export interface LibraryState {
 }
 
 export interface State extends fromRoot.AppState {
-  libraryBookAuthors: fromLibraryBookAuthor.State[],
+  libraryBookAuthors: fromLibraryBookAuthor.State[];
   libraryBookPublishers: fromLibraryBookPublisher.State[];
 }
 

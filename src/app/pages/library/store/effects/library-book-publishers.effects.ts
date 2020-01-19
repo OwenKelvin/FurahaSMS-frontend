@@ -13,7 +13,7 @@ export class LibraryBookPublisherEffects {
   constructor(private actions$: Actions, private bookPublisherService: BookPublisherService) { }
 
   loadLibrarys$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(LibraryBookPublisherActions.loadLibraryBookPublishers),
       concatMap(() =>

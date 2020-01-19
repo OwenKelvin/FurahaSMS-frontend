@@ -20,13 +20,10 @@ export class LibraryBookAuthorEffects {
       concatMap(() => {
         return this.bookAuthorService.getAll().pipe(
           map(data => LibraryBookAuthorActions.loadBookAuthorsSuccess({ data })),
-          catchError(error => of(LibraryBookAuthorActions.loadBookAuthorsFailure({ error }))))
-     
+          catchError(error => of(LibraryBookAuthorActions.loadBookAuthorsFailure({ error }))));
+
       })
 
-  );
-});
-
-  
-
+    );
+  });
 }

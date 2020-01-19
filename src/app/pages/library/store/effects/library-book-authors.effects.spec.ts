@@ -1,15 +1,17 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { LibraryBookAuthorEffects } from './library-book-authors.effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LibraryBookAuthorEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = of(1);
   let effects: LibraryBookAuthorEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         LibraryBookAuthorEffects,
         provideMockActions(() => actions$)
