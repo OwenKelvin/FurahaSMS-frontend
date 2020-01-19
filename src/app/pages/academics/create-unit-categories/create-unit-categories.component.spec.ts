@@ -27,7 +27,7 @@ describe('CreateUnitCategoriesComponent', () => {
       ],
       declarations: [
         CreateUnitCategoriesComponent,
-      
+
         CreateUnitComponent,
         ErrorComponent,
       ]

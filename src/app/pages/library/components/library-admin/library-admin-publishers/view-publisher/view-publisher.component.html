@@ -1,1 +1,7 @@
-<p>view-publisher works!</p>
+<h1>View Book Publisher</h1>
+<section *ngIf='(publisher$ | async) as publisher; else loading'>
+  Name: <strong>{{ publisher.name }}</strong>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

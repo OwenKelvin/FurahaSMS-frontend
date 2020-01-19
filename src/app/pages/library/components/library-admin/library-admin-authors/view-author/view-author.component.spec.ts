@@ -14,7 +14,8 @@ describe('ViewAuthorComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}),
+      imports: [
+        StoreModule.forRoot({}),
         AppLoadingBubbleModule,
         HttpClientTestingModule,
         RouterTestingModule

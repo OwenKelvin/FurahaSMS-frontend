@@ -37,7 +37,7 @@ export class CreateAuthorComponent implements OnInit {
     });
     this.route.paramMap.subscribe(params => {
       const id = +params.get('id');
-      if (id > 1) {
+      if (id > 0) {
         this.editPage = true;
         this.isLoading = true;
         const sub = this.libraryAuthorService.getAuthorWithId(id).subscribe(author => {

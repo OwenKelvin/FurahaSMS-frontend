@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../../store/reducers';
+import { Observable } from 'rxjs';
+import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-view-publisher',
@@ -9,9 +12,18 @@ import * as fromStore from '../../../../../../store/reducers';
 })
 export class ViewPublisherComponent implements OnInit {
 
-  constructor(private store: Store<fromStore.AppState>) { }
+  publisher$: Observable<any>;
+
+  constructor(
+    private libraryPublisherService: LibraryPublisherService,
+    private store: Store<fromStore.AppState>,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.publisher$ = this.libraryPublisherService.getPublisherWithId(+params.get('id'));
+    });
   }
 
 }

@@ -14,6 +14,9 @@ import { ViewBookComponent } from './components/library-admin/library-admin-book
 import { CreateAuthorComponent } from './components/library-admin/library-admin-authors/create-author/create-author.component';
 import { ViewAuthorComponent } from './components/library-admin/library-admin-authors/view-author/view-author.component';
 import { EditAuthorComponent } from './components/library-admin/library-admin-authors/edit-author/edit-author.component';
+import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
+import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
+import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
 
 
 const routes: Routes = [
@@ -136,10 +139,39 @@ const routes: Routes = [
       },
       {
         path: 'publishers',
-        component: LibraryAdminPublishersComponent,
         data: {
           breadcrumb: 'Publishers'
-        }
+        }, children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: LibraryAdminPublishersComponent,
+            data: {
+              breadcrumb: null
+            },
+          },
+          {
+            path: 'create',
+            component: CreatePublisherComponent,
+            data: {
+              breadcrumb: 'Create Author'
+            },
+          },
+          {
+            path: ':id/view',
+            component: ViewPublisherComponent,
+            data: {
+              breadcrumb: 'View Author'
+            },
+          },
+          {
+            path: ':id/edit',
+            component: EditPublisherComponent,
+            data: {
+              breadcrumb: 'Edit Author'
+            },
+          }
+        ]
       }
     ]
   }

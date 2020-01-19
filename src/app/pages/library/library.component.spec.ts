@@ -24,6 +24,9 @@ import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
+import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
+import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -58,7 +61,10 @@ describe('LibraryComponent', () => {
         ViewBookComponent,
         CreateAuthorComponent,
         ViewAuthorComponent,
-        EditAuthorComponent
+        EditAuthorComponent,
+        CreatePublisherComponent,
+        EditPublisherComponent,
+        ViewPublisherComponent
       ]
     });
 
