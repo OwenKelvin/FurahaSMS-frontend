@@ -25,6 +25,11 @@ import { EditAuthorComponent } from './components/library-admin/library-admin-au
 import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
 import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
 import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { StoreModule } from '@ngrx/store';
+import * as fromLibrary from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import LibraryEffects from './store/effects';
 
 
 @NgModule({
@@ -57,6 +62,9 @@ import { EditPublisherComponent } from './components/library-admin/library-admin
     AppInputModule,
     AppViewItemsModule,
     AppLoadingBubbleModule,
+    NgSelectModule,
+    StoreModule.forFeature(fromLibrary.libraryFeatureKey, fromLibrary.reducers),
+    EffectsModule.forFeature(LibraryEffects)
 
 
   ]

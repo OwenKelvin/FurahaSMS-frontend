@@ -11,18 +11,22 @@
 
       </app-input>
     </section>
-    <section class='col-lg-6 col-md-12'>
-      Publishers
-      <select name="" id=""></select>
+    <section class='col-lg-6 col-md-12 p-4'>
+      <label for="authors">Authors</label>
+      <select multiple class='form-control' id="authors">
+        <option *ngFor='let author of bookAuthors$ | async' [value]="author.id"> {{ author.name }}</option>
+      </select>
     </section>
-    <section class='col-lg-6 col-md-12'>
-      Authors
-      <select name="" id=""></select>
+    <section class='col-lg-6 col-md-12 p-4'>
+      <label for="publishers">Publishers</label>
+      <select multiple class='form-control' id="publisher">
+        <option *ngFor='let publisher of bookPublishers$ | async' [value]="publisher.id"> {{ publisher.name }}</option>
+      </select>
     </section>
-    <section class='col-lg-6 col-md-12'>
-      <app-input placeholder='Publication Date' id='pub-date' formControlName='publicationDate' type='date'></app-input>
+    <section class='col-lg-6 col-md-12 mt-2'>
+      <app-input label='Publication Date' placeholder='Publication Date' id='pub-date' formControlName='publicationDate' type='date'></app-input>
     </section>
-    
+
     <section class='col-lg-6 col-md-12'>
       Book Classification
     </section>
@@ -36,11 +40,9 @@
     </section>
 
   </section>
-   <section class='col-lg-12'>
-      <app-validate-submit-buttons 
-        [isSubmitting]='isSubmitting'
-        (validationButtonClicked)='triggerValidation = !triggerValidation'
-        [formItem]='newBookForm'
-      ></app-validate-submit-buttons>
-    </section>
+  <section class='col-lg-12'>
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookForm'>
+    </app-validate-submit-buttons>
+  </section>
 </form>

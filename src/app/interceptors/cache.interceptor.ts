@@ -13,9 +13,11 @@ export class CacheInterceptor implements HttpInterceptor {
     const cachableUrl: string[] = [
       `genders/all`,
       `religions/all`,
+      `library-books/authors/all`,
+      `library-books/publishers/all`,
       `curriculum/class-level-categories`,
       `phones/allowed-countries`
-    ].map(item => `api/${item}`);
+    ].map(item => `/api/${item}`);
     if (req.method === 'GET' && cachableUrl.includes(req.url)) {
       if (cachedResponse) {
         return of(cachedResponse);
