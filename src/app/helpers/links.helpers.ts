@@ -54,3 +54,12 @@ export const VIEW_PROCUREMENT_VENDOR = (id: string | number) => {
   return `/procurements/vendors/${id}/view`;
 };
 
+export const CREATE_LIBRARY_AUTHOR =
+  '/library/admin/authors/create';
+export const EDIT_LIBRARY_AUTHOR = (id: string | number) => {
+  return `/library/admin/authors/${id}/edit`;
+};
+export const VIEW_LIBRARY_AUTHOR = (id: string | number) => {
+  return `/library/admin/authors/${id}/view`;
+};
+

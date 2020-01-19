@@ -29,9 +29,32 @@ export class LinkService {
         return this.getLibraryAdminLinks();
       case 'procurements':
         return this.getProcurementLinks();
+      case 'library:admin:books':
+        return this.getLibraryAdminBooksLinks();
+      case 'library:admin:users':
+        return this.getLibraryAdminUsersLinks();
       default:
         return this.getDashboardLinks();
     }
+  }
+  
+  getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
+    return of([
+      {
+        name: 'Add Library Book',
+        icon: ' icon-plus-squared',
+        link: 'library/admin/books/create'
+      },
+    ])
+  }
+  getLibraryAdminUsersLinks(): Observable<LinkInterface[]>  {
+    return of([
+      {
+        name: 'Add Library User',
+        icon: 'icon-user-plus',
+        link: 'library/admin/users/add'
+      },
+    ])
   }
 
   getProcurementLinks(): Observable<LinkInterface[]> {

@@ -1,25 +1,25 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { LibraryAdminUsersComponent } from './library-admin-users.component';
+import { ViewBookComponent } from './view-book.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 
-describe('LibraryAdminUsersComponent', () => {
-  let component: LibraryAdminUsersComponent;
-  let fixture: ComponentFixture<LibraryAdminUsersComponent>;
+describe('ViewBookComponent', () => {
+  let component: ViewBookComponent;
+  let fixture: ComponentFixture<ViewBookComponent>;
   let store: Store<any>;
 
   beforeEach(async() => {
     TestBed.configureTestingModule({
       imports: [ StoreModule.forRoot({}) ],
-      declarations: [ LibraryAdminUsersComponent ]
+      declarations: [ ViewBookComponent ]
     });
 
     await TestBed.compileComponents();
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(LibraryAdminUsersComponent);
+    fixture = TestBed.createComponent(ViewBookComponent);
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 

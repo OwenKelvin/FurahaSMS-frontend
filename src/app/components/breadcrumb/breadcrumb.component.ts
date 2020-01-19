@@ -32,7 +32,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
-    console.log(this.breadcrumbs)
     // const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
     this.router.events.pipe(filter(event => event instanceof NavigationEnd))

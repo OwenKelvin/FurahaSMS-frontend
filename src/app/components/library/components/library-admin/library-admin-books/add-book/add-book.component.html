@@ -1,0 +1,46 @@
+<h1>Add Library Book</h1>
+<form (submit)='submitNewBookForm()' [formGroup]='newBookForm'>
+  <section class='d-flex flex-wrap'>
+    <section class='col-lg-6 col-md-12'>
+      <app-input id="bookTitle" placeholder='Enter Book Title' formControlName='bookTitle' label="Book Title">
+
+      </app-input>
+    </section>
+    <section class='col-lg-6 col-md-12'>
+      <app-input id="ISBN" placeholder="Please Enter ISBN Number" label="ISBN Number" formControlName="ISBN">
+
+      </app-input>
+    </section>
+    <section class='col-lg-6 col-md-12'>
+      Publishers
+      <select name="" id=""></select>
+    </section>
+    <section class='col-lg-6 col-md-12'>
+      Authors
+      <select name="" id=""></select>
+    </section>
+    <section class='col-lg-6 col-md-12'>
+      <app-input placeholder='Publication Date' id='pub-date' formControlName='publicationDate' type='date'></app-input>
+    </section>
+    
+    <section class='col-lg-6 col-md-12'>
+      Book Classification
+    </section>
+
+    <section class='col-lg-12 col-md-12'>
+      Book Items
+    </section>
+    <section class='col-lg-12 col-md-12'>
+
+      Tags
+    </section>
+
+  </section>
+   <section class='col-lg-12'>
+      <app-validate-submit-buttons 
+        [isSubmitting]='isSubmitting'
+        (validationButtonClicked)='triggerValidation = !triggerValidation'
+        [formItem]='newBookForm'
+      ></app-validate-submit-buttons>
+    </section>
+</form>

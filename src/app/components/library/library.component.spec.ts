@@ -7,9 +7,9 @@ import { DashboardLinksComponent } from '../dashboard/dashboard-links/dashboard-
 import { DashboardLinkComponent } from '../dashboard/dashboard-link/dashboard-link.component';
 import { LibraryRoutingModule } from './library-routing.module';
 import { LayoutComponent } from '../layout/layout.component';
-import { LibrarySearchCatalogueComponent } from './library-search-catalogue/library-search-catalogue.component';
-import { LibraryMyAccountComponent } from './library-my-account/library-my-account.component';
-import { LibraryAdminComponent } from './library-admin/library-admin.component';
+import { LibrarySearchCatalogueComponent } from './components/library-search-catalogue/library-search-catalogue.component';
+import { LibraryMyAccountComponent } from './components/library-my-account/library-my-account.component';
+import { LibraryAdminComponent } from './components/library-admin/library-admin.component';
 import { SidebarComponent } from '../sidebar/sidebar.component';
 import { HeaderComponent } from '../header/header.component';
 import { FooterComponent } from '../footer/footer.component';
@@ -19,10 +19,10 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
 import { NetworkErrorComponent } from '../network-error/network-error.component';
-import { LibraryAdminUsersComponent } from './library-admin-users/library-admin-users.component';
-import { LibraryAdminBooksComponent } from './library-admin-books/library-admin-books.component';
-import { LibraryAdminAuthorsComponent } from './library-admin-authors/library-admin-authors.component';
-import { LibraryAdminPublishersComponent } from './library-admin-publishers/library-admin-publishers.component';
+import { LibraryAdminUsersComponent } from './components/library-admin/library-admin-users/library-admin-users.component';
+import { LibraryAdminBooksComponent } from './components/library-admin/library-admin-books/library-admin-books.component';
+import { LibraryAdminAuthorsComponent } from './components/library-admin/library-admin-authors/library-admin-authors.component';
+import { LibraryAdminPublishersComponent } from './components/library-admin/library-admin-publishers/library-admin-publishers.component';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;

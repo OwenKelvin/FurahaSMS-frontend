@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../store/reducers';
+import { AppState } from '../../../../store/reducers';
 
 @Component({
   selector: 'app-library-admin',
