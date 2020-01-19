@@ -7,9 +7,19 @@ import { LayoutComponent } from '../components/layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    pathMatch: 'full',
     canActivate: [GuestGuard],
-    loadChildren: () => import('../components/home/home.module').then(m => m.HomeModule)
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
+      },
+      {
+        path: 'login',
+        loadChildren: () => import('../components/login/login.module').then(m => m.LoginModule)
+      },
+    ],
+    
   },
   {
     path: '',
@@ -25,10 +35,6 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Dashboard'
         }
-      },
-      {
-        path: 'login',
-        loadChildren: () => import('../components/login/login.module').then(m => m.LoginModule)
       },
       {
         path: 'procurements',

@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
-import { FullWithCenterComponent } from '../full-with-center/full-with-center.component';
+import { FullWithCenterComponent } from '../../components/full-with-center/full-with-center.component';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
