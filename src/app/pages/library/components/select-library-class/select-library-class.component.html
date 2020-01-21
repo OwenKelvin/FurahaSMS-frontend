@@ -1,14 +1,20 @@
 <fieldset>
   <legend>Select Classification</legend>
   <section *ngIf='classification; else classificationNotSelected'>
-    <label for="bookClass"></label>
-    <select [(ngModel)]='libraryBookClassValue' id="bookCLass" class="form-control">
-      <option *ngFor='let libraryBookClass of libraryBookClasses$ | async' [value]="libraryBookClass.id">{{ libraryBookClass.name }}</option>
-    </select>
-    <app-select-library-sub-class [id]='libraryBookClassValue'></app-select-library-sub-class>
+    <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
+      <label for="bookClass">Select Class</label>
+      <select [(ngModel)]='libraryBookClassValue' id="bookCLass" class="form-control">
+        <option *ngFor='let libraryBookClass of libraryBookClasses' [value]="libraryBookClass.id">
+          {{ libraryBookClass.name }}</option>
+      </select>
+    </section>
+    <ng-template #item_loading>
+      <app-loading-bubble></app-loading-bubble>
+    </ng-template>
+    
+    <app-select-library-sub-class [classification]='classification' [id]='libraryBookClassValue'></app-select-library-sub-class>
   </section>
   <ng-template #classificationNotSelected>
     <section class="alert alert-info"><span class="info"></span> No Classification Provided</section>
   </ng-template>
 </fieldset>
->>>{{ libraryBookClassValue }}<<<

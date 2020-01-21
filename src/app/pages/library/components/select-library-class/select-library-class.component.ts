@@ -20,7 +20,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges {
   ngOnChanges(changes: { classification: SimpleChange; }) {
     const { currentValue } = changes.classification;
     if (currentValue > 0) {
-      this.libraryBookClasses$ = this.libraryBookClassesService.getClass({ classification: currentValue });
+      this.libraryBookClasses$ = this.libraryBookClassesService.getClass({ classification: currentValue, libraryClass: null });
       
     }
   }

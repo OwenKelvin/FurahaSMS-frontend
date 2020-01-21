@@ -8,7 +8,13 @@ import { HttpClient } from '@angular/common/http';
 export class LibraryBookClassesService {
 
   constructor(private http: HttpClient) { }
-  getClass({ classification }): Observable<any> {
-    return this.http.get(`api/library-books/classifications/${classification}/classes?flat=1`)
+  getClass({ classification, libraryClass }): Observable<any> {
+    let url = `api/library-books/classifications/${classification}/classes?`;
+    if (libraryClass) {
+      url += `library_class=${libraryClass}`;
+      return this.http.get(url)
+    }
+    url += `flat=1`;
+    return this.http.get(url)
   }
 }

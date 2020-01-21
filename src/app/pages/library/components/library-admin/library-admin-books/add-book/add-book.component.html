@@ -61,7 +61,9 @@
             {{ classification.name }}</option>
         </select>
       </section>
-      <app-select-library-class [classification]='newBookForm.get("classification").value'></app-select-library-class>
+      <section class="col-lg-6">
+        <app-select-library-class [classification]='newBookForm.get("classification").value'></app-select-library-class>
+      </section>
     </tab>
     <tab role="tab">
       <ng-template tabHeading>
