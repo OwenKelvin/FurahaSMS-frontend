@@ -14,3 +14,9 @@ export const selectLibraryBookPublishers = createSelector(
   selectLibraryState,
   library => library.libraryBookPublishers
 );
+
+export const selectLibraryBookClassifications = createSelector(
+  selectLibraryState,
+  library => library.libraryBookClassifications
+);
+

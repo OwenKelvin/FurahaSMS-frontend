@@ -1,48 +1,101 @@
 <h1>Add Library Book</h1>
 <form (submit)='submitNewBookForm()' [formGroup]='newBookForm'>
-  <section class='d-flex flex-wrap'>
-    <section class='col-lg-6 col-md-12'>
-      <app-input id="bookTitle" placeholder='Enter Book Title' formControlName='bookTitle' label="Book Title">
 
-      </app-input>
-    </section>
-    <section class='col-lg-6 col-md-12'>
-      <app-input id="ISBN" placeholder="Please Enter ISBN Number" label="ISBN Number" formControlName="ISBN">
+  <tabset role="tablist" #staticTabs>
+    <tab role="tab">
+      <ng-template tabHeading>
+        <span>General Info </span>
+        <span [class.icon-ok-1]='!generalInfoHasError && markTabsWithError'
+          [class.icon-attention]='generalInfoHasError && markTabsWithError'
+          [class.text-danger]='generalInfoHasError && markTabsWithError'
+          [class.text-success]='!generalInfoHasError && markTabsWithError'></span>
+      </ng-template>
+      <section class='d-flex flex-wrap pt-3'>
+        <section class='col-lg-6 col-md-12'>
+          <app-input [triggerValidation]='triggerValidation' id="bookTitle" placeholder='Enter Book Title'
+            formControlName='bookTitle' label="Book Title">
 
-      </app-input>
-    </section>
-    <section class='col-lg-6 col-md-12 p-4'>
-      <label for="authors">Authors</label>
-      <select multiple class='form-control' id="authors">
-        <option *ngFor='let author of bookAuthors$ | async' [value]="author.id"> {{ author.name }}</option>
-      </select>
-    </section>
-    <section class='col-lg-6 col-md-12 p-4'>
-      <label for="publishers">Publishers</label>
-      <select multiple class='form-control' id="publisher">
-        <option *ngFor='let publisher of bookPublishers$ | async' [value]="publisher.id"> {{ publisher.name }}</option>
-      </select>
-    </section>
-    <section class='col-lg-6 col-md-12 mt-2'>
-      <app-input label='Publication Date' placeholder='Publication Date' id='pub-date' formControlName='publicationDate' type='date'></app-input>
-    </section>
+          </app-input>
+        </section>
+        <section class='col-lg-6 col-md-12'>
+          <app-input id="ISBN" placeholder="Please Enter ISBN Number" label="ISBN Number" formControlName="ISBN">
 
-    <section class='col-lg-6 col-md-12'>
-      Book Classification
-    </section>
-
-    <section class='col-lg-12 col-md-12'>
-      Book Items
-    </section>
-    <section class='col-lg-12 col-md-12'>
-
-      Tags
-    </section>
-
-  </section>
-  <section class='col-lg-12'>
-    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
-      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookForm'>
+          </app-input>
+        </section>
+        <section class='col-lg-6 col-md-12 p-4'>
+          <label for="authors">Authors</label>
+          <select multiple class='form-control' id="authors" formControlName='authors'>
+            <option *ngFor='let author of bookAuthors$ | async' [value]="author.id"> {{ author.name }}</option>
+          </select>
+        </section>
+        <section class='col-lg-6 col-md-12 p-4'>
+          <label for="publishers">Publishers</label>
+          <select multiple class='form-control' id="publisher">
+            <option *ngFor='let publisher of bookPublishers$ | async' [value]="publisher.id"> {{ publisher.name }}
+            </option>
+          </select>
+        </section>
+        <section class='col-lg-6 col-md-12 mt-2'>
+          <app-input label='Publication Date' placeholder='Publication Date' id='pub-date'
+            formControlName='publicationDate' type='date'></app-input>
+        </section>
+      </section>
+      <section class='mt-3 col-lg12'>
+        <section class='d-flex justify-content-end'>
+          <button type="button" class="btn btn-primary btn-sm" (click)="selectTab(1)">Next</button>
+        </section>
+      </section>
+    </tab>
+    <tab>
+      <ng-template tabHeading>
+        <span>Classification &amp; Tags</span>
+        <span [class.icon-ok-1]='!classificationInfoHasError && markTabsWithError'
+          [class.icon-attention]='classificationInfoHasError && markTabsWithError'
+          [class.text-danger]='classificationInfoHasError && markTabsWithError'
+          [class.text-success]='!classificationInfoHasError && markTabsWithError'></span>
+      </ng-template>
+      <section class='col-lg-6 col-md-12'>
+        <label for="classification">Librar Book Classification</label>
+        <select formControlName='classification' class='form-control' id="classification">
+          <option *ngFor='let classification of bookClassifications$ | async' [value]="classification.id">
+            {{ classification.name }}</option>
+        </select>
+      </section>
+      <app-select-library-class [classification]='newBookForm.get("classification").value'></app-select-library-class>
+    </tab>
+    <tab role="tab">
+      <ng-template tabHeading>
+        <span>Book Items </span>
+        <span [class.icon-ok-1]='!generalInfoHasError && markTabsWithError'
+          [class.icon-attention]='generalInfoHasError && markTabsWithError'
+          [class.text-danger]='generalInfoHasError && markTabsWithError'
+          [class.text-success]='!generalInfoHasError && markTabsWithError'></span>
+      </ng-template>
+      <section class="mt-3">
+        <section class='d-flex'>
+          <section class="col-lg-4">
+            <app-input [triggerValidation]='triggerValidation' id="bookRef" placeholder='Enter Book Ref'
+              formControlName='bookTitle' label="Book Ref"></app-input>
+          </section>
+          <section class="col-lg-4">
+            <app-input [triggerValidation]='triggerValidation' id="bookRef" placeholder='Enter Book Ref'
+              formControlName='bookTitle' label="Book Ref"></app-input>
+          </section>
+          <section class="col-lg-4">
+            <div class="form-check col-lg-3 col-md-4 col-sm-6 mt-2">
+              <input [value]='reserved' class="form-check-input" type="checkbox" [id]='1'>
+              <label class="form-check-label" [attr.for]='1'>
+                {{'Reserved'}}
+              </label>
+            </div>
+          </section>
+        </section>
+      </section>
+    </tab>
+  </tabset>
+  <section class='col-lg-12 mt-3'>
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
+      [formItem]='newBookForm'>
     </app-validate-submit-buttons>
   </section>
 </form>

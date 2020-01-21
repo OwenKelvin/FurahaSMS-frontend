@@ -15,10 +15,15 @@ export class CacheInterceptor implements HttpInterceptor {
       `religions/all`,
       `library-books/authors/all`,
       `library-books/publishers/all`,
+      `library-books/classifications`,
       `curriculum/class-level-categories`,
       `phones/allowed-countries`
     ].map(item => `/api/${item}`);
-    if (req.method === 'GET' && cachableUrl.includes(req.url)) {
+
+    if (
+      (req.method === 'GET' && cachableUrl.includes(req.url)) || 
+      (req.method === 'GET' && /api\/library-books\/classifications\/(\d)+\/classes/.test(req.url))
+      ) {
       if (cachedResponse) {
         return of(cachedResponse);
       }

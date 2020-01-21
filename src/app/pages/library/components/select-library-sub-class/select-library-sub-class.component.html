@@ -1,0 +1,8 @@
+<section *ngIf='id; else flat'>
+  ID: {{ id }}
+</section>
+<ng-template #flat>
+  <section>
+    FLAT: {{ id }}
+  </section>
+</ng-template>
