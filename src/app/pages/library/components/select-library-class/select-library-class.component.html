@@ -3,7 +3,7 @@
   <section *ngIf='classification; else classificationNotSelected'>
     <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
       <label for="bookClass">Select Class</label>
-      <select [(ngModel)]='libraryBookClassValue' id="bookCLass" class="form-control">
+      <select [(ngModel)]='libraryBookClassValue' (ngModelChange)='handleChange($event)' id="bookCLass" class="form-control">
         <option *ngFor='let libraryBookClass of libraryBookClasses' [value]="libraryBookClass.id">
           {{ libraryBookClass.name }}</option>
       </select>
@@ -12,7 +12,7 @@
       <app-loading-bubble></app-loading-bubble>
     </ng-template>
     
-    <app-select-library-sub-class [classification]='classification' [id]='libraryBookClassValue'></app-select-library-sub-class>
+    <app-select-library-sub-class (categoryChanged)='handleChange($event)' [classification]='classification' [id]='libraryBookClassValue'></app-select-library-sub-class>
   </section>
   <ng-template #classificationNotSelected>
     <section class="alert alert-info"><span class="info"></span> No Classification Provided</section>

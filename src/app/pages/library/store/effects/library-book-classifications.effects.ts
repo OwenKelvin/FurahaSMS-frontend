@@ -21,9 +21,7 @@ export class LibraryBookClassificationEffects {
         return this.bookClassificationService.getAll().pipe(
           map(data => LibraryBookClassificationActions.loadBookClassificationsSuccess({ data })),
           catchError(error => of(LibraryBookClassificationActions.loadBookClassificationsFailure({ error }))));
-
       })
-
     );
   });
 }

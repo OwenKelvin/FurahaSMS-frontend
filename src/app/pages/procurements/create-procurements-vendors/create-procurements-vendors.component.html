@@ -5,7 +5,7 @@
     <div>
       <tabset role="tablist" #staticTabs>
         <tab role="tab">
-          <ng-template tabHeading></ng-template>
+          <ng-template tabHeading>
             <span>General Info </span>
             <span [class.icon-ok-1]='!generalInfoHasError && markTabsWithError'
               [class.icon-attention]='generalInfoHasError && markTabsWithError'
