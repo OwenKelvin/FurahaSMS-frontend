@@ -36,7 +36,6 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
 
   }
   ngOnChanges(changes: { classification: SimpleChange }) {
-    console.log(changes)
     let currentValue;
     if (changes) {
       currentValue = changes.classification.currentValue;

@@ -18,6 +18,9 @@ import { LibraryBookClassificationService } from 'src/app/pages/library/services
 import { DbService } from 'src/app/services/db.service';
 import { LibraryBookTagService } from 'src/app/pages/library/services/library-book-tag.service';
 import { LibraryBookService } from 'src/app/pages/library/services/library-book.service';
+import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { Router } from '@angular/router';
 
 const validateISBN = (c: FormControl) => {
   let ISBN_REGEXP = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
@@ -76,7 +79,7 @@ const validateISBN = (c: FormControl) => {
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css']
 })
-export class AddBookComponent implements OnInit {
+export class AddBookComponent implements OnInit, CanComponentDeactivate {
 
   newBookForm: FormGroup;
   triggerValidation: boolean;
@@ -87,6 +90,7 @@ export class AddBookComponent implements OnInit {
   bookClassifications$: Observable<any[]>;
   markTabsWithError: boolean;
   bookTags$: Observable<any>;
+  formSubmitted: boolean;
   constructor(
     private store: Store<fromLibraryAuthors.State>,
     private fb: FormBuilder,
@@ -94,7 +98,8 @@ export class AddBookComponent implements OnInit {
     
     private libraryBookTagService: LibraryBookTagService,
     private libraryBookService: LibraryBookService,
-    private db: DbService
+    private db: DbService,
+    private router: Router
   ) { }
 
   get formbookItems(): FormArray {
@@ -135,8 +140,6 @@ export class AddBookComponent implements OnInit {
       bookItems: this.fb.array([this.formBookItem])
     });
 
-    // this.addBookItem();
-
     this.store.dispatch(loadBookAuthors());
     this.store.dispatch(loadLibraryBookPublishers());
     this.store.dispatch(loadBookClassifications());
@@ -166,7 +169,22 @@ export class AddBookComponent implements OnInit {
   }
   submitNewBookForm() {
     this.isSubmitting = true;
-    this.libraryBookService.save(this.newBookForm.value).subscribe(res => console.log(res))
+    this.libraryBookService.save(this.newBookForm.value)
+      .subscribe(res => {
+      this.store.dispatch(loadToastShowsSuccess({
+        showMessage: true, toastBody: res.message, toastHeader: 'Successful', toastTime: 'just now'
+      }));
+      this.isSubmitting = false;
+      this.formSubmitted = true;
+        this.router.navigate(['/library','books', res.data.id,'view']);
+    }, error => {
+      this.formSubmitted = true;
+      this.isSubmitting = false;
+    });
+    this.libraryBookService.save(this.newBookForm.value)
+      .subscribe(res => {
+        this.isSubmitting = false
+      }, err => this.isSubmitting = false)
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
@@ -190,6 +208,13 @@ export class AddBookComponent implements OnInit {
   get bookItemsHasError() {
     return !['bookItems']
       .every(item => this.newBookForm.get(item).valid);
+  }
+  
+  canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
+    if (this.newBookForm.dirty && this.formSubmitted === false) {
+      return confirm('Your changes are unsaved!! Do you like to exit');
+    }
+    return true;
   }
 
 }

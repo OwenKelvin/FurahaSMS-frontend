@@ -21,6 +21,8 @@ import { LibraryAdminTagsComponent } from './components/library-admin/library-ad
 import { CreateTagComponent } from './components/library-admin/library-admin-tags/create-tag/create-tag.component';
 import { ViewTagComponent } from './components/library-admin/library-admin-tags/view-tag/view-tag.component';
 import { EditTagComponent } from './components/library-admin/library-admin-tags/edit-tag/edit-tag.component';
+import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
+import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 
 
 const routes: Routes = [
@@ -45,6 +47,21 @@ const routes: Routes = [
     data: {
       breadcrumb: 'My Account'
     },
+  },
+  {
+    path: 'books',
+    data: {
+      breadcrumb: 'Books'
+    },
+    children: [
+      {
+        path: ':id/view',
+        data: {
+          breadcrumb: 'View'
+        },
+        component: ViewLibraryBookComponent
+      }
+    ]
   },
   {
     path: 'admin',
@@ -84,6 +101,7 @@ const routes: Routes = [
           {
             path: 'create',
             component: AddBookComponent,
+            canDeactivate: [CanDeactivateGuard],
             data: {
               breadcrumb: null
             },
@@ -193,6 +211,7 @@ const routes: Routes = [
           {
             path: 'create',
             component: CreateTagComponent,
+            canDeactivate: [CanDeactivateGuard],
             data: {
               breadcrumb: 'Create Tags'
             },

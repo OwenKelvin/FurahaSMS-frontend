@@ -37,6 +37,7 @@ import { LibraryAdminTagsComponent } from './components/library-admin/library-ad
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { SelectLibraryClassComponent } from './components/select-library-class/select-library-class.component';
 import { SelectLibrarySubClassComponent } from './components/select-library-sub-class/select-library-sub-class.component';
+import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 
 
 @NgModule({
@@ -64,6 +65,7 @@ import { SelectLibrarySubClassComponent } from './components/select-library-sub-
     LibraryAdminTagsComponent,
     SelectLibraryClassComponent,
     SelectLibrarySubClassComponent,
+    ViewLibraryBookComponent,
   ],
   imports: [
     CommonModule,
