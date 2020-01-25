@@ -12,6 +12,12 @@ export class UnitCategoryService {
   constructor(
     private http: HttpClient,
   ) { }
+  getUnitCategoryWithId(id) {
+    const url = `api/curriculum/unit-categories/${id}?units=1`;
+    return this.http.get<any>(url).pipe(map(res => {
+      return res as unknown;
+    })) as Observable<UnitCategoryInterface>;
+  }
   get(data) {
     const { units, id } = data;
     const url = `api/curriculum/unit-categories/${id}?units=1`;

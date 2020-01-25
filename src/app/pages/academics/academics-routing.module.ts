@@ -33,6 +33,7 @@ import { ViewUnitComponent } from './view-unit/view-unit.component';
 import { CreateClassLevelCategoryComponent } from './create-class-level-category/create-class-level-category.component';
 import { ViewClassLevelCategoryComponent } from './view-class-level-category/view-class-level-category.component';
 import { CreateUnitComponent } from './create-unit/create-unit.component';
+import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation/academic-year-unit-allocation.component';
 
 
 const routes: Routes = [
@@ -71,7 +72,14 @@ const routes: Routes = [
         pathMatch: 'full',
         component: AcademicYearArchivesComponent,
         data: {
-          breadcrumb: 'Academic Year Archives'
+          breadcrumb: 'Archives'
+        },
+      },
+      {
+        path: 'subject-allocations',
+        component: AcademicYearUnitAllocationComponent,
+        data: {
+          breadcrumb: 'Unit Allocations'
         },
       },
       {

@@ -73,7 +73,6 @@ export class CreateUnitCategoriesComponent implements OnInit {
     return this.newUnitCategoryForm.get('units') as FormArray;
   }
   updateForm($event: FormGroup, i) {
-    console.log($event.value)
     this.units.controls[i].setValue($event.value);
 
 

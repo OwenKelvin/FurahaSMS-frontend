@@ -5,7 +5,8 @@
       <legend>General Details</legend>
       <section class="d-flex flex-wrap">
         <section class="col-lg-5 col-md-6 col-sm-12">
-          <app-input [triggerValidation]='triggerValidation' label='Name' id="name" placeholder="Name" formControlName="name">
+          <app-input [triggerValidation]='triggerValidation' label='Name' id="name" placeholder="Name"
+            formControlName="name">
           </app-input>
         </section>
         <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
@@ -44,8 +45,8 @@
       </section>
     </fieldset>
     <app-error></app-error>
-    
-    <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
+
+    <app-validate-submit-buttons [isSubmitting]='submitInProgress' (validationButtonClicked)='validateForm()'
       [formItem]='newUnitCategoryForm'>
       <span>{{ newForm ? 'Create': 'Update'}} Category</span>
     </app-validate-submit-buttons>

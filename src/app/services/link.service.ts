@@ -260,7 +260,7 @@ export class LinkService {
         name: 'Curriculum',
         icon: 'icon-book',
         link: 'academics/curriculum'
-      }
+      },
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {
@@ -275,6 +275,11 @@ export class LinkService {
         icon: ' icon-folder',
         link: 'academics/academic-year/archives'
       },
+      {
+        name: 'Subject/ Unit Allocations',
+        icon: 'icon-sliders',
+        link: 'academics/academic-year/subject-allocations'
+      }
     ]);
   }
   getAcademicYearLinks($id): Observable<LinkInterface[]> {

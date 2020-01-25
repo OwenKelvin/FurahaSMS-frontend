@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { UnitsService } from 'src/app/services/units.service';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-view-unit',
@@ -8,10 +11,16 @@ import { AppState } from 'src/app/store/reducers';
   styleUrls: ['./view-unit.component.css']
 })
 export class ViewUnitComponent implements OnInit {
+  unit$: Observable<any>;
 
-  constructor(private store: Store<AppState>) { }
+  constructor(
+    private route: ActivatedRoute,
+    private store: Store<AppState>, private unitService: UnitsService) { }
 
   ngOnInit() {
+    this.route.paramMap.subscribe(params => {
+      this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
+    });
   }
 
 }

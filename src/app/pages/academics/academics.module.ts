@@ -39,6 +39,9 @@ import { AcademicsComponent } from './academics.component';
 import { ViewUnitCategoryComponent } from './view-unit-category/view-unit-category.component';
 import { ViewUnitComponent } from './view-unit/view-unit.component';
 import { ViewClassLevelCategoryComponent } from './view-class-level-category/view-class-level-category.component';
+import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation/academic-year-unit-allocation.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
 
 
 @NgModule({
@@ -68,6 +71,7 @@ import { ViewClassLevelCategoryComponent } from './view-class-level-category/vie
     AcademicsCurriculumUnitsComponent,
     AcademicsCurriculumClassLevelCategoriesComponent,
     AcademicsCurriculumClassLevelsComponent,
+    AcademicYearUnitAllocationComponent,
   ],
   imports: [
     CommonModule,
@@ -80,7 +84,9 @@ import { ViewClassLevelCategoryComponent } from './view-class-level-category/vie
     AppCrudModule,
     AppDashboardLinksModule,
     AppLoadingBubbleModule,
-    AppLayoutModule
+    AppLayoutModule,
+    TabsModule.forRoot(),
+    TabErrorStateModule
   ]
 })
 export class AcademicsModule { }
