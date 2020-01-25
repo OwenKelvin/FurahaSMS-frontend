@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
+import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-academic-year-archives',
@@ -8,10 +10,14 @@ import * as fromStore from '../../../store/reducers';
   styleUrls: ['./academic-year-archives.component.css']
 })
 export class AcademicYearArchivesComponent implements OnInit {
-
-  constructor(private store: Store<fromStore.AppState>) { }
+  academicYears$: Observable<any>;
+  constructor(
+    private store: Store<fromStore.AppState>,
+    private academicYearService: AcademicYearService) { }
 
   ngOnInit() {
+    this.academicYears$ = this.academicYearService.getAll();
+    this.academicYears$.subscribe(e => console.log(e))
   }
 
 }

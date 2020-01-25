@@ -1,4 +1,4 @@
-<section *ngIf='id; else flat'>
+<section *ngIf='id'>
   <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
     <label  *ngIf='libraryBookClasses.length > 0' [attr.for]='"library-book-category" + id'>Select Sub Category</label>
     <section>

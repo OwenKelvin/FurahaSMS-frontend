@@ -34,7 +34,7 @@ export class AcademicsCurriculumClassLevelsComponent implements OnInit {
     this.createClassLevelCurriculum = CREATE_CLASS_LEVEL_CURRICULUM;
     this.editClassLevelCurriculum = EDIT_CLASS_LEVEL_CURRICULUM;
     this.viewClassLevelCurriculum = VIEW_CLASS_LEVEL_CURRICULUM ;
-    this.categories = this.classLevelService;
+    this.categories = { ...this.classLevelService, getAll: this.classLevelService.getAll, deleteItem: this.classLevelService.delete };
 
   }
 

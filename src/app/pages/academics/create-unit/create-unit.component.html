@@ -34,7 +34,7 @@
             class="custom-control-input"
             [id]='"active" + (idIndex !== undefined ? idIndex: "")'
             formControlName="active">
-          <label class="custom-control-label" for="active">Subject Is Active</label>
+          <label class="custom-control-label" [attr.for]='"active" + (idIndex !== undefined ? idIndex: "")' >Subject Is Active</label>
         </div>
       </section>
     </section>
@@ -42,7 +42,7 @@
   </fieldset>
     <section class='d-flex justify-content-end'>
       <button *ngIf='!unitForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
-        class='btn btn-secondary'>Validate</button>
+        class='btn btn-secondary btn-sm'>Validate</button>
       &nbsp;&nbsp;&nbsp;&nbsp;
       <button *ngIf='!hideSubmit' class='btn btn-primary' [disabled]='!unitForm.valid || isSubmitting'>
         {{ newForm ? 'Create': 'Update'}} Subject/Unit<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>

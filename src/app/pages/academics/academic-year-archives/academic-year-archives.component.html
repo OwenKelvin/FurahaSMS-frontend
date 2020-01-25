@@ -1,1 +1,12 @@
-<p>academic-year-archives works!</p>
+<h1>Academic Year Archives</h1>
+
+<section class="d-flex flex-wrap">
+  <section *ngIf='academicYears$ | async as academicYears; else loading'>
+    <section *ngFor='let academicYear of academicYears'>
+      {{ academicYear.name }}
+    </section>
+  </section>
+  <ng-template #loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+</section>

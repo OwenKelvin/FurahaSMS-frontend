@@ -4,7 +4,15 @@
 
   <button class='btn btn-success'
     [disabled]='!formItem.dirty || !formItem.valid || isSubmitting'>
-    Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    
+    
+    <span #ref>
+      <ng-content></ng-content>
+    </span>
+    <span *ngIf="ref.children.length == 0">
+      Save Details
+    </span>
+    <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
     <i *ngIf='!isSubmitting && formItem.valid && formItem.dirty' class='icon-ok-1'></i>
   </button>
 </section>

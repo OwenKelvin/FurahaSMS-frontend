@@ -20,7 +20,7 @@ import { UnitCategoryService } from 'src/app/services/unit-category.service';
 import { ClassLevelCategoryService } from 'src/app/services/class-level-category.service';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { UnitLevelService } from 'src/app/services/unit-level.service';
-import { AcademicYearService } from 'src/app/services/academic-year.service';
+import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Observable } from 'rxjs';
 import { AppFormService } from 'src/app/services/AppForm.service';
 import { GenderService } from 'src/app/services/gender.service';

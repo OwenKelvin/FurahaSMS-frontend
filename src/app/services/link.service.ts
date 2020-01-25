@@ -253,7 +253,7 @@ export class LinkService {
     return of([
       {
         name: 'Academic Year',
-        icon: 'icon-user-plus',
+        icon: 'icon-calendar',
         link: 'academics/academic-year'
       },
       {
@@ -267,12 +267,12 @@ export class LinkService {
     return of([
       {
         name: 'Create New',
-        icon: 'icon-user-plus',
+        icon: 'icon-folder-open',
         link: 'academics/academic-year/create'
       },
       {
         name: 'View Archives',
-        icon: 'icon-user-plus',
+        icon: ' icon-folder',
         link: 'academics/academic-year/archives'
       },
     ]);

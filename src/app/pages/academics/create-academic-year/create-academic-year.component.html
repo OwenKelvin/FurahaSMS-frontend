@@ -41,12 +41,7 @@
     </section>
   </fieldset>
   <app-error *ngIf='showError'></app-error>
-  <section class='d-flex justify-content-end'>
-    <button *ngIf='!academicYearForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
-      class='btn btn-secondary'>Validate</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <button class='btn btn-primary' [disabled]='!academicYearForm.valid || isSubmitting'>
-      Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
-    </button>
-  </section>
+  <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+    (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='academicYearForm'>
+  </app-validate-submit-buttons>
 </form>
