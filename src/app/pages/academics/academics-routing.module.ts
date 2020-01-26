@@ -102,11 +102,11 @@ const routes: Routes = [
             path: 'financial-plan',
             component: AcademicYearFinancialPlanComponent,
             data: {
-              breadcrumb: null
+              breadcrumb: 'Financial Plan'
             },
           },
           {
-            path: 'units',
+            path: 'unit-allocations',
             component: AcademicYearSubjectUnitsComponent,
             data: {
               breadcrumb: null

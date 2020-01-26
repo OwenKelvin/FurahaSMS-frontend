@@ -19,5 +19,5 @@ export class LibraryBookService {
   }
   getBookWithId(id: number): Observable<any> {
     return this.http.get(`api/library-books/${id}`);
-  } 
+  }
 }

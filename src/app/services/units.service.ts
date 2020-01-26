@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 })
 export class UnitsService {
   constructor(private http: HttpClient) { }
-  
+
   getUnitWithId(id): Observable<any> {
     return this.get({ id, includeUnitLevels: 1 });
   }

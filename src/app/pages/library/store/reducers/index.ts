@@ -14,13 +14,13 @@ export const libraryFeatureKey = 'library';
 export interface LibraryState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
   libraryBookPublishers: fromLibraryBookPublisher.State[];
-  libraryBookClassifications: fromLibraryBookClassification.State[],
+  libraryBookClassifications: fromLibraryBookClassification.State[];
 }
 
 export interface State extends fromRoot.AppState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
   libraryBookPublishers: fromLibraryBookPublisher.State[];
-  libraryBookClassifications: fromLibraryBookClassification.State[],
+  libraryBookClassifications: fromLibraryBookClassification.State[];
 }
 
 export const reducers: ActionReducerMap<LibraryState> = {

@@ -26,33 +26,33 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges {
     if (changes) {
       if (changes.id) {
         currentValue = changes.id.currentValue;
-      } 
-      if (changes.classification) {
-        this.cdf.detectChanges
       }
-      
-    } 
+      if (changes.classification) {
+        this.cdf.detectChanges();
+      }
+
+    }
     if (+currentValue > 0) {
-      this.db.get( "sub-items-" + currentValue)
+      this.db.get( 'sub-items-' + currentValue)
         .then(doc => {
           this.libraryBookClasses$ = of(doc.items);
         }).catch(e => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: this.classification, libraryClass: currentValue });
           this.libraryBookClasses$.subscribe(items => {
-            var doc = {
-              "_id": `sub-items-${currentValue}`,
-              "items": items
+            const doc = {
+              _id: `sub-items-${currentValue}`,
+              items
             };
             if (items.length > 0) {
 
-              this.db.put(doc).then(() => { }).catch(e => console.log("Data Retrieved from Cache"));
+              this.db.put(doc).then(() => { }).catch(err => console.log('Data Retrieved from Cache'));
             }
           });
         });
     }
   }
-  
+
   emitChange() {
     this.categoryChanged.emit(this.selectedCategoryId);
   }

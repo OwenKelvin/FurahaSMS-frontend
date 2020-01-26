@@ -126,8 +126,8 @@ export class CreateUnitCategoriesComponent implements OnInit {
     }
   }
   validateForm() {
-    this.triggerValidation = !this.triggerValidation
-    console.log(this.newUnitCategoryForm.value)
+    this.triggerValidation = !this.triggerValidation;
+    console.log(this.newUnitCategoryForm.value);
   }
   removeSubject(i) {
     const removalConfirmed = confirm(

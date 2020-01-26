@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class LibraryBookClassificationService {
-  
+
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {

@@ -18,9 +18,9 @@ export class ViewLibraryBookComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
-      this.libraryBook$ = this.libraryBookService.getBookWithId(+params.get('id'))
-    })
-    
+      this.libraryBook$ = this.libraryBookService.getBookWithId(+params.get('id'));
+    });
+
   }
 
 }

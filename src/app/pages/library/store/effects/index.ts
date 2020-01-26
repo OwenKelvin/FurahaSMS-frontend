@@ -5,5 +5,5 @@ import { LibraryBookClassificationEffects } from './library-book-classifications
 export { LibraryBookAuthorEffects };
 
 export { LibraryBookPublisherEffects };
-  
+
 export { LibraryBookClassificationEffects };

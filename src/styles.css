@@ -21,6 +21,11 @@
     text-align: center;
     color: black;
 }
+.ng-select .ng-value {
+  background-color: rgb(68, 68, 68) !important;
+  color: white !important;
+  border-radius: 3px !important;
+}
 .ng-dropdown-panel {
   background: red;
   min-width: 150px !important;

@@ -55,14 +55,13 @@ export class EditUnitComponent implements OnInit, OnDestroy {
         .pipe(map(({ id, active, name, abbreviation: abbr, essence_statement: description,
           unit_category_id: unitCategory, unit_levels: unitLevels }) => ({
             id, active, name, abbr, description, unitCategory,
-            unitLevels: unitLevels ? unitLevels.map(({ id, name, level }) => ({ id, name, level })) : []
+            unitLevels: unitLevels ? unitLevels.map(({ id: id1, name: name1, level }) => ({ id: id1, name: name1, level })) : []
           })))
         .subscribe(unit => {
           this.unit = unit;
           if (unit.unitLevels.length === 0) {
             this.addUnitLevelFromValue(false);
-          }
-          else {
+          } else {
             [].forEach.call(unit.unitLevels, () => this.addUnitLevelFromValue(false));
           }
           this.unitForm.setValue(unit);

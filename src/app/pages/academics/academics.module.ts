@@ -42,6 +42,7 @@ import { ViewClassLevelCategoryComponent } from './view-class-level-category/vie
 import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation/academic-year-unit-allocation.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -86,7 +87,8 @@ import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
     AppLoadingBubbleModule,
     AppLayoutModule,
     TabsModule.forRoot(),
-    TabErrorStateModule
+    TabErrorStateModule,
+    NgSelectModule
   ]
 })
 export class AcademicsModule { }

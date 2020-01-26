@@ -24,13 +24,16 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl } f
   ]
 })
 export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor {
-  libraryBookClassValue: any;
-  @Input() classification;
-  libraryBookClasses$: Observable<any>;
   constructor(
     private libraryBookClassesService: LibraryBookClassesService,
     private db: DbService
   ) { }
+  libraryBookClassValue: any;
+  @Input() classification;
+  libraryBookClasses$: Observable<any>;
+
+  onChanges: ($value) => void;
+  onTouched: () => void;
 
   ngOnInit() {
 
@@ -48,13 +51,13 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: currentValue, libraryClass: null });
           this.libraryBookClasses$.subscribe(items => {
-            var doc = {
-              "_id": currentValue,
-              "items": items
+            const doc = {
+              _id: currentValue,
+              items
             };
             if (items.length > 0) {
-            
-              this.db.put(doc).then(() => { }).catch(e => console.log("Data Retrieved from Cache"));
+
+              this.db.put(doc).then(() => { }).catch(err => console.log('Data Retrieved from Cache'));
             }
           });
         });
@@ -64,9 +67,6 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
   validate(control: FormControl) {
     // this.formControl = control;
   }
-  
-  onChanges: ($value) => void;
-  onTouched: () => void;
   writeValue(value: any): void {
     if (value !== undefined) {
       // this.inputValue = value;
@@ -78,7 +78,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  
+
   handleChange($event) {
     this.onChanges($event);
   }

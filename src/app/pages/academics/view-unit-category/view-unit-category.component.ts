@@ -11,7 +11,7 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./view-unit-category.component.css']
 })
 export class ViewUnitCategoryComponent implements OnInit {
-  unitCategory$: Observable<any>
+  unitCategory$: Observable<any>;
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>, private unitCategoryService: UnitCategoryService) { }
@@ -19,8 +19,8 @@ export class ViewUnitCategoryComponent implements OnInit {
   ngOnInit() {
     this.route.paramMap.subscribe(params => {
        this.unitCategory$ = this.unitCategoryService.getUnitCategoryWithId(+params.get('id'));
-    })
-   
+    });
+
   }
 
 }

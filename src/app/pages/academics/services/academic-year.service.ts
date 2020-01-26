@@ -28,7 +28,7 @@ export class AcademicYearService {
       })
     );
   }
-  get(data: { id: number; classLevels: 1 }) {
+  get(data: { id: number; classLevels?: 1 }) {
 
     const { id, classLevels } = data;
     let url = `api/academic-years/${id}/?`;
@@ -41,6 +41,9 @@ export class AcademicYearService {
         return res;
       })
     );
+  }
+  getAcademicYearWithId({id}): Observable<any> {
+    return this.get({ id });
   }
   save(data) {
     let url = `api/academic-years`;

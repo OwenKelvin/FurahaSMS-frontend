@@ -12,9 +12,9 @@ export class LibraryBookClassesService {
     let url = `api/library-books/classifications/${classification}/classes?`;
     if (libraryClass) {
       url += `library_class=${libraryClass}`;
-      return this.http.get(url)
+      return this.http.get(url);
     }
     url += `flat=1`;
-    return this.http.get(url)
+    return this.http.get(url);
   }
 }

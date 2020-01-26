@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { AcademicYearService } from '../services/academic-year.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-academic-year-unit-allocation',
@@ -6,10 +8,12 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./academic-year-unit-allocation.component.css']
 })
 export class AcademicYearUnitAllocationComponent implements OnInit {
-
-  constructor() { }
+  academicYears$: Observable<any>;
+  selectedAcademicYear: number;
+  constructor(private academicYear: AcademicYearService) { }
 
   ngOnInit() {
+    this.academicYears$ = this.academicYear.getAll();
   }
 
 }

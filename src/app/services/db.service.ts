@@ -15,6 +15,6 @@ export class DbService {
     return this.db.get(data);
   }
   put(data) {
-    return this.db.put(data)
+    return this.db.put(data);
   }
 }
