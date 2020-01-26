@@ -9,7 +9,7 @@ import { ClassLevelInterface } from '../interfaces/class-level.interface';
 })
 export class ClassLevelService {
   constructor(private http: HttpClient) { }
- 
+
   getAll(
     data: { includeUnits?: 1; includeLevels?: 1 } = {
       includeUnits: null,

@@ -8,6 +8,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('AcademicYearSubjectUnitsComponent', () => {
   let component: AcademicYearSubjectUnitsComponent;
@@ -25,7 +27,19 @@ describe('AcademicYearSubjectUnitsComponent', () => {
         RouterTestingModule,
         AppLoadingBubbleModule
       ],
-      declarations: [ ]
+      declarations: [],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({
+                get: () => 1
+              })
+            }
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();
