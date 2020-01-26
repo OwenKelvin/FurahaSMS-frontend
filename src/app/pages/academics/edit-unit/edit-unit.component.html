@@ -13,7 +13,7 @@
               inputClass='col-md-12 col-lg-7' label='Name' [id]='"name" + (idIndex !== undefined ? idIndex: "")'
               type="text" placeholder="Name" formControlName="name"></app-input>
           </section>
-          <section *ngIf="!category && hasCategories" class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+          <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
             <app-select [triggerValidation]='triggerValidation' id='unitCategory' type="units"
               formControlName="unitCategory">
             </app-select>

@@ -1,4 +1,4 @@
-import { Component, OnInit, EventEmitter, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
@@ -20,6 +20,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   unit: any;
   unitForm: FormGroup;
   newForm: boolean;
+  @Input() idIndex;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   isComponentActive: boolean;
   isSubmitting: boolean;
