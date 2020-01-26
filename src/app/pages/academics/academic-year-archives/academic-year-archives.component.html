@@ -6,15 +6,13 @@
       <section class="card-header">
         <h2>{{ academicYear.name }}</h2>
       </section>
-      <section class="card-body">
+      <section class="card-body p-2">
         <ul class="list-group"> 
-          <li class="list-group-item bg-dark"> <a class="card-link" [routerLink]='["/academics", "academic-year", academicYear.id, "unit-allocations"]'>
+          <li class="list-group-item bg-dark list-group-flush mb-1"> <a class="card-link  btn-block" [routerLink]='["/academics", "academic-year", academicYear.id, "unit-allocations"]'>
               Subject/Unit Allocations</a></li>
-          <li  class="list-group-item bg-dark"> <a class="card-link"
+          <li  class="list-group-item bg-dark"> <a class="card-link btn-block"
               [routerLink]='["/academics", "academic-year", academicYear.id, "financial-plan"]'>Financial Plan</a></li>
         </ul>
-
-
       </section>
     </section>
   </section>

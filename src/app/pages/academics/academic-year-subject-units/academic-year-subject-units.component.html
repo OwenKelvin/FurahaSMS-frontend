@@ -1,16 +1,23 @@
-<p>academic-year-subject-units works!</p>
+<form [formGroup]='allocationsForm' *ngIf='classLevels.controls.length > 0; else loading;' (submit)='submitunitAllocationForm()'>
+  <section formArrayName='classLevels' class="academic-year-subject-units">
+    <section *ngFor='let classLevel of classLevels.controls; let i = index' [formGroupName]='i'>
+      <h3>{{ classLevel.value.name }}</h3>
+      <ng-select class="custom" [items]="unitLevels" [multiple]="true" bindLabel="name" groupBy="gender"
+        [selectableGroup]="true" [closeOnSelect]="false" bindValue="id" formControlName='unitLevels'>
+        <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+          <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" [ngModelOptions]="{standalone: true}" />
+          {{item.name}}
+        </ng-template>
 
-<section class='academic-year-subject-units'>
-  <ng-select class="custom" [items]="people" [multiple]="true" bindLabel="name" groupBy="gender" [selectableGroup]="true"
-    [closeOnSelect]="false" bindValue="id" [(ngModel)]="selectedPeople">
-    <ng-template ng-optgroup-tmp let-item="item" let-item$="item$" let-index="index">
-      <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.gender | uppercase}}
-    </ng-template>
-    <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-      <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected" /> {{item.name}}
-    </ng-template>
-  </ng-select>
-</section>
-
-<br>
-<small>{{selectedPeople | json}}</small>
+      </ng-select>
+    </section>
+  </section>
+  <section class="p-2">
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='allocationsForm'>
+    </app-validate-submit-buttons>
+  </section>
+</form>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

@@ -1,14 +1,15 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ClassLevelInterface } from '../interfaces/class-level.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassLevelService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+ 
   getAll(
     data: { includeUnits?: 1; includeLevels?: 1 } = {
       includeUnits: null,

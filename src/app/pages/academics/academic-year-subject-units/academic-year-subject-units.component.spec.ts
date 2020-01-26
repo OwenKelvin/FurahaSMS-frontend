@@ -5,6 +5,9 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { AcademicsModule } from '../academics.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AcademicYearSubjectUnitsComponent', () => {
   let component: AcademicYearSubjectUnitsComponent;
@@ -13,7 +16,15 @@ describe('AcademicYearSubjectUnitsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), AcademicsModule, HttpClientTestingModule ],
+      imports: [
+        StoreModule.forRoot({}),
+        AcademicsModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        RouterTestingModule,
+        AppLoadingBubbleModule
+      ],
       declarations: [ ]
     });
 
