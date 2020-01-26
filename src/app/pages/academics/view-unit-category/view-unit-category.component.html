@@ -1,1 +1,8 @@
-<p>view-unit-category works!</p>
+
+<section *ngIf='unitCategory$ | async as unitCategory; else loading'>
+  <h1>View Unit Category <span class="icon-right-dir"></span> {{ unitCategory.name }}</h1>
+</section>
+<ng-template #loading>
+  <h1>View Unit Category</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

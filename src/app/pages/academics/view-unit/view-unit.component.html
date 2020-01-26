@@ -1,1 +1,10 @@
-<p>view-unit works!</p>
+<section *ngIf='unit$ | async as unit; else loading'>
+  <h1>View Subject/ Units <span class="icon-right-dir"></span> {{ unit.name }}</h1>
+  <ul *ngFor='let unitLevel of unit.unit_levels'>
+    <li class=''> {{ unitLevel.name }}</li>
+  </ul>
+</section>
+<ng-template #loading>
+  <h1>View Subject/ Units</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

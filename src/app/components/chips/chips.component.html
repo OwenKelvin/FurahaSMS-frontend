@@ -1,5 +1,5 @@
 <div class="chipsContainer">
-  <div class="badge chips" [class.badge-secondary]='!value' [class.badge-success]='value'>
+  <div class="badge chips p-1 pl-3 pr-3" [class.badge-secondary]='!value' [class.badge-success]='value'>
     {{ labelValue }}
     <i *ngIf='!labelOnly' class="icon-times" (click)="removeItem()"></i>
   </div>

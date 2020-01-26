@@ -27,6 +27,9 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
 import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
 import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
+import { LibraryModule } from './library.module';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -37,7 +40,9 @@ describe('LibraryComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot({}),
-        LibraryRoutingModule,
+        EffectsModule.forRoot([]),
+        HttpClientTestingModule,
+        LibraryModule,
         ReactiveFormsModule,
         FormsModule,
         RouterTestingModule,
@@ -48,23 +53,23 @@ describe('LibraryComponent', () => {
         AppLoadingBubbleModule
       ],
       declarations: [
-        LibrarySearchCatalogueComponent,
-        LibraryComponent,
-        LibraryMyAccountComponent,
-        LibraryAdminComponent,
-        LibraryAdminUsersComponent,
-        LibraryAdminBooksComponent,
-        LibraryAdminAuthorsComponent,
-        LibraryAdminPublishersComponent,
-        AddBookComponent,
-        EditBookComponent,
-        ViewBookComponent,
-        CreateAuthorComponent,
-        ViewAuthorComponent,
-        EditAuthorComponent,
-        CreatePublisherComponent,
-        EditPublisherComponent,
-        ViewPublisherComponent
+        // LibrarySearchCatalogueComponent,
+        // LibraryComponent,
+        // LibraryMyAccountComponent,
+        // LibraryAdminComponent,
+        // LibraryAdminUsersComponent,
+        // LibraryAdminBooksComponent,
+        // LibraryAdminAuthorsComponent,
+        // LibraryAdminPublishersComponent,
+        // AddBookComponent,
+        // EditBookComponent,
+        // ViewBookComponent,
+        // CreateAuthorComponent,
+        // ViewAuthorComponent,
+        // EditAuthorComponent,
+        // CreatePublisherComponent,
+        // EditPublisherComponent,
+        // ViewPublisherComponent
       ]
     });
 

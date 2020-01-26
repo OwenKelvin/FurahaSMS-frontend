@@ -8,6 +8,8 @@ import { InputComponent } from '../../../components/input/input.component';
 import { ErrorComponent } from '../../../components/error/error.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AcademicsModule } from '../academics.module';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 describe('CreateAcademicYearComponent', () => {
   let component: CreateAcademicYearComponent;
@@ -17,12 +19,14 @@ describe('CreateAcademicYearComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
+        AcademicsModule,
+        AppInputModule,
         StoreModule.forRoot({}),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule],
-      declarations: [ CreateAcademicYearComponent, InputComponent, ErrorComponent  ]
+      declarations: [ ]
     });
 
     await TestBed.compileComponents();

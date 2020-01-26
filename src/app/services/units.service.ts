@@ -8,7 +8,11 @@ import { map } from 'rxjs/operators';
 })
 export class UnitsService {
   constructor(private http: HttpClient) { }
-  get(data) {
+
+  getUnitWithId(id): Observable<any> {
+    return this.get({ id, includeUnitLevels: 1 });
+  }
+  get(data): Observable<any> {
     const { includeUnitLevels, id, includeClassLevels } = data;
     let url = `api/curriculum/units/${id}/?`;
     if (includeUnitLevels === 1) {

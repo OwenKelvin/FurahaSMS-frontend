@@ -25,6 +25,19 @@ import { EditAuthorComponent } from './components/library-admin/library-admin-au
 import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
 import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
 import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { StoreModule } from '@ngrx/store';
+import * as fromLibrary from './store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import * as fromLibraryEffects from './store/effects';
+import { CreateTagComponent } from './components/library-admin/library-admin-tags/create-tag/create-tag.component';
+import { EditTagComponent } from './components/library-admin/library-admin-tags/edit-tag/edit-tag.component';
+import { ViewTagComponent } from './components/library-admin/library-admin-tags/view-tag/view-tag.component';
+import { LibraryAdminTagsComponent } from './components/library-admin/library-admin-tags/library-admin-tags.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { SelectLibraryClassComponent } from './components/select-library-class/select-library-class.component';
+import { SelectLibrarySubClassComponent } from './components/select-library-sub-class/select-library-sub-class.component';
+import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 
 
 @NgModule({
@@ -46,6 +59,13 @@ import { EditPublisherComponent } from './components/library-admin/library-admin
     CreatePublisherComponent,
     ViewPublisherComponent,
     EditPublisherComponent,
+    CreateTagComponent,
+    EditTagComponent,
+    ViewTagComponent,
+    LibraryAdminTagsComponent,
+    SelectLibraryClassComponent,
+    SelectLibrarySubClassComponent,
+    ViewLibraryBookComponent,
   ],
   imports: [
     CommonModule,
@@ -57,6 +77,14 @@ import { EditPublisherComponent } from './components/library-admin/library-admin
     AppInputModule,
     AppViewItemsModule,
     AppLoadingBubbleModule,
+    NgSelectModule,
+    StoreModule.forFeature(fromLibrary.libraryFeatureKey, fromLibrary.reducers),
+    EffectsModule.forFeature([
+      fromLibraryEffects.LibraryBookAuthorEffects,
+      fromLibraryEffects.LibraryBookPublisherEffects,
+      fromLibraryEffects.LibraryBookClassificationEffects
+    ]),
+    TabsModule.forRoot()
 
 
   ]

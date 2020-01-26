@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
-import { AcademicYearService } from 'src/app/services/academic-year.service';
+import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Observable } from 'rxjs';
 import { loadActivePagesSuccess } from 'src/app/store/actions/active-page.actions';
 import { AppState } from 'src/app/store/reducers';

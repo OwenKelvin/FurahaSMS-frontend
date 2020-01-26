@@ -1,0 +1,22 @@
+<section *ngIf='id'>
+  <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
+    <label  *ngIf='libraryBookClasses.length > 0' [attr.for]='"library-book-category" + id'>Select Sub Category</label>
+    <section>
+      <section *ngIf='libraryBookClasses.length > 0; no_more_items'>
+        <select (change)='emitChange()' [(ngModel)]='selectedCategoryId' id="bookCLass" class="form-control">
+          <option *ngFor='let libraryBookClass of libraryBookClasses' [value]="libraryBookClass.id">
+            {{ libraryBookClass.name }}</option>
+        </select>
+        <app-select-library-sub-class  (categoryChanged)='emitChangePropagate($event)' [classification]='classification' [id]='selectedCategoryId'>
+        </app-select-library-sub-class>
+
+      </section>
+      <ng-template #no_more_items>
+        On the last Sub Category
+      </ng-template>
+    </section>
+  </section>
+  <ng-template #item_loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+</section>

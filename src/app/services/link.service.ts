@@ -118,6 +118,11 @@ export class LinkService {
         name: 'Publishers Management',
         icon: 'icon-library',
         link: 'library/admin/publishers'
+      },
+      {
+        name: 'Tags Management',
+        icon: 'icon-tag',
+        link: 'library/admin/tags'
       }
     ]);
   }
@@ -248,28 +253,33 @@ export class LinkService {
     return of([
       {
         name: 'Academic Year',
-        icon: 'icon-user-plus',
+        icon: 'icon-calendar',
         link: 'academics/academic-year'
       },
       {
         name: 'Curriculum',
         icon: 'icon-book',
         link: 'academics/curriculum'
-      }
+      },
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {
     return of([
       {
         name: 'Create New',
-        icon: 'icon-user-plus',
+        icon: 'icon-folder-open',
         link: 'academics/academic-year/create'
       },
       {
         name: 'View Archives',
-        icon: 'icon-user-plus',
+        icon: ' icon-folder',
         link: 'academics/academic-year/archives'
       },
+      {
+        name: 'Subject/ Unit Allocations',
+        icon: 'icon-sliders',
+        link: 'academics/academic-year/subject-allocations'
+      }
     ]);
   }
   getAcademicYearLinks($id): Observable<LinkInterface[]> {

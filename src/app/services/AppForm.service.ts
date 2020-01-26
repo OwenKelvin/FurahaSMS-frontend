@@ -20,6 +20,9 @@ export class AppFormService {
     if (this.triggerValidation(formControl) && formControl.errors && formControl.errors.pattern) {
       return 'Pattern ' + (label ? ('for ' + label + ' ') : '') + 'not met';
     }
+    if (this.triggerValidation(formControl) && formControl.errors) {
+      return 'Value provided ' + (label ? ('for ' + label + ' ') : '') + 'is not valid';
+    }
     return null;
   }
   triggerValidation(formControl: FormControl) {

@@ -17,6 +17,12 @@ import { EditAuthorComponent } from './components/library-admin/library-admin-au
 import { CreatePublisherComponent } from './components/library-admin/library-admin-publishers/create-publisher/create-publisher.component';
 import { ViewPublisherComponent } from './components/library-admin/library-admin-publishers/view-publisher/view-publisher.component';
 import { EditPublisherComponent } from './components/library-admin/library-admin-publishers/edit-publisher/edit-publisher.component';
+import { LibraryAdminTagsComponent } from './components/library-admin/library-admin-tags/library-admin-tags.component';
+import { CreateTagComponent } from './components/library-admin/library-admin-tags/create-tag/create-tag.component';
+import { ViewTagComponent } from './components/library-admin/library-admin-tags/view-tag/view-tag.component';
+import { EditTagComponent } from './components/library-admin/library-admin-tags/edit-tag/edit-tag.component';
+import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
+import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 
 
 const routes: Routes = [
@@ -41,6 +47,21 @@ const routes: Routes = [
     data: {
       breadcrumb: 'My Account'
     },
+  },
+  {
+    path: 'books',
+    data: {
+      breadcrumb: 'Books'
+    },
+    children: [
+      {
+        path: ':id/view',
+        data: {
+          breadcrumb: 'View'
+        },
+        component: ViewLibraryBookComponent
+      }
+    ]
   },
   {
     path: 'admin',
@@ -80,6 +101,7 @@ const routes: Routes = [
           {
             path: 'create',
             component: AddBookComponent,
+            canDeactivate: [CanDeactivateGuard],
             data: {
               breadcrumb: null
             },
@@ -169,6 +191,43 @@ const routes: Routes = [
             component: EditPublisherComponent,
             data: {
               breadcrumb: 'Edit Author'
+            },
+          }
+        ]
+      },
+      {
+        path: 'tags',
+        data: {
+          breadcrumb: 'Tags'
+        }, children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            component: LibraryAdminTagsComponent,
+            data: {
+              breadcrumb: null
+            },
+          },
+          {
+            path: 'create',
+            component: CreateTagComponent,
+            canDeactivate: [CanDeactivateGuard],
+            data: {
+              breadcrumb: 'Create Tags'
+            },
+          },
+          {
+            path: ':id/view',
+            component: ViewTagComponent,
+            data: {
+              breadcrumb: 'View Tag'
+            },
+          },
+          {
+            path: ':id/edit',
+            component: EditTagComponent,
+            data: {
+              breadcrumb: 'Edit Tag'
             },
           }
         ]

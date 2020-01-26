@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AcademicYearService } from 'src/app/services/academic-year.service';
+import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { Observable } from 'rxjs';

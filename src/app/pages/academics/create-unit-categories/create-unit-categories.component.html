@@ -5,7 +5,8 @@
       <legend>General Details</legend>
       <section class="d-flex flex-wrap">
         <section class="col-lg-5 col-md-6 col-sm-12">
-          <app-input label='Name' id="name" placeholder="Name" formControlName="name">
+          <app-input [triggerValidation]='triggerValidation' label='Name' id="name" placeholder="Name"
+            formControlName="name">
           </app-input>
         </section>
         <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
@@ -32,7 +33,7 @@
           *ngFor="let unit of units.controls; let i = index">
           <span *ngIf="!unit.valid" class="text-warning float-right">*section is incomplete</span>
           <span *ngIf="unit.valid" class="text-success float-right">*section is complete</span>
-          <app-create-unit [idIndex]='i' [hideSubmit]='true' [hasCategories]="false" [inputValue]="unit"
+          <app-create-unit [idIndex]='i' [hideSubmit]='true' [hasCategories]="false" [inputValue]="units"
             (valueChange)="updateForm($event, i)" [submitButton]="false">
           </app-create-unit>
           <section class="float-left">
@@ -44,15 +45,11 @@
       </section>
     </fieldset>
     <app-error></app-error>
-    <section class='d-flex justify-content-end mt-2'>
-      <button [disabled]="!(newUnitCategoryForm.valid && newUnitCategoryForm.touched && allSectionsValid())" class='btn btn-success'
-        type='submit'>
-        {{ newForm ? 'Create': 'Update'}} Category
-        <i *ngIf='newUnitCategoryForm.valid && !submitInProgress' class='icon-ok'></i>
-        <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
-      </button>
 
-    </section>
+    <app-validate-submit-buttons [isSubmitting]='submitInProgress' (validationButtonClicked)='validateForm()'
+      [formItem]='newUnitCategoryForm'>
+      <span>{{ newForm ? 'Create': 'Update'}} Category</span>
+    </app-validate-submit-buttons>
 
   </form>
 </section>

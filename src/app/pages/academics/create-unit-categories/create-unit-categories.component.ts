@@ -23,6 +23,7 @@ export class CreateUnitCategoriesComponent implements OnInit {
   errors: Ierror;
   newForm: boolean;
   submitInProgress: boolean;
+  triggerValidation: boolean;
   constructor(
     private fb: FormBuilder,
     private unitCategoryService: UnitCategoryService,
@@ -30,11 +31,8 @@ export class CreateUnitCategoriesComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.newUnitCategoryForm = this.fb.group({
-      units: this.fb.array([])
-    });
-    this.addSubject();
     this.generateForm();
+    this.addSubject();
     this.errors = { name: '' };
     let activatedRoute: ActivatedRouteSnapshot;
     if (
@@ -68,7 +66,7 @@ export class CreateUnitCategoriesComponent implements OnInit {
       name: [name, [Validators.required]],
       active: [active],
       description: [description],
-      units: this.units
+      units: this.fb.array([])
     });
   }
   get units() {
@@ -87,11 +85,8 @@ export class CreateUnitCategoriesComponent implements OnInit {
       description: [''],
       unitCategory: [null],
       active: [true],
-      // classLevels: this.fb.array([
-      //   this.fb.group({ classLevels: [], name: ['', [Validators.required]] })
-      // ])
     });
-    this.units.push((newGroup as unknown) as never);
+    this.units.push(newGroup);
   }
   allSectionsValid(): boolean {
     return (this.units).controls.every(item => item.valid);
@@ -129,6 +124,10 @@ export class CreateUnitCategoriesComponent implements OnInit {
     } else {
       this.newUnitCategoryForm.markAllAsTouched();
     }
+  }
+  validateForm() {
+    this.triggerValidation = !this.triggerValidation;
+    console.log(this.newUnitCategoryForm.value);
   }
   removeSubject(i) {
     const removalConfirmed = confirm(

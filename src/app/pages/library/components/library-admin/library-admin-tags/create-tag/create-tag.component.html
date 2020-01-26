@@ -1,0 +1,18 @@
+<section>
+  <h1>{{ editPage ? 'Edit': 'Create' }} Book Tag</h1>
+  <form (submit)='submitNewBookTagForm()' [formGroup]='newBookTagForm' *ngIf='!isLoading; else loading'>
+    <section class='col-lg-7'>
+      <app-input labelClass='col-lg-5' inputClass='col-lg-7' formControlName='name'
+        [triggerValidation]='triggerValidation' id='name' placeholder='Enter Tags Name' label="Tag's Name">
+      </app-input>
+    </section>
+    <section class='col-lg-12 mt-3'>
+      <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+        (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookTagForm'>
+      </app-validate-submit-buttons>
+    </section>
+  </form>
+  <ng-template #loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+</section>

@@ -63,3 +63,12 @@ export const VIEW_LIBRARY_AUTHOR = (id: string | number) => {
   return `/library/admin/authors/${id}/view`;
 };
 
+export const CREATE_LIBRARY_BOOK_TAG =
+  '/library/admin/tags/create';
+export const EDIT_LIBRARY_BOOK_TAG = (id: string | number) => {
+  return `/library/admin/tags/${id}/edit`;
+};
+export const VIEW_LIBRARY_BOOK_TAG = (id: string | number) => {
+  return `/library/admin/tags/${id}/view`;
+};
+
