@@ -7,6 +7,10 @@ import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { LibraryModule } from 'src/app/pages/library/library.module';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -15,14 +19,19 @@ describe('AddBookComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}),
+      imports: [
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        HttpClientTestingModule,
+        RouterTestingModule,
         AppDashboardLinksModule,
         AppLayoutModule,
         FormsModule,
         ReactiveFormsModule,
-        AppInputModule
+        AppInputModule,
+        LibraryModule
       ],
-      declarations: [ AddBookComponent ]
+      declarations: [ ]
     });
 
     await TestBed.compileComponents();

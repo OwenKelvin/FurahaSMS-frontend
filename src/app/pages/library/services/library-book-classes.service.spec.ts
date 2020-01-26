@@ -1,9 +1,12 @@
 import { TestBed } from '@angular/core/testing';
 
 import { LibraryBookClassesService } from './library-book-classes.service';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('LibraryBookClassesService', () => {
-  beforeEach(() => TestBed.configureTestingModule({}));
+  beforeEach(() => TestBed.configureTestingModule({
+    imports: [HttpClientTestingModule]
+  }));
 
   it('should be created', () => {
     const service: LibraryBookClassesService = TestBed.get(LibraryBookClassesService);

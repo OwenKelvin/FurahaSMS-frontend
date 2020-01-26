@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectLibrarySubClassComponent } from './select-library-sub-class.component';
+import { LibraryModule } from '../../library.module';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('SelectLibrarySubClassComponent', () => {
   let component: SelectLibrarySubClassComponent;
@@ -8,7 +12,13 @@ describe('SelectLibrarySubClassComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectLibrarySubClassComponent ]
+      imports: [
+        StoreModule.forRoot({}),
+        EffectsModule.forRoot([]),
+        LibraryModule,
+        HttpClientTestingModule
+      ],
+      declarations: [ ]
     })
     .compileComponents();
   }));
