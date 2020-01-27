@@ -37,13 +37,13 @@
   <section class='col-sm-12 mt-3'>
     <ul class="nav nav-tabs nav-fill">
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/students/" + 46 + "/info"]' routerLinkActive='active'>Info</a>
+        <a class="nav-link" [routerLink]='["/students",profile.id,"info"]' routerLinkActive='active'>Info</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/students/" + 46 + "/guardians"]' routerLinkActive='active'>Guardians</a>
+        <a class="nav-link" [routerLink]='["/students",profile.id,"guardians"]' routerLinkActive='active'>Guardians</a>
       </li>
       <li class="nav-item">
-        <a class="nav-link" [routerLink]='["/students/" + 46 + "/academics"]' routerLinkActive='active'>Academics</a>
+        <a class="nav-link" [routerLink]='["/students",profile.id,"academics"]' routerLinkActive='active'>Academics</a>
       </li>
     </ul>
   </section>

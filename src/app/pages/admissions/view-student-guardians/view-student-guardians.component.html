@@ -1,7 +1,7 @@
 <button
   *ngIf='(studentId$ | async) as studentId'
   class="btn btn-primary mt-4"
-  [routerLink]='"/students/"+studentId+"/guardians/create"'>
+  [routerLink]='["/students", studentId, "guardians", "create"]'>
   <span class="sr-only">Create</span><span class="icon-plus-circled">New</span><span class="sr-only">Student Guardian</span>
 </button>
 <table class="table table-dark">
