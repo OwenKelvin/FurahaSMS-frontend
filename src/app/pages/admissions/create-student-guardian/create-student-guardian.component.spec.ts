@@ -10,6 +10,8 @@ import { TelInputComponent } from '../../../components/tel-input/tel-input.compo
 import { OrdinalPipe } from 'src/app/pipes/ordinal.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('CreateStudentGuardianComponent', () => {
   let component: CreateStudentGuardianComponent;
@@ -27,6 +29,16 @@ describe('CreateStudentGuardianComponent', () => {
         InputComponent,
         TelInputComponent,
         OrdinalPipe
+      ],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            paramMap: of({
+              get: () => 1
+            })
+          }
+        }
       ]
     });
 

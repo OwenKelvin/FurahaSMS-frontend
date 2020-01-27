@@ -1,18 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { AppState } from 'src/app/store/reducers';
-import { debounceTime } from 'rxjs/operators';
+import { debounceTime, takeWhile, map, mergeMap } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { GuardiansService } from 'src/app/services/guardians.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-create-student-guardian',
   templateUrl: './create-student-guardian.component.html',
   styleUrls: ['./create-student-guardian.component.css']
 })
-export class CreateStudentGuardianComponent implements OnInit {
+export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   userIdentificaionForm: FormGroup;
   usersData: any[];
   confirmData: boolean[];
@@ -31,17 +32,21 @@ export class CreateStudentGuardianComponent implements OnInit {
   triggerValidation: boolean;
   isSubmitting: boolean;
   confirmedData: boolean[];
+  componentIsActive: boolean;
   constructor(
     private studentGuardian: GuardiansService,
     private users: UsersService,
-    private store: Store<AppState>, private fb: FormBuilder) {
+    private store: Store<AppState>,
+    private fb: FormBuilder,
+    private route: ActivatedRoute
+  ) {
     this.usersData = [null];
     this.confirmData = [false];
     this.confirmedData = [false];
   }
 
   ngOnInit() {
-
+    this.componentIsActive = true;
     this.userIdentificaionForm = this.fb.group({
       guardians: this.fb.array([this.buildGuardianProfile()])
     });
@@ -66,20 +71,23 @@ export class CreateStudentGuardianComponent implements OnInit {
     (this.userIdentificaionForm.get('guardians') as FormArray).controls.forEach((element, i) => {
       element.get('email').valueChanges.pipe(
         debounceTime(1000)
-      ).subscribe(
-        (event) => {
-          if (event && event.length && event.length > 5) {
-            this.users.findIfEmailExists(event).subscribe(data => {
-              this.confirmData[i] = false;
-              if (data) {
-                this.confirmData[i] = true;
-              }
-              this.usersData[i] = data;
-              this.confirmedData[i] = true;
-            });
+      ).pipe(
+        takeWhile(()=> this.componentIsActive)
+      )
+        .subscribe(
+          (event) => {
+            if (event && event.length && event.length > 5) {
+              this.users.findIfEmailExists(event).subscribe(data => {
+                this.confirmData[i] = false;
+                if (data) {
+                  this.confirmData[i] = true;
+                }
+                this.usersData[i] = data;
+                this.confirmedData[i] = true;
+              });
+            }
           }
-        }
-      );
+        );
     });
   }
   removeGuadian(i): void {
@@ -130,27 +138,52 @@ export class CreateStudentGuardianComponent implements OnInit {
       //   Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)),
       birthCertNumber: [''],
       email: ['', this.validators.email],
-      phone: [''],
+      phone: ['',[]],
       relation: ['', Validators.required]
     });
   }
   submitGuardianForm() {
     // TODO admission number hard coded
+    
     this.isSubmitting = true;
-    if (this.userIdentificaionForm.valid) {
+    if (this.userIdentificaionForm.valid) {  
       this.userIdentificaionForm.get('guardians').value.forEach(item => {
-        this.studentGuardian.submit({ ...item, student_id: 24 })
-          .subscribe(data => {
-            this.store.dispatch(loadToastShowsSuccess({
-              showMessage: true,
-              toastBody: 'Successfully created guardian',
-              toastHeader: 'Success',
-              toastTime: 'Just Now'
-            }));
-          });
+        
+        this.route.paramMap.pipe(
+          map(params => params.get('id'))
+        ).pipe(
+          takeWhile(()=> this.componentIsActive)
+        )
+        .pipe(
+          mergeMap((id) => this.studentGuardian.submit({ ...item, student_id: id }))
+        ).subscribe(res => {
+          this.isSubmitting = false;
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: res.message,
+            toastHeader: 'Success',
+            toastTime: 'Just Now'
+          }));
+        }, err => this.isSubmitting = false);
+        
+        
+        
+        // this.studentGuardian.submit({ ...item, student_id: 24 })
+        //   .subscribe(res => {
+        //     this.isSubmitting = false;
+        //     this.store.dispatch(loadToastShowsSuccess({
+        //       showMessage: true,
+        //       toastBody: res.message,
+        //       toastHeader: 'Success',
+        //       toastTime: 'Just Now'
+        //     }));
+        //   }, err => this.isSubmitting = false);
       });
     } else {
       this.triggerValidation = !this.triggerValidation;
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

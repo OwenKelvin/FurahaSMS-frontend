@@ -108,12 +108,10 @@
       </fieldset>
     </fieldset>
     <section class='d-flex justify-content-end'>
-      <button *ngIf='!userIdentificaionForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
-        class='btn btn-secondary'>Validate</button>
-      &nbsp;&nbsp;&nbsp;&nbsp;
-      <button class='btn btn-primary' [disabled]='!userIdentificaionForm.valid || isSubmitting'>
-        Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
-      </button>
+      <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='triggerValidation = !triggerValidation'
+        [formItem]='userIdentificaionForm'>
+        <span>Save Guardians</span>
+      </app-validate-submit-buttons>
     </section>
   </section>
 </form>

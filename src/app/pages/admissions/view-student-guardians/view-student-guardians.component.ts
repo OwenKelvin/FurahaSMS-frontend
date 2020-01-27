@@ -15,7 +15,9 @@ export class ViewStudentGuardiansComponent implements OnInit {
   studentId$: Observable<number>;
   guardians$: Observable<any>;
 
-  constructor(private store: Store<AppState>, private guardianService: GuardiansService) { }
+  constructor(
+    private store: Store<AppState>,
+    private guardianService: GuardiansService) { }
 
   ngOnInit() {
     this.studentId$ = this.store.select(selectStudentId);

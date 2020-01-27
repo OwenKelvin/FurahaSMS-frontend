@@ -23,11 +23,12 @@ export class GuardiansService {
       gender_id: data.gender,
       religion_id: data.religion,
       phone: data.phone,
-      student_id: data.student_id,
+      // student_id: data.student_id,
       relation: data.relation
 
     };
-    let url = 'api/admissions/students/guardians';
+    let url = `api/students/${data.student_id}/guardians`;
+    // let url = 'api/admissions/students/guardians';
 
     if (data.id) {
       url = `${url}/${data.id}`;
