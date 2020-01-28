@@ -1,1 +1,4 @@
-<p>view-student-academics works!</p>
+
+<button [routerLink]='["/students", studentId$ | async,"academics", "create"]' type="button" class="btn btn-sm btn-primary mt-2">
+  <span class="icon-plus-circled">Add To Academic Year</span>
+</button>

@@ -1,0 +1,57 @@
+<h1>Allocate Subjects to Student</h1>
+<form [formGroup]='academicCategory' (submit)='submitAllocationForm()'>
+  <section class="d-flex flex-wrap">
+    <section class="col-lg-4">
+      <label class="control-label" for="academicYear">Select Academic Year</label>
+      <select formControlName='academicYear' class="form-control" id="academicYear">
+        <option></option>
+        <ng-container *ngIf='academicYears$ | async as academicYears; else loading_academic_years'>
+          <option *ngFor='let academicYear of academicYears' [value]="academicYear.id">{{ academicYear.name }}</option>
+        </ng-container>
+        <ng-template #loading_academic_years>
+          <option value=""> Loading ... </option>
+        </ng-template>
+      </select>
+    </section>
+    <section class='col-lg-4'>
+      <label class="control-label" for="classLevel">Select Class Levels</label>
+      <select formControlName='classLevel' id="classLevel" class="form-control">
+        <option></option>
+        <ng-container *ngIf='classLevels$ | async as classLevels; else loading_class_levels'>
+          
+          <option [value]='classLevel.id' *ngFor='let classLevel of classLevels'> {{ classLevel.name }}</option>
+        </ng-container>
+        <ng-template #loading_class_levels>
+          <option value=""> Loading ... </option>
+        </ng-template>
+      </select>
+    </section>
+    <fieldset class='col-lg-12 mt-3' aria-labelledby='unitLevelTitle'>
+      <legend id='unitLevelTitle'>Unit Levels</legend>
+      <section class='d-flex flex-wrap justify-content-start mb-3'
+        *ngIf='units_loaded !== undefined; else loading_unitlevels'>
+        <ng-container *ngIf='units_loaded; else loading'>
+          <div class="form-check col-lg-3 col-md-4 col-sm-6 mt-2" *ngFor='let unitLevel of academicYearUnitLevels'>
+            <input checked='checked' [value]='unitLevel.id' (change)="onCheckboxChange($event)" class="form-check-input"
+              type="checkbox" [id]='"gridCheck" + unitLevel.id'>
+            <label class="form-check-label" [attr.for]='"gridCheck" + unitLevel.id'>
+              {{ unitLevel.name }}
+            </label>
+          </div>
+        </ng-container>
+        <ng-template #loading>
+          <app-loading-bubble></app-loading-bubble>
+        </ng-template>
+      </section>
+      <ng-template #loading_unitlevels>
+        <section class='alert alert-info'>
+          No Units/Subject Found for selected items
+        </section>
+      </ng-template>
+    </fieldset>
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='academicCategory'>
+    </app-validate-submit-buttons>
+  
+  </section>
+</form>

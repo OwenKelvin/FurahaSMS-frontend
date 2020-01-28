@@ -12,6 +12,7 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { AppOrdinalModule } from 'src/app/modules/app-ordinal.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { CreateStudentAcademicsComponent } from './create-student-academics/create-student-academics.component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     ViewStudentComponent,
     ViewStudentInfoComponent,
     ViewStudentGuardiansComponent,
-    ViewStudentAcademicsComponent
+    ViewStudentAcademicsComponent,
+    CreateStudentAcademicsComponent
   ],
   imports: [
     CommonModule,
