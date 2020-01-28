@@ -12,6 +12,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { ValidateSubmitButtonsComponent } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.component';
 
 describe('CreateStudentGuardianComponent', () => {
   let component: CreateStudentGuardianComponent;
@@ -20,15 +21,20 @@ describe('CreateStudentGuardianComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, NgSelectModule,
-        HttpClientTestingModule
+      imports: [
+        StoreModule.forRoot({}),
+        FormsModule,
+        ReactiveFormsModule,
+        NgSelectModule,
+        HttpClientTestingModule,
       ],
       declarations: [
         CreateStudentGuardianComponent,
         SelectComponent,
         InputComponent,
         TelInputComponent,
-        OrdinalPipe
+        OrdinalPipe,
+        ValidateSubmitButtonsComponent
       ],
       providers: [
         {

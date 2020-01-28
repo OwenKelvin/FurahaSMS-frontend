@@ -25,7 +25,7 @@ describe('CreateStudentAcademicsComponent', () => {
         RouterTestingModule,
         AppLoadingBubbleModule
       ],
-      declarations: [ CreateStudentAcademicsComponent ]
+      declarations: [ ]
     });
 
     await TestBed.compileComponents();

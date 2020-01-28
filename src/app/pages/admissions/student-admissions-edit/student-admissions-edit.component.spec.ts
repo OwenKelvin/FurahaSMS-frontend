@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { StudentSearchComponent } from '../../../components/student-search/student-search.component';
 import { StudentsRecentlyCreatedComponent } from '../students-recently-created/students-recently-created.component';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('StudentAdmissionsEditComponent', () => {
   let component: StudentAdmissionsEditComponent;
@@ -13,7 +14,7 @@ describe('StudentAdmissionsEditComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
+      imports: [ StoreModule.forRoot({}), AppLoadingBubbleModule ],
       declarations: [ StudentAdmissionsEditComponent, StudentSearchComponent, StudentsRecentlyCreatedComponent ]
     });
 
