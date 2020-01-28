@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewStudentAcademicsComponent } from './view-student-academics.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewStudentAcademicsComponent', () => {
   let component: ViewStudentAcademicsComponent;
@@ -11,7 +12,7 @@ describe('ViewStudentAcademicsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
+      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
       declarations: [ ViewStudentAcademicsComponent ]
     });
 

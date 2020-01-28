@@ -21,6 +21,8 @@ export class CreateStudentAcademicsComponent implements OnInit {
   unitLevels$: Observable<any>;
   academicYearUnitLevels: any;
   units_loaded: boolean;
+  triggerValidation: boolean;
+  isSubmitting: boolean;
 
   constructor(
     private classLevelService: ClassLevelService,
@@ -39,19 +41,6 @@ export class CreateStudentAcademicsComponent implements OnInit {
       classLevel: [''],
       unitLevels: this.fb.array([])
     });
-
-    // this.unitLevels$ = this.academicCategory.valueChanges
-    //   .pipe(tap( _ => {
-    //     this.units_loaded = false;
-    //   }))
-    //   .pipe(mergeMap(item => this.academicYearUnitService.getUnitsFor(item)));
-    // this.unitLevels$.subscribe(res => {
-    //   this.academicYearUnitLevels = res;
-    //   console.log(res)
-    //   this.units_loaded = true;
-    // });
-    
-    
     this.unitLevels$ = combineLatest(this.academicCategory.get('academicYear').valueChanges, this.academicCategory.get('classLevel').valueChanges)
       .pipe(tap(_ => {
         this.units_loaded = false;
@@ -69,10 +58,6 @@ export class CreateStudentAcademicsComponent implements OnInit {
         this.units_loaded = undefined;
       }
     });
-    
-    
-    
-    
   }
 
   get unitLevels(): FormArray {
@@ -96,7 +81,8 @@ export class CreateStudentAcademicsComponent implements OnInit {
   }
 
   submitAllocationForm() {
-    console.log(this.academicCategory.value);
+    this.isSubmitting = true;
+    
   }
 
 }
