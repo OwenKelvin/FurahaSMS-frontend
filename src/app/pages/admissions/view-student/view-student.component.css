@@ -17,10 +17,10 @@ h2 {
   
   margin-right: 15px;
   margin-left: 15px;
-  min-height: 230px;
+  min-height: 270px;
   background: rgb(35, 35, 35) !important;
   margin-top: -1px;
-  border: 1px solid lightgrey;
+  border: 1px solid rgb(88, 88, 88) !important;
   z-index: 1;
   position: relative;
   max-width: calc(100% - 20px);
@@ -28,6 +28,7 @@ h2 {
 .active {
   color: greenyellow !important;
   background: rgb(35, 35, 35) !important;
+  border: 1px solid rgb(88, 88, 88) !important;
   border-bottom: none !important;
   z-index: 10;
    position: relative;

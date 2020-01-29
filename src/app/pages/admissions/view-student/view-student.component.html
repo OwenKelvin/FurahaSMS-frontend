@@ -1,6 +1,6 @@
 <h1>Student Profile</h1>
 <section class='d-flex flex-wrap wrapper' *ngIf="student$ | async as profile; else profile_loading ">
-  <section class='col-md-4 col-lg-3'>
+  <section class='col-md-3 col-lg-2'>
     <!-- TODO-me Load Correct image-->
     <img class='img-thumbnail img-fluid' src='assets/images/default-user.jpg'
       onerror='this.src="assets/images/default-user.jpg";' alt='' />
