@@ -33,6 +33,8 @@ export class LinkService {
         return this.getLibraryAdminBooksLinks();
       case 'library:admin:users':
         return this.getLibraryAdminUsersLinks();
+      case 'admissions:teaching-staff':
+        return this.getTeachingStaffAdmissionsLinks();
       default:
         return this.getDashboardLinks();
     }
@@ -189,7 +191,7 @@ export class LinkService {
   getStudentAdmissionsLinks(): Observable<LinkInterface[]> {
     return of([
       {
-        name: 'New Student Details',
+        name: 'New Student',
         icon: 'icon-user-plus',
         link: 'admissions/students/create'
       },
@@ -197,6 +199,20 @@ export class LinkService {
         name: 'Edit Student Details',
         icon: 'icon-user-plus',
         link: 'admissions/students/edit'
+      }
+    ]);
+  }
+  getTeachingStaffAdmissionsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'New Teaching Staff',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/teachers/create'
+      },
+      {
+        name: 'Edit Student Details',
+        icon: 'icon-pencil-1',
+        link: 'admissions/staff/teachers/edit'
       }
     ]);
   }

@@ -1,6 +1,7 @@
-<section
+<button
+  tabindex="0"
   [routerLink]='"/" +link?.link'
-  class='d-flex flex-wrap justify-content-center flex-column dashboard-link-item'>
-  <section [class]='[link?.icon]'></section>
-  <section class='link'>{{ link?.name }}</section>
-</section>
+  class='dashboard-link-item'>
+  <span [class]='[link?.icon]'></span>
+  <span class='link pl-2 pr-2'>{{ link?.name }}</span>
+</button>

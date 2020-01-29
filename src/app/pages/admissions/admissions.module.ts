@@ -17,8 +17,6 @@ import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { AdmissionsComponent } from './admissions.component';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { StudentAdmissionComponent } from './student-admission/student-admission.component';
-import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teaching-staff-admission.component';
-import { SupportStaffAdmissionComponent } from './support-staff-admission/support-staff-admission.component';
 
 
 @NgModule({
@@ -30,8 +28,6 @@ import { SupportStaffAdmissionComponent } from './support-staff-admission/suppor
     EditStudentComponent,
     AdmissionsComponent,
     StudentAdmissionComponent,
-    TeachingStaffAdmissionComponent,
-    SupportStaffAdmissionComponent,
   ],
   imports: [
     CommonModule,
@@ -44,7 +40,7 @@ import { SupportStaffAdmissionComponent } from './support-staff-admission/suppor
     AppOrdinalModule,
     AppTelInputModule,
     AppLayoutModule,
-    AppDashboardLinksModule
+    AppDashboardLinksModule,
   ]
 })
 export class AdmissionsModule { }
