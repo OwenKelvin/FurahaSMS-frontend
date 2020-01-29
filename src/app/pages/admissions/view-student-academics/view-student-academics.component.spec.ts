@@ -4,6 +4,8 @@ import { ViewStudentAcademicsComponent } from './view-student-academics.componen
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('ViewStudentAcademicsComponent', () => {
   let component: ViewStudentAcademicsComponent;
@@ -12,7 +14,12 @@ describe('ViewStudentAcademicsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
+      imports: [
+        StoreModule.forRoot({}),
+        RouterTestingModule,
+        HttpClientTestingModule,
+        AppLoadingBubbleModule
+      ],
       declarations: [ ViewStudentAcademicsComponent ]
     });
 
