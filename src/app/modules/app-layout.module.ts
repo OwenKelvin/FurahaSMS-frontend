@@ -13,6 +13,7 @@ import { NavbarTopComponent } from '../components/navbar-top/navbar-top.componen
 import { MenuSearchComponent } from '../components/menu-search/menu-search.component';
 import { BreadcrumbComponent } from '../components/breadcrumb/breadcrumb.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { SkipLinkComponent } from '../components/skip-link/skip-link.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarTopComponent,
     MenuSearchComponent,
     BreadcrumbComponent,
+    SkipLinkComponent
   ],
   exports: [
     FullWithCenterComponent,
@@ -39,6 +41,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
     NavbarTopComponent,
     MenuSearchComponent,
     BreadcrumbComponent,
+    SkipLinkComponent
 
   ],
 
