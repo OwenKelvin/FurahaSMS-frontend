@@ -4,9 +4,9 @@ import { CreateStudentComponent } from './create-student.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { InputComponent } from '../../../components/input/input.component';
+import { InputComponent } from '../../../../components/input/input.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LabelStarRequiredComponent } from '../../../components/label-star-required/label-star-required.component';
+import { LabelStarRequiredComponent } from '../../../../components/label-star-required/label-star-required.component';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateStudentComponent', () => {

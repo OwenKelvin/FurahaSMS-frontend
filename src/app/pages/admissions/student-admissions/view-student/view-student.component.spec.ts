@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
+import { LoadingBubbleComponent } from '../../../../components/loading-bubble/loading-bubble.component';
 
 describe('ViewStudentComponent', () => {
   let component: ViewStudentComponent;

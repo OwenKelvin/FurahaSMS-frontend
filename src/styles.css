@@ -39,6 +39,11 @@ html, body {
   height: 100%;
   overflow: auto;
 }
+#main:focus {
+  box-shadow: 3px 10px aqua;
+  background-color: red;
+  border: red solid 2px;
+}
 h1, h2, h3, h4 {
   font-size: 1.3rem;
   line-height: 1.3rem;

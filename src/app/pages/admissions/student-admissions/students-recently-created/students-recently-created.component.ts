@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../../store/reducers';
+import * as fromStore from '../../../../store/reducers';
 import { Observable } from 'rxjs';
 import { StudentService } from 'src/app/services/student.service';
 
