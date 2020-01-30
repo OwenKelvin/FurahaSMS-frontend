@@ -6,6 +6,8 @@ import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('ViewStudentAcademicsComponent', () => {
   let component: ViewStudentAcademicsComponent;
@@ -20,7 +22,15 @@ describe('ViewStudentAcademicsComponent', () => {
         HttpClientTestingModule,
         AppLoadingBubbleModule
       ],
-      declarations: [ ViewStudentAcademicsComponent ]
+      declarations: [ViewStudentAcademicsComponent],
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: { paramMap: of({get: () => 1 }) }
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();

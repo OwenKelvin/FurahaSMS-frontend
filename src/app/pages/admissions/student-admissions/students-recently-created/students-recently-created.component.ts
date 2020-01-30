@@ -10,7 +10,7 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./students-recently-created.component.css']
 })
 export class StudentsRecentlyCreatedComponent implements OnInit {
-  students$: Observable<any[]>
+  students$: Observable<any[]>;
 
   constructor(
     private studentsService: StudentService,
@@ -18,7 +18,7 @@ export class StudentsRecentlyCreatedComponent implements OnInit {
 
   ngOnInit() {
     this.students$ = this.studentsService.getRecentlyCreatedStudents();
-    this.students$.subscribe(item => console.log(item))
+    this.students$.subscribe(item => console.log(item));
   }
 
 }

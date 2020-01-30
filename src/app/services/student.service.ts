@@ -70,7 +70,7 @@ export class StudentService {
         })
       );
   }
-  
+
   getRecentlyCreatedStudents(): Observable<any[]> {
     const url = `api/students?last=30`;
     return this.http.get(url).pipe(map(res => res as any[]));

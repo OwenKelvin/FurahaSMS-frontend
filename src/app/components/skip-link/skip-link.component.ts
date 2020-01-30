@@ -24,7 +24,7 @@ export class SkipLinkComponent implements OnInit, OnDestroy {
         if (!/(.)#main$/.test(url)) {
           this.skipLinkPath = `${url}#main`;
         }
-       
+
       });
   }
   ngOnDestroy() {

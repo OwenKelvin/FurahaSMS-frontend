@@ -22,7 +22,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
   academicCategory: FormGroup;
   unitLevels$: Observable<any>;
   academicYearUnitLevels: any;
-  units_loaded: boolean;
+  unitsLoaded: boolean;
   triggerValidation: boolean;
   isSubmitting: boolean;
   componentIsActive: boolean;
@@ -47,25 +47,28 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       classLevel: [''],
       unitLevels: this.fb.array([])
     });
-    this.unitLevels$ = combineLatest(this.academicCategory.get('academicYear').valueChanges, this.academicCategory.get('classLevel').valueChanges)
-      .pipe(tap(_ => {
-        this.units_loaded = false;
-      }))
-      .pipe(mergeMap(item => {
-        if (item[0] === '' || item[1] === '') {
-          return of([]);
-        }
-        return this.academicYearUnitService.getUnitsFor({ academicYear: item[0], classLevel: item[1] });
-      }));
+    this.unitLevels$ = combineLatest(
+      this.academicCategory.get('academicYear').valueChanges,
+      this.academicCategory.get('classLevel').valueChanges
+    ).pipe(tap(_ => {
+      this.unitsLoaded = false;
+    })).pipe(mergeMap(item => {
+      if (item[0] === '' || item[1] === '') {
+        return of([]);
+      }
+      return this.academicYearUnitService.getUnitsFor({ academicYear: item[0], classLevel: item[1] });
+    }));
     this.unitLevels$.subscribe(res => {
-      this.unitLevels.setValue([]);
+      if (res.length > 0) {
+        this.unitLevels.setValue([]); // TODO fails if we reset the value
+      }
       res.map(({ id }) => id).forEach(val => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
-      this.units_loaded = true;
+      this.unitsLoaded = true;
       if (res.length === 0) {
-        this.units_loaded = undefined;
+        this.unitsLoaded = undefined;
       }
     });
   }
@@ -75,7 +78,6 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
   }
 
   onCheckboxChange(e) {
-
     if (e.target.checked) {
       this.unitLevels.push(new FormControl(e.target.value));
     } else {
@@ -110,7 +112,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
             toastTime: 'Just Now',
             toastBody: res.message
           }));
-          this.router.navigate(['students', studentIdParam, 'academics'])
+          this.router.navigate(['students', studentIdParam, 'academics']);
         },
         err => this.isSubmitting = false);
   }

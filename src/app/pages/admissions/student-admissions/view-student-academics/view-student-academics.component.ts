@@ -23,10 +23,12 @@ export class ViewStudentAcademicsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.academicYearSubjects$ = this.route.parent.paramMap
+    this.studentId$ = this.route.parent.paramMap
+      .pipe(map(params => +params.get('id')));
+    this.academicYearSubjects$ = this.studentId$
+      .pipe(mergeMap(studentId => this.studentAcademicsService.getForStudentWithId(studentId)))
       .pipe(takeWhile(() => this.componentIsActive))
-      .pipe(map(params => +params.get('id')))
-      .pipe(mergeMap(studentId => this.studentAcademicsService.getForStudentWithId(studentId)));      
+      ;
   }
   ngOnDestroy() {
     this.componentIsActive = false;

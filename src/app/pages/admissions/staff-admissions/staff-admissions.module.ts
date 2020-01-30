@@ -18,7 +18,7 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     EditTeacherComponent,
     TeachingStaffAdmissionComponent,
     SupportStaffAdmissionComponent
-    
+
   ],
   imports: [
     CommonModule,

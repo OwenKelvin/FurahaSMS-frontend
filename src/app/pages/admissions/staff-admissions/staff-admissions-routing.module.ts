@@ -16,7 +16,7 @@ const routes: Routes = [
         path: '',
         pathMatch: 'full',
         component: TeachingStaffAdmissionComponent,
-      }, 
+      },
       {
         path: 'create',
         component: CreateTeacherComponent,

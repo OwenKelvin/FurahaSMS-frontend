@@ -72,7 +72,7 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
       element.get('email').valueChanges.pipe(
         debounceTime(1000)
       ).pipe(
-        takeWhile(()=> this.componentIsActive)
+        takeWhile(() => this.componentIsActive)
       )
         .subscribe(
           (event) => {
@@ -138,21 +138,21 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
       //   Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)),
       birthCertNumber: [''],
       email: ['', this.validators.email],
-      phone: ['',[]],
+      phone: ['', []],
       relation: ['', Validators.required]
     });
   }
   submitGuardianForm() {
     // TODO admission number hard coded
-    
+
     this.isSubmitting = true;
-    if (this.userIdentificaionForm.valid) {  
+    if (this.userIdentificaionForm.valid) {
       this.userIdentificaionForm.get('guardians').value.forEach(item => {
-        
+
         this.route.paramMap.pipe(
           map(params => params.get('id'))
         ).pipe(
-          takeWhile(()=> this.componentIsActive)
+          takeWhile(() => this.componentIsActive)
         )
         .pipe(
           mergeMap((id) => this.studentGuardian.submit({ ...item, student_id: id }))
@@ -165,9 +165,9 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
             toastTime: 'Just Now'
           }));
         }, err => this.isSubmitting = false);
-        
-        
-        
+
+
+
         // this.studentGuardian.submit({ ...item, student_id: 24 })
         //   .subscribe(res => {
         //     this.isSubmitting = false;
