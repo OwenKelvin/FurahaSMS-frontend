@@ -1,12 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LibraryAdminTagsComponent } from './library-admin-tags.component';
-import { LibraryModule } from '../../library.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { LibraryAdminModule } from '../library-admin.module';
 
 describe('LibraryAdminTagsComponent', () => {
   let component: LibraryAdminTagsComponent;
@@ -20,7 +20,7 @@ describe('LibraryAdminTagsComponent', () => {
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
         RouterTestingModule,
-        LibraryModule
+        LibraryAdminModule
       ],
       declarations: [ ]
     })

@@ -1,11 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectLibraryClassComponent } from './select-library-class.component';
-import { LibraryModule } from '../../library.module';
 import { StoreModule } from '@ngrx/store';
 import { reducers } from '../../store/reducers';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LibraryAdminModule } from '../../library-admin/library-admin.module';
 
 describe('SelectLibraryClassComponent', () => {
   let component: SelectLibraryClassComponent;
@@ -18,7 +18,7 @@ describe('SelectLibraryClassComponent', () => {
         StoreModule.forFeature('library', reducers),
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
-        LibraryModule
+        LibraryAdminModule
       ],
       declarations: [ ]
     })
