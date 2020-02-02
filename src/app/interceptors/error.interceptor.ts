@@ -21,7 +21,16 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
+      console.log(err)
       const error = err.statusText || err.error.message;
+      if (err.status === 0) {
+        this.message = {
+          message: err.statusText,
+          type: 'error',
+          status: err.status,
+          help: err.message
+        };
+      }
       if (err.status === 500) {
         this.message = {
           message: err.statusText,

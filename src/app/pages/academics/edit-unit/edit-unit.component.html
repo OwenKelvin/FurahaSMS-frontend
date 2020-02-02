@@ -50,12 +50,12 @@
           <section *ngFor='let unitLevel of unitLevels.controls; let i = index'>
             <section [formGroupName]='i' class="d-flex flex-wrap">
               <section class="col-lg-6">
-                <app-input [id]='"name" + i' [triggerValidation]='triggerValidation' placeholder='Enter Name' label='Level Name'
-                  formControlName='name'></app-input>
+                <app-input [id]='"name" + i' [triggerValidation]='triggerValidation' placeholder='Enter Name'
+                  label='Level Name' formControlName='name'></app-input>
               </section>
               <section class="col-lg-4">
-                <app-input [id]='"level" + i' [triggerValidation]='triggerValidation' placeholder='Enter Level' label='Level'
-                  formControlName='level' type='number'></app-input>
+                <app-input [id]='"level" + i' [triggerValidation]='triggerValidation' placeholder='Enter Level'
+                  label='Level' formControlName='level' type='number'></app-input>
 
               </section>
               <section class="col-lg-2">
@@ -70,12 +70,12 @@
       </tab>
     </tabset>
     <app-error></app-error>
-   <section class="mt-3">
+    <section class="mt-3">
       <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
         [formItem]='unitForm'>
         <span>{{ newForm ? 'Create': 'Update'}} Subject/Unit</span>
       </app-validate-submit-buttons>
-   </section>
+    </section>
   </form>
 </section>
 <ng-template #loading>
