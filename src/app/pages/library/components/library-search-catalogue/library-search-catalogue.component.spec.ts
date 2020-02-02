@@ -6,6 +6,7 @@ import { AppState } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 describe('LibrarySearchCatalogueComponent', () => {
   let component: LibrarySearchCatalogueComponent;
@@ -19,7 +20,8 @@ describe('LibrarySearchCatalogueComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TypeaheadModule.forRoot()
       ],
       declarations: [
         LibrarySearchCatalogueComponent

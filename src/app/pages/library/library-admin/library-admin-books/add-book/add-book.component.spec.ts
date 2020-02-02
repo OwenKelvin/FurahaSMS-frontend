@@ -11,6 +11,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LibraryAdminModule } from '../../library-admin.module';
+import { of } from 'rxjs';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -31,7 +32,7 @@ describe('AddBookComponent', () => {
         AppInputModule,
         LibraryAdminModule
       ],
-      declarations: [ ]
+      declarations: []
     });
 
     await TestBed.compileComponents();
@@ -43,6 +44,7 @@ describe('AddBookComponent', () => {
     store = TestBed.get<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
+    spyOn(store, 'pipe').and.returnValue(of([{ id: 1 }]));
     fixture.detectChanges();
   });
 
