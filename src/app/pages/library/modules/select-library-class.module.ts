@@ -9,7 +9,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 @NgModule({
   declarations: [
-    
+
     SelectLibraryClassComponent,
     SelectLibrarySubClassComponent
   ],

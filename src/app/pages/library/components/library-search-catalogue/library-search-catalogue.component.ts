@@ -39,13 +39,13 @@ export class LibrarySearchCatalogueComponent implements OnInit {
     this.publishers$ = this.publisherservice.filter(this.publisher.value);
   }
   get author(): FormControl {
-    return <FormControl>this.searchParamsForm.get('author')
+    return this.searchParamsForm.get('author') as FormControl;
   }
   get publisher(): FormControl {
-    return <FormControl>this.searchParamsForm.get('publisher')
+    return this.searchParamsForm.get('publisher') as FormControl;
   }
   get title(): FormControl {
-    return <FormControl>this.searchParamsForm.get('title')
+    return this.searchParamsForm.get('title') as FormControl;
   }
   submitSearchParamsForm() {
     this.isSubmitting = true;

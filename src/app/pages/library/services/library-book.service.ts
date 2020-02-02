@@ -23,12 +23,12 @@ export class LibraryBookService {
   getAll(): Observable<any> {
     return this.http.get(`api/library-books`);
   }
-  
+
   filter(params): Observable<any[]> {
     const querystring = require('querystring');
 
-    let queryString = querystring.stringify(params);
-   
+    const queryString = querystring.stringify(params);
+
     return this.http.get<any[]>(`api/library-books/filter?${queryString}`);
   }
 }

@@ -34,6 +34,7 @@ import { ErrorModule } from '../../components/error/error.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { ProcurementsComponent } from './procurements.component';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -70,8 +71,11 @@ import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
     AppTelInputModule,
     ErrorModule,
     AppLayoutModule,
-    AppDashboardLinksModule
+    AppDashboardLinksModule,
+    ModalModule.forRoot()
   ],
-  entryComponents: [CreateProcurementTenderBidComponent, FulfillOrRejectTenderFormComponent]
+  entryComponents: [
+    CreateProcurementTenderBidComponent,
+    FulfillOrRejectTenderFormComponent]
 })
 export class ProcurementsModule { }

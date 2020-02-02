@@ -13,8 +13,6 @@ import { metaReducers, REDUCER_TOKEN, reducerProvider } from './store/reducers';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { CacheInterceptor } from './interceptors/cache.interceptor';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { EffectsModule } from '@ngrx/effects';
@@ -41,8 +39,6 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     }),
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
-    ModalModule.forRoot(),
-    AccordionModule.forRoot(),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],

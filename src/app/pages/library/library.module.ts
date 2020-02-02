@@ -47,7 +47,7 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     ]),
     TabsModule.forRoot(),
     TypeaheadModule.forRoot(),
-    
+
 
   ]
 })

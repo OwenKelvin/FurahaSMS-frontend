@@ -3,6 +3,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibrarySearchCatalogueComponent } from './library-search-catalogue.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('LibrarySearchCatalogueComponent', () => {
   let component: LibrarySearchCatalogueComponent;
@@ -11,8 +14,16 @@ describe('LibrarySearchCatalogueComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ LibrarySearchCatalogueComponent ]
+      imports: [
+        StoreModule.forRoot({}),
+        RouterTestingModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule
+      ],
+      declarations: [
+        LibrarySearchCatalogueComponent
+      ]
     });
 
     await TestBed.compileComponents();

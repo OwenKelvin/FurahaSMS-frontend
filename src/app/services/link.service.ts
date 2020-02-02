@@ -93,7 +93,7 @@ export class LinkService {
       },
       {
         name: 'Awarded Tenders',
-        icon: 'icon-star',
+        icon: 'icon-fire-1',
         link: 'procurements/tenders/awarded',
       }
 
@@ -276,6 +276,11 @@ export class LinkService {
         name: 'Curriculum',
         icon: 'icon-book',
         link: 'academics/curriculum'
+      },
+      {
+        name: 'Exam Bank',
+        icon: 'icon-book',
+        link: 'academics/exam-bank'
       },
     ]);
   }
