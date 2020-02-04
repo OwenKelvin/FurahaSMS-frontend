@@ -35,9 +35,26 @@ export class LinkService {
         return this.getLibraryAdminUsersLinks();
       case 'admissions:teaching-staff':
         return this.getTeachingStaffAdmissionsLinks();
+      case 'exam:bank':
+        return this.examBankLinks;
       default:
         return this.getDashboardLinks();
     }
+  }
+  
+  get examBankLinks(): Observable<any> {
+    return of([
+      {
+        name: 'Past Exams',
+        icon: 'icon-folder-open',
+        link: 'academics/exam-bank/archives'
+      },
+      {
+        name: 'Admin',
+        icon: 'icon-user-secret',
+        link: 'academics/exam-bank/admin'
+      },
+    ]);
   }
 
   getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
@@ -279,7 +296,7 @@ export class LinkService {
       },
       {
         name: 'Exam Bank',
-        icon: 'icon-book',
+        icon: 'icon-balance-scale',
         link: 'academics/exam-bank'
       },
     ]);

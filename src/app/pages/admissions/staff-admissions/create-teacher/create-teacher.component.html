@@ -1,1 +1,50 @@
-<p>create-teacher works!</p>
+<h1>Create New Teacher</h1>
+<form [formGroup]='newTeacherForm' (submit)='submitNewTeacherForm()'>
+  <fieldset>
+    <legend>
+      <h2>Name</h2>
+    </legend>
+    <section class='d-flex flex-wrap'>
+      <section class='col-lg-4 col-sm-6 col-xs-12'>
+        <app-input [triggerValidation]='triggerValidation' placeholder='Enter First Name' id='firstName'
+          label='First Name' formControlName='firstName'>
+        </app-input>
+      </section>
+      <section class='col-lg-4 col-sm-6 col-xs-12'>
+        <app-input [triggerValidation]='triggerValidation' placeholder='Enter Last Name' id='lastName' label='Last Name'
+          formControlName='lastName'>
+        </app-input>
+      </section>
+      <section class='col-lg-4 col-sm-6 col-xs-12'>
+        <app-input id='middleName' placeholder='Enter Middle Name' label='middle Name' formControlName='middleName'>
+        </app-input>
+      </section>
+      <section class='col-lg-4 col-sm-6 col-xs-12'>
+        <app-input id='otherNames' placeholder='Enter Other Names' label='Other Names' formControlName='otherNames'>
+        </app-input>
+      </section>
+    </section>
+  </fieldset>
+  <fieldset>
+    <legend>
+      <h2>Other Details</h2>
+    </legend>
+    <section class='d-flex flex-wrap'>
+      <section class='col-lg-5 col-md-6 col-sm-12 col-xs-12'>
+        <app-input labelClass='col-lg-6' inputClass='col-md-6 col-lg-6' type='date'
+          [triggerValidation]='triggerValidation' placeholder='Enter Date Of Birth' id='dateOfBirth'
+          label='Date Of Birth' formControlName='dateOfBirth'>
+        </app-input>
+      </section>
+      <!-- <section class='col-lg-5 col-sm-6 col-xs-12'>
+            Test
+          </section> -->
+    </section>
+  </fieldset>
+  <section class="p-2">
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newTeacherForm'>
+      <!-- Create Teacher -->
+    </app-validate-submit-buttons>
+  </section>
+</form>

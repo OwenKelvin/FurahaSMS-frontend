@@ -320,6 +320,12 @@ const routes: Routes = [
         ]
       },
     ]
+  }, {
+    path: 'exam-bank',
+    loadChildren: () => import('../academics/exam-bank/exam-bank.module').then(m => m.ExamBankModule),
+    data: {
+      breadcrumb: 'Exam Bank'
+    },
   }
 ];
 
