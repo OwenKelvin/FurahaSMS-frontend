@@ -25,13 +25,13 @@
             <span [id]='"email-confirm-" + i'>User with the email Exists. Do You wish to Use this Email?</span>
             <button 
               aria-label="Yes"
-              aria-describedby='"email-confirm-" + i'
+              [attr.aria-describedby]='"email-confirm-" + i'
               (click)="updateFieldsForEmail(i)"
               style="margin-left: 15px" 
               type="button"
               class="btn btn-outline-primary">Yes</button>
             <button
-              aria-describedby='"email-confirm-" + i'
+              [attr.aria-describedby]='"email-confirm-" + i'
               (click)="clearEmail(i)"
               style="margin-left: 15px" 
               type="button"

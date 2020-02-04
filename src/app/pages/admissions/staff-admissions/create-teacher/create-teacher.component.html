@@ -1,6 +1,33 @@
 <h1>Create New Teacher</h1>
 <form [formGroup]='newTeacherForm' (submit)='submitNewTeacherForm()'>
   <fieldset>
+    <legend><h2>Email</h2></legend>
+    <section>
+      <section class="col-lg-5">
+      
+        <app-input 
+          [triggerValidation]="triggerValidation" 
+          label='Email' 
+          id="email" 
+          type="email"
+          placeholder="Please Enter Email" 
+          formControlName="email"></app-input>
+      </section>
+      <section aria-atomic="true" aria-live="polite" class="col-sm-12 col-md-12 col-lg-7" *ngIf="confirmData">
+        <span id='email-confirm'>User with the email Exists. Do You wish to Use this Email?</span>
+        <button 
+          aria-label="Yes" 
+          aria-describedby='email-confirm' 
+          (click)="updateFieldsForEmail()"
+          style="margin-left: 15px" 
+          type="button" 
+          class="btn btn-outline-primary">Yes</button>
+        <button aria-describedby='email-confirm' (click)="clearEmail()" style="margin-left: 15px" type="button"
+          class="btn btn-outline-warning">No</button>
+      </section>
+    </section>
+  </fieldset>
+  <fieldset>
     <legend>
       <h2>Name</h2>
     </legend>

@@ -41,7 +41,7 @@ export class LinkService {
         return this.getDashboardLinks();
     }
   }
-  
+
   get examBankLinks(): Observable<any> {
     return of([
       {
