@@ -14,9 +14,7 @@ export const initialState: State = {
 const teacherProfileReducer = createReducer(
   initialState,
 
-  on(TeacherProfileActions.loadTeacherProfiles, (state, payload) => {
-    return { ...state, [(payload as any).id]: payload}
-  }),
+  on(TeacherProfileActions.loadTeacherProfiles, (state, payload) => ({ ...state, [(payload as any).id]: payload })),
   on(TeacherProfileActions.loadTeacherProfilesSuccess, (state, action) => state),
   on(TeacherProfileActions.loadTeacherProfilesFailure, (state, action) => state),
 

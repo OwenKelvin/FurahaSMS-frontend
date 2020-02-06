@@ -23,7 +23,7 @@
       <th scope="col">{{ guardian.email }}</th>
       <th scope="col">{{ guardian.phone }}</th>
       <td>
-        <button [attr.aria-label]='"View Guardian" + guardian.first_name' class="btn btn-primary btn-sm"><span class="icon-eye"></span></button>
+        <a [routerLink]='["/guardians", guardian.id]' [attr.aria-label]='"View Guardian" + guardian.first_name' class="btn btn-primary btn-sm"><span class="icon-eye"></span></a>
       </td>
     </tr>
     

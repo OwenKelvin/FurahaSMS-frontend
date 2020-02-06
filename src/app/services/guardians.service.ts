@@ -47,4 +47,20 @@ export class GuardiansService {
       return user;
     }));
   }
+  getGuardianWithId(userId): Observable<any> {
+    const url = `api/guardians/${userId}`;
+    return this.http.get<any>(url)
+      .pipe(map(user => ({
+        ...user,
+        firstName: user.first_name,
+        middleName: user.middle_name,
+        lastName: user.last_name,
+        otherNames: user.other_names,
+        dateOfBirth: user.date_of_birth
+      })))
+  }
+  getStudents(userId): Observable<any> {
+    const url = `api/guardians/${userId}/students`;
+    return this.http.get<any>(url)
+  }
 }

@@ -18,6 +18,7 @@ export class UserProfileComponent implements OnInit {
   get fullName(): string {
     return this.profile.firstName + ' ' + this.profile.lastName
       + (this.profile.middleName ? (' ' + this.profile.middleName) : '')
+      + (this.profile.otherNames ? (' ' + this.profile.otherNames) : '')
       + (this.profile.userId ? (' ' + this.profile.userId) : '')
   }
   fullLink(link) {
