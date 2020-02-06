@@ -1,11 +1,11 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { GuardianProfileEffects } from './guardian-profile.effects';
 
 describe('GuardianProfileEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = of('Load');
   let effects: GuardianProfileEffects;
 
   beforeEach(() => {

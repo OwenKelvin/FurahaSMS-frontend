@@ -36,6 +36,6 @@ export class TeacherService {
         catchError(error => {
           return throwError(error);
         })
-      );;
+      );
   }
 }

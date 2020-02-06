@@ -26,9 +26,9 @@ export class ViewTeacherInfoComponent implements OnInit {
           return this.store.pipe(select(selectTeacherProfileState))
             .pipe(
               map(teacherProfile => teacherProfile[id])
-            )
+            );
         })
-      )
+      );
   }
 
 }

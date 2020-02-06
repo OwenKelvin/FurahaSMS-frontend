@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfileComponent } from './user-profile.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -8,6 +9,9 @@ describe('UserProfileComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        RouterTestingModule
+      ],
       declarations: [ UserProfileComponent ]
     })
     .compileComponents();
@@ -16,6 +20,7 @@ describe('UserProfileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
+    component.profile = {}
     fixture.detectChanges();
   });
 

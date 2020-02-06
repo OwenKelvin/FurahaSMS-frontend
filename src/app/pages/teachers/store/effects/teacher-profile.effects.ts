@@ -11,7 +11,7 @@ import * as TeacherProfileActions from '../actions/teacher-profile.actions';
 export class TeacherProfileEffects {
 
   loadTeacherProfiles$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(TeacherProfileActions.loadTeacherProfiles),
       concatMap(() =>

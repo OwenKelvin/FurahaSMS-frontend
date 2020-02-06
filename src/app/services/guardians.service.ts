@@ -57,10 +57,10 @@ export class GuardiansService {
         lastName: user.last_name,
         otherNames: user.other_names,
         dateOfBirth: user.date_of_birth
-      })))
+      })));
   }
   getStudents(userId): Observable<any> {
     const url = `api/guardians/${userId}/students`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url);
   }
 }

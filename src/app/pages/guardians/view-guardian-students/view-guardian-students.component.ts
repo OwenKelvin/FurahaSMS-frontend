@@ -25,7 +25,7 @@ export class ViewGuardianStudentsComponent implements OnInit {
   ngOnInit() {
     this.students$ = this.route.parent.paramMap
       .pipe(map(params => +params.get('id')))
-      .pipe(mergeMap(guardianId => this.guardianService.getStudents(guardianId)))
-  
+      .pipe(mergeMap(guardianId => this.guardianService.getStudents(guardianId)));
+
   }
 }

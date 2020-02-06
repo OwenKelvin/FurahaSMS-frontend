@@ -29,7 +29,7 @@ export class ViewGuardianInfoComponent implements OnInit {
               map(guardianProfile => guardianProfile[id])
             );
         })
-      )
+      );
   }
 
 }

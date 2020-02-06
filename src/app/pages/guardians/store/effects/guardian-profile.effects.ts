@@ -11,7 +11,7 @@ import * as GuardianProfileActions from '../actions/guardian-profile.actions';
 export class GuardianProfileEffects {
 
   loadGuardianProfiles$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(GuardianProfileActions.loadGuardianProfiles),
       concatMap(() =>

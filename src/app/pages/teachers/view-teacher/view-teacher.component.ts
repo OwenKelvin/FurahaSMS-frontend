@@ -26,8 +26,8 @@ export class ViewTeacherComponent implements OnInit {
     this.teacherProfile$ = this.route.paramMap
       .pipe(map(params => +params.get('id')))
       .pipe(mergeMap(id => this.teacherService.getTeacherById(id)));
-    this.teacherProfile$.subscribe(profile => this.store.dispatch(loadTeacherProfiles(profile)))
-    
+    this.teacherProfile$.subscribe(profile => this.store.dispatch(loadTeacherProfiles(profile)));
+
   }
 
 }
