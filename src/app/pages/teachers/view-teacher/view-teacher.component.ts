@@ -5,6 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
+import { loadTeacherProfiles } from '../store/actions/teacher-profile.actions';
 
 @Component({
   selector: 'app-view-teacher',
@@ -24,7 +25,8 @@ export class ViewTeacherComponent implements OnInit {
   ngOnInit() {
     this.teacherProfile$ = this.route.paramMap
       .pipe(map(params => +params.get('id')))
-      .pipe(mergeMap(id => this.teacherService.getTeacherById(id)))
+      .pipe(mergeMap(id => this.teacherService.getTeacherById(id)));
+    this.teacherProfile$.subscribe(profile => this.store.dispatch(loadTeacherProfiles(profile)))
     
   }
 

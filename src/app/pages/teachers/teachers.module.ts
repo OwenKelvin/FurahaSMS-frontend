@@ -8,6 +8,10 @@ import { AppUserProfileModule } from 'src/app/components/user-profile/user-profi
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ViewTeacherInfoComponent } from './view-teacher-info/view-teacher-info.component';
 import { ViewTeacherSubjectsComponent } from './view-teacher-subjects/view-teacher-subjects.component';
+import { StoreModule } from '@ngrx/store';
+import * as fromTeacherProfile from './store/reducers/teacher-profile.reducer';
+import { EffectsModule } from '@ngrx/effects';
+import { TeacherProfileEffects } from './store/effects/teacher-profile.effects';
 
 
 @NgModule({
@@ -17,6 +21,8 @@ import { ViewTeacherSubjectsComponent } from './view-teacher-subjects/view-teach
     TeachersRoutingModule,
     AppUserProfileModule,
     AppLoadingBubbleModule,
+    StoreModule.forFeature(fromTeacherProfile.teacherProfileFeatureKey, fromTeacherProfile.reducer),
+    EffectsModule.forFeature([TeacherProfileEffects]),
   ]
 })
 export class TeachersModule { }
