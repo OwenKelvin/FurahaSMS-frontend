@@ -25,7 +25,7 @@ export class ViewStudentComponent implements OnInit {
     this.student$ = this.studentService.getStudentById(studentId)
       .pipe(tap(profile => {
         const middleName = ' ' + (profile.middleName ? profile.middleName : '');
-        this.fullName = profile.firstName + ' ' + profile.lastName + middleName + ' | ' + profile.studentId;
+        this.fullName = profile.firstName + ' ' + profile.lastName + ' ' + profile.middleName + ' | ' + profile.studentId;
         this.store.dispatch(loadStudentProfileUpdatesSuccess(profile));
       }));
   }
