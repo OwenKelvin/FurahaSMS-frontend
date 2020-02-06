@@ -14,8 +14,6 @@ import { loadGuardianProfiles } from '../store/actions/guardian-profile.actions'
 })
 export class ViewGuardianComponent implements OnInit {
   guardianProfile$: Observable<any>;
-  linkBase: any[];
-  links: any[];
   constructor(
     private guardianService: GuardiansService,
     private route: ActivatedRoute,

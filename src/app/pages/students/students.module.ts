@@ -13,6 +13,7 @@ import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { AppOrdinalModule } from 'src/app/modules/app-ordinal.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { CreateStudentAcademicsComponent } from './create-student-academics/create-student-academics.component';
+import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 
 
 @NgModule({
@@ -32,7 +33,8 @@ import { CreateStudentAcademicsComponent } from './create-student-academics/crea
     AppInputModule,
     AppTelInputModule,
     AppOrdinalModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    AppUserProfileModule
   ]
 })
 export class StudentsModule { }
