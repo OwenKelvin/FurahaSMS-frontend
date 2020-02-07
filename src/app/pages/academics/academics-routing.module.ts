@@ -2,38 +2,38 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { AcademicsComponent } from './academics.component';
 import { AcademicYearComponent } from './academic-year/academic-year.component';
-import { CreateAcademicYearComponent } from './create-academic-year/create-academic-year.component';
-import { ViewAcademicYearComponent } from './view-academic-year/view-academic-year.component';
-import { ViewAcademicYearInfoComponent } from './view-academic-year-info/view-academic-year-info.component';
-import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
-import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
-import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
-import { AcademicYearArchivesComponent } from './academic-year-archives/academic-year-archives.component';
+import { CreateAcademicYearComponent } from './academic-year/create-academic-year/create-academic-year.component';
+import { ViewAcademicYearComponent } from './academic-year/view-academic-year/view-academic-year.component';
+import { ViewAcademicYearInfoComponent } from './academic-year/view-academic-year-info/view-academic-year-info.component';
+import { AcademicYearFinancialPlanComponent } from './academic-year/academic-year-financial-plan/academic-year-financial-plan.component';
+import { AcademicYearSubjectUnitsComponent } from './academic-year/academic-year-subject-units/academic-year-subject-units.component';
+import { AcademicYearArchivesComponent } from './academic-year/academic-year-archives/academic-year-archives.component';
 import {
   AcademicsCurriculumUnitCategoriesComponent
-} from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+} from './curriculum/academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
 import {
   AcademicsCurriculumUnitsComponent
-} from './academics-curriculum-units/academics-curriculum-units.component';
+} from './curriculum/academics-curriculum-units/academics-curriculum-units.component';
 import {
   AcademicsCurriculumClassLevelCategoriesComponent
-} from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+} from './curriculum/academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import {
   AcademicsCurriculumClassLevelsComponent
-} from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
-import { CreateUnitCategoriesComponent } from './create-unit-categories/create-unit-categories.component';
-import { EditUnitComponent } from './edit-unit/edit-unit.component';
-import { EditClassLevelCategoryComponent } from './edit-class-level-category/edit-class-level-category.component';
-import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
-import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
-import { EditClassLevelComponent } from './edit-class-level/edit-class-level.component';
-import { ViewUnitCategoryComponent } from './view-unit-category/view-unit-category.component';
-import { EditUnitCategoryComponent } from './edit-unit-category/edit-unit-category.component';
-import { ViewUnitComponent } from './view-unit/view-unit.component';
-import { CreateClassLevelCategoryComponent } from './create-class-level-category/create-class-level-category.component';
-import { ViewClassLevelCategoryComponent } from './view-class-level-category/view-class-level-category.component';
-import { CreateUnitComponent } from './create-unit/create-unit.component';
-import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation/academic-year-unit-allocation.component';
+} from './curriculum/academics-curriculum-class-levels/academics-curriculum-class-levels.component';
+import { CreateUnitCategoriesComponent } from './curriculum/create-unit-categories/create-unit-categories.component';
+import { EditUnitComponent } from './curriculum/edit-unit/edit-unit.component';
+import { EditClassLevelCategoryComponent } from './curriculum/edit-class-level-category/edit-class-level-category.component';
+import { CreateClassLevelComponent } from './curriculum/create-class-level/create-class-level.component';
+import { ViewClassLevelComponent } from './curriculum/view-class-level/view-class-level.component';
+import { EditClassLevelComponent } from './curriculum/edit-class-level/edit-class-level.component';
+import { ViewUnitCategoryComponent } from './curriculum/view-unit-category/view-unit-category.component';
+import { EditUnitCategoryComponent } from './curriculum/edit-unit-category/edit-unit-category.component';
+import { ViewUnitComponent } from './curriculum/view-unit/view-unit.component';
+import { CreateClassLevelCategoryComponent } from './curriculum/create-class-level-category/create-class-level-category.component';
+import { ViewClassLevelCategoryComponent } from './curriculum/view-class-level-category/view-class-level-category.component';
+import { CreateUnitComponent } from './curriculum/create-unit/create-unit.component';
+import { AcademicYearUnitAllocationComponent } from './academic-year/academic-year-unit-allocation/academic-year-unit-allocation.component';
+import { AcademicsCurriculumComponent } from './curriculum/academics-curriculum/academics-curriculum.component';
 
 
 const routes: Routes = [
@@ -50,71 +50,73 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Academic Year'
     },
-    children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: AcademicYearComponent,
-        data: {
-          breadcrumb: null
-        },
-      },
-      {
-        path: 'create',
-        pathMatch: 'full',
-        component: CreateAcademicYearComponent,
-        data: {
-          breadcrumb: 'New Academic Year'
-        },
-      },
-      {
-        path: 'archives',
-        pathMatch: 'full',
-        component: AcademicYearArchivesComponent,
-        data: {
-          breadcrumb: 'Archives'
-        },
-      },
-      {
-        path: 'subject-allocations',
-        component: AcademicYearUnitAllocationComponent,
-        data: {
-          breadcrumb: 'Unit Allocations'
-        },
-      },
-      {
-        // matcher: digitsMatcher,
-        path: ':id',
-        component: ViewAcademicYearComponent,
-        data: {
-          breadcrumb: null
-        },
-        children: [
-          {
-            path: '',
-            pathMatch: 'full',
-            component: ViewAcademicYearInfoComponent,
-            data: {
-              breadcrumb: null
-            },
-          },
-          {
-            path: 'financial-plan',
-            component: AcademicYearFinancialPlanComponent,
-            data: {
-              breadcrumb: 'Financial Plan'
-            },
-          },
-          {
-            path: 'unit-allocations',
-            component: AcademicYearSubjectUnitsComponent,
-            data: {
-              breadcrumb: null
-            },
-          }
-        ]
-      }
-    ]
+    loadChildren: () => import('./academic-year/academic-year.module')
+      .then(m => m.AcademicYearModule)
+    // children: [
+    //   {
+    //     path: '',
+    //     pathMatch: 'full',
+    //     component: AcademicYearComponent,
+    //     data: {
+    //       breadcrumb: null
+    //     },
+    //   },
+    //   {
+    //     path: 'create',
+    //     pathMatch: 'full',
+    //     component: CreateAcademicYearComponent,
+    //     data: {
+    //       breadcrumb: 'New Academic Year'
+    //     },
+    //   },
+    //   {
+    //     path: 'archives',
+    //     pathMatch: 'full',
+    //     component: AcademicYearArchivesComponent,
+    //     data: {
+    //       breadcrumb: 'Archives'
+    //     },
+    //   },
+    //   {
+    //     path: 'subject-allocations',
+    //     component: AcademicYearUnitAllocationComponent,
+    //     data: {
+    //       breadcrumb: 'Unit Allocations'
+    //     },
+    //   },
+    //   {
+    //     // matcher: digitsMatcher,
+    //     path: ':id',
+    //     component: ViewAcademicYearComponent,
+    //     data: {
+    //       breadcrumb: null
+    //     },
+    //     children: [
+    //       {
+    //         path: '',
+    //         pathMatch: 'full',
+    //         component: ViewAcademicYearInfoComponent,
+    //         data: {
+    //           breadcrumb: null
+    //         },
+    //       },
+    //       {
+    //         path: 'financial-plan',
+    //         component: AcademicYearFinancialPlanComponent,
+    //         data: {
+    //           breadcrumb: 'Financial Plan'
+    //         },
+    //       },
+    //       {
+    //         path: 'unit-allocations',
+    //         component: AcademicYearSubjectUnitsComponent,
+    //         data: {
+    //           breadcrumb: null
+    //         },
+    //       }
+    //     ]
+    //   }
+    // ]
   }, {
     path: 'curriculum',
     data: {
