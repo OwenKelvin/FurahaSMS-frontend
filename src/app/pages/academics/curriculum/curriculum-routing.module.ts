@@ -21,6 +21,13 @@ import { EditClassLevelComponent } from './edit-class-level/edit-class-level.com
 
 const routes: Routes = [
   {
+    path: 'semesters',
+    loadChildren: () => import('./semester/semester.module').then(m => m.SemesterModule),
+    data: {
+      breadcrumb: 'Semesters/ Terms'
+    },
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: AcademicsCurriculumComponent,

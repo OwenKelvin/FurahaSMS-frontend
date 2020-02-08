@@ -167,6 +167,11 @@ export class LinkService {
         icon: 'icon-docs',
         link: 'academics/curriculum/class-levels'
       },
+      {
+        name: 'Semester/ Terms',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/semesters'
+      },
     ]);
   }
   getLibraryLinks(): Observable<LinkInterface[]> {
