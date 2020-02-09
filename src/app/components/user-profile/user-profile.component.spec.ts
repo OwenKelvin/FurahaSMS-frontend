@@ -20,7 +20,7 @@ describe('UserProfileComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(UserProfileComponent);
     component = fixture.componentInstance;
-    component.profile = {}
+    component.profile = {};
     fixture.detectChanges();
   });
 

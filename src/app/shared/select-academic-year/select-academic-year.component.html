@@ -1,0 +1,20 @@
+<h1>{{ title }}</h1>
+
+<form *ngIf='academicYears$ | async as academicYears; else loading'>
+  <section class="d-flex">
+    <section class="col-lg-3"><label for="academic-year">Select Academic Year</label></section>
+    <section class="col-lg-4 d-flex">
+      <select [(ngModel)]='selectedAcademicYear' class="form-control" #selectField id="academic-year"
+        name="academicYear">
+        <option *ngFor='let academicYear of academicYears' [value]="academicYear.id">
+          {{ academicYear.name }}
+        </option>
+      </select>
+      <button class="btn btn-primary" [disabled]='!selectedAcademicYear'
+        [routerLink]='routesLinks'>Go</button>
+    </section>
+  </section>
+</form>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

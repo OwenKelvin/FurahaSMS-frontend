@@ -1,0 +1,27 @@
+<section *ngIf='academicYearPlan$ | async as academicYearPlan'>
+  <h1>
+    Financial Plan <span class='icon-right-dir'></span> Academic Year
+    <span *ngIf='academicYearPlan.academicYear.id !== 0' class="icon-right-dir"></span>
+    <span *ngIf='academicYearPlan.academicYear.id !== 0'>{{ academicYearPlan.academicYear.name }}</span>
+  </h1>
+  <app-loading-bubble *ngIf='academicYearPlan.academicYear.id === 0; else contents'></app-loading-bubble>
+
+  <ng-template #contents>
+
+    <tabset role="tablist" #staticTabs>
+      <tab role="tab">
+        <ng-template tabHeading>
+          Tuition Fees
+          <app-tab-error-state [hasError]='generalInfoHasError' [marked]='markTabsWithError'></app-tab-error-state>
+        </ng-template>
+        <section *ngIf='classLevels$ | async as classLevels; else loadingTuitionSection' class="d-flex flex-wrap justify-content-start pt-3">
+         
+        </section>
+        <ng-template #loadingTuitionSection>
+          <app-loading-bubble></app-loading-bubble>
+        </ng-template>
+      </tab>
+    </tabset>
+
+  </ng-template>
+</section>

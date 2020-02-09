@@ -15,9 +15,13 @@ import { EditClassLevelComponent } from './edit-class-level/edit-class-level.com
 import { ViewClassLevelComponent } from './view-class-level/view-class-level.component';
 import { CreateClassLevelComponent } from './create-class-level/create-class-level.component';
 import { AcademicsCurriculumComponent } from './academics-curriculum/academics-curriculum.component';
-import { AcademicsCurriculumUnitCategoriesComponent } from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
+import {
+  AcademicsCurriculumUnitCategoriesComponent
+} from './academics-curriculum-unit-categories/academics-curriculum-unit-categories.component';
 import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units/academics-curriculum-units.component';
-import { AcademicsCurriculumClassLevelCategoriesComponent } from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
+import {
+  AcademicsCurriculumClassLevelCategoriesComponent
+} from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

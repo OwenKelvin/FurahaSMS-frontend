@@ -32,8 +32,8 @@ export class AcademicYearFinancialPlanComponent implements OnInit {
         } else {
           this.location.back();
         }
-      })
-    
+      });
+
   }
 
 }

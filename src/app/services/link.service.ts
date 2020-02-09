@@ -37,9 +37,26 @@ export class LinkService {
         return this.getTeachingStaffAdmissionsLinks();
       case 'exam:bank':
         return this.examBankLinks;
+      case 'accounts':
+        return this.accountsLinks;
       default:
         return this.getDashboardLinks();
     }
+  }
+
+  get accountsLinks(): Observable<any> {
+    return of([
+      {
+        name: 'Financial Plan',
+        icon: 'icon-edit-1',
+        link: 'accounts/financial-plan'
+      },
+      {
+        name: 'Student Fee Payment',
+        icon: 'icon-dollar',
+        link: 'accounts/student-fee-payment'
+      },
+    ]);
   }
 
   get examBankLinks(): Observable<any> {

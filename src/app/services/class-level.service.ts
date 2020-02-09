@@ -11,24 +11,24 @@ export class ClassLevelService {
   constructor(private http: HttpClient) { }
 
   getAll(
-    data: { includeUnits?: 1; includeLevels?: 1 } = {
+    data: { includeUnits?: 1; includeLevels?: 1; academicYearId?: number } = {
       includeUnits: null,
-      includeLevels: null
+      includeLevels: null,
+      academicYearId: null
     }
   ) {
-    const { includeUnits, includeLevels } = data;
-    let url = `api/curriculum/class-levels/?`;
-    if (includeLevels) {
-      url += `include_levels=1`;
-    }
-    if (includeUnits) {
-      url += ``;
-    }
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    const { includeUnits, includeLevels, academicYearId } = data;
+
+    const params = {
+      include_levels: includeLevels,
+      academic_year_id: academicYearId,
+      include_units: includeUnits
+    };
+    const querystring = require('querystring');
+
+    const queryStringParams = querystring.stringify(params);
+
+    return this.http.get<any[]>(`api/curriculum/class-levels/?${queryStringParams}`);
   }
   get({ id }) {
     const url = `api/curriculum/class-levels/${id}`;
