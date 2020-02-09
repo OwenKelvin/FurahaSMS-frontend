@@ -4,3 +4,9 @@ import * as fromAcademicYearPlan from '../reducers/academic-year-plan.reducer';
 export const selectAcademicYearPlanState = createFeatureSelector<fromAcademicYearPlan.State>(
   fromAcademicYearPlan.academicYearPlanFeatureKey
 );
+
+export const selectAcademicYearPlanId = createSelector(
+  selectAcademicYearPlanState,
+  academicYear => academicYear.academicYear.id
+);
+

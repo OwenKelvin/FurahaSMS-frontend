@@ -2,8 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { selectAcademicYearPlanState } from '../store/selectors/academic-year-plan.selectors';
+import {
+  selectAcademicYearPlanState, selectAcademicYearPlanId
+} from '../store/selectors/academic-year-plan.selectors';
 import { ClassLevelService } from 'src/app/services/class-level.service';
+import { mergeMap, map, tap } from 'rxjs/operators';
+import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
@@ -11,14 +15,60 @@ import { ClassLevelService } from 'src/app/services/class-level.service';
   styleUrls: ['./edit-academic-year-financial-plan.component.css']
 })
 export class EditAcademicYearFinancialPlanComponent implements OnInit {
-
+  isOpen = [false];
   academicYearPlan$: Observable<any>;
   classLevels$: Observable<any>;
-  constructor(private store: Store<AppState>, private classLevelService: ClassLevelService ) { }
-
+  classLevels: any;
+  academicYearPlanId$: Observable<number>;
+  feePlanForm: FormGroup;
+  constructor(
+    private store: Store<AppState>,
+    private classLevelService: ClassLevelService,
+    private fb: FormBuilder
+  ) { }
   ngOnInit() {
+    this.feePlanForm = this.fb.group({
+      tuitionFee: this.fb.array([])
+    });
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
-    this.classLevels$ = this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1 });
+    this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
+    this.classLevels$ = this.academicYearPlanId$
+      .pipe(
+        mergeMap(academicYearId => this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId }))
+      )
+      .pipe(map(item => {
+        return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
+      }))
+      .pipe(
+        tap(item => {
+          item.forEach(i => {
+            const unitLevels = this.fb.array([]);
+            (i.unitLevels as any[]).forEach(b => {
+              unitLevels.push(
+                this.fb.group({
+                  id: b.id,
+                  amount: [0]
+                  // name: i.name,
+                })
+              );
+            });
+            this.tuitionFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                unitLevels
+              })
+            );
+          });
+        })
+      )
+      .pipe(map(item => {
+        return item;
+      }));
+  }
+
+  get tuitionFees(): FormArray {
+    return <FormArray>this.feePlanForm.get('tuitionFee');
   }
 
 }

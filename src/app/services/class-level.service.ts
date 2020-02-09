@@ -16,7 +16,7 @@ export class ClassLevelService {
       includeLevels: null,
       academicYearId: null
     }
-  ) {
+  ): Observable<any[]> {
     const { includeUnits, includeLevels, academicYearId } = data;
 
     const params = {

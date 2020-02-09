@@ -14,6 +14,9 @@ import { AcademicYearFinancialPlanComponent } from './academic-year-financial-pl
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 
 @NgModule({
@@ -30,7 +33,11 @@ import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
     EffectsModule.forFeature([AcademicYearPlanEffects]),
     AppLoadingBubbleModule,
     TabsModule.forRoot(),
-    TabErrorStateModule
+    AccordionModule.forRoot(),
+    TabErrorStateModule,
+    FormsModule,
+    ReactiveFormsModule,
+    AppInputModule
   ]
 })
 export class FinancialPlanModule { }

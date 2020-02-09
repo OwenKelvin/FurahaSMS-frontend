@@ -7,21 +7,45 @@
   <app-loading-bubble *ngIf='academicYearPlan.academicYear.id === 0; else contents'></app-loading-bubble>
 
   <ng-template #contents>
+    <form [formGroup]='feePlanForm'>
+      <tabset role="tablist" #staticTabs>
+        <tab role="tab">
+          <ng-template tabHeading>
+            Tuition Fees
+            <app-tab-error-state [hasError]='generalInfoHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section  *ngIf='classLevels$ | async as classLevels; else loadingTuitionSection'
+            class="pt-3">
+            <accordion [closeOthers]=[true] formArrayName='tuitionFee'>
+              <accordion-group class="mt-2" *ngFor='let classLevel of classLevels; let i = index'
+                [(isOpen)]="isOpen[i]" [class.active-group]="isOpen[i]" [formGroupName]='i'>
 
-    <tabset role="tablist" #staticTabs>
-      <tab role="tab">
-        <ng-template tabHeading>
-          Tuition Fees
-          <app-tab-error-state [hasError]='generalInfoHasError' [marked]='markTabsWithError'></app-tab-error-state>
-        </ng-template>
-        <section *ngIf='classLevels$ | async as classLevels; else loadingTuitionSection' class="d-flex flex-wrap justify-content-start pt-3">
-         
-        </section>
-        <ng-template #loadingTuitionSection>
-          <app-loading-bubble></app-loading-bubble>
-        </ng-template>
-      </tab>
-    </tabset>
+                <section accordion-heading class="d-flex justify-content-between">
+                  <h2 [class.active]="isOpen[i]">{{ classLevel.name }}</h2>
+                  <section>
+                    <button class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpen[i]'
+                        [class.icon-up-dir]='isOpen[i]'></span>View</button>
+                  </section>
+                </section>
+                <section class="d-flex flex-wrap justify-content-between" formArrayName='unitLevels'>
+                  <section class="col-lg-4" *ngFor='let unitLevel of classLevel.unitLevels' [formGroupName]='i'>
+                    <app-input 
+                      placeholder='Enter Amount'
+                      type='number'
+                      labelClass='col-lg-12'
+                      inputClass='col-lg-12'
+                      [label]='unitLevel.name' formControlName='amount'></app-input>
+                  </section>
+                </section>
+              </accordion-group>
+            </accordion>
+          </section>
+          <ng-template #loadingTuitionSection>
+            <app-loading-bubble></app-loading-bubble>
+          </ng-template>
+        </tab>
+      </tabset>
 
+    </form>
   </ng-template>
 </section>
