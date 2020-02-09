@@ -2,13 +2,14 @@ import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angu
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { takeWhile, map } from 'rxjs/operators';
 import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
+import { SemesterService } from '../semester/services/semester.service';
 
 @Component({
   selector: 'app-edit-unit',
@@ -26,11 +27,13 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   isSubmitting: boolean;
   triggerValidation: boolean;
   markTabsWithError: boolean;
+  semesters$: Observable<{ id: number; name: string; }[]>;
   constructor(
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute,
     private unitService: UnitsService,
+    private semesterService: SemesterService,
     private store: Store<AppState>) { }
 
   ngOnInit() {
@@ -48,7 +51,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     this.unitForm.valueChanges.subscribe(item => {
       this.valueChange.emit(this.unitForm);
     });
-
+    this.semesters$ = this.semesterService.getAll()
     this.route.paramMap.subscribe(params => {
       this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
       this.unit$
@@ -56,9 +59,15 @@ export class EditUnitComponent implements OnInit, OnDestroy {
         .pipe(map(({ id, active, name, abbreviation: abbr, essence_statement: description,
           unit_category_id: unitCategory, unit_levels: unitLevels }) => ({
             id, active, name, abbr, description, unitCategory,
-            unitLevels: unitLevels ? unitLevels.map(({ id: id1, name: name1, level }) => ({ id: id1, name: name1, level })) : []
+            unitLevels: (unitLevels ? unitLevels.map(({ id: id1, name: name1, level, semesters }) => ({
+              id: id1,
+              name: name1,
+              level,
+              semesters: semesters ? semesters.map(({id}) => id ) : []
+            })) : [])
           })))
         .subscribe(unit => {
+          console.log(unit)
           this.unit = unit;
           if (unit.unitLevels.length === 0) {
             this.addUnitLevelFromValue(false);
@@ -66,7 +75,6 @@ export class EditUnitComponent implements OnInit, OnDestroy {
             [].forEach.call(unit.unitLevels, () => this.addUnitLevelFromValue(false));
           }
           this.unitForm.setValue(unit);
-
         });
     });
   }
@@ -89,7 +97,8 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       this.unitLevels.push(this.fb.group({
         id: [],
         name: ['', [Validators.required]],
-        level: [null, [Validators.pattern('^[0-9]+$'), Validators.required]]
+        level: [null, [Validators.pattern('^[0-9]+$'), Validators.required]],
+        semesters: [[], Validators.required]
       }));
     }
   }

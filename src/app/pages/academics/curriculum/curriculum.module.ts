@@ -32,6 +32,7 @@ import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppCrudModule } from 'src/app/modules/app-crud.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -66,7 +67,8 @@ import { AppCrudModule } from 'src/app/modules/app-crud.module';
     TabErrorStateModule,
     TabsModule.forRoot(),
     AppViewItemsModule,
-    AppCrudModule
+    AppCrudModule,
+    NgSelectModule
   ]
 })
 export class CurriculumModule { }
