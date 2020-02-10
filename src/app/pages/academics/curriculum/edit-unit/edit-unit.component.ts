@@ -51,7 +51,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     this.unitForm.valueChanges.subscribe(item => {
       this.valueChange.emit(this.unitForm);
     });
-    this.semesters$ = this.semesterService.getAll()
+    this.semesters$ = this.semesterService.getAll();
     this.route.paramMap.subscribe(params => {
       this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
       this.unit$
@@ -63,11 +63,11 @@ export class EditUnitComponent implements OnInit, OnDestroy {
               id: id1,
               name: name1,
               level,
-              semesters: semesters ? semesters.map(({id}) => id ) : []
+              semesters: semesters ? semesters.map(({id: id2}) => id2 ) : []
             })) : [])
           })))
         .subscribe(unit => {
-          console.log(unit)
+          console.log(unit);
           this.unit = unit;
           if (unit.unitLevels.length === 0) {
             this.addUnitLevelFromValue(false);

@@ -59,8 +59,8 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
                     name: c.name,
                     amount: [0],
                   })
-                )
-              })
+                );
+              });
               unitLevels.push(
                 this.fb.group({
                   id: b.id,
@@ -85,10 +85,10 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   }
 
   get tuitionFees(): FormArray {
-    return <FormArray>this.feePlanForm.get('tuitionFee');
+    return this.feePlanForm.get('tuitionFee') as FormArray;
   }
   validateForm() {
-    this.triggerValidation = !this.triggerValidation
+    this.triggerValidation = !this.triggerValidation;
   }
   submitfeePlanForm() {
     if (this.feePlanForm.valid) {
@@ -97,12 +97,12 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
         .submit({ academicYearId: 1, data: this.feePlanForm.value })
         .subscribe(res => {
           this.isSubmitting = false;
-        }, err => this.isSubmitting = false)
+        }, err => this.isSubmitting = false);
     }
-    
+
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
   }
-  
+
 }
