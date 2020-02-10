@@ -44,10 +44,20 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
           item.forEach(i => {
             const unitLevels = this.fb.array([]);
             (i.unitLevels as any[]).forEach(b => {
+              const semesters = this.fb.array([]);
+              b.semesters.forEach(c => {
+                semesters.push(
+                  this.fb.group({
+                    id: c.id,
+                    name: c.name,
+                    amount: [0],
+                  })
+                )
+              })
               unitLevels.push(
                 this.fb.group({
                   id: b.id,
-                  amount: [0]
+                  semesters
                   // name: i.name,
                 })
               );
