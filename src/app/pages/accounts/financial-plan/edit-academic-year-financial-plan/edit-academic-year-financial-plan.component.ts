@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
@@ -8,6 +8,8 @@ import {
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { mergeMap, map, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
+import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
+import { FinancialPlanService } from '../../services/financial-plan.service';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
@@ -21,10 +23,15 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   classLevels: any;
   academicYearPlanId$: Observable<number>;
   feePlanForm: FormGroup;
+  triggerValidation: boolean;
+  isSubmitting: boolean;
+  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  markTabsWithError: boolean;
   constructor(
     private store: Store<AppState>,
     private classLevelService: ClassLevelService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private financialPlanService: FinancialPlanService
   ) { }
   ngOnInit() {
     this.feePlanForm = this.fb.group({
@@ -80,5 +87,22 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   get tuitionFees(): FormArray {
     return <FormArray>this.feePlanForm.get('tuitionFee');
   }
-
+  validateForm() {
+    this.triggerValidation = !this.triggerValidation
+  }
+  submitfeePlanForm() {
+    if (this.feePlanForm.valid) {
+      this.isSubmitting = true;
+      this.financialPlanService
+        .submit({ academicYearId: 1, data: this.feePlanForm.value })
+        .subscribe(res => {
+          this.isSubmitting = false;
+        }, err => this.isSubmitting = false)
+    }
+    
+  }
+  selectTab(tabId: number) {
+    this.staticTabs.tabs[tabId].active = true;
+  }
+  
 }

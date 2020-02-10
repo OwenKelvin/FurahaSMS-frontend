@@ -74,6 +74,10 @@ h4 {
   font-weight: 300;
   border-left: 12px solid lightblue;
 }
+legend {
+  font-size: 1.0rem;
+  font-weight: bold;
+}
 .full-height {
   height: 100%;
 }
