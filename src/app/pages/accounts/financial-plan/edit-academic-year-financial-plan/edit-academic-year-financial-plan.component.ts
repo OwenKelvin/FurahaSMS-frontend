@@ -10,6 +10,7 @@ import { mergeMap, map, tap } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
@@ -93,10 +94,20 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   submitfeePlanForm() {
     if (this.feePlanForm.valid) {
       this.isSubmitting = true;
-      this.financialPlanService
-        .submit({ academicYearId: 1, data: this.feePlanForm.value })
+      
+      this.academicYearPlanId$
+        .pipe(
+          mergeMap(
+            id => this.financialPlanService
+              .submit({ academicYearId: id, data: this.feePlanForm.value }))
+        )
         .subscribe(res => {
           this.isSubmitting = false;
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: res.message,
+            toastHeader: 'Success'
+          }));
         }, err => this.isSubmitting = false);
     }
 

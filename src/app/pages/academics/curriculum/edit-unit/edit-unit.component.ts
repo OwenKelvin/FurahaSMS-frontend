@@ -67,7 +67,6 @@ export class EditUnitComponent implements OnInit, OnDestroy {
             })) : [])
           })))
         .subscribe(unit => {
-          console.log(unit);
           this.unit = unit;
           if (unit.unitLevels.length === 0) {
             this.addUnitLevelFromValue(false);
