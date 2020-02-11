@@ -1,12 +1,12 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Observable, of } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import {
   selectAcademicYearPlanState, selectAcademicYearPlanId
 } from '../store/selectors/academic-year-plan.selectors';
 import { ClassLevelService } from 'src/app/services/class-level.service';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map, tap, takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
@@ -17,7 +17,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
   templateUrl: './edit-academic-year-financial-plan.component.html',
   styleUrls: ['./edit-academic-year-financial-plan.component.css']
 })
-export class EditAcademicYearFinancialPlanComponent implements OnInit {
+export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy {
   isOpen = [false];
   academicYearPlan$: Observable<any>;
   classLevels$: Observable<any>;
@@ -28,6 +28,8 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   isSubmitting: boolean;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
+  componentIsActive: boolean;
+  plans: any;
   constructor(
     private store: Store<AppState>,
     private classLevelService: ClassLevelService,
@@ -35,6 +37,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
     private financialPlanService: FinancialPlanService
   ) { }
   ngOnInit() {
+    this.componentIsActive = true;
     this.feePlanForm = this.fb.group({
       tuitionFee: this.fb.array([])
     });
@@ -78,11 +81,27 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
               })
             );
           });
+          if (this.plans.tuitionFee.length > 0) {
+            this.tuitionFees.setValue(this.plans.tuitionFee);
+          }
+
         })
       )
       .pipe(map(item => {
         return item;
       }));
+    this.academicYearPlanId$
+      .pipe(mergeMap(academicYearId => {
+        if (academicYearId === 0) {
+          return of(this.feePlanForm.value);
+        }
+        return this.financialPlanService.getForAcademicYear(academicYearId);
+
+      }))
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(plans => {
+        this.plans = plans;
+      });
   }
 
   get tuitionFees(): FormArray {
@@ -94,7 +113,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   submitfeePlanForm() {
     if (this.feePlanForm.valid) {
       this.isSubmitting = true;
-      
+
       this.academicYearPlanId$
         .pipe(
           mergeMap(
@@ -114,6 +133,9 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit {
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }
