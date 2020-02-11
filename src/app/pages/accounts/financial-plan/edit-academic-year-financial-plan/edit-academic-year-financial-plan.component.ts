@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable, of, forkJoin } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import {
@@ -45,9 +45,16 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
     this.classLevels$ = this.academicYearPlanId$
       .pipe(
-        mergeMap(academicYearId => this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId }))
+        mergeMap(academicYearId => {
+          return forkJoin([
+            this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId }),
+            this.financialPlanService.getForAcademicYear(academicYearId)
+          ])
+          // return this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId })
+        })
       )
-      .pipe(map(item => {
+      .pipe(map(([item, item1]) => {
+        this.plans = item1;
         return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
       }))
       .pipe(
@@ -87,21 +94,6 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
 
         })
       )
-      .pipe(map(item => {
-        return item;
-      }));
-    this.academicYearPlanId$
-      .pipe(mergeMap(academicYearId => {
-        if (academicYearId === 0) {
-          return of(this.feePlanForm.value);
-        }
-        return this.financialPlanService.getForAcademicYear(academicYearId);
-
-      }))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(plans => {
-        this.plans = plans;
-      });
   }
 
   get tuitionFees(): FormArray {
