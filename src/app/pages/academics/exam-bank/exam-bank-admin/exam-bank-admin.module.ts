@@ -12,6 +12,7 @@ import { AdminExamPaperViewComponent } from './admin-exam-paper-view/admin-exam-
 import { AdminExamPaperComponent } from './admin-exam-paper/admin-exam-paper.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AdminExamPaperEditComponent } from './admin-exam-paper-edit/admin-exam-paper-edit.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import { AdminExamPaperEditComponent } from './admin-exam-paper-edit/admin-exam-
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ModalModule.forRoot()
   ]
 })
 export class ExamBankAdminModule { }

@@ -171,5 +171,6 @@ a:hover {
  line-height: 2em;
 }
 .modal-container {
-   border: black solid 4px
+   border: rgba(165, 165, 165, 0.8) solid 2px;
+   border-radius: 5px;
 }

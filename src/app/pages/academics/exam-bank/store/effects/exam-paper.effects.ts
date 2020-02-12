@@ -4,6 +4,7 @@ import { catchError, map, concatMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as ExamPaperActions from '../actions/exam-paper.actions';
+import { ExamPaperService } from '../../services/exam-paper.service';
 
 
 
@@ -11,20 +12,19 @@ import * as ExamPaperActions from '../actions/exam-paper.actions';
 export class ExamPaperEffects {
 
   loadExamPapers$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(ExamPaperActions.loadExamPapers),
-      concatMap(() =>
-        /** An EMPTY observable only emits completion. Replace with your own observable API request */
-        EMPTY.pipe(
+      concatMap((prop) => {
+        return this.examPaperServive.getExamPaperWithId(prop.id).pipe(
           map(data => ExamPaperActions.loadExamPapersSuccess({ data })),
-          catchError(error => of(ExamPaperActions.loadExamPapersFailure({ error }))))
-      )
+          catchError(error => of(ExamPaperActions.loadExamPapersFailure({ error }))));
+      })
     );
   });
 
 
 
-  constructor(private actions$: Actions) {}
+  constructor(private actions$: Actions, private examPaperServive: ExamPaperService) {}
 
 }

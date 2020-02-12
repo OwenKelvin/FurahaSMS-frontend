@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ExamPaperService {
+  getExamPaperWithId(id: number): Observable<any> {
+    return this.http.get(`api/academics/exam-papers/${id}`);
+  }
   deleteItem(id: number): Observable<any> {
     return this.http.delete(`api/academics/exam-papers/${id}`);
   }

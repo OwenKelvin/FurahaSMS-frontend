@@ -1,7 +1,7 @@
 import { createAction, props } from '@ngrx/store';
 
 export const loadExamPapers = createAction(
-  '[ExamPaper] Load ExamPapers'
+  '[ExamPaper] Load ExamPapers', props<{ id: number; }>()
 );
 
 export const loadExamPapersSuccess = createAction(

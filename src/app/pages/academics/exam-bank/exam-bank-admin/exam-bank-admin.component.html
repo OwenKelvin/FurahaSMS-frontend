@@ -29,13 +29,13 @@
         <td >{{ examPaper.name }}</td>
         <td> {{ examPaper.unitLevelName }}</td>
         <td class="d-flex justify-content-around">
-          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", 3, "edit"]' class="btn btn-primary btn-sm">
+          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", examPaper.id , "edit"]' class="btn btn-primary btn-sm">
             <span class="icon-edit"></span> <span class="sr-only">Edit</span>
           </a>
           <a (click)='deleteItem({index: i, id: examPaper.id, name: examPaper.name })' class="btn btn-danger btn-sm">
             <span [class.animate-spin]='deleting[i]' class="icon-trash"></span> <span class="sr-only">Delete</span>
           </a>
-          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", 3, "view"]' class="btn btn-info btn-sm">
+          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", examPaper.id, "view"]' class="btn btn-info btn-sm">
             <span class="icon-eye"></span> <span class="sr-only">View</span>
           </a>
         </td>
