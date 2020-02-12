@@ -2,18 +2,13 @@ import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
-  Validators,
-  FormArray
-} from '@angular/forms';
+  Validators} from '@angular/forms';
 import { Store } from '@ngrx/store';
-import { ActivatedRouteSnapshot, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+import { Router } from '@angular/router';
 import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interface';
-import { UnitLevelService } from 'src/app/services/unit-level.service';
-import { UnitCategoryService } from 'src/app/services/unit-category.service';
 import { UnitsService } from 'src/app/services/units.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { VIEW_UNIT_CATEGORY_CURRICULUM, VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
+import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { AppState } from 'src/app/store/reducers';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 
@@ -64,7 +59,7 @@ export class CreateUnitComponent implements OnInit {
       active: [true],
       unitCategory: [null, Validators.required]
     });
-    this.unitForm.valueChanges.subscribe(item => {
+    this.unitForm.valueChanges.subscribe(() => {
       this.valueChange.emit(this.unitForm);
     });
   }

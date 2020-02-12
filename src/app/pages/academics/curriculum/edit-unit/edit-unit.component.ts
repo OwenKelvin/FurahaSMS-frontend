@@ -28,6 +28,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   triggerValidation: boolean;
   markTabsWithError: boolean;
   semesters$: Observable<{ id: number; name: string; }[]>;
+  semesters: { id: number; name: string; }[];
   constructor(
     private fb: FormBuilder,
     private router: Router,
@@ -52,6 +53,9 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       this.valueChange.emit(this.unitForm);
     });
     this.semesters$ = this.semesterService.getAll();
+    this.semesters$.subscribe(items => {
+      this.semesters = items;
+    })
     this.route.paramMap.subscribe(params => {
       this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
       this.unit$

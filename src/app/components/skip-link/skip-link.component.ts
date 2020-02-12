@@ -16,7 +16,7 @@ export class SkipLinkComponent implements OnInit, OnDestroy {
   ) { }
   ngOnInit() {
     this.componentIsActive = true;
-    this.skipLinkPath = `${this.router.url}#main`;
+    this.skipLinkPath = `${this.router.url.replace('#main', '')}#main`;
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .pipe(takeWhile(() => this.componentIsActive))
       .pipe(map(event => (event as any).url ))

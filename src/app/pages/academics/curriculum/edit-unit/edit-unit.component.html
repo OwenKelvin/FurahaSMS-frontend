@@ -15,7 +15,7 @@
               type="text" placeholder="Name" formControlName="name"></app-input>
           </section>
           <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
-            <app-select [triggerValidation]='triggerValidation' id='unitCategory' type="units"
+            <app-select [triggerValidation]='triggerValidation' id='unitCategory' type="unit-categories"
               formControlName="unitCategory">
             </app-select>
           </section>
@@ -65,7 +65,7 @@
               </section>
               <section class="col-lg-10">
                 <label [attr.for]='"semester-" + i'>Applicable Semesters/ Terms</label>
-                <ng-select [id]='"semester-" + i' class="custom" [items]='semesters$ | async' [multiple]="true" bindLabel="name" formControlName='semesters'
+                <ng-select [id]='"semester-" + i' class="custom" [items]='semesters' [multiple]="true" bindLabel="name" formControlName='semesters'
                   [selectableGroup]="true" [closeOnSelect]="false" bindValue="id" >
                   <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
                     <input 
