@@ -7,7 +7,13 @@ export interface State {
   biography?: string;
 }
 
-export const initialState: State[] = [];
+export const initialState: State[] = [
+  {
+    id: 0,
+    name: '',
+    biography: '',
+  }
+];
 
 const libraryBookClassificationReducer = createReducer(
   initialState,

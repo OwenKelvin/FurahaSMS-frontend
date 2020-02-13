@@ -43,4 +43,9 @@ describe('LayoutComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+  it('should have as function "closeFullScreenMode" that exits fullscreen mode', () => {
+    const spyExitFullScreen = spyOn(document, 'exitFullscreen');
+    component.closeFullScreenMode();
+    expect(spyExitFullScreen).toHaveBeenCalled();
+  });
 });

@@ -12,7 +12,7 @@ import { Observable } from 'rxjs';
 export class LayoutComponent implements OnInit {
   isMenuOpen$: Observable<boolean>;
   closeFullScreenMode = (): void => {
-    document.exitFullscreen()
+    document.exitFullscreen();
   }
   constructor(private store: Store<AppState>) { }
 

@@ -26,15 +26,15 @@ describe('GuestGuard', () => {
   it('should create auth guard', inject([GuestGuard, Store], (guard: GuestGuard, store: Store<AppState>) => {
     expect(guard).toBeTruthy();
   }));
-  it('should return true if no current user ', inject([Store], (store: Store<AppState>) => {
+  it('should return true if no current user ', inject([
+    Store, AuthenticationService], (store: Store<AppState>, authenticationServive: AuthenticationService) => {
     const next = jasmine.createSpyObj({queryParams: ''});
     const state = jasmine.createSpyObj({url: ''});
     const router = jasmine.createSpyObj({ navigate: () => { } });
-    const authenticationServive = jasmine.createSpyObj({
-      currentUserValue: false
-    });
+
+    spyOnProperty(authenticationServive, 'currentUserValue').and.returnValue(false);
     const guestGuard = new GuestGuard(store, router, authenticationServive);
-    // expect(guestGuard.canActivate(next, state)).toBeTruthy();
+    expect(guestGuard.canActivate(next, state)).toBeTruthy();
   }));
   it(
     'should return false if current user ',
