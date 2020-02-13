@@ -19,3 +19,6 @@ ol {
   right: 10px;
   position: absolute;
 }
+nav {
+  position: relative;
+}

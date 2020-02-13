@@ -7,33 +7,42 @@
     </button>
   </div>
   <div class="modal-body bg-dark">
-    <form>
-      <textarea name='description' [(ngModel)]='dialog.value.description' class='form-control' id="description"
-        rows="3">
+    <form [formGroup]='editDialogForm'>
+      <label for="description" class="control-label">Question description</label>
+      <textarea formControlName='description' class='form-control' id="description" rows="3">
 
       </textarea>
-     
-      <section class="d-flex">
-        <div class="form-check col-lg-3 col-md-4 col-sm-6 mt-2">
-          <input name='multipleChoices' class="form-check-input" type="checkbox" id='multiple-choice'>
-          <label class="form-check-label" for='multiple-choice'>
+
+      <section class="d-flex justify-content-between flex-wrap align-items-center">
+        <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
+          <label class="control-label" for='points'>
+            Question Points
+          </label>
+          <input min="0.25" step="0.25" max="40" type="number" formControlName='points' class="form-control" id='points'>
+        </div>
+        
+        <div class="form-check col-lg-3 col-md-4 col-sm-6  mt-4">
+          <input formControlName='multipleChoices' class="form-check-input" type="checkbox" id='multiple-choice'>
+          <label class="form-check-label " for='multiple-choice'>
             Has Choices
           </label>
         </div>
-        <div class="col-lg-9 col-md-12 col-sm-12 mt-2">
-          <fieldset>
+        <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+          <fieldset *ngIf='editDialogForm.get("multipleChoices").value'>
             <legend>Number of Correct Answes</legend>
             <div class="d-flex">
               <div class="form-check col-lg-5">
-                <input name='multipleAnswers' class="form-check-input" type="radio" id='correct-answer-single'>
+                <input [value]="false" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
+                  type="radio" id='correct-answer-single'>
                 <label class="form-check-label" for='correct-answer-single'>
                   Single
                 </label>
               </div>
               <div class="form-check col-lg-5">
-                <input name='multipleAnswers' class="form-check-input" type="radio" id='correct-answer-multiple'>
+                <input [value]="true" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
+                  type="radio" id='correct-answer-multiple'>
                 <label class="form-check-label" for='correct-answer-multiple'>
-                
+
                   Multiple
                 </label>
               </div>
@@ -41,35 +50,47 @@
 
           </fieldset>
         </div>
-        
       </section>
-      <div>
-        <fieldset>
-          <legend>Question Answers</legend>
-          <button (click)='addAnswers()' class="btn btn-sm btn-primary ml-3 mb-2"><span class="icon-plus-circled"></span>Add Answer</button>
-          <section class="d-flex flex-wrap">
-            <section class="col-lg-10">
-              <input class="form-control" type="text">
-            </section>
-            <section class="col-lg-2">
-              <button (click)='deleteAnswer()' class="btn btn-danger btn-sm icon-trash"> <span class="sr-only">Delete</span></button>
-            </section>
+      <fieldset formArrayName='answers'>
+        <legend>Question Answers</legend>
+        <button (click)='addAnswers()' class="btn btn-sm btn-primary ml-3 mb-1"><span class="icon-plus-circled"></span>Add
+          Answer</button>
+        <section class="d-flex flex-wrap mt-2" *ngFor='let control of answers.controls; let i = index' [formGroupName]='i'>
+          <section class="col-lg-8">
+            <label [attr.for]='"description" + i' class="control-label">Answer description</label>
+            <textarea [id]='"description" + i' formControlName='description' class="form-control" type="text"></textarea>
           </section>
-        </fieldset>
-      </div>
+          <section class="col-lg-3 mt-3 d-flex align-items-center flex-wrap justify-content-between">
+            <div class="form-check">
+              <label [attr.for]='"isCorrect" + i'>Correct Answer
+      
+              </label>
+              <input class="ml-2" formControlName='isCorrect' title="Mark answer as correct" type="checkbox"
+                [id]='"isCorrect" + i'>
+      
+            </div>
+      
+          </section>
+          <section class="col-lg-1  d-flex align-items-center">
+            <button type="button" (click)='deleteAnswer(i)' class="btn btn-danger btn-sm icon-trash"> <span
+                class="sr-only">Delete</span></button>
+          </section>
+        </section>
+      </fieldset>
+      <section class="mt-3">
+        <label for="correctAnswerDescription">Correct Answer Description</label>
+        <textarea id='correctAnswerDescription' formControlName="correctAnswerDescription" cols="4" class="form-control"></textarea>
+      </section>
       <section class="d-flex justify-content-between">
-        <button (click)='saveQuestion()' type="button" class="btn btn-success btn-sm mb-2 mt-2">Save</button>
+        <button
+          [disabled]='editDialogForm.invalid'
+          (click)='saveQuestion()' type="button" class="btn btn-success btn-sm mb-2 mt-2">
+          Save <span *ngIf='editDialogForm.valid' class="icon-ok"></span></button>
         <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
       </section>
     </form>
   </div>
 </ng-template>
-
-
-
-
-
-
 <section *ngIf='examPaper$ | async as examPaper; else loading'>
   <section *ngIf='examPaper; else loading'>
     <h1>Edit Exam <span class="icon-right-dir"></span> {{ examPaper.name }} | {{ examPaper.unit_level_name }}</h1>
@@ -90,8 +111,8 @@
     </section>
     <ng-container *ngFor='let question of questions; let i = index'>
       <section class="card mt-1" *ngIf='i === activeQuestion'>
-        <section class="card-header d-flex flex-wrap justify-content-between">
-          <section class="badge badge-primary p-2">Qn: {{ i + 1 }} <span class="sr-only">Question {{ i + 1 }}</span>
+        <section class="card-header d-flex flex-wrap justify-content-between align-items-center">
+          <section class="badge badge-primary">Qn:{{ i + 1 }} [{{ question.points | number:'1.1-1' }} points] <span class="sr-only">Question {{ i + 1 }}</span>
           </section>
           <section>
             <button type="button" class="btn btn-sm btn-primary ml-2" (click)='openModal(template, "edit", i)'> <span
@@ -107,12 +128,23 @@
               Before</button>
           </section>
         </section>
-        <p class="card-body mb-0">
-          {{ question.description }}
-        </p>
+        <section class="card-body mb-0 choices">
+          <section class="pb-2 border-bottom">
+            <p>{{ question.description }}</p>
+          </section>
+          <fieldset class="bg-dark mt-1">
+            <legend>Choices</legend>
+            <ul class="list-group ">
+              <li *ngFor='let answer of question.answers' class="list-group-item list-group-flush bg-dark">
+                <span [class.icon-check-empty]='!answer.isCorrect' [class.icon-check]="answer.isCorrect"
+                  style="font-size: 1.2rem;"></span> {{ answer.description }}
+              </li>
+            </ul>
+            
+          </fieldset>
+        </section>
         <section class="card-footer mt-0 pt-0 d-flex justify-content-between flex-wrap">
           <section>
-            <button type="button" class="btn btn-sm btn-success"><span class="icon-ok"></span> Save</button>
             <button (click)='activeQuestion = activeQuestion + 1' [disabled]='activeQuestion === (questions.length - 1)'
               type="button" class="btn btn-sm btn-secondary ml-2"> <span class="icon-right-bold"></span>
               Next
@@ -124,10 +156,8 @@
               <span class="icon-plus-circled"></span>
               <span class="icon-down-fat"></span>
               Add After</button>
-            <button
-              [disabled]='questions.length === 1'
-              (click)='deleteQuestion(i)' type="button" class="btn btn-sm btn-danger ml-2"><span
-                class="icon-trash-1"></span> Delete</button>
+            <button [disabled]='questions.length === 1' (click)='deleteQuestion(i)' type="button"
+              class="btn btn-sm btn-danger ml-2"><span class="icon-trash-1"></span> Delete</button>
           </section>
           <section>
 
@@ -144,6 +174,7 @@
       </section>
     </ng-container>
   </fieldset>
+    <button type="button" class="btn btn-sm btn-success mt-3"> Save Changes<span class="icon-ok"></span></button>
 </section>
 <ng-template #loading>
   <h1>Edit Exam</h1>

@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';

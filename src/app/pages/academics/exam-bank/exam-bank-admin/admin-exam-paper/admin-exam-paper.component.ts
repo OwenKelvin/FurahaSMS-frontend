@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';

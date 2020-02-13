@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExamPaperService } from '../services/exam-paper.service';
 import { Observable } from 'rxjs';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
 
 @Component({

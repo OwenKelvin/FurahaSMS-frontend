@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { selectAcademicYearPlanState } from '../store/selectors/academic-year-plan.selectors';
 import { Observable } from 'rxjs';
 

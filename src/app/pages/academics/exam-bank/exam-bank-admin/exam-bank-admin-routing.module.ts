@@ -5,6 +5,7 @@ import { CreateExamComponent } from './create-exam/create-exam.component';
 import { AdminExamPaperComponent } from './admin-exam-paper/admin-exam-paper.component';
 import { AdminExamPaperViewComponent } from './admin-exam-paper-view/admin-exam-paper-view.component';
 import { AdminExamPaperEditComponent } from './admin-exam-paper-edit/admin-exam-paper-edit.component';
+import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 
 
 const routes: Routes = [
@@ -48,6 +49,7 @@ const routes: Routes = [
           {
             path: 'edit',
             component: AdminExamPaperEditComponent,
+            canDeactivate: [CanDeactivateGuard],
             data: {
               breadcrumb: 'Edit'
             }

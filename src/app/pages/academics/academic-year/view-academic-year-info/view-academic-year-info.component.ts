@@ -2,7 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { selectActivePageStateId } from 'src/app/store/selectors/active-page.selector';
 import { Observable } from 'rxjs';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-view-academic-year-info',

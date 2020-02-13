@@ -3,7 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs/operators';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Store } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { loadAcademicYearPlans } from '../store/actions/academic-year-plan.actions';
 
 @Component({
