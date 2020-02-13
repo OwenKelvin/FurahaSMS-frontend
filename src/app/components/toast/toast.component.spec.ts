@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ToastComponent } from './toast.component';
 import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -9,8 +10,15 @@ describe('ToastComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({})],
-      declarations: [ ToastComponent ]
+      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })],
+      declarations: [ToastComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

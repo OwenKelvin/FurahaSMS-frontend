@@ -105,6 +105,20 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Students'
         }
+      },
+      {
+        path: 'teachers',
+        loadChildren: () => import('./teachers/teachers.module').then(m => m.TeachersModule),
+        data: {
+          breadcrumb: 'Teachers'
+        }
+      },
+      {
+        path: 'guardians',
+        loadChildren: () => import('./guardians/guardians.module').then(m => m.GuardiansModule),
+        data: {
+          breadcrumb: 'Guardians'
+        }
       }
     ]
   }

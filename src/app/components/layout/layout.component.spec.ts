@@ -1,18 +1,12 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LayoutComponent } from './layout.component';
-import { HeaderComponent } from './../header/header.component';
-import { FooterComponent } from './../footer/footer.component';
-import { SidebarComponent } from './../sidebar/sidebar.component';
-import { UserButtonComponent } from './../user-button/user-button.component';
-import { MenuSearchComponent } from './../menu-search/menu-search.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-import { NetworkErrorComponent } from '../network-error/network-error.component';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -24,11 +18,18 @@ describe('LayoutComponent', () => {
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         HttpClientTestingModule,
         AppLayoutModule
       ],
-      declarations: []
+      declarations: [],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

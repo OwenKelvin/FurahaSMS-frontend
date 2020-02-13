@@ -7,7 +7,8 @@
 	  	<section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
 	      <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
 	    </section>
-			<input 
+			<input
+			  [step]='step'
 	      [autocomplete]='autocomplete'
 	      [autofocus]='autofocus'
 	      [formControl]='formControl'

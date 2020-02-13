@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { MenuSearchComponent } from './menu-search.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from './../../store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
@@ -13,8 +13,15 @@ describe('MenuSearchComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), ReactiveFormsModule, FormsModule, RouterTestingModule ],
-      declarations: [ MenuSearchComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), ReactiveFormsModule, FormsModule, RouterTestingModule ],
+      declarations: [MenuSearchComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

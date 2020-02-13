@@ -10,7 +10,7 @@ export class LibraryPublisherService {
   constructor(private http: HttpClient) { }
 
   getAll(): Observable<any> {
-    return this.http.get('/api/library-books/publishers/all');
+    return this.http.get('api/library-books/publishers/all');
   }
   save(data): Observable<any> {
     if (data.id === 0) {
@@ -24,5 +24,8 @@ export class LibraryPublisherService {
   }
   getPublisherWithId(id) {
     return this.http.get(`api/library-book-publisher/${id}`);
+  }
+  filter(searchString) {
+    return this.http.get(`api/library-books/publishers/filter/?name=${searchString}`);
   }
 }

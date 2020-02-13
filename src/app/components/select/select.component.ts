@@ -26,6 +26,7 @@ import { AppFormService } from 'src/app/services/AppForm.service';
 import { GenderService } from 'src/app/services/gender.service';
 import { ReligionService } from 'src/app/services/religion.service';
 import { ProcurementService } from 'src/app/services/procurement.service';
+import { UnitsService } from 'src/app/services/units.service';
 
 @Component({
   selector: 'app-select',
@@ -65,13 +66,15 @@ export class SelectComponent
     private appFormService: AppFormService,
     private genderService: GenderService,
     private religionService: ReligionService,
-    private procurementService: ProcurementService
+    private procurementService: ProcurementService,
+    private unitService: UnitsService
   ) {
 
     this.formControl = new FormControl();
   }
 
   @Input() type:
+    'unit-categories'
     | 'units'
     | 'units:academic-year'
     | 'academic-years:active'
@@ -92,8 +95,8 @@ export class SelectComponent
 
   onChanges: ($value) => void;
   onTouched: () => void;
-  error: { required: string };
-  categorySelected: string | { id: number; name: string }[];
+  error: { required: string; };
+  categorySelected: string | { id: number; name: string; }[];
   categories: Array<any>;
   inputValue;
   writeValue(value: any): void {
@@ -153,11 +156,9 @@ export class SelectComponent
         this.label = 'Academic Year';
         this.error.required = 'Academic Year is required';
         this.hint = 'Please select an Academic Year';
-        this.academicYearService
-          .getFilter({ active: true })
-          .subscribe(items => {
-            this.categories = items;
-          });
+        this.categories$ = this.academicYearService
+          .getFilter({ active: true });
+
         break;
       case 'unit-levels':
         this.label = 'Unit Levels';
@@ -167,73 +168,43 @@ export class SelectComponent
         if (this.parentId) {
           data.unit = this.parentId;
         }
-        this.unitLevel.getAll(data).subscribe(items => {
-          this.categories = items;
-          if (this.formControl.value) {
-            this.categorySelected = items.find(
-              item => item.id === this.formControl.value
-            ).name;
-          }
-        });
+        this.categories$ = this.unitLevel.getAll(data);
         break;
       case 'class-levels:level':
         this.label = 'Class Levels';
         this.error.required = 'Class Level is required';
         this.hint = 'Please select a class level';
-        this.classLevels.getAll({ includeLevels: 1 }).subscribe(items => {
-          this.categories = items;
-          if (this.formControl.value) {
-            this.categorySelected = items.find(
-              item => item.id === this.formControl.value
-            ).name;
-          }
-        });
+        this.categories$ = this.classLevels.getAll({ includeLevels: 1 });
         break;
       case 'class-level-categories':
         this.label = 'Unit';
         this.error.required = 'The unit field is required';
         this.hint = 'Please select a unit';
         this.categories$ = this.classLevelsCategoriesService.getAll();
-        this.classLevelsCategoriesService.getAll().subscribe(items => {
-          this.categories = items;
-          if (this.formControl.value) {
-            this.categorySelected = items.find(
-              item => item.id === this.formControl.value
-            ).name;
-          }
-        });
+        break;
+      case 'unit-categories':
+        this.label = 'Unit Categories';
+        this.error.required = 'The unit category field is required';
+        this.hint = 'Please select a unit catgory';
+        this.categories$ = this.subjectCategoriesService.getAll();
         break;
       case 'units':
         this.label = 'Unit';
         this.error.required = 'The unit field is required';
         this.hint = 'Please select a unit';
-        this.categories$ = this.subjectCategoriesService.getAll();
-        this.subjectCategoriesService.getAll().subscribe(items => {
-          this.categories = items;
-          if (this.formControl.value) {
-            this.categorySelected = items.find(
-              item => item.id === this.formControl.value
-            ).name;
-          }
-        });
+        this.categories$ = this.unitService.getAll();
         break;
       case 'support-staffs':
         this.label = 'Units';
         this.error.required = 'The units field is required';
         this.hint = 'Please select units';
         this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
-        this.unitLevel
-          .getFilter({ academicYear: this.parentId })
-          .subscribe(items => { this.categories = items; });
         break;
       case 'units:academic-year':
         this.label = 'Units';
         this.error.required = 'The units field is required';
         this.hint = 'Please select units';
         this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
-        this.unitLevel
-          .getFilter({ academicYear: this.parentId })
-          .subscribe(items => { this.categories = items; });
         break;
       case 'gender':
         this.setParams({
@@ -252,7 +223,7 @@ export class SelectComponent
         break;
     }
   }
-  setParams({label }: {label: string}) {
+  setParams({ label }: { label: string; }) {
     this.label = label;
     this.error.required = `The ${label} field is required`;
     this.hint = `Please select ${label}`;
@@ -267,10 +238,10 @@ export class SelectComponent
     if (parentId) {
       if (this.type === 'units:academic-year') {
         this.unitLevel
-          .getFilter({ academicYear: this.parentId })
-          .subscribe(items => {
-            this.categories = items;
-          });
+          .getFilter({ academicYear: this.parentId });
+      }
+      if (this.type === 'unit-levels') {
+        this.categories$ = this.unitLevel.getAll({ unit: this.parentId});
       }
     }
   }

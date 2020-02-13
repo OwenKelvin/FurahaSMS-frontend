@@ -23,11 +23,12 @@ export class GuardiansService {
       gender_id: data.gender,
       religion_id: data.religion,
       phone: data.phone,
-      student_id: data.student_id,
+      // student_id: data.student_id,
       relation: data.relation
 
     };
-    let url = 'api/admissions/students/guardians';
+    let url = `api/students/${data.student_id}/guardians`;
+    // let url = 'api/admissions/students/guardians';
 
     if (data.id) {
       url = `${url}/${data.id}`;
@@ -45,5 +46,21 @@ export class GuardiansService {
     return this.http.get<any>(url).pipe(map(user => {
       return user;
     }));
+  }
+  getGuardianWithId(userId): Observable<any> {
+    const url = `api/guardians/${userId}`;
+    return this.http.get<any>(url)
+      .pipe(map(user => ({
+        ...user,
+        firstName: user.first_name,
+        middleName: user.middle_name,
+        lastName: user.last_name,
+        otherNames: user.other_names,
+        dateOfBirth: user.date_of_birth
+      })));
+  }
+  getStudents(userId): Observable<any> {
+    const url = `api/guardians/${userId}/students`;
+    return this.http.get<any>(url);
   }
 }

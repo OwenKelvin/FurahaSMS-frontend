@@ -1,0 +1,7 @@
+h2[class=active] {
+  color: greenyellow;
+}
+.active-group {
+  border: 2px rgba(172, 255, 47, 0.575) inset;
+  border-radius: 5px;
+}

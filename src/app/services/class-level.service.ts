@@ -1,33 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { ClassLevelInterface } from '../interfaces/class-level.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ClassLevelService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
   getAll(
-    data: { includeUnits?: 1; includeLevels?: 1 } = {
+    data: { includeUnits?: 1; includeLevels?: 1; academicYearId?: number } = {
       includeUnits: null,
-      includeLevels: null
+      includeLevels: null,
+      academicYearId: null
     }
-  ) {
-    const { includeUnits, includeLevels } = data;
-    let url = `api/curriculum/class-levels/?`;
-    if (includeLevels) {
-      url += `include_levels=1`;
-    }
-    if (includeUnits) {
-      url += ``;
-    }
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+  ): Observable<any[]> {
+    const { includeUnits, includeLevels, academicYearId } = data;
+
+    const params = {
+      include_levels: includeLevels,
+      academic_year_id: academicYearId,
+      include_units: includeUnits
+    };
+    const querystring = require('querystring');
+
+    const queryStringParams = querystring.stringify(params);
+
+    return this.http.get<any[]>(`api/curriculum/class-levels/?${queryStringParams}`);
   }
   get({ id }) {
     const url = `api/curriculum/class-levels/${id}`;

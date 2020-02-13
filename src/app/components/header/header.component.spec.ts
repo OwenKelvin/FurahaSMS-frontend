@@ -8,6 +8,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -18,11 +19,18 @@ describe('HeaderComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         RouterTestingModule,
         HttpClientTestingModule
       ],
-      declarations: [HeaderComponent, MenuSearchComponent, UserButtonComponent, BreadcrumbComponent ]
+      declarations: [HeaderComponent, MenuSearchComponent, UserButtonComponent, BreadcrumbComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

@@ -1,0 +1,55 @@
+<h1>Exam Bank Admin</h1>
+<a class="btn btn-primary btn-sm" [routerLink]='["/academics","exam-bank","admin", "exams", "create"]'>
+  <span class="icon-plus-circled"></span>
+  Create An Exam Paper</a>
+
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>#<span class="sr-only">column number</span></th>
+      <th>Name</th>
+      <th>Unit Level</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <ng-container *ngIf='examPapers$ | async as examPapers; else loading'>
+      <ng-container *ngIf='examPapers.length === 0'>
+        <tr>
+          <td class="p-2 pb-1" colspan="4">
+            <section class="alert alert-info ">
+              <span class="icon-info"></span>No Exam Papers Found
+            </section>
+            
+          </td>
+        </tr>
+      </ng-container>
+      <tr *ngFor='let examPaper of examPapers; let i = index'>
+        <td >{{ i + 1 }}</td>
+        <td >{{ examPaper.name }}</td>
+        <td> {{ examPaper.unitLevelName }}</td>
+        <td class="d-flex justify-content-around">
+          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", examPaper.id , "edit"]' class="btn btn-primary btn-sm">
+            <span class="icon-edit"></span> <span class="sr-only">Edit</span>
+          </a>
+          <a (click)='deleteItem({index: i, id: examPaper.id, name: examPaper.name })' class="btn btn-danger btn-sm">
+            <span [class.animate-spin]='deleting[i]' class="icon-trash"></span> <span class="sr-only">Delete</span>
+          </a>
+          <a [routerLink]='["/academics", "exam-bank", "admin", "exams", examPaper.id, "view"]' class="btn btn-info btn-sm">
+            <span class="icon-eye"></span> <span class="sr-only">View</span>
+          </a>
+        </td>
+      </tr>
+    </ng-container>
+
+    <ng-template #loading>
+      <tr>
+        <td colspan="4">
+          <app-loading-bubble></app-loading-bubble>
+        </td>
+      </tr>
+    </ng-template>
+    
+  </tbody>
+  <caption>Exam Papers</caption>
+</table>

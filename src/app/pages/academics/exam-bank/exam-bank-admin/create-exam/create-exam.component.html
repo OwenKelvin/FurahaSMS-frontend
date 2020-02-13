@@ -1,0 +1,43 @@
+<h1>Create Exam Paper Form</h1>
+<form [formGroup]='newExamForm' class="d-flex flex-wrap" (submit)='submitExamPaperForm()'>
+  <section class="col-lg-5">
+    <app-input [triggerValidation]='triggerValidation' id='name' placeholder='Enter exam name' formControlName='name'
+      label='Name'></app-input>
+  </section>
+  <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+    <app-select [triggerValidation]='triggerValidation' id='unit' type="units" formControlName="unit">
+    </app-select>
+  </section>
+  <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+    <app-select [parentId]='newExamForm.get("unit").value' 
+      [triggerValidation]='triggerValidation' id='unit' type="unit-levels" formControlName="unitLevel">
+    </app-select>
+  </section>
+  <section class="col-lg-12">
+    <fieldset formArrayName='instructions'>
+      <legend>Instructions</legend>
+      <button (click)='addInstruction()' class='btn btn-sm btn-primary' type="button"><span
+          class="icon-plus-circled"></span>Add Instruction</button>
+
+      <section class="d-flex flex-wrap" *ngFor='let instruction of examInstructions.controls; let i = index'
+        [formGroupName]='i'>
+        <label class="col-lg-12" for='"description"'>Instruction {{ i + 1 }}</label>
+
+        <section class="col-lg-10">
+          <textarea id='name' placeholder='Enter exam name' formControlName='description' rows="2" class="form-control"
+            label='Description'></textarea>
+        </section>
+        <section class="col-lg-2">
+          <button [disabled]='examInstructions.controls.length < 2' (click)='deleteInstruction(i)' type="button"
+            class="btn btn-sm btn-danger"><span class="icon-trash"></span>Delete</button>
+        </section>
+      </section>
+    </fieldset>
+  </section>
+  <section class="p-2">
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newExamForm'>
+      <!-- Create Teacher -->
+    </app-validate-submit-buttons>
+  </section>
+</form>

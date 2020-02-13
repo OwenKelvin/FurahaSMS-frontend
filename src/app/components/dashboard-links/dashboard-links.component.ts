@@ -33,6 +33,8 @@ export class DashboardLinksComponent implements OnInit {
         name: 'Academic Year', type: 'academics:academic-years'
       }, {
         name: null, type: 'academic-year'
+      }, {
+        name: 'Teaching Staff Admissions', type: 'admissions:teaching-staff'
       }
     ].filter(title => title.type === this.type)[0];
     if (item) {

@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { DashboardLinksComponent } from './dashboard-links.component';
 import { DashboardLinkComponent } from './../dashboard-link/dashboard-link.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('DashboardLinksComponent', () => {
   let component: DashboardLinksComponent;
@@ -12,8 +12,15 @@ describe('DashboardLinksComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ DashboardLinksComponent, DashboardLinkComponent]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), RouterTestingModule ],
+      declarations: [DashboardLinksComponent, DashboardLinkComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

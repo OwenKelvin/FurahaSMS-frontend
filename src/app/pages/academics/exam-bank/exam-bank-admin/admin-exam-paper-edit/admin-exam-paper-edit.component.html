@@ -1,0 +1,151 @@
+<ng-template #template>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">{{ dialog.title }}</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body bg-dark">
+    <form>
+      <textarea name='description' [(ngModel)]='dialog.value.description' class='form-control' id="description"
+        rows="3">
+
+      </textarea>
+     
+      <section class="d-flex">
+        <div class="form-check col-lg-3 col-md-4 col-sm-6 mt-2">
+          <input name='multipleChoices' class="form-check-input" type="checkbox" id='multiple-choice'>
+          <label class="form-check-label" for='multiple-choice'>
+            Has Choices
+          </label>
+        </div>
+        <div class="col-lg-9 col-md-12 col-sm-12 mt-2">
+          <fieldset>
+            <legend>Number of Correct Answes</legend>
+            <div class="d-flex">
+              <div class="form-check col-lg-5">
+                <input name='multipleAnswers' class="form-check-input" type="radio" id='correct-answer-single'>
+                <label class="form-check-label" for='correct-answer-single'>
+                  Single
+                </label>
+              </div>
+              <div class="form-check col-lg-5">
+                <input name='multipleAnswers' class="form-check-input" type="radio" id='correct-answer-multiple'>
+                <label class="form-check-label" for='correct-answer-multiple'>
+                
+                  Multiple
+                </label>
+              </div>
+            </div>
+
+          </fieldset>
+        </div>
+        
+      </section>
+      <div>
+        <fieldset>
+          <legend>Question Answers</legend>
+          <button (click)='addAnswers()' class="btn btn-sm btn-primary ml-3 mb-2"><span class="icon-plus-circled"></span>Add Answer</button>
+          <section class="d-flex flex-wrap">
+            <section class="col-lg-10">
+              <input class="form-control" type="text">
+            </section>
+            <section class="col-lg-2">
+              <button (click)='deleteAnswer()' class="btn btn-danger btn-sm icon-trash"> <span class="sr-only">Delete</span></button>
+            </section>
+          </section>
+        </fieldset>
+      </div>
+      <section class="d-flex justify-content-between">
+        <button (click)='saveQuestion()' type="button" class="btn btn-success btn-sm mb-2 mt-2">Save</button>
+        <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
+      </section>
+    </form>
+  </div>
+</ng-template>
+
+
+
+
+
+
+<section *ngIf='examPaper$ | async as examPaper; else loading'>
+  <section *ngIf='examPaper; else loading'>
+    <h1>Edit Exam <span class="icon-right-dir"></span> {{ examPaper.name }} | {{ examPaper.unit_level_name }}</h1>
+
+  </section>
+  <fieldset>
+    <legend>Instruction</legend>
+    <ol>
+      <li *ngFor='let instruction of examPaper.instructions'>{{ instruction.description }}</li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <legend>Questions</legend>
+    <section class='d-flex flex-wrap'>
+      <button style="min-width: 2.1rem;" [class.active]='activeQuestion === i' type="button"
+        class="btn btn-secondary btn-sm ml-1 mt-1" *ngFor='let question of questions; let i = index'
+        (click)='activeQuestion = i' [attr.aria-label]='"Go to question" +  (i + 1)'>{{ i + 1}}</button>
+    </section>
+    <ng-container *ngFor='let question of questions; let i = index'>
+      <section class="card mt-1" *ngIf='i === activeQuestion'>
+        <section class="card-header d-flex flex-wrap justify-content-between">
+          <section class="badge badge-primary p-2">Qn: {{ i + 1 }} <span class="sr-only">Question {{ i + 1 }}</span>
+          </section>
+          <section>
+            <button type="button" class="btn btn-sm btn-primary ml-2" (click)='openModal(template, "edit", i)'> <span
+                class="icon-edit"></span> Edit</button>
+            <button type="button" class="btn btn-sm btn-info ml-2"> <span class="icon-eye"></span> View</button>
+            <button type="button" class="btn btn-sm btn-secondary ml-2" (click)='activeQuestion = activeQuestion - 1'
+              [disabled]='activeQuestion === 0'> <span class="icon-left-bold"></span>
+              Previous</button>
+            <button type="button" class="btn btn-sm btn-secondary ml-2" (click)='openModal(template, "add-before", i)'>
+              <span class="icon-plus-circled"></span>
+              <span class="icon-up-fat"></span>
+              Add
+              Before</button>
+          </section>
+        </section>
+        <p class="card-body mb-0">
+          {{ question.description }}
+        </p>
+        <section class="card-footer mt-0 pt-0 d-flex justify-content-between flex-wrap">
+          <section>
+            <button type="button" class="btn btn-sm btn-success"><span class="icon-ok"></span> Save</button>
+            <button (click)='activeQuestion = activeQuestion + 1' [disabled]='activeQuestion === (questions.length - 1)'
+              type="button" class="btn btn-sm btn-secondary ml-2"> <span class="icon-right-bold"></span>
+              Next
+
+            </button>
+
+
+            <button (click)='openModal(template, "add-after", i)' type="button" class="btn btn-sm btn-secondary ml-2">
+              <span class="icon-plus-circled"></span>
+              <span class="icon-down-fat"></span>
+              Add After</button>
+            <button
+              [disabled]='questions.length === 1'
+              (click)='deleteQuestion(i)' type="button" class="btn btn-sm btn-danger ml-2"><span
+                class="icon-trash-1"></span> Delete</button>
+          </section>
+          <section>
+
+            <button [disabled]='activeQuestion === 0' (click)='reorderQuestions({ move: "up", index: i})' type="button"
+              class="btn btn-sm btn-secondary ml-2">
+              <span class="icon-up"></span>
+              <span class="sr-only">Reorder </span>Move Up</button>
+            <button [disabled]='activeQuestion === (questions.length - 1)'
+              (click)='reorderQuestions({ move: "down", index: i})' type="button" class="btn btn-sm btn-secondary ml-2">
+              <span class="icon-down"></span>
+              <span class="sr-only">Reorder</span>Move Down</button>
+          </section>
+        </section>
+      </section>
+    </ng-container>
+  </fieldset>
+</section>
+<ng-template #loading>
+  <h1>Edit Exam</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

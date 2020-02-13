@@ -1,0 +1,31 @@
+<table class="table table-dark mt-3">
+  <caption>Student List</caption>
+  <thead>
+    <tr>
+      <th scope="col">#</th>
+      <th scope="col">Name</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody *ngIf='students$ | async as students; else loading_students'>
+
+    <tr *ngFor='let student of students; let i = index'>
+      <th scope="row">{{ i + 1 }}</th>
+      <th scope="col">{{ student.first_name }} {{ student.last_name }}</th>
+      <td>
+        <a [routerLink]='["/students", student.id]' [attr.aria-label]='"View Guardian" + student.first_name'
+          class="btn btn-primary btn-sm"><span class="icon-eye"></span></a>
+      </td>
+    </tr>
+
+  </tbody>
+  <ng-template #loading_students>
+    <tbody>
+      <tr>
+        <td>
+          <app-loading-bubble></app-loading-bubble>
+        </td>
+      </tr>
+    </tbody>
+  </ng-template>
+</table>

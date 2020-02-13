@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateProcurementTenderBidComponent } from './create-procurement-tender-bid.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InputComponent } from '../../../components/input/input.component';
@@ -15,8 +15,15 @@ describe('CreateProcurementTenderBidComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
-      declarations: [ CreateProcurementTenderBidComponent, InputComponent, SelectComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
+      declarations: [CreateProcurementTenderBidComponent, InputComponent, SelectComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

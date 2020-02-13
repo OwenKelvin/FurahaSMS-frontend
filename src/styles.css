@@ -39,32 +39,44 @@ html, body {
   height: 100%;
   overflow: auto;
 }
+#main:focus {
+  box-shadow: 3px 10px aqua;
+  background-color: red;
+  border: red solid 2px;
+}
 h1, h2, h3, h4 {
-  font-size: 1.8rem;
-  line-height: 1.8rem;
-  margin-top: 10px;
-  border-left: 5px solid lightblue;
+  font-size: 1.3rem;
+  line-height: 1.3rem;
+  margin-top: 2px;
+  border-left: 3px solid lightblue;
   padding: 0px 0px 5px 5px;
   font-weight: 500;
   color: aqua;
 }
-h1 {
-  margin-top: 0px;
-  font-size: 1.3rem;
-}
 h2 {
   font-size: 1.2rem;
   /* margin-left: 10px; */
-  line-height: 1.7rem;
+  line-height: 1.2rem;
   font-weight: 500;
-  border-left: 10px solid lightblue;
+  border-left: 6px solid lightblue;
 }
 h3 {
   font-size: 1.1rem;
   /* margin-left: 13px; */
-  line-height: 1.7rem;
+  line-height: 1.1rem;
   font-weight: 400;
-  border-left: 15px solid lightblue;
+  border-left: 9px solid lightblue;
+}
+h4 {
+  font-size: 1.0rem;
+  /* margin-left: 13px; */
+  line-height: 1.0rem;
+  font-weight: 300;
+  border-left: 12px solid lightblue;
+}
+legend {
+  font-size: 1.0rem;
+  font-weight: bold;
 }
 .full-height {
   height: 100%;
@@ -159,5 +171,6 @@ a:hover {
  line-height: 2em;
 }
 .modal-container {
-   border: black solid 4px
+   border: rgba(165, 165, 165, 0.8) solid 2px;
+   border-radius: 5px;
 }

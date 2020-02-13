@@ -21,13 +21,31 @@ export class ErrorInterceptor implements HttpInterceptor {
 
   intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
     return next.handle(request).pipe(catchError(err => {
+      let helperMessage = '';
+      if (typeof err.error === 'string') {
+        helperMessage = err.error;
+      } else if (typeof err.message === 'string') {
+        helperMessage = err.message;
+      } else {
+        helperMessage = err.error.message;
+      }
+      // console.log(err.error);
       const error = err.statusText || err.error.message;
-      if (err.status === 500) {
+      if (err.status === 0) {
         this.message = {
           message: err.statusText,
           type: 'error',
           status: err.status,
-          help:  err.error.message
+          help: helperMessage
+        };
+      }
+      if (err.status === 500) {
+
+        this.message = {
+          message: err.statusText,
+          type: 'error',
+          status: err.status,
+          help:  helperMessage
         };
       }
       if (err.status === 422) {

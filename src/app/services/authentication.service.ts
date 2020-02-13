@@ -40,7 +40,7 @@ export class AuthenticationService {
       message: 'Password Reset Successful'
     });
   }
-  login(data: { username: string, password: string }): Observable<any> {
+  login(data: { username: string, password: string; }): Observable<any> {
     const { username, password } = data;
     const loginData: OauthInterface = {
       grant_type: PASSPORT_CLIENT.grantType,
@@ -63,7 +63,7 @@ export class AuthenticationService {
           this.currentUserSubject.next(user);
           return user;
         }),
-        catchError( error => {
+        catchError(error => {
           return throwError(error);
       })
     );

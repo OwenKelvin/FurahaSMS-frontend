@@ -1,10 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SelectLibrarySubClassComponent } from './select-library-sub-class.component';
-import { LibraryModule } from '../../library.module';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LibraryAdminModule } from '../../library-admin/library-admin.module';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('SelectLibrarySubClassComponent', () => {
   let component: SelectLibrarySubClassComponent;
@@ -13,12 +14,19 @@ describe('SelectLibrarySubClassComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         EffectsModule.forRoot([]),
-        LibraryModule,
+        LibraryAdminModule,
         HttpClientTestingModule
       ],
-      declarations: [ ]
+      declarations: [],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

@@ -25,4 +25,7 @@ export class LibraryAuthorService {
   getAuthorWithId(id) {
     return this.http.get(`api/library-book-author/${id}`);
   }
+  filter(searchString) {
+    return this.http.get(`api/library-books/authors/filter?name=${searchString}`);
+  }
 }

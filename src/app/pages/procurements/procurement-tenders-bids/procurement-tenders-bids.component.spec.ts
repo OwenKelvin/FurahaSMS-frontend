@@ -4,7 +4,7 @@ import { ProcurementTendersBidsComponent } from './procurement-tenders-bids.comp
 import { Store, StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 
 describe('ProcurementTendersBidsComponent', () => {
@@ -14,8 +14,15 @@ describe('ProcurementTendersBidsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ ProcurementTendersBidsComponent, LoadingBubbleComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), RouterTestingModule, HttpClientTestingModule ],
+      declarations: [ProcurementTendersBidsComponent, LoadingBubbleComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

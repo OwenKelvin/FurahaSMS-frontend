@@ -1,0 +1,52 @@
+<h1> {{ newForm ? 'Create': 'Update'}} Subject/Unit</h1>
+<form [formGroup]="unitForm" (submit)="submit()">
+  <fieldset>
+    <legend>General Subject Name</legend>
+    <section class="d-flex flex-wrap justify-content-start">
+      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+        <app-input
+          [triggerValidation]='triggerValidation'
+          labelClass='col-md-12 col-lg-5'
+          inputClass='col-md-12 col-lg-7'
+          label='Name'
+          [id]='"name" + (idIndex !== undefined ? idIndex: "")'
+          type="text"
+          placeholder="Name"
+          formControlName="name" ></app-input>
+      </section>
+      <section *ngIf="!category && hasCategories" class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
+        <app-select [triggerValidation]='triggerValidation' id='unitCategory' type="unit-categories" formControlName="unitCategory"></app-select>
+      </section>
+      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
+        <app-input
+          [triggerValidation]='triggerValidation'
+          labelClass='col-md-12 col-lg-5'
+          inputClass='col-md-12 col-lg-7'
+          label='Subject/Unit abbreviation'
+          [id]='"name-abbr" + (idIndex !== undefined ? idIndex: "")' type="text"
+          placeholder="Subject/Unit Abbreviation" 
+          formControlName="abbr" ></app-input>
+      </section>
+      <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12 mt-sm-5 mt-lg-1">
+        <div class="custom-control custom-switch">
+          <input
+            type="checkbox"
+            class="custom-control-input"
+            [id]='"active" + (idIndex !== undefined ? idIndex: "")'
+            formControlName="active">
+          <label class="custom-control-label" [attr.for]='"active" + (idIndex !== undefined ? idIndex: "")' >Subject Is Active</label>
+        </div>
+      </section>
+    </section>
+  <app-error></app-error>
+  </fieldset>
+    <section class='d-flex justify-content-end'>
+      <button *ngIf='!unitForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
+        class='btn btn-secondary btn-sm'>Validate</button>
+      &nbsp;&nbsp;&nbsp;&nbsp;
+      <button *ngIf='!hideSubmit' class='btn btn-primary' [disabled]='!unitForm.valid || isSubmitting'>
+        {{ newForm ? 'Create': 'Update'}} Subject/Unit<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+      </button>
+    </section>
+
+</form>

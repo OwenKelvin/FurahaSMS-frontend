@@ -1,0 +1,151 @@
+<section *ngIf='academicYearPlan$ | async as academicYearPlan'>
+  <h1>
+    Financial Plan <span class='icon-right-dir'></span> Academic Year
+    <span *ngIf='academicYearPlan.academicYear.id !== 0' class="icon-right-dir"></span>
+    <span *ngIf='academicYearPlan.academicYear.id !== 0'>{{ academicYearPlan.academicYear.name }}</span>
+  </h1>
+  <app-loading-bubble *ngIf='academicYearPlan.academicYear.id === 0; else contents'></app-loading-bubble>
+  <ng-template #contents>
+    <form [formGroup]='feePlanForm' (submit)='submitfeePlanForm()'>
+      <tabset role="tablist" #staticTabs>
+        <tab role="tab">
+          <ng-template tabHeading>
+            Tuition Fees
+            <app-tab-error-state [hasError]='tuitionFees.invalid' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section *ngIf='classLevels$ | async as classLevels; else loadingTuitionSection' class="pt-3">
+            <accordion [closeOthers]=[true] formArrayName='tuitionFee'>
+              <accordion-group class="mt-2" *ngFor='let classLevel of classLevels; let i = index' [(isOpen)]="isOpen[i]"
+                [class.active-group]="isOpen[i]" [formGroupName]='i'>
+
+                <section accordion-heading class="d-flex justify-content-between">
+                  <h2 [class.active]="isOpen[i]">{{ classLevel.name }}</h2>
+                  <section>
+                    <button
+                      type="button" 
+                      class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpen[i]'
+                        [class.icon-up-dir]='isOpen[i]'></span>View</button>
+                  </section>
+                </section>
+                <section formArrayName='unitLevels'>
+                  <fieldset *ngFor='let unitLevel of classLevel.unitLevels; let j = index'
+                    [formGroupName]='j'>
+                    <legend>{{ unitLevel.name }}</legend>
+                    <section formArrayName='semesters' class="d-flex flex-wrap justify-content-start">
+                      <section class="col-lg-3 col-md-4 col-sm-5" *ngFor='let semester of unitLevel.semesters; let k = index' [formGroupName]='k'>
+                        
+                        <app-input
+                          step='1000'
+                          [id]='"amount" + i + j + k' placeholder='Enter Amount' type='number'
+                          labelClass='col-lg-12 col-sm-12 col-md-12' inputClass='col-lg-12 col-sm-12 col-md-12' [label]='semester.name'
+                          formControlName='amount'></app-input>
+                      </section>
+                    </section>
+                  </fieldset>
+                </section>
+              </accordion-group>
+            </accordion>
+          </section>
+          <ng-template #loadingTuitionSection>
+            <app-loading-bubble></app-loading-bubble>
+          </ng-template>
+          <section class='mt-3 col-lg12'>
+            <section class='d-flex justify-content-end'>
+              <!--TODO change next to 1 -->
+              <button type="button" class="btn btn-primary ml-3" (click)="selectTab(6)">Next</button>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab" [disabled]='true'>
+          <ng-template tabHeading>
+            Transport
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <button type="button" class="btn btn-secondary" (click)="selectTab(0)">Previous</button>
+                <button type="button" class="btn btn-primary ml-3" (click)="selectTab(2)">Next</button>
+              </section>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab" [disabled]='true'>
+          <ng-template tabHeading>
+            Meals
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <button type="button" class="btn btn-secondary" (click)="selectTab(1)">Previous</button>
+                <button type="button" class="btn btn-primary ml-3" (click)="selectTab(3)">Next</button>
+              </section>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab" [disabled]='true'>
+          <ng-template tabHeading>
+            Tours
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <button type="button" class="btn btn-secondary" (click)="selectTab(0)">Previous</button>
+                <button type="button" class="btn btn-primary ml-3" (click)="selectTab(2)">Next</button>
+              </section>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab" [disabled]='true'>
+          <ng-template tabHeading>
+            Building &amp; Constructions
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <button type="button" class="btn btn-secondary" (click)="selectTab(0)">Previous</button>
+                <button type="button" class="btn btn-primary ml-3" (click)="selectTab(2)">Next</button>
+              </section>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab" [disabled]='true'>
+          <ng-template tabHeading>
+            Library
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <button type="button" class="btn btn-secondary" (click)="selectTab(0)">Previous</button>
+                <button type="button" class="btn btn-primary ml-3" (click)="selectTab(2)">Next</button>
+              </section>
+            </section>
+          </section>
+        </tab>
+        <tab role="tab">
+          <ng-template tabHeading>
+            Complete
+            <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          </ng-template>
+          <section>
+            <section class='mt-3 mb-3 col-lg12'>
+              <section class='d-flex justify-content-end'>
+                <!--TODO change previous to 1 -->
+                <button type="button" class="btn btn-secondary" (click)="selectTab(0)">Previous</button>
+              </section>
+            </section>
+              <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
+                [formItem]='feePlanForm'>
+              </app-validate-submit-buttons>
+          </section>
+        </tab>
+      </tabset>
+    
+
+    </form>
+  </ng-template>
+</section>

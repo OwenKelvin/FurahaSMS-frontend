@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ApproveProcurementRequestComponent } from './approve-procurement-request.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -14,8 +14,15 @@ describe('ApproveProcurementRequestComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), AccordionModule.forRoot(), HttpClientTestingModule ],
-      declarations: [ ApproveProcurementRequestComponent, LoadingBubbleComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), AccordionModule.forRoot(), HttpClientTestingModule ],
+      declarations: [ApproveProcurementRequestComponent, LoadingBubbleComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

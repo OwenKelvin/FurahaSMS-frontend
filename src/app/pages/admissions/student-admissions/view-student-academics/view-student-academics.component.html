@@ -1,0 +1,18 @@
+<button [routerLink]='["/students", studentId$ | async,"academics", "create"]' type="button"
+  class="btn btn-sm btn-primary mt-2">
+  <span class="icon-plus-circled">Add To Academic Year</span>
+</button>
+<section *ngIf='academicYearSubjects$ | async as academicYearSubjects; else loading'>
+  <section *ngFor='let academicYearSubject of academicYearSubjects'>
+    <h3>{{ academicYearSubject.academic_year_name }}</h3>
+    <section *ngFor='let classLevel of academicYearSubject.class_levels'>
+      <h4>{{ classLevel.class_level_name }}</h4>
+
+      <span *ngFor='let unit of classLevel.units' class="badge badge-secondary ml-2 p-2">{{ unit.name }}</span>
+
+    </section>
+  </section>
+</section>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

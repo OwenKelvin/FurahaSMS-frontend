@@ -33,9 +33,45 @@ export class LinkService {
         return this.getLibraryAdminBooksLinks();
       case 'library:admin:users':
         return this.getLibraryAdminUsersLinks();
+      case 'admissions:teaching-staff':
+        return this.getTeachingStaffAdmissionsLinks();
+      case 'exam:bank':
+        return this.examBankLinks;
+      case 'accounts':
+        return this.accountsLinks;
       default:
         return this.getDashboardLinks();
     }
+  }
+
+  get accountsLinks(): Observable<any> {
+    return of([
+      {
+        name: 'Financial Plan',
+        icon: 'icon-edit-1',
+        link: 'accounts/financial-plan'
+      },
+      {
+        name: 'Student Fee Payment',
+        icon: 'icon-dollar',
+        link: 'accounts/student-fee-payment'
+      },
+    ]);
+  }
+
+  get examBankLinks(): Observable<any> {
+    return of([
+      {
+        name: 'Past Exams',
+        icon: 'icon-folder-open',
+        link: 'academics/exam-bank/archives'
+      },
+      {
+        name: 'Admin',
+        icon: 'icon-user-secret',
+        link: 'academics/exam-bank/admin'
+      },
+    ]);
   }
 
   getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
@@ -91,7 +127,7 @@ export class LinkService {
       },
       {
         name: 'Awarded Tenders',
-        icon: 'icon-star',
+        icon: 'icon-fire-1',
         link: 'procurements/tenders/awarded',
       }
 
@@ -148,6 +184,11 @@ export class LinkService {
         icon: 'icon-docs',
         link: 'academics/curriculum/class-levels'
       },
+      {
+        name: 'Semester/ Terms',
+        icon: 'icon-docs',
+        link: 'academics/curriculum/semesters'
+      },
     ]);
   }
   getLibraryLinks(): Observable<LinkInterface[]> {
@@ -189,7 +230,7 @@ export class LinkService {
   getStudentAdmissionsLinks(): Observable<LinkInterface[]> {
     return of([
       {
-        name: 'New Student Details',
+        name: 'New Student',
         icon: 'icon-user-plus',
         link: 'admissions/students/create'
       },
@@ -197,6 +238,20 @@ export class LinkService {
         name: 'Edit Student Details',
         icon: 'icon-user-plus',
         link: 'admissions/students/edit'
+      }
+    ]);
+  }
+  getTeachingStaffAdmissionsLinks(): Observable<LinkInterface[]> {
+    return of([
+      {
+        name: 'New Teaching Staff',
+        icon: 'icon-user-plus',
+        link: 'admissions/staff/teachers/create'
+      },
+      {
+        name: 'Edit Student Details',
+        icon: 'icon-pencil-1',
+        link: 'admissions/staff/teachers/edit'
       }
     ]);
   }
@@ -260,6 +315,11 @@ export class LinkService {
         name: 'Curriculum',
         icon: 'icon-book',
         link: 'academics/curriculum'
+      },
+      {
+        name: 'Exam Bank',
+        icon: 'icon-balance-scale',
+        link: 'academics/exam-bank'
       },
     ]);
   }
