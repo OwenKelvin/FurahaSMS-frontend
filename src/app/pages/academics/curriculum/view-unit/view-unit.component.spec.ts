@@ -2,10 +2,11 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewUnitComponent } from './view-unit.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AcademicsModule } from '../../academics.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('ViewUnitComponent', () => {
   let component: ViewUnitComponent;
@@ -15,11 +16,20 @@ describe('ViewUnitComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         AcademicsModule,
         HttpClientTestingModule,
-        RouterTestingModule],
-      declarations: [ ]
+        RouterTestingModule,
+        AppLoadingBubbleModule
+      ],
+      declarations: [ViewUnitComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

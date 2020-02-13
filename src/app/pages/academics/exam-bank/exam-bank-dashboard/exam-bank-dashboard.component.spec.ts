@@ -4,6 +4,7 @@ import { ExamBankDashboardComponent } from './exam-bank-dashboard.component';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ExamBankDashboardComponent', () => {
   let component: ExamBankDashboardComponent;
@@ -14,8 +15,15 @@ describe('ExamBankDashboardComponent', () => {
       imports: [
         RouterTestingModule,
         AppDashboardLinksModule,
-        StoreModule.forRoot({})],
-      declarations: [ ExamBankDashboardComponent ]
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })],
+      declarations: [ExamBankDashboardComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

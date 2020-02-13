@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditAuthorComponent } from './edit-author.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { CreateAuthorComponent } from '../create-author/create-author.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -18,7 +18,13 @@ describe('EditAuthorComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         HttpClientTestingModule,
         RouterTestingModule,
         FormsModule,
@@ -26,7 +32,8 @@ describe('EditAuthorComponent', () => {
         AppInputModule,
         AppLoadingBubbleModule
       ],
-      declarations: [EditAuthorComponent, CreateAuthorComponent ]
+      declarations: [EditAuthorComponent, CreateAuthorComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

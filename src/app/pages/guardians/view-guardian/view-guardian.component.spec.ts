@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewGuardianComponent', () => {
   let component: ViewGuardianComponent;
@@ -18,10 +19,17 @@ describe('ViewGuardianComponent', () => {
         RouterTestingModule,
         AppUserProfileModule,
         AppLoadingBubbleModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
 
       ],
-      declarations: [ ViewGuardianComponent ]
+      declarations: [ViewGuardianComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

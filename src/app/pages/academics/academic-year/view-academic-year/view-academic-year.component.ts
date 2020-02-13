@@ -4,7 +4,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Observable } from 'rxjs';
 import { loadActivePagesSuccess } from 'src/app/store/actions/active-page.actions';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-view-academic-year',

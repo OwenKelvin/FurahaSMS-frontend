@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUnitCategoryComponent } from './edit-unit-category.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('EditUnitCategoryComponent', () => {
   let component: EditUnitCategoryComponent;
@@ -11,8 +11,15 @@ describe('EditUnitCategoryComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ EditUnitCategoryComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }) ],
+      declarations: [EditUnitCategoryComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

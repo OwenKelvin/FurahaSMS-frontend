@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentGuardianComponent } from './create-student-guardian.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectComponent } from '../../../../components/select/select.component';
 import { InputComponent } from '../../../../components/input/input.component';
@@ -22,7 +22,13 @@ describe('CreateStudentGuardianComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         NgSelectModule,
@@ -37,6 +43,7 @@ describe('CreateStudentGuardianComponent', () => {
         ValidateSubmitButtonsComponent
       ],
       providers: [
+        reducerProvider,
         {
           provide: ActivatedRoute,
           useValue: {

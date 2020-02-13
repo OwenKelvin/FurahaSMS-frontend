@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { ViewItemsComponent } from '../../../../components/view-items/view-items.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,7 +17,13 @@ describe('AcademicsCurriculumClassLevelsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), HttpClientTestingModule, RouterTestingModule ],
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), HttpClientTestingModule, RouterTestingModule ],
       declarations: [
         AcademicsCurriculumClassLevelsComponent,
         ViewItemsComponent,
@@ -25,7 +31,8 @@ describe('AcademicsCurriculumClassLevelsComponent', () => {
         LoadingBubbleComponent,
         AcademicsCurriculumClassLevelsComponent,
         ErrorComponent
-      ]
+      ],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewSemesterComponent } from './view-semester.component';
+import { ErrorModule } from 'src/app/components/error/error.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewSemesterComponent', () => {
   let component: ViewSemesterComponent;
@@ -8,7 +11,11 @@ describe('ViewSemesterComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSemesterComponent ]
+      imports: [
+        RouterTestingModule,
+        ErrorModule],
+      declarations: [ViewSemesterComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

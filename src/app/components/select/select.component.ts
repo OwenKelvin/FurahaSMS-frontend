@@ -157,8 +157,8 @@ export class SelectComponent
         this.error.required = 'Academic Year is required';
         this.hint = 'Please select an Academic Year';
         this.categories$ = this.academicYearService
-          .getFilter({ active: true })
-         
+          .getFilter({ active: true });
+
         break;
       case 'unit-levels':
         this.label = 'Unit Levels';
@@ -238,7 +238,7 @@ export class SelectComponent
     if (parentId) {
       if (this.type === 'units:academic-year') {
         this.unitLevel
-          .getFilter({ academicYear: this.parentId })
+          .getFilter({ academicYear: this.parentId });
       }
       if (this.type === 'unit-levels') {
         this.categories$ = this.unitLevel.getAll({ unit: this.parentId});

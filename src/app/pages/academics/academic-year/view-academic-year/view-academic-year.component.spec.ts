@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewAcademicYearComponent } from './view-academic-year.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -18,7 +18,13 @@ describe('ViewAcademicYearComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         RouterTestingModule,
         HttpClientTestingModule,
         AppDashboardLinksModule,
@@ -27,6 +33,7 @@ describe('ViewAcademicYearComponent', () => {
       declarations: [
         ViewAcademicYearComponent],
       providers: [
+        reducerProvider,
         {
           provide: Router,
           useValue: {

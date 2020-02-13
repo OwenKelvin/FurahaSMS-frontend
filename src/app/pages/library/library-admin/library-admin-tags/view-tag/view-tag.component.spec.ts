@@ -7,6 +7,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { LibraryAdminModule } from '../../library-admin.module';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewTagComponent', () => {
   let component: ViewTagComponent;
@@ -16,13 +17,20 @@ describe('ViewTagComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         LibraryAdminModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         StoreModule.forFeature('library', reducers),
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      declarations: [ ]
+      declarations: [],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

@@ -1,6 +1,14 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AdminExamPaperEditComponent } from './admin-exam-paper-edit.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { StoreModule, Store } from '@ngrx/store';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { of } from 'rxjs';
 
 describe('AdminExamPaperEditComponent', () => {
   let component: AdminExamPaperEditComponent;
@@ -8,7 +16,29 @@ describe('AdminExamPaperEditComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ AdminExamPaperEditComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        AppLoadingBubbleModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        ModalModule.forRoot()
+      ],
+      declarations: [AdminExamPaperEditComponent],
+      providers: [
+        reducerProvider,
+        {
+          provide: Store,
+          useValue: { pipe: () => {}}
+        }
+      ]
     })
     .compileComponents();
   }));

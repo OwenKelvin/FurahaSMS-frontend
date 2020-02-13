@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateClassLevelComponent } from './create-class-level.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { CrudComponent } from '../../../../components/crud/crud.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -19,7 +19,13 @@ describe('CreateClassLevelComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         RouterTestingModule,
         HttpClientTestingModule,
         FormsModule,
@@ -31,7 +37,8 @@ describe('CreateClassLevelComponent', () => {
         ErrorComponent,
         InputComponent,
         SelectComponent
-      ]
+      ],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

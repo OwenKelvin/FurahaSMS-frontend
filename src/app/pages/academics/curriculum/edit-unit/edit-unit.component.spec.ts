@@ -2,10 +2,17 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { EditUnitComponent } from './edit-unit.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
 import { AcademicsModule } from '../../academics.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NgSelectModule } from '@ng-select/ng-select';
+import { ErrorModule } from 'src/app/components/error/error.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('EditUnitComponent', () => {
   let component: EditUnitComponent;
@@ -14,8 +21,28 @@ describe('EditUnitComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), AcademicsModule, RouterTestingModule, HttpClientTestingModule ],
-      declarations: [ ]
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        AcademicsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        TabErrorStateModule,
+        AppInputModule,
+        TabsModule.forRoot(),
+        NgSelectModule,
+        ErrorModule,
+        AppLoadingBubbleModule
+      ],
+      declarations: [EditUnitComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

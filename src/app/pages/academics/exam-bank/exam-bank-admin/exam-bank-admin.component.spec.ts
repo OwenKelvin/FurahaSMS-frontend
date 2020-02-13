@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExamBankAdminComponent } from './exam-bank-admin.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { StoreModule } from '@ngrx/store';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ExamBankAdminComponent', () => {
   let component: ExamBankAdminComponent;
@@ -8,7 +13,20 @@ describe('ExamBankAdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ExamBankAdminComponent ]
+      imports: [
+        RouterTestingModule,
+        AppLoadingBubbleModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        HttpClientTestingModule
+      ],
+      declarations: [ExamBankAdminComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

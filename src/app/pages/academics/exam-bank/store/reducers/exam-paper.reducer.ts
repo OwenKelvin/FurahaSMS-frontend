@@ -10,7 +10,7 @@ export interface State {
       name: string,
       instructions: any[]
      }
-   }
+   };
 }
 
 export const initialState: State = {

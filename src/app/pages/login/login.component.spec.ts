@@ -3,10 +3,11 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginComponent } from './login.component';
 import { InputComponent } from '../../components/input/input.component';
 import { FullWithCenterComponent } from '../../components/full-with-center/full-with-center.component';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
-import { Store, StoreModule } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -19,9 +20,16 @@ describe('LoginComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
       ],
-      declarations: [LoginComponent, FullWithCenterComponent, InputComponent ]
+      declarations: [LoginComponent, FullWithCenterComponent, InputComponent],
+      providers: [reducerProvider]
     }).compileComponents();
   }));
 

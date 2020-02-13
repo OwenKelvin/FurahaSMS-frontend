@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewGuardianInfoComponent', () => {
   let component: ViewGuardianInfoComponent;
@@ -15,14 +16,25 @@ describe('ViewGuardianInfoComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         AppLoadingBubbleModule
       ],
       declarations: [ViewGuardianInfoComponent],
       providers: [
+        reducerProvider,
         {
           provide: ActivatedRoute,
           useValue: { parent: { paramMap: of({ get: () => 1 })}}
+        },
+        {
+          provide: Store,
+          useValue: { pipe: () => of([{id: 1 }]) }
         }
       ]
     })

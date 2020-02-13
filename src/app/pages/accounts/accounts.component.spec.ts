@@ -2,7 +2,9 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountsComponent } from './accounts.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -11,8 +13,19 @@ describe('AccountsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}) ],
-      declarations: [ AccountsComponent ]
+      imports: [
+        AppDashboardLinksModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        RouterTestingModule
+      ],
+      declarations: [AccountsComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

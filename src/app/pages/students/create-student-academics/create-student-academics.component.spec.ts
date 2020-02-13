@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentAcademicsComponent } from './create-student-academics.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StudentsModule } from '../students.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,7 +17,13 @@ describe('CreateStudentAcademicsComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         ReactiveFormsModule,
         FormsModule,
         StudentsModule,
@@ -25,7 +31,8 @@ describe('CreateStudentAcademicsComponent', () => {
         RouterTestingModule,
         AppLoadingBubbleModule
       ],
-      declarations: [ ]
+      declarations: [],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

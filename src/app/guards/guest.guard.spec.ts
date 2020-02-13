@@ -5,13 +5,20 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AuthenticationService } from './../services/authentication.service';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from './../store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('GuestGuard', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [RouterTestingModule, HttpClientTestingModule, StoreModule.forRoot({}) ],
-      providers: [GuestGuard]
+      imports: [RouterTestingModule, HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }) ],
+      providers: [reducerProvider, GuestGuard]
     });
     await TestBed.compileComponents();
   });

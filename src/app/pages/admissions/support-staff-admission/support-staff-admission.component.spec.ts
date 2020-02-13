@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { SupportStaffAdmissionComponent } from './support-staff-admission.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { SelectComponent } from '../../../components/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -14,8 +14,15 @@ describe('SupportStaffAdmissionComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
-      declarations: [ SupportStaffAdmissionComponent, SelectComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
+      declarations: [SupportStaffAdmissionComponent, SelectComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewItemsComponent } from './view-items.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ChipsComponent } from '../chips/chips.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
@@ -16,8 +16,15 @@ describe('ViewItemsComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot({}), RouterTestingModule ],
-      declarations: [ ViewItemsComponent, ChipsComponent, LoadingBubbleComponent, ErrorComponent ]
+      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }), RouterTestingModule ],
+      declarations: [ViewItemsComponent, ChipsComponent, LoadingBubbleComponent, ErrorComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

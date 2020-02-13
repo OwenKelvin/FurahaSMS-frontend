@@ -7,6 +7,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { StoreModule } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewGuardianStudentsComponent', () => {
   let component: ViewGuardianStudentsComponent;
@@ -18,10 +19,17 @@ describe('ViewGuardianStudentsComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         AppLoadingBubbleModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
       ],
       declarations: [ViewGuardianStudentsComponent],
       providers: [
+        reducerProvider,
         {
           provide: ActivatedRoute,
           useValue: { parent: { paramMap: of({ get: () => 1 })}}

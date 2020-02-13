@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateStudentComponent } from './create-student.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../../components/input/input.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -17,13 +17,20 @@ describe('CreateStudentComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      declarations: [ CreateStudentComponent, InputComponent, LabelStarRequiredComponent ]
+      declarations: [CreateStudentComponent, InputComponent, LabelStarRequiredComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

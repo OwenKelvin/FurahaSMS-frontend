@@ -1,16 +1,20 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { ExamPaperEffects } from './exam-paper.effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { reducerProvider } from 'src/app/store/reducers';
 
 describe('ExamPaperEffects', () => {
-  let actions$: Observable<any>;
+  const actions$: Observable<any> = of('Load');
   let effects: ExamPaperEffects;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
+        reducerProvider,
         ExamPaperEffects,
         provideMockActions(() => actions$)
       ]

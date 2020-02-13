@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateUnitCategoriesComponent } from './create-unit-categories.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUnitComponent } from '../create-unit/create-unit.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -18,7 +18,13 @@ describe('CreateUnitCategoriesComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
@@ -27,10 +33,10 @@ describe('CreateUnitCategoriesComponent', () => {
       ],
       declarations: [
         CreateUnitCategoriesComponent,
-
         CreateUnitComponent,
         ErrorComponent,
-      ]
+      ],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

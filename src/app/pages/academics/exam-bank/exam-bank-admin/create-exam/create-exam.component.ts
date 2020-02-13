@@ -3,7 +3,7 @@ import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ExamPaperService } from '../../services/exam-paper.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 
@@ -35,19 +35,19 @@ export class CreateExamComponent implements OnInit, OnDestroy {
         this.newInstructions
       ])
     });
-   
+
   }
   get examInstructions(): FormArray {
     return this.newExamForm.get('instructions') as FormArray;
   }
-  
+
   addInstruction() {
-    this.examInstructions.push(this.newInstructions)
+    this.examInstructions.push(this.newInstructions);
   }
   get newInstructions() {
     return this.fb.group({
       description: ['', [Validators.required]]
-    })
+    });
   }
   deleteInstruction(i) {
     const deletionConfirmed = confirm(`Are You Sure you wish to delete instruction ${i + 1}`);
@@ -68,8 +68,8 @@ export class CreateExamComponent implements OnInit, OnDestroy {
           toastTime: 'Just Now',
           toastBody: res.message
         }));
-        this.router.navigate(["academics", "exam-bank", "admin", "exams", res.data.id, "view"]);
-      }, () => this.isSubmitting = false)
+        this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', res.data.id, 'view']);
+      }, () => this.isSubmitting = false);
     } else {
       this.triggerValidation = !this.triggerValidation;
     }

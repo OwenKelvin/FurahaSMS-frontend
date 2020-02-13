@@ -6,6 +6,7 @@ import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewLibraryBookComponent', () => {
   let component: ViewLibraryBookComponent;
@@ -15,12 +16,19 @@ describe('ViewLibraryBookComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         LibraryModule,
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      declarations: [ ]
+      declarations: [],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

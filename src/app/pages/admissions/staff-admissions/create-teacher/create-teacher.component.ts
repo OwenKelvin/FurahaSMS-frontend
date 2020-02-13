@@ -2,7 +2,7 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, FormControl } from '@angular/forms';
 import { TeacherService } from '../../services/teacher.service';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';

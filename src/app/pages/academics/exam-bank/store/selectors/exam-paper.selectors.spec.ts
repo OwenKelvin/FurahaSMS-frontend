@@ -4,9 +4,25 @@ import { selectExamPaperState } from './exam-paper.selectors';
 describe('ExamPaper Selectors', () => {
   it('should select the feature state', () => {
     const result = selectExamPaperState({
-      [fromExamPaper.examPaperFeatureKey]: {}
+      [fromExamPaper.examPaperFeatureKey]: {
+        examPapers: {
+          0: {
+            id: 0,
+            name: '',
+            instructions: []
+          }
+        }
+      }
     });
 
-    expect(result).toEqual({});
+    expect(result).toEqual({
+      examPapers: {
+        0: {
+          id: 0,
+          name: '',
+          instructions: []
+        }
+      }
+    });
   });
 });

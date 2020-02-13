@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AddBookComponent } from './add-book.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -21,7 +21,13 @@ describe('AddBookComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
         RouterTestingModule,
@@ -32,7 +38,8 @@ describe('AddBookComponent', () => {
         AppInputModule,
         LibraryAdminModule
       ],
-      declarations: []
+      declarations: [],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

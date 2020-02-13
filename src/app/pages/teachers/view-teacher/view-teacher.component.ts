@@ -4,7 +4,7 @@ import { TeacherService } from '../../admissions/services/teacher.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { loadTeacherProfiles } from '../store/actions/teacher-profile.actions';
 
 @Component({

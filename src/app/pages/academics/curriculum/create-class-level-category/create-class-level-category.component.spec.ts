@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateClassLevelCategoryComponent } from './create-class-level-category.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../../components/input/input.component';
 import { ErrorComponent } from '../../../../components/error/error.component';
@@ -16,13 +16,20 @@ describe('CreateClassLevelCategoryComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot({}),
+      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule
       ],
-      declarations: [ CreateClassLevelCategoryComponent, InputComponent, ErrorComponent ]
+      declarations: [CreateClassLevelCategoryComponent, InputComponent, ErrorComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();
@@ -33,6 +40,8 @@ describe('CreateClassLevelCategoryComponent', () => {
     component = fixture.componentInstance;
     store = TestBed.get<Store<AppState>>(Store);
 
+    spyOn(store, 'pipe').and.callThrough();
+    fixture.detectChanges();
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
   });

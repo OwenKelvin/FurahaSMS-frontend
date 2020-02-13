@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreatePublisherComponent } from './create-publisher.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -17,14 +17,21 @@ describe('CreatePublisherComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         AppInputModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,
         RouterTestingModule],
-      declarations: [ CreatePublisherComponent ]
+      declarations: [CreatePublisherComponent],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

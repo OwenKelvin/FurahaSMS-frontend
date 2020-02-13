@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateProcurementsVendorsComponent } from './create-procurements-vendors.component';
 import { Store, StoreModule } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { InputComponent } from '../../../components/input/input.component';
@@ -20,7 +20,13 @@ describe('CreateProcurementsVendorsComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
-        StoreModule.forRoot({}),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
@@ -34,7 +40,8 @@ describe('CreateProcurementsVendorsComponent', () => {
         InputComponent,
         TelInputComponent,
 
-      ]
+      ],
+      providers: [reducerProvider]
     });
 
     await TestBed.compileComponents();

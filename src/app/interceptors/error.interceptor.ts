@@ -40,7 +40,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         };
       }
       if (err.status === 500) {
-        
+
         this.message = {
           message: err.statusText,
           type: 'error',

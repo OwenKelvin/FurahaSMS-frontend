@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';
@@ -21,10 +21,10 @@ export class AdminExamPaperComponent implements OnInit, OnDestroy {
       .pipe(map(params => +params.get('id')))
       .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe()
+      .subscribe();
   }
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-  
+
 }

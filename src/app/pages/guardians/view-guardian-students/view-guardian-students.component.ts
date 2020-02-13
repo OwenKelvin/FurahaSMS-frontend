@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { GuardiansService } from 'src/app/services/guardians.service';
 import { selectStudentId } from 'src/app/store/selectors/student-profile.selector';
 import { map, mergeMap } from 'rxjs/operators';

@@ -17,7 +17,7 @@ export class ExamPaperService {
   constructor(
     private http: HttpClient
   ) { }
-  
+
   save(data): Observable<any> {
     return this.http.post('api/academics/exam-papers', data);
   }

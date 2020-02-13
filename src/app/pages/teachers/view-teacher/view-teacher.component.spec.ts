@@ -6,6 +6,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('ViewTeacherComponent', () => {
   let component: ViewTeacherComponent;
@@ -18,9 +19,16 @@ describe('ViewTeacherComponent', () => {
         RouterTestingModule,
         AppLoadingBubbleModule,
         AppUserProfileModule,
-        StoreModule.forRoot({})
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
       ],
-      declarations: [ ViewTeacherComponent ]
+      declarations: [ViewTeacherComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

@@ -1,6 +1,6 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
 import { Observable, of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -55,7 +55,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     this.semesters$ = this.semesterService.getAll();
     this.semesters$.subscribe(items => {
       this.semesters = items;
-    })
+    });
     this.route.paramMap.subscribe(params => {
       this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
       this.unit$

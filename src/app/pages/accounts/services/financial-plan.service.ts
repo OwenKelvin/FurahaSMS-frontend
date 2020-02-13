@@ -16,7 +16,7 @@ export class FinancialPlanService {
     const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
     return this.http.post(url, data) as any;
   }
-  
+
   getForAcademicYear(academicYearId): Observable<any> {
     const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
     return this.http.get(url)
@@ -27,7 +27,7 @@ export class FinancialPlanService {
         //   tuition_fee: undefined
         // };
         // delete ((res as any).tuition_fee)
-        
+
         return res;
       }));
   }

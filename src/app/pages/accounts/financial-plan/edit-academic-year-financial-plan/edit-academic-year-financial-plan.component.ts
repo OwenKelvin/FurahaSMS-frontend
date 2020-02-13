@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 import {
   selectAcademicYearPlanState, selectAcademicYearPlanId
 } from '../store/selectors/academic-year-plan.selectors';
@@ -49,7 +49,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
           return forkJoin([
             this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId }),
             this.financialPlanService.getForAcademicYear(academicYearId)
-          ])
+          ]);
           // return this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId })
         })
       )
@@ -93,7 +93,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
           }
 
         })
-      )
+      );
   }
 
   get tuitionFees(): FormArray {
@@ -129,5 +129,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-
+  get transportHasError(): boolean {
+    return false;
+  }
 }
