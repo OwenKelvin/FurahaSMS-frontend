@@ -36,6 +36,9 @@ export class AdminExamPaperEditComponent implements OnInit {
     }));
   }
   openModal(template: TemplateRef<any>, action: string, i) {
+    if (document.fullscreenElement !== null) {
+      document.exitFullscreen();
+    }
     switch (action) {
       case 'add-before':
         this.dialog.title = `New Question before Qn ${i + 1 }`;
@@ -90,7 +93,7 @@ export class AdminExamPaperEditComponent implements OnInit {
 
   }
   addAnswers() {
-
+    // document.querySelector('#main').requestFullscreen()
   }
   deleteAnswer() {
 

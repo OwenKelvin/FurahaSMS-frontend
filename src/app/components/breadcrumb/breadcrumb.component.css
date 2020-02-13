@@ -4,7 +4,7 @@ ol {
   line-height: 1em;
   padding-top: 0.3em;
   padding-bottom: 0.5em;
-  border: 1px solid rgba(173, 216, 230, 0.637);
+  border: 1px solid rgba(173, 216, 230, 0.25);
   margin: 2px;
 }
 .active {
@@ -12,5 +12,10 @@ ol {
 }
 .breadcrumb-item button {
   padding: 0 5px 0 5px;
-  margin-top: -5px;
+  margin-top: -2px;
+  margin-bottom: -5px;
+}
+.breadcrumb-controls {
+  right: 10px;
+  position: absolute;
 }

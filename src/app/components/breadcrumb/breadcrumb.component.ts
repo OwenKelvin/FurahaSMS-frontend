@@ -86,6 +86,9 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   backClicked() {
     this.location.back();
   }
+  goFullScreen() {
+    document.querySelector('#main').requestFullscreen();
+  }
   ngOnDestroy() {
     this.componentIsActive = false;
   }

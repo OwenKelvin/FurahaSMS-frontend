@@ -19,6 +19,7 @@
     </ng-template>
     
     <li *ngIf='showSpinner; else breadcrumbLi'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
+    <li class="breadcrumb-controls"><span class="icon-resize-full" (click)='goFullScreen()'></span></li>
   </ol>
   <ng-template #dashboard>
     <ol class="breadcrumb bg-dark">
