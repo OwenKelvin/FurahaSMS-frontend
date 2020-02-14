@@ -7,12 +7,14 @@
     </button>
   </div>
   <div class="modal-body bg-dark">
-    <form [formGroup]='editDialogForm'>
+    <section *ngIf='!editorInitialized'>
+      <app-loading-bubble></app-loading-bubble>
+    </section>
+    <form [formGroup]='editDialogForm'  [class.sr-only]='!editorInitialized'>
       <label for="description" class="control-label">Question description</label>
-      <textarea formControlName='description' class='form-control' id="description" rows="3">
-
-      </textarea>
-
+      
+      <editor (onInit)='editorInitialized = true' formControlName='description' [init]="editorInit"></editor>
+      <textarea class="form-control" *ngIf='!editorInitialized' formControlName='description'></textarea>
       <section class="d-flex justify-content-between flex-wrap align-items-center">
         <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
           <label class="control-label" for='points'>
@@ -79,8 +81,32 @@
       </fieldset>
       <section class="mt-3">
         <label for="correctAnswerDescription">Correct Answer Description</label>
-        <textarea id='correctAnswerDescription' formControlName="correctAnswerDescription" cols="4" class="form-control"></textarea>
+        <editor id='correctAnswerDescription' *ngIf='editorInit' formControlName='correctAnswerDescription' [init]="editorInit"></editor>
+        
       </section>
+      <fieldset class="col-lg-12 tags">
+        <legend>Tags</legend>
+        <div class="d-flex justify-content-between flex-wrap">
+          <div class="col-lg-4 ">
+            <div class="input-group">
+              <input [ngModelOptions]="{standalone: true}" [(ngModel)]='tagInput' data-list type="text" class="form-control" aria-label="Add Tag">
+              <div class="input-group-append">
+                <button
+                  [disabled]='tagInput === ""'
+                  class="btn btn-primary input-group-button" 
+                  (click)='addTag(tagInput)'
+                >Add</button>
+              </div>
+            </div>
+          
+          </div>
+          <div class="col-lg-8">
+            <span *ngFor='let tag of tags.value; let j = index' class="badge badge-secondary p-2 mr-2 mb-2">{{ tag }}<span aria-label="Delete tag" (click)='deleteTag(j)' class="icon-cancel close p-0 m-0 pl-1"></span></span>
+          
+          </div>
+        </div>
+        
+      </fieldset>
       <section class="d-flex justify-content-between">
         <button
           [disabled]='editDialogForm.invalid'
@@ -104,6 +130,12 @@
   </fieldset>
   <fieldset>
     <legend>Questions</legend>
+    <section *ngIf='questions.length === 0'>
+      <section class="alert alert-info">
+        <span class="icon-info"></span>No Questions Added Yet
+      </section>
+      <button (click)='openModal(template, "add-before", 0)' type='button' class="btn btn-primary btn-sm"><span class="icon-plus-circled"></span>Add Question</button>
+    </section>
     <section class='d-flex flex-wrap'>
       <button style="min-width: 2.1rem;" [class.active]='activeQuestion === i' type="button"
         class="btn btn-secondary btn-sm ml-1 mt-1" *ngFor='let question of questions; let i = index'
@@ -130,7 +162,7 @@
         </section>
         <section class="card-body mb-0 choices">
           <section class="pb-2 border-bottom">
-            <p>{{ question.description }}</p>
+            <p [innerHtml]='question.description'></p>
           </section>
           <fieldset class="bg-dark mt-1">
             <legend>Choices</legend>
@@ -174,7 +206,16 @@
       </section>
     </ng-container>
   </fieldset>
-    <button type="button" class="btn btn-sm btn-success mt-3"> Save Changes<span class="icon-ok"></span></button>
+    <button
+      [disabled]='questions.length === 0 || submitted'
+      (click)='saveExamQuestions()' 
+      type="button" class="btn btn-sm btn-success mt-3"
+    > Save Changes
+    <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    <i *ngIf='!isSubmitting' class='icon-ok-1'></i>
+  
+  
+  </button>
 </section>
 <ng-template #loading>
   <h1>Edit Exam</h1>

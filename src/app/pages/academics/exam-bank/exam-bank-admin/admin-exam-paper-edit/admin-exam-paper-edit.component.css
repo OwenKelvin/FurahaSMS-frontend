@@ -19,3 +19,9 @@
 .border-bottom {
   border-bottom: rgba(173, 216, 230, 0.1) solid !important;
 }
+.tags .close {
+  padding: 0;
+  margin: 0;
+  font-size: 0.9rem;
+  cursor: pointer;
+}

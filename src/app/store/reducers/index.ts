@@ -13,6 +13,7 @@ import * as fromStudentProfileUpdate from './student-profile-update.reducer';
 import * as fromErrorMessage from './error-message.reducer';
 import * as fromActivePage from './active-page.reducer';
 import * as fromDialog from './dialog.reducer';
+import * as fromTinyMCEConfig from './tiny-mce-config.reducer';
 
 
 export interface AppState {
@@ -23,6 +24,8 @@ export interface AppState {
   [fromErrorMessage.errorMessageFeatureKey]: fromErrorMessage.ErrorMessageStateInterface;
   [fromActivePage.activePageFeatureKey]: fromActivePage.ActivePageStateInterface;
   [fromDialog.dialogFeatureKey]: fromDialog.IDialogShow;
+  [fromTinyMCEConfig.tinyMCEConfigFeatureKey]: fromTinyMCEConfig.State;
+
 
 
 
@@ -39,7 +42,9 @@ export const reducers: ActionReducerMap<AppState> = {
 
   [fromActivePage.activePageFeatureKey]: fromActivePage.reducer,
 
-  [fromDialog.dialogFeatureKey]: fromDialog.reducer
+  [fromDialog.dialogFeatureKey]: fromDialog.reducer,
+
+  [fromTinyMCEConfig.tinyMCEConfigFeatureKey]: fromTinyMCEConfig.reducer
 };
 
 export const REDUCER_TOKEN = new InjectionToken<ActionReducerMap<AppState>>('Registered Reducers');

@@ -40,7 +40,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     !environment.production ? StoreDevtoolsModule.instrument() : [],
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+   
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },

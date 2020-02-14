@@ -8,7 +8,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StoreModule, Store } from '@ngrx/store';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { of } from 'rxjs';
+import { EditorModule } from '@tinymce/tinymce-angular';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 describe('AdminExamPaperEditComponent', () => {
   let component: AdminExamPaperEditComponent;
@@ -29,7 +30,9 @@ describe('AdminExamPaperEditComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        EditorModule,
+        NgSelectModule
       ],
       declarations: [AdminExamPaperEditComponent],
       providers: [
