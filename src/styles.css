@@ -178,3 +178,13 @@ a:hover {
 .height-0 {
   height: 0;
 }
+.btn-sm {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 0.9rem;;
+}
+.btn-xs {
+  padding-top: 0;
+  padding-bottom: 0;
+  font-size: 0.8rem;;
+}

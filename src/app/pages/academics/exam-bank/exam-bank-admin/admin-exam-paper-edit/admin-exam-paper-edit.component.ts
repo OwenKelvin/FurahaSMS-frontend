@@ -54,8 +54,10 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       value: {
       }
     };
-    this.questionId$ = this.route.parent.paramMap.pipe(map(params => params.get('id')))
+    this.questionId$ =
+      this.route.parent.paramMap.pipe(map(params => params.get('id')))
     this.examPaper$ = this.questionId$
+      .pipe(takeWhile(() => this.componentIsActive))
       .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
     this.activeQuestion = 0;
 
@@ -214,7 +216,10 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
           toastHeader: 'Success!',
           toastTime: 'Just now'
         }));
-        this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', res.data.id, 'edit']);
+        this.questionId$.subscribe(examPaperId => {
+          this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']);
+        })
+        
       }, err => {
           this.isSubmitting = false;
       });
