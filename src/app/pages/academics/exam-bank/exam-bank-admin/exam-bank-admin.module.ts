@@ -14,6 +14,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AdminExamPaperEditComponent } from './admin-exam-paper-edit/admin-exam-paper-edit.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
+import { QuestionViewComponent } from './question-view/question-view.component';
 
 
 @NgModule({
@@ -22,7 +24,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     CreateExamComponent,
     AdminExamPaperViewComponent,
     AdminExamPaperComponent,
-    AdminExamPaperEditComponent
+    AdminExamPaperEditComponent,
+    QuestionViewComponent
   ],
   imports: [
     CommonModule,
@@ -34,7 +37,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AppInputModule,
     AppLoadingBubbleModule,
     ModalModule.forRoot(),
-    EditorModule
+    EditorModule,
+    Number2AlphabetModule
   ]
 })
 export class ExamBankAdminModule { }

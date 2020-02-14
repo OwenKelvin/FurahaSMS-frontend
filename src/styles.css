@@ -178,13 +178,11 @@ a:hover {
 .height-0 {
   height: 0;
 }
-.btn-sm {
+.btn-xs {
   padding-top: 0;
   padding-bottom: 0;
   font-size: 0.9rem;;
 }
-.btn-xs {
-  padding-top: 0;
-  padding-bottom: 0;
-  font-size: 0.8rem;;
+.text-success {
+  color: aqua !important;
 }

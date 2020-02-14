@@ -5,13 +5,23 @@ import { Observable } from 'rxjs';
 import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { takeWhile, map, mergeMap } from 'rxjs/operators';
+import { takeWhile, map, mergeMap, tap } from 'rxjs/operators';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
 import { ExamPaperQuestionsService } from '../../services/exam-paper-questions.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
+interface IExamPaperQuestion {
+  id: number;
+  correctAnswerDescription: string;
+  multipleAnswers: boolean;
+  multipleChoices: boolean;
+  points: number;
+  description: string,
+  tags: any[];
+  answers: any[];
+}
 @Component({
   selector: 'app-admin-exam-paper-edit',
   templateUrl: './admin-exam-paper-edit.component.html',
@@ -20,7 +30,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeactivateGuard {
   examPaper$: Observable<any>;
   activeQuestion: number;
-  Queries: { description: string; }[];
+  Queries: IExamPaperQuestion[];
   modalRef: BsModalRef;
   dialog: any;
   editDialogForm: FormGroup;
@@ -59,19 +69,21 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.examPaper$ = this.questionId$
       .pipe(takeWhile(() => this.componentIsActive))
       .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
+      .pipe(tap(res => {
+        if (res) { 
+          this.Queries = res.questions.map(item => ({
+            id: item.id,
+            correctAnswerDescription: item.correct_answer_description,
+            multipleAnswers: item.multiple_answers,
+            multipleChoices: item.multiple_choices,
+            points: item.points,
+            description: item.description,
+            tags: item.tags_value,
+            answers: item.answers_value.map(({ id, description, is_correct: isCorrect}) => ({id, description, isCorrect}))
+          }))
+        }
+      }))
     this.activeQuestion = 0;
-
-    // this.Queries = Array(10).fill(1).map((i, j) => ({
-    //   description: `${Math.random().toString(36)} asd rtyui dfghj  wrty sdfgh dfghjke wtyu dfgh`,
-    //   answers: [{ description: 'qwertyu1111' }, { description: 'qwertyu222222' }],
-    //   multipleChoices: true,
-    //   multipleAnswers: false,
-    //   correctAnswerDescription: 'qwertyu',
-    //   points: 2,
-    //   tags: ['Home', 'Away', 'Counting']
-
-    // }));
-    this.Queries = [];
 
     this.resetForm();
     this.multipleChoices.valueChanges
@@ -101,6 +113,9 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
     this.editDialogForm.patchValue({ ...question });
+  }
+  handleQuestionEdit(template: TemplateRef<any>, $event) {
+    this.openModal(template, $event.action, $event.i)
   }
   openModal(template: TemplateRef<any>, action: string, i) {
     this.submitted = false;
@@ -179,6 +194,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
   }
   addAnswers() {
     this.answers.push(this.fb.group({
+      id: [null],
       isCorrect: [false],
       description: ['', [Validators.required]],
     }));
