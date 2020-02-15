@@ -9,7 +9,9 @@ describe('ExamPaper Selectors', () => {
           0: {
             id: 0,
             name: '',
-            instructions: []
+            instructions: [],
+            tags: [],
+            questions: [],
           }
         }
       }
@@ -20,7 +22,9 @@ describe('ExamPaper Selectors', () => {
         0: {
           id: 0,
           name: '',
-          instructions: []
+          instructions: [],
+          tags: [],
+          questions: [],
         }
       }
     });

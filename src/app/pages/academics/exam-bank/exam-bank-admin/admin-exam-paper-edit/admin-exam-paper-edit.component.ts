@@ -11,6 +11,29 @@ import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.sele
 import { ExamPaperQuestionsService } from '../../services/exam-paper-questions.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { loadExamPapers } from '../../store/actions/exam-paper.actions';
+
+const answersMatchValidator = (group: FormGroup): { answersMismatch; } | null => {
+  const multipleAnswers = group.get('multipleAnswers').value;
+  const multipleChoices = group.get('multipleChoices').value;
+  const answers = group.get('answers').value as any[];
+  if ((answers.every(({ isCorrect }) => !isCorrect))) {
+    return { answersMismatch: 'A question must have at least one answer correct' };
+  }
+  if (!multipleChoices) {
+    if (!(answers.every(({ isCorrect }) => isCorrect))) {
+      return { answersMismatch: 'You Have marked Answers to have no choices. All answers for no choice question must be correct' };
+    }
+  } else {
+    if (!multipleAnswers) {
+      if (answers.reduce((a, b) => +a + +b.isCorrect, 0) > 1) {
+        return { answersMismatch: 'A single choice question can have only 1 correct answer' };
+      }
+    }
+  }
+
+  return null;
+};
 
 interface IExamPaperQuestion {
   id: number;
@@ -18,9 +41,10 @@ interface IExamPaperQuestion {
   multipleAnswers: boolean;
   multipleChoices: boolean;
   points: number;
-  description: string,
+  description: string;
   tags: any[];
   answers: any[];
+
 }
 @Component({
   selector: 'app-admin-exam-paper-edit',
@@ -36,11 +60,12 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
   editDialogForm: FormGroup;
   componentIsActive: boolean;
   submitted: boolean;
-  editorInit$: Observable<any>
-  questionId$: Observable<any>
+  editorInit$: Observable<any>;
+  questionId$: Observable<any>;
   editorInit: any;
   tagInput = '';
   isSubmitting: boolean;
+  validated = false;
 
   constructor(
     private fb: FormBuilder,
@@ -52,12 +77,12 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
   editorInitialized = false;
   ngOnInit() {
     this.componentIsActive = true;
-    this.editorInit$ = this.store.pipe(select(selectTinyMceConfig))
+    this.editorInit$ = this.store.pipe(select(selectTinyMceConfig));
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(conf => { this.editorInit = conf; })
+      .subscribe(conf => { this.editorInit = conf; });
     this.submitted = false;
-    
+
     this.dialog = {
       title: 'Add Item',
       type: 'new',
@@ -65,12 +90,12 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       }
     };
     this.questionId$ =
-      this.route.parent.paramMap.pipe(map(params => params.get('id')))
+      this.route.parent.paramMap.pipe(map(params => params.get('id')));
     this.examPaper$ = this.questionId$
       .pipe(takeWhile(() => this.componentIsActive))
       .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
       .pipe(tap(res => {
-        if (res) { 
+        if (res) {
           this.Queries = res.questions.map(item => ({
             id: item.id,
             correctAnswerDescription: item.correct_answer_description,
@@ -79,10 +104,10 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
             points: item.points,
             description: item.description,
             tags: item.tags_value,
-            answers: item.answers_value.map(({ id, description, is_correct: isCorrect}) => ({id, description, isCorrect}))
-          }))
+            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({ id, description, isCorrect }))
+          }));
         }
-      }))
+      }));
     this.activeQuestion = 0;
 
     this.resetForm();
@@ -115,9 +140,10 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.editDialogForm.patchValue({ ...question });
   }
   handleQuestionEdit(template: TemplateRef<any>, $event) {
-    this.openModal(template, $event.action, $event.i)
+    this.openModal(template, $event.action, $event.i);
   }
   openModal(template: TemplateRef<any>, action: string, i) {
+    this.validated = false;
     this.submitted = false;
     if (document.fullscreenElement !== null) {
       document.exitFullscreen();
@@ -167,13 +193,19 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.activeQuestion = swapIndex;
   }
   saveQuestion() {
-    if (this.dialog.type === 'edit') {
-      this.Queries[this.dialog.index] = { ...this.editDialogForm.value };
+    this.editDialogForm.setValidators(answersMatchValidator);
+    this.editDialogForm.updateValueAndValidity();
+    if (this.editDialogForm.invalid) {
+      this.validated = true;
     } else {
-      this.Queries.splice(this.dialog.index, 0, this.editDialogForm.value);
-      this.activeQuestion = this.dialog.index;
+      if (this.dialog.type === 'edit') {
+        this.Queries[this.dialog.index] = { ...this.editDialogForm.value };
+      } else {
+        this.Queries.splice(this.dialog.index, 0, this.editDialogForm.value);
+        this.activeQuestion = this.dialog.index;
+      }
+      this.modalRef.hide();
     }
-    this.modalRef.hide();
   }
   deleteQuestion(index) {
     this.Queries.splice(index, 1);
@@ -232,12 +264,14 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
           toastHeader: 'Success!',
           toastTime: 'Just now'
         }));
-        this.questionId$.subscribe(examPaperId => {
-          this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']);
-        })
-        
+        this.questionId$
+          .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
+          .subscribe(examPaperId => {
+            this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']);
+          });
+
       }, err => {
-          this.isSubmitting = false;
+        this.isSubmitting = false;
       });
   }
   canDeactivate() {

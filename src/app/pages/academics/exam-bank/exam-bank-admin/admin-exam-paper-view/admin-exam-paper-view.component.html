@@ -32,6 +32,7 @@
         [question]='question'
         [i]='i'
         [questionsLength]='questions.length'
+        (activeQuestionChange)='activeQuestion = activeQuestion + $event'
       ></app-question-view>
     </ng-container>
   </fieldset>

@@ -37,6 +37,6 @@ export class AdminExamPaperViewComponent implements OnInit {
             answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({ id, description, isCorrect }))
           }));
         }
-      }))
+      }));
   }
 }

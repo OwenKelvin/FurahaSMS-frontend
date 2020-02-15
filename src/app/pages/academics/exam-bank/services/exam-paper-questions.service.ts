@@ -10,7 +10,7 @@ export class ExamPaperQuestionsService {
   constructor(
     private http: HttpClient
   ) { }
-  
+
   store({ examPaperId, data }): Observable<any> {
     return this.http.post(`api/academics/exam-papers/${ examPaperId }/questions`, data);
   }

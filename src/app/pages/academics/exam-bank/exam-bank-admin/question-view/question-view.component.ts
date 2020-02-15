@@ -12,12 +12,19 @@ export class QuestionViewComponent implements OnInit {
   @Input() i: number;
   @Input() questionsLength: number;
   @Input() editMode: boolean;
-  @Output() edit = new EventEmitter;
+  @Output() edit = new EventEmitter();
+  @Output() activeQuestionChange = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
   }
   editRequest(action: string, i) {
-    this.edit.emit({ action, i })
+    this.edit.emit({ action, i });
+  }
+  activeQuestionPrevious() {
+    this.activeQuestionChange.emit(-1);
+  }
+  activeQuestionNext() {
+    this.activeQuestionChange.emit(1);
   }
 }

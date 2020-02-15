@@ -112,12 +112,31 @@
         </div>
 
       </fieldset>
+      <fieldset *ngIf='editDialogForm.invalid && editDialogForm.dirty && validated' aria-live="polite" aria-atomic="true">
+        <legend>Errors Found on the Form</legend>
+        <ul>
+          <li *ngIf='editDialogForm.errors?.answersMismatch' class="text-danger">
+            {{ editDialogForm.errors.answersMismatch }}
+          </li>
+          <li *ngIf='editDialogForm.get("description").errors' class="text-danger">
+            Question is required
+          </li>
+          <li *ngIf='editDialogForm.get("points").errors' class="text-danger">
+            Points Field is required
+          </li>
+        </ul>
+      </fieldset>
       <section class="d-flex justify-content-between">
+        
         <button [disabled]='editDialogForm.invalid' (click)='saveQuestion()' type="button"
           class="btn btn-success btn-sm mb-2 mt-2">
           Save <span *ngIf='editDialogForm.valid' class="icon-ok"></span></button>
+          
+          <button *ngIf='editDialogForm.invalid' (click)='validated = true' type="button"
+            class="btn btn-secondary btn-sm mb-2 mt-2">Validate</button>
         <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
       </section>
+      
     </form>
   </div>
 </ng-template>
@@ -153,7 +172,9 @@
         [activeQuestion]='activeQuestion' 
         [question]='question' 
         [i]='i' 
-        [questionsLength]='questions.length'>
+        [questionsLength]='questions.length'
+        (activeQuestionChange)='activeQuestion = activeQuestion + $event'
+        >
       </app-question-view>
     </ng-container>
   </fieldset>

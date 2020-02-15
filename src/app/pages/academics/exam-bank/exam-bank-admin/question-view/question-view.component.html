@@ -4,10 +4,10 @@
         class="sr-only">Question {{ i + 1 }}</span>
     </section>
     <section>
-      <button type="button" class="btn btn-sm btn-secondary ml-2" (click)='activeQuestion = activeQuestion - 1'
+      <button type="button" class="btn btn-sm btn-secondary ml-2" (click)='activeQuestionPrevious()'
         [disabled]='activeQuestion === 0'> <span class="icon-left-bold"></span>
         Previous</button>
-      <button (click)='activeQuestion = activeQuestion + 1' [disabled]='activeQuestion === (questionsLength - 1)'
+      <button (click)='activeQuestionNext()' [disabled]='activeQuestion === (questionsLength - 1)'
         type="button" class="btn btn-sm btn-secondary ml-2"> <span class="icon-right-bold"></span>
         Next
 
@@ -25,9 +25,9 @@
     </section>
     <fieldset class="bg-dark mt-1">
       <legend>Choices</legend>
-
-      <span *ngIf='!multipleAnswers'>[Question has one correct answer]</span>
-      <span *ngIf='multipleAnswers'>[Question can have multiple answers]</span>
+      <span *ngIf='!question.multipleChoices'>[Question has no choices]</span>
+      <span *ngIf='!question.multipleAnswers && question.multipleChoices'>[Question has one correct answer]</span>
+      <span *ngIf='question.multipleAnswers  && question.multipleChoices'>[Question can have multiple answers]</span>
       <ul class="list-group ">
         <li *ngFor='let answer of question.answers; let k = index' class="list-group-item list-group-flush bg-dark">
           {{ k | number2Alphabet }}. <span [class.text-success]='answer.isCorrect'

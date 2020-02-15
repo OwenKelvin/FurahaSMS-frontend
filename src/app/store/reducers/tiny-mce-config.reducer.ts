@@ -10,12 +10,13 @@ export interface State {
   paste_data_images: boolean;
   menubar: boolean;
   plugins: string[];
-  toolbar: string,
-  
+  toolbar: string;
+  forced_root_block: string,
+
 }
 
 export const initialState: State = {
- 
+  forced_root_block: '',
   branding: false,
   height: 150,
   base_url: '/tinymce',
