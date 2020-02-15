@@ -179,10 +179,13 @@ a:hover {
   height: 0;
 }
 .btn-xs {
-  padding-top: 0;
-  padding-bottom: 0;
+  padding-top: 2px;
+  padding-bottom: 2px;
   font-size: 0.9rem;;
 }
 .text-success {
   color: aqua !important;
+}
+.text-danger {
+  color: #F88A99 !important;
 }
