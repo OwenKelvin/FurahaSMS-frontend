@@ -43,10 +43,6 @@ describe('AdminExamPaperEditComponent', () => {
       providers: [
         reducerProvider,
         {
-          provide: Store,
-          useValue: of(of(1))
-        },
-        {
           provide: ActivatedRoute,
           useValue: { parent: { paramMap: of({get: () => 1 })}}
         }
@@ -58,8 +54,6 @@ describe('AdminExamPaperEditComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AdminExamPaperEditComponent);
     component = fixture.componentInstance;
-    component.editorInit$ = of({})
-    component.questionId$ = of({})
     fixture.detectChanges();
   });
 

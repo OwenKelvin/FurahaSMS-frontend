@@ -122,7 +122,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
         this.editDialogForm.updateValueAndValidity();
       });
   }
-  resetForm(question: any = undefined) {
+  resetForm(question?: any) {
     const answers = (question && question.answers) ? question.answers : [];
     const tags = (question && question.tags) ? question.tags : [];
     this.editDialogForm = this.fb.group({

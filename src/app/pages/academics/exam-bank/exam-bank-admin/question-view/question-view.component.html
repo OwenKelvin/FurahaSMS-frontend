@@ -54,16 +54,16 @@
         Add After</button>
       <button type="button" class="btn btn-sm btn-primary ml-2" (click)='editRequest("edit", i)'> <span
           class="icon-edit"></span> Edit</button>
-      <button [disabled]='questionsLength === 1' (click)='deleteQuestion(i)' type="button"
+      <button [disabled]='questionsLength === 1' (click)='deleteQuestionRequest(i)' type="button"
         class="btn btn-sm btn-danger ml-2"><span class="icon-trash-1"></span> Delete</button>
     </section>
     <section>
   
-      <button [disabled]='activeQuestion === 0' (click)='reorderQuestions({ move: "up", index: i})' type="button"
+      <button [disabled]='activeQuestion === 0' (click)='reorderQuestionsRequest({ move: "up", index: i})' type="button"
         class="btn btn-sm btn-secondary ml-2">
         <span class="icon-up"></span>
         <span class="sr-only">Reorder </span>Move Up</button>
-      <button [disabled]='activeQuestion === (questionsLength - 1)' (click)='reorderQuestions({ move: "down", index: i})'
+      <button [disabled]='activeQuestion === (questionsLength - 1)' (click)='reorderQuestionsRequest({ move: "down", index: i})'
         type="button" class="btn btn-sm btn-secondary ml-2">
         <span class="icon-down"></span>
         <span class="sr-only">Reorder</span>Move Down</button>

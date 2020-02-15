@@ -11,7 +11,7 @@ export interface State {
   menubar: boolean;
   plugins: string[];
   toolbar: string;
-  forced_root_block: string,
+  forced_root_block: string;
 
 }
 

@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./links.component.css']
 })
 export class LinksComponent implements OnInit {
-  @Input() links$: Observable<any[]>
+  @Input() links$: Observable<any[]>;
   constructor() { }
 
   ngOnInit() {

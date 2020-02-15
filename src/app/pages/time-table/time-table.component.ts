@@ -15,9 +15,9 @@ export class TimeTableComponent implements OnInit {
 
   ngOnInit() {
     this.links$ = of([
-      { name: "My Schedules", icon: "icon-user-circle-o", link: "time-table/my-schedules" },
-      { name: "Admin", icon: "icon-user-secret", link: "time-table/admin" },
-    ])
+      { name: 'My Schedules', icon: 'icon-user-circle-o', link: 'time-table/my-schedules' },
+      { name: 'Admin', icon: 'icon-user-secret', link: 'time-table/admin' },
+    ]);
   }
 
 }

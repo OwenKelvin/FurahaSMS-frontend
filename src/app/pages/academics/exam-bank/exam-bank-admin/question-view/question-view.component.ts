@@ -14,6 +14,8 @@ export class QuestionViewComponent implements OnInit {
   @Input() editMode: boolean;
   @Output() edit = new EventEmitter();
   @Output() activeQuestionChange = new EventEmitter();
+  @Output() deleteQuestion = new EventEmitter();
+  @Output() reorderQuestions = new EventEmitter();
   constructor() { }
 
   ngOnInit() {
@@ -26,5 +28,11 @@ export class QuestionViewComponent implements OnInit {
   }
   activeQuestionNext() {
     this.activeQuestionChange.emit(1);
+  }
+  deleteQuestionRequest(i: number) {
+    this.deleteQuestion.emit(i);
+  }
+  reorderQuestionsRequest(value: any) {
+    this.reorderQuestions.emit(value);
   }
 }

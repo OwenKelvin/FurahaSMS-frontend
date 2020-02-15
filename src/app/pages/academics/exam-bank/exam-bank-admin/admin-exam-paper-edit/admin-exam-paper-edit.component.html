@@ -167,10 +167,12 @@
     </section>
     <ng-container *ngFor='let question of questions; let i = index'>
       <app-question-view 
+        (deleteQuestion)='deleteQuestion($event)'
+        (reorderQuestions)='reorderQuestions($event)'
         (edit)='handleQuestionEdit(template, $event)'
         [editMode]='true'
         [activeQuestion]='activeQuestion' 
-        [question]='question' 
+        [question]='question'
         [i]='i' 
         [questionsLength]='questions.length'
         (activeQuestionChange)='activeQuestion = activeQuestion + $event'
