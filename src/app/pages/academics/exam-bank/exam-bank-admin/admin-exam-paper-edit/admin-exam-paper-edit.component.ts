@@ -128,8 +128,8 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.editDialogForm = this.fb.group({
       id: [],
       description: ['', Validators.required],
-      multipleChoices: [true],
-      multipleAnswers: [false, [Validators.required]],
+      multipleChoices: [1],
+      multipleAnswers: [0, [Validators.required]],
       answers: this.fb.array([]),
       correctAnswerDescription: [''],
       points: [2, [Validators.required]],
@@ -138,6 +138,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
     this.editDialogForm.patchValue({ ...question });
+    console.table(this.editDialogForm.value)
   }
   handleQuestionEdit(template: TemplateRef<any>, $event) {
     this.openModal(template, $event.action, $event.i);
