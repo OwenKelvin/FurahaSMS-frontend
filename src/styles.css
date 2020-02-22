@@ -189,3 +189,12 @@ a:hover {
 .text-danger {
   color: #F88A99 !important;
 }
+.btn-info {
+  background-color: #178192; 
+  
+}
+:focus {
+    outline-style: ridge;
+    outline-color: rgba(153, 205, 50, 0.5);
+    outline-width: 2px;
+}

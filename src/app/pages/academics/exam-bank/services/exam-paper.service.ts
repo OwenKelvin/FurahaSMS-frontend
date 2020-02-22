@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ExamPaperService {
+  getRecentExamPapers(): Observable<any> {
+    return this.http.get('api/academics/exam-papers/?latest=20');
+  }
   getExamPaperWithId(id: number): Observable<any> {
     return this.http.get(`api/academics/exam-papers/${id}`);
   }
@@ -26,6 +29,6 @@ export class ExamPaperService {
     const querystring = require('querystring');
     const queryString = querystring.stringify(params);
     return this.http.get<any[]>(`${url}?${queryString}`)
-      .pipe(map(res => res.map(item => ({ ...item, unitLevelName: item.unit_level_name}))));
+      .pipe(map(res => res.map(item => ({ ...item, unitLevelName: item.unit_level_name }))));
   }
 }

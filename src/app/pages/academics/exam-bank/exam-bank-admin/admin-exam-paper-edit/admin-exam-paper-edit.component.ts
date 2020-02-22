@@ -81,7 +81,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(conf => { this.editorInit = conf; });
-    this.submitted = false;
+    this.submitted = true;
 
     this.dialog = {
       title: 'Add Item',

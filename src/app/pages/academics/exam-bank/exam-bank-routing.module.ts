@@ -22,9 +22,9 @@ const routes: Routes = [
   },
   {
     path: 'archives',
-    component: ExamBankArchivesComponent,
+    loadChildren: () => import('./exam-bank-archives/exam-bank-archives.module').then(m => m.ExamBankArchivesModule),
     data: {
-      breadcrumb: 'Admin'
+      breadcrumb: 'Archives'
     },
   }
 ];
