@@ -14,6 +14,7 @@ export class ExamRevisionModeComponent implements OnInit {
   examPaper$: Observable<any>;
   questions: any[];
   activeQuestion = 0;
+  showInstructions = true;
 
   constructor(
     private route: ActivatedRoute,
@@ -34,14 +35,22 @@ export class ExamRevisionModeComponent implements OnInit {
             points: item.points,
             description: item.description,
             tags: item.tags_value,
-            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({ id, description, isCorrect }))
+            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({
+              id,
+              description,
+              isCorrect,
+              selected: false,
+            })),
+            validated: false
           }));
         }
       }));
   }
   setActiveQuestion(i: number) {
     this.activeQuestion = i;
-    (document.querySelector(`#question-section`) as HTMLDivElement).focus()
-    console.log(document.querySelector(`#question-section`) as HTMLDivElement)
+    (document.querySelector(`#question-section`) as HTMLDivElement).focus();
+  }
+  handleAnswerChange(event) {
+
   }
 }

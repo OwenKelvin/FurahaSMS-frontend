@@ -138,7 +138,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
     this.editDialogForm.patchValue({ ...question });
-    console.table(this.editDialogForm.value)
+    console.table(this.editDialogForm.value);
   }
   handleQuestionEdit(template: TemplateRef<any>, $event) {
     this.openModal(template, $event.action, $event.i);

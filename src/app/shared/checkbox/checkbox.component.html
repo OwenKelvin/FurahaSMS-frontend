@@ -1,0 +1,5 @@
+<label class="check-container">
+  <input type="checkbox" [(ngModel)]="inputValue" (ngModelChange)="propagateValue($event)">
+  <span class="checkmark icon-check"></span>
+  <span class="checkmark icon-check-empty"></span> {{ label }}
+</label>

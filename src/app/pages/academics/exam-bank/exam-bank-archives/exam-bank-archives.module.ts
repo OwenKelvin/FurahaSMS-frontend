@@ -9,6 +9,8 @@ import { ExamViewModeComponent } from './exam-view-mode/exam-view-mode.component
 import { ViewExamComponent } from './view-exam/view-exam.component';
 import { ViewQuestionRevisionModeComponent } from './view-question-revision-mode/view-question-revision-mode.component';
 import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
+import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
+import { FormsModule } from '@angular/forms';
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2
     CommonModule,
     ExamBankArchivesRoutingModule,
     AppLoadingBubbleModule,
-    Number2AlphabetModule
+    Number2AlphabetModule,
+    AppCheckboxModule,
+    FormsModule
   ]
 })
 export class ExamBankArchivesModule { }

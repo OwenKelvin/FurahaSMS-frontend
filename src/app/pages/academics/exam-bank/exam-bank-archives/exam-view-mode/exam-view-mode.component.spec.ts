@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExamViewModeComponent } from './exam-view-mode.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ExamViewModeComponent', () => {
   let component: ExamViewModeComponent;
@@ -8,6 +9,7 @@ describe('ExamViewModeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [RouterTestingModule],
       declarations: [ ExamViewModeComponent ]
     })
     .compileComponents();

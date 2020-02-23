@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
@@ -10,7 +10,7 @@ import { loadExamPapers } from '../../store/actions/exam-paper.actions';
   templateUrl: './view-exam.component.html',
   styleUrls: ['./view-exam.component.css']
 })
-export class ViewExamComponent implements OnInit {
+export class ViewExamComponent implements OnInit, OnDestroy {
 
   componentIsActive: boolean;
   constructor(

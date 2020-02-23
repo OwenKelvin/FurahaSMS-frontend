@@ -1,7 +1,7 @@
 <section class="card mt-1" *ngIf='i === activeQuestion' [id]='"question-" + i'>
   <section class="card-header d-flex flex-wrap justify-content-between align-items-center">
-    <section [attr.aria-label]='"Question " + (i + 1) + ", " + question.points + "points"' class="badge badge-primary">Qn:{{ i + 1 }} [{{ question.points | number:'1.1-1' }} points] <span
-        class="sr-only">Question {{ i + 1 }}</span>
+    <section [attr.aria-label]='"Question " + (i + 1) + ", " + question.points + "points"' class="badge badge-primary">
+      Qn:{{ i + 1 }} [{{ question.points | number:'1.1-1' }} points] <span class="sr-only">Question {{ i + 1 }}</span>
     </section>
     <section>
       <button type="button" class="btn btn-sm btn-secondary ml-2" (click)='activeQuestionPrevious()'
@@ -24,17 +24,42 @@
       <span *ngIf='!question.multipleChoices'>[Question has no choices]</span>
       <span *ngIf='!question.multipleAnswers && question.multipleChoices'>[Question has one correct answer]</span>
       <span *ngIf='question.multipleAnswers  && question.multipleChoices'>[Question can have multiple answers]</span>
-      <ul class="list-group ">
-        <li *ngFor='let answer of question.answers; let k = index' class="list-group-item list-group-flush bg-dark">
-          <span>{{ k | number2Alphabet }}. </span><span [class.text-success]='answer.isCorrect'
-            [class.icon-check-empty]='!answer.isCorrect' [class.icon-check]="answer.isCorrect"
-            style="font-size: 1.2rem;"></span> {{ answer.description }}
-        </li>
-      </ul>
+      <ul class="list-group " *ngIf='question.multipleChoices || question.validated'>
+        <ng-container *ngIf='question.validated; else notValidated'>
+          <li 
+            [class.correct-answer]="(!!answer.isCorrect === answer.selected) && (!!answer.isCorrect)" 
+            [class.incorrect-answer]="(!answer.isCorrect === answer.selected) && (!answer.isCorrect)" 
+            *ngFor='let answer of question.answers; let k = index' 
+            class="list-group-item list-group-flush bg-dark mt-1">
+            <span [class.text-success]='answer.isCorrect'
+              [class.icon-check-empty]='!answer.isCorrect && !answer.selected' [class.icon-check]="answer.isCorrect || answer.selected"
+              style="font-size: 1.2rem;"></span> <span> {{ k | number2Alphabet }}.</span> {{ answer.description }}
+              <span aria-live="polite" style="width: 100%; display: block; font-size: 0.7em" *ngIf='(!!answer.isCorrect === answer.selected) && (!!answer.isCorrect)'>
+                <span class="icon-ok"></span>This is Correct
+              </span>
+              <span aria-live="polite" style="width: 100%; display: block; font-size: 0.7em" *ngIf='(!answer.isCorrect === answer.selected) && (!answer.isCorrect)'>
+                <span class="icon-cancel"></span>  This is Incorrect
+              </span>
+          </li>
+        </ng-container>
+        <ng-template #notValidated>
+          <li *ngFor='let answer of answers; let k = index' class="list-group-item list-group-flush bg-dark">
+            <app-checkbox [label]='(k | number2Alphabet) + ". " + answer.description'
+              (ngModelChange)='emitChangedAnswer(k)' [(ngModel)]='answers[k].selected'></app-checkbox>
+          </li>
+        </ng-template>
 
+      </ul>
+      
     </fieldset>
-    <section [attr.aria-labelledby]='"explanation" + i' tabindex="0">
-      <strong [id]='"explanation" + i'>Explanation: </strong><span [innerHtml]='question.correctAnswerDescription'></span>
+    <button 
+      [disabled]='answerSelected(question.answers) && question.multipleChoices'
+      (click)='question.validated = true' 
+      *ngIf='!question.validated' 
+      class="btn btn-success btn-sm"> Check </button>
+    <section *ngIf='question.validated' [attr.aria-labelledby]='"explanation" + i' tabindex="0">
+      <strong [id]='"explanation" + i'>Explanation: </strong><span
+        [innerHtml]='question.correctAnswerDescription'></span>
       <section aria-label="This Question is tagged">
         <span *ngFor='let tag of question.tags; let j = index'
           class="badge badge-secondary p-1 mr-2 mb-2 pl-2 pr-2">{{ tag }}</span>

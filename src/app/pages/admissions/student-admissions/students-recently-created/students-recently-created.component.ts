@@ -18,7 +18,6 @@ export class StudentsRecentlyCreatedComponent implements OnInit {
 
   ngOnInit() {
     this.students$ = this.studentsService.getRecentlyCreatedStudents();
-    this.students$.subscribe(item => console.log(item));
   }
 
 }

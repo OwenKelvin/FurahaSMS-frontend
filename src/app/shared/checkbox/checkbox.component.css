@@ -1,0 +1,41 @@
+.check-container {
+  width: 100%;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
+  font-size: 1.2rem;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+/* Hide the browser's default checkbox */
+.check-container input {
+  position: absolute;
+  opacity: 0;
+  cursor: pointer;
+  height: 0;
+  width: 0;
+}
+/* When the checkbox is checked, add a blue background */
+.check-container input ~ .icon-check {
+  display: none;
+}
+
+.check-container input:checked ~ .icon-check {
+  display: inline-block;
+}
+.check-container input:checked ~ .icon-check-empty {
+  display: inline-block;
+}
+
+.check-container input:checked ~ .icon-check-empty {
+  display: none;
+}
+.check-container input:focus ~ .checkmark {
+  background-color: grey;
+}
+label {
+  margin-bottom: 0 !important;
+}
+
