@@ -19,6 +19,11 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 })
 export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy {
   isOpen = [false];
+  isOpenTransport = [false];
+  isOpenMeals = [false];
+  isOpenTours = [false];
+  isOpenBuildAndConst = [false];
+  isOpenLibrary = [false];
   academicYearPlan$: Observable<any>;
   classLevels$: Observable<any>;
   classLevels: any;
@@ -39,7 +44,12 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   ngOnInit() {
     this.componentIsActive = true;
     this.feePlanForm = this.fb.group({
-      tuitionFee: this.fb.array([])
+      tuitionFee: this.fb.array([]),
+      transportFee: this.fb.array([]),
+      mealFee: this.fb.array([]),
+      tourFee: this.fb.array([]),
+      buildAndConstFee: this.fb.array([]),
+      libraryFee: this.fb.array([]),
     });
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
@@ -55,6 +65,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
       )
       .pipe(map(([item, item1]) => {
         this.plans = item1;
+        console.table(item)
         return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
       }))
       .pipe(
@@ -87,17 +98,103 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
                 unitLevels
               })
             );
+            
+            // TransportFees
+            this.transportFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                semesters: this.fb.array([
+                ])
+              })
+            );
+            
+            // MealFees
+            this.mealFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                amount: 0
+              })
+            );
+            
+            // Tour Fee
+            this.tourFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                amount: 0
+              })
+            );
+            
+            // Build and Construct Fee
+            this.buildAndConstFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                amount: 0
+              })
+            );
+            
+            // Library Fee
+            this.libraryFees.push(
+              this.fb.group({
+                classLevelId: i.id,
+                name: i.name,
+                amount: 0
+              })
+            );
+            
           });
           if (this.plans.tuitionFee.length > 0) {
             this.tuitionFees.setValue(this.plans.tuitionFee);
+          }
+          if (this.plans.transportFee.length > 0) {
+            this.transportFees.setValue(this.plans.transportFee);
+          }
+          
+          if (this.plans.tourFee.length > 0) {
+            this.tourFees.setValue(this.plans.tourFee);
+          }
+          
+          if (this.plans.libraryFee.length > 0) {
+            this.libraryFees.setValue(this.plans.libraryFee);
+          }
+          
+          if (this.plans.tourFee.length > 0) {
+            this.tourFees.setValue(this.plans.tourFee);
+          }
+          
+          if (this.plans.buildAndConstFee.length > 0) {
+            this.buildAndConstFees.setValue(this.plans.buildAndConstFee);
           }
 
         })
       );
   }
-
+  
   get tuitionFees(): FormArray {
     return this.feePlanForm.get('tuitionFee') as FormArray;
+  }
+  
+  get tourFees(): FormArray {
+    return this.feePlanForm.get('tourFee') as FormArray;
+  }
+  
+  get mealFees(): FormArray {
+    return this.feePlanForm.get('mealFee') as FormArray;
+  }
+  
+  get transportFees(): FormArray {
+    return this.feePlanForm.get('transportFee') as FormArray;
+  }
+  
+  get buildAndConstFees(): FormArray {
+    return this.feePlanForm.get('buildAndConstFee') as FormArray;
+  }
+  
+  get libraryFees(): FormArray {
+    return this.feePlanForm.get('libraryFee') as FormArray;
   }
   validateForm() {
     this.triggerValidation = !this.triggerValidation;

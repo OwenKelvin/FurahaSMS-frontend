@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
 import { Observable } from 'rxjs';
@@ -10,6 +10,7 @@ import { StudentService } from 'src/app/services/student.service';
   styleUrls: ['./students-recently-created.component.css']
 })
 export class StudentsRecentlyCreatedComponent implements OnInit {
+  @Input() linksTo: string[];
   students$: Observable<any[]>;
 
   constructor(
@@ -19,5 +20,10 @@ export class StudentsRecentlyCreatedComponent implements OnInit {
   ngOnInit() {
     this.students$ = this.studentsService.getRecentlyCreatedStudents();
   }
-
+  getRouterLinks(id: number) {
+    if (this.linksTo) {
+      return this.linksTo.map(link => link.replace(':id', String(id)))
+    }
+    return ["/students", id];
+  }
 }

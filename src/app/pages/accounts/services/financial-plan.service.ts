@@ -21,13 +21,6 @@ export class FinancialPlanService {
     const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
     return this.http.get(url)
       .pipe(map(res => {
-        // res = {
-        //   ...res,
-        //   tuitionFee: (res as any).tuition_fee,
-        //   tuition_fee: undefined
-        // };
-        // delete ((res as any).tuition_fee)
-
         return res;
       }));
   }
