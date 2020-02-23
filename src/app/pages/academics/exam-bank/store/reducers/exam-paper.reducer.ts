@@ -8,7 +8,9 @@ export interface State {
     [key: number]: {
       id: 0,
       name: string,
-      instructions: any[]
+      instructions: any[],
+      questions: any[],
+      tags: any[]
      }
    };
 }
@@ -18,7 +20,9 @@ export const initialState: State = {
     0: {
       id: 0,
       name: '',
-      instructions: []
+      instructions: [],
+      questions: [],
+      tags: []
      }
    }
 };

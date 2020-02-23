@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { map, mergeMap } from 'rxjs/operators';
 import { selectGuardianProfileState } from '../store/selectors/guardian-profile.selectors';
 

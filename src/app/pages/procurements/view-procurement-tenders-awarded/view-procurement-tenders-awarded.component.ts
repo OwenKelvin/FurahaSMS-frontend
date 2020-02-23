@@ -28,7 +28,6 @@ export class ViewProcurementTendersAwardedComponent implements OnInit {
 
   ngOnInit() {
     this.procurementTenders$ = this.procurementService.getAwardedTenders();
-    this.procurementTenders$.subscribe( e => console.log(e));
   }
 
   openModalWithComponent(tenderId, fulfilled) {

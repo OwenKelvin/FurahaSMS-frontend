@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';

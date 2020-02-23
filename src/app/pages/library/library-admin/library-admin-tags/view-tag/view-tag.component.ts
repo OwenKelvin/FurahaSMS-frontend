@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { LibraryBookTagService } from 'src/app/pages/library/services/library-book-tag.service';
 
 @Component({

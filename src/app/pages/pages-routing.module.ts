@@ -87,7 +87,7 @@ const routes: Routes = [
       },
       {
         path: 'time-table',
-        loadChildren: () => import('../components/time-table/time-table.module').then(m => m.TimeTableModule),
+        loadChildren: () => import('./time-table/time-table.module').then(m => m.TimeTableModule),
         data: {
           breadcrumb: 'TimeTable'
         }

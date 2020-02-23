@@ -1,1 +1,40 @@
-<p>admin-exam-paper-view works!</p>
+<section *ngIf='examPaper$ | async as examPaper; else loading'>
+  <h1>Admin Exam View <span class="icon-right-dir"></span> {{ examPaper.name }}</h1>
+  <section>
+    <button [routerLink]='["../edit"]' type="button" class="btn btn-primary btn-sm btn-xs">
+      <span class="icon-edit"></span>
+      Edit
+    </button>
+  </section>
+  <fieldset>
+    <legend>Instruction</legend>
+    <ol>
+      <li *ngFor='let instruction of examPaper.instructions'>{{ instruction.description }}</li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <legend>Questions</legend>
+    <section *ngIf='questions.length === 0'>
+      <section class="alert alert-info">
+        <span class="icon-info"></span>No Questions Added Yet
+      </section>
+    </section>
+    <section class='d-flex flex-wrap'>
+      <button style="min-width: 2.1rem;" [class.active]='activeQuestion === i' type="button"
+        class="btn btn-secondary btn-sm ml-1 mt-1" *ngFor='let question of questions; let i = index'
+        (click)='activeQuestion = i' [attr.aria-label]='"Go to question" +  (i + 1)'>{{ i + 1}}</button>
+    </section>
+    <ng-container *ngFor='let question of questions; let i = index'>
+      <app-question-view
+        [activeQuestion]='activeQuestion'
+        [question]='question'
+        [i]='i'
+        [questionsLength]='questions.length'
+        (activeQuestionChange)='activeQuestion = activeQuestion + $event'
+      ></app-question-view>
+    </ng-container>
+  </fieldset>
+</section>
+<ng-template #loading>
+  <h1>Admin Exam View </h1>
+  <app-loading-bubble></app-loading-bubble>

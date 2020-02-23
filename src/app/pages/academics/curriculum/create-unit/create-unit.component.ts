@@ -9,7 +9,7 @@ import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interfac
 import { UnitsService } from 'src/app/services/units.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 
 export default interface IUnitForm {

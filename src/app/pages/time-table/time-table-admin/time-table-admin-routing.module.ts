@@ -1,16 +1,16 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { TimeTableComponent } from './time-table.component';
+import { TimeTableAdminComponent } from './time-table-admin.component';
 
 
 const routes: Routes = [
   {
     path: '',
     pathMatch: 'full',
-    component: TimeTableComponent,
+    component: TimeTableAdminComponent,
     data: {
       breadcrumb: null
-    },
+    }
   }
 ];
 
@@ -18,4 +18,4 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TimeTableRoutingModule { }
+export class TimeTableAdminRoutingModule { }

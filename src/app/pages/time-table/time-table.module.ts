@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { TimeTableRoutingModule } from './time-table-routing.module';
 import { TimeTableComponent } from './time-table.component';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AppLayoutModule } from 'src/app/modules/app-layout.module';
   imports: [
     CommonModule,
     TimeTableRoutingModule,
-    AppLayoutModule
+    AppLayoutModule,
+    AppLinksModule
   ]
 })
 export class TimeTableModule { }

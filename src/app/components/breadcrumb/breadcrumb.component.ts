@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart } from '@angular/router';
+import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart, NavigationCancel } from '@angular/router';
 import { filter, takeWhile } from 'rxjs/operators';
 import { Location } from '@angular/common';
 
@@ -34,7 +34,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
     // const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd))
+    this.router.events.pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(event => {
       this.showSpinner = false;
@@ -85,6 +85,9 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
   backClicked() {
     this.location.back();
+  }
+  goFullScreen() {
+    document.querySelector('#main').requestFullscreen();
   }
   ngOnDestroy() {
     this.componentIsActive = false;

@@ -5,3 +5,13 @@
 #page-content-wrapper {
   margin-bottom: 50px;
 }
+
+#main:fullscreen .escape-fullsreen{
+  display: block;
+  position: absolute;
+  right: 15px;
+  top: 15px;
+}
+#main:not(:fullscreen) .escape-fullsreen{
+ display: none;
+}

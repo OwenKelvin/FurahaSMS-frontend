@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Observable, of, forkJoin } from 'rxjs';
 import { Store, select } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { AppState } from 'src/app/store/reducers';
 import {
   selectAcademicYearPlanState, selectAcademicYearPlanId
 } from '../store/selectors/academic-year-plan.selectors';

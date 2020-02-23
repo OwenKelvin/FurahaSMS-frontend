@@ -1,0 +1,38 @@
+<section *ngIf='examPaper$ | async as examPaper; else loading'>
+  <h1>Exam Revision <span class="icon-right-dir"></span> {{ examPaper.name }}</h1>
+  <section class="d-flex justify-content-between">
+    <button type="button" 
+      (click)='showInstructions = ! showInstructions' 
+      class="btn btn-primary btn-sm">Show Instructions</button>
+    <a [routerLink]='["../view"]' class="btn btn-primary btn-sm">View Mode</a>
+  </section>
+  <fieldset *ngIf='showInstructions'>
+    <legend>Instruction</legend>
+    <ol>
+      <li *ngFor='let instruction of examPaper.instructions'>{{ instruction.description }}</li>
+    </ol>
+  </fieldset>
+  <fieldset>
+    <legend>Questions</legend>
+    <section *ngIf='questions.length === 0'>
+      <section class="alert alert-info">
+        <span class="icon-info"></span>No Questions Added Yet
+      </section>
+    </section>
+    <section class='d-flex flex-wrap'>
+      <button style="min-width: 2.1rem;" [class.active]='activeQuestion === i' type="button"
+        class="btn btn-secondary btn-sm ml-1 mt-1" *ngFor='let question of questions; let i = index'
+        (click)='setActiveQuestion(i)' [attr.aria-label]='"Go to question" +  (i + 1)'>{{ i + 1}}</button>
+    </section>
+    <section id='question-section' tabindex="0">
+      <ng-container *ngFor='let question of questions; let i = index'>
+        <app-view-question-revision-mode (answerChange)='handleAnswerChange($event)' [activeQuestion]='activeQuestion' [question]='question' [i]='i'
+          [questionsLength]='questions.length' (activeQuestionChange)='activeQuestion = activeQuestion + $event'>
+        </app-view-question-revision-mode>
+      </ng-container>
+    </section>
+  </fieldset>
+</section>
+<ng-template #loading>
+  <h1>Exam Revision</h1>
+  <app-loading-bubble></app-loading-bubble>

@@ -7,7 +7,12 @@ export const selectExamPaperState = createFeatureSelector<fromExamPaper.State>(
 
 export const selectExamPapersState = createSelector(
   selectExamPaperState,
-  examPaper => examPaper.examPapers
+  examPaper => {
+    if (examPaper) {
+      return examPaper.examPapers;
+    }
+    return [];
+  }
 );
 
 export const selectExamPaperItemState = (id) => createSelector(
