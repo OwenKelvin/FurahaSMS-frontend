@@ -65,9 +65,34 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
       )
       .pipe(map(([item, item1]) => {
         this.plans = item1;
-        console.table(item)
         return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
       }))
+      .pipe(
+        tap(() => {
+          (this.plans.transportFee as any[]).forEach(classLevel => {
+            let semesters = this.fb.array([]);
+            classLevel.semesters.forEach(sem => {
+              semesters.push(
+                this.fb.group({
+                  id: sem.id,
+                  name: sem.name,
+                  amount: [0],
+                })
+              );
+            });
+            this.transportFees.push(
+              this.fb.group({
+                classLevelId: classLevel.id,
+                name: classLevel.name,
+                semesters: semesters
+              })
+            );
+          });
+          if (this.plans.transportFee.length > 0) {
+            this.transportFees.setValue(this.plans.transportFee);
+          }
+        })
+      )
       .pipe(
         tap(item => {
           item.forEach(i => {
@@ -100,14 +125,14 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
             );
             
             // TransportFees
-            this.transportFees.push(
-              this.fb.group({
-                classLevelId: i.id,
-                name: i.name,
-                semesters: this.fb.array([
-                ])
-              })
-            );
+            // this.transportFees.push(
+            //   this.fb.group({
+            //     classLevelId: i.id,
+            //     name: i.name,
+            //     semesters: this.fb.array([
+            //     ])
+            //   })
+            // );
             
             // MealFees
             this.mealFees.push(
@@ -148,9 +173,6 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
           });
           if (this.plans.tuitionFee.length > 0) {
             this.tuitionFees.setValue(this.plans.tuitionFee);
-          }
-          if (this.plans.transportFee.length > 0) {
-            this.transportFees.setValue(this.plans.transportFee);
           }
           
           if (this.plans.tourFee.length > 0) {

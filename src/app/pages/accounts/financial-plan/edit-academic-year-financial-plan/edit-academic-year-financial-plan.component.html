@@ -1,4 +1,3 @@
-{{ feePlanForm.value | json }}
 <section *ngIf='academicYearPlan$ | async as academicYearPlan'>
   <h1>
     Financial Plan <span class='icon-right-dir'></span> Academic Year
@@ -72,14 +71,15 @@
                         [class.icon-up-dir]='isOpenTransport[i]'></span>View</button>
                   </section>
                 </section>
-
-                <!-- <section class="col-lg-3 col-md-4 col-sm-5" *ngFor='let semester of transportFees.semesters; let k = index'
-                  [formGroupName]='k'>
-
-                  <app-input step='1000' [id]='"amount" + i + j + k' placeholder='Enter Amount' type='number'
-                    labelClass='col-lg-12 col-sm-12 col-md-12' inputClass='col-lg-12 col-sm-12 col-md-12'
-                    [label]='semester.name' formControlName='amount'></app-input>
-                </section> -->
+                <section formGroupName='semesters' class="d-flex justify-content-start">
+                  <section class="col-lg-3 col-md-4 col-sm-5" *ngFor='let semester of transportFees.controls[i].get("semesters").controls; let k = index'
+                    [formGroupName]='k'>
+                  
+                    <app-input step='1000' [id]='"transportFees + amount" + i + j + k' placeholder='Enter Amount' type='number'
+                      labelClass='col-lg-12 col-sm-12 col-md-12' inputClass='col-lg-12 col-sm-12 col-md-12' [label]='semester.value.name'
+                      formControlName='amount'></app-input>
+                  </section>
+                </section>
 
               </accordion-group>
             </accordion>
