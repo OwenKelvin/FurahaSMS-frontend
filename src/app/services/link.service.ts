@@ -56,6 +56,11 @@ export class LinkService {
         icon: 'icon-dollar',
         link: 'accounts/student-fee-payment'
       },
+      {
+        name: 'Admin',
+        icon: 'icon-user-secret',
+        link: 'accounts/admin'
+      }
     ]);
   }
 

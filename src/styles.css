@@ -40,9 +40,12 @@ html, body {
   overflow: auto;
 }
 #main:focus {
-  box-shadow: 3px 10px aqua;
+  outline: none;
+  border-left: 1px solid rgba(172, 255, 47, 0.527);
+  min-height: calc(100%);
+}
+#main:focus + #sidebar-wrapper {
   background-color: red;
-  border: red solid 2px;
 }
 h1, h2, h3, h4 {
   font-size: 1.3rem;
@@ -202,4 +205,8 @@ a:hover {
 html, body {
   background-image: url(./assets/images/graduation-cap.webp);
   background-size: cover;
+}
+#main:fullscreen {
+  background-image: url(./assets/images/graduation-cap.webp);
+   background-size: cover;
 }

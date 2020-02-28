@@ -1,14 +1,14 @@
 
 <ng-container *ngIf='student$ | async as studentProfile; else loading'>
   <app-user-profile
-  title='Guardian'
+  title='Student'
   [profile]='studentProfile'
   [linkBase]='["/students"]'
   [links]='["info", "guardians", "academics"]'
 ></app-user-profile>
 </ng-container>
 <ng-template #loading>
-  <h1>Guardian Profile</h1>
+  <h1>Student Profile</h1>
   <app-loading-bubble></app-loading-bubble>
 </ng-template>
 
