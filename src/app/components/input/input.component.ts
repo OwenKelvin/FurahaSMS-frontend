@@ -32,6 +32,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() labelClass: string;
   @Input() inputClass: string;
   @Input() step: number;
+  @Input() min: number;
   fieldError: string;
   fieldType: string;
   disabled: boolean;

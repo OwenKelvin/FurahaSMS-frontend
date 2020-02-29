@@ -55,6 +55,72 @@
       </tab>
       <tab role="tab">
         <ng-template tabHeading>
+          Other Costs
+          <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
+        </ng-template>
+        <section>
+          <section class='mt-3 col-lg12'>
+            <section>
+              <accordion [closeOthers]=[true]>
+                <accordion-group class="mt-2" *ngFor='let classLevel of classLevels; let i = index' [(isOpen)]="isOpenTransport[i]"
+                  [class.active-group]="isOpenTransport[i]">
+              
+                  <section accordion-heading class="d-flex justify-content-between">
+                    <h2 [class.active]="isOpenTransport[i]">{{ classLevel.name }}</h2>
+                    <section>
+                      <button type="button" class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpenTransport[i]'
+                          [class.icon-up-dir]='isOpenTransport[i]'></span>View</button>
+                    </section>
+                  </section>
+                  <section>
+                    <fieldset *ngFor='let otherCost of otherCosts; let j = index' >
+                      <legend>{{ otherCost.name }}</legend>
+                      <section class="d-flex flex-wrap justify-content-start">
+                        <table class="table table-flush table-dark">
+                          <thead>
+                            <tr>
+                              <th>Cost Item Name</th>
+                              <th colspan="3">Semester/ Term</th>
+                        
+                            </tr>
+                          </thead>
+                          <tbody>
+                            <tr>
+                              <td></td>
+                              <td>Term 1</td>
+                              <td> Term 2</td>
+                              <td>Term 3</td>
+                            </tr>
+                            <ng-container *ngFor='let otherCostItem of otherCost.costItems; let l = index'>
+                              <tr >
+                                <td>{{ otherCostItem.name }}</td>
+                                <ng-container>
+                                  
+                                  <td><input min='0' step='1000' [id]='"amount" + i + j + k' placeholder='Enter Amount' type='number' class='form-control'></td>
+                                  <td><input min='0' step='1000' [id]='"amount" + i + j + k' placeholder='Enter Amount' type='number' class='form-control'></td>
+                                  <td><input min='0' step='1000' [id]='"amount" + i + j + k' placeholder='Enter Amount' type='number' class='form-control'></td>
+                                
+                                </ng-container>
+                              </tr>
+                             
+                            </ng-container>
+                          </tbody>
+                        </table>
+                      </section>
+                    </fieldset>
+                  </section>
+                </accordion-group>
+              </accordion>
+            </section>
+            <section class='d-flex justify-content-end'>
+              <button type="button" class="btn btn-secondary" (click)="selectTab(3)">Previous</button>
+              <button type="button" class="btn btn-primary ml-3" (click)="selectTab(5)">Next</button>
+            </section>
+          </section>
+        </section>
+      </tab>
+      <!-- <tab role="tab">
+        <ng-template tabHeading>
           Transport
           <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
         </ng-template>
@@ -89,8 +155,8 @@
             </section>
           </section>
         </section>
-      </tab>
-      <tab role="tab">
+      </tab> -->
+      <!-- <tab role="tab">
         <ng-template tabHeading>
           Meals
           <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
@@ -103,8 +169,8 @@
             </section>
           </section>
         </section>
-      </tab>
-      <tab role="tab">
+      </tab> -->
+      <!-- <tab role="tab">
         <ng-template tabHeading>
           Tours
           <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
@@ -117,8 +183,8 @@
             </section>
           </section>
         </section>
-      </tab>
-      <tab role="tab">
+      </tab> -->
+      <!-- <tab role="tab">
         <ng-template tabHeading>
           Building &amp; Constructions
           <app-tab-error-state [hasError]='transportHasError' [marked]='markTabsWithError'></app-tab-error-state>
@@ -131,7 +197,7 @@
             </section>
           </section>
         </section>
-      </tab>
+      </tab> -->
       <tab role="tab">
         <ng-template tabHeading>
           Library

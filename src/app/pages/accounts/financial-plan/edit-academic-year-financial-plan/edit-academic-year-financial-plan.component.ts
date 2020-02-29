@@ -11,6 +11,7 @@ import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { FinancialCostsService } from '../../services/financial-costs.service';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
@@ -35,24 +36,29 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   markTabsWithError: boolean;
   componentIsActive: boolean;
   plans: any;
+  otherCosts$: Observable<any[]>;
+  otherCosts: any[];
   constructor(
     private store: Store<AppState>,
     private classLevelService: ClassLevelService,
     private fb: FormBuilder,
-    private financialPlanService: FinancialPlanService
+    private financialPlanService: FinancialPlanService,
+    private financialCostService: FinancialCostsService
   ) { }
   ngOnInit() {
     this.componentIsActive = true;
     this.feePlanForm = this.fb.group({
       tuitionFee: this.fb.array([]),
-      transportFee: this.fb.array([]),
-      mealFee: this.fb.array([]),
-      tourFee: this.fb.array([]),
-      buildAndConstFee: this.fb.array([]),
+      // transportFee: this.fb.array([]),
+      // mealFee: this.fb.array([]),
+      // tourFee: this.fb.array([]),
+      // buildAndConstFee: this.fb.array([]),
       libraryFee: this.fb.array([]),
     });
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
+    this.otherCosts$ = this.financialCostService.getAll();
+    this.otherCosts$.subscribe(res => this.otherCosts = res)
     this.classLevels$ = this.academicYearPlanId$
       .pipe(
         mergeMap(academicYearId => {
@@ -67,32 +73,32 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
         this.plans = item1;
         return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
       }))
-      .pipe(
-        tap(() => {
-          (this.plans.transportFee as any[]).forEach(classLevel => {
-            let semesters = this.fb.array([]);
-            classLevel.semesters.forEach(sem => {
-              semesters.push(
-                this.fb.group({
-                  id: sem.id,
-                  name: sem.name,
-                  amount: [0],
-                })
-              );
-            });
-            this.transportFees.push(
-              this.fb.group({
-                classLevelId: classLevel.id,
-                name: classLevel.name,
-                semesters: semesters
-              })
-            );
-          });
-          if (this.plans.transportFee.length > 0) {
-            this.transportFees.setValue(this.plans.transportFee);
-          }
-        })
-      )
+      // .pipe(
+      //   tap(() => {
+      //     (this.plans.transportFee as any[]).forEach(classLevel => {
+      //       let semesters = this.fb.array([]);
+      //       classLevel.semesters.forEach(sem => {
+      //         semesters.push(
+      //           this.fb.group({
+      //             id: sem.id,
+      //             name: sem.name,
+      //             amount: [0],
+      //           })
+      //         );
+      //       });
+      //       this.transportFees.push(
+      //         this.fb.group({
+      //           classLevelId: classLevel.id,
+      //           name: classLevel.name,
+      //           semesters: semesters
+      //         })
+      //       );
+      //     });
+      //     if (this.plans.transportFee.length > 0) {
+      //       this.transportFees.setValue(this.plans.transportFee);
+      //     }
+      //   })
+      // )
       .pipe(
         tap(item => {
           item.forEach(i => {
@@ -135,61 +141,61 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
             // );
             
             // MealFees
-            this.mealFees.push(
-              this.fb.group({
-                classLevelId: i.id,
-                name: i.name,
-                amount: 0
-              })
-            );
+            // this.mealFees.push(
+            //   this.fb.group({
+            //     classLevelId: i.id,
+            //     name: i.name,
+            //     amount: 0
+            //   })
+            // );
             
             // Tour Fee
-            this.tourFees.push(
-              this.fb.group({
-                classLevelId: i.id,
-                name: i.name,
-                amount: 0
-              })
-            );
+            // this.tourFees.push(
+            //   this.fb.group({
+            //     classLevelId: i.id,
+            //     name: i.name,
+            //     amount: 0
+            //   })
+            // );
             
             // Build and Construct Fee
-            this.buildAndConstFees.push(
-              this.fb.group({
-                classLevelId: i.id,
-                name: i.name,
-                amount: 0
-              })
-            );
+            // this.buildAndConstFees.push(
+            //   this.fb.group({
+            //     classLevelId: i.id,
+            //     name: i.name,
+            //     amount: 0
+            //   })
+            // );
             
             // Library Fee
-            this.libraryFees.push(
-              this.fb.group({
-                classLevelId: i.id,
-                name: i.name,
-                amount: 0
-              })
-            );
+            // this.libraryFees.push(
+            //   this.fb.group({
+            //     classLevelId: i.id,
+            //     name: i.name,
+            //     amount: 0
+            //   })
+            // );
             
           });
           if (this.plans.tuitionFee.length > 0) {
             this.tuitionFees.setValue(this.plans.tuitionFee);
           }
           
-          if (this.plans.tourFee.length > 0) {
-            this.tourFees.setValue(this.plans.tourFee);
-          }
+          // if (this.plans.tourFee.length > 0) {
+          //   this.tourFees.setValue(this.plans.tourFee);
+          // }
           
-          if (this.plans.libraryFee.length > 0) {
-            this.libraryFees.setValue(this.plans.libraryFee);
-          }
+          // if (this.plans.libraryFee.length > 0) {
+          //   this.libraryFees.setValue(this.plans.libraryFee);
+          // }
           
-          if (this.plans.tourFee.length > 0) {
-            this.tourFees.setValue(this.plans.tourFee);
-          }
+          // if (this.plans.tourFee.length > 0) {
+          //   this.tourFees.setValue(this.plans.tourFee);
+          // }
           
-          if (this.plans.buildAndConstFee.length > 0) {
-            this.buildAndConstFees.setValue(this.plans.buildAndConstFee);
-          }
+          // if (this.plans.buildAndConstFee.length > 0) {
+          //   this.buildAndConstFees.setValue(this.plans.buildAndConstFee);
+          // }
 
         })
       );
