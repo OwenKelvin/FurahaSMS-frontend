@@ -39,16 +39,13 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
           item.map(({ id, name, costItems }) => ({
             id,
             name,
-            costItems: costItems.map(({ id, name }) => ({ id, name }))
+            costItems: costItems.map(({ id: costId, name: costName }) => ({ id: costId, name: costName }))
           }))
         ))
       );
     this.isLoading = true;
     this.financialCosts$.subscribe(financialCosts => {
       this.financialCosts = financialCosts;
-
-      // TODO-me remove below
-      // this.financialCosts = [{ "id": 1, "name": "Transport", "costItems": [{ "id": 1, "name": "Morning Transport" }, { "id": 2, "name": "Evening Transport" }] }, { "id": 2, "name": "Building and Construction", "costItems": [{ "id": 3, "name": "New Dining Hall Contribution" }] }, { "id": 3, "name": "Meals", "costItems": [{ "id": 4, "name": "Tea break snack" }, { "id": 5, "name": "Lunch" }, { "id": 6, "name": "Evening Snack" }] }, { "id": 4, "name": "Transport", "costItems": [{ "id": 7, "name": "Morning Transport" }, { "id": 8, "name": "Evening Transport" }] }, { "id": 5, "name": "Building and Construction", "costItems": [{ "id": 9, "name": "New Dining Hall Contribution" }] }, { "id": 6, "name": "Meals", "costItems": [{ "id": 10, "name": "Tea break snack" }, { "id": 11, "name": "Lunch" }, { "id": 12, "name": "Evening Snack" }] }];
 
       this.isLoading = false;
     });
@@ -62,7 +59,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
     this.addCostItem();
   }
 
-  openModal(template: TemplateRef<any>, j: number) {
+  openModal(template: TemplateRef<any>, j?: number) {
     this.resetEditForm();
     this.editedIndex = -1;
     if (j || j === 0) {

@@ -8,19 +8,19 @@ import { Observable } from 'rxjs';
 export class FinancialCostsService {
   destroy(id: any): Observable<any> {
     const url = `api/accounts/financial-costs/${id}`;
-    return this.http.delete(url)
+    return this.http.delete(url);
   }
-  
+
   getAll(): Observable<any> {
     const url = 'api/accounts/financial-costs';
-    return this.http.get(url)
+    return this.http.get(url);
   }
-  
+
   save(financialCosts: any[]) {
     console.log(financialCosts);
-    
+
     const url = 'api/accounts/financial-costs';
-    return this.http.post(url, financialCosts)
+    return this.http.post(url, financialCosts);
   }
 
   constructor(

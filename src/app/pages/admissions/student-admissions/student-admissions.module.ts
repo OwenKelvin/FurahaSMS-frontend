@@ -19,7 +19,7 @@ import { AppRecentlyCreatedStudent } from './students-recently-created/students-
   declarations: [
     StudentAdmissionsEditComponent,
     StudentSearchComponent,
-    
+
     CreateStudentComponent,
     EditStudentComponent,
     StudentAdmissionComponent,

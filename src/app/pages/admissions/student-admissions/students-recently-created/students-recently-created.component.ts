@@ -22,8 +22,8 @@ export class StudentsRecentlyCreatedComponent implements OnInit {
   }
   getRouterLinks(id: number) {
     if (this.linksTo) {
-      return this.linksTo.map(link => link.replace(':id', String(id)))
+      return this.linksTo.map(link => link.replace(':id', String(id)));
     }
-    return ["/students", id];
+    return ['/students', id];
   }
 }

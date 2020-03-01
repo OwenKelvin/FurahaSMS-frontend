@@ -1,6 +1,13 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FinancialCostsMaintenanceComponent } from './financial-costs-maintenance.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { StoreModule } from '@ngrx/store';
 
 describe('FinancialCostsMaintenanceComponent', () => {
   let component: FinancialCostsMaintenanceComponent;
@@ -8,7 +15,23 @@ describe('FinancialCostsMaintenanceComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ FinancialCostsMaintenanceComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot(),
+        AppInputModule,
+        AppLoadingBubbleModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+       ],
+      declarations: [FinancialCostsMaintenanceComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));
