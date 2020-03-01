@@ -2,7 +2,7 @@
   <ul class='list-group list-group-flush'>
     <ng-container *ngIf='students$ | async as students; else loading'>
       <li *ngFor="let student of students" class="list-group-item  bg-dark text-light pd-0">
-        <a [routerLink]='["/students",student.id]'>{{ student.first_name }} {{ student.last_name }}</a>
+        <a [routerLink]='getRouterLinks(student.id)'>{{ student.first_name }} {{ student.last_name }}</a>
       </li>
     </ng-container>
     <ng-template #loading>

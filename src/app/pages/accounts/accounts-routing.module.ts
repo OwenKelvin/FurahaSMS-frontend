@@ -26,6 +26,13 @@ const routes: Routes = [
       breadcrumb: 'Student Payment'
     }
   },
+  {
+    path: 'admin',
+    loadChildren: () => import('./accounts-admin/accounts-admin.module').then(m => m.AccountsAdminModule),
+    data: {
+      breadcrumb: 'Admin'
+    }
+  },
 ];
 
 @NgModule({

@@ -1,22 +1,27 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StudentPaymentComponent } from './student-payment.component';
-import { AppRecentlyCreatedStudent } from '../../admissions/student-admissions/students-recently-created/students-recently-created.module';
-import { RouterTestingModule } from '@angular/router/testing';
+import { FinancialCostsMaintenanceComponent } from './financial-costs-maintenance.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { StoreModule } from '@ngrx/store';
 
-describe('StudentPaymentComponent', () => {
-  let component: StudentPaymentComponent;
-  let fixture: ComponentFixture<StudentPaymentComponent>;
+describe('FinancialCostsMaintenanceComponent', () => {
+  let component: FinancialCostsMaintenanceComponent;
+  let fixture: ComponentFixture<FinancialCostsMaintenanceComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        ModalModule.forRoot(),
+        AppInputModule,
+        AppLoadingBubbleModule,
         HttpClientTestingModule,
-        AppRecentlyCreatedStudent,
-        RouterTestingModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
@@ -24,15 +29,15 @@ describe('StudentPaymentComponent', () => {
             strictActionImmutability: true,
           }
         }),
-      ],
-      declarations: [StudentPaymentComponent],
+       ],
+      declarations: [FinancialCostsMaintenanceComponent],
       providers: [reducerProvider]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StudentPaymentComponent);
+    fixture = TestBed.createComponent(FinancialCostsMaintenanceComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

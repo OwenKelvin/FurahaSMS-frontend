@@ -2,7 +2,7 @@
 
 
 <section class="d-flex flex-wrap justify-content-around" *ngIf='academicYears$ | async as academicYears; else loading'>
-  <section class="card col-lg-4" *ngFor='let academicYear of academicYears'>
+  <section class="card col-lg-5 m-1" *ngFor='let academicYear of academicYears'>
     <section class="card-header">
       <h2>{{ academicYear.name }}</h2>
     </section>

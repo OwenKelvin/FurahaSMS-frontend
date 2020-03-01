@@ -1,22 +1,22 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { StudentPaymentComponent } from './student-payment.component';
-import { AppRecentlyCreatedStudent } from '../../admissions/student-admissions/students-recently-created/students-recently-created.module';
+import { AccountsAdminComponent } from './accounts-admin.component';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
-describe('StudentPaymentComponent', () => {
-  let component: StudentPaymentComponent;
-  let fixture: ComponentFixture<StudentPaymentComponent>;
+describe('AccountsAdminComponent', () => {
+  let component: AccountsAdminComponent;
+  let fixture: ComponentFixture<AccountsAdminComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        HttpClientTestingModule,
-        AppRecentlyCreatedStudent,
+        AppLinksModule,
         RouterTestingModule,
+        AppDashboardLinksModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
@@ -25,14 +25,14 @@ describe('StudentPaymentComponent', () => {
           }
         }),
       ],
-      declarations: [StudentPaymentComponent],
+      declarations: [AccountsAdminComponent],
       providers: [reducerProvider]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(StudentPaymentComponent);
+    fixture = TestBed.createComponent(AccountsAdminComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
