@@ -6,6 +6,11 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudentAcademicsService {
+
+  getFeesStatementForStudentWithId(studentId: number): any {
+    const url = `api/students/${studentId}/fee-statement`;
+    return this.http.get(url);
+  }
   getForStudentWithId(studentId: number): any {
     const url = `api/students/${studentId}/academics`;
     return this.http.get(url);

@@ -210,3 +210,6 @@ html, body {
   background-image: url(./assets/images/graduation-cap.webp);
    background-size: cover;
 }
+.aquamarine {
+  color: aquamarine;
+}
