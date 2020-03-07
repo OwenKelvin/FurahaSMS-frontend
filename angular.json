@@ -27,6 +27,11 @@
               "src/manifest.webmanifest",
               {
                 "glob": "**/*",
+                "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
+                "output": "/assets/pdfjs"
+              },
+              {
+                "glob": "**/*",
                 "input": "node_modules/tinymce/skins",
                 "output": "/tinymce/skins/"
               },

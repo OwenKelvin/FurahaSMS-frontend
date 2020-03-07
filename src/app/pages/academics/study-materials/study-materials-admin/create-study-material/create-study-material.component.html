@@ -1,0 +1,44 @@
+<h1>Study Material Maintenance</h1>
+
+<form class="d-flex flex-wrap" (submit)='saveStudyMaterial()'>
+  <section class="col-sm-4">
+    <div class="custom-file">
+      <input (change)="onFileSelected()" type="file" class="custom-file-input" id="pdfFile">
+      <label class="custom-file-label" for="pdfFile">Choose file</label>
+    </div>
+    <div *ngIf="isLoaded" style="text-align: center;">
+      <button class="btn btn-secondary btn-sm" type="button" (click)="prevPage()" [disabled]="page === 1">Prev</button>
+      <span class="ml-1 mr-1"> <input class="text-center" [attr.size]="totalPages/3 + 1" min="1" [max]="totalPages"
+          [(ngModel)]='page' type="number" name="page" id=""> / {{ totalPages }}</span>
+      <button class="btn btn-secondary btn-sm" type="button" (click)="nextPage()"
+        [disabled]="page === totalPages">Next</button>
+    </div>
+
+    <pdf-viewer [page]="page" (after-load-complete)="afterLoadComplete($event)" [show-all]='false' [fit-to-page]="true"
+      [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+  </section>
+  <fieldset class="col-lg-3">
+    <legend>Titles</legend>
+    <app-add-study-materials-title [items]='outline'></app-add-study-materials-title>
+  </fieldset>
+  <section class="col-lg-3 col-md-6">
+    <fieldset >
+      <legend>Subjects/ Units</legend>
+      <section *ngFor='let unit of units$ | async; let i = index'>
+        <app-checkbox [label]='unit.name'></app-checkbox>
+      </section>
+    
+    </fieldset>
+    <fieldset class="mt-3">
+      <legend>Class Levels</legend>
+      <section *ngFor='let classLevel of classLevels$ | async; let i = index'>
+        <app-checkbox [label]='classLevel.name'></app-checkbox>
+      </section>
+    </fieldset>
+  </section>
+  <button class='btn btn-success' [disabled]='isSubmitting'>
+      Save Study Material
+    <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+    <i *ngIf='!isSubmitting' class='icon-ok-1'></i>
+  </button>
+</form>

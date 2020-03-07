@@ -1,0 +1,24 @@
+<!-- <div class="input-group mb-3" *ngIf=''>
+
+  <div class="input-group-prepend">
+    <button class="btn btn-primary" type="button" aria-label="Add Title"> <span
+        class="icon-plus-squared"></span></button>
+  </div>
+  <input class="form-control" type="password" name="" id="">
+  <div class="input-group mb-3">
+
+    <div class="input-group-prepend">
+      <button class="btn btn-primary" type="button" aria-label="Add Title"> <span
+          class="icon-plus-squared"></span></button>
+    </div>
+    <input class="form-control" type="password" name="" id="">
+  </div>
+</div> -->
+<ul *ngIf='items && items.length > 0'>
+  <li *ngFor='let item of items'>
+    <span [class.icon-plus-squared]="item.items && item.items.length > 0" [class.icon-bookmark]="!(item.items && item.items.length > 0)"></span> {{ item.title }}
+    <ul class="pl-2">
+      <app-add-study-materials-title [items]='item.items'></app-add-study-materials-title>
+    </ul>
+  </li>
+</ul>

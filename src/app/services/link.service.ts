@@ -326,6 +326,11 @@ export class LinkService {
         icon: 'icon-balance-scale',
         link: 'academics/exam-bank'
       },
+      {
+        name: 'Study Materials',
+        icon: 'icon-book-1',
+        link: 'academics/study-materials'
+      },
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {
