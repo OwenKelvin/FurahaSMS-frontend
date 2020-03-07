@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -9,17 +9,15 @@ export class StudyMaterialsService {
 
   constructor(private http: HttpClient) { }
   uploadDocument(file: File): Observable<any> {
-    // return of({
-    //   saved: true,
-    //   message: 'Successfully uploaded file',
-    //   data: {
-    //     id: 254
-    //   }
-    // });
-    return this.http.post('api/document-uploads', file, {
-      headers: {
-        "Content-Type": file.type
-      }
+
+    var myFormData = new FormData();
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    myFormData.append('pdfFile', file);
+
+    return this.http.post('api/study-materials/document-uploads', myFormData, {
+      headers
     })
   }
   saveStudyaterialInfo({ docId }): Observable<any> {

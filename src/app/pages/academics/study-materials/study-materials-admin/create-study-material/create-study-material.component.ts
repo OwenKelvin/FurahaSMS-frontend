@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { UnitsService } from 'src/app/services/units.service';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
-import { mergeMap, takeWhile } from 'rxjs/operators';
+import { mergeMap, takeWhile, map, tap } from 'rxjs/operators';
 import { StudyMaterialsService } from '../../services/study-materials.service';
 
 @Component({
@@ -40,7 +40,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   }
   onFileSelected() {
     let $pdf: any = document.querySelector('#pdfFile');
-    
+
     this.pdfFile = ($pdf as HTMLInputElement).files[0];
 
     if (typeof (FileReader) !== 'undefined') {
@@ -49,26 +49,18 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
       reader.onload = (e: any) => {
         this.pdfSrc = e.target.result;
       };
-      reader.readAsArrayBuffer($pdf.files[0]);
+      reader.readAsArrayBuffer(this.pdfFile);
     }
   }
- 
-  loadOutline() {
-    console.log(this.pdf)
-    this.pdf.getOutline().then((outline: any[]) => {
-      // const getItems = (items) => items.map(({ items, title }) => {
-      //   if (typeof items === 'undefined') {
-      //     return { title, items: [] };
-      //   } else {
-      //     return { title, items: getItems(items) };
-      //   }
-      // });
 
+  loadOutline() {
+
+    this.pdf.getOutline().then((outline: any[]) => {
       this.outline = outline;
     });
   }
   afterLoadComplete(pdf: PDFDocumentProxy) {
-   
+
     this.pdf = pdf;
     this.totalPages = pdf.numPages;
     this.isLoaded = true;
@@ -85,11 +77,12 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   saveStudyMaterial() {
     this.isSubmitting = true;
     this.studyMaterialService.uploadDocument(this.pdfFile)
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(map(({ data }) => data))
       .pipe(mergeMap(({ id: docId }) => this.studyMaterialService.saveStudyaterialInfo({ docId })))
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
-      })
+      }, err => this.isSubmitting = false );
   }
 
   ngOnDestroy() {

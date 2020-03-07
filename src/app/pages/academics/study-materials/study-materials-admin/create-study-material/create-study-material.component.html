@@ -1,9 +1,9 @@
 <h1>Study Material Maintenance</h1>
 
-<form class="d-flex flex-wrap" (submit)='saveStudyMaterial()'>
+<form class="d-flex flex-wrap" (submit)='saveStudyMaterial()' id='newStudyMaterialsForm'>
   <section class="col-sm-4">
     <div class="custom-file">
-      <input (change)="onFileSelected()" type="file" class="custom-file-input" id="pdfFile">
+      <input (change)="onFileSelected()" type="file" class="custom-file-input" id="pdfFile" name="pdfFile">
       <label class="custom-file-label" for="pdfFile">Choose file</label>
     </div>
     <div *ngIf="isLoaded" style="text-align: center;">
