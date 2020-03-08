@@ -48,7 +48,7 @@
 
           <td  class="aquamarine">TOTAL</td>
           <td *ngFor='let sem of semesters'>
-            {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId,null,sem.semesterId) + getTotalClassLevelFees(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}
+            {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId,null,sem.semesterId) + getCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId) | currency: ' ' }}
           </td>
           <td>{{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</td>
           <td>{{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</td>
