@@ -6,6 +6,9 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudyMaterialsService {
+  getAll({ active }): any {
+    return this.http.get(`api/study-materials?active=${active}`)
+  }
 
   constructor(private http: HttpClient) { }
   uploadDocument(file: File): Observable<any> {
@@ -20,13 +23,10 @@ export class StudyMaterialsService {
       headers
     })
   }
-  saveStudyaterialInfo({ docId }): Observable<any> {
-    return of({
-      saved: true,
-      message: 'Successfully Saved Docs',
-      data: {
-        id: 75587
-      }
+  saveStudyaterialInfo({ docId, data }): Observable<any> {
+    const { title, units, classLevels } = data;
+    return this.http.post('api/study-materials', {
+      title, units, classLevels, docId
     });
   }
 }

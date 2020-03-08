@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { StudyMaterialsService } from '../services/study-materials.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-study-materials-archive',
@@ -6,10 +8,14 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./study-materials-archive.component.css']
 })
 export class StudyMaterialsArchiveComponent implements OnInit {
+  studyMaterials$: Observable<any>;
 
-  constructor() { }
+  constructor(
+    private studyMaterialsService: StudyMaterialsService
+  ) { }
 
   ngOnInit() {
+    this.studyMaterials$ = this.studyMaterialsService.getAll({ active: true})
   }
 
 }

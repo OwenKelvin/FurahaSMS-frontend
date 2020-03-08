@@ -1,1 +1,17 @@
-<p>study-materials-archive works!</p>
+<h1>Study Materials Archives</h1>
+<ng-container *ngIf='studyMaterials$ | async as studyMaterials; else loading'>
+  <ul class="d-flex justify-content-start flex-wrap">
+    <li *ngFor='let studyMaterial of studyMaterials' class="list-group-item bg-dark list-group-flush mb-1 col-lg-5 m-2">
+      <a class="card-link  btn-block" [routerLink]='["/academics", "study-materials", studyMaterial.id , "view"]'>
+        
+        <span [class.icon-file-pdf]='studyMaterial.file_document_info.type ==="pdf"'></span>
+        <strong>{{ studyMaterial.title }}</strong><br />
+        <small>size: {{ studyMaterial.file_document_info.size | filesize }}</small>
+        <small class="ml-2">filename: {{ studyMaterial.file_document_info.name }}</small>
+      </a>
+    </li>
+  </ul>
+</ng-container>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

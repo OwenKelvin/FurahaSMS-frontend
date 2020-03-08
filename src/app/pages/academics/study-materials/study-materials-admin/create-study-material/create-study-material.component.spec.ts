@@ -5,6 +5,9 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 describe('CreateStudyMaterialComponent', () => {
   let component: CreateStudyMaterialComponent;
@@ -17,9 +20,18 @@ describe('CreateStudyMaterialComponent', () => {
         FormsModule,
         AppCheckboxModule,
         HttpClientTestingModule,
-        PdfViewerModule
+        PdfViewerModule,
+        AppInputModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ CreateStudyMaterialComponent ]
+      declarations: [CreateStudyMaterialComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

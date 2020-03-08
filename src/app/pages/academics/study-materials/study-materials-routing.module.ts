@@ -27,6 +27,11 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Admin'
     }
+  },
+  {
+    path: ':id',
+    loadChildren: () => import('../study-materials/study-material/study-material.module')
+    .then(m => m.StudyMaterialModule)
   }
 ];
 

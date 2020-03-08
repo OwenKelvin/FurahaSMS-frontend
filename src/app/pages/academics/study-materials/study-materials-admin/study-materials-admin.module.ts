@@ -7,8 +7,9 @@ import { RouterModule } from '@angular/router';
 import { CreateStudyMaterialComponent } from './create-study-material/create-study-material.component';
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudyMaterialsTitleModule } from './add-study-materials-title/add-study-materials-title.module';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 @NgModule({
   declarations: [StudyMaterialsAdminComponent, CreateStudyMaterialComponent],
@@ -19,7 +20,9 @@ import { AddStudyMaterialsTitleModule } from './add-study-materials-title/add-st
     AppCheckboxModule,
     PdfViewerModule,
     FormsModule,
-    AddStudyMaterialsTitleModule
+    ReactiveFormsModule,
+    AddStudyMaterialsTitleModule,
+    AppInputModule
   ]
 })
 export class StudyMaterialsAdminModule { }
