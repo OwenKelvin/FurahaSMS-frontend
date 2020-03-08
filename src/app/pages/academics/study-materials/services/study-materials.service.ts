@@ -6,8 +6,22 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudyMaterialsService {
+  downloadDocumentWithFilePath(file_path: any) {
+    const querystring = require('querystring');
+
+    const queryStringParams = querystring.stringify({ file_path });
+    const headers = new HttpHeaders();
+
+    headers.append('Accept', 'application/pdf');
+    headers.append('Content-Type', 'application/pdf',);
+
+    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, { headers, responseType: 'blob' })
+  }
+  getMaterialWithId(id: number): any {
+    return this.http.get(`api/study-materials/${id}`);
+  }
   getAll({ active }): any {
-    return this.http.get(`api/study-materials?active=${active}`)
+    return this.http.get(`api/study-materials?active=${active}`);
   }
 
   constructor(private http: HttpClient) { }
@@ -21,7 +35,7 @@ export class StudyMaterialsService {
 
     return this.http.post('api/study-materials/document-uploads', myFormData, {
       headers
-    })
+    });
   }
   saveStudyaterialInfo({ docId, data }): Observable<any> {
     const { title, units, classLevels } = data;
