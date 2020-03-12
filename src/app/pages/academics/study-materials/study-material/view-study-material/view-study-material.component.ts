@@ -21,7 +21,7 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
   studyMaterial$: Observable<any>;
   studyMaterial: any;
   zoom = 1;
-  showOutline: true;
+  showOutline = true;
 
   constructor(
     private studyMaterialService: StudyMaterialsService,

@@ -4,7 +4,6 @@ import * as fromStore from '../../../store/reducers';
 import { RolesAndPermissionsService } from '../../roles-and-permissions/services/roles-and-permissions.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { loadStaffTypes } from '../store/actions/staff-type.actions';
 
 @Component({
   selector: 'app-support-staff-admission',
@@ -28,7 +27,7 @@ export class SupportStaffAdmissionComponent implements OnInit {
   
   navigateToNewStaffPage() {
     // this.staffTypes.find(item => item.id === this.staffType
-    this.store.dispatch(loadStaffTypes({ id: 1, name: 'bnm,.' }));
+    // this.store.dispatch(loadStaffTypes({ id: 1, name: 'bnm,.' }));
     
   }
 
