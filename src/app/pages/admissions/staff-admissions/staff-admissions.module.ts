@@ -10,6 +10,7 @@ import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teac
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { SupportStaffAdmissionComponent } from '../support-staff-admission/support-staff-admission.component';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 @NgModule({
@@ -27,7 +28,8 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     ReactiveFormsModule,
     AppLoadingBubbleModule,
     AppDashboardLinksModule,
-    AppInputModule
+    AppInputModule,
+    NgSelectModule
   ]
 })
 export class StaffAdmissionsModule { }

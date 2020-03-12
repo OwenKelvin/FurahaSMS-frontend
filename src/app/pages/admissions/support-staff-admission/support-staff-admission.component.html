@@ -1,3 +1,20 @@
-<h1> Support staff admissions</h1>
+<h1> Support staff admissions</h1>qwer
 
-<app-select type='support-staff'></app-select>
+<section class="d-flex">
+  <section class="col-lg-4 col-md-7">
+    <label for="staffTypes">Select Staff Type</label>
+  
+    <ng-select [(ngModel)]='staffType' id='staffTypes' [items]='staffTypes$ | async' bindLabel="name" bindValue="id">
+      <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
+  
+        {{ item.name }}
+      </ng-template>
+  
+    </ng-select>
+  </section>
+  <section class="col-lg-4 col-md-5">
+  
+    <button (click)='navigateToNewStaffPage()' class="btn btn-primary mt-2 btn-sm mt-lg-3 ">GO <span class="icon-paper-plane-empty"></span></button>
+  </section>
+
+</section>

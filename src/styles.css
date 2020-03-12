@@ -25,6 +25,11 @@
   background-color: rgb(68, 68, 68) !important;
   color: white !important;
   border-radius: 3px !important;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 4px;
+  margin-left: 4px;
 }
 .ng-dropdown-panel {
   background: red;
@@ -180,7 +185,7 @@ a:hover {
   font-size: 0.9rem;;
 }
 .text-success {
-  color: aqua !important;
+  color: rgb(129, 211, 82) !important ;
 }
 .text-danger {
   color: #F88A99 !important;

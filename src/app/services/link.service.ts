@@ -303,6 +303,11 @@ export class LinkService {
         link: 'academics'
       },
       {
+        name: 'Roles & Permissions',
+        icon: 'icon-block',
+        link: 'roles-and-permissions'
+      },
+      {
         name: 'Reports',
         icon: 'icon-doc-text-inv',
         link: 'reports'

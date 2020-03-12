@@ -1,0 +1,30 @@
+<h1>Roles and Permissions Management</h1>
+<ng-container *ngIf='!isLoading; else loading'>
+  <section class="d-flex justify-content-between">
+    <section class="col-lg-4">
+      <label for="role">Select Role</label>
+      <ng-select id='role' [items]="roles" bindLabel="name" bindValue="id" [(ngModel)]='role'>
+    
+      </ng-select>
+    
+    </section>
+    <section>
+      <button [routerLink]='[ role, "edit" ]' [disabled]='!role' class="btn btn-primary btn-sm"><span class="icon-edit">Edit</span></button>
+    </section>
+  </section>
+  <fieldset class="mt-3" *ngIf='role; else permissionsSection'>
+    <legend>Permissions for roles: {{ getRoleWithId(role).name | uppercase }}</legend>
+    <input aria-label="filter" placeholder="Filter Permissions" [(ngModel)]='filter' class="form-control" type="text" name="" id="">
+    <ul class="d-flex flex-wrap pl-0">
+      <li class="col-lg-4 col-md-6 col-sm-12 list-group-item bg-dark" *ngFor='let permission of getFilteredPermissionsWithRoleId(role)'>
+        <span class="icon-thumbs-up text-success"></span> {{ permission.name | titlecase }}
+      </li>
+    </ul>
+  </fieldset>
+  <ng-template #permissionsSection>
+    <section class="alert alert-info mt-3">No Role Selected</section>
+  </ng-template>
+</ng-container>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

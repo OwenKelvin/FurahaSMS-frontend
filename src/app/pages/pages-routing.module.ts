@@ -119,6 +119,13 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Guardians'
         }
+      },
+      {
+        path: 'roles-and-permissions',
+        loadChildren: () => import('./roles-and-permissions/roles-and-permissions.module').then(m => m.RolesAndPermissionsModule),
+        data: {
+          breadcrumb: 'Roles & Permissions'
+        }
       }
     ]
   }

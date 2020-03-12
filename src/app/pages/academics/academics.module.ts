@@ -14,6 +14,7 @@ import { AcademicsComponent } from './academics.component';
     CommonModule,
     AcademicsRoutingModule,
     AppDashboardLinksModule,
+
   ]
 })
 export class AcademicsModule { }
