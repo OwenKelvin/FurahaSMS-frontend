@@ -1,0 +1,35 @@
+import { NgModule } from '@angular/core';
+import { Routes, RouterModule } from '@angular/router';
+import { ViewSupportStaffInfoComponent } from './support-staff/view-support-staff-info/view-support-staff-info.component';
+import { ViewSupportStaffComponent } from './support-staff/view-support-staff/view-support-staff.component';
+
+
+const routes: Routes = [
+  {
+    path: ':id',
+    component: ViewSupportStaffComponent,
+    data: {
+      breadcrumb: null,
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'info'
+      },
+      {
+        path: 'info',
+        data: {
+          breadcrumb: 'Info'
+        },
+        component: ViewSupportStaffInfoComponent
+      }
+    ]
+  }
+];
+
+@NgModule({
+  imports: [RouterModule.forChild(routes)],
+  exports: [RouterModule]
+})
+export class SupportStaffsRoutingModule { }

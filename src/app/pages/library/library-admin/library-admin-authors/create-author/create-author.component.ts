@@ -1,24 +1,26 @@
 
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-author',
   templateUrl: './create-author.component.html',
   styleUrls: ['./create-author.component.css']
 })
-export class CreateAuthorComponent implements OnInit {
+export class CreateAuthorComponent implements OnInit, OnDestroy {
 
   isLoading: boolean;
   isSubmitting: boolean;
   triggerValidation: boolean;
   newBookAuthorForm: FormGroup;
   editPage: boolean;
+  componentIsActive: boolean;
   constructor(
     private libraryAuthor: LibraryAuthorService,
     private store: Store<fromStore.AppState>,
@@ -29,23 +31,26 @@ export class CreateAuthorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-
+    this.componentIsActive = true;
     this.newBookAuthorForm = this.fb.group({
       id: [0, []],
       name: ['', [Validators.required]],
       biography: ['']
     });
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(params => {
       const id = +params.get('id');
       if (id > 0) {
         this.editPage = true;
         this.isLoading = true;
-        const sub = this.libraryAuthorService.getAuthorWithId(id).subscribe(author => {
+        this.libraryAuthorService.getAuthorWithId(id)
+          .pipe(takeWhile(() => this.componentIsActive))
+          .subscribe(author => {
           const authorConverted = author as { name: string, id: string, biography: string; };
           this.newBookAuthorForm.get('id').setValue(authorConverted.id);
           this.newBookAuthorForm.get('name').setValue(authorConverted.name);
           this.isLoading = false;
-          sub.unsubscribe();
         });
       }
     });
@@ -53,7 +58,9 @@ export class CreateAuthorComponent implements OnInit {
 
   submitNewBookAuthorForm() {
     this.isSubmitting = true;
-    this.libraryAuthor.save(this.newBookAuthorForm.value).subscribe(res => {
+    this.libraryAuthor.save(this.newBookAuthorForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
       this.isSubmitting = false;
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
@@ -65,5 +72,7 @@ export class CreateAuthorComponent implements OnInit {
       this.isSubmitting = false;
     });
   }
-
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
 }

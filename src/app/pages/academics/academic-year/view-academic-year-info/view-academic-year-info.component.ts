@@ -16,9 +16,6 @@ export class ViewAcademicYearInfoComponent implements OnInit {
 
   ngOnInit() {
     this.id$ = this.store.select(selectActivePageStateId);
-    // this.store.select(selectActivePageStateId).subscribe(item => {
-    //   alert(item)
-    // });
   }
 
 }

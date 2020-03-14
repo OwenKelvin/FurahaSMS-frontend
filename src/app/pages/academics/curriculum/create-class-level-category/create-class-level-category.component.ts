@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/reducers';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
@@ -6,7 +6,7 @@ import { ClassLevelCategoryService } from 'src/app/services/class-level-category
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
 import { ClassLevelCategoryInterface } from 'src/app/interfaces/class-level-category.interface';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { map } from 'rxjs/operators';
+import { map, takeWhile } from 'rxjs/operators';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
 
@@ -15,11 +15,12 @@ import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.help
   templateUrl: './create-class-level-category.component.html',
   styleUrls: ['./create-class-level-category.component.css']
 })
-export class CreateClassLevelCategoryComponent implements OnInit {
+export class CreateClassLevelCategoryComponent implements OnInit, OnDestroy {
 
   showErrorMessage: boolean;
   formId: any;
   submitInProgress: boolean;
+  componentIsActive: any;
   constructor(
     private fb: FormBuilder,
     private store: Store<AppState>,
@@ -33,6 +34,7 @@ export class CreateClassLevelCategoryComponent implements OnInit {
   newForm: boolean;
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.newForm = true;
     this.errors = {
       name: ''
@@ -53,7 +55,9 @@ export class CreateClassLevelCategoryComponent implements OnInit {
       } else {
         this.newForm = false;
         this.formId = id;
-        this.classLevelCategory.get({ id }).subscribe(item => {
+        this.classLevelCategory.get({ id })
+          .pipe(takeWhile(() => this.componentIsActive))
+          .subscribe(item => {
           this.generateClassLevelCategoryForm(item);
         });
       }
@@ -93,6 +97,7 @@ export class CreateClassLevelCategoryComponent implements OnInit {
     if (this.classLevelCategoryForm.valid) {
       this.classLevelCategory
         .submit(this.classLevelCategoryForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(success => {
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,

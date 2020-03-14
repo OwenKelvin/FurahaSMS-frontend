@@ -4,6 +4,7 @@ import { Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { AppState } from 'src/app/store/reducers';
 import { LibraryBookTagService } from 'src/app/pages/library/services/library-book-tag.service';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-tag',
@@ -21,9 +22,12 @@ export class ViewTagComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.tag$ = this.libraryTagService.getTagWithId(+params.get('id'));
-    });
+    this.tag$ = this.route.paramMap
+      .pipe(map(params => + params.get('id')))
+      .pipe(mergeMap(id => this.libraryTagService.getTagWithId(id)))
+    // this.route.paramMap.subscribe(params => {
+    //   this.tag$ = this.libraryTagService.getTagWithId(+params.get('id'));
+    // });
   }
 
 }

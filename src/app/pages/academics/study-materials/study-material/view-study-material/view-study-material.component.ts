@@ -47,6 +47,7 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
           })
         
       }))
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
       this.studyMaterial = res;
     });

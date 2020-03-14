@@ -8,6 +8,7 @@ import { StudentService } from 'src/app/services/student.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-student',
@@ -19,6 +20,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   triggerValidation: boolean;
   isSubmitting: boolean;
   formSubmitted: boolean;
+  componentIsActive: boolean;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -40,7 +42,9 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
       religion: [null],
       dateOfBirth: [null, Validators.required],
     });
-    this.autoGenerate.valueChanges.subscribe(checked => {
+    this.autoGenerate.valueChanges
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(checked => {
       if (checked) {
         this.schoolIdNumber.setValidators([Validators.required]);
         this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
@@ -59,7 +63,9 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   submitNewStudentForm() {
     this.isSubmitting = true;
     if (this.newStudentForm.valid) {
-      this.studentService.createNewStudent(this.newStudentForm.value).subscribe(student => {
+      this.studentService.createNewStudent(this.newStudentForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(student => {
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
         }));

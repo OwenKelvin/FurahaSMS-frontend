@@ -6,7 +6,7 @@ import {
   selectAcademicYearPlanState, selectAcademicYearPlanId
 } from '../store/selectors/academic-year-plan.selectors';
 import { ClassLevelService } from 'src/app/services/class-level.service';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map, tap, takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
@@ -61,7 +61,9 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
     this.otherCosts$ = this.financialCostService.getAll();
-    this.otherCosts$.subscribe(res => this.otherCosts = res);
+    this.otherCosts$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => this.otherCosts = res);
     this.classLevels$ = this.academicYearPlanId$
       .pipe(
         mergeMap(academicYearId => {
@@ -214,7 +216,8 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
           mergeMap(
             id => this.financialPlanService
               .submit({ academicYearId: id, data: this.feePlanForm.value }))
-        )
+      )
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
           this.isSubmitting = false;
           this.store.dispatch(loadToastShowsSuccess({

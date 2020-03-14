@@ -68,12 +68,11 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
     }
   }
   subscribeToEmailChecking(): void {
-    (this.userIdentificaionForm.get('guardians') as FormArray).controls.forEach((element, i) => {
-      element.get('email').valueChanges.pipe(
-        debounceTime(1000)
-      ).pipe(
-        takeWhile(() => this.componentIsActive)
-      )
+    (this.userIdentificaionForm.get('guardians') as FormArray).controls
+      .forEach((element, i) => {
+        element.get('email').valueChanges
+          .pipe(debounceTime(1000))
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(
           (event) => {
             if (event && event.length && event.length > 5) {

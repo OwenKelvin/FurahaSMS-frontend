@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, SimpleChange, OnChanges, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, OnChanges, forwardRef, OnDestroy } from '@angular/core';
 import { LibraryBookClassesService } from '../../services/library-book-classes.service';
 import { Observable, of } from 'rxjs';
 
 import { DbService } from 'src/app/services/db.service';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl } from '@angular/forms';
+import { takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -23,7 +24,8 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl } f
     }
   ]
 })
-export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
+  componentIsActive: boolean;
   constructor(
     private libraryBookClassesService: LibraryBookClassesService,
     private db: DbService
@@ -36,9 +38,10 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
   onTouched: () => void;
 
   ngOnInit() {
+    this.componentIsActive = true;
 
   }
-  ngOnChanges(changes: { classification: SimpleChange }) {
+  ngOnChanges(changes: { classification: SimpleChange; }) {
     let currentValue;
     if (changes) {
       currentValue = changes.classification.currentValue;
@@ -50,7 +53,9 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
         }).catch(e => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: currentValue, libraryClass: null });
-          this.libraryBookClasses$.subscribe(items => {
+          this.libraryBookClasses$
+            .pipe(takeWhile(() => this.componentIsActive))
+            .subscribe(items => {
             const doc = {
               _id: currentValue,
               items
@@ -81,5 +86,8 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
 
   handleChange($event) {
     this.onChanges($event);
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

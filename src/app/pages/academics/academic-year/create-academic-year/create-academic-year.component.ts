@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,18 +8,20 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { MessageInterface } from 'src/app/interfaces/message.interface';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-academic-year',
   templateUrl: './create-academic-year.component.html',
   styleUrls: ['./create-academic-year.component.css']
 })
-export class CreateAcademicYearComponent implements OnInit {
+export class CreateAcademicYearComponent implements OnInit, OnDestroy {
   academicYearForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;
   showError: boolean;
   errorMessage$: Observable<MessageInterface>;
+  componentIsActive: boolean;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -28,6 +30,7 @@ export class CreateAcademicYearComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.academicYearForm = this.fb.group({
       name: ['', [Validators.required]],
       startDate: ['', [Validators.required]],
@@ -37,7 +40,9 @@ export class CreateAcademicYearComponent implements OnInit {
   submitAcademicYearForm() {
     if (this.academicYearForm.valid) {
       this.isSubmitting = true;
-      this.academicYear.save(this.academicYearForm.value).subscribe(item => {
+      this.academicYear.save(this.academicYearForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(item => {
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
           toastBody: 'Successfully Created Academic Year',
@@ -57,4 +62,8 @@ export class CreateAcademicYearComponent implements OnInit {
     } else {
     }
   }
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
+  
 }

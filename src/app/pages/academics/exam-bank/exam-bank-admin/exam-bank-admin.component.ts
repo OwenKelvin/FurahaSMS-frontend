@@ -1,18 +1,20 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { ExamPaperService } from '../services/exam-paper.service';
 import { Observable } from 'rxjs';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { AppState } from 'src/app/store/reducers';
 import { Store } from '@ngrx/store';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-exam-bank-admin',
   templateUrl: './exam-bank-admin.component.html',
   styleUrls: ['./exam-bank-admin.component.css']
 })
-export class ExamBankAdminComponent implements OnInit {
+export class ExamBankAdminComponent implements OnInit, OnDestroy {
   examPapers$: Observable<any>;
   deleting: boolean[];
+  componentIsActive: boolean;
 
   constructor(
     private examPaperService: ExamPaperService,
@@ -20,6 +22,7 @@ export class ExamBankAdminComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.deleting = [false];
     this.examPapers$ = this.examPaperService.getByFilter({ self: true });
   }
@@ -29,6 +32,7 @@ export class ExamBankAdminComponent implements OnInit {
     if (deletionConfirmed) {
       this.deleting[index] = true;
       this.examPaperService.deleteItem(id)
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
           this.deleting[index] = false;
           this.store.dispatch(loadToastShowsSuccess({
@@ -41,5 +45,8 @@ export class ExamBankAdminComponent implements OnInit {
           this.deleting[index] = false;
         });
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

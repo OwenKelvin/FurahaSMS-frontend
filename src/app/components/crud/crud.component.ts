@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, ɵConsole } from '@angular/core';
+import { Component, OnInit, Input, ɵConsole, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
 import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
@@ -6,13 +6,14 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { Router } from '@angular/router';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.css']
 })
-export class CrudComponent implements OnInit {
+export class CrudComponent implements OnInit, OnDestroy {
   @Input() newForm: boolean;
   @Input() title: boolean;
   @Input() fields: any[] = [];
@@ -25,9 +26,11 @@ export class CrudComponent implements OnInit {
   itemForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
+  componentIsActive: boolean;
   constructor(private store: Store<AppState>, private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.itemForm = this.fb.group({
 
     });
@@ -62,6 +65,7 @@ export class CrudComponent implements OnInit {
     if (this.itemForm.valid) {
       this.itemService
         .submit(this.submitData)
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(success => {
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
@@ -84,6 +88,9 @@ export class CrudComponent implements OnInit {
       this.itemForm.markAllAsTouched();
       this.triggerValidation = true;
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

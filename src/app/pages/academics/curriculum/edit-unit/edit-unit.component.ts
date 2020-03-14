@@ -23,7 +23,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   newForm: boolean;
   @Input() idIndex;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
-  isComponentActive: boolean;
+  componentIsActive: boolean;
   isSubmitting: boolean;
   triggerValidation: boolean;
   markTabsWithError: boolean;
@@ -38,7 +38,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     private store: Store<AppState>) { }
 
   ngOnInit() {
-    this.isComponentActive = true;
+    this.componentIsActive = true;
     this.newForm = false;
     this.unitForm = this.fb.group({
       id: [null, []],
@@ -49,17 +49,23 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       unitCategory: [null, Validators.required],
       unitLevels: this.fb.array([])
     });
-    this.unitForm.valueChanges.subscribe(item => {
-      this.valueChange.emit(this.unitForm);
-    });
+    this.unitForm.valueChanges
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(item => {
+        this.valueChange.emit(this.unitForm);
+      });
     this.semesters$ = this.semesterService.getAll();
-    this.semesters$.subscribe(items => {
-      this.semesters = items;
-    });
-    this.route.paramMap.subscribe(params => {
+    this.semesters$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(items => {
+        this.semesters = items;
+      });
+    this.route.paramMap
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(params => {
       this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
       this.unit$
-        .pipe(takeWhile(() => this.isComponentActive))
+
         .pipe(map(({ id, active, name, abbreviation: abbr, essence_statement: description,
           unit_category_id: unitCategory, unit_levels: unitLevels }) => ({
             id, active, name, abbr, description, unitCategory,
@@ -67,9 +73,10 @@ export class EditUnitComponent implements OnInit, OnDestroy {
               id: id1,
               name: name1,
               level,
-              semesters: semesters ? semesters.map(({id: id2}) => id2 ) : []
+              semesters: semesters ? semesters.map(({ id: id2 }) => id2) : []
             })) : [])
           })))
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(unit => {
           this.unit = unit;
           if (unit.unitLevels.length === 0) {
@@ -118,7 +125,9 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   }
   submitUnitForm() {
     this.isSubmitting = true;
-    this.unitService.submit(this.unitForm.value).subscribe(success => {
+    this.unitService.submit(this.unitForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(success => {
       this.router.navigate([VIEW_UNIT_CURRICULUM(success.id)]);
       this.isSubmitting = false;
       this.store.dispatch(loadToastShowsSuccess({
@@ -139,7 +148,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     });
   }
   ngOnDestroy() {
-    this.isComponentActive = false;
+    this.componentIsActive = false;
   }
 
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { takeWhile, map } from 'rxjs/operators';
   templateUrl: './academic-year-financial-plan.component.html',
   styleUrls: ['./academic-year-financial-plan.component.css']
 })
-export class AcademicYearFinancialPlanComponent implements OnInit {
+export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
   componentIsActive: boolean;
 
   constructor(
@@ -34,6 +34,9 @@ export class AcademicYearFinancialPlanComponent implements OnInit {
         }
       });
 
+  }
+  ngOnDestroy() {
+    this, this.componentIsActive = false;
   }
 
 }

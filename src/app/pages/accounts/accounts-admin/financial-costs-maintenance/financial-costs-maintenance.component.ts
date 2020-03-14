@@ -1,9 +1,9 @@
-import { Component, OnInit, TemplateRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FinancialCostsService } from '../../services/financial-costs.service';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeWhile } from 'rxjs/operators';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Store } from '@ngrx/store';
 
@@ -12,7 +12,7 @@ import { Store } from '@ngrx/store';
   templateUrl: './financial-costs-maintenance.component.html',
   styleUrls: ['./financial-costs-maintenance.component.css']
 })
-export class FinancialCostsMaintenanceComponent implements OnInit {
+export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   financialCosts$: Observable<any[]>;
   financialCosts: any[];
@@ -22,6 +22,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
   editedIndex: number;
   isLoading: boolean;
   deleting: any;
+  componentIsActive: boolean;
   constructor(
     private modalService: BsModalService,
     private fb: FormBuilder,
@@ -30,6 +31,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.deleting = [false];
     this.financialCosts = [];
     this.resetEditForm();
@@ -44,7 +46,9 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
         ))
       );
     this.isLoading = true;
-    this.financialCosts$.subscribe(financialCosts => {
+    this.financialCosts$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(financialCosts => {
       this.financialCosts = financialCosts;
 
       this.isLoading = false;
@@ -109,6 +113,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
     this.isSubmitting = true;
     this.financialCostsService.save(this.financialCosts)
       .pipe(map(res => res as any))
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
         this.store.dispatch(loadToastShowsSuccess({
@@ -126,7 +131,9 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
 
     if (confirmedDeletion) {
       this.deleting[j] = true;
-      this.financialCostsService.destroy(this.financialCosts[j].id).subscribe(
+      this.financialCostsService.destroy(this.financialCosts[j].id)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(
         res => {
           this.deleting[j] = false;
           this.financialCosts.splice(j, 1);
@@ -141,5 +148,8 @@ export class FinancialCostsMaintenanceComponent implements OnInit {
 
 
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

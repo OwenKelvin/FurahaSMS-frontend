@@ -256,6 +256,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     const data = this.Queries;
     this.questionId$
       .pipe(mergeMap(examPaperId => this.examPaperQuestionsService.store({ examPaperId, data })))
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.submitted = true;
         this.isSubmitting = false;
@@ -267,6 +268,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
         }));
         this.questionId$
           .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
+          .pipe(takeWhile(() => this.componentIsActive))
           .subscribe(examPaperId => {
             this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']);
           });

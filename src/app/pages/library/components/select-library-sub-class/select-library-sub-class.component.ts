@@ -1,25 +1,27 @@
-import { Component, OnInit, Input, SimpleChange, OnChanges, ChangeDetectorRef, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, OnChanges, ChangeDetectorRef, Output, EventEmitter, OnDestroy } from '@angular/core';
 import { LibraryBookClassesService } from '../../services/library-book-classes.service';
 import { of } from 'rxjs';
 import { DbService } from 'src/app/services/db.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-select-library-sub-class',
   templateUrl: './select-library-sub-class.component.html',
   styleUrls: ['./select-library-sub-class.component.css']
 })
-export class SelectLibrarySubClassComponent implements OnInit, OnChanges {
+export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDestroy {
   @Input() id;
   @Input() classification;
   @Output() categoryChanged = new EventEmitter();
   selectedCategoryId: number;
   libraryBookClasses$: any;
+  componentIsActive: boolean;
   constructor(
     private cdf: ChangeDetectorRef,
     private libraryBookClassesService: LibraryBookClassesService, private db: DbService) { }
 
   ngOnInit() {
-    // library_class
+    this.componentIsActive = true;
   }
   ngOnChanges(changes: { id: SimpleChange, classification: SimpleChange }) {
     let currentValue;
@@ -39,7 +41,9 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges {
         }).catch(e => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: this.classification, libraryClass: currentValue });
-          this.libraryBookClasses$.subscribe(items => {
+          this.libraryBookClasses$
+            .pipe(takeWhile(() => this.componentIsActive))
+            .subscribe(items => {
             const doc = {
               _id: `sub-items-${currentValue}`,
               items
@@ -59,4 +63,8 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges {
   emitChangePropagate($event) {
     this.categoryChanged.emit($event);
   }
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
+  
 }

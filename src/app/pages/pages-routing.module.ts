@@ -126,6 +126,13 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Roles & Permissions'
         }
+      },
+      {
+        path: 'support-staffs',
+        loadChildren: () => import('./support-staffs/support-staffs.module').then(m => m.SupportStaffsModule),
+        data: {
+          breadcrumb: 'Support Staffs'
+        }
       }
     ]
   }

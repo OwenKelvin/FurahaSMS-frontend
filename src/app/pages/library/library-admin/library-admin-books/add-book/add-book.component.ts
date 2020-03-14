@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromLibraryAuthors from '../../../store/reducers';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
@@ -21,13 +21,14 @@ import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { validateISBN } from '../../../validatots/isbn.validator';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-book',
   templateUrl: './add-book.component.html',
   styleUrls: ['./add-book.component.css']
 })
-export class AddBookComponent implements OnInit, CanComponentDeactivate {
+export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestroy {
 
   newBookForm: FormGroup;
   triggerValidation: boolean;
@@ -39,6 +40,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate {
   markTabsWithError: boolean;
   bookTags$: Observable<any>;
   formSubmitted: boolean;
+  componentIsActive: boolean;
   constructor(
     private store: Store<fromLibraryAuthors.State>,
     private fb: FormBuilder,
@@ -74,7 +76,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate {
   }
 
   ngOnInit() {
-
+    this.componentIsActive = true;
     this.isSubmitting = false;
     this.newBookForm = this.fb.group({
       bookTitle: ['', Validators.required],
@@ -118,6 +120,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate {
   submitNewBookForm() {
     this.isSubmitting = true;
     this.libraryBookService.save(this.newBookForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true, toastBody: res.message, toastHeader: 'Successful', toastTime: 'just now'
@@ -130,6 +133,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate {
       this.isSubmitting = false;
     });
     this.libraryBookService.save(this.newBookForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
       }, err => this.isSubmitting = false);
@@ -164,5 +168,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate {
     }
     return true;
   }
-
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
 }

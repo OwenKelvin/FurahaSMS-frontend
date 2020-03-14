@@ -6,9 +6,13 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class SupportStaffService {
+ 
   constructor(
     private http: HttpClient
   ) { }
+  getSupportStaffById(id: number): any {
+    return this.http.get(`api/admissions/support-staffs/${id}`);
+  }
   save(data: any): Observable<any> {
 
     return this.http.post('api/admissions/support-staffs', {

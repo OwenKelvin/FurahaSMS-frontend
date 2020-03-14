@@ -1,9 +1,10 @@
-import { Component, forwardRef, OnInit, AfterViewInit } from '@angular/core';
+import { Component, forwardRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { InputComponent } from '../input/input.component';
 import { FormGroup, FormBuilder, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator  } from '@angular/forms';
 import { AppFormService } from 'src/app/services/AppForm.service';
 import { PhoneNumbersService } from 'src/app/services/phone-numbers.service';
 import { Observable } from 'rxjs';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-tel-input',
@@ -22,12 +23,13 @@ import { Observable } from 'rxjs';
     }
   ]
 })
-export class TelInputComponent extends InputComponent implements OnInit, Validator, AfterViewInit {
+export class TelInputComponent extends InputComponent implements OnInit, Validator, AfterViewInit, OnDestroy {
   countries$: Observable<any>;
   selectedPhoneCode: number | string;
   selectedPhone: { country: any, code: any; };
   allowedPhoneCountries: any;
   phoneNumberGroup: FormGroup;
+  componentIsActive: any;
   constructor(
     appFormService: AppFormService,
     private phoneNumbers: PhoneNumbersService,
@@ -37,8 +39,10 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
   }
 
   ngOnInit() {
-
-    this.phoneNumbers.getAllowedCountries().subscribe(data => {
+    this.componentIsActive = true;
+    this.phoneNumbers.getAllowedCountries()
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(data => {
       this.allowedPhoneCountries = data;
     });
     this.countries$ = this.phoneNumbers.getAllCountryCodes();
@@ -49,7 +53,9 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
 
     this.countryCode.setValue(this.localeCountryCode);
 
-    this.phoneNumberGroup.valueChanges.subscribe(value => {
+    this.phoneNumberGroup.valueChanges
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(value => {
       if (this.onChanges) {
         this.onChanges('+' + value.code + (value.phone_number ? value.phone_number : ''));
       }
@@ -112,5 +118,8 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
   get phoneNumberString(): string {
     const value = this.phoneNumberGroup.value;
     return '+' + value.code + value.phone_number;
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

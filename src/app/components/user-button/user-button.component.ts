@@ -1,16 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-user-button',
   templateUrl: './user-button.component.html',
   styleUrls: ['./user-button.component.css']
 })
-export class UserButtonComponent implements OnInit {
+export class UserButtonComponent implements OnInit, OnDestroy {
+  componentIsActive: any;
 
   constructor(
     private store: Store<fromStore.AppState>,
@@ -20,9 +22,12 @@ export class UserButtonComponent implements OnInit {
   ngOnInit() {
   }
   logout() {
+    this.componentIsActive = true;
     const confirmedLogout = window.confirm('Are you sure you wish to logout?');
     if (confirmedLogout) {
-      this.authService.logout().subscribe(success => {
+      this.authService.logout()
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(success => {
         if (success) {
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
@@ -33,6 +38,9 @@ export class UserButtonComponent implements OnInit {
         this.router.navigate(['/']);
       });
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

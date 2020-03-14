@@ -5,6 +5,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { map, mergeMap, takeWhile, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-publisher',
@@ -18,6 +19,7 @@ export class CreatePublisherComponent implements OnInit {
   triggerValidation: boolean;
   newBookPublisherForm: FormGroup;
   editPage: boolean;
+  componentIsActive: boolean;
   constructor(
     private libraryPublisher: LibraryPublisherService,
     private store: Store<fromStore.AppState>,
@@ -34,20 +36,31 @@ export class CreatePublisherComponent implements OnInit {
       name: ['', [Validators.required]],
       biography: ['']
     });
-    this.route.paramMap.subscribe(params => {
-      const id = +params.get('id');
-      if (id > 0) {
-        this.editPage = true;
-        this.isLoading = true;
-        const sub = this.libraryPublisherService.getPublisherWithId(id).subscribe(publisher => {
-          const publisherConverted = publisher as { name: string, id: string, biography: string; };
-          this.newBookPublisherForm.get('id').setValue(publisherConverted.id);
-          this.newBookPublisherForm.get('name').setValue(publisherConverted.name);
-          this.isLoading = false;
-          sub.unsubscribe();
-        });
-      }
-    });
+    this.route.paramMap
+      .pipe(tap(() => this.isLoading = true))
+      .pipe(map(params => +params.get('id')))
+      .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(publisher => {
+        const publisherConverted = publisher as { name: string, id: string, biography: string; };
+        this.newBookPublisherForm.get('id').setValue(publisherConverted.id);
+        this.newBookPublisherForm.get('name').setValue(publisherConverted.name);
+        this.isLoading = false;
+       })
+    // this.route.paramMap.subscribe(params => {
+    //   const id = +params.get('id');
+    //   if (id > 0) {
+    //     this.editPage = true;
+    //     this.isLoading = true;
+    //     const sub = this.libraryPublisherService.getPublisherWithId(id).subscribe(publisher => {
+    //       const publisherConverted = publisher as { name: string, id: string, biography: string; };
+    //       this.newBookPublisherForm.get('id').setValue(publisherConverted.id);
+    //       this.newBookPublisherForm.get('name').setValue(publisherConverted.name);
+    //       this.isLoading = false;
+    //       sub.unsubscribe();
+    //     });
+    //   }
+    // });
   }
 
   submitNewBookPublisherForm() {

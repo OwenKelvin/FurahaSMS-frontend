@@ -1,8 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../store/reducers';
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { map, takeWhile } from 'rxjs/operators';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 
@@ -11,7 +11,7 @@ import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.ac
   templateUrl: './view-items.component.html',
   styleUrls: ['./view-items.component.css']
 })
-export class ViewItemsComponent implements OnInit {
+export class ViewItemsComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() newItemUrl: string;
   @Input() editItemUrl: any;
@@ -23,11 +23,13 @@ export class ViewItemsComponent implements OnInit {
   editUnitCategoryCurriculum: any;
   deleting: boolean[];
   viewUnitCategoryCurriculum: (id: string | number) => string;
+  componentIsActive: any;
   constructor(
     private store: Store<AppState>,
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.getItems();
     this.deleting = [false];
   }
@@ -45,7 +47,9 @@ export class ViewItemsComponent implements OnInit {
     const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
     if (deletionConfirmed) {
       this.deleting[index] = true;
-      this.itemService.deleteItem(id).subscribe(res => {
+      this.itemService.deleteItem(id)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(res => {
         this.getItems();
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
@@ -65,5 +69,7 @@ export class ViewItemsComponent implements OnInit {
       });
     }
   }
-
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
 }
