@@ -67,7 +67,9 @@ export class CreateTagComponent implements OnInit, OnDestroy {
 
   submitNewBookTagForm() {
     this.isSubmitting = true;
-    this.libraryTagService.save(this.newBookTagForm.value).subscribe(res => {
+    this.libraryTagService.save(this.newBookTagForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
       this.isSubmitting = false;
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AppFormService } from 'src/app/services/AppForm.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -7,19 +7,21 @@ import { Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadToastShowsSuccess } from '../../store/actions/toast-show.actions';
 import { AppState } from '../../store/reducers';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
   loginForm: FormGroup;
   errors: { username?: string | null, password?: string | null };
   triggerValidation: boolean;
   submitInProgress: boolean;
   showErrorMessage: boolean;
   submitError: MessageInterface;
+  componentIsActive: boolean;
   constructor(
     private store: Store<AppState>,
     private router: Router,
@@ -27,6 +29,7 @@ export class LoginComponent implements OnInit {
     private fb: FormBuilder,
     private appFormService: AppFormService) { }
   ngOnInit() {
+    this.componentIsActive = true;
     this.errors = {
       password: null,
       username: null
@@ -48,6 +51,7 @@ export class LoginComponent implements OnInit {
       const username: string = this.username.value ;
       const password: string = this.password.value ;
       this.authService.login({ username, password })
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(success => {
           this.submitInProgress = false;
           this.store.dispatch(loadToastShowsSuccess({
@@ -66,5 +70,8 @@ export class LoginComponent implements OnInit {
       this.username.markAsTouched();
       this.triggerValidation = !this.triggerValidation;
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

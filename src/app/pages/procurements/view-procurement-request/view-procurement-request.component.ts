@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
-import { Observable } from 'rxjs';
+import { Observable, pipe } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-procurement-request',
@@ -18,9 +19,12 @@ export class ViewProcurementRequestComponent implements OnInit {
     private procurementService: ProcurementService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
-    });
+    this.procurementItem$ = this.route.paramMap
+      .pipe(map(params => +params.get('id')))
+      .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)))
+    // this.route.paramMap.subscribe(params => {
+    //   this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
+    // });
 
   }
 

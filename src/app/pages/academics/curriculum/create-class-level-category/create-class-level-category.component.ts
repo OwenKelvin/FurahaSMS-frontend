@@ -122,4 +122,7 @@ export class CreateClassLevelCategoryComponent implements OnInit, OnDestroy {
       this.validateName();
     }
   }
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
 }

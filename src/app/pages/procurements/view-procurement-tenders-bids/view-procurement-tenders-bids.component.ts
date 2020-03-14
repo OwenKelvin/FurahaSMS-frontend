@@ -8,6 +8,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
 import { CreateProcurementTenderBidComponent } from '../create-procurement-tender-bid/create-procurement-tender-bid.component';
 import { selectDialogShowState } from 'src/app/store/selectors/dialog.selector';
 import { showDialog } from 'src/app/store/actions/dialog.actions';
+import { mergeMap, map, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-procurement-tenders-bids',
@@ -22,6 +23,7 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
     ignoreBackdropClick: true
   };
   componentActive = true;
+  componentIsActive: boolean;
   constructor(
     private modalService: BsModalService,
     private route: ActivatedRoute,
@@ -29,19 +31,23 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
     private procurementService: ProcurementService) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.procurementRequest$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
-    });
+    this.componentIsActive = true;
+    this.procurementRequest$ = this.route.paramMap
+      .pipe(map(params => +params.get('id')))
+      .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)));
 
   }
   openModalWithComponent() {
     this.bsModalRef = this.modalService.show(CreateProcurementTenderBidComponent, this.config);
-    this.route.paramMap.subscribe(params => {
+    this.route.paramMap
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(params => {
       this.bsModalRef.content.tenderId = +params.get('id');
-      const sub = this.store.select(selectDialogShowState).subscribe(hide => {
+      this.store.select(selectDialogShowState)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(hide => {
         if (hide) {
           this.bsModalRef.hide();
-          sub.unsubscribe();
           this.store.dispatch(showDialog());
         }
       });
@@ -51,5 +57,6 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.componentActive = false;
+    this.componentIsActive = false;
   }
 }

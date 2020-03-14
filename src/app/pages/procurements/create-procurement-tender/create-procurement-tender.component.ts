@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
@@ -7,17 +7,19 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { Validators, FormGroup, FormBuilder } from '@angular/forms';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { selectDialogShowState, selectDialogState } from 'src/app/store/selectors/dialog.selector';
+import { map, mergeMap, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-procurement-tender',
   templateUrl: './create-procurement-tender.component.html',
   styleUrls: ['./create-procurement-tender.component.css']
 })
-export class CreateProcurementTenderComponent implements OnInit {
+export class CreateProcurementTenderComponent implements OnInit, OnDestroy {
   procurementItem$: Observable<any>;
   tenderForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;
+  componentIsActive: boolean;
 
   constructor(
     private store: Store<fromStore.AppState>,
@@ -29,9 +31,13 @@ export class CreateProcurementTenderComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
-    });
+    this.componentIsActive = true;
+    this.procurementItem$ = this.route.paramMap
+      .pipe(map(params => +params.get('id')))
+      .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)))
+    // this.route.paramMap.subscribe(params => {
+    //   this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
+    // });
 
     this.tenderForm = this.fb.group({
       expiryDatetime: ['', [Validators.required]],
@@ -42,12 +48,16 @@ export class CreateProcurementTenderComponent implements OnInit {
   }
   submitTenderForm() {
     this.isSubmitting = true;
-    this.procurementItem$.subscribe(item => {
+    this.procurementItem$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(item => {
       this.procurementService.createTender({
         ...this.tenderForm.value,
         procurement_request_id: item.id,
         expiry_datetime: this.tenderForm.value.expiryDatetime
-      }).subscribe(res => {
+      })
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(res => {
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true, toastBody: res.message , toastHeader: 'Successful', toastTime: 'just now'
         }));
@@ -55,6 +65,9 @@ export class CreateProcurementTenderComponent implements OnInit {
       }, err => this.isSubmitting = false);
     });
 
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

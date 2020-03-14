@@ -4,6 +4,7 @@ import * as fromStore from '../../../store/reducers';
 import { Observable } from 'rxjs';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { Router, ActivatedRoute } from '@angular/router';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-procurements-vendor',
@@ -21,11 +22,9 @@ export class ViewProcurementsVendorComponent implements OnInit {
 
   ngOnInit() {
 
-    // const id = this.router.routerState.snapshot.root.firstChild.firstChild.firstChild.params.id;
-    this.route.paramMap.subscribe(params => {
-
-      this.procurementVendor$ = this.procurementService.getVendor(+params.get('id'));
-    });
+    this.procurementVendor$ = this.route.paramMap
+      .pipe(map(params => +params.get('id')))
+      .pipe(mergeMap(id => this.procurementService.getVendor(id)));
 
 
   }

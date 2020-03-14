@@ -1,24 +1,31 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { closeDialog } from 'src/app/store/actions/dialog.actions';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-fulfill-or-reject-tender-form',
   templateUrl: './fulfill-or-reject-tender-form.component.html',
   styleUrls: ['./fulfill-or-reject-tender-form.component.css']
 })
-export class FulfillOrRejectTenderFormComponent implements OnInit {
+export class FulfillOrRejectTenderFormComponent implements OnInit, OnDestroy {
   @Input() fulfilled: boolean;
   @Input() tenderId: boolean;
   fulfilledTenderForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
-  constructor(private store: Store<fromStore.AppState>, private fb: FormBuilder, private procurementService: ProcurementService) { }
+  componentIsActive: boolean;
+  constructor(
+    private store: Store<fromStore.AppState>,
+    private fb: FormBuilder,
+    private procurementService: ProcurementService
+  ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.isSubmitting = false;
     this.triggerValidation = false;
     this.fulfilledTenderForm = this.fb.group({
@@ -33,6 +40,7 @@ export class FulfillOrRejectTenderFormComponent implements OnInit {
       fulfilled: this.fulfilled,
       ...this.fulfilledTenderForm.value
     })
+      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(item => {
         this.isSubmitting = false;
         this.store.dispatch(closeDialog());
@@ -44,5 +52,7 @@ export class FulfillOrRejectTenderFormComponent implements OnInit {
       this.store.dispatch(closeDialog());
     }
   }
-
+  ngOnDestroy() {
+    this.componentIsActive = true;
+  }
 }

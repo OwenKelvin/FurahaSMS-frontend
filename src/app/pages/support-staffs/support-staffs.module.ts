@@ -8,7 +8,7 @@ import { SupportStaffComponent } from './services/support-staff/support-staff.co
 import { EffectsModule } from '@ngrx/effects';
 import { SupportStaffEffects } from './store/effects/support-staff.effects';
 import { StoreModule } from '@ngrx/store';
-import { supportStaffFeatureKey } from './store/reducers/support-staff.reducer';
+import { supportStaffFeatureKey, reducer } from './store/reducers/support-staff.reducer';
 
 
 @NgModule({
@@ -16,7 +16,7 @@ import { supportStaffFeatureKey } from './store/reducers/support-staff.reducer';
   imports: [
     CommonModule,
     SupportStaffsRoutingModule,
-    StoreModule.forFeature(supportStaffFeatureKey),
+    StoreModule.forFeature(supportStaffFeatureKey, reducer ),
     EffectsModule.forFeature([SupportStaffEffects])
   ]
 })
