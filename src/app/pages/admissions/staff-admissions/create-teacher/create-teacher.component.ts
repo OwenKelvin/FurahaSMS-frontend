@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, FormControl } from '@angular/forms';
 import { TeacherService } from '../../services/teacher.service';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { Router } from '@angular/router';
+import { SupportStaffService } from '../../services/support-staff.service';
 
 @Component({
   selector: 'app-create-teacher',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-teacher.component.css']
 })
 export class CreateTeacherComponent implements OnInit, OnDestroy {
+  @Input() supportStaff: {id: number, name: string};
   newTeacherForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
@@ -26,7 +28,8 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     private users: UsersService,
     private store: Store<AppState>,
     private fb: FormBuilder, private teacherService: TeacherService,
-    private router: Router
+    private router: Router,
+    private supportStaffService: SupportStaffService
   ) { }
 
   ngOnInit() {
@@ -99,10 +102,17 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   submitNewTeacherForm() {
     this.isSubmitting = true;
+    if (this.supportStaff && this.supportStaff.id !== 0) {
+      this.createSupportStaff();
+    } else {
+      this.createTeacher();
+    }
+   
+  }
+  createTeacher() {
     this.teacherService.store(this.newTeacherForm.value)
-      .pipe(
-        takeWhile(() => this.componentIsActive)
-      ).subscribe(res => {
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
         this.isSubmitting = false;
         this.store.dispatch(loadToastShowsSuccess({
           toastHeader: 'Success',
@@ -111,6 +121,22 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
           toastBody: res.message
         }));
         this.router.navigate(['/teachers', res.data.id, 'info']);
+      }, err => {
+        this.isSubmitting = false;
+      });
+  }
+  createSupportStaff() {
+    this.supportStaffService.save({ ...this.newTeacherForm.value, staff_type: this.supportStaff.id })
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
+        this.isSubmitting = false;
+        this.store.dispatch(loadToastShowsSuccess({
+          toastHeader: 'Success',
+          showMessage: true,
+          toastTime: 'Just Now',
+          toastBody: res.message
+        }));
+        this.router.navigate(['/support-staffs', res.data.id, 'info']);
       }, err => {
         this.isSubmitting = false;
       });

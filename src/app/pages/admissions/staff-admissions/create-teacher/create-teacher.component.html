@@ -1,4 +1,4 @@
-<h1>Create New Teacher</h1>
+<h1>Create New {{ (supportStaff && supportStaff.id !== 0) ? 'Support Staff': 'Teacher'}}</h1>
 <form [formGroup]='newTeacherForm' (submit)='submitNewTeacherForm()'>
   <fieldset>
     <legend><h2>Email</h2></legend>

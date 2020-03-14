@@ -8,9 +8,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teaching-staff-admission.component';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
-import { SupportStaffAdmissionComponent } from '../support-staff-admission/support-staff-admission.component';
+import { SupportStaffAdmissionComponent } from './support-staff-admission/support-staff-admission.component';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { CreateStaffComponent } from './support-staff-admission/create-staff/create-staff.component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CreateTeacherComponent,
     EditTeacherComponent,
     TeachingStaffAdmissionComponent,
-    SupportStaffAdmissionComponent
+    SupportStaffAdmissionComponent,
+    CreateStaffComponent
 
   ],
   imports: [

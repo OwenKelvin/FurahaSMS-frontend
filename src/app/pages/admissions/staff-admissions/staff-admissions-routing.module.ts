@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teaching-staff-admission.component';
-import { SupportStaffAdmissionComponent } from '../support-staff-admission/support-staff-admission.component';
+import { SupportStaffAdmissionComponent } from './support-staff-admission/support-staff-admission.component';
 import { CreateTeacherComponent } from './create-teacher/create-teacher.component';
+import { CreateStaffComponent } from './support-staff-admission/create-staff/create-staff.component';
 
 
 const routes: Routes = [
@@ -35,11 +36,31 @@ const routes: Routes = [
   },
   {
     path: 'support',
-    pathMatch: 'full',
-    component: SupportStaffAdmissionComponent,
-    data: {
-      breadcrumb: 'Support Staff'
-    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: SupportStaffAdmissionComponent,
+        data: {
+          breadcrumb: 'Support Staff'
+        },
+      },
+      {
+        path: ':id',
+        data: {
+          breadcrumb: null
+        },
+        children: [
+          {
+            path: 'create',
+            component: CreateStaffComponent,
+            data: {
+              breadcrumb: 'Create'
+            }
+          }
+        ]
+      }
+    ]
   }
 ];
 

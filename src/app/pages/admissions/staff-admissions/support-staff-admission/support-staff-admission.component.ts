@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../../store/reducers';
-import { RolesAndPermissionsService } from '../../roles-and-permissions/services/roles-and-permissions.service';
+import * as fromStore from '../../../../store/reducers';
+import { RolesAndPermissionsService } from '../../../roles-and-permissions/services/roles-and-permissions.service';
 import { Observable } from 'rxjs';
 import { tap } from 'rxjs/operators';
+import { loadStaffTypesSuccess } from '../../store/actions/staff-type.actions';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-support-staff-admission',
@@ -18,17 +20,19 @@ export class SupportStaffAdmissionComponent implements OnInit {
   constructor(
     private store: Store<fromStore.AppState>,
     private rolesPermissionService: RolesAndPermissionsService,
+    private router: Router
   ) { }
 
   ngOnInit() {
-    this.staffTypes$ = this.rolesPermissionService.staffTypes
-      .pipe(tap(res => this.staffTypes = res as any[]))
+    this.staffTypes$ = this.rolesPermissionService.staffTypes()
+      .pipe(tap(res => {
+        this.staffTypes = res as any[]
+      }))
   }
   
   navigateToNewStaffPage() {
-    // this.staffTypes.find(item => item.id === this.staffType
-    // this.store.dispatch(loadStaffTypes({ id: 1, name: 'bnm,.' }));
-    
+    this.store.dispatch(loadStaffTypesSuccess(this.staffTypes.find(item => +item.id === +this.staffType)))
+    this.router.navigate(['admissions','staff','support',this.staffType,'create']);
   }
 
 }
