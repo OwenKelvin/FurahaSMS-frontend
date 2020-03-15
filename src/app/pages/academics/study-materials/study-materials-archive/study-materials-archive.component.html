@@ -1,5 +1,6 @@
 <h1>Study Materials Archives</h1>
 <ng-container *ngIf='studyMaterials$ | async as studyMaterials; else loading'>
+  <div class="alert alert-info">No Study Materials Found</div>
   <ul class="d-flex justify-content-start flex-wrap">
     <li *ngFor='let studyMaterial of studyMaterials' class="list-group-item bg-dark list-group-flush mb-1 col-lg-5 m-2">
       <a class="card-link  btn-block" [routerLink]='["/academics", "study-materials", studyMaterial.id , "view"]'>

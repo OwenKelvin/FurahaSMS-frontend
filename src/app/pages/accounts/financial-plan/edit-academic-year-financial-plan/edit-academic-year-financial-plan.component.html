@@ -1,4 +1,5 @@
 <section *ngIf='academicYearPlan$ | async as academicYearPlan'>
+  {{ feePlanForm.value | json }}
   <h1>
     Financial Plan <span class='icon-right-dir'></span> Academic Year
     <span *ngIf='academicYearPlan.academicYear.id !== 0' class="icon-right-dir"></span>
