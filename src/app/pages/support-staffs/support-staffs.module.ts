@@ -9,15 +9,22 @@ import { EffectsModule } from '@ngrx/effects';
 import { SupportStaffEffects } from './store/effects/support-staff.effects';
 import { StoreModule } from '@ngrx/store';
 import { supportStaffFeatureKey, reducer } from './store/reducers/support-staff.reducer';
+import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 
 @NgModule({
-  declarations: [ViewSupportStaffInfoComponent, ViewSupportStaffComponent, SupportStaffComponent],
+  declarations: [
+    ViewSupportStaffInfoComponent,
+    ViewSupportStaffComponent,
+    SupportStaffComponent],
   imports: [
     CommonModule,
     SupportStaffsRoutingModule,
     StoreModule.forFeature(supportStaffFeatureKey, reducer ),
-    EffectsModule.forFeature([SupportStaffEffects])
+    EffectsModule.forFeature([SupportStaffEffects]),
+    AppUserProfileModule,
+    AppLoadingBubbleModule
   ]
 })
 export class SupportStaffsModule { }
