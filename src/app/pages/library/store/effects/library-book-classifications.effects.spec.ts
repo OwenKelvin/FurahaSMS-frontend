@@ -18,7 +18,7 @@ describe('LibraryBookClassificationEffects', () => {
       ]
     });
 
-    effects = TestBed.get<LibraryBookClassificationEffects>(LibraryBookClassificationEffects);
+    effects = TestBed.inject<LibraryBookClassificationEffects>(LibraryBookClassificationEffects);
   });
 
   it('should be created', () => {

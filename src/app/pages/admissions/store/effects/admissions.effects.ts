@@ -11,7 +11,7 @@ import * as AdmissionsActions from '../actions/admissions.actions';
 export class AdmissionsEffects {
 
   loadAdmissionss$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(AdmissionsActions.loadAdmissionss),
       concatMap(() =>

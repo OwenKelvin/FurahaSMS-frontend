@@ -65,5 +65,5 @@ export class CreateAcademicYearComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-  
+
 }

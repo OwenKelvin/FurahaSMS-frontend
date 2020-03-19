@@ -20,7 +20,7 @@ describe('RolesPermissionEditComponent', () => {
         ReactiveFormsModule,
         AppCheckboxModule,
         AppInputModule
-        
+
       ],
       declarations: [ RolesPermissionEditComponent ]
     })

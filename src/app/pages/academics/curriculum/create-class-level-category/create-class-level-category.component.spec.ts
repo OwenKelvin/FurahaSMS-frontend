@@ -38,7 +38,7 @@ describe('CreateClassLevelCategoryComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateClassLevelCategoryComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'pipe').and.callThrough();
     fixture.detectChanges();

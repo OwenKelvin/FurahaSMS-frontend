@@ -11,7 +11,7 @@ describe('StudyMaterialsService', () => {
   }));
 
   it('should be created', () => {
-    const service: StudyMaterialsService = TestBed.get(StudyMaterialsService);
+    const service: StudyMaterialsService = TestBed.inject(StudyMaterialsService);
     expect(service).toBeTruthy();
   });
 });

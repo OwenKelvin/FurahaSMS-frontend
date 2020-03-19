@@ -66,5 +66,5 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-  
+
 }

@@ -30,7 +30,7 @@ export class ViewProcurementTendersAwardedComponent implements OnInit, OnDestroy
 
   ngOnInit() {
     this.componentIsActive = true;
-    
+
     this.procurementTenders$ = this.procurementService.getAwardedTenders();
   }
 

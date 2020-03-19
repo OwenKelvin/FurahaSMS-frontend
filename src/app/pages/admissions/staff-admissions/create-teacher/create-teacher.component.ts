@@ -107,7 +107,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     } else {
       this.createTeacher();
     }
-   
+
   }
   createTeacher() {
     this.teacherService.store(this.newTeacherForm.value)

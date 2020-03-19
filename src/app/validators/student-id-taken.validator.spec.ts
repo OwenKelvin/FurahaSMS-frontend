@@ -18,12 +18,12 @@ describe('IdNumberValidator', () => {
   }));
 
   it('should be created', () => {
-    const service: IdNumberValidator = TestBed.get(IdNumberValidator);
+    const service: IdNumberValidator = TestBed.inject(IdNumberValidator);
     expect(service).toBeTruthy();
   });
   it('should have function studentIdTaken', () => {
     spyOn(studentService, 'getStudentBySchoolId').and.returnValue(of({ id: 1 }));
-    const service: IdNumberValidator = TestBed.get(IdNumberValidator);
+    const service: IdNumberValidator = TestBed.inject(IdNumberValidator);
     expect(service.studentIdTaken(new FormControl())).toBeTruthy();
   });
 });

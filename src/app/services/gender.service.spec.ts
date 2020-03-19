@@ -9,7 +9,7 @@ describe('GenderService', () => {
   }));
 
   it('should be created', () => {
-    const service: GenderService = TestBed.get(GenderService);
+    const service: GenderService = TestBed.inject(GenderService);
     expect(service).toBeTruthy();
   });
 });

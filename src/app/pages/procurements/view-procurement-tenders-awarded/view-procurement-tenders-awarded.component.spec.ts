@@ -37,7 +37,7 @@ describe('ViewProcurementTendersAwardedComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewProcurementTendersAwardedComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

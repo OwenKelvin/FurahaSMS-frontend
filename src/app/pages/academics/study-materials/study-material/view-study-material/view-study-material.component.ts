@@ -30,8 +30,8 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentIsActive = true;
-    (<any>window).pdfWorkerSrc = '/pdf.worker.js';
-    this.pdfSrc = "";
+    (window as any).pdfWorkerSrc = '/pdf.worker.js';
+    this.pdfSrc = '';
     this.studyMaterial$ = this.route.paramMap
       .pipe(map(params => +params.get('id')))
       .pipe(mergeMap(id => this.studyMaterialService.getMaterialWithId(id)))
@@ -45,7 +45,7 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
 
             this.pdfSrc = url;
           })
-        
+
       }))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {

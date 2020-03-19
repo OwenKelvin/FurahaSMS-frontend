@@ -11,7 +11,7 @@ describe('ReligionService', () => {
   );
 
   it('should be created', () => {
-    const service: ReligionService = TestBed.get(ReligionService);
+    const service: ReligionService = TestBed.inject(ReligionService);
     expect(service).toBeTruthy();
   });
 });

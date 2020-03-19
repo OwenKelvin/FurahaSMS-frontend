@@ -20,7 +20,7 @@ describe('ExamPaperEffects', () => {
       ]
     });
 
-    effects = TestBed.get<ExamPaperEffects>(ExamPaperEffects);
+    effects = TestBed.inject<ExamPaperEffects>(ExamPaperEffects);
   });
 
   it('should be created', () => {

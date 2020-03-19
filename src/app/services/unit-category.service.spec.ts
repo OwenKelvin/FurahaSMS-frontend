@@ -11,7 +11,7 @@ describe('SubjectCategoryService', () => {
   );
 
   it('should be created', () => {
-    const service: UnitCategoryService = TestBed.get(UnitCategoryService);
+    const service: UnitCategoryService = TestBed.inject(UnitCategoryService);
     expect(service).toBeTruthy();
   });
 });

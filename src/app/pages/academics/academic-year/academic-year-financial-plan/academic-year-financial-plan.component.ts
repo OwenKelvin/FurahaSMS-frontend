@@ -36,7 +36,7 @@ export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
 
   }
   ngOnDestroy() {
-    this, this.componentIsActive = false;
+    this.componentIsActive = false;
   }
 
 }

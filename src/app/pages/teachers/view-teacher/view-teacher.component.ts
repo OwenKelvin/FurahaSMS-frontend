@@ -36,5 +36,5 @@ export class ViewTeacherComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-  
+
 }

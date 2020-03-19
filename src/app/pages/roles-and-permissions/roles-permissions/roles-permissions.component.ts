@@ -33,7 +33,7 @@ export class RolesPermissionsComponent implements OnInit, OnDestroy {
   getRoleWithId(idNumber: number) {
     return this.roles.find(({ id }) => id === idNumber)
   }
-  
+
   getFilteredPermissionsWithRoleId(idNumber: number) {
     return this.getRoleWithId(idNumber).permissions.filter(({name}) => (new RegExp(this.filter).test(name)))
   }

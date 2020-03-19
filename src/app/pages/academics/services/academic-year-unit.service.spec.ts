@@ -9,7 +9,7 @@ describe('AcademicYearUnitService', () => {
   }));
 
   it('should be created', () => {
-    const service: AcademicYearUnitService = TestBed.get(AcademicYearUnitService);
+    const service: AcademicYearUnitService = TestBed.inject(AcademicYearUnitService);
     expect(service).toBeTruthy();
   });
 });

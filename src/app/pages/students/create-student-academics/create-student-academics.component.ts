@@ -47,10 +47,10 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       classLevel: [''],
       unitLevels: this.fb.array([])
     });
-    this.unitLevels$ = combineLatest(
+    this.unitLevels$ = combineLatest([
       this.academicCategory.get('academicYear').valueChanges,
       this.academicCategory.get('classLevel').valueChanges
-    ).pipe(tap(_ => {
+    ]).pipe(tap(_ => {
       this.unitsLoaded = false;
     })).pipe(mergeMap(item => {
       if (item[0] === '' || item[1] === '') {

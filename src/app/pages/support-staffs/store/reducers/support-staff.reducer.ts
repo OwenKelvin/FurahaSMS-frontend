@@ -4,7 +4,7 @@ import * as SupportStaffActions from '../actions/support-staff.actions';
 export const supportStaffFeatureKey = 'supportStaff';
 
 export interface State {
-
+  supportStaffTypes?: any[]
 }
 
 export const initialState: State = {

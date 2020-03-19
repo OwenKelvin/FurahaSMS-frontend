@@ -10,7 +10,7 @@ const routes: Routes = [
     data: {
       breadcrumb: null
     }
-  }, 
+  },
   {
     path: 'user',
     loadChildren: () => import('./user-roles-permissions/user-roles-permissions.module')

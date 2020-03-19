@@ -11,7 +11,7 @@ describe('AllowedPhoneNumbersService', () => {
   );
 
   it('should be created', () => {
-    const service: AllowedPhoneNumbersService = TestBed.get(
+    const service: AllowedPhoneNumbersService = TestBed.inject(
       AllowedPhoneNumbersService
     );
     expect(service).toBeTruthy();

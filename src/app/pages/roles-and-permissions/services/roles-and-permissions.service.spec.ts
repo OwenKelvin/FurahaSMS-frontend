@@ -11,7 +11,7 @@ describe('RolesAndPermissionsService', () => {
   }));
 
   it('should be created', () => {
-    const service: RolesAndPermissionsService = TestBed.get(RolesAndPermissionsService);
+    const service: RolesAndPermissionsService = TestBed.inject(RolesAndPermissionsService);
     expect(service).toBeTruthy();
   });
 });

@@ -25,7 +25,7 @@ export class RolesPermissionEditComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    
+
     this.componentIsActive = true;
     this.isLoading = true;
     this.role$ = this.route.paramMap
@@ -37,13 +37,13 @@ export class RolesPermissionEditComponent implements OnInit {
       this.isLoading = false;
       this.role = res;
       this.updatePermissionsForm()
-    }) 
+    })
   }
   updatePermissionsForm() {
     this.permissionsForm = this.fb.group({
       permissions: this.fb.array([])
     })
-   
+
     this.role.permissionStatus.forEach(({ id, hasPermission, name }) => {
       this.formPermissions.push(this.fb.group({
         id: [id, [Validators.required]],
@@ -55,7 +55,7 @@ export class RolesPermissionEditComponent implements OnInit {
   get formPermissions() {
     return this.permissionsForm.get('permissions') as FormArray;
   }
-  
+
   submitPermission() {
     this.isSubmitting = true;
     this.formPermissions.controls

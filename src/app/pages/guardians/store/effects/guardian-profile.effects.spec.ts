@@ -16,7 +16,7 @@ describe('GuardianProfileEffects', () => {
       ]
     });
 
-    effects = TestBed.get<GuardianProfileEffects>(GuardianProfileEffects);
+    effects = TestBed.inject<GuardianProfileEffects>(GuardianProfileEffects);
   });
 
   it('should be created', () => {

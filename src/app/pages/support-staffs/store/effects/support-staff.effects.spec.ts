@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { SupportStaffEffects } from './support-staff.effects';
 
@@ -9,6 +9,7 @@ describe('SupportStaffEffects', () => {
   let effects: SupportStaffEffects;
 
   beforeEach(() => {
+    actions$ = of(null);
     TestBed.configureTestingModule({
       providers: [
         SupportStaffEffects,
@@ -16,7 +17,7 @@ describe('SupportStaffEffects', () => {
       ]
     });
 
-    effects = TestBed.get<SupportStaffEffects>(SupportStaffEffects);
+    effects = TestBed.inject<SupportStaffEffects>(SupportStaffEffects);
   });
 
   it('should be created', () => {

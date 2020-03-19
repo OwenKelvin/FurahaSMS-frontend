@@ -20,7 +20,7 @@ export class RolesAndPermissionsService {
   }
 
   constructor(private http: HttpClient) { }
-  
+
   get roles$(): Observable<any> {
     return this.http.get('api/permissions-and-roles/roles');
   }

@@ -11,7 +11,7 @@ import * as SupportStaffActions from '../actions/support-staff.actions';
 export class SupportStaffEffects {
 
   loadSupportStaffs$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(SupportStaffActions.loadSupportStaffs),
       concatMap(() =>

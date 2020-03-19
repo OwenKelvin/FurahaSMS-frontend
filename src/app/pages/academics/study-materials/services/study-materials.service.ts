@@ -6,10 +6,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
   providedIn: 'root'
 })
 export class StudyMaterialsService {
-  downloadDocumentWithFilePath(file_path: any) {
+  downloadDocumentWithFilePath(filePath: any) {
     const querystring = require('querystring');
 
-    const queryStringParams = querystring.stringify({ file_path });
+    const queryStringParams = querystring.stringify({ file_path: filePath });
     const headers = new HttpHeaders();
 
     headers.append('Accept', 'application/pdf');
@@ -27,7 +27,7 @@ export class StudyMaterialsService {
   constructor(private http: HttpClient) { }
   uploadDocument(file: File): Observable<any> {
 
-    var myFormData = new FormData();
+    const myFormData = new FormData();
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
     headers.append('Accept', 'application/json');

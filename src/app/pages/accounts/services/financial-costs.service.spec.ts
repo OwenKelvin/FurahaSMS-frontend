@@ -11,7 +11,7 @@ describe('FinancialCostsService', () => {
   }));
 
   it('should be created', () => {
-    const service: FinancialCostsService = TestBed.get(FinancialCostsService);
+    const service: FinancialCostsService = TestBed.inject(FinancialCostsService);
     expect(service).toBeTruthy();
   });
 });

@@ -26,7 +26,7 @@ export class HeaderComponent implements OnInit, OnDestroy {
     this.isMenuClosed$.subscribe(isMenuClosed => {
       this.isMenuClosed = isMenuClosed;
     });
-    
+
   }
   toggleMenu(): void {
     if (this.isMenuClosed) {

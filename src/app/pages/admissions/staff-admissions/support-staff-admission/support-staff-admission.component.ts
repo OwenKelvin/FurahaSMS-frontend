@@ -29,7 +29,7 @@ export class SupportStaffAdmissionComponent implements OnInit {
         this.staffTypes = res as any[]
       }))
   }
-  
+
   navigateToNewStaffPage() {
     this.store.dispatch(loadStaffTypesSuccess(this.staffTypes.find(item => +item.id === +this.staffType)))
     this.router.navigate(['admissions','staff','support',this.staffType,'create']);

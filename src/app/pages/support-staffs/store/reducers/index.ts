@@ -12,7 +12,7 @@ export const libraryFeatureKey = 'library';
 
 export interface LibraryState {
   supportStaff: fromLibraryBookAuthor.State;
- 
+
 }
 
 export interface State extends fromRoot.AppState {
@@ -22,5 +22,5 @@ export interface State extends fromRoot.AppState {
 
 export const reducers: ActionReducerMap<LibraryState> = {
   supportStaff: fromLibraryBookAuthor.reducer,
- 
+
 };

@@ -9,7 +9,7 @@ describe('ClassLevelCategoryService', () => {
   }));
 
   it('should be created', () => {
-    const service: ClassLevelCategoryService = TestBed.get(ClassLevelCategoryService);
+    const service: ClassLevelCategoryService = TestBed.inject(ClassLevelCategoryService);
     expect(service).toBeTruthy();
   });
 });

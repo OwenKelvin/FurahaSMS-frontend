@@ -30,7 +30,7 @@ describe('DashboardLinksComponent', () => {
     fixture = TestBed.createComponent(DashboardLinksComponent);
     component = fixture.componentInstance;
     component.type = 'admissions:students';
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

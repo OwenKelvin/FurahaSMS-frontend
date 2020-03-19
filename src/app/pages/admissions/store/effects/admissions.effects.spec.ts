@@ -1,6 +1,6 @@
 import { TestBed } from '@angular/core/testing';
 import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 
 import { AdmissionsEffects } from './admissions.effects';
 
@@ -9,6 +9,7 @@ describe('AdmissionsEffects', () => {
   let effects: AdmissionsEffects;
 
   beforeEach(() => {
+    actions$ = of(null);
     TestBed.configureTestingModule({
       providers: [
         AdmissionsEffects,
@@ -16,7 +17,7 @@ describe('AdmissionsEffects', () => {
       ]
     });
 
-    effects = TestBed.get<AdmissionsEffects>(AdmissionsEffects);
+    effects = TestBed.inject<AdmissionsEffects>(AdmissionsEffects);
   });
 
   it('should be created', () => {

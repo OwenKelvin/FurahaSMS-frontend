@@ -16,9 +16,9 @@ import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
   styleUrls: ['./create-study-material.component.css']
 })
 export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
-  page: number = 1;
+  page = 1;
   totalPages: number;
-  isLoaded: boolean = false;
+  isLoaded = false;
   units$: Observable<any>;
   units: any[];
   classLevels$: Observable<any>;
@@ -51,9 +51,9 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
     this.classLevels$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(classLevels => this.classLevels = classLevels);
-    
-    (<any>window).pdfWorkerSrc = '/pdf.worker.js';
-    this.pdfSrc = "";
+
+    (window as any).pdfWorkerSrc = '/pdf.worker.js';
+    this.pdfSrc = '';
     this.studyMaterialForm = this.fb.group({
       title: ['', [Validators.required]],
       pdfFile: [null, [Validators.required]],
@@ -62,12 +62,12 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
     })
   }
   onFileSelected() {
-    let $pdf: any = document.querySelector('#pdfFile');
+    const $pdf: any = document.querySelector('#pdfFile');
 
     this.pdfFile = ($pdf as HTMLInputElement).files[0];
 
     if (typeof (FileReader) !== 'undefined') {
-      let reader = new FileReader();
+      const reader = new FileReader();
 
       reader.onload = (e: any) => {
         this.pdfSrc = e.target.result;
@@ -113,28 +113,35 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
         this.isSubmitting = false;
       }, err => this.isSubmitting = false );
   }
-  
+
+  get unitsControl(): FormArray {
+    return this.studyMaterialForm.get('units') as FormArray
+  }
+  get classLevelsControl(): FormArray {
+    return this.studyMaterialForm.get('classLevels') as FormArray;
+  }
+
   updateUnits() {
-    setTimeout(() => { 
-      let filterdUnits = this.units
+    setTimeout(() => {
+      const filterdUnits = this.units
         .filter((unit, i) => this.formUnits[i])
         .map(({ id }) => id);
-      (this.studyMaterialForm.get('units') as FormArray).controls.splice(0, (this.studyMaterialForm.get('units') as FormArray).controls.length)
-      filterdUnits.forEach(_ => (this.studyMaterialForm.get('units') as FormArray).push(this.fb.control('')))
-      this.studyMaterialForm.get('units').setValue(filterdUnits);
-      this.studyMaterialForm.get('units').updateValueAndValidity();
+      this.unitsControl.controls.splice(0, this.unitsControl.controls.length)
+      filterdUnits.forEach(_ => this.unitsControl.push(this.fb.control('')))
+      this.unitsControl.setValue(filterdUnits);
+      this.unitsControl.updateValueAndValidity();
     }, 0)
-    
+
   }
   updateClassLevels() {
     setTimeout(() => {
-      let filterdClassLevels = this.classLevels
+      const filterdClassLevels = this.classLevels
         .filter((unit, i) => this.formClassLevels[i])
         .map(({ id }) => id);
-      (this.studyMaterialForm.get('classLevels') as FormArray).controls.splice(0, (this.studyMaterialForm.get('classLevels') as FormArray).controls.length);
-      filterdClassLevels.forEach(_ => (this.studyMaterialForm.get('classLevels') as FormArray).push(this.fb.control('')));
-      this.studyMaterialForm.get('classLevels').setValue(filterdClassLevels);
-      this.studyMaterialForm.get('classLevels').updateValueAndValidity();
+      this.classLevelsControl.controls.splice(0, this.classLevelsControl.controls.length);
+      filterdClassLevels.forEach(_ => this.classLevelsControl.push(this.fb.control('')));
+      this.classLevelsControl.setValue(filterdClassLevels);
+      this.classLevelsControl.updateValueAndValidity();
     }, 0);
 
   }
