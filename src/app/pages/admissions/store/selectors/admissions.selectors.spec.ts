@@ -4,9 +4,22 @@ import { selectAdmissionsState } from './admissions.selectors';
 describe('Admissions Selectors', () => {
   it('should select the feature state', () => {
     const result = selectAdmissionsState({
-      [fromAdmissions.admissionsFeatureKey]: {}
+      [fromAdmissions.admissionsFeatureKey]: {
+        staffTypes: {
+          0: {
+            id: 0,
+            name: ''
+          }
+        }}
     });
 
-    expect(result).toEqual({});
+    expect(result).toEqual({
+      staffTypes: {
+        0: {
+          id: 0,
+          name: ''
+        }
+      }
+    });
   });
 });

@@ -6,6 +6,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('RolesPermissionEditComponent', () => {
   let component: RolesPermissionEditComponent;
@@ -19,8 +20,8 @@ describe('RolesPermissionEditComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AppCheckboxModule,
-        AppInputModule
-
+        AppInputModule,
+        RouterTestingModule
       ],
       declarations: [ RolesPermissionEditComponent ]
     })

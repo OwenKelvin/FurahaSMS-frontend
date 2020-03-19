@@ -5,6 +5,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('RolesPermissionsComponent', () => {
   let component: RolesPermissionsComponent;
@@ -17,7 +18,8 @@ describe('RolesPermissionsComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AppLoadingBubbleModule,
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       declarations: [ RolesPermissionsComponent ]
     })

@@ -27,7 +27,7 @@ export class ViewSupportStaffInfoComponent implements OnInit {
         mergeMap(id => {
           return this.store.pipe(select(selectSupportStaffState))
             .pipe(
-              map(supportStaffProfile => supportStaffProfile[id])
+              map(supportStaffProfile => supportStaffProfile ? supportStaffProfile[id] : null)
             );
         })
       );

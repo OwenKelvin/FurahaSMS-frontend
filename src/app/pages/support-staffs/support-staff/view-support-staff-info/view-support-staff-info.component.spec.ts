@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ViewSupportStaffInfoComponent } from './view-support-staff-info.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule, Store } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { ActivatedRoute } from '@angular/router';
+import { of, pipe } from 'rxjs';
 
 describe('ViewSupportStaffInfoComponent', () => {
   let component: ViewSupportStaffInfoComponent;
@@ -8,18 +13,43 @@ describe('ViewSupportStaffInfoComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ViewSupportStaffInfoComponent ]
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [ViewSupportStaffInfoComponent],
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({ get: () => 1 })
+            }
+          }
+        },
+        {
+          provide: Store,
+          useValue: of(() => of(1))
+        }
+      ],
     })
     .compileComponents();
-  }));
+}));
 
-  beforeEach(() => {
-    fixture = TestBed.createComponent(ViewSupportStaffInfoComponent);
-    component = fixture.componentInstance;
-    fixture.detectChanges();
-  });
+beforeEach(() => {
+  fixture = TestBed.createComponent(ViewSupportStaffInfoComponent);
+  component = fixture.componentInstance;
+  fixture.detectChanges();
+});
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+it('should create', () => {
+  expect(component).toBeTruthy();
+});
 });

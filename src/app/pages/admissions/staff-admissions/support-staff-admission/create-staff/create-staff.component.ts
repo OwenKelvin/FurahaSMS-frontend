@@ -1,7 +1,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { selectStaffTypes, selectStaffType } from '../../../store/selectors/staff-type.selectors';
+import { selectStaffType } from '../../../store/selectors/staff-type.selectors';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs/operators';
 

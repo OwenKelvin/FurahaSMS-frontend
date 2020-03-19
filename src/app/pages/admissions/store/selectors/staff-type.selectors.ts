@@ -4,10 +4,10 @@ import { selectAdmissionsState } from './admissions.selectors';
 
 export const selectStaffTypes = createSelector(
   selectAdmissionsState,
-  admissions => admissions.staffTypes
+  admissions => admissions ? admissions.staffTypes: null
 );
 
 export const selectStaffType = (id) => createSelector(
   selectStaffTypes,
-  staffType => staffType[id]
+  staffType => staffType ? staffType[id]: null
 );

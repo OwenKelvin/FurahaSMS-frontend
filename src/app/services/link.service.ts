@@ -83,7 +83,7 @@ export class LinkService {
     return of([
       {
         name: 'Add Library Book',
-        icon: ' icon-plus-squared',
+        icon: 'icon-plus-squared',
         link: 'library/admin/books/create'
       },
     ]);
@@ -347,7 +347,7 @@ export class LinkService {
       },
       {
         name: 'View Archives',
-        icon: ' icon-folder',
+        icon: 'icon-folder',
         link: 'academics/academic-year/archives'
       },
       {

@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { SelectComponent } from '../../../../components/select/select.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('SupportStaffAdmissionComponent', () => {
   let component: SupportStaffAdmissionComponent;
@@ -14,13 +15,19 @@ describe('SupportStaffAdmissionComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), FormsModule, ReactiveFormsModule, HttpClientTestingModule ],
+        }),
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [SupportStaffAdmissionComponent, SelectComponent],
       providers: [reducerProvider]
     });

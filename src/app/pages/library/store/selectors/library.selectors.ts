@@ -7,16 +7,16 @@ export const selectLibraryState = createFeatureSelector<fromLibrary.LibraryState
 
 export const selectLibraryBookAuthors = createSelector(
   selectLibraryState,
-  library => library.libraryBookAuthors
+  library => library ? library.libraryBookAuthors : null
 );
 
 export const selectLibraryBookPublishers = createSelector(
   selectLibraryState,
-  library => library.libraryBookPublishers
+  library => library ? library.libraryBookPublishers : null
 );
 
 export const selectLibraryBookClassifications = createSelector(
   selectLibraryState,
-  library => library.libraryBookClassifications
+  library => library ? library.libraryBookClassifications: null
 );
 

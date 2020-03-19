@@ -6,9 +6,10 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { of } from 'rxjs';
 
 describe('ViewAcademicYearComponent', () => {
   let component: ViewAcademicYearComponent;
@@ -35,25 +36,9 @@ describe('ViewAcademicYearComponent', () => {
       providers: [
         reducerProvider,
         {
-          provide: Router,
+          provide: ActivatedRoute,
           useValue: {
-            routerState: {
-              root: {
-                firstChild: {
-                  firstChild: {
-                    firstChild: {
-                      params: {
-                        subscribe: () => ({ id: 3 })
-                      },
-                      firstChild: {
-                        children: [],
-
-                      }
-                    }
-                  }
-                }
-              }
-            }
+            paramMap: of({ get: () => 1})
           }
         }
       ]
