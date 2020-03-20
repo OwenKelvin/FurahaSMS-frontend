@@ -1,0 +1,10 @@
+.list-group-item {
+  background: none;
+}
+.list-group-item:hover {
+    background-color: rgba(14, 6, 59, 0.5);
+}
+.list-group-item a:hover {
+  color: greenyellow !important;
+  text-decoration: none;
+}

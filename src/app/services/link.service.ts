@@ -336,6 +336,11 @@ export class LinkService {
         icon: 'icon-book-1',
         link: 'academics/study-materials'
       },
+      {
+        name: 'E-Learning',
+        icon: 'icon-paper-plane-empty',
+        link: 'academics/e-learning'
+      },
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {

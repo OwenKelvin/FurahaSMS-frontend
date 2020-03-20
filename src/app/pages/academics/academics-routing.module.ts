@@ -39,6 +39,12 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Study Materials'
     },
+  }, {
+    path: 'e-learning',
+    loadChildren: () => import('../academics/e-learning/e-learning.module').then(m => m.ELearningModule),
+    data: {
+      breadcrumb: 'E Learning'
+    },
   }
 ];
 
