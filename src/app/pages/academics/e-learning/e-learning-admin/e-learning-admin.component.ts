@@ -14,7 +14,7 @@ export class ELearningAdminComponent implements OnInit {
 
   courses$: Observable<ICourse[]>;
   limit = 20;
-  filterString: string = '';
+  filterString = '';
   constructor(
     private eLearningService: ELearningService
   ) { }
@@ -26,7 +26,7 @@ export class ELearningAdminComponent implements OnInit {
     return this.courses$
       .pipe(map(courses => {
         return courses.filter(course => {
-          return course.name.includes(this.filterString) || 
+          return course.name.includes(this.filterString) ||
             course.classLevelName.includes(this.filterString) ||
             course.unitName.includes(this.filterString)
         })

@@ -11,13 +11,15 @@ describe('DashboardLinkComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule ],
+        }),
+        RouterTestingModule],
       declarations: [DashboardLinkComponent],
       providers: [reducerProvider]
     });

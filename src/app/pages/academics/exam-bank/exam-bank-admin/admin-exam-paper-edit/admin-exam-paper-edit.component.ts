@@ -69,7 +69,8 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
 
   constructor(
     private fb: FormBuilder,
-    private store: Store<AppState>, private modalService: BsModalService,
+    private store: Store<AppState>,
+    private modalService: BsModalService,
     private examPaperQuestionsService: ExamPaperQuestionsService,
     private router: Router,
     private route: ActivatedRoute
@@ -138,7 +139,6 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
     this.editDialogForm.patchValue({ ...question });
-    console.table(this.editDialogForm.value);
   }
   handleQuestionEdit(template: TemplateRef<any>, $event) {
     this.openModal(template, $event.action, $event.i);

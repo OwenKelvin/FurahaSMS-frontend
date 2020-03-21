@@ -1,6 +1,9 @@
-<h1>E-Learning Course maintenance</h1>
-
-<form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap">
+<h1>E-Learning Course Maintenance</h1>
+<section *ngIf='!editorInitialized'>
+  <app-loading-bubble></app-loading-bubble>
+</section>
+<form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
+  [class.sr-only]='!editorInitialized'>
   <section class="col-lg-6">
     <app-input [triggerValidation]='triggerValidation' label='Course Name' placeholder='Enter Course Name' id='name'
       formControlName='name'></app-input>
@@ -12,7 +15,8 @@
         Academic Year</label>
       <div class="col-lg-9">
         <select id="academicYear" class="form-control" formControlName='academicYear'>
-          <option *ngFor='let academicYear of academicYears$ | async' [value]="academicYear.id">{{ academicYear.name }}</option>
+          <option *ngFor='let academicYear of academicYears$ | async' [value]="academicYear.id">{{ academicYear.name }}
+          </option>
         </select>
       </div>
     </section>
@@ -40,6 +44,41 @@
         </select>
       </div>
     </section>
+  </section>
+  <section class="col-lg-12">
+    <label for="description">Course Description</label>
+    <editor (onInit)='editorInitialized = true' id='description' *ngIf='editorInit' formControlName='description'
+      [init]="editorInit"></editor>
+
+  </section>
+  <section class="col-lg-12">
+    <fieldset class="mt-3">
+      <legend>Course Contents</legend>
+      <button  (click)='openModal(template)' type="button" class="btn btn-sm btn-primary"><span class="icon-plus-circled"></span>Add Topic</button>
+      <ng-template #template>
+        <div class="modal-header bg-dark">
+          <h4 class="modal-title pull-left">New Level 1 Topic</h4>
+          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+            <span aria-hidden="true">&times;</span>
+
+          </button>
+        </div>
+        <div class="modal-body bg-dark">
+          <form [formGroup]='newTopicForm'>
+           <section class="d-flex flex-wrap">
+              <section class="col-lg-12">
+                <app-input id='newTopicName' placeholder="Topic Description" formControlName="name" label="Topic"
+                  [triggerValidation]='triggerValidation'></app-input>
+              </section>
+           </section>
+           <section class="d-flex justify-content-end">
+            <button class="btn btn-sm btn-secondary mr-4" type="button">Cancel</button>
+            <button [disabled]='newTopicForm.invalid' class="btn btn-sm btn-success">Save</button>
+           </section>
+          </form>
+        </div>
+      </ng-template>
+    </fieldset>
   </section>
   <section class="col-lg-12">
     <app-validate-submit-buttons [isSubmitting]='isSubmitting'
