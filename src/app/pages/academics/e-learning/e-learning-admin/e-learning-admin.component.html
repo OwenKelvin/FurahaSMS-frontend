@@ -1,28 +1,49 @@
 <h1>E Learning Admin</h1>
+<ng-container *ngIf='contentLoaded; else contentLoading'>
+  <section class="d-flex justify-content-around align-items-center">
 
-<section class="d-flex justify-content-around align-items-center">
-   
-  <section class="col-lg-8">
-    <label for="search">Search Courses</label>
-    <input [(ngModel)]='filterString' type="search" id='search' class='form-control'>
+    <section class="col-lg-8">
+      <label for="search">Search Courses</label>
+      <input [(ngModel)]='filterString' type="search" id='search' class='form-control'>
+    </section>
+    <button class="btn btn-primary" [routerLink]='["create-course"]'><span class="icon-plus-circled"></span>New
+      Course</button>
   </section>
-  <button class="btn btn-primary" [routerLink]='["create-course"]'><span class="icon-plus-circled"></span>New Course</button>
-</section>
-<section class="mt-2">
+  <section class="mt-2">
 
-  <ul class="d-flex justify-content-around flex-wrap p-0">
-    <li *ngFor='let course of filteredCourses$ | async' class="list-group-item bg-dark list-group-flush m-1 p-0 col-lg-5">
-      <div class="d-flex flex-wrap justify-content-between align-items-center">
-        <a class="card-link  btn-block p-2 col-lg-8" [routerLink]='["/academics", "study-materials", course.id , "view"]'>
-        
-          <span class="icon-folder-open"></span>
-          <strong>{{ course.name }}</strong><br />
-          <small class="ml-2"> Class Level : {{ course.classLevelName }}</small>
-          <small class="ml-2"> Subject/Unit : {{ course.unitName }}</small>
-        
-        </a>
-        <div class="mr-2"><button class="btn btn-primary btn-sm">Edit</button></div>
-      </div>
-    </li>
-  </ul>
-</section>
+    <ul class="d-flex justify-content-start flex-wrap p-3">
+      <li *ngFor='let course of filteredCourses' class="list-group-item bg-none list-group-flush p-0 col-lg-6 mt-2">
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+          <a class="card-link  btn-block p-2 col-lg-9 col-sm-7 bg-dark"
+            [routerLink]='["/academics", "study-materials", course.id , "view"]'>
+
+            <span class="icon-folder-open"></span>
+            <strong>{{ course.name }}</strong><br />
+            <div class="d-flex justify-content-between">
+              <small> Class Level : {{ course.classLevelAbbreviation }}</small>
+              <small> Subject/Unit : {{ course.unitAbbreviation }}</small>
+              <small> Year : {{ course.academicYearName }}</small>
+            </div>
+            <!-- <br>
+            <small class="ml-2"> Created by : Owen Kelvin </small>
+            <br>
+            <small class="ml-2"> Taught by : Owen Kelvin, Peter Junior </small> -->
+            <!-- TODO-me make above functionality -->
+
+          </a>
+          <section class="col-lg-3 col-sm-5 d-flex justify-content-around">
+            <a [routerLink]='["/academics","e-learning","courses", course.id]' aria-label="View" class="btn btn-info btn-sm">
+              <span class="icon-eye"></span>
+            </a>
+            <a [routerLink]='["courses", course.id, "edit"]' aria-label="Edit" class="btn btn-primary btn-sm">
+              <span class="icon-edit"></span>
+            </a>
+          </section>
+        </div>
+      </li>
+    </ul>
+  </section>
+</ng-container>
+<ng-template #contentLoading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

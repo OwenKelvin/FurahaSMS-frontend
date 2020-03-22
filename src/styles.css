@@ -102,6 +102,12 @@ a:hover {
 .btn-success {
   background: green;
 }
+.btn-primary {
+  background: rgb(0, 61, 66);
+}
+.btn-primary:hover {
+  background: rgb(0, 117, 128);
+}
 .invalid-feedback {
   
   color: rgb(240, 68, 68);

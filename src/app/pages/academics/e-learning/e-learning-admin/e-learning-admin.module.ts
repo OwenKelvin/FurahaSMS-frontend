@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { ELearningAdminRoutingModule } from './e-learning-admin-routing.module';
 import { ELearningAdminComponent } from './e-learning-admin.component';
 import { FormsModule } from '@angular/forms';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { FormsModule } from '@angular/forms';
   imports: [
     CommonModule,
     ELearningAdminRoutingModule,
-    FormsModule
+    FormsModule,
+    AppLoadingBubbleModule
   ]
 })
 export class ELearningAdminModule { }

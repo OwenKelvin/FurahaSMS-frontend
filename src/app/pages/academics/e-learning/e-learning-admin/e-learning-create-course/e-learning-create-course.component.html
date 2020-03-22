@@ -37,7 +37,7 @@
     <section class="form-group d-flex">
       <label class="col-lg-3" for="unit">
         <span class='icon-star required'></span>
-        Class Level</label>
+        Unit/Subject</label>
       <div class="col-lg-9">
         <select id="unit" class="form-control" formControlName='unit'>
           <option *ngFor='let unit of units$ | async' [value]="unit.id">{{ unit.name }}</option>
@@ -51,10 +51,37 @@
       [init]="editorInit"></editor>
 
   </section>
+  <section class="col-lg-12 d-flex flex-wrap mt-3">
+    <label class="col-lg-4" for="level1NumberingStyle">
+      Level 1 Topic Numbering Style
+    </label>
+    <section class="col-lg-4">
+      <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text" class='form-control'
+        id="level1NumberingStyle" list="numbering-list">
+
+    </section>
+    <section class="col-lg-3">
+      <button (click)='openModal(template)' type="button" class="btn btn-sm btn-primary"><span
+          class="icon-plus-circled"></span>Add Topic</button>
+    </section>
+  </section>
   <section class="col-lg-12">
     <fieldset class="mt-3">
-      <legend>Course Contents</legend>
-      <button  (click)='openModal(template)' type="button" class="btn btn-sm btn-primary"><span class="icon-plus-circled"></span>Add Topic</button>
+      <legend>Topics</legend>
+
+
+      <section>
+        <section>
+          <ol *ngIf='topicsControl.controls.length > 0; else noTopics'>
+            <li *ngFor='let topic of topicsControl.controls'>{{ topic.value.description }}</li>
+          </ol>
+          <ng-template #noTopics>
+            <div class="alert alert-info">
+              No Topics Added yet
+            </div>
+          </ng-template>
+        </section>
+      </section>
       <ng-template #template>
         <div class="modal-header bg-dark">
           <h4 class="modal-title pull-left">New Level 1 Topic</h4>
@@ -64,17 +91,43 @@
           </button>
         </div>
         <div class="modal-body bg-dark">
-          <form [formGroup]='newTopicForm'>
-           <section class="d-flex flex-wrap">
-              <section class="col-lg-12">
-                <app-input id='newTopicName' placeholder="Topic Description" formControlName="name" label="Topic"
-                  [triggerValidation]='triggerValidation'></app-input>
+          <form [formGroup]='newTopicForm' (submit)='addNewTopic()'>
+            <section class="d-flex flex-wrap pl-4">
+
+              <section class="col-lg-12 mt-3">
+                <app-input id='newTopicName' placeholder="Topic Description" formControlName="name"
+                  label="Topic Description" [triggerValidation]='triggerValidation'></app-input>
               </section>
-           </section>
-           <section class="d-flex justify-content-end">
-            <button class="btn btn-sm btn-secondary mr-4" type="button">Cancel</button>
-            <button [disabled]='newTopicForm.invalid' class="btn btn-sm btn-success">Save</button>
-           </section>
+              <section class="col-lg-12 d-flex flex-wrap">
+                <section class="col-lg-3">
+                  <label for="numberingStyle"><span class='icon-star required'></span>Sub Topic Numbering Style</label>
+                </section>
+                <section class="col-lg-4">
+                  <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text"
+                    class='form-control' id="numberingStyle" list="numbering-list">
+                </section>
+              </section>
+              <section class="col-lg-12">
+                <fieldset class="mt-3" formArrayName='subTopics'>
+                  <legend class="d-flex justify-content-between">
+                    Sub Topics 
+                    <button [disabled]='newTopicSubTopics.invalid' type="button" (click)='addSubTopic()' class="btn btn-sm btn-primary"><span class="icon-plus-circled"></span>Add Subtopic</button>
+                  </legend>
+                  <section class="mt-2 d-flex" *ngFor='let subTopic of newTopicSubTopics.controls; let i = index'>
+                    <div class="col-lg-9">
+                      <input aria-label="Sub Topic Description" [formControlName]='i' type="text" class="form-control">
+                    </div>
+                    <div>
+                      <button (click)='deleteSubTopic(i)' type="button" aria-label="delete subtopic" class="btn btn-sm btn-danger"><span class="icon-trash"></span></button>
+                    </div>
+                  </section>
+                </fieldset>
+              </section>
+            </section>
+            <section class="d-flex justify-content-end">
+              <button (click)='modalRef.hide()' class="btn btn-sm btn-secondary mr-4" type="button">Cancel</button>
+              <button [disabled]='newTopicForm.invalid' class="btn btn-sm btn-success">Save</button>
+            </section>
           </form>
         </div>
       </ng-template>
@@ -85,6 +138,10 @@
       (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newCourseForm'>
       <span>Create Course</span>
     </app-validate-submit-buttons>
-
   </section>
 </form>
+
+<datalist id='numbering-list'>
+  <option *ngFor='let numberingStyle of numberingStyles$ | async' [value]='numberingStyle.name'>
+  </option>
+</datalist>
