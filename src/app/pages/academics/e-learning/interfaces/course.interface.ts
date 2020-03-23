@@ -6,4 +6,5 @@ export interface ICourse {
   classLevelName?: string;
   classLevelAbbreviation?: string;
   academicYear?: string;
+  academicYearName?: string;
 };

@@ -19,6 +19,14 @@ const routes: Routes = [
     },
     loadChildren: () => import('./e-learning-create-course/e-learning-create-course.module')
       .then(m => m.ELearningCreateCourseModule)
+  },
+  {
+    path: 'courses',
+    data: {
+      breadcrumb: null
+    },
+    loadChildren: () => import('./e-learning-edit-course/e-learning-edit-course.module')
+      .then(m => m.ELearningEditCourseModule)
   }
 ];
 

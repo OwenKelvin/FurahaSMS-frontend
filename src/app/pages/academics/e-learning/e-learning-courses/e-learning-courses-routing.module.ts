@@ -11,6 +11,25 @@ const routes: Routes = [
     data: {
       breadcrumb: null
     }
+  }, 
+  {
+    path: ':id',
+    data: {
+      breadcrumb: null
+    },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        redirectTo: 'view'
+      },
+      {
+        path: 'view',
+        data: {
+          breadcrumb: 'View Course'
+        }
+      }
+    ]
   }
 ];
 

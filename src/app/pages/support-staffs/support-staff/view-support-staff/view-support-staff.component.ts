@@ -25,7 +25,7 @@ export class ViewSupportStaffComponent implements OnInit {
       .pipe(mergeMap(id => this.supportStaffService.getSupportStaffById(id)))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(profile => {
-        console.log(profile)
+        // console.log(profile)
        // this.store.dispatch(loadSupportStaffProfiles(profile))
       });
   }

@@ -2,14 +2,37 @@ import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { ICourse } from '../interfaces/course.interface';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class ELearningService {
-
+  deleteCourseWithId(id: number): Observable<any> {
+    return this.http.delete(`api/e-learning/courses/${id}`);
+  }
   constructor(private http: HttpClient) { }
+  
+  getCourseWithId(id: number): Observable<ICourse> {
+    return this.http.get(`api/e-learning/courses/${id}`)
+      .pipe(tap(res => {
+        console.log({ res });
+      }))
+      .pipe(map((res: any) => {
+        return {
+          name: res.name,
+          classLevelName: res.class_level_name,
+          classLevelAbbreviation: res.class_level_abbreviation,
+          id: res.id,
+          unitName: res.unit_name,
+          unitAbbreviation: res.unit_abbreviation,
+          academicYearName: res.academic_year_name,
+          topicNumberStyleName: res.topic_number_style_name,
+          topics: res.topics
+        };
+      }));
+  }
+
   saveCourse(value: any): Observable<any> {
     return this.http.post('api/e-learning/courses', {
       unit_id: value.unit,

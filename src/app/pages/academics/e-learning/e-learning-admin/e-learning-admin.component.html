@@ -15,7 +15,7 @@
       <li *ngFor='let course of filteredCourses' class="list-group-item bg-none list-group-flush p-0 col-lg-6 mt-2">
         <div class="d-flex flex-wrap justify-content-between align-items-center">
           <a class="card-link  btn-block p-2 col-lg-9 col-sm-7 bg-dark"
-            [routerLink]='["/academics", "study-materials", course.id , "view"]'>
+            [routerLink]='["/academics","e-learning","courses", course.id]'>
 
             <span class="icon-folder-open"></span>
             <strong>{{ course.name }}</strong><br />
@@ -32,9 +32,9 @@
 
           </a>
           <section class="col-lg-3 col-sm-5 d-flex justify-content-around">
-            <a [routerLink]='["/academics","e-learning","courses", course.id]' aria-label="View" class="btn btn-info btn-sm">
+            <!-- <a [routerLink]='["/academics","e-learning","courses", course.id]' aria-label="View" class="btn btn-info btn-sm">
               <span class="icon-eye"></span>
-            </a>
+            </a> -->
             <a [routerLink]='["courses", course.id, "edit"]' aria-label="Edit" class="btn btn-primary btn-sm">
               <span class="icon-edit"></span>
             </a>
