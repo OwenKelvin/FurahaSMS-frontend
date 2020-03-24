@@ -7,6 +7,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
+import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
 
 
 @NgModule({
@@ -18,7 +20,9 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     ModalModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    AppInputModule
+    AppInputModule,
+    ELearningTopicObjectivesModule,
+    ELearningTopicMaterialsModule
   ]
 })
 export class ELearningEditCourseModule { }

@@ -7,6 +7,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule } from '@angular/forms';
+import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
+import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
 
 describe('ELearningEditCourseComponent', () => {
   let component: ELearningEditCourseComponent;
@@ -19,6 +21,8 @@ describe('ELearningEditCourseComponent', () => {
         AppLoadingBubbleModule,
         RouterTestingModule,
         FormsModule,
+        ELearningTopicObjectivesModule,
+        ELearningTopicMaterialsModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

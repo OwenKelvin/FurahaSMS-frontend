@@ -23,39 +23,17 @@
         <h3 class="mt-2">{{ course.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
         <section class="d-flex flex-wrap justify-content-center">
           <section class="col-lg-12 p-2 mb-2">
-            <fieldset>
-              <legend>Learning Outcomes</legend>
-              By End of this {{ course.topicNumberStyleName | lowercase }} you should be able to;
-              <ul class="list-group">
-                <li class="list-group-item  bg-dark" *ngFor='let learningOutcome of [1, 2, 3, 4]'>
-                  <span class='icon-ok-1'></span>
-                  Understand the principle of motor Vehicles
-                </li>
-              </ul>
-            </fieldset>
-            <section class='card p-2 m-2'>
-              <a [routerLink]='["pagenotfound"]' class="p-2">
-                <span style="color: salmon;" class="icon-file-pdf"></span>
-                PDF Document
-              </a>
-              <a [routerLink]='["pagenotfound"]' class="p-2">
-                <span style="color: rgb(238, 148, 106);" class="icon-file-powerpoint"></span>
-                Power Point Document
-              </a>
-              <a [routerLink]='["pagenotfound"]' class="p-2">
-                <span style="color: springgreen;" class="icon-file-excel"></span>
-                Excel Point Document
-              </a>
-              <a [routerLink]='["pagenotfound"]' class="p-2">
-                <span style="color: rgb(138, 196, 243);" class="icon-file-word"></span>
-                Word Point Document
-              </a>
-            </section>
+            <app-e-learning-topic-objectives [topicNumberStyleName]='course.topicNumberStyleName'
+              [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
+
+            <app-e-learning-topic-materials [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
+
             <div>
               <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
                 type="button">
                 <span class="icon-plus-circled"></span>
-                New Content</button></div>
+                New Content</button>
+            </div>
           </section>
           <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
             <ng-container *ngIf='course.topicNumberStyleName === topic.topic_number_style_name; else normalNumbering'>
@@ -66,11 +44,17 @@
             </ng-template>
             <section class="d-flex justify-content-center">
               <div class="col-lg-12 pb-3">
+                <app-e-learning-topic-objectives [topicNumberStyleName]='course.topicNumberStyleName'
+                  [learningOutcomes]='subTopic.expected_learning_outcomes'>
+                </app-e-learning-topic-objectives>
 
-                Some Links Here
-                <div><button class="btn btn-primary btn-sm" type="button">
+                <app-e-learning-topic-materials [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
+                <div>
+                  <button (click)='openModalNewContent(templateNewContent, subTopic.id)' class="btn btn-primary btn-sm"
+                    type="button">
                     <span class="icon-plus-circled"></span>
-                    New Content</button></div>
+                    New Content</button>
+                </div>
               </div>
             </section>
           </section>
@@ -159,14 +143,14 @@
           </div>
         </form>
       </ng-container>
-      
+
       <ng-container *ngSwitchCase='"learning-outcome"'>
         <h5>New Learning Otcome</h5>
         <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
           <div class="mt-1">
             <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-              [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome' id="newLearningOutcomeDescription"
-              placeholder="Enter Learning Outcome" formControlName="description">
+              [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome'
+              id="newLearningOutcomeDescription" placeholder="Enter Learning Outcome" formControlName="description">
             </app-input>
           </div>
         </form>
@@ -175,8 +159,8 @@
   </div>
   <div class="modal-footer bg-dark">
     <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
-    <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm' [disabled]='activeForm.invalid || savingNewContent'
-      class="btn btn-success">
+    <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
+      [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
       <span *ngIf='!savingNewContent'>Save Content</span>
       <span *ngIf='savingNewContent'>Saving...</span>
       <i *ngIf='!savingNewContent' class='icon-ok-1'></i>

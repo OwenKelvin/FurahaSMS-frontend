@@ -1,0 +1,40 @@
+<section *ngIf='learningContents && learningContents.length > 0' class='card p-2 m-2'>
+
+  
+  <a *ngFor='let learningContent of learningContents' [routerLink]='[learningContent.id]' class="d-flex flex-wrap p-2">
+    
+    <div class="col-lg-12">
+      <span 
+        [style.color] = 'learningContent.study_material.study_material_doc.type | fileExtentionColor' 
+        [class]="learningContent.study_material.study_material_doc.type | fileExtentionIcon"></span> 
+      <strong>{{ learningContent.study_material.title }}</strong>
+    </div>
+    <div class="col-lg-12 d-flex flex-wrap">
+      <small class="mr-3">Doc Name: {{ learningContent.study_material.study_material_doc.name }}</small>
+      <small class="mr-3">Size: {{ learningContent.study_material.study_material_doc.size | filesize }}</small>
+      <small class="mr-3">Created on: {{ learningContent.study_material.study_material_doc.created_at }}</small>
+      <small class="mr-3">Last updated: {{ learningContent.study_material.study_material_doc.updated_at }}</small>
+      <small class="mr-3">File extention: {{ learningContent.study_material.study_material_doc.type }}</small>
+    </div>
+    <!-- {{ learningContent.study_material | json }} -->
+  </a>
+  
+  
+  
+  <!-- <a [routerLink]='["pagenotfound"]' class="p-2">
+    <span style="color: salmon;" class="icon-file-pdf"></span>
+    PDF Document
+  </a>
+  <a [routerLink]='["pagenotfound"]' class="p-2">
+    <span style="color: rgb(238, 148, 106);" class="icon-file-powerpoint"></span>
+    Power Point Document
+  </a>
+  <a [routerLink]='["pagenotfound"]' class="p-2">
+    <span style="color: springgreen;" class="icon-file-excel"></span>
+    Excel Point Document
+  </a>
+  <a [routerLink]='["pagenotfound"]' class="p-2">
+    <span style="color: rgb(138, 196, 243);" class="icon-file-word"></span>
+    Word Point Document
+  </a> -->
+  </section>
