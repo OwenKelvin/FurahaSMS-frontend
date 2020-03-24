@@ -5,6 +5,7 @@ import { ELearningCourseModule } from '../e-learning-course/e-learning-course.mo
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ELearningCoursesComponent', () => {
   let component: ELearningCoursesComponent;
@@ -16,7 +17,8 @@ describe('ELearningCoursesComponent', () => {
         ELearningCourseModule,
         RouterTestingModule,
         AppLoadingBubbleModule,
-        FormsModule
+        FormsModule,
+        HttpClientTestingModule
       ],
       declarations: [ ELearningCoursesComponent ]
     })

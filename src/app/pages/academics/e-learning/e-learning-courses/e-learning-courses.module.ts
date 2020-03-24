@@ -18,7 +18,7 @@ import { ELearningTopicObjectivesModule } from '../e-learning-topic-objectives/e
     ELearningCoursesComponent,
     ELearningCourseItemComponent,
     ELearningCourseViewComponent,
-    
+
   ],
   imports: [
     CommonModule,

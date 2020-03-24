@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ELearningCourseItemComponent } from './e-learning-course-item.component';
+import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('ELearningCourseItemComponent', () => {
   let component: ELearningCourseItemComponent;
@@ -8,7 +11,20 @@ describe('ELearningCourseItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ELearningCourseItemComponent ]
+      imports: [
+        RouterTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
+      ],
+      declarations: [ELearningCourseItemComponent],
+      providers: [
+        reducerProvider,
+      ]
     })
     .compileComponents();
   }));

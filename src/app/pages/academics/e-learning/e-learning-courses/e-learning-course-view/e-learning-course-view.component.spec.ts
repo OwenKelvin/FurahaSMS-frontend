@@ -5,6 +5,11 @@ import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/
 import { ELearningTopicObjectivesComponent } from '../../e-learning-topic-objectives/e-learning-topic-objectives.component';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('ELearningCourseViewComponent', () => {
   let component: ELearningCourseViewComponent;
@@ -13,7 +18,7 @@ describe('ELearningCourseViewComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        ELearningTopicObjectivesComponent,
+        ELearningTopicObjectivesModule,
         ELearningTopicMaterialsModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
@@ -21,11 +26,23 @@ describe('ELearningCourseViewComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        RouterTestingModule,
+        AppLoadingBubbleModule
       ],
       declarations: [ELearningCourseViewComponent],
       providers: [
         reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({
+                get: () => 0
+              })
+            }
+          }
+        }
       ]
     })
     .compileComponents();

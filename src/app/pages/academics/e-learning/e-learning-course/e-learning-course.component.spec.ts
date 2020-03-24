@@ -20,6 +20,7 @@ describe('ELearningCourseComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ELearningCourseComponent);
     component = fixture.componentInstance;
+    component.course = {};
     fixture.detectChanges();
   });
 
