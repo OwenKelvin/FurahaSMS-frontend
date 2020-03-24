@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ELearningCoursesComponent } from './e-learning-courses.component';
+import { ELearningCourseModule } from '../e-learning-course/e-learning-course.module';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { FormsModule } from '@angular/forms';
 
 describe('ELearningCoursesComponent', () => {
   let component: ELearningCoursesComponent;
@@ -8,6 +12,12 @@ describe('ELearningCoursesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ELearningCourseModule,
+        RouterTestingModule,
+        AppLoadingBubbleModule,
+        FormsModule
+      ],
       declarations: [ ELearningCoursesComponent ]
     })
     .compileComponents();

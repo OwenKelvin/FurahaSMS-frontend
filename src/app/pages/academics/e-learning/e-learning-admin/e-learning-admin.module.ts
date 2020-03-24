@@ -6,6 +6,7 @@ import { ELearningAdminComponent } from './e-learning-admin.component';
 import { FormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ELearningAdminCourseComponent } from './e-learning-admin-course/e-learning-admin-course.component';
+import { ELearningCourseModule } from '../e-learning-course/e-learning-course.module';
 
 
 @NgModule({
@@ -14,7 +15,8 @@ import { ELearningAdminCourseComponent } from './e-learning-admin-course/e-learn
     CommonModule,
     ELearningAdminRoutingModule,
     FormsModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ELearningCourseModule
   ]
 })
 export class ELearningAdminModule { }
