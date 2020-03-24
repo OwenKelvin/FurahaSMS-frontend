@@ -11,11 +11,10 @@ import { loadCourses } from '../../../store/actions/courses.actions';
   styleUrls: ['./e-learning-admin-course.component.css']
 })
 export class ELearningAdminCourseComponent implements OnInit, OnDestroy {
-  componentIsActive: boolean = true;
+  componentIsActive = true;
 
   constructor(
     private route: ActivatedRoute,
-    private coursesEffects: CoursesEffects,
     private store: Store
   ) { }
 

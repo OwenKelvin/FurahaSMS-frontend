@@ -8,6 +8,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AddStudyMaterialsTitleModule } from '../add-study-materials-title/add-study-materials-title.module';
 
 describe('CreateStudyMaterialComponent', () => {
   let component: CreateStudyMaterialComponent;
@@ -29,6 +30,7 @@ describe('CreateStudyMaterialComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        AddStudyMaterialsTitleModule
       ],
       declarations: [CreateStudyMaterialComponent],
       providers: [reducerProvider]

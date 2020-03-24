@@ -1,7 +1,7 @@
-import * as fromAcadeemics from './academics.actions';
+import * as fromAcademics from './academics.actions';
 
-describe('loadAcadeemicss', () => {
+describe('loadAcademics', () => {
   it('should return an action', () => {
-    expect(fromAcadeemics.loadAcademics().type).toBe('[Acadeemics] Load Academics');
+    expect(fromAcademics.loadAcademics().type).toBe('[Academics] Load Academics');
   });
 });

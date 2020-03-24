@@ -26,7 +26,7 @@ export class ELearningService {
     return this.http.delete(`api/e-learning/courses/${id}`);
   }
   constructor(private http: HttpClient) { }
-  
+
   getCourseWithId(id: number): Observable<ICourse> {
     return this.http.get(`api/e-learning/courses/${id}`)
       .pipe(map((res: any) => {

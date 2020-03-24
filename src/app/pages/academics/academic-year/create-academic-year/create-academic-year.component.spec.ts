@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AcademicsModule } from '../../academics.module';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('CreateAcademicYearComponent', () => {
   let component: CreateAcademicYearComponent;
@@ -27,6 +28,7 @@ describe('CreateAcademicYearComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,

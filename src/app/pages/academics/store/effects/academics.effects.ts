@@ -11,7 +11,7 @@ import * as AcademicsActions from '../actions/academics.actions';
 export class AcademicsEffects {
 
   loadAcademics$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(AcademicsActions.loadAcademics),
       concatMap(() =>

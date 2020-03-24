@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./e-learning-topic-objectives.component.css']
 })
 export class ELearningTopicObjectivesComponent implements OnInit {
-  
+
   @Input() topicNumberStyleName: string;
   @Input() learningOutcomes: any[];
 

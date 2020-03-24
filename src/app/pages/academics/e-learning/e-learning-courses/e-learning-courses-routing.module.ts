@@ -11,7 +11,7 @@ const routes: Routes = [
     data: {
       breadcrumb: null
     }
-  }, 
+  },
   {
     path: ':id',
     data: {

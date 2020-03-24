@@ -6,6 +6,7 @@ import { StoreModule, Store } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { ActivatedRoute } from '@angular/router';
 import { of, pipe } from 'rxjs';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('ViewSupportStaffInfoComponent', () => {
   let component: ViewSupportStaffInfoComponent;
@@ -22,6 +23,7 @@ describe('ViewSupportStaffInfoComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        AppLoadingBubbleModule
       ],
       declarations: [ViewSupportStaffInfoComponent],
       providers: [

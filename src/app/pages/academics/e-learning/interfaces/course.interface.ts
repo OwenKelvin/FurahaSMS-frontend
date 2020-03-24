@@ -10,5 +10,6 @@ export interface ICourse {
   academicYear?: string;
   academicYearId?: number;
   academicYearName?: string;
+  topicNumberStyleName?: string;
   topics?: any[];
 };

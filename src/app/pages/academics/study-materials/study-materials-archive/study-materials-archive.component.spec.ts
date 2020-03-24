@@ -3,6 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { StudyMaterialsArchiveComponent } from './study-materials-archive.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('StudyMaterialsArchiveComponent', () => {
   let component: StudyMaterialsArchiveComponent;
@@ -12,7 +13,8 @@ describe('StudyMaterialsArchiveComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AppLoadingBubbleModule
       ],
       declarations: [ StudyMaterialsArchiveComponent ]
     })

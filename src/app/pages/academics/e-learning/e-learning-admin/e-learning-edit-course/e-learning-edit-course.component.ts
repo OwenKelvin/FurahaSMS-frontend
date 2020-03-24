@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, ElementRef } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';
@@ -16,12 +16,12 @@ import { StudyMaterialsService } from '../../../study-materials/services/study-m
   templateUrl: './e-learning-edit-course.component.html',
   styleUrls: ['./e-learning-edit-course.component.css']
 })
-export class ELearningEditCourseComponent implements OnInit {
+export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   course$: Observable<ICourse>;
   course: ICourse;
   modalRef: any;
   courseNameConfirmation: string;
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   deletingCourse: boolean;
   newContentUploadForm: FormGroup;
   triggerNewContentValidation: boolean;
@@ -47,7 +47,7 @@ export class ELearningEditCourseComponent implements OnInit {
       .pipe(tap((res) => this.course = res));
     this.resetNewContentForm();
   }
-  
+
   resetNewContentForm(topicId?: number) {
     this.newContentUploadForm = this.fb.group({
       description: ['', [Validators.required]],
@@ -75,7 +75,7 @@ export class ELearningEditCourseComponent implements OnInit {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.modalRef.hide();
-        this.router.navigate(["academics/", "e-learning", "admin"]);
+        this.router.navigate(['academics/', 'e-learning', 'admin']);
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
           toastBody: res.message,
@@ -123,7 +123,7 @@ export class ELearningEditCourseComponent implements OnInit {
       this.triggerNewContentValidation = true;
     }
   }
-  
+
   saveLearningOutcome() {
     if (this.newLearningOutcomeForm.valid) {
       this.savingNewContent = true;
@@ -138,26 +138,26 @@ export class ELearningEditCourseComponent implements OnInit {
           this.savingNewContent = false;
           this.modalRef.hide();
         }, () => this.savingNewContent = false);
-      
+
     } else {
       alert('Form is Incomplete');
       this.triggerLearningOutcomeValidation = true;
     }
   }
-  
+
   get activeFormName(): string {
     switch (this.contentType) {
-      case "learning-outcome":
-        
+      case 'learning-outcome':
+
         return 'newLearningOutcomeForm';
-    
+
       default:
         return 'newContentUploadForm'
     }
   }
   get activeForm(): FormGroup {
     switch (this.contentType) {
-      case "learning-outcome":
+      case 'learning-outcome':
         return this.newLearningOutcomeForm;
 
       default:

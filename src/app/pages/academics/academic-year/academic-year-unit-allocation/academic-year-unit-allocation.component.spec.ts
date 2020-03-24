@@ -6,7 +6,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { reducerProvider } from 'src/app/store/reducers';
+import { reducerProvider, REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { StoreModule } from '@ngrx/store';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('AcademicYearUnitAllocationComponent', () => {
   let component: AcademicYearUnitAllocationComponent;
@@ -21,7 +23,15 @@ describe('AcademicYearUnitAllocationComponent', () => {
         RouterTestingModule,
         AcademicsModule,
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        EffectsModule.forRoot([])
       ],
       declarations: [AcademicYearUnitAllocationComponent],
       providers: [reducerProvider]

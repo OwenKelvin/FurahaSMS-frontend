@@ -5,6 +5,10 @@ import { StoreModule, Store } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { of } from 'rxjs';
+import { CreateTeacherComponent } from '../../create-teacher/create-teacher.component';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 describe('CreateStaffComponent', () => {
   let component: CreateStaffComponent;
@@ -13,6 +17,7 @@ describe('CreateStaffComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
         RouterTestingModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
@@ -21,6 +26,9 @@ describe('CreateStaffComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        FormsModule,
+        ReactiveFormsModule,
+        AppInputModule
       ],
       providers: [
         reducerProvider,
@@ -29,7 +37,7 @@ describe('CreateStaffComponent', () => {
           useValue: of({})
         }
       ],
-      declarations: [CreateStaffComponent]
+      declarations: [CreateStaffComponent, CreateTeacherComponent]
     })
     .compileComponents();
   }));

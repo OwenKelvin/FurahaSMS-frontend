@@ -4,6 +4,7 @@ import { ELearningAdminCourseComponent } from './e-learning-admin-course.compone
 import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('ELearningAdminCourseComponent', () => {
   let component: ELearningAdminCourseComponent;
@@ -20,6 +21,7 @@ describe('ELearningAdminCourseComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([])
       ],
       declarations: [ELearningAdminCourseComponent],
       providers: [reducerProvider]

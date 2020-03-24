@@ -6,9 +6,12 @@ import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/redu
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
 describe('ELearningEditCourseComponent', () => {
   let component: ELearningEditCourseComponent;
@@ -21,8 +24,10 @@ describe('ELearningEditCourseComponent', () => {
         AppLoadingBubbleModule,
         RouterTestingModule,
         FormsModule,
+        ReactiveFormsModule,
         ELearningTopicObjectivesModule,
         ELearningTopicMaterialsModule,
+        HttpClientTestingModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
@@ -32,7 +37,19 @@ describe('ELearningEditCourseComponent', () => {
         })
       ],
       declarations: [ELearningEditCourseComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({
+                get: () => 0
+              })
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
   }));

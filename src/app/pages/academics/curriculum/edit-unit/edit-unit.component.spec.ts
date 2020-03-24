@@ -13,6 +13,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('EditUnitComponent', () => {
   let component: EditUnitComponent;
@@ -29,6 +30,7 @@ describe('EditUnitComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         AcademicsModule,
         RouterTestingModule,
         HttpClientTestingModule,

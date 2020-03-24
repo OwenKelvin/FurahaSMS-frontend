@@ -7,12 +7,10 @@ export const selectAcademicsState = createFeatureSelector<fromAcademics.State>(
 
 export const selectAcademicsCourses = createSelector(
   selectAcademicsState,
-  academics => academics.courses
+  academics => academics ? academics.courses: null
 )
 
 export const selectAcademicsCourse = (id) => createSelector(
   selectAcademicsCourses,
-  courses => {
-    return courses[id]
-  }
+  courses => courses ? courses[id]: null
 )
