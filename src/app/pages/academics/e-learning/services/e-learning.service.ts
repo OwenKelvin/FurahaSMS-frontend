@@ -30,7 +30,6 @@ export class ELearningService {
   getCourseWithId(id: number): Observable<ICourse> {
     return this.http.get(`api/e-learning/courses/${id}`)
       .pipe(map((res: any) => {
-        console.log(res)
         return {
           name: res.name,
           classLevelId: res.class_level_id,

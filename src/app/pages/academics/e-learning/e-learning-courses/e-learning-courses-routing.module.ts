@@ -1,6 +1,8 @@
-import { NgModule } from '@angular/core';
+import { NgModule, Component } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { ELearningCoursesComponent } from './e-learning-courses.component';
+import { ELearningCourseItemComponent } from './e-learning-course-item/e-learning-course-item.component';
+import { ELearningCourseViewComponent } from './e-learning-course-view/e-learning-course-view.component';
 
 
 const routes: Routes = [
@@ -17,6 +19,7 @@ const routes: Routes = [
     data: {
       breadcrumb: null
     },
+    component: ELearningCourseItemComponent,
     children: [
       {
         path: '',
@@ -27,7 +30,8 @@ const routes: Routes = [
         path: 'view',
         data: {
           breadcrumb: 'View Course'
-        }
+        },
+        component: ELearningCourseViewComponent
       }
     ]
   }

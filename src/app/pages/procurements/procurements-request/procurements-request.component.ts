@@ -68,9 +68,8 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
         this.isSubmitting = false;
         this.formSubmitted = true;
         this.router.navigate(['/procurements', 'requests', res.data.id, 'view']);
-      }, error => {
+      }, () => {
         this.formSubmitted = true;
-        // console.log(error); // TODO Handle Student creation error
         this.isSubmitting = false;
       });
     } else {

@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { takeWhile, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
 import { SupportStaffService } from 'src/app/pages/admissions/services/support-staff.service';
 
 @Component({
@@ -15,7 +13,6 @@ export class ViewSupportStaffComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<AppState>,
     private supportStaffService: SupportStaffService
   ) { }
 
@@ -24,10 +21,7 @@ export class ViewSupportStaffComponent implements OnInit {
       .pipe(map(params => +params.get('id')))
       .pipe(mergeMap(id => this.supportStaffService.getSupportStaffById(id)))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(profile => {
-        // console.log(profile)
-       // this.store.dispatch(loadSupportStaffProfiles(profile))
-      });
+      .subscribe();
   }
 
 }

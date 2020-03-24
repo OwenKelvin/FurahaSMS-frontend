@@ -32,7 +32,6 @@ export class ELearningAdminComponent implements OnInit, OnDestroy {
     });
   }
   get filteredCourses(): ICourse[] {
-    console.log(this.courses)
     return this.courses.filter(course => {
 
       return (course.name && course.name.includes(this.filterString)) ||

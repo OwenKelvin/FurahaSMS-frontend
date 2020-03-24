@@ -134,9 +134,8 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
   }
   validateForm() {
     this.triggerValidation = !this.triggerValidation;
-    console.log(this.newUnitCategoryForm.value);
   }
-  removeSubject(i) {
+  removeSubject(i: number) {
     const removalConfirmed = confirm(
       'Please confirm you wish to remove section'
     );

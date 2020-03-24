@@ -97,7 +97,6 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     if (this.financialCostEditForm.valid) {
       if (this.editedIndex > -1) {
         this.financialCosts[this.editedIndex] = this.financialCostEditForm.value;
-        console.log(this.financialCostEditForm.value);
 
       } else {
         this.financialCosts.push(this.financialCostEditForm.value);

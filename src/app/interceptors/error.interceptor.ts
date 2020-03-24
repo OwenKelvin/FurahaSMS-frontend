@@ -29,8 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       } else {
         helperMessage = err.error.message;
       }
-      console.log(err);
-      // console.log(err.error);
       const error = err.statusText || err.error.message;
       if (err.status === 0) {
         this.message = {

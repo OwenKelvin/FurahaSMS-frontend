@@ -51,7 +51,6 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
       )
       .pipe(takeWhile(() => this.componentIsActive));
     this.classLevels$.subscribe(res => {
-      console.log(res);
       res.forEach(item => {
         this.classLevels.push(
           this.fb.group({

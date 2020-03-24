@@ -50,7 +50,7 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
             };
             if (items.length > 0) {
 
-              this.db.put(doc).then(() => { }).catch(err => console.log('Data Retrieved from Cache'));
+              this.db.put(doc).then(() => { }).catch(() => console.log('Data Retrieved from Cache'));
             }
           });
         });
