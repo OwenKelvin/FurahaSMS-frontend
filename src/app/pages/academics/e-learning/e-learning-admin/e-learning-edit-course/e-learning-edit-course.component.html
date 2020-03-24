@@ -18,7 +18,7 @@
   </table>
   <section>
     <h2>Contents</h2>
-   <section class="d-flex flex-wrap justify-content-center">
+    <section class="d-flex flex-wrap justify-content-center">
       <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of course.topics; let i = index'>
         <h3 class="mt-2">{{ course.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
         <section class="d-flex flex-wrap justify-content-center">
@@ -38,7 +38,7 @@
                 <span style="color: salmon;" class="icon-file-pdf"></span>
                 PDF Document
               </a>
-              <a  [routerLink]='["pagenotfound"]' class="p-2">
+              <a [routerLink]='["pagenotfound"]' class="p-2">
                 <span style="color: rgb(238, 148, 106);" class="icon-file-powerpoint"></span>
                 Power Point Document
               </a>
@@ -51,7 +51,9 @@
                 Word Point Document
               </a>
             </section>
-            <div><button class="btn btn-primary btn-sm" type="button">
+            <div>
+              <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
+                type="button">
                 <span class="icon-plus-circled"></span>
                 New Content</button></div>
           </section>
@@ -64,17 +66,17 @@
             </ng-template>
             <section class="d-flex justify-content-center">
               <div class="col-lg-12 pb-3">
-                
+
                 Some Links Here
                 <div><button class="btn btn-primary btn-sm" type="button">
-                  <span class="icon-plus-circled"></span>
-                  New Content</button></div>
+                    <span class="icon-plus-circled"></span>
+                    New Content</button></div>
               </div>
             </section>
           </section>
         </section>
       </section>
-   </section>
+    </section>
   </section>
   <section class="alert alert-danger d-flex justify-content-around mt-4">
     Action in this Section is irriversable, Be Careful!
@@ -99,11 +101,93 @@
   </div>
   <div class="modal-footer bg-dark">
     <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
-    <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != course.name || deletingCourse' class="btn btn-danger">
-      <span *ngIf='!deletingCourse' >Delete this course</span>
-      <span *ngIf='deletingCourse' >Deleting...</span>
+    <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != course.name || deletingCourse'
+      class="btn btn-danger">
+      <span *ngIf='!deletingCourse'>Delete this course</span>
+      <span *ngIf='deletingCourse'>Deleting...</span>
       <i *ngIf='!deletingCourse' class='icon-trash'></i>
       <i *ngIf='deletingCourse' class='icon-spin3 animate-spin'></i>
+    </button>
+  </div>
+</ng-template>
+
+<ng-template #templateNewContent>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">New Content Upload</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body bg-dark d-flex flex-wrap">
+    <section class="col-lg-5 mb-3">
+      <fieldset>
+        <legend>Type of Content</legend>
+        <form>
+          <div class="custom-control custom-radio pb-1 pt-1">
+            <input [(ngModel)]='contentType' value="new-content" name='contentType' type="radio"
+              class="custom-control-input" id='contentType1'>
+            <label class="custom-control-label" for='contentType1'>
+              New Content Upload
+            </label>
+          </div>
+          <div class="custom-control custom-radio pb-1 pt-1">
+            <input [(ngModel)]='contentType' value="learning-outcome" name='contentType' type="radio"
+              class="custom-control-input" id='contentType2'>
+            <label class="custom-control-label" for='contentType2'>
+              Learning Outcome
+            </label>
+          </div>
+        </form>
+
+      </fieldset>
+    </section>
+    <section [ngSwitch]='contentType' class="col-lg-7"
+      style="border-left: rgba(131, 223, 223, 0.452) 2px solid; margin-left: -2px">
+      <ng-container *ngSwitchCase='"new-content"'>
+        <h5>New Content Upload</h5>
+        <form id='newContentUploadForm' [formGroup]='newContentUploadForm' (submit)='saveNewContent()'>
+          <div class="mt-1">
+            <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
+              [triggerValidation]='triggerNewContentValidation' label='Content description' id="contentDescription"
+              placeholder="Enter Content Description" formControlName="description">
+            </app-input>
+          </div>
+          <div class="custom-file mt-2">
+            <input type="file" class="custom-file-input" id='newContentUploadInput' formControlName='content'>
+            <label for="newContentUploadInput" class="custom-file-label">Upload File</label>
+          </div>
+        </form>
+      </ng-container>
+      
+      <ng-container *ngSwitchCase='"learning-outcome"'>
+        <h5>New Learning Otcome</h5>
+        <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
+          <div class="mt-1">
+            <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
+              [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome' id="newLearningOutcomeDescription"
+              placeholder="Enter Learning Outcome" formControlName="description">
+            </app-input>
+          </div>
+        </form>
+      </ng-container>
+    </section>
+  </div>
+  <div class="modal-footer bg-dark">
+    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+    <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm' [disabled]='activeForm.invalid || savingNewContent'
+      class="btn btn-success">
+      <span *ngIf='!savingNewContent'>Save Content</span>
+      <span *ngIf='savingNewContent'>Saving...</span>
+      <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
+      <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+    </button>
+    <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
+      [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
+      <span *ngIf='!savingNewContent'>Save Learning Content</span>
+      <span *ngIf='savingNewContent'>Saving...</span>
+      <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
+      <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
     </button>
   </div>
 </ng-template>

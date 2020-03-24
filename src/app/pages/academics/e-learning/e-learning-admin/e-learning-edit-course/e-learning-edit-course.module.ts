@@ -5,7 +5,8 @@ import { ELearningEditCourseRoutingModule } from './e-learning-edit-course-routi
 import { ELearningEditCourseComponent } from './e-learning-edit-course.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 
 @NgModule({
@@ -15,7 +16,9 @@ import { FormsModule } from '@angular/forms';
     ELearningEditCourseRoutingModule,
     AppLoadingBubbleModule,
     ModalModule.forRoot(),
-    FormsModule
+    FormsModule,
+    ReactiveFormsModule,
+    AppInputModule
   ]
 })
 export class ELearningEditCourseModule { }

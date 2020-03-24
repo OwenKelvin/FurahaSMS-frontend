@@ -8,6 +8,20 @@ import { map, tap } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ELearningService {
+  saveCourseTopicsLearningOutcome(value: any): Observable<any> {
+    const { topicId } = value;
+    const postData = {
+      description: value.description
+    };
+    return this.http.post(`api/e-learning/course-content/topics/${topicId}/learning-outcomes`, postData);
+  }
+  saveCourseContent({ studyMaterialId, data }: { studyMaterialId: number; data: { eLearningTopicId: number}; }): Observable<any> {
+    const postData = {
+      study_material_id: studyMaterialId,
+      e_learning_topic_id: data.eLearningTopicId
+    };
+    return this.http.post('api/e-learning/course-content', postData);
+  }
   deleteCourseWithId(id: number): Observable<any> {
     return this.http.delete(`api/e-learning/courses/${id}`);
   }
@@ -15,16 +29,15 @@ export class ELearningService {
   
   getCourseWithId(id: number): Observable<ICourse> {
     return this.http.get(`api/e-learning/courses/${id}`)
-      .pipe(tap(res => {
-        console.log({ res });
-      }))
       .pipe(map((res: any) => {
         return {
           name: res.name,
+          classLevelId: res.class_level_id,
           classLevelName: res.class_level_name,
           classLevelAbbreviation: res.class_level_abbreviation,
           id: res.id,
           unitName: res.unit_name,
+          unitId: res.unit_id,
           unitAbbreviation: res.unit_abbreviation,
           academicYearName: res.academic_year_name,
           topicNumberStyleName: res.topic_number_style_name,
