@@ -16,8 +16,8 @@ export class ELearningCourseViewComponent implements OnInit {
   course: ICourse;
 
   constructor(
+    private store: Store,
     private route: ActivatedRoute,
-    private store: Store
   ) { }
 
   ngOnInit(): void {

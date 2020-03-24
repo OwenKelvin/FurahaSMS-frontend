@@ -10,13 +10,15 @@ import { ELearningCourseItemComponent } from './e-learning-course-item/e-learnin
 import { ELearningCourseViewComponent } from './e-learning-course-view/e-learning-course-view.component';
 import { ELearningTopicObjectivesComponent } from '../e-learning-topic-objectives/e-learning-topic-objectives.component';
 import { ELearningTopicMaterialsModule } from '../e-learning-topic-materials/e-learning-topic-materials.module';
+import { ELearningTopicObjectivesModule } from '../e-learning-topic-objectives/e-learning-topic-objectives.module';
 
 
 @NgModule({
   declarations: [
     ELearningCoursesComponent,
     ELearningCourseItemComponent,
-    ELearningCourseViewComponent
+    ELearningCourseViewComponent,
+    
   ],
   imports: [
     CommonModule,
@@ -24,8 +26,8 @@ import { ELearningTopicMaterialsModule } from '../e-learning-topic-materials/e-l
     ELearningCourseModule,
     AppLoadingBubbleModule,
     FormsModule,
-    ELearningTopicObjectivesComponent,
-    ELearningTopicMaterialsModule
+    ELearningTopicMaterialsModule,
+    ELearningTopicObjectivesModule
   ]
 })
 export class ELearningCoursesModule { }
