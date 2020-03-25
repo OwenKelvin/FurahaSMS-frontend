@@ -14,7 +14,7 @@ import { takeWhile } from 'rxjs/operators';
 export class ViewProcurementTenderBidsComponent implements OnInit, OnDestroy {
   // @Input() procurementRequestId;
   // bids$: Observable<any>;
-  @Input() items;
+  @Input() items: any[];
   bids: any[];
   isOpen: boolean[];
   awarding: boolean[];
@@ -29,7 +29,7 @@ export class ViewProcurementTenderBidsComponent implements OnInit, OnDestroy {
     this.bids = this.items;
     this.isAwarded = this.bids.every(bid => bid.awarded);
   }
-  awardBidTo(tenderId, bidId, i) {
+  awardBidTo(tenderId: number, bidId: number, i: number) {
     this.awarding[i] = true;
     const data = {
       awarded: true
@@ -39,7 +39,9 @@ export class ViewProcurementTenderBidsComponent implements OnInit, OnDestroy {
       .subscribe(res => {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
-        toastBody: 'Bid Successfully awarded'
+        toastBody: 'Bid Successfully awarded',
+        toastHeader: 'Success',
+        toastTime: 'Just Now'
       }));
       this.awarding[i] = false;
     }, err => this.awarding[i] = true );

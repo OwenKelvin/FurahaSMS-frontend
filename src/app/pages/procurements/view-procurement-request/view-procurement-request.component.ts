@@ -20,10 +20,10 @@ export class ViewProcurementRequestComponent implements OnInit {
 
   ngOnInit() {
     this.procurementItem$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)))
     // this.route.paramMap.subscribe(params => {
-    //   this.procurementItem$ = this.procurementService.getProcurementRequestWithId(+params.get('id'));
+    //   this.procurementItem$ = this.procurementService.getProcurementRequestWithId(Number(params.get('id')));
     // });
 
   }

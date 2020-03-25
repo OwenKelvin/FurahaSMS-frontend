@@ -20,7 +20,7 @@ export class StudyMaterialsService {
   getMaterialWithId(id: number): any {
     return this.http.get(`api/study-materials/${id}`);
   }
-  getAll({ active }): any {
+  getAll({ active }: {active: any}): any {
     return this.http.get(`api/study-materials?active=${active}`);
   }
 
@@ -37,7 +37,7 @@ export class StudyMaterialsService {
       headers
     });
   }
-  saveStudyaterialInfo({ docId, data }): Observable<any> {
+  saveStudyaterialInfo({ docId, data }: { docId: number, data: any }): Observable<any> {
     const { title, units, classLevels } = data;
     return this.http.post('api/study-materials', {
       title, units, classLevels, docId

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromLibraryAuthors from '../../../store/reducers';
-import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import {
   selectLibraryBookAuthors,
   selectLibraryBookPublishers,
@@ -33,12 +33,12 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
   newBookForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;
-  bookAuthors$: Observable<any[]>;
-  bookPublishers$: Observable<any[]>;
+  bookAuthors$: Observable<any[] | null>;
+  bookPublishers$: Observable<any[] | null>;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
-  bookClassifications$: Observable<any[]>;
+  bookClassifications$: Observable<any[] | null>;
   markTabsWithError: boolean;
-  bookTags$: Observable<any>;
+  bookTags$: Observable<any | null>;
   formSubmitted: boolean;
   componentIsActive: boolean;
   constructor(
@@ -67,7 +67,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
     this.formbookItems.push(this.formBookItem);
     this.formbookItems.updateValueAndValidity();
   }
-  removeBookItem(i) {
+  removeBookItem(i: number) {
     const confirmedRemoval = confirm('Are you sure you wish to remove book item?');
     if (confirmedRemoval) {
       this.formbookItems.controls.splice(i, 1);
@@ -101,9 +101,9 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
 
 
     this.db.get('categories')
-      .then(doc => {
+      .then((doc: any) => {
         this.bookClassifications$ = of(doc.items);
-      }).catch(e => {
+      }).catch(() => {
         this.bookClassifications$ = this.store.pipe(select(selectLibraryBookClassifications));
         this.bookClassifications$.subscribe(items => {
           const doc = {
@@ -149,17 +149,17 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
   get generalInfoHasError() {
 
     return !['bookTitle', 'ISBN', 'authors', 'publishers', 'publicationDate']
-      .every(item => this.newBookForm.get(item).valid);
+      .every(item => (this.newBookForm.get(item) as FormControl).valid);
   }
 
   get classificationInfoHasError() {
     return !['category', 'tags', 'classification']
-      .every(item => this.newBookForm.get(item).valid);
+      .every(item => (this.newBookForm.get(item) as FormControl).valid);
   }
 
   get bookItemsHasError() {
     return !['bookItems']
-      .every(item => this.newBookForm.get(item).valid);
+      .every(item => (this.newBookForm.get(item) as FormControl).valid);
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {

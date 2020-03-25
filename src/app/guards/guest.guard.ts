@@ -25,7 +25,9 @@ export class GuestGuard implements CanActivate {
     }
     this.store.dispatch(loadToastShowsSuccess({
       toastHeader: 'Logged in',
-      toastBody: 'Successfully authenticated!'
+      toastBody: 'Successfully authenticated!',
+      showMessage: true,
+      toastTime: 'Just Now'
     }));
     this.router.navigate(['/dashboard']);
     return false;

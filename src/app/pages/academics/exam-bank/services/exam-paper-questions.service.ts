@@ -11,7 +11,7 @@ export class ExamPaperQuestionsService {
     private http: HttpClient
   ) { }
 
-  store({ examPaperId, data }): Observable<any> {
+  store({ examPaperId, data }: { examPaperId: number, data: any }): Observable<any> {
     return this.http.post(`api/academics/exam-papers/${ examPaperId }/questions`, data);
   }
 }

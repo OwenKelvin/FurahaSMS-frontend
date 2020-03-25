@@ -24,7 +24,7 @@ export class ViewGuardianComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.guardianProfile$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.guardianService.getGuardianWithId(id)));
     this.guardianProfile$
       .pipe(takeWhile(() => this.componentIsActive))

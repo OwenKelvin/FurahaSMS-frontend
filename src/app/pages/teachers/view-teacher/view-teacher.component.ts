@@ -26,7 +26,7 @@ export class ViewTeacherComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.teacherProfile$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.teacherService.getTeacherById(id)));
     this.teacherProfile$
       .pipe(takeWhile(() => this.componentIsActive))

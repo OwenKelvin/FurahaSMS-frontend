@@ -24,7 +24,7 @@ export class ViewPublisherComponent implements OnInit {
   ngOnInit() {
 
     this.publisher$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
   }
 

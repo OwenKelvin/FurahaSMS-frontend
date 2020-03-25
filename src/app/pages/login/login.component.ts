@@ -52,11 +52,13 @@ export class LoginComponent implements OnInit, OnDestroy {
       const password: string = this.password.value ;
       this.authService.login({ username, password })
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(success => {
+        .subscribe(() => {
           this.submitInProgress = false;
           this.store.dispatch(loadToastShowsSuccess({
             toastHeader: 'Login Successful!',
-            toastBody: 'Successfully authenticated'
+            toastBody: 'Successfully authenticated',
+            showMessage: true,
+            toastTime: 'Just Now'
           }));
           this.router.navigate(['/dashboard']);
         },

@@ -13,7 +13,7 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./procurements-request.component.css']
 })
 export class ProcurementsRequestComponent implements OnInit, OnDestroy {
-  @Input() requestId;
+  @Input() requestId: number;
   procurementRequestForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;

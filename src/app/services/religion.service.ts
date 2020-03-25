@@ -15,7 +15,7 @@ export class ReligionService {
       .pipe(map(data => {
         return data;
       },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       ));

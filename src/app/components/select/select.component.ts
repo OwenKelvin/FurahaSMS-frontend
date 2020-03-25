@@ -90,15 +90,15 @@ export class SelectComponent
   @Input() id: string;
   @Input() value: any;
   @Input() multiple: any;
-  @Input() parentId: number;
+  @Input() parentId: number | null;
   multipleSelector = false;
 
-  onChanges: ($value) => void;
+  onChanges: ($value: any) => void;
   onTouched: () => void;
   error: { required: string; };
   categorySelected: string | { id: number; name: string; }[];
   categories: Array<any>;
-  inputValue;
+  inputValue: string;
   writeValue(value: any): void {
     if (value !== undefined) {
       this.inputValue = value;
@@ -116,6 +116,7 @@ export class SelectComponent
       const validationResult = this.formControl.validator(this.formControl);
       return (validationResult !== null && validationResult.required === true);
     }
+    return false
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -164,7 +165,7 @@ export class SelectComponent
         this.label = 'Unit Levels';
         this.error.required = 'Unit Level is required';
         this.hint = 'Please select a unit';
-        const data = { unit: null };
+        const data : any = { unit: null };
         if (this.parentId) {
           data.unit = this.parentId;
         }
@@ -252,7 +253,7 @@ export class SelectComponent
     // this.onTouched();
     this.fieldError = this.appFormService.getErrorMessage(this.formControl, this.label);
   }
-  removeSelect(id) {
+  removeSelect(id: number) {
     const newValue = (this.formControl.value as Array<any>).filter(
       item => item !== id
     );
@@ -261,7 +262,7 @@ export class SelectComponent
     );
     this.formControl.setValue(newValue);
   }
-  selectedCategory({ source }) {
+  selectedCategory({ source } : any) {
     const selected = (source).selected;
     if (selected) {
       const { viewValue, value } = selected as {
@@ -270,7 +271,7 @@ export class SelectComponent
       };
       if (this.multipleSelector) {
         this.onChanges(this.formControl.value);
-        this.categorySelected = selected.map(item => {
+        this.categorySelected = selected.map((item: any) => {
           return { name: item.viewValue, id: item.value };
         });
       } else {

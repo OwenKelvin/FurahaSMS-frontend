@@ -18,7 +18,7 @@ export class ViewSupportStaffComponent implements OnInit {
 
   ngOnInit() {
     this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.supportStaffService.getSupportStaffById(id)))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe();

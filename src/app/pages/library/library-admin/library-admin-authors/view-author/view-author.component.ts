@@ -23,7 +23,7 @@ export class ViewAuthorComponent implements OnInit {
 
   ngOnInit() {
     this.author$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.libraryAuthorService.getAuthorWithId(id)));
   }
 }

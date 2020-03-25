@@ -22,8 +22,8 @@ export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.route.parent.paramMap
-      .pipe(map(params => +params.get('id')))
+    (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(id => {
         const confirmRedirect = confirm('You are being redirected to Accounts, do you wish to continue?');

@@ -12,8 +12,8 @@ import { ICourse } from '../../interfaces/course.interface';
   styleUrls: ['./e-learning-course-view.component.css']
 })
 export class ELearningCourseViewComponent implements OnInit {
-  course$: Observable<ICourse>;
-  course: ICourse;
+  course$: Observable<ICourse | null>;
+  course: ICourse | null;
 
   constructor(
     private store: Store,
@@ -21,7 +21,7 @@ export class ELearningCourseViewComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.course$ = this.route.parent.paramMap
+    this.course$ = (this.route.parent as ActivatedRoute).paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))))
       .pipe(tap((res) => this.course = res));

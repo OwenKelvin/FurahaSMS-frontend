@@ -34,7 +34,7 @@ export class ViewProcurementTendersAwardedComponent implements OnInit, OnDestroy
     this.procurementTenders$ = this.procurementService.getAwardedTenders();
   }
 
-  openModalWithComponent(tenderId, fulfilled) {
+  openModalWithComponent(tenderId: number, fulfilled: boolean) {
     this.bsModalRef = this.modalService.show(FulfillOrRejectTenderFormComponent, this.config);
     this.bsModalRef.content.tenderId = tenderId;
     this.bsModalRef.content.fulfilled = fulfilled;

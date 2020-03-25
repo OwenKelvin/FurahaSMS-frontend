@@ -23,14 +23,14 @@ export class StudentPaymentStatementComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute
   ) { }
 
-  getTotalClassLevelFees(academicYearId, classLevelId) {
+  getTotalClassLevelFees(academicYearId: number, classLevelId: number) {
     return this.costItems.filter(item => {
       const itemValue = item as any;
       return academicYearId === itemValue.academicYearId &&
         classLevelId === itemValue.classLevelId;
     }).map(({ amount }) => amount).reduce((a, b) => a + b, 0);
   }
-  getCostValue(academicYearId, classLevelId, semesterId) {
+  getCostValue(academicYearId: number, classLevelId: number, semesterId: number) {
     return this.costItems.filter(item => {
       const itemValue = item as any;
       return academicYearId === itemValue.academicYearId &&
@@ -41,13 +41,13 @@ export class StudentPaymentStatementComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.statement$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive))
       .pipe(mergeMap(studentId => this.studentAcademicsService.getFeesStatementForStudentWithId(studentId)))
       .pipe(tap(item => {
 
         const array = item.feeStructure
-          .map(item1 => ({
+          .map((item1: any) => ({
             amount: item1.amount,
             academicYearId: item1.academic_year_id,
             academicYearName: item1.academic_year_name,
@@ -91,14 +91,14 @@ export class StudentPaymentStatementComponent implements OnInit, OnDestroy {
         this.otherFeesCosts = item.otherFees;
 
         const uniqueCostIds = [... new Set(item.otherFees
-          .map(({ financialCostItemId }) =>
+          .map(({ financialCostItemId }: any) =>
             financialCostItemId))];
-        this.otherFees = uniqueCostIds.map(item1 => item.otherFees.find(_ => _.financialCostItemId === item1));
+        this.otherFees = uniqueCostIds.map(item1 => item.otherFees.find((_: any) => _.financialCostItemId === item1));
       }))
       ;
 
   }
-  getOtherCostValue(academicYearId, classLevelId, semesterId, financialCostItemId): number {
+  getOtherCostValue(academicYearId: number, classLevelId: number, semesterId: number, financialCostItemId: number): number {
 
     return this.otherFeesCosts.filter(val => {
       return +val.classLevelId === +classLevelId &&

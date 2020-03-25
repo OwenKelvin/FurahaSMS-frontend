@@ -4,10 +4,10 @@ import { loadToastShowsSuccess, loadToastShowsFailure } from './../actions/toast
 export const toastFeatureKey = 'toast';
 
 export interface ToastStateInterface {
-  showMessage?: boolean;
-  toastHeader?: string;
-  toastBody?: string;
-  toastTime?: string;
+  showMessage: boolean;
+  toastHeader: string;
+  toastBody: string;
+  toastTime: string;
 }
 
 export const initialState: ToastStateInterface = {

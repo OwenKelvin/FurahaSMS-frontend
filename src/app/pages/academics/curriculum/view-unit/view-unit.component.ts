@@ -24,7 +24,7 @@ export class ViewUnitComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
-      this.unit$ = this.unitService.getUnitWithId(+params.get('id'));
+      this.unit$ = this.unitService.getUnitWithId(Number(params.get('id')));
     });
   }
   ngOnDestroy() {

@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class LinkService {
 
   constructor() { }
-  getLinks({ type, id }): Observable<LinkInterface[]> {
+  getLinks({ type, id }: any): Observable<LinkInterface[]> {
     switch (type) {
       case 'academics':
         return this.getAcademicsLinks();
@@ -362,7 +362,7 @@ export class LinkService {
       }
     ]);
   }
-  getAcademicYearLinks($id): Observable<LinkInterface[]> {
+  getAcademicYearLinks($id: number): Observable<LinkInterface[]> {
     return of([
       {
         name: 'Financial Plan',

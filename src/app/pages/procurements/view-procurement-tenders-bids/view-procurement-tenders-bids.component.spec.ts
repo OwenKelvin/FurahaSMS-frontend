@@ -42,7 +42,7 @@ describe('ViewProcurementTendersBidsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({get: (params) => 1 })
+            paramMap: of({get: () => 1 })
           }
         }
       ]

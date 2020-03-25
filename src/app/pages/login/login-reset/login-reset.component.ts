@@ -11,7 +11,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 export class LoginResetComponent implements OnInit {
   passwordResetForm: FormGroup;
   errors: {
-    email: string
+    email: string | null
   };
   constructor(
     private fb: FormBuilder,

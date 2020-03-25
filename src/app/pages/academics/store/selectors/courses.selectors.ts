@@ -10,7 +10,7 @@ export const selectAcademicsCourses = createSelector(
   academics => academics ? academics.courses: null
 )
 
-export const selectAcademicsCourse = (id) => createSelector(
+export const selectAcademicsCourse = (id: number) => createSelector(
   selectAcademicsCourses,
   courses => courses ? courses[id]: null
 )

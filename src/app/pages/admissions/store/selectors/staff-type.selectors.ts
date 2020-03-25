@@ -7,7 +7,7 @@ export const selectStaffTypes = createSelector(
   admissions => admissions ? admissions.staffTypes: null
 );
 
-export const selectStaffType = (id) => createSelector(
+export const selectStaffType = (id: number) => createSelector(
   selectStaffTypes,
   staffType => staffType ? staffType[id]: null
 );

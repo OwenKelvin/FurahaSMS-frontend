@@ -33,7 +33,7 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.procurementRequest$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)));
 
   }
@@ -42,7 +42,7 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
-      this.bsModalRef.content.tenderId = +params.get('id');
+      this.bsModalRef.content.tenderId = Number(params.get('id'));
       this.store.select(selectDialogShowState)
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(hide => {

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Store } from '@ngrx/store';
 import { Router, ActivatedRoute } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
@@ -39,18 +39,18 @@ export class CreateTagComponent implements OnInit, OnDestroy {
         this.editPage = true;
         this.isLoading = true;
       }))
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(filter(id => id > 0))
       .pipe(mergeMap(id => this.libraryTagService.getTagWithId(id)))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(tag => {
         const tagConverted = tag as { name: string, id: string, biography: string; };
-        this.newBookTagForm.get('id').setValue(tagConverted.id);
-        this.newBookTagForm.get('name').setValue(tagConverted.name);
+        (this.newBookTagForm.get('id') as FormControl).setValue(tagConverted.id);
+        (this.newBookTagForm.get('name') as FormControl).setValue(tagConverted.name);
         this.isLoading = false;
       })
     // this.route.paramMap.subscribe(params => {
-    //   const id = +params.get('id');
+    //   const id = Number(params.get('id'));
     //   if (id > 0) {
     //     this.editPage = true;
     //     this.isLoading = true;
@@ -74,7 +74,8 @@ export class CreateTagComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
         toastBody: res.message,
-        toastHeader: 'Success'
+        toastHeader: 'Success',
+        toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'tags', res.data.id, 'view']);
     }, err => {

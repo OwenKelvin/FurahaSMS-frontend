@@ -47,7 +47,7 @@ export class GuardiansService {
       return user;
     }));
   }
-  getGuardianWithId(userId): Observable<any> {
+  getGuardianWithId(userId: number | string): Observable<any> {
     const url = `api/guardians/${userId}`;
     return this.http.get<any>(url)
       .pipe(map(user => ({
@@ -59,7 +59,7 @@ export class GuardiansService {
         dateOfBirth: user.date_of_birth
       })));
   }
-  getStudents(userId): Observable<any> {
+  getStudents(userId: number | string): Observable<any> {
     const url = `api/guardians/${userId}/students`;
     return this.http.get<any>(url);
   }

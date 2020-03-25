@@ -12,13 +12,13 @@ export class UnitCategoryService {
   constructor(
     private http: HttpClient,
   ) { }
-  getUnitCategoryWithId(id) {
+  getUnitCategoryWithId(id: number) {
     const url = `api/curriculum/unit-categories/${id}?units=1`;
     return this.http.get<any>(url).pipe(map(res => {
       return res as unknown;
     })) as Observable<UnitCategoryInterface>;
   }
-  get(data) {
+  get(data: any) {
     const { units, id } = data;
     const url = `api/curriculum/unit-categories/${id}?units=1`;
     return this.http.get<any>(url).pipe(map(res => {
@@ -37,7 +37,7 @@ export class UnitCategoryService {
       return res as unknown;
     })) as Observable<UnitCategoryInterface[]>;
   }
-  deleteItem(id): Observable<any> {
+  deleteItem(id: number): Observable<any> {
     const url = `api/curriculum/unit-categories/${id}`;
     return this.http.delete<any>(url).pipe(map(res => {
       return res;

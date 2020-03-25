@@ -18,7 +18,7 @@ export class CreateProcurementTenderBidComponent implements OnInit, OnDestroy {
   newBidForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
-  @Input() tenderId;
+  @Input() tenderId: number;
   errorBody$: Observable<any>;
   componentIsActive: boolean;
   constructor(

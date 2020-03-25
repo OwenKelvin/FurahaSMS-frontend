@@ -3,7 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoginResetComponent } from './login-reset.component';
 import { InputComponent } from '../../../components/input/input.component';
 import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
 
 describe('LoginResetComponent', () => {
@@ -54,7 +54,7 @@ describe('LoginResetComponent', () => {
     fixture.detectChanges();
     component.submitPasswordResetForm();
     expect(component).toBeTruthy();
-    component.passwordResetForm.get('email').setValue('admin@admin.com');
+    (component.passwordResetForm.get('email') as FormControl).setValue('admin@admin.com');
     fixture.detectChanges();
     component.submitPasswordResetForm();
   });

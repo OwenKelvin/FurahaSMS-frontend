@@ -50,7 +50,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   subscribeToEmailChecking(): void {
 
-    this.newTeacherForm.get('email').valueChanges.pipe(
+    (this.newTeacherForm.get('email') as FormControl).valueChanges.pipe(
       debounceTime(1000)
     ).pipe(
       takeWhile(() => this.componentIsActive)
@@ -75,14 +75,14 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   updateFieldsForEmail() {
     const data = this.usersData;
-    this.newTeacherForm.get('firstName').setValue(data.first_name);
-    this.newTeacherForm.get('lastName').setValue(data.last_name);
-    this.newTeacherForm.get('middleName').setValue(data.middle_name);
-    this.newTeacherForm.get('otherNames').setValue(data.other_names);
-    this.newTeacherForm.get('namePrefix').setValue(data.name_prefix_id);
-    this.newTeacherForm.get('dateOfBirth').setValue(data.date_of_birth);
-    this.newTeacherForm.get('gender').setValue(data.gender_id);
-    this.newTeacherForm.get('religion').setValue(data.religion_id);
+    (this.newTeacherForm.get('firstName') as FormControl).setValue(data.first_name);
+    (this.newTeacherForm.get('lastName') as FormControl).setValue(data.last_name);
+    (this.newTeacherForm.get('middleName') as FormControl).setValue(data.middle_name);
+    (this.newTeacherForm.get('otherNames') as FormControl).setValue(data.other_names);
+    (this.newTeacherForm.get('namePrefix') as FormControl).setValue(data.name_prefix_id);
+    (this.newTeacherForm.get('dateOfBirth') as FormControl).setValue(data.date_of_birth);
+    (this.newTeacherForm.get('gender') as FormControl).setValue(data.gender_id);
+    (this.newTeacherForm.get('religion') as FormControl).setValue(data.religion_id);
     this.confirmData = false;
     this.confirmedData = true;
   }
@@ -91,14 +91,14 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     this.usersData = null;
     this.confirmData = false;
     this.confirmedData = false;
-    this.newTeacherForm.get('firstName').setValue('');
-    this.newTeacherForm.get('lastName').setValue('');
-    this.newTeacherForm.get('middleName').setValue('');
-    this.newTeacherForm.get('otherNames').setValue('');
-    this.newTeacherForm.get('namePrefix').setValue('');
-    this.newTeacherForm.get('dateOfBirth').setValue('');
-    this.newTeacherForm.get('gender').setValue('');
-    this.newTeacherForm.get('religion').setValue('');
+    (this.newTeacherForm.get('firstName') as FormControl).setValue('');
+    (this.newTeacherForm.get('lastName') as FormControl).setValue('');
+    (this.newTeacherForm.get('middleName') as FormControl).setValue('');
+    (this.newTeacherForm.get('otherNames') as FormControl).setValue('');
+    (this.newTeacherForm.get('namePrefix') as FormControl).setValue('');
+    (this.newTeacherForm.get('dateOfBirth') as FormControl).setValue('');
+    (this.newTeacherForm.get('gender') as FormControl).setValue('');
+    (this.newTeacherForm.get('religion') as FormControl).setValue('');
   }
   submitNewTeacherForm() {
     this.isSubmitting = true;

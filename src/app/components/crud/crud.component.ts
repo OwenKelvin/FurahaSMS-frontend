@@ -21,7 +21,7 @@ export class CrudComponent implements OnInit, OnDestroy {
   @Input() viewLink: any;
   @Input() itemService: any;
   @Input() transforms: TransformInterface[];
-  @Input() idIndex;
+  @Input() idIndex: number;
   showErrorMessage: boolean;
   itemForm: FormGroup;
   isSubmitting: boolean;
@@ -66,7 +66,7 @@ export class CrudComponent implements OnInit, OnDestroy {
       this.itemService
         .submit(this.submitData)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(success => {
+        .subscribe((success: any) => {
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
             toastHeader: 'Success',
@@ -75,7 +75,7 @@ export class CrudComponent implements OnInit, OnDestroy {
           }));
           this.router.navigate([this.viewLink(success.id)]);
 
-        }, error => {
+        }, (error: any) => {
           this.isSubmitting = false;
           this.store.dispatch(loadErrorMessagesSuccess({
             body: error.help,

@@ -21,7 +21,7 @@ export class ViewExamComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe();

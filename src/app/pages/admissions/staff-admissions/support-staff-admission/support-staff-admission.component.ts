@@ -31,7 +31,7 @@ export class SupportStaffAdmissionComponent implements OnInit {
   }
 
   navigateToNewStaffPage() {
-    this.store.dispatch(loadStaffTypesSuccess(this.staffTypes.find(item => +item.id === +this.staffType)))
+    this.store.dispatch(loadStaffTypesSuccess(this.staffTypes.find((item: any) => +item.id === +this.staffType)))
     this.router.navigate(['admissions','staff','support',this.staffType,'create']);
   }
 

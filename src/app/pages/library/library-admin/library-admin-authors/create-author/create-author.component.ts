@@ -2,7 +2,7 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
@@ -40,7 +40,7 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
-      const id = +params.get('id');
+      const id = Number(params.get('id'));
       if (id > 0) {
         this.editPage = true;
         this.isLoading = true;
@@ -48,8 +48,8 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
           .pipe(takeWhile(() => this.componentIsActive))
           .subscribe(author => {
           const authorConverted = author as { name: string, id: string, biography: string; };
-          this.newBookAuthorForm.get('id').setValue(authorConverted.id);
-          this.newBookAuthorForm.get('name').setValue(authorConverted.name);
+          (this.newBookAuthorForm.get('id') as FormControl).setValue(authorConverted.id);
+          (this.newBookAuthorForm.get('name') as FormControl).setValue(authorConverted.name);
           this.isLoading = false;
         });
       }
@@ -65,7 +65,8 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
         toastBody: res.message,
-        toastHeader: 'Success'
+        toastHeader: 'Success',
+        toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']);
     }, err => {

@@ -28,7 +28,7 @@ export class CreateClassLevelCategoryComponent implements OnInit, OnDestroy {
     private router: Router
   ) { }
   errors: {
-    name: string;
+    name: string | null;
   };
   classLevelCategoryForm: FormGroup;
   newForm: boolean;
@@ -78,16 +78,22 @@ export class CreateClassLevelCategoryComponent implements OnInit, OnDestroy {
       description: [description]
     });
   }
+  get nameControl() {
+    return this.classLevelCategoryForm.get('name') as FormGroup;
+  }
   validateName() {
     if (
-      (this.classLevelCategoryForm.get('name').dirty ||
-        this.classLevelCategoryForm.get('name').touched) &&
-      !this.classLevelCategoryForm.get('name').valid
+      (this.nameControl.dirty ||
+        this.nameControl.touched) &&
+      !this.nameControl.valid
     ) {
-      if (this.classLevelCategoryForm.get('name').errors.required) {
+      if (this.nameControl.errors && this.nameControl.errors.required) {
         this.errors.name = 'Name is required';
       } else {
-        this.errors.name = null;
+        if (this.errors) {
+           this.errors.name = null;
+        }
+
       }
     }
   }

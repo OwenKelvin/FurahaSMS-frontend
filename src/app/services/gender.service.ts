@@ -15,7 +15,7 @@ export class GenderService {
       .pipe(map(data => {
         return data;
       },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       ));

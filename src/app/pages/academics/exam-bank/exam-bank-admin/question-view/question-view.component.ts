@@ -20,7 +20,7 @@ export class QuestionViewComponent implements OnInit {
 
   ngOnInit() {
   }
-  editRequest(action: string, i) {
+  editRequest(action: string, i: number) {
     this.edit.emit({ action, i });
   }
   activeQuestionPrevious() {

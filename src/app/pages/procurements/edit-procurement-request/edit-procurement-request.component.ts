@@ -18,7 +18,7 @@ export class EditProcurementRequestComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.activatedRoute.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(id => {
         this.requestId = id;

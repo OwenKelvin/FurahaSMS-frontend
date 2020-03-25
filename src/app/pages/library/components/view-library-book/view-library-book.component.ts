@@ -23,7 +23,7 @@ export class ViewLibraryBookComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
-      this.libraryBook$ = this.libraryBookService.getBookWithId(+params.get('id'));
+      this.libraryBook$ = this.libraryBookService.getBookWithId(Number(params.get('id')));
     });
 
   }

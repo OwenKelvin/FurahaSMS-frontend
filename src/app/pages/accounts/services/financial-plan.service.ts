@@ -17,7 +17,7 @@ export class FinancialPlanService {
     return this.http.post(url, data) as any;
   }
 
-  getForAcademicYear(academicYearId): Observable<any> {
+  getForAcademicYear(academicYearId: number): Observable<any> {
     const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
     return this.http.get(url)
       .pipe(map(res => {

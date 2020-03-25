@@ -17,7 +17,7 @@ export class StudentAcademicsService {
   }
 
   constructor(private http: HttpClient) { }
-  saveSubjectAllocation({studentId, data}): Observable<any> {
+  saveSubjectAllocation({studentId, data} : any): Observable<any> {
     const url = `api/students/${studentId}/academics`;
     return this.http.post(url, data);
   }

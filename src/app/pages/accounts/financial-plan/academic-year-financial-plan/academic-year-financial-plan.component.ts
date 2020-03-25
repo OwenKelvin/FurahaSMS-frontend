@@ -21,7 +21,7 @@ export class AcademicYearFinancialPlanComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.route.paramMap.pipe(map(params => +params.get('id')))
+    this.route.paramMap.pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive))
       .pipe(mergeMap(id => this.academicYear.getAcademicYearWithId({ id })))
       .subscribe(academicYear => {

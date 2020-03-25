@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
@@ -38,17 +38,17 @@ export class CreatePublisherComponent implements OnInit {
     });
     this.route.paramMap
       .pipe(tap(() => this.isLoading = true))
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(publisher => {
         const publisherConverted = publisher as { name: string, id: string, biography: string; };
-        this.newBookPublisherForm.get('id').setValue(publisherConverted.id);
-        this.newBookPublisherForm.get('name').setValue(publisherConverted.name);
+        (this.newBookPublisherForm.get('id') as FormControl).setValue(publisherConverted.id);
+        (this.newBookPublisherForm.get('name') as FormControl).setValue(publisherConverted.name);
         this.isLoading = false;
        })
     // this.route.paramMap.subscribe(params => {
-    //   const id = +params.get('id');
+    //   const id = Number(params.get('id'));
     //   if (id > 0) {
     //     this.editPage = true;
     //     this.isLoading = true;
@@ -70,7 +70,8 @@ export class CreatePublisherComponent implements OnInit {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
         toastBody: res.message,
-        toastHeader: 'Success'
+        toastHeader: 'Success',
+        toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
     }, err => {

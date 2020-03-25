@@ -31,10 +31,10 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
     private db: DbService
   ) { }
   libraryBookClassValue: any;
-  @Input() classification;
+  @Input() classification: any;
   libraryBookClasses$: Observable<any>;
 
-  onChanges: ($value) => void;
+  onChanges: ($value: any) => void;
   onTouched: () => void;
 
   ngOnInit() {
@@ -42,15 +42,15 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
 
   }
   ngOnChanges(changes: { classification: SimpleChange; }) {
-    let currentValue;
+    let currentValue: any;
     if (changes) {
       currentValue = changes.classification.currentValue;
     }
     if (+currentValue > 0) {
       this.db.get(currentValue)
-        .then(doc => {
+        .then((doc: any) => {
           this.libraryBookClasses$ = of(doc.items);
-        }).catch(e => {
+        }).catch(() => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: currentValue, libraryClass: null });
           this.libraryBookClasses$
@@ -84,7 +84,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
     this.onTouched = fn;
   }
 
-  handleChange($event) {
+  handleChange($event: any) {
     this.onChanges($event);
   }
   ngOnDestroy() {

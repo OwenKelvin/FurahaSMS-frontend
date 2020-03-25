@@ -38,10 +38,10 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     this.financialCosts$ = this.financialCostsService.getAll()
       .pipe(
         map(item => (
-          item.map(({ id, name, costItems }) => ({
+          item.map(({ id, name, costItems }: any) => ({
             id,
             name,
-            costItems: costItems.map(({ id: costId, name: costName }) => ({ id: costId, name: costName }))
+            costItems: costItems.map(({ id: costId, name: costName }: any) => ({ id: costId, name: costName }))
           }))
         ))
       );
@@ -89,7 +89,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
       name: ['', Validators.required]
     }));
   }
-  deleteCostItem(i) {
+  deleteCostItem(i: number) {
     this.costItems.controls.splice(i, 1);
     this.costItems.updateValueAndValidity();
   }
@@ -125,7 +125,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
 
       });
   }
-  deleteItem(j) {
+  deleteItem(j: number) {
     const confirmedDeletion = confirm(`Are you sure you wish to delete cost item "${this.financialCosts[j].name}" `);
 
     if (confirmedDeletion) {

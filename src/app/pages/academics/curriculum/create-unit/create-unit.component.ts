@@ -33,7 +33,7 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
   @Input() category: number;
   @Input() idIndex: number;
   @Input() submitButton = true;
-  @Input() inputValue;
+  @Input() inputValue: any;
   @Input() hasCategories = true;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Input() hideSubmit: boolean;

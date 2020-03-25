@@ -21,13 +21,13 @@ export class ViewSupportStaffInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.supportStaffProfile$ = this.route.parent.paramMap
-      .pipe(map(params => +params.get('id')))
+    this.supportStaffProfile$ = (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(
         mergeMap(id => {
           return this.store.pipe(select(selectSupportStaffState))
             .pipe(
-              map(supportStaffProfile => supportStaffProfile ? supportStaffProfile[id] : null)
+              map((supportStaffProfile: any) => supportStaffProfile ? supportStaffProfile[id] : null)
             );
         })
       );

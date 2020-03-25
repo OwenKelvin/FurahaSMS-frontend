@@ -23,7 +23,7 @@ export class ViewUnitCategoryComponent implements OnInit, OnDestroy {
     this.route.paramMap
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
-       this.unitCategory$ = this.unitCategoryService.getUnitCategoryWithId(+params.get('id'));
+       this.unitCategory$ = this.unitCategoryService.getUnitCategoryWithId(Number(params.get('id')));
     });
 
   }

@@ -10,7 +10,7 @@ export class TeacherService {
 
   constructor(private http: HttpClient) { }
 
-  store(data): Observable<any> {
+  store(data: any): Observable<any> {
     const submitDate = {
       ...data,
       date_of_birth: data.dateOfBirth,

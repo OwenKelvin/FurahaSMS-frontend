@@ -11,7 +11,7 @@ import { map, mergeMap, takeWhile } from 'rxjs/operators';
   styleUrls: ['./create-staff.component.css']
 })
 export class CreateStaffComponent implements OnInit, OnDestroy {
-  staffType: {id: number, name: string} = { id: 0, name: '' };
+  staffType: {id: number, name: string} | null = { id: 0, name: '' };
   componentIsActive: boolean;
   constructor(
     private store: Store<AppState>,
@@ -21,7 +21,7 @@ export class CreateStaffComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.store.pipe(select(selectStaffType(id)))))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {

@@ -77,10 +77,8 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
   get units() {
     return this.newUnitCategoryForm.get('units') as FormArray;
   }
-  updateForm($event: FormGroup, i) {
+  updateForm($event: FormGroup, i: number) {
     this.units.controls[i].setValue($event.value);
-
-
   }
   addSubject() {
     const newGroup = this.fb.group({
@@ -96,6 +94,9 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
   allSectionsValid(): boolean {
     return (this.units).controls.every(item => item.valid);
   }
+  get nameControl(): FormGroup {
+    return this.newUnitCategoryForm.get('name') as FormGroup;
+  }
   submit() {
     this.submitInProgress = true;
     if (this.newUnitCategoryForm.valid) {
@@ -109,8 +110,8 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
         this.router.navigate([VIEW_UNIT_CATEGORY_CURRICULUM(data.id)]);
         if (this.newForm) {
           this.generateForm();
-          this.newUnitCategoryForm.get('name').clearValidators();
-          this.newUnitCategoryForm.get('name').updateValueAndValidity();
+          this.nameControl.clearValidators();
+          this.nameControl.updateValueAndValidity();
           this.addSubject();
         }
         this.store.dispatch(loadToastShowsSuccess({

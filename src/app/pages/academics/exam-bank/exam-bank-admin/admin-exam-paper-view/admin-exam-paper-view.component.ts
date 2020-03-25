@@ -21,12 +21,12 @@ export class AdminExamPaperViewComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.examPaper$ = this.route.parent.paramMap
+    this.examPaper$ = (this.route.parent as ActivatedRoute).paramMap
       .pipe(map(params => params.get('id')))
       .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
       .pipe(tap(res => {
         if (res) {
-          this.questions = res.questions.map(item => ({
+          this.questions = res.questions.map((item: any) => ({
             id: item.id,
             correctAnswerDescription: item.correct_answer_description,
             multipleAnswers: item.multiple_answers,
@@ -34,7 +34,7 @@ export class AdminExamPaperViewComponent implements OnInit {
             points: item.points,
             description: item.description,
             tags: item.tags_value,
-            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({ id, description, isCorrect }))
+            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }: any) => ({ id, description, isCorrect }))
           }));
         }
       }));

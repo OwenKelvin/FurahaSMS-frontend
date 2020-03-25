@@ -11,7 +11,7 @@ import { AppState } from 'src/app/store/reducers';
 })
 export class ViewAcademicYearInfoComponent implements OnInit {
   @Input() params: { id: number };
-  id$: Observable<number>;
+  id$: Observable<number | null | undefined>;
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {

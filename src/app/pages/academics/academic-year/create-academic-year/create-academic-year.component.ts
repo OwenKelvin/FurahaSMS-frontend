@@ -46,7 +46,8 @@ export class CreateAcademicYearComponent implements OnInit, OnDestroy {
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
           toastBody: 'Successfully Created Academic Year',
-          toastHeader: 'Success'
+          toastHeader: 'Success',
+          toastTime: 'Just Now'
         }));
         this.router.navigate(['/academics/academic-year/', item.id]);
       }, error => {

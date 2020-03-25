@@ -43,13 +43,13 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
       });
     }));
   }
-  deleteItem({ id, name, index }: { id: number, name?: string, index?: number }): void {
+  deleteItem({ id, name, index }: { id: number, name: string, index: number }): void {
     const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
     if (deletionConfirmed) {
       this.deleting[index] = true;
       this.itemService.deleteItem(id)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
+        .subscribe(() => {
         this.getItems();
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
@@ -58,7 +58,7 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
           toastBody: `Successfully deleted "${name}"`
         }));
         this.deleting[index] = false;
-      }, error => {
+      }, (error: any) => {
           this.deleting[index] = false;
           this.store.dispatch(loadErrorMessagesSuccess({
             body: error.help,

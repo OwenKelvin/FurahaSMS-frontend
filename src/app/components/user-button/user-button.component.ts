@@ -32,7 +32,8 @@ export class UserButtonComponent implements OnInit, OnDestroy {
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
             toastBody: 'Successfully logged out',
-            toastHeader: 'Logged out'
+            toastHeader: 'Logged out',
+            toastTime: 'Just Now'
           }));
         }
         this.router.navigate(['/']);

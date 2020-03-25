@@ -50,7 +50,7 @@ export class ProcurementService {
   getVendor(id: number): Observable<any> {
     return this.http.get(`api/procurements/vendors/${id}`);
   }
-  createNewVendor(data): Observable<any> {
+  createNewVendor(data: any): Observable<any> {
     return this.http.post(`api/procurements/vendors`, {
       ...data,
       physical_address: data.address,
@@ -67,7 +67,7 @@ export class ProcurementService {
   getRequestsTendered(): Observable<any> {
     return this.http.get('api/procurements/tenders/?tendered=1');
   }
-  createBid({ tenderId, data }) {
+  createBid({ tenderId, data }: { tenderId: number, data: any}) {
     return this.http.post(`api/procurements/tenders/${tenderId}/bids`, {
       ...data,
       unit_description: data.unitDescription,
@@ -75,17 +75,17 @@ export class ProcurementService {
       vendor_id: data.vendorName,
     });
   }
-  getBids({ procurementRequestId }) {
+  getBids({ procurementRequestId }: { procurementRequestId: number}) {
     return this.http.get(`api/procurements/tenders/${procurementRequestId}/bids`);
   }
-  awardBid({ tenderId, bidId, data }) {
+  awardBid({ tenderId, bidId, data }: any) {
     return this.http.patch(`api/procurements/tenders/${tenderId}/bids/${bidId}`, data);
 
   }
   getAwardedTenders(): Observable<any> {
     return this.http.get('api/procurements/tenders/?awarded=1');
   }
-  setFulfillment({tenderId, comment, fulfilled}): Observable<any> {
+  setFulfillment({tenderId, comment, fulfilled}: any): Observable<any> {
     return this.http.post(`api/procurements/tenders/${tenderId}/fulfilled`, {
       fulfilled,
       comment

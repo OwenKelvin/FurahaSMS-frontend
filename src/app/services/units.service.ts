@@ -9,10 +9,10 @@ import { map } from 'rxjs/operators';
 export class UnitsService {
   constructor(private http: HttpClient) { }
 
-  getUnitWithId(id): Observable<any> {
+  getUnitWithId(id: number): Observable<any> {
     return this.get({ id, includeUnitLevels: 1 });
   }
-  get(data): Observable<any> {
+  get(data: any): Observable<any> {
     const { includeUnitLevels, id, includeClassLevels } = data;
     let url = `api/curriculum/units/${id}/?`;
     if (includeUnitLevels === 1) {
@@ -57,7 +57,7 @@ export class UnitsService {
         data => {
           return data;
         },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       )
@@ -73,11 +73,11 @@ export class UnitsService {
     return this.http.get<any>(url).pipe(
       map(
         res => {
-          return res.map(item => {
+          return res.map((item: any) => {
             return { ...item, abbr: item.abbreviation };
           });
         },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       )
@@ -104,14 +104,14 @@ export class UnitsService {
       })
     );
   }
-  deleteItem(id): Observable<any> {
+  deleteItem(id: number): Observable<any> {
     const url = `api/curriculum/units/${id}`;
     return this.http.delete<any>(url).pipe(
       map(
         res => {
           return res;
         },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       )

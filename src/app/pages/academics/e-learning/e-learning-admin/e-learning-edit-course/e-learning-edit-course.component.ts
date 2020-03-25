@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { ELearningService } from '../../services/e-learning.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { StudyMaterialsService } from '../../../study-materials/services/study-materials.service';
 
 @Component({
@@ -17,8 +17,8 @@ import { StudyMaterialsService } from '../../../study-materials/services/study-m
   styleUrls: ['./e-learning-edit-course.component.css']
 })
 export class ELearningEditCourseComponent implements OnInit, OnDestroy {
-  course$: Observable<ICourse>;
-  course: ICourse;
+  course$: Observable<ICourse | null>;
+  course: ICourse | null;
   modalRef: any;
   courseNameConfirmation: string;
   componentIsActive = true;
@@ -41,7 +41,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.course$ = this.route.parent.paramMap
+    this.course$ = (this.route.parent as ActivatedRoute).paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))))
       .pipe(tap((res) => this.course = res));
@@ -71,9 +71,10 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   }
   deleteCourse() {
     this.deletingCourse = true;
-    this.eLearningService.deleteCourseWithId(this.course.id)
+    const course: any = this.course ? this.course : {};
+    this.eLearningService.deleteCourseWithId(course.id)
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe((res: any) => {
         this.modalRef.hide();
         this.router.navigate(['academics/', 'e-learning', 'admin']);
         this.store.dispatch(loadToastShowsSuccess({
@@ -86,13 +87,14 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   }
   saveNewContent() {
     const $pdf: any = document.querySelector('#newContentUploadInput');
-    const pdfFile = ($pdf as HTMLInputElement).files[0];
+    const pdfFile = (($pdf as HTMLInputElement).files as FileList)[0];
     if (this.newContentUploadForm.valid) {
       this.savingNewContent = true;
+      const course: any = this.course ? this.course : {};
       const data = {
-        title: this.newContentUploadForm.get('description').value,
-        units: [this.course.unitId],
-        classLevels: [this.course.classLevelId],
+        title: (this.newContentUploadForm.get('description') as FormControl).value,
+        units: [course.unitId],
+        classLevels: [course.classLevelId],
       };
 
       this.studyMaterialsService.uploadDocument(pdfFile)
@@ -103,7 +105,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
           return this.eLearningService.saveCourseContent({
             studyMaterialId,
             data: {
-              eLearningTopicId: this.newContentUploadForm.get('topicId').value
+              eLearningTopicId: (this.newContentUploadForm.get('topicId') as FormControl).value
             }
           });
         }))

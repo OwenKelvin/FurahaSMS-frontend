@@ -33,10 +33,10 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() inputClass: string;
   @Input() step: number;
   @Input() min: number;
-  fieldError: string;
+  fieldError: string | null;
   fieldType: string;
   disabled: boolean;
-  onChanges: ($value) => void;
+  onChanges: ($value: any) => void;
   onTouched: () => void;
   inputValue: any;
   constructor(private appFormService: AppFormService) {}
@@ -53,6 +53,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
       const validationResult = this.formControl.validator(this.formControl);
       return (validationResult !== null && validationResult.required === true);
     }
+    return false;
   }
 
   setDisabledState?(isDisabled: boolean): void {
@@ -86,10 +87,11 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
-  get fieldClassIsValid() {
+  get fieldClassIsValid(): string | null {
     if (this.fieldError) {
-      return `is-invalid`;
+      return 'is-invalid';
     }
+    return null;
   }
   get fieldClass() {
     const formControlClass = 'form-control';

@@ -71,11 +71,14 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       this.phonesContactInfo.updateValueAndValidity();
     }
   }
+  controlAsFormGroup(formGroupName: string): FormGroup {
+    return this.procurementVendorForm.get(formGroupName) as FormGroup;
+  }
   get emailsContactInfo(): FormArray {
-    return this.procurementVendorForm.get('contactInfo').get('emails') as FormArray;
+    return this.controlAsFormGroup('contactInfo').get('emails') as FormArray;
   }
   get phonesContactInfo(): FormArray {
-    return this.procurementVendorForm.get('contactInfo').get('phones') as FormArray;
+    return this.controlAsFormGroup('contactInfo').get('phones') as FormArray;
   }
   get newEmailField() {
     return this.fb.group({
@@ -109,27 +112,27 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       this.markTabsWithError = true;
   }
   get generalInfoHasError() {
-    if (this.procurementVendorForm.get('name').errors) {
+    if (this.controlAsFormGroup('name').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('address').errors) {
+    if (this.controlAsFormGroup('address').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('description').errors) {
+    if (this.controlAsFormGroup('description').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('procurementItemsCategory').invalid) {
+    if (this.controlAsFormGroup('procurementItemsCategory').invalid) {
       return true;
     }
     return false;
   }
   get contactInfoHasError() {
-    if (this.procurementVendorForm.get('contactInfo').invalid) {
+    if (this.controlAsFormGroup('contactInfo').invalid) {
       return true;
     }
     return false;
   }
-  onCheckboxChange(e) {
+  onCheckboxChange(e: any) {
     const checkArray: FormArray = this.procurementVendorForm.get('procurementItemsCategory') as FormArray;
 
     if (e.target.checked) {

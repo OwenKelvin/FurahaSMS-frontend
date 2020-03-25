@@ -30,7 +30,7 @@ describe('ViewProcurementsVendorComponent', () => {
         provide: ActivatedRoute,
         useValue: {
           paramMap: of({
-            get: (id) => 1
+            get: () => 1
           })
         }
       }]

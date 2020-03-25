@@ -64,7 +64,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   onFileSelected() {
     const $pdf: any = document.querySelector('#pdfFile');
 
-    this.pdfFile = ($pdf as HTMLInputElement).files[0];
+    this.pdfFile = (($pdf as HTMLInputElement).files as FileList)[0];
 
     if (typeof (FileReader) !== 'undefined') {
       const reader = new FileReader();

@@ -21,7 +21,7 @@ const coursesReducer = createReducer(
   on(loadCoursesSuccess, (state, action) => {
     return {
       ...state,
-      [action.data.id]: action.data
+      [Number(action.data.id)]: action.data
     }
   }),
   on(loadCoursesFailure, (state, action) => state),

@@ -10,8 +10,8 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./select-library-sub-class.component.css']
 })
 export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDestroy {
-  @Input() id;
-  @Input() classification;
+  @Input() id: any;
+  @Input() classification: any;
   @Output() categoryChanged = new EventEmitter();
   selectedCategoryId: number;
   libraryBookClasses$: any;
@@ -24,7 +24,7 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
     this.componentIsActive = true;
   }
   ngOnChanges(changes: { id: SimpleChange, classification: SimpleChange }) {
-    let currentValue;
+    let currentValue: any;
     if (changes) {
       if (changes.id) {
         currentValue = changes.id.currentValue;
@@ -36,14 +36,14 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
     }
     if (+currentValue > 0) {
       this.db.get( 'sub-items-' + currentValue)
-        .then(doc => {
+        .then((doc: any) => {
           this.libraryBookClasses$ = of(doc.items);
-        }).catch(e => {
+        }).catch(() => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: this.classification, libraryClass: currentValue });
           this.libraryBookClasses$
             .pipe(takeWhile(() => this.componentIsActive))
-            .subscribe(items => {
+            .subscribe((items: any) => {
             const doc = {
               _id: `sub-items-${currentValue}`,
               items
@@ -60,7 +60,7 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
   emitChange() {
     this.categoryChanged.emit(this.selectedCategoryId);
   }
-  emitChangePropagate($event) {
+  emitChangePropagate($event: any) {
     this.categoryChanged.emit($event);
   }
   ngOnDestroy() {

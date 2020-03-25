@@ -9,7 +9,7 @@ import { HttpCacheService } from './../services/http-cache.service';
 export class CacheInterceptor implements HttpInterceptor {
   constructor(private cacheService: HttpCacheService) { }
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
-    const cachedResponse: HttpResponse<any> = this.cacheService.get(req.url);
+    const cachedResponse: HttpResponse<any> | undefined = this.cacheService.get(req.url);
     const cachableUrl: string[] = [
       `genders/all`,
       `religions/all`,

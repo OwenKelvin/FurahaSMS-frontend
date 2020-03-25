@@ -29,7 +29,7 @@ export class RolesPermissionEditComponent implements OnInit {
     this.componentIsActive = true;
     this.isLoading = true;
     this.role$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(tap(id => this.roleId = id))
       .pipe(mergeMap(id => this.rolesPermissionService.getAllPermissionsStatusForRole(id)))
       .pipe(takeWhile(() => this.componentIsActive))
@@ -44,7 +44,7 @@ export class RolesPermissionEditComponent implements OnInit {
       permissions: this.fb.array([])
     })
 
-    this.role.permissionStatus.forEach(({ id, hasPermission, name }) => {
+    this.role.permissionStatus.forEach(({ id, hasPermission, name }: any) => {
       this.formPermissions.push(this.fb.group({
         id: [id, [Validators.required]],
         name: [name],

@@ -33,7 +33,7 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
     (window as any).pdfWorkerSrc = '/pdf.worker.js';
     this.pdfSrc = '';
     this.studyMaterial$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.studyMaterialService.getMaterialWithId(id)))
       .pipe(takeWhile(() => this.componentIsActive));
     this.studyMaterial$
@@ -84,6 +84,6 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
     this.zoom = Math.min(4, this.zoom + 0.1)
   }
   goFullScreen() {
-    document.querySelector('#docSection').requestFullscreen();
+    (document.querySelector('#docSection') as HTMLElement).requestFullscreen();
   }
 }

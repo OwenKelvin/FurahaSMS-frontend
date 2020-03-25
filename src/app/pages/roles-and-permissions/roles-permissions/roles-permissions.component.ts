@@ -35,7 +35,7 @@ export class RolesPermissionsComponent implements OnInit, OnDestroy {
   }
 
   getFilteredPermissionsWithRoleId(idNumber: number) {
-    return this.getRoleWithId(idNumber).permissions.filter(({name}) => (new RegExp(this.filter).test(name)))
+    return this.getRoleWithId(idNumber).permissions.filter(({name}: any) => (new RegExp(this.filter).test(name)))
   }
   ngOnDestroy() {
     this.componentIsActive = false;

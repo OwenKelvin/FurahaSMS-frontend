@@ -70,7 +70,7 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   subscribeToEmailChecking(): void {
     (this.userIdentificaionForm.get('guardians') as FormArray).controls
       .forEach((element, i) => {
-        element.get('email').valueChanges
+        (element.get('email') as FormControl).valueChanges
           .pipe(debounceTime(1000))
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(
@@ -89,8 +89,8 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
         );
     });
   }
-  removeGuadian(i): void {
-    this.guardians.controls[i].get('phone').setErrors(null);
+  removeGuadian(i: number): void {
+    (this.guardians.controls[i].get('phone') as FormControl).setErrors(null);
     const confirmed = confirm(' Are You sure you wish to remove Item?');
     if (confirmed) {
       this.guardians.controls.splice(i, 1);
@@ -100,23 +100,23 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
     }
     this.guardians.updateValueAndValidity();
   }
-  clearEmail(i) {
-    this.guardians.controls[i].get('email').setValue('');
+  clearEmail(i: number) {
+    ((this.guardians.controls[i] as FormGroup).get('email') as FormControl).setValue('');
     this.usersData[i] = null;
     this.confirmData[i] = false;
     this.confirmedData[i] = false;
   }
-  updateFieldsForEmail(i) {
+  updateFieldsForEmail(i: number) {
     const data = this.usersData[i];
-    this.guardians.controls[i].get('firstName').setValue(data.first_name);
-    this.guardians.controls[i].get('lastName').setValue(data.last_name);
-    this.guardians.controls[i].get('middleName').setValue(data.middle_name);
-    this.guardians.controls[i].get('otherNames').setValue(data.other_names);
-    this.guardians.controls[i].get('namePrefix').setValue(data.name_prefix_id);
-    this.guardians.controls[i].get('dateOfBirth').setValue(data.date_of_birth);
-    this.guardians.controls[i].get('birthCertNumber').setValue(data.birth_cert_number);
-    this.guardians.controls[i].get('gender').setValue(data.gender_id);
-    this.guardians.controls[i].get('religion').setValue(data.religion_id);
+    (this.guardians.controls[i].get('firstName') as FormControl).setValue(data.first_name);
+    (this.guardians.controls[i].get('lastName') as FormControl).setValue(data.last_name);
+    (this.guardians.controls[i].get('middleName') as FormControl).setValue(data.middle_name);
+    (this.guardians.controls[i].get('otherNames') as FormControl).setValue(data.other_names);
+    (this.guardians.controls[i].get('namePrefix') as FormControl).setValue(data.name_prefix_id);
+    (this.guardians.controls[i].get('dateOfBirth') as FormControl).setValue(data.date_of_birth);
+    (this.guardians.controls[i].get('birthCertNumber') as FormControl).setValue(data.birth_cert_number);
+    (this.guardians.controls[i].get('gender') as FormControl).setValue(data.gender_id);
+    (this.guardians.controls[i].get('religion') as FormControl).setValue(data.religion_id);
     this.confirmData[i] = false;
     this.confirmedData[i] = true;
   }
@@ -146,7 +146,7 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
 
     this.isSubmitting = true;
     if (this.userIdentificaionForm.valid) {
-      this.userIdentificaionForm.get('guardians').value.forEach(item => {
+      (this.userIdentificaionForm.get('guardians') as FormArray).value.forEach((item: any) => {
 
         this.route.paramMap.pipe(
           map(params => params.get('id'))

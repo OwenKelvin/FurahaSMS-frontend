@@ -13,8 +13,8 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./view-student-guardians.component.css']
 })
 export class ViewStudentGuardiansComponent implements OnInit, OnDestroy {
-  studentId$: Observable<number>;
-  guardians$: Observable<any>;
+  studentId$: Observable<number | null>;
+  guardians$: Observable<any | null>;
   componentIsActive: boolean;
 
   constructor(
@@ -27,7 +27,7 @@ export class ViewStudentGuardiansComponent implements OnInit, OnDestroy {
     this.studentId$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(studentId => {
-      this.guardians$ = this.guardianService.getForStudent(studentId);
+      this.guardians$ = this.guardianService.getForStudent(Number(studentId));
       });
   }
   ngOnDestroy() {

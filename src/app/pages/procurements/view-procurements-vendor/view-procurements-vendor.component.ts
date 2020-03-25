@@ -23,7 +23,7 @@ export class ViewProcurementsVendorComponent implements OnInit {
   ngOnInit() {
 
     this.procurementVendor$ = this.route.paramMap
-      .pipe(map(params => +params.get('id')))
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.procurementService.getVendor(id)));
 
 

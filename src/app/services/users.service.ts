@@ -16,7 +16,7 @@ export class UsersService {
     return this.http.get(url).pipe(map(data => {
       return data;
     },
-      error => {
+      () => {
         // Error Has been captured by interceptor
       }
     ));

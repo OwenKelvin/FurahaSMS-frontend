@@ -12,20 +12,20 @@ export class LibraryPublisherService {
   getAll(): Observable<any> {
     return this.http.get('api/library-books/publishers/all');
   }
-  save(data): Observable<any> {
+  save(data: any): Observable<any> {
     if (data.id === 0) {
       return this.http.post('api/library-book-publisher', data);
     } else {
       return this.http.patch(`api/library-book-publisher/${data.id}`, data);
     }
   }
-  deleteItem(id): Observable<any> {
+  deleteItem(id: number): Observable<any> {
     return this.http.delete(`api/library-book-publisher/${id}`);
   }
-  getPublisherWithId(id) {
+  getPublisherWithId(id: number) {
     return this.http.get(`api/library-book-publisher/${id}`);
   }
-  filter(searchString) {
+  filter(searchString: string | null) {
     return this.http.get(`api/library-books/publishers/filter/?name=${searchString}`);
   }
 }

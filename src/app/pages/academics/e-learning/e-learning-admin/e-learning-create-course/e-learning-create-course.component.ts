@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormArray } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
 import { Observable, of } from 'rxjs';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { UnitsService } from 'src/app/services/units.service';
@@ -104,12 +104,20 @@ export class ELearningCreateCourseComponent implements OnInit, OnDestroy {
     }
 
   }
+  get nameControl() {
+    return this.newTopicForm.get('name') as FormControl;
+  }
+
+  get numberingControl() {
+    return this.newTopicForm.get('numbering') as FormControl;
+  }
+
   addNewTopic() {
     if (this.newTopicForm.valid) {
       this.topicsControl.push(this.fb.group({
-        description: [this.newTopicForm.get('name').value, [Validators.required]],
-        numberLabel: [this.newTopicForm.get('numbering').value],
-        subTopics: [this.newTopicForm.get('subTopics').value],
+        description: [this.nameControl.value, [Validators.required]],
+        numberLabel: [this.numberingControl.value],
+        subTopics: [this.newTopicSubTopics.value],
       }))
       this.modalRef.hide();
     } else {

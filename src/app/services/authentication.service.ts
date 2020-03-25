@@ -10,22 +10,22 @@ import { map, catchError } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<UserInterface>;
-  public currentUser: Observable<UserInterface>;
+  private currentUserSubject: BehaviorSubject<UserInterface | null>;
+  public currentUser: Observable<UserInterface | null>;
   constructor( private http: HttpClient ) {
-    const storedUser = localStorage.getItem('currentUser');
+    const storedUser: any = JSON.parse(String(localStorage.getItem('currentUser')));
 
-    this.currentUserSubject = new BehaviorSubject<UserInterface>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserInterface>(storedUser);
     this.currentUser = this.currentUserSubject.asObservable();
   }
   get authorizationToken(): string | undefined {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(String(localStorage.getItem('currentUser')));
     if (currentUser) {
       return `Bearer ${currentUser.access_token}`;
     }
-
+    return;
   }
-  public get currentUserValue(): UserInterface {
+  public get currentUserValue(): UserInterface | null {
     return this.currentUserSubject.value;
   }
   contactAdmin(data: { email: string }) {

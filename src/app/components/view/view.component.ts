@@ -9,12 +9,13 @@ import { Observable } from 'rxjs';
   styleUrls: ['./view.component.css']
 })
 export class ViewComponent implements OnInit {
-  @Input() title;
-  @Input() service;
+  @Input() title: string;
+  @Input() service: { getItemById: (id: number) => Observable<any>};
   item$: Observable<any>;
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
+    // TODO-me-urgent This is calling 1??
     this.item$ = this.service.getItemById(1);
   }
 
