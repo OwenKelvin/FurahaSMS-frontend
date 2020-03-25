@@ -4,6 +4,7 @@ import { StudyMaterialsArchiveComponent } from './study-materials-archive.compon
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { FormsModule } from '@angular/forms';
 
 describe('StudyMaterialsArchiveComponent', () => {
   let component: StudyMaterialsArchiveComponent;
@@ -14,7 +15,8 @@ describe('StudyMaterialsArchiveComponent', () => {
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        FormsModule
       ],
       declarations: [ StudyMaterialsArchiveComponent ]
     })

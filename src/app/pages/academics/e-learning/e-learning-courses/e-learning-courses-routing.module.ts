@@ -32,6 +32,23 @@ const routes: Routes = [
           breadcrumb: 'View Course'
         },
         component: ELearningCourseViewComponent
+      },
+      {
+        path: 'study-materials',
+        data: {
+          breadcrumb: null
+        },
+        children: [
+          {
+            path: ':id',
+            data: {
+              breadcrumb: 'Study Materials'
+            },
+            loadChildren:
+              () => import('./../e-learning-courses/e-learning-course-study-material/e-learning-course-study-material.module')
+                 .then(m => m.ELearningCourseStudyMaterialModule)
+          }
+        ]
       }
     ]
   }

@@ -74,9 +74,7 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
   prevPage() {
     this.page--;
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
+
   zoomIn() {
     this.zoom = Math.max(0, this.zoom - 0.1)
   }
@@ -85,5 +83,8 @@ export class ViewStudyMaterialComponent implements OnInit, OnDestroy {
   }
   goFullScreen() {
     (document.querySelector('#docSection') as HTMLElement).requestFullscreen();
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }
