@@ -69,7 +69,7 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
         toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']);
-    }, err => {
+    }, () => {
       this.isSubmitting = false;
     });
   }

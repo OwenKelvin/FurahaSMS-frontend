@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { ProcurementService } from 'src/app/services/procurement.service';
@@ -28,6 +28,10 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
     private router: Router,
     private procurementService: ProcurementService
   ) { }
+  
+  get idControl() {
+    return this.procurementRequestForm.get("id") as FormControl;
+  }
 
   ngOnInit() {
     this.componentIsActive = true;
@@ -54,6 +58,8 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
         this.loadingContents = false;
       });
     }
+    
+    console.log(this.idControl)
   }
 
   submitProcurementRequestForm() {
@@ -76,6 +82,7 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
       this.triggerValidation = !this.triggerValidation;
     }
   }
+  
   ngOnDestroy() {
     this.componentIsActive = false;
   }

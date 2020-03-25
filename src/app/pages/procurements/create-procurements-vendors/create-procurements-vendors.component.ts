@@ -96,11 +96,11 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
     this.isSubmitting = true;
     this.procurementService.createNewVendor(this.procurementVendorForm.value)
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
       this.isSubmitting = false;
       this.formSubmitted = true;
       this.router.navigate(['/procurements/vendors']);
-    }, err => {
+    }, () => {
         this.isSubmitting = false;
     });
   }

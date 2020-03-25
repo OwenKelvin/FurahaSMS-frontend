@@ -13,8 +13,8 @@ const libraryBookReducer = createReducer(
   initialState,
 
   on(LibraryBookAuthorActions.loadBookAuthors, state => state),
-  on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (state, action) => action.data),
-  on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (state, action) => state),
+  on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (_state, action) => action.data),
+  on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (state, _action) => state),
 
 );
 

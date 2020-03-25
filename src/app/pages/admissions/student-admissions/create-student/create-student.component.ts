@@ -72,7 +72,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
         this.isSubmitting = false;
         this.formSubmitted = true;
         this.router.navigate(['/students', student.id]);
-      }, error => {
+      }, () => {
           this.formSubmitted = true;
           this.isSubmitting = false;
       });

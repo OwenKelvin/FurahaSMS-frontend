@@ -64,9 +64,9 @@ export class RolesPermissionEditComponent implements OnInit {
       .forEach(({ name, hasPermission}) => {
         this.rolesPermissionService.updatePermissionForRoleWithId(this.roleId, { name, hasPermission })
           .pipe(takeWhile(() => this.componentIsActive))
-          .subscribe(res => {
+          .subscribe(() => {
             this.isSubmitting = false;
-          }, err => this.isSubmitting = false)
+          }, () => this.isSubmitting = false)
       })
   }
 

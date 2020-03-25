@@ -30,7 +30,7 @@ export class ApproveProcurementRequestComponent implements OnInit, OnDestroy {
     this.isApproving[i] = true;
     this.procurementService.approveRequest({ procurement_request_id: procurementItemId, approve: true })
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
       this.procurementItems$ = this.procurementService.getRequestsPendingApproval();
       this.isApproving[i] = false;
     });
@@ -40,7 +40,7 @@ export class ApproveProcurementRequestComponent implements OnInit, OnDestroy {
     this.isRejecting[i] = true;
     this.procurementService.approveRequest({ procurement_request_id: procurementItemId, approve: false })
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
       this.isRejecting[i] = false;
       this.procurementItems$ = this.procurementService.getRequestsPendingApproval();
     });

@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class FileExtentionColorPipe implements PipeTransform {
 
-  transform(value: string, ...args: unknown[]): string {
+  transform(value: string, ..._args: unknown[]): string {
     switch (value) {
       case 'pdf':
         return '#fa8072';

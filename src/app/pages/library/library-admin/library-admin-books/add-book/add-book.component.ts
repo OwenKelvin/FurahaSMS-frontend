@@ -128,15 +128,15 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
       this.isSubmitting = false;
       this.formSubmitted = true;
       this.router.navigate(['/library', 'books', res.data.id, 'view']);
-    }, error => {
+    }, () => {
       this.formSubmitted = true;
       this.isSubmitting = false;
     });
     this.libraryBookService.save(this.newBookForm.value)
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
         this.isSubmitting = false;
-      }, err => this.isSubmitting = false);
+      }, () => this.isSubmitting = false);
   }
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;

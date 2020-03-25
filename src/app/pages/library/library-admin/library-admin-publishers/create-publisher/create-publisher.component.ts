@@ -74,7 +74,7 @@ export class CreatePublisherComponent implements OnInit {
         toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
-    }, err => {
+    }, () => {
       this.isSubmitting = false;
     });
   }

@@ -51,7 +51,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     });
     this.unitForm.valueChanges
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(item => {
+      .subscribe(() => {
         this.valueChange.emit(this.unitForm);
       });
     this.semesters$ = this.semesterService.getAll();

@@ -87,7 +87,7 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
           toastHeader: 'Success!',
           toastTime: 'Just now'
         }));
-      }, err => this.isSubmitting = false);
+      }, () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;

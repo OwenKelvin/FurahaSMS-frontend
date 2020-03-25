@@ -78,7 +78,7 @@ export class CreateTagComponent implements OnInit, OnDestroy {
         toastTime: 'Just Now'
       }));
       this.router.navigate(['library', 'admin', 'tags', res.data.id, 'view']);
-    }, err => {
+    }, () => {
       this.isSubmitting = false;
     });
   }

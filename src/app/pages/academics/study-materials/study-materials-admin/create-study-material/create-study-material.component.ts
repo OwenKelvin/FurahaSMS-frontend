@@ -111,7 +111,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
           toastTime: 'Just Now'
         }));
         this.isSubmitting = false;
-      }, err => this.isSubmitting = false );
+      }, () => this.isSubmitting = false );
   }
 
   get unitsControl(): FormArray {
@@ -124,7 +124,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   updateUnits() {
     setTimeout(() => {
       const filterdUnits = this.units
-        .filter((unit, i) => this.formUnits[i])
+        .filter((_unit, i) => this.formUnits[i])
         .map(({ id }) => id);
       this.unitsControl.controls.splice(0, this.unitsControl.controls.length)
       filterdUnits.forEach(_ => this.unitsControl.push(this.fb.control('')))
@@ -136,7 +136,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   updateClassLevels() {
     setTimeout(() => {
       const filterdClassLevels = this.classLevels
-        .filter((unit, i) => this.formClassLevels[i])
+        .filter((_unit, i) => this.formClassLevels[i])
         .map(({ id }) => id);
       this.classLevelsControl.controls.splice(0, this.classLevelsControl.controls.length);
       filterdClassLevels.forEach(_ => this.classLevelsControl.push(this.fb.control('')));

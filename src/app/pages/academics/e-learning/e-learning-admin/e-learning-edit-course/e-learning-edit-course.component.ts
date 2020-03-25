@@ -1,4 +1,4 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy, AfterViewInit } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';
@@ -30,6 +30,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   contentType = 'new-content';
   newLearningOutcomeForm: FormGroup;
   triggerLearningOutcomeValidation: boolean;
+  componentLoaded: boolean;
   constructor(
     private store: Store,
     private route: ActivatedRoute,
@@ -41,13 +42,16 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
-    this.course$ = (this.route.parent as ActivatedRoute).paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))))
-      .pipe(tap((res) => this.course = res));
+    this.getCourses();
     this.resetNewContentForm();
   }
 
+  getCourses() {
+    this.course$ = (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))))
+      .pipe(tap((res) => this.course = res))
+  }
   resetNewContentForm(topicId?: number) {
     this.newContentUploadForm = this.fb.group({
       description: ['', [Validators.required]],
@@ -86,6 +90,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
       });
   }
   saveNewContent() {
+    this.componentLoaded = true;
     const $pdf: any = document.querySelector('#newContentUploadInput');
     const pdfFile = (($pdf as HTMLInputElement).files as FileList)[0];
     if (this.newContentUploadForm.valid) {
@@ -111,6 +116,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
         }))
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
+          this.getCourses();
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
             toastBody: res.message,

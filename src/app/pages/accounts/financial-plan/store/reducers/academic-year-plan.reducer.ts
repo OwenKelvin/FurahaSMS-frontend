@@ -27,8 +27,8 @@ const academicYearPlanReducer = createReducer(
     const { name, id, start_date: startDate, end_date: endDate } = payload;
     return { ...state, academicYear: { id, name, startDate, endDate}};
   }),
-  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => state),
-  on(AcademicYearPlanActions.loadAcademicYearPlansFailure, (state, action) => state),
+  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, _action) => state),
+  on(AcademicYearPlanActions.loadAcademicYearPlansFailure, (state, _action) => state),
 
 );
 

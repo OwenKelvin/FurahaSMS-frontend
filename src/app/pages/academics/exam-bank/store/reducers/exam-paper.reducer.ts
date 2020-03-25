@@ -40,7 +40,7 @@ const examPaperReducer = createReducer(
       }
     };
   }),
-  on(ExamPaperActions.loadExamPapersFailure, (state, action) => state),
+  on(ExamPaperActions.loadExamPapersFailure, (state, _action) => state),
 
 );
 

@@ -62,7 +62,7 @@ export class CreateProcurementTenderComponent implements OnInit, OnDestroy {
           showMessage: true, toastBody: res.message , toastHeader: 'Successful', toastTime: 'just now'
         }));
         this.isSubmitting = false;
-      }, err => this.isSubmitting = false);
+      }, () => this.isSubmitting = false);
     });
 
   }

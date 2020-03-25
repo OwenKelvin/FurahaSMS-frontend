@@ -28,13 +28,13 @@ export class AuthenticationService {
   public get currentUserValue(): UserInterface | null {
     return this.currentUserSubject.value;
   }
-  contactAdmin(data: { email: string }) {
+  contactAdmin(_data: { email: string }) {
     // TODO-me Authentication Service Contact admin
     return of({
       message: 'Successfully Contacted Admin'
     });
   }
-  resetPassword(data: { email: string }) {
+  resetPassword(_data: { email: string }) {
     // TODO-me Authentication Service reset Password
     return of({
       message: 'Password Reset Successful'

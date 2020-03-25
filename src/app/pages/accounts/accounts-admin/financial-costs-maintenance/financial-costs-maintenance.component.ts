@@ -142,7 +142,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
             toastHeader: 'Success!',
             toastTime: 'Just now'
           }));
-        }, err => this.deleting[j] = false
+        }, () => this.deleting[j] = false
       );
 
 

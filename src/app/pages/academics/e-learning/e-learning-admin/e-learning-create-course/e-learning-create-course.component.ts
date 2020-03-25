@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy, TemplateRef } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormArray, FormControl } from '@angular/forms';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { UnitsService } from 'src/app/services/units.service';
 import { AcademicYearService } from '../../../services/academic-year.service';

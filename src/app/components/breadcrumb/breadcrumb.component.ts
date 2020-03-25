@@ -36,14 +36,14 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
 
     this.router.events.pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(event => {
+      .subscribe(() => {
       this.showSpinner = false;
       const root: ActivatedRoute = this.activatedRoute.root;
       this.breadcrumbs = this.getBreadcrumbs(root);
     });
     this.router.events.pipe(filter(event => event instanceof NavigationStart))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(event => {
+      .subscribe(() => {
       this.showSpinner = true;
     });
   }

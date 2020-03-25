@@ -41,7 +41,7 @@ export class ExamBankAdminComponent implements OnInit, OnDestroy {
             toastBody: res.message,
             toastTime: 'Just now'
           }));
-        }, err => {
+        }, () => {
           this.deleting[index] = false;
         });
     }

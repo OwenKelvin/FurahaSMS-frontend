@@ -24,7 +24,7 @@ const coursesReducer = createReducer(
       [Number(action.data.id)]: action.data
     }
   }),
-  on(loadCoursesFailure, (state, action) => state),
+  on(loadCoursesFailure, (state, _action) => state),
 );
 
 export function reducer(state: State | undefined, action: Action) {

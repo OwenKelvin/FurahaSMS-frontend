@@ -3,7 +3,7 @@
   <app-loading-bubble></app-loading-bubble>
 </div>
 <ng-template #main>
-  <h1><span *ngIf='procurementRequestForm.get("id").value !== 0'>Edit </span>Procurement Request</h1>
+  <h1><span *ngIf='idControl.value !== 0'>Edit </span>Procurement Request</h1>
   <form (submit)='submitProcurementRequestForm()' [formGroup]='procurementRequestForm' class='d-flex flex-wrap mt-3'>
     <section class='col-lg-6'>
       <app-input [triggerValidation]='triggerValidation' id='name' label='name' placeholder='Enter Name'

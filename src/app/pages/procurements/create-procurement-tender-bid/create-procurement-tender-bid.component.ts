@@ -49,10 +49,10 @@ export class CreateProcurementTenderBidComponent implements OnInit, OnDestroy {
     const data = { data: this.newBidForm.value, tenderId: this.tenderId };
     this.procurementService.createBid(data)
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
       this.isSubmitting = false;
       this.store.dispatch(closeDialog());
-    }, err => {
+    }, () => {
         this.isSubmitting = false;
     });
   }

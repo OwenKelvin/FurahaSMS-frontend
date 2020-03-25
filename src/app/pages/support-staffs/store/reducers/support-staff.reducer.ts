@@ -15,8 +15,8 @@ const supportStaffReducer = createReducer(
   initialState,
 
   on(SupportStaffActions.loadSupportStaffs, state => state),
-  on(SupportStaffActions.loadSupportStaffsSuccess, (state, action) => state),
-  on(SupportStaffActions.loadSupportStaffsFailure, (state, action) => state),
+  on(SupportStaffActions.loadSupportStaffsSuccess, (state, _action) => state),
+  on(SupportStaffActions.loadSupportStaffsFailure, (state, _action) => state),
 
 );
 

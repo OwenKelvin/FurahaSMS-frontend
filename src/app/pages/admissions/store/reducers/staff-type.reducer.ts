@@ -24,7 +24,7 @@ const staffTypeReducer = createReducer(
   on(StaffTypsActions.loadStaffTypesSuccess, (state, action) => {
     return { ...state, [action.id]: { id: action.id, name: action.name } };
   }),
-  on(StaffTypsActions.loadStaffTypesFailure, (state, action) => state),
+  on(StaffTypsActions.loadStaffTypesFailure, (state, _action) => state),
 );
 
 export function reducer(state: State | undefined, action: Action) {

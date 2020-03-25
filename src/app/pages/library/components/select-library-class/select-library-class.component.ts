@@ -69,7 +69,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
 
     }
   }
-  validate(control: FormControl) {
+  validate(_control: FormControl) {
     // this.formControl = control;
   }
   writeValue(value: any): void {

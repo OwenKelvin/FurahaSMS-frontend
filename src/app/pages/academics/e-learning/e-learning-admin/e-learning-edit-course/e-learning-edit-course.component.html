@@ -1,4 +1,4 @@
-<ng-container *ngIf='course$ | async; else loading'>
+<ng-container *ngIf='(course$ | async) || componentLoaded; else loading'>
   <h1>Edit Course <span class="icon-right-dir"></span> {{ course.name }}</h1>
   <table class="table table-dark">
     <tbody>

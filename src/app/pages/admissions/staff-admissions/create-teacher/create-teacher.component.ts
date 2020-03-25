@@ -121,7 +121,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
           toastBody: res.message
         }));
         this.router.navigate(['/teachers', res.data.id, 'info']);
-      }, err => {
+      }, () => {
         this.isSubmitting = false;
       });
   }
@@ -137,7 +137,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
           toastBody: res.message
         }));
         this.router.navigate(['/support-staffs', res.data.id, 'info']);
-      }, err => {
+      }, () => {
         this.isSubmitting = false;
       });
   }

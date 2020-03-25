@@ -114,7 +114,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
           }));
           this.router.navigate(['students', studentIdParam, 'academics']);
         },
-        err => this.isSubmitting = false);
+        () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;

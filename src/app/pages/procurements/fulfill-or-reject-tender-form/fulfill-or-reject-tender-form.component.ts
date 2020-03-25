@@ -41,10 +41,10 @@ export class FulfillOrRejectTenderFormComponent implements OnInit, OnDestroy {
       ...this.fulfilledTenderForm.value
     })
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(item => {
+      .subscribe(() => {
         this.isSubmitting = false;
         this.store.dispatch(closeDialog());
-      }, err => this.isSubmitting = false);
+      }, () => this.isSubmitting = false);
   }
   closeDialog() {
     const dialogCloseConfirmed = confirm('Are you sure you wish to close the bid fulfillent form?');

@@ -163,7 +163,7 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
             toastHeader: 'Success',
             toastTime: 'Just Now'
           }));
-        }, err => this.isSubmitting = false);
+        }, () => this.isSubmitting = false);
 
 
 

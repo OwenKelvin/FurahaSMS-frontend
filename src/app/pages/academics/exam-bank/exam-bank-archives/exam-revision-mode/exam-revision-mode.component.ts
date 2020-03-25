@@ -50,5 +50,5 @@ export class ExamRevisionModeComponent implements OnInit {
     this.activeQuestion = i;
     (document.querySelector(`#question-section`) as HTMLDivElement).focus();
   }
-  handleAnswerChange(event: any) { }
+  handleAnswerChange(_event: any) { }
 }

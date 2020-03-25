@@ -36,7 +36,7 @@ export class ViewProcurementTenderBidsComponent implements OnInit, OnDestroy {
     };
     this.procurementService.awardBid({ tenderId, bidId, data })
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
       this.store.dispatch(loadToastShowsSuccess({
         showMessage: true,
         toastBody: 'Bid Successfully awarded',
@@ -44,7 +44,7 @@ export class ViewProcurementTenderBidsComponent implements OnInit, OnDestroy {
         toastTime: 'Just Now'
       }));
       this.awarding[i] = false;
-    }, err => this.awarding[i] = true );
+    }, () => this.awarding[i] = true );
   }
   ngOnDestroy() {
     this.componentIsActive = false;
