@@ -133,6 +133,13 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Support Staffs'
         }
+      },
+      {
+        path: 'my-profile',
+        loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule),
+        data: {
+          breadcrumb: 'My Profile'
+        }
       }
     ]
   }

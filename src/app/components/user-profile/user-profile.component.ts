@@ -12,6 +12,7 @@ export class UserProfileComponent implements OnInit {
   @Input() profile: any;
   @Input() linkBase: any[];
   @Input() links: any[];
+  @Input() includeProfileId: boolean = true;
 
   ngOnInit() {
   }
@@ -21,7 +22,10 @@ export class UserProfileComponent implements OnInit {
       + (this.profile.otherNames ? (' ' + this.profile.otherNames) : '')
       + (this.profile.userId ? (' ' + this.profile.userId) : '');
   }
-  fullLink(link : string) {
-    return [...this.linkBase, this.profile.id, link];
+  fullLink(link: string) {
+    if (this.includeProfileId) {
+      return [...this.linkBase, this.profile.id, link];
+    }
+    return [...this.linkBase, link];
   }
 }

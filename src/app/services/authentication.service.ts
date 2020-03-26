@@ -5,6 +5,7 @@ import { OauthInterface } from './../interfaces/oauth.interface';
 import { UserInterface } from './../interfaces/user.interface';
 import { PASSPORT_CLIENT } from './../configs/app.config';
 import { map, catchError } from 'rxjs/operators';
+import { IUserProfile } from '../interfaces/user-profile.interface';
 
 @Injectable({
   providedIn: 'root'
@@ -27,6 +28,21 @@ export class AuthenticationService {
   }
   public get currentUserValue(): UserInterface | null {
     return this.currentUserSubject.value;
+  }
+  public get currentUserProfile$(): Observable<IUserProfile> {
+    return this.http.get('api/users/auth')
+      .pipe(map((res: any) => {
+        return {
+          id: res.id,
+          firstName: res.first_name,
+          lastName: res.last_name,
+          middleName: res.middle_name,
+          otherNames: res.other_names,
+          phone: res.phone,
+          email: res.email,
+          dateOfBirth: res.date_of_birth
+        }
+      }));
   }
   contactAdmin(_data: { email: string }) {
     // TODO-me Authentication Service Contact admin
