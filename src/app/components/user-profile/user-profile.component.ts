@@ -12,7 +12,7 @@ export class UserProfileComponent implements OnInit {
   @Input() profile: any;
   @Input() linkBase: any[];
   @Input() links: any[];
-  @Input() includeProfileId: boolean = true;
+  @Input() includeProfileId = true;
 
   ngOnInit() {
   }

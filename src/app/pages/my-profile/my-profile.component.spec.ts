@@ -4,6 +4,8 @@ import { MyProfileComponent } from './my-profile.component';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('MyProfileComponent', () => {
   let component: MyProfileComponent;
@@ -14,11 +16,19 @@ describe('MyProfileComponent', () => {
       imports: [
         AppUserProfileModule,
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ MyProfileComponent ]
+      declarations: [MyProfileComponent],
+      providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

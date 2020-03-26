@@ -7,4 +7,6 @@ export interface IUserProfile {
   phone: string;
   email: string;
   dateOfBirth: string;
+  genderName?: string;
+  religionName?: string;
 }

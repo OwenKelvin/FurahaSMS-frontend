@@ -33,6 +33,7 @@ export class AuthenticationService {
     return this.http.get('api/users/auth')
       .pipe(map((res: any) => {
         return {
+          ...res,
           id: res.id,
           firstName: res.first_name,
           lastName: res.last_name,
@@ -40,7 +41,9 @@ export class AuthenticationService {
           otherNames: res.other_names,
           phone: res.phone,
           email: res.email,
-          dateOfBirth: res.date_of_birth
+          dateOfBirth: res.date_of_birth,
+          religionName: res.religion_name,
+          genderName: res.gender_name
         }
       }));
   }
