@@ -28,9 +28,9 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
     private router: Router,
     private procurementService: ProcurementService
   ) { }
-  
+
   get idControl() {
-    return this.procurementRequestForm.get("id") as FormControl;
+    return this.procurementRequestForm.get('id') as FormControl;
   }
 
   ngOnInit() {
@@ -58,7 +58,7 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
         this.loadingContents = false;
       });
     }
-    
+
     console.log(this.idControl)
   }
 
@@ -82,7 +82,7 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
       this.triggerValidation = !this.triggerValidation;
     }
   }
-  
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }

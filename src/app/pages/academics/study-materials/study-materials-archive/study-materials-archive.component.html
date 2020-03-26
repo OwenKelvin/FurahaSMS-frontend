@@ -12,7 +12,7 @@
       <li *ngFor='let studyMaterial of filteredStudyMaterials'
         class="list-group-item bg-dark list-group-flush mb-0 col-lg-5 mt-2 mb-1 p-0">
         <a [routerLink]='getLink(studyMaterial.id, studyMaterial.file_document_info.type)'
-          class="card-link  btn-block m-0 p-3">
+          class="card-link btn-block m-0 p-3">
           <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
             [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
           <strong>{{ studyMaterial.title }}</strong>

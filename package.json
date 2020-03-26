@@ -15,7 +15,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod",
-    "heroku-postbuild": "ng build --prod",
+    "heroku-postbuild": "ng build --aot --prod",
     "snyk-protect": "snyk protect",
     "prepare": "npm run snyk-protect"
   },

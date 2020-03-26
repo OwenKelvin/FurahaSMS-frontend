@@ -116,6 +116,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
         }))
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
+          // this.course$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
           this.getCourses();
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
@@ -137,6 +138,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
       this.savingNewContent = true;
       this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)
         .subscribe(res => {
+          this.getCourses();
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
             toastBody: res.message,
