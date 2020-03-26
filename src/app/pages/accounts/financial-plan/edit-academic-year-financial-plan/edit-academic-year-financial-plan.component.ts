@@ -74,12 +74,18 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
 
         })
       )
-      .pipe(map(([item, item1]) => {
-        this.plans = item1;
-        return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
+      .pipe(map(([classLevel, financialPlan]) => {
+        const activeClassLevels: any[] = financialPlan.tuitionFee
+          .map(({ classLevelId }: { classLevelId: number; }) => classLevelId)
+        this.plans = financialPlan;
+        return [
+          ...(classLevel.filter(({ id: classLevelId }: { id: number; }) => activeClassLevels.includes(classLevelId)))
+            .map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))
+        ];
       }))
       .pipe(
         tap(item => {
+          console.log(item)
           item.forEach((i: any) => {
             const unitLevels = this.fb.array([]);
             (i.unitLevels as any[]).forEach(b => {
@@ -177,7 +183,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   totalClassLevelCost(i: number, j?: number, k?: number) {
 
     if (typeof j === 'undefined') {
-      return this.otherFees.controls[i].value.financialCosts
+      return this.otherFees.controls[i]?.value?.financialCosts
         .map((item: any) => item.costItems).flat()
         .map((item: any) => item.semesters).flat()
         .map((item: any) => item.amount).flat()
