@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('ViewPublisherComponent', () => {
   let component: ViewPublisherComponent;
   let fixture: ComponentFixture<ViewPublisherComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

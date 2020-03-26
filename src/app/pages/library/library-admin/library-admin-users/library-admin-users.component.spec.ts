@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('LibraryAdminUsersComponent', () => {
   let component: LibraryAdminUsersComponent;
   let fixture: ComponentFixture<LibraryAdminUsersComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

@@ -5,7 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StoreModule, Store } from '@ngrx/store';
+import { StoreModule } from '@ngrx/store';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -14,6 +14,7 @@ import { QuestionViewComponent } from '../question-view/question-view.component'
 import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
 import { of } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { reducer } from '../../store/reducers/exam-paper.reducer';
 
 describe('AdminExamPaperEditComponent', () => {
   let component: AdminExamPaperEditComponent;
@@ -34,6 +35,7 @@ describe('AdminExamPaperEditComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature('examPaper', reducer),
         ModalModule.forRoot(),
         EditorModule,
         NgSelectModule,

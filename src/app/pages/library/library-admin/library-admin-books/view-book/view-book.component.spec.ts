@@ -7,7 +7,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 describe('ViewBookComponent', () => {
   let component: ViewBookComponent;
   let fixture: ComponentFixture<ViewBookComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

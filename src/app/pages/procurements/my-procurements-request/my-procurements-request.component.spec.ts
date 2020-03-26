@@ -13,7 +13,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('MyProcurementsRequestComponent', () => {
   let component: MyProcurementsRequestComponent;
   let fixture: ComponentFixture<MyProcurementsRequestComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { reducer } from '../../../exam-bank/store/reducers/exam-paper.reducer';
 
 describe('ELearningCourseViewComponent', () => {
   let component: ELearningCourseViewComponent;
@@ -26,6 +27,7 @@ describe('ELearningCourseViewComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature('academics', reducer),
         RouterTestingModule,
         AppLoadingBubbleModule
       ],

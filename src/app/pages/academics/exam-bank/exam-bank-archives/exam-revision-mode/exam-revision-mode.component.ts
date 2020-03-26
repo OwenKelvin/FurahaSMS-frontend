@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
+import { AppState } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-exam-revision-mode',
@@ -18,7 +19,7 @@ export class ExamRevisionModeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<any>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {

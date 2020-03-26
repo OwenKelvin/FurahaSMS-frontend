@@ -12,7 +12,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 describe('CreateStudentAcademicsComponent', () => {
   let component: CreateStudentAcademicsComponent;
   let fixture: ComponentFixture<CreateStudentAcademicsComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

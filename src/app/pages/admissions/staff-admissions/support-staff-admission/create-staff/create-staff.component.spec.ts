@@ -9,6 +9,7 @@ import { CreateTeacherComponent } from '../../create-teacher/create-teacher.comp
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { reducer } from 'src/app/pages/support-staffs/store/reducers/support-staff.reducer';
 
 describe('CreateStaffComponent', () => {
   let component: CreateStaffComponent;
@@ -26,6 +27,7 @@ describe('CreateStaffComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature('admissions', reducer),
         FormsModule,
         ReactiveFormsModule,
         AppInputModule

@@ -7,7 +7,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 describe('EditBookComponent', () => {
   let component: EditBookComponent;
   let fixture: ComponentFixture<EditBookComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

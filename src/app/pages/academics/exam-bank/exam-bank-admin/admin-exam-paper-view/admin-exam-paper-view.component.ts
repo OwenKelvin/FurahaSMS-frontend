@@ -4,6 +4,7 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 import { select, Store } from '@ngrx/store';
 import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
 import { Observable } from 'rxjs';
+import { AppState } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-admin-exam-paper-view',
@@ -17,7 +18,7 @@ export class AdminExamPaperViewComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<any>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {

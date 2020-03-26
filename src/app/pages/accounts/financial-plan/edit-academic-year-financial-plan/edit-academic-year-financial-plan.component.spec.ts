@@ -11,6 +11,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { reducer } from '../store/reducers/academic-year-plan.reducer';
 
 describe('EditAcademicYearFinancialPlanComponent', () => {
   let component: EditAcademicYearFinancialPlanComponent;
@@ -31,6 +32,7 @@ describe('EditAcademicYearFinancialPlanComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature('academicYearPlan', reducer),
         AppInputModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,

@@ -13,7 +13,7 @@ import { ValidateSubmitButtonsComponent } from '../../../components/validate-sub
 describe('FulfillOrRejectTenderFormComponent', () => {
   let component: FulfillOrRejectTenderFormComponent;
   let fixture: ComponentFixture<FulfillOrRejectTenderFormComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

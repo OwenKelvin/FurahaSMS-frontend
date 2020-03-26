@@ -13,7 +13,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 describe('EditAuthorComponent', () => {
   let component: EditAuthorComponent;
   let fixture: ComponentFixture<EditAuthorComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

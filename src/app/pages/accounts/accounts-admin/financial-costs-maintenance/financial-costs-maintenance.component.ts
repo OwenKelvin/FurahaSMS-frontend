@@ -6,6 +6,7 @@ import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-financial-costs-maintenance',
@@ -27,7 +28,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     private modalService: BsModalService,
     private fb: FormBuilder,
     private financialCostsService: FinancialCostsService,
-    private store: Store<any>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {

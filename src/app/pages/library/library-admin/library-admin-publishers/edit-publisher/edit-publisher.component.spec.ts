@@ -13,7 +13,7 @@ import { CreatePublisherComponent } from '../create-publisher/create-publisher.c
 describe('EditPublisherComponent', () => {
   let component: EditPublisherComponent;
   let fixture: ComponentFixture<EditPublisherComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

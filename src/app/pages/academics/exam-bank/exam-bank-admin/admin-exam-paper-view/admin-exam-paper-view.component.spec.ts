@@ -10,6 +10,7 @@ import { QuestionViewComponent } from '../question-view/question-view.component'
 import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { reducer } from '../../store/reducers/exam-paper.reducer';
 
 describe('AdminExamPaperViewComponent', () => {
   let component: AdminExamPaperViewComponent;
@@ -28,6 +29,7 @@ describe('AdminExamPaperViewComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature('examPaper', reducer),
         Number2AlphabetModule
       ],
       declarations: [AdminExamPaperViewComponent, QuestionViewComponent],

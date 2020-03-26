@@ -4,23 +4,22 @@ import {
   ActionReducerMap,
 } from '@ngrx/store';
 
-import * as fromLibraryBookAuthor from './support-staff.reducer';
+import * as fromSupportStaff from './support-staff.reducer';
 
 import * as fromRoot from '../../../../store/reducers';
 
-export const libraryFeatureKey = 'library';
 
-export interface LibraryState {
-  supportStaff: fromLibraryBookAuthor.State;
+export interface SupportStaffState {
+  supportStaff: fromSupportStaff.State;
 
 }
 
 export interface State extends fromRoot.AppState {
-  supportStaff: fromLibraryBookAuthor.State;
+  supportStaff: fromSupportStaff.State;
 
 }
 
-export const reducers: ActionReducerMap<LibraryState> = {
-  supportStaff: fromLibraryBookAuthor.reducer,
+export const reducers: ActionReducerMap<SupportStaffState> = {
+  supportStaff: fromSupportStaff.reducer,
 
 };

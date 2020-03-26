@@ -12,7 +12,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('CreateAuthorComponent', () => {
   let component: CreateAuthorComponent;
   let fixture: ComponentFixture<CreateAuthorComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
