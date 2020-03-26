@@ -63,7 +63,7 @@
           </select>
         </section>
         <section class="col-lg-6">
-          <app-select-library-class formControlName='category' [classification]='newBookForm.get("classification").value'>
+          <app-select-library-class formControlName='category' [classification]='newBookForm.get("classification")?.value'>
           </app-select-library-class>
         </section>
         <section class='col-lg-6 col-md-12'>

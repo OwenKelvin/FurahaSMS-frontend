@@ -107,7 +107,12 @@ export class StudentPaymentStatementComponent implements OnInit, OnDestroy {
         +val.financialCostItemId === +financialCostItemId;
     }).reduce((a, b) => a + b.amount, 0);
   }
-  getOtherCostTotal(academicYearId: number, classLevelId?: number, financialCostItemId?: number, semesterId?: number): number {
+  getOtherCostTotal(
+    academicYearId: number,
+    classLevelId?: number | null,
+    financialCostItemId?: number | null,
+    semesterId?: number | null
+  ): number {
     if (typeof semesterId !== 'undefined') {
       return this.otherFeesCosts.filter(val => {
         return val.classLevelId === classLevelId &&
