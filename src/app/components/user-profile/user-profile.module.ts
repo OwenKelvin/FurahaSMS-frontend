@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { NameItemComponent } from './name-item/name-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -17,7 +18,8 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     RouterModule,
     FormsModule,
     ReactiveFormsModule,
-    AppInputModule
+    AppInputModule,
+    ModalModule.forRoot()
   ],
   exports: [
     UserProfileComponent

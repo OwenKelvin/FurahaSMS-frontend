@@ -20,7 +20,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
   editable: boolean = false;
   isSubmitting: boolean = false;
   componentIsActive: boolean;
-  
+
   constructor(
     private fb: FormBuilder,
     private usersService: UsersService,
@@ -31,9 +31,9 @@ export class NameItemComponent implements OnInit, OnDestroy {
     this.componentIsActive = true;
     this.itemForm = this.fb.group({
       name: [this.name, [Validators.required, Validators.minLength(2)]]
-    })
+    });
   }
-  
+
   submitFormItem() {
     this.isSubmitting = true;
     this.usersService.update({
@@ -45,17 +45,17 @@ export class NameItemComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.isSubmitting = false;
         this.editable = false;
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true,
-        toastBody: res.message,
-        toastHeader: 'Success!',
-        toastTime: 'Just now'
-      }));
-    }, () => this.isSubmitting = false);
+        this.store.dispatch(loadToastShowsSuccess({
+          showMessage: true,
+          toastBody: res.message,
+          toastHeader: 'Success!',
+          toastTime: 'Just now'
+        }));
+      }, () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;
-    
+
   }
 
 }

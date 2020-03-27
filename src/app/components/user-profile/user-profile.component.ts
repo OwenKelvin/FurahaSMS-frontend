@@ -1,14 +1,16 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, TemplateRef, OnDestroy } from '@angular/core';
+import { BsModalService } from 'ngx-bootstrap/modal';
+import { UsersService } from 'src/app/services/users.service';
+import { takeWhile, mergeMap, map } from 'rxjs/operators';
+import { Store } from '@ngrx/store';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
-export class UserProfileComponent implements OnInit {
-  context: any;
-
-  constructor() { }
+export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() profile: any;
   @Input() linkBase: any[];
@@ -17,8 +19,20 @@ export class UserProfileComponent implements OnInit {
   editMode: boolean = false;
 
   photoSrc: any;
+  context: any;
+  modalRef: any;
+  savingProfPic: boolean;
+  photoFile: File;
+  componentIsActive: boolean;
+  constructor(
+    private modalService: BsModalService,
+    private usersService: UsersService,
+    private store: Store
+  ) { }
+
 
   ngOnInit() {
+    this.componentIsActive = true;
   }
   get fullName(): string {
     return this.profile.firstName + ' ' + this.profile.lastName
@@ -32,21 +46,49 @@ export class UserProfileComponent implements OnInit {
     }
     return [...this.linkBase, link];
   }
+  saveProfilePic() {
+    this.savingProfPic = true;
+    this.usersService.uploadPhoto({ file: this.photoFile })
+      .pipe(map((res: any) => res.data.id))
+      .pipe(mergeMap((id: number) => this.usersService.saveProfilePicture({ userId: this.profile.id, profilePicId: id })))
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
+        this.savingProfPic = false;
 
-  onFileSelected() {
-    const $canvas: any = document.querySelector('#profilePhotoCanvas');
-    this.context = $canvas.getContext('2d');
-    const imageObj = new Image();
+        this.store.dispatch(loadToastShowsSuccess({
+          showMessage: true,
+          toastBody: res.message,
+          toastHeader: 'Success!',
+          toastTime: 'Just now'
+        }));
+      }, () => this.savingProfPic = false);
+  }
+  openModal(template: TemplateRef<any>) {
+
+    this.modalRef = this.modalService.show(template);
+    this.modalRef.setClass('modal-md bg-dark text-light modal-container ');
+  }
+
+  onFileSelected(template: TemplateRef<any>) {
     const $input: any = document.querySelector('#profilePhotoInput');
-    const photoFile: File = (($input as HTMLInputElement).files as FileList)[0];
-    this.photoSrc = URL.createObjectURL(photoFile);
-    imageObj.onload = () => {
-      this.fitImageOn($canvas, imageObj);
-    };
-    imageObj.src = this.photoSrc;
+    this.photoFile = (($input as HTMLInputElement).files as FileList)[0];
+    if (this.photoFile) {
+      this.openModal(template);
+      const $canvas: any = document.querySelector('#profilePhotoCanvas');
+      this.context = $canvas.getContext('2d');
+      const imageObj = new Image();
+
+
+      this.photoSrc = URL.createObjectURL(this.photoFile);
+      imageObj.onload = () => {
+        this.fitImageOn($canvas, imageObj);
+      };
+      imageObj.src = this.photoSrc;
+    }
+
 
   }
-  
+
   fitImageOn(canvas: any, imageObj: any) {
     const imageAspectRatio = imageObj.width / imageObj.height;
     const canvasAspectRatio = canvas.width / canvas.height;
@@ -80,5 +122,8 @@ export class UserProfileComponent implements OnInit {
     this.context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
   };
 
+  ngOnDestroy() {
+    this.componentIsActive = false;
+  }
 
 }

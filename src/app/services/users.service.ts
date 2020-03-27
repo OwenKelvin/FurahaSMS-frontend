@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 
 @Injectable({
@@ -26,6 +26,27 @@ export class UsersService {
   ): Observable<any> {
     const data: any = {
       [fieldName]: fieldNewValue
+    }
+    return this.http.patch(`api/users/${userId}`, data)
+  }
+  
+  uploadPhoto({ file }: { file: File; }): Observable<any> {
+    
+    const myFormData = new FormData();
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    myFormData.append('profilePicture', file);
+
+    return this.http.post('api/users/profile-picture', myFormData, {
+      headers
+    });
+  }
+  
+  saveProfilePicture({ userId, profilePicId}: {userId: number, profilePicId: number}): Observable<any> {
+    const data: any = {
+      
+      'profile_pic_id': profilePicId
     }
     return this.http.patch(`api/users/${userId}`, data)
   }
