@@ -20,7 +20,7 @@
 .edit-field {
   position: absolute;
   top: 0; 
-  background-color: rgb(26, 20, 20); 
+  background-color: rgb(46, 43, 43); 
   width: 100%; z-index: 30;
   border-radius: 5px;
   border: gray double;

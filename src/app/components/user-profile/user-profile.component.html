@@ -7,10 +7,15 @@
   </button>
 </div>
 
+
+<div>
+  <canvas id="profilePhotoCanvas"></canvas>
+</div>
+
 <section class='d-flex flex-wrap wrapper'>
   <section class='col-md-3 col-lg-2 d-flex justify-content-center'>
     <div *ngIf='editMode' class="upload-profile-pic">
-      <input #fileInput hidden type="file" >
+      <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected()' #fileInput hidden type="file" >
       <button (click)='fileInput.click()' class='btn btn secondary'><span>Upload Photo</span></button>
     </div>
     <!-- TODO-me Load Correct image-->

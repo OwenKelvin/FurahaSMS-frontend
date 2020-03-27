@@ -16,6 +16,7 @@ h2 {
   z-index: 1;
   position: relative;
   max-width: calc(100% - 20px);
+  
 }
 .active {
   color: greenyellow !important;
@@ -23,9 +24,9 @@ h2 {
   border: 1px solid rgb(88, 88, 88) !important;
   border-bottom: none !important;
   z-index: 10;
-   position: relative;
-   border-top-left-radius: 15px;
-   border-top-right-radius: 15px;
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
   
 }
 
