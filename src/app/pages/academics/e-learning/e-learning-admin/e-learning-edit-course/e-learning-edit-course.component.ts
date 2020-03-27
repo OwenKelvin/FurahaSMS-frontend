@@ -1,11 +1,11 @@
-import { Component, OnInit, TemplateRef, OnDestroy, AfterViewInit } from '@angular/core';
+import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
 import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';
 import { selectAcademicsCourse } from '../../../store/selectors/courses.selectors';
 import { ICourse } from '../../interfaces/course.interface';
 import { Observable } from 'rxjs';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ELearningService } from '../../services/e-learning.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
@@ -19,7 +19,7 @@ import { StudyMaterialsService } from '../../../study-materials/services/study-m
 export class ELearningEditCourseComponent implements OnInit, OnDestroy {
   course$: Observable<ICourse | null>;
   course: ICourse | null;
-  modalRef: any;
+  modalRef: BsModalRef;
   courseNameConfirmation: string;
   componentIsActive = true;
   deletingCourse: boolean;

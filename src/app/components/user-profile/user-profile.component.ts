@@ -1,5 +1,5 @@
-import { Component, OnInit, Input, TemplateRef, OnDestroy } from '@angular/core';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { Component, OnInit, Input, TemplateRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/services/users.service';
 import { takeWhile, mergeMap, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
@@ -16,11 +16,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() linkBase: any[];
   @Input() links: any[];
   @Input() includeProfileId = true;
+  @ViewChild('profPic') profPic: ElementRef;
   editMode: boolean = false;
 
   photoSrc: any;
   context: any;
-  modalRef: any;
+  modalRef: BsModalRef;
   savingProfPic: boolean;
   photoFile: File;
   componentIsActive: boolean;
@@ -30,9 +31,16 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     private store: Store
   ) { }
 
-
   ngOnInit() {
     this.componentIsActive = true;
+    this.getProfilePic();
+  }
+  getProfilePic() {
+    this.usersService.getProfilePicture({ userId: this.profile.id })
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
+          (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res)
+      })
   }
   get fullName(): string {
     return this.profile.firstName + ' ' + this.profile.lastName
@@ -54,7 +62,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.savingProfPic = false;
-
+        this.hideModal();
+        (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
           toastBody: res.message,
@@ -64,9 +73,14 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       }, () => this.savingProfPic = false);
   }
   openModal(template: TemplateRef<any>) {
-
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-md bg-dark text-light modal-container ');
+  }
+  
+  hideModal() {
+    const $input: any = document.querySelector('#profilePhotoInput');
+    ($input as HTMLInputElement).value = ''
+    this.modalRef.hide();
   }
 
   onFileSelected(template: TemplateRef<any>) {

@@ -50,4 +50,11 @@ export class UsersService {
     }
     return this.http.patch(`api/users/${userId}`, data)
   }
+  
+  getProfilePicture({ userId }: { userId: number; }) {
+    const headers = new HttpHeaders();
+    headers.append('Accept', 'application/pdf');
+    headers.append('Content-Type', 'application/pdf');
+    return this.http.get(`api/users/profile-picture/${userId}`, { headers, responseType: 'blob' })
+  }
 }

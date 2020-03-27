@@ -3,7 +3,7 @@ import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { Observable } from 'rxjs';
-import { BsModalService } from 'ngx-bootstrap/modal';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { FulfillOrRejectTenderFormComponent } from '../fulfill-or-reject-tender-form/fulfill-or-reject-tender-form.component';
 import { selectDialogShowState } from 'src/app/store/selectors/dialog.selector';
 import { showDialog } from 'src/app/store/actions/dialog.actions';
@@ -21,7 +21,7 @@ export class ViewProcurementTendersAwardedComponent implements OnInit, OnDestroy
     backdrop: false,
     ignoreBackdropClick: true
   };
-  bsModalRef: any;
+  bsModalRef: BsModalRef;
   componentIsActive: boolean;
 
   constructor(
