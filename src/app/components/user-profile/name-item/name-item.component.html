@@ -1,0 +1,30 @@
+<section>
+  <form (submit)='submitFormItem()' [formGroup]='itemForm' class='d-flex flex-wrap align-items-center'>
+    <div *ngIf='editable' class="edit-field p-3">
+
+      <app-input [label]='label + " Name"' type="text"
+        id=itemNameInput labelClass='col-lg-12' inputClass='col-lg-12' formControlName='name'
+        [placeholder]='"Enter " + label + "Name" '></app-input>
+      <div class="d-flex justify-content-between">
+        <button type="button" (click)='editable = false' class="btn btn-secondary mt-2">Cancel
+        </button>
+        <button [disabled]='itemForm.invalid' class="btn btn-success mt-2">
+          <i *ngIf='itemForm.valid && !isSubmitting' class='icon-ok'></i>
+          <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+          <span class="icon-save"></span>Save </button>
+      </div>
+    </div>
+    <div class='label col-xs-12 col-sm-4 col-lg-4'>{{ label | titlecase }}:</div>
+    <div class='value col col-xs-12 p-1 d-flex justify-content-between'>
+
+      &nbsp; {{ name }}
+      <button type="button" (click)='editable = true' (mouseout)='editHovered = false' (mouseover)='editHovered = true'
+        *ngIf='editMode' [attr.aria-label]='"Edit " + label +" Name"' class="icon">
+        <span [class.icon-pencil-1]='!editHovered' [class.icon-edit]="editHovered"></span>
+      </button>
+
+    </div>
+
+  </form>
+
+</section>

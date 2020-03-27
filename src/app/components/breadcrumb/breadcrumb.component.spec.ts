@@ -13,13 +13,16 @@ describe('BreadcrumbComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), HttpClientTestingModule, RouterTestingModule ],
+        }),
+        HttpClientTestingModule, RouterTestingModule
+      ],
       declarations: [BreadcrumbComponent, BreadcrumbComponent],
       providers: [reducerProvider]
     });

@@ -21,4 +21,12 @@ export class UsersService {
       }
     ));
   }
+  update(
+    { userId, fieldName, fieldNewValue }: { userId: number, fieldName: string, fieldNewValue: string; }
+  ): Observable<any> {
+    const data: any = {
+      [fieldName]: fieldNewValue
+    }
+    return this.http.patch(`api/users/${userId}`, data)
+  }
 }

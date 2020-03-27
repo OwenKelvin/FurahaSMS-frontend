@@ -1,11 +1,3 @@
-.name-field .label, .name-field .value {
- font-weight: bold;
- line-height: 2em;
-}
-.name-field  .value {
-  border: rgba(211, 211, 211, 0.3) solid 2px;
-  margin-top: 5px;
-}
 h2 {
   max-height: 35px;
 }
@@ -35,4 +27,23 @@ h2 {
    border-top-left-radius: 15px;
    border-top-right-radius: 15px;
   
+}
+
+.upload-profile-pic {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+.upload-profile-pic:hover {
+   background-color: rgba(128, 128, 128, 0.3);
+}
+.upload-profile-pic button{
+ 
+  width: 100%;
+  height: 100%;
+}
+.upload-profile-pic button:hover span, .upload-profile-pic button:hover span{
+  padding: 5px;
+  border-radius: 20px;
+  border: 2px solid;
 }
