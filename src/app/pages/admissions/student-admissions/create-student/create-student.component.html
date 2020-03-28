@@ -1,4 +1,6 @@
 <h1>Create New Student</h1>
+{{ genders$ | async | json }}
+{{ religions$ | async | json }}
 <form [formGroup]='newStudentForm' (submit)='submitNewStudentForm()'>
   <app-label-star-required></app-label-star-required>
   <div class="card p-2 mt-1">

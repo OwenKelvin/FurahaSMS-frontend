@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { AppState } from '../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -8,7 +8,12 @@ import { StudentService } from 'src/app/services/student.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, tap } from 'rxjs/operators';
+import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
+import * as fromGenders from 'src/app/store/reducers/gender.reducer'
+import * as fromReligions from 'src/app/store/reducers/religion.reducer'
+import { loadGenders } from 'src/app/store/actions/gender.actions';
+import { loadReligions } from 'src/app/store/actions/religion.actions';
 
 @Component({
   selector: 'app-create-student',
@@ -21,6 +26,8 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   isSubmitting: boolean;
   formSubmitted: boolean;
   componentIsActive: boolean;
+  genders$: Observable<fromGenders.State>;
+  religions$: Observable<fromReligions.State>;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -30,6 +37,11 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   ) { }
 
   ngOnInit() {
+    this.genders$ = this.store.pipe(select(selectGenders))
+      .pipe(tap(gender => !gender[0].id ? this.store.dispatch(loadGenders()) : ''))
+    this.religions$ = this.store.pipe(select(selectReligions))
+      .pipe(tap(religion => !religion[0].id ? this.store.dispatch(loadReligions()) : ''))
+    
     this.componentIsActive = true;
     this.newStudentForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
@@ -66,17 +78,17 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     if (this.newStudentForm.valid) {
       this.studentService.createNewStudent(this.newStudentForm.value)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(student => {
-          console.log({student})
+        .subscribe((res: any) => {
+
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
-            toastBody: student.message,
+            toastBody: res.message,
             toastHeader: 'Successful',
             toastTime: 'just now'
           }));
           this.isSubmitting = false;
           this.formSubmitted = true;
-          this.router.navigate(['/students', student.id]);
+          this.router.navigate(['/students', res.data.id]);
         }, () => {
           this.formSubmitted = true;
           this.isSubmitting = false;
