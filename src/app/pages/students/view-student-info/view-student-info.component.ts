@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { Observable } from 'rxjs';
-import { selectStudentProfile } from 'src/app/store/selectors/student-profile.selector';
+import { ActivatedRoute } from '@angular/router';
+import { map, mergeMap } from 'rxjs/operators';
+import { selectStudent } from '../store/selectors/student-profile.selectors';
 
 @Component({
   selector: 'app-view-student-info',
@@ -10,11 +12,16 @@ import { selectStudentProfile } from 'src/app/store/selectors/student-profile.se
   styleUrls: ['./view-student-info.component.css']
 })
 export class ViewStudentInfoComponent implements OnInit {
-  student$: Observable<any>;
-  constructor(private store: Store<fromStore.AppState>) { }
+  student$: Observable<any> | undefined;
+  constructor(
+    private store: Store<fromStore.AppState>,
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
-    this.student$ = this.store.select(selectStudentProfile);
+    this.student$ = this.route.parent?.paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))))
   }
 
 }
