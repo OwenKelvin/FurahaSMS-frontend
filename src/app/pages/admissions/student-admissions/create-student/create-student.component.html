@@ -1,81 +1,87 @@
 <h1>Create New Student</h1>
 <form [formGroup]='newStudentForm' (submit)='submitNewStudentForm()'>
-  <fieldset>
-    <legend>
-      <h2>School Id Number</h2>
-    </legend>
-    <app-label-star-required></app-label-star-required> 
-    <section class='group-gap'>
-      <h5 class='mb-3'>Generate Student Id</h5>
-      <section class='my-3'>
-        <section class='d-flex flex-wrap'>
-          <section class='col-lg-3'>
-            <section class='custom-control custom-radio'>
-              <input id='auto-generate' type='radio' class='custom-control-input' [value]='false' name='autoGenerateId'
-                formControlName='autoGenerateId'>
-              <label class='custom-control-label' for='auto-generate'>Automatically Generate</label>
+  <app-label-star-required></app-label-star-required>
+  <div class="card p-2 mt-1">
+    <fieldset>
+      <legend>
+        <h2>School Id Number</h2>
+      </legend>
+      <section class='group-gap'>
+        <h5 class='mb-3'>Generate Student Id</h5>
+        <section class='my-3'>
+          <section class='d-flex flex-wrap'>
+            <section class='col-lg-3'>
+              <section class='custom-control custom-radio'>
+                <input id='auto-generate' type='radio' class='custom-control-input' [value]='false'
+                  name='autoGenerateId' formControlName='autoGenerateId'>
+                <label class='custom-control-label' for='auto-generate'>Automatically Generate</label>
+              </section>
             </section>
-          </section>
-          <section class='col-lg-3'>
-            <section class='custom-control custom-radio'>
-              <input id='auto-generate-false' type='radio' class='custom-control-input' [value]='true' name='autoGenerateId'
-                formControlName='autoGenerateId'>
-              <label class='custom-control-label' for='auto-generate-false'>Enter Manually</label>
+            <section class='col-lg-3'>
+              <section class='custom-control custom-radio'>
+                <input id='auto-generate-false' type='radio' class='custom-control-input' [value]='true'
+                  name='autoGenerateId' formControlName='autoGenerateId'>
+                <label class='custom-control-label' for='auto-generate-false'>Enter Manually</label>
+              </section>
             </section>
-          </section>
-          <section class='col'>
-            <app-input labelClass='col-lg-6' inputClass='col-sm-6 col-lg-6' [triggerValidation]='triggerValidation' *ngIf='autoGenerate.value === true'
-              formControlName='schoolIdNumber' label='School Id Number' placeholder='Enter School Id Number'>
-            </app-input>
+            <section class='col'>
+              <app-input labelClass='col-lg-6' inputClass='col-sm-6 col-lg-6' [triggerValidation]='triggerValidation'
+                *ngIf='autoGenerate.value === true' formControlName='schoolIdNumber' label='School Id Number'
+                placeholder='Enter School Id Number'>
+              </app-input>
+            </section>
           </section>
         </section>
       </section>
-    </section>
-  </fieldset>
-  <fieldset>
-    <legend>
-      <h2>Name</h2>
-    </legend>
-    <section class='d-flex flex-wrap'>
-      <section class='col-lg-4 col-sm-6 col-xs-12'>
-        <app-input [triggerValidation]='triggerValidation' placeholder='Enter First Name' id='firstName'
-          label='First Name' formControlName='firstName'>
-        </app-input>
+    </fieldset>
+  </div>
+  <div class="card p-2 mt-1">
+    <fieldset>
+      <legend>
+        <h2>Name</h2>
+      </legend>
+      <section class='d-flex flex-wrap'>
+        <section class='col-lg-4 col-sm-6 col-xs-12'>
+          <app-input [triggerValidation]='triggerValidation' placeholder='Enter First Name' id='firstName'
+            label='First Name' formControlName='firstName'>
+          </app-input>
+        </section>
+        <section class='col-lg-4 col-sm-6 col-xs-12'>
+          <app-input [triggerValidation]='triggerValidation' placeholder='Enter Last Name' id='lastName'
+            label='Last Name' formControlName='lastName'>
+          </app-input>
+        </section>
+        <section class='col-lg-4 col-sm-6 col-xs-12'>
+          <app-input id='middleName' placeholder='Enter Middle Name' label='middle Name' formControlName='middleName'>
+          </app-input>
+        </section>
+        <section class='col-lg-4 col-sm-6 col-xs-12'>
+          <app-input id='otherNames' placeholder='Enter Other Names' label='Other Names' formControlName='otherNames'>
+          </app-input>
+        </section>
       </section>
-      <section class='col-lg-4 col-sm-6 col-xs-12'>
-        <app-input [triggerValidation]='triggerValidation' placeholder='Enter Last Name' id='lastName' label='Last Name'
-          formControlName='lastName'>
-        </app-input>
+    </fieldset>
+  </div>
+  <div class="card p-2 mt-1">
+    <fieldset>
+      <legend>
+        <h2>Other Details</h2>
+      </legend>
+      <section class='d-flex flex-wrap'>
+        <section class='col-lg-5 col-md-6 col-sm-12 col-xs-12'>
+          <app-input labelClass='col-lg-6' inputClass='col-md-6 col-lg-6' type='date'
+            [triggerValidation]='triggerValidation' placeholder='Enter Date Of Birth' id='dateOfBirth'
+            label='Date Of Birth' formControlName='dateOfBirth'>
+          </app-input>
+        </section>
       </section>
-      <section class='col-lg-4 col-sm-6 col-xs-12'>
-        <app-input id='middleName' placeholder='Enter Middle Name' label='middle Name' formControlName='middleName'></app-input>
-      </section>
-      <section class='col-lg-4 col-sm-6 col-xs-12'>
-        <app-input id='otherNames' placeholder='Enter Other Names' label='Other Names' formControlName='otherNames'></app-input>
-      </section>
-    </section>
-  </fieldset>
-  <fieldset>
-    <legend>
-      <h2>Other Details</h2>
-    </legend>
-    <section class='d-flex flex-wrap'>
-      <section class='col-lg-5 col-md-6 col-sm-12 col-xs-12'>
-        <app-input labelClass='col-lg-6' inputClass='col-md-6 col-lg-6' type='date' [triggerValidation]='triggerValidation' placeholder='Enter Date Of Birth' id='dateOfBirth' label='Date Of Birth'
-          formControlName='dateOfBirth'>
-        </app-input>
-      </section>
-      <!-- <section class='col-lg-5 col-sm-6 col-xs-12'>
-        Test
-      </section> -->
-    </section>
-  </fieldset>
-  <section class='d-flex justify-content-end'>
-    <button *ngIf='!newStudentForm.valid' (click)='triggerValidation = !triggerValidation' type='button'
-      class='btn btn-secondary'>Validate</button>
-    &nbsp;&nbsp;&nbsp;&nbsp;
-    <button class='btn btn-primary' [disabled]='!newStudentForm.valid || isSubmitting'>
-      Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
-    </button>
+    </fieldset>
+  </div>
+
+  <section class="col-lg-12 mt-2">
+    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newStudentForm'>
+      <span>Create Student</span>
+    </app-validate-submit-buttons>
   </section>
 </form>

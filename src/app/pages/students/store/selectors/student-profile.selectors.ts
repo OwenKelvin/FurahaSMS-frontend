@@ -7,5 +7,8 @@ export const selectStudentProfileState = createFeatureSelector<fromStudentProfil
 
 export const selectStudent = (id: number) => createSelector(
   selectStudentProfileState,
-  state => state[id]
+  state => {
+    
+    return state[id];
+  }
 );

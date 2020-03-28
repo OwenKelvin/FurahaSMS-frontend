@@ -30,6 +30,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.newStudentForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
@@ -45,14 +46,14 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     this.autoGenerate.valueChanges
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(checked => {
-      if (checked) {
-        this.schoolIdNumber.setValidators([Validators.required]);
-        this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
-      } else {
-        this.schoolIdNumber.setValidators(null);
-      }
-      this.schoolIdNumber.updateValueAndValidity();
-    });
+        if (checked) {
+          this.schoolIdNumber.setValidators([Validators.required]);
+          this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
+        } else {
+          this.schoolIdNumber.setValidators(null);
+        }
+        this.schoolIdNumber.updateValueAndValidity();
+      });
   }
   get schoolIdNumber(): FormControl {
     return this.newStudentForm.get('schoolIdNumber') as FormControl;
@@ -66,16 +67,20 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
       this.studentService.createNewStudent(this.newStudentForm.value)
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(student => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
-        }));
-        this.isSubmitting = false;
-        this.formSubmitted = true;
-        this.router.navigate(['/students', student.id]);
-      }, () => {
+          console.log({student})
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: student.message,
+            toastHeader: 'Successful',
+            toastTime: 'just now'
+          }));
+          this.isSubmitting = false;
+          this.formSubmitted = true;
+          this.router.navigate(['/students', student.id]);
+        }, () => {
           this.formSubmitted = true;
           this.isSubmitting = false;
-      });
+        });
     } else {
       this.triggerValidation = !this.triggerValidation;
     }

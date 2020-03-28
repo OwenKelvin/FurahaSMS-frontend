@@ -1,12 +1,15 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
 import { AppState } from 'src/app/store/reducers';
-import { debounceTime, takeWhile, map, mergeMap } from 'rxjs/operators';
+import { debounceTime, takeWhile, map, mergeMap, tap, filter } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { GuardiansService } from 'src/app/services/guardians.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { ActivatedRoute } from '@angular/router';
+import { selectStudent } from '../store/selectors/student-profile.selectors';
+import { loadStudentProfiles } from '../store/actions/student-profile.actions';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-create-student-guardian',
@@ -33,12 +36,15 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   isSubmitting: boolean;
   confirmedData: boolean[];
   componentIsActive: boolean;
+  student$: any;
+  studentId: number;
   constructor(
     private studentGuardian: GuardiansService,
     private users: UsersService,
     private store: Store<AppState>,
     private fb: FormBuilder,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private studentService: StudentService
   ) {
     this.usersData = [null];
     this.confirmData = [false];
@@ -51,6 +57,16 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
       guardians: this.fb.array([this.buildGuardianProfile()])
     });
     this.subscribeToEmailChecking();
+    this.student$ = this.route.paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(tap(id => this.studentId = id))
+      .pipe(mergeMap((id) => this.store.pipe(select(selectStudent(id)))))
+      .pipe(tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } })): null))
+      // .pipe(tap(profile => {
+      //   if (!profile) {
+      //     this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } }))
+      //   }
+      // }))
   }
   get guardians(): FormArray {
     return this.userIdentificaionForm.get('guardians') as FormArray;
