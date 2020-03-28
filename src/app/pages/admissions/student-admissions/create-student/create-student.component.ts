@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import { Store } from '@ngrx/store';
 import { AppState } from '../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
@@ -8,12 +8,11 @@ import { StudentService } from 'src/app/services/student.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
-import { takeWhile, tap } from 'rxjs/operators';
-import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
+import { takeWhile } from 'rxjs/operators';
 import * as fromGenders from 'src/app/store/reducers/gender.reducer'
 import * as fromReligions from 'src/app/store/reducers/religion.reducer'
-import { loadGenders } from 'src/app/store/actions/gender.actions';
-import { loadReligions } from 'src/app/store/actions/religion.actions';
+import { GenderService } from 'src/app/services/gender.service';
+import { ReligionService } from 'src/app/services/religion.service';
 
 @Component({
   selector: 'app-create-student',
@@ -33,14 +32,14 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     private fb: FormBuilder,
     private idNumberValidator: IdNumberValidator,
     private studentService: StudentService,
-    private router: Router
+    private router: Router,
+    private genderService: GenderService,
+    private religionService: ReligionService,
   ) { }
 
   ngOnInit() {
-    this.genders$ = this.store.pipe(select(selectGenders))
-      .pipe(tap(gender => !gender[0].id ? this.store.dispatch(loadGenders()) : ''))
-    this.religions$ = this.store.pipe(select(selectReligions))
-      .pipe(tap(religion => !religion[0].id ? this.store.dispatch(loadReligions()) : ''))
+    this.genders$ = this.genderService.loadAll$;
+    this.religions$ = this.religionService.loadAll$;
     
     this.componentIsActive = true;
     this.newStudentForm = this.fb.group({
@@ -51,9 +50,9 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
       otherNames: [''],
       autoGenerateId: [false, Validators.required],
       namePrefix: [''],
-      gender: [null],
-      religion: [null],
-      dateOfBirth: [null, Validators.required],
+      gender: [''],
+      religion: [''],
+      dateOfBirth: ['', Validators.required],
     });
     this.autoGenerate.valueChanges
       .pipe(takeWhile(() => this.componentIsActive))

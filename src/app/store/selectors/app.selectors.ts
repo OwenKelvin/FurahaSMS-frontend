@@ -9,10 +9,10 @@ export const selectAppState = createFeatureSelector<fromApp.State>(
 
 export const selectGenders = createSelector(
   selectAppState,
-  app => app[genderFeatureKey]
+  app => Object.values(app[genderFeatureKey])
 );
 
 export const selectReligions = createSelector(
   selectAppState,
-  app => app[religionFeatureKey]
+  app => Object.values(app[religionFeatureKey])
 );
