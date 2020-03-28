@@ -36,6 +36,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   savingProfPic: boolean;
   photoFile: File;
   componentIsActive: boolean;
+  profPicLoading: boolean;
   constructor(
     private modalService: BsModalService,
     private usersService: UsersService,
@@ -47,10 +48,12 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.getProfilePic();
   }
   getProfilePic() {
+    this.profPicLoading = true;
     this.usersService.getProfilePicture({ userId: this.profile.id })
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
+        this.profPicLoading = false;
       });
   }
   get fullName(): string {

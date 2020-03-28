@@ -32,29 +32,39 @@ export class NameItemComponent implements OnInit, OnDestroy {
   ngOnInit(): void {
     this.componentIsActive = true;
     this.itemForm = this.fb.group({
-      name: [this.name, [Validators.required, Validators.minLength(2)]]
+      name: [this.name, Validators.minLength(2)]
     });
+    if (['first', 'last'].includes(this.label.toLocaleLowerCase())) {
+      this.itemForm.get('name')?.setValidators([Validators.required, Validators.minLength(2)]);
+    }
+    this.itemForm.updateValueAndValidity()
   }
 
   submitFormItem() {
-    this.isSubmitting = true;
-    this.usersService.update({
-      fieldName: this.label + 'Name',
-      fieldNewValue: this.itemForm.get('name')?.value,
-      userId: this.userId
-    })
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-        this.change.emit(this.itemForm.get('name')?.value)
-        this.isSubmitting = false;
-        this.editable = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
-      }, () => this.isSubmitting = false);
+    if (this.itemForm.valid) {
+      this.isSubmitting = true;
+      const fieldNewValue = this.itemForm.get('name')?.value;
+      this.usersService.update({
+        fieldName: this.label + 'Name',
+        fieldNewValue,
+        userId: this.userId
+      })
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(res => {
+          this.change.emit(fieldNewValue);
+          this.isSubmitting = false;
+          this.editable = false;
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: res.message,
+            toastHeader: 'Success!',
+            toastTime: 'Just now'
+          }));
+        }, () => this.isSubmitting = false);
+    } else {
+      alert('Form not filled correctly')
+    }
+
   }
   ngOnDestroy() {
     this.componentIsActive = false;

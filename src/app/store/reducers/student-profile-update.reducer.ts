@@ -8,7 +8,7 @@ export interface StudentProfileStateInterface {
   id: number;
   firstName: string;
   lastName: string;
-  studentId: number;
+  studentId?: number;
   middleName?: string;
   otherNames?: string;
   dateOfBirth?: string;

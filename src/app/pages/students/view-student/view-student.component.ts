@@ -1,13 +1,12 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { Observable } from 'rxjs';
 import { tap, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { StudentService } from 'src/app/services/student.service';
 import { StudentProfileStateInterface } from 'src/app/store/reducers/student-profile-update.reducer';
-import { loadStudentProfileUpdatesSuccess } from 'src/app/store/actions/student-profile-update.actions';
-import { loadStudentProfiles } from '../store/actions/student-profile.actions';
+import { loadStudentProfiles, loadStudentProfilesSuccess } from '../store/actions/student-profile.actions';
+import { selectStudent } from '../store/selectors/student-profile.selectors';
 
 @Component({
   selector: 'app-view-student',
@@ -17,32 +16,27 @@ import { loadStudentProfiles } from '../store/actions/student-profile.actions';
 export class ViewStudentComponent implements OnInit {
   student$: Observable<StudentProfileStateInterface>;
   fullName: string;
+  studentId: number;
   constructor(
     private store: Store<fromStore.AppState>,
     private route: ActivatedRoute,
-    private activatedRoute: ActivatedRoute,
-    private studentService: StudentService
   ) { }
 
   ngOnInit() {
-    this.route.paramMap
+    this.student$ = this.route.paramMap
       .pipe(map(params => Number(params.get('id'))))
-      .pipe(tap(id => this.store.dispatch(loadStudentProfiles({ data: { id }}))))
-      // .pipe(mergeMap(studentId => this.studentService.getStudentById(studentId)))
-      .subscribe(response => console.log({response}))
+      .pipe(tap(id => this.store.dispatch(loadStudentProfiles({ data: { id } }))))
+      .pipe(tap(id => this.studentId = id))
+      .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))))
     
-    
-    
-    const studentId = this.activatedRoute.snapshot.params.id;
-    this.student$ = this.studentService.getStudentById(studentId)
-      .pipe(tap(profile => {
-        const middleName = ' ' + (profile.middleName ? profile.middleName : '');
-        this.fullName = profile.firstName + ' ' + profile.lastName + middleName + ' | ' + profile.studentId;
-        this.store.dispatch(loadStudentProfileUpdatesSuccess({ data: profile }));
-      }));
   }
-  changeProfile($event: { fieldName: string, fieldNewValue: string; }) {
-    this.store.dispatch(loadStudentProfileUpdatesSuccess({ data: { [$event.fieldName]: $event.fieldNewValue } }));
+  changeProfile(event: { fieldName: string, fieldNewValue: string; } | Event) {
+    let eventTemp = event as { fieldName: string, fieldNewValue: string; };
+    if (eventTemp.fieldName) {
+      this.store.dispatch(loadStudentProfilesSuccess(
+        { data: { id: this.studentId, [eventTemp.fieldName]: eventTemp.fieldNewValue } }));
+    }
+   
   }
 
 }
