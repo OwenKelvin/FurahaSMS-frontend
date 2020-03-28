@@ -1,23 +1,27 @@
 <div class="d-flex justify-content-between align-items-start">
   <h1>{{ title }} Profile </h1>
-  <button (click)='editMode = !editMode' class="btn btn-primary mt-3"><span class="icon-edit"></span>
-    {{ editMode ? 'Disable' : 'Enable'}} Edit Mode
-  </button>
+  <div class="custom-control custom-switch mt-3">
+    <input [(ngModel)]='editMode' type="checkbox" class="custom-control-input" id="editMode">
+    <label class="custom-control-label" for="editMode">
+      Enable Editing
+      <span [class.icon-edit]='editMode'></span>
+      <span [class.icon-eye]='!editMode'></span>
+    </label>
+  </div>
 </div>
 
-<section class='d-flex flex-wrap wrapper'>
-  <section class='col-md-3 col-lg-2 d-flex justify-content-center'>
+<section class='d-flex flex-wrap'>
+  <section class='col-sm-5 col-md-4 col-lg-2 d-flex justify-content-center'>
     <span *ngIf='profPicLoading' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
     <div *ngIf='editMode' class="upload-profile-pic">
       <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected(template)' #fileInput hidden type="file">
       <button (click)='fileInput.click()' class='btn btn secondary'><span>Upload Photo</span></button>
     </div>
-    <!-- TODO-me Load Correct image-->
-    <img #profPic class='img-thumbnail img-fluid m-2' src='assets/images/default-user.jpg'
+    <img #profPic class='img-thumbnail img-fluid' src='assets/images/default-user.jpg'
       onerror='this.src="assets/images/default-user.jpg";' alt='' />
   </section>
-  <section class='col-md-8 col-lg-9 d-flex align-items-lg-between flex-wrap'>
-    <section class='d-flex flex-wrap justify-content-between align-items-lg-center name-field'>
+  <section class='col-sm-7 col-md-8 col-lg-9 d-flex align-items-lg-between flex-wrap'>
+    <section class='col-lg-12 d-flex flex-wrap justify-content-between align-items-lg-center'>
       <section class='col-sm-12 d-flex justify-content-between'>
         <h2>{{ fullName | uppercase }}</h2>
       </section>

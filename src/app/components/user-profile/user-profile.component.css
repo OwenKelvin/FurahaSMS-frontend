@@ -36,7 +36,8 @@ h2 {
   height: 100%;
 }
 .upload-profile-pic:hover {
-   background-color: rgba(128, 128, 128, 0.3);
+  color: blue;
+   background-color: rgba(128, 128, 128, 0.7);
 }
 .upload-profile-pic button{
  

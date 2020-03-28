@@ -5,33 +5,29 @@ import { selectStudentId } from 'src/app/store/selectors/student-profile.selecto
 import { StudentAcademicsService } from '../services/student-academics.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
-import { map, takeWhile, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-student-academics',
   templateUrl: './view-student-academics.component.html',
   styleUrls: ['./view-student-academics.component.css']
 })
-export class ViewStudentAcademicsComponent implements OnInit, OnDestroy {
-  studentId$: Observable<any>;
+export class ViewStudentAcademicsComponent implements OnInit {
+  studentId: number | undefined;
   componentIsActive: boolean;
-  academicYearSubjects$: Observable<any>;
+  academicYearSubjects$: Observable<any> | undefined;
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<fromStore.AppState>, private studentAcademicsService: StudentAcademicsService) { }
+    private studentAcademicsService: StudentAcademicsService) { }
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.studentId$ = (this.route.parent as ActivatedRoute).paramMap
-      .pipe(map(params => Number(params.get('id'))));
-    this.academicYearSubjects$ = this.studentId$
+    this.academicYearSubjects$ =this.route.parent?.paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(tap(studentId => this.studentId = studentId))
       .pipe(mergeMap(studentId => this.studentAcademicsService.getForStudentWithId(studentId)))
-      .pipe(takeWhile(() => this.componentIsActive))
       ;
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 
 }
