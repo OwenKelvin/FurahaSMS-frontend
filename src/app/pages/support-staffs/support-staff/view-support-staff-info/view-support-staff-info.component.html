@@ -1,6 +1,7 @@
 
 <ng-container *ngIf='supportStaffProfile$ | async as supportStaffProfile; else loading'>
   <app-user-profile
+  (change)='changeProfile($event)'
   title='Support Staff'
   [profile]='supportStaffProfile'
   [linkBase]='["/support-staff"]'

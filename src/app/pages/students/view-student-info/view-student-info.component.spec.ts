@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewStudentInfoComponent } from './view-student-info.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { LoadingBubbleComponent } from '../../../../components/loading-bubble/loading-bubble.component';
+import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 
 describe('ViewStudentInfoComponent', () => {
   let component: ViewStudentInfoComponent;

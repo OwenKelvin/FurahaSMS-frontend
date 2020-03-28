@@ -4,9 +4,9 @@ import { CreateStudentGuardianComponent } from './create-student-guardian.compon
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { SelectComponent } from '../../../../components/select/select.component';
-import { InputComponent } from '../../../../components/input/input.component';
-import { TelInputComponent } from '../../../../components/tel-input/tel-input.component';
+import { SelectComponent } from '../../../components/select/select.component';
+import { InputComponent } from '../../../components/input/input.component';
+import { TelInputComponent } from '../../../components/tel-input/tel-input.component';
 import { OrdinalPipe } from 'src/app/pipes/ordinal.pipe';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

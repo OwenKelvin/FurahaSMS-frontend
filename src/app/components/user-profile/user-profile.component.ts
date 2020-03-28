@@ -1,4 +1,14 @@
-import { Component, OnInit, Input, TemplateRef, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  Input,
+  TemplateRef,
+  OnDestroy,
+  ViewChild,
+  ElementRef,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/services/users.service';
 import { takeWhile, mergeMap, map } from 'rxjs/operators';
@@ -17,6 +27,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() links: any[];
   @Input() includeProfileId = true;
   @ViewChild('profPic') profPic: ElementRef;
+  @Output() change: EventEmitter<any> = new EventEmitter;
   editMode: boolean = false;
 
   photoSrc: any;
@@ -39,8 +50,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.usersService.getProfilePicture({ userId: this.profile.id })
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
-          (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res)
-      })
+        (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
+      });
   }
   get fullName(): string {
     return this.profile.firstName + ' ' + this.profile.lastName
@@ -63,7 +74,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.savingProfPic = false;
         this.hideModal();
-        (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc
+        (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc;
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
           toastBody: res.message,
@@ -76,10 +87,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-md bg-dark text-light modal-container ');
   }
-  
+
   hideModal() {
     const $input: any = document.querySelector('#profilePhotoInput');
-    ($input as HTMLInputElement).value = ''
+    ($input as HTMLInputElement).value = '';
     this.modalRef.hide();
   }
 
@@ -102,7 +113,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
 
   }
-
+  changeProfile(fieldName: string, $event: string) {
+    this.change.emit({fieldName, fieldNewValue: $event});
+  }
   fitImageOn(canvas: any, imageObj: any) {
     const imageAspectRatio = imageObj.width / imageObj.height;
     const canvasAspectRatio = canvas.width / canvas.height;

@@ -4,7 +4,7 @@ import { ViewStudentGuardiansComponent } from './view-student-guardians.componen
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LoadingBubbleComponent } from '../../../../components/loading-bubble/loading-bubble.component';
+import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ViewStudentGuardiansComponent', () => {

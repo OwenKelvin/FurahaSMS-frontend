@@ -26,8 +26,13 @@ export class UsersService {
   ): Observable<any> {
     const data: any = {
       [fieldName]: fieldNewValue
-    }
-    return this.http.patch(`api/users/${userId}`, data)
+    }    
+    return this.http.patch(`api/users/${userId}`, {
+      first_name: data.FirstName,
+      last_name: data.LastName,
+      middle_name: data.MiddleName,
+      other_names: data.OtherName,
+    })
   }
   
   uploadPhoto({ file }: { file: File; }): Observable<any> {

@@ -27,7 +27,7 @@ const StudentProfileUpdateReducer = createReducer(
   initialState,
   on(loadStudentProfileUpdatesSuccess, (state, payload) => {
     return {
-      ...state, ...payload
+      ...state, ...payload.data
     };
 
   }),

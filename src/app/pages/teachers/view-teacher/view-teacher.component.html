@@ -1,14 +1,8 @@
-
 <ng-container *ngIf='teacherProfile$ | async as teacherProfile; else loading'>
-  <app-user-profile
-  title='Teacher'
-  [profile]='teacherProfile'
-  [linkBase]='["/teachers"]'
-  [links]='["info", "subjects"]'
-></app-user-profile>
+  <app-user-profile (change)='changeProfile($event)' title='Teacher' [profile]='teacherProfile'
+    [linkBase]='["/teachers"]' [links]='["info", "subjects"]'></app-user-profile>
 </ng-container>
 <ng-template #loading>
   <h1>Teacher Profile</h1>
   <app-loading-bubble></app-loading-bubble>
 </ng-template>
-

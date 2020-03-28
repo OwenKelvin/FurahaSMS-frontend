@@ -19,6 +19,10 @@ export class ViewSupportStaffInfoComponent implements OnInit {
     private route: ActivatedRoute,
     private store: Store<AppState>
   ) { }
+  
+  changeProfile($event: any) {
+    console.log($event, "Method Not Implemented");
+  }
 
   ngOnInit() {
     this.supportStaffProfile$ = (this.route.parent as ActivatedRoute).paramMap

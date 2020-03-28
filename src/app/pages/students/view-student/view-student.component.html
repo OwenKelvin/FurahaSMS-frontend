@@ -1,6 +1,7 @@
 
 <ng-container *ngIf='student$ | async as studentProfile; else loading'>
   <app-user-profile
+  (change)='changeProfile($event)'
   title='Student'
   [profile]='studentProfile'
   [linkBase]='["/students"]'

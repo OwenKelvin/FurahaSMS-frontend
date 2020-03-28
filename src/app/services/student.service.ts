@@ -40,7 +40,7 @@ export class StudentService {
       }));
     }
   }
-  getStudentById(id: string): Observable<any> {
+  getStudentById(id: string | number): Observable<any> {
     const url = `api/students?id=${id}`;
     return this.http.get<any>(url)
       .pipe(
@@ -58,7 +58,7 @@ export class StudentService {
         })
       );
   }
-  getStudentBySchoolId(idNumber: string): Observable<any> {
+  getStudentBySchoolId(idNumber: string | number): Observable<any> {
     const url = `api/student/id-number?q=${idNumber}`;
     return this.http.get<any>(url)
       .pipe(

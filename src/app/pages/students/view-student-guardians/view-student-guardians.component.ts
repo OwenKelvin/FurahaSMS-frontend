@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { AppState } from '../../../../store/reducers';
+import { AppState } from '../../../store/reducers';
 import { selectStudentId } from 'src/app/store/selectors/student-profile.selector';
 import { Observable } from 'rxjs';
 import { Router } from '@angular/router';

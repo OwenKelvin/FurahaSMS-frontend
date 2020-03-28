@@ -1,8 +1,8 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../../../store/reducers';
+import * as fromStore from '../../../store/reducers';
 import { selectStudentId } from 'src/app/store/selectors/student-profile.selector';
-import { StudentAcademicsService } from '../../../students/services/student-academics.service';
+import { StudentAcademicsService } from '../services/student-academics.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
 import { map, takeWhile, mergeMap } from 'rxjs/operators';

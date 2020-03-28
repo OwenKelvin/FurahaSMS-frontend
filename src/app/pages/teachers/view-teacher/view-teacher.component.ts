@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { loadTeacherProfiles } from '../store/actions/teacher-profile.actions';
+import { loadTeacherProfiles, loadTeacherProfilesSuccess } from '../store/actions/teacher-profile.actions';
 
 @Component({
   selector: 'app-view-teacher',
@@ -35,6 +35,9 @@ export class ViewTeacherComponent implements OnInit, OnDestroy {
   }
   ngOnDestroy() {
     this.componentIsActive = false;
+  }
+  changeProfile($event: { fieldName: string, fieldNewValue: string; }) {
+    this.store.dispatch(loadTeacherProfilesSuccess({data: {[$event.fieldName]: $event.fieldNewValue}}))
   }
 
 }

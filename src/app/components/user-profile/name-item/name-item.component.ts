@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { Store } from '@ngrx/store';
@@ -15,6 +15,8 @@ export class NameItemComponent implements OnInit, OnDestroy {
   @Input() name: string;
   @Input() label: string = '';
   @Input() editMode: boolean = false;
+  @Input() userId: number;
+  @Output() change = new EventEmitter();
   itemForm: FormGroup;
   editHovered: boolean = false;
   editable: boolean = false;
@@ -37,12 +39,13 @@ export class NameItemComponent implements OnInit, OnDestroy {
   submitFormItem() {
     this.isSubmitting = true;
     this.usersService.update({
-      fieldName: 'firstName',
+      fieldName: this.label + 'Name',
       fieldNewValue: this.itemForm.get('name')?.value,
-      userId: 1
+      userId: this.userId
     })
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
+        this.change.emit(this.itemForm.get('name')?.value)
         this.isSubmitting = false;
         this.editable = false;
         this.store.dispatch(loadToastShowsSuccess({
