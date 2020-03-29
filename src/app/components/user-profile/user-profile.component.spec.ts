@@ -3,6 +3,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { UserProfileComponent } from './user-profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppUserProfileModule } from './user-profile.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -12,9 +17,21 @@ describe('UserProfileComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ModalModule
+        ModalModule.forRoot(),
+        AppUserProfileModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ UserProfileComponent ]
+      declarations: [UserProfileComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

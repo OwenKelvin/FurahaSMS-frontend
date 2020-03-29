@@ -44,7 +44,9 @@ import { ReligionEffects } from './store/effects/religion.effects';
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.APP_REDUCER_TOKEN),
+    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.APP_REDUCER_TOKEN, {
+      metaReducers: fromApp.appMetaReducers
+    }),
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
 
   ],

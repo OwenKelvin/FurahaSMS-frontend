@@ -85,7 +85,6 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
       }))
       .pipe(
         tap(item => {
-          console.log(item)
           item.forEach((i: any) => {
             const unitLevels = this.fb.array([]);
             (i.unitLevels as any[]).forEach(b => {

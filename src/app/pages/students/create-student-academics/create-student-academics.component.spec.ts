@@ -8,6 +8,7 @@ import { StudentsModule } from '../students.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('CreateStudentAcademicsComponent', () => {
   let component: CreateStudentAcademicsComponent;
@@ -24,6 +25,7 @@ describe('CreateStudentAcademicsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         ReactiveFormsModule,
         FormsModule,
         StudentsModule,

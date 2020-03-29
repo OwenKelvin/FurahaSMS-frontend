@@ -16,14 +16,14 @@ export class NameItemComponent implements OnInit, OnDestroy {
 
   @Input() type: string;
   @Input() name: string;
-  @Input() label: string = '';
+  @Input() label = '';
   // @Input() editMode: boolean = false;
   @Input() userId: number;
   @Output() valueChanged = new EventEmitter();
   itemForm: FormGroup;
-  editHovered: boolean = false;
-  editable: boolean = false;
-  isSubmitting: boolean = false;
+  editHovered = false;
+  editable = false;
+  isSubmitting = false;
   componentIsActive: boolean;
   editMode$: Observable<boolean>;
 

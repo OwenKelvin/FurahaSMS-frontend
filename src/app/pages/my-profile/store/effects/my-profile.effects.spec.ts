@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 
 import { MyProfileEffects } from './my-profile.effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('MyProfileEffects', () => {
   let actions$: Observable<any>;
@@ -11,6 +12,7 @@ describe('MyProfileEffects', () => {
   beforeEach(() => {
     actions$ = of({});
     TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
       providers: [
         MyProfileEffects,
         provideMockActions(() => actions$)

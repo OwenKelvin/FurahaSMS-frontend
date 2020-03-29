@@ -23,7 +23,7 @@ export class ViewStudentGuardiansComponent implements OnInit {
     private guardianService: GuardiansService) { }
 
   ngOnInit() {
-    
+
     this.guardians$ = this.route.parent?.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(tap(studentId => this.studentId = studentId))

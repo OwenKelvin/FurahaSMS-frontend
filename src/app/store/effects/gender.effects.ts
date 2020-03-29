@@ -9,7 +9,7 @@ import { of } from 'rxjs';
 
 @Injectable()
 export class GenderEffects {
-  
+
   loadGenders$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadGenders),

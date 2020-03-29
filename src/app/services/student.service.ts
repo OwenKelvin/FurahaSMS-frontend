@@ -12,8 +12,7 @@ export class StudentService {
     private http: HttpClient
   ) { }
   createNewStudent(newStudentData: any): Observable<any> {
-    console.log({ newStudentData });
-    
+
     return this.save(newStudentData);
   }
   save(data: any, idNumber: any = null): Observable<any> {

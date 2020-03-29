@@ -26,7 +26,7 @@ export class ViewStudentInfoComponent implements OnInit, OnDestroy {
     private route: ActivatedRoute,
     private genderService: GenderService,
     private religionService: ReligionService
-    
+
   ) { }
 
   ngOnInit() {
@@ -52,14 +52,14 @@ export class ViewStudentInfoComponent implements OnInit, OnDestroy {
     }))
   }
   updateSelectValue(fieldName: string, $event: {id: number, name: string}) {
-    
+
     this.store.dispatch(loadStudentProfilesSuccess({
       data: {
         id: this.studentId,
-        [fieldName + "_id"]: $event.id,
-        [fieldName + "_name"]: $event.name,
+        [fieldName + '_id']: $event.id,
+        [fieldName + '_name']: $event.name,
       }
     }))
-    
+
   }
 }

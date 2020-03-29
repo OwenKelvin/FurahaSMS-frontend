@@ -40,7 +40,7 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   ngOnInit() {
     this.genders$ = this.genderService.loadAll$;
     this.religions$ = this.religionService.loadAll$;
-    
+
     this.componentIsActive = true;
     this.newStudentForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],

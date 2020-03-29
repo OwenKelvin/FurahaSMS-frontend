@@ -15,7 +15,7 @@ export class ReligionService {
   loadAll$: Observable<fromReligions.State> = this.store.pipe(select(selectReligions))
     .pipe(tap(religion => !religion[0].id ? this.store.dispatch(loadReligions()) : ''))
 
-  
+
   getAll(): Observable<any> {
     const url = 'api/religions/all';
     return this.http.get<any>(url)
@@ -27,6 +27,6 @@ export class ReligionService {
         }
       ));
   }
-  
+
   getReligion$ = (id: number | string) => this.store.pipe(select(selectReligion(id)))
 }

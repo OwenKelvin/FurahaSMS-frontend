@@ -9,7 +9,7 @@ import { ReligionService } from 'src/app/services/religion.service';
 
 @Injectable()
 export class ReligionEffects {
-  
+
   loadReligions$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(loadReligions),

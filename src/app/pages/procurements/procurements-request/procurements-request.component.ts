@@ -58,8 +58,6 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
         this.loadingContents = false;
       });
     }
-
-    console.log(this.idControl)
   }
 
   submitProcurementRequestForm() {

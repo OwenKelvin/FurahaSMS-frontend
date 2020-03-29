@@ -21,8 +21,8 @@ export class UserSelectItemComponent implements OnInit, OnDestroy {
   @Output() valueChanged: EventEmitter<{id: number, name: string}> = new EventEmitter();
   editMode$: Observable<boolean> | undefined;
   @Input() items: Observable<any[]>;
-  editable: boolean = false;
-  editHovered: boolean = false;
+  editable = false;
+  editHovered = false;
   itemForm: FormGroup;
   isSubmitting: boolean;
   componentIsActive: boolean;
@@ -40,7 +40,7 @@ export class UserSelectItemComponent implements OnInit, OnDestroy {
     })
     this.editMode$ = this.store.pipe(select(selectEditModeOnState));
   }
-  
+
   submitFormItem() {
 
     if (this.itemForm.valid) {

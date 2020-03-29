@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('ViewStudentInfoComponent', () => {
   let component: ViewStudentInfoComponent;
@@ -23,7 +24,8 @@ describe('ViewStudentInfoComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        AppUserProfileModule
+        AppUserProfileModule,
+        HttpClientTestingModule
       ],
       declarations: [ViewStudentInfoComponent, LoadingBubbleComponent],
       providers: [reducerProvider]

@@ -13,7 +13,7 @@ export const initialState: State = {
 
 const editModeReducer = createReducer(
   initialState,
-  
+
   on(EditModeActions.loadEditModesSuccess, state => ({ ...state, on: true })),
   on(EditModeActions.loadEditModesFailure, state => ({ ...state, on: false })),
 

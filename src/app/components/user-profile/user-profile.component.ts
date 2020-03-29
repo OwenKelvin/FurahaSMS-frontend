@@ -28,8 +28,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() links: any[];
   @Input() includeProfileId = true;
   @ViewChild('profPic') profPic: ElementRef;
-  @Output() valueChanged: EventEmitter<any> = new EventEmitter;
-  editMode: boolean = false;
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter();
+  editMode = false;
 
   photoSrc: any;
   context: any;
@@ -126,7 +126,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   fitImageOn(canvas: any, imageObj: any) {
     const imageAspectRatio = imageObj.width / imageObj.height;
     const canvasAspectRatio = canvas.width / canvas.height;
-    let renderableHeight, renderableWidth, xStart, yStart;
+    let renderableHeight;
+    let renderableWidth;
+    let xStart;
+    let yStart;
 
     // If image's aspect ratio is less than canvas's we fit on height
     // and place the image centrally along width

@@ -4,6 +4,7 @@ import { UserSelectItemComponent } from './user-select-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('UserSelectItemComponent', () => {
   let component: UserSelectItemComponent;
@@ -14,6 +15,7 @@ describe('UserSelectItemComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
+        HttpClientTestingModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

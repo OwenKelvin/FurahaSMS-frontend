@@ -8,6 +8,10 @@ import { InputComponent } from '../../../../components/input/input.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LabelStarRequiredComponent } from '../../../../components/label-star-required/label-star-required.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import { GenderService } from 'src/app/services/gender.service';
+import { of } from 'rxjs';
+import { ReligionService } from 'src/app/services/religion.service';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 describe('CreateStudentComponent', () => {
   let component: CreateStudentComponent;
@@ -27,10 +31,27 @@ describe('CreateStudentComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AppInputModule
       ],
       declarations: [CreateStudentComponent, InputComponent, LabelStarRequiredComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: GenderService,
+          useValue: {
+            loadAll$: of([{}])
+
+          }
+        },
+        {
+          provide: ReligionService,
+          useValue: {
+            loadAll$: of([{}])
+
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();

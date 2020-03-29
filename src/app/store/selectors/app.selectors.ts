@@ -10,19 +10,19 @@ export const selectAppState = createFeatureSelector<fromApp.State>(
 
 export const selectGenders = createSelector(
   selectAppState,
-  app => Object.values(app[genderFeatureKey])
+  app => app ? Object.values(app[genderFeatureKey]) : ([{ }])
 );
 
 export const selectGender = (id: number | string) => createSelector(
   selectGenders,
-  genders => {    
+  genders => {
     return genders.find(({ id: itemId }) => +id === +itemId)
   }
 );
 
 export const selectReligions = createSelector(
   selectAppState,
-  app => Object.values(app[religionFeatureKey])
+  app => app ? Object.values(app[religionFeatureKey]) : ([{ }])
 );
 
 export const selectReligion = (id: number | string) => createSelector(
@@ -33,5 +33,5 @@ export const selectReligion = (id: number | string) => createSelector(
 );
 export const selectEditModeOnState = createSelector(
   selectAppState,
-  app => app[editModeFeatureKey].on
+  app => app ? app[editModeFeatureKey].on: false
 );

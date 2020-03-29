@@ -28,15 +28,15 @@ export class ViewStudentComponent implements OnInit {
       .pipe(tap(id => this.store.dispatch(loadStudentProfiles({ data: { id } }))))
       .pipe(tap(id => this.studentId = id))
       .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))))
-    
+
   }
   changeProfile(event: { fieldName: string, fieldNewValue: string; } | Event) {
-    let eventTemp = event as { fieldName: string, fieldNewValue: string; };
+    const eventTemp = event as { fieldName: string, fieldNewValue: string; };
     if (eventTemp.fieldName) {
       this.store.dispatch(loadStudentProfilesSuccess(
         { data: { id: this.studentId, [eventTemp.fieldName]: eventTemp.fieldNewValue } }));
     }
-   
+
   }
 
 }

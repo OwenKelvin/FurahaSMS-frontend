@@ -10,7 +10,7 @@ import { StudentService } from 'src/app/services/student.service';
 
 @Injectable()
 export class StudentProfileEffects {
-  
+
   constructor(
     private actions$: Actions,
     private studentService: StudentService
@@ -18,10 +18,10 @@ export class StudentProfileEffects {
 
   loadStudentProfiles$ = createEffect(() => {
     return this.actions$.pipe(
-      
+
       ofType(StudentProfileActions.loadStudentProfiles),
       concatMap((payload) => {
-      
+
         return this.studentService.getStudentById(payload.data.id).pipe(
           map(data => StudentProfileActions.loadStudentProfilesSuccess({ data })),
           catchError(error => of(StudentProfileActions.loadStudentProfilesFailure({ error }))));

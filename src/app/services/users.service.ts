@@ -15,11 +15,11 @@ export class UsersService {
     const url = `api/users/email/?q=${email}`;
     return this.http.get(url);
   }
-  
+
   update(
     { userId, fieldName, fieldNewValue }: { userId: number, fieldName: string, fieldNewValue: string; }
   ): Observable<any> {
-    if (fieldName === "Date of BirthName") {
+    if (fieldName === 'Date of BirthName') {
       fieldName = 'dateOfBirth';
     }
     const data: any = {
