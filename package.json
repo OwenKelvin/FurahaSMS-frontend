@@ -31,7 +31,7 @@
     "@angular/forms": "~9.1.0",
     "@angular/platform-browser": "~9.1.0",
     "@angular/platform-browser-dynamic": "~9.1.0",
-    "@angular/pwa": "^0.803.25",
+    "@angular/pwa": "^0.901.0",
     "@angular/router": "~9.1.0",
     "@angular/service-worker": "^9.0.6",
     "@ng-select/ng-select": "^3.7.3",

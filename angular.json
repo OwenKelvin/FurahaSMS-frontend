@@ -24,7 +24,6 @@
               "src/assets",
               "src/robots.txt",
               "src/manifest.webmanifest",
-              "src/manifest.webmanifest",
               {
                 "glob": "**/*",
                 "input": "node_modules/ng2-pdfjs-viewer/pdfjs",
