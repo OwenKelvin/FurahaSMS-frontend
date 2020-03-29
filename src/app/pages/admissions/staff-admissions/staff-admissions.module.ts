@@ -12,6 +12,7 @@ import { SupportStaffAdmissionComponent } from './support-staff-admission/suppor
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateStaffComponent } from './support-staff-admission/create-staff/create-staff.component';
+import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 
 
 @NgModule({
@@ -31,6 +32,7 @@ import { CreateStaffComponent } from './support-staff-admission/create-staff/cre
     AppLoadingBubbleModule,
     AppDashboardLinksModule,
     AppInputModule,
+    AppTelInputModule,
     NgSelectModule
   ]
 })
