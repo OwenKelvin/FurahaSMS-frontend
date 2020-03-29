@@ -44,7 +44,7 @@ import { ReligionEffects } from './store/effects/religion.effects';
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
-    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.reducers),
+    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.APP_REDUCER_TOKEN),
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
 
   ],
@@ -54,7 +54,8 @@ import { ReligionEffects } from './store/effects/religion.effects';
     { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    reducerProvider
+    reducerProvider,
+    fromApp.appReducerProvider
   ],
   bootstrap: [AppComponent]
 })

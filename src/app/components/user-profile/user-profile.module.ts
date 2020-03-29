@@ -6,13 +6,13 @@ import { NameItemComponent } from './name-item/name-item.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { SelectItemEditorComponent } from './select-item-editor/select-item-editor.component';
+import { UserSelectItemComponent } from './user-select-item/user-select-item.component';
 
 
 
 @NgModule({
   declarations: [
-    UserProfileComponent, NameItemComponent, SelectItemEditorComponent
+    UserProfileComponent, NameItemComponent, UserSelectItemComponent
   ],
   imports: [
     CommonModule,
@@ -23,7 +23,8 @@ import { SelectItemEditorComponent } from './select-item-editor/select-item-edit
     ModalModule.forRoot()
   ],
   exports: [
-    UserProfileComponent
+    UserProfileComponent,
+    UserSelectItemComponent
   ]
 })
 export class AppUserProfileModule { }

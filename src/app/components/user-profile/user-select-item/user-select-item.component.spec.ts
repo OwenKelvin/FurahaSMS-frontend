@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SelectItemEditorComponent } from './select-item-editor.component';
+import { UserSelectItemComponent } from './user-select-item.component';
 
-describe('SelectItemEditorComponent', () => {
-  let component: SelectItemEditorComponent;
-  let fixture: ComponentFixture<SelectItemEditorComponent>;
+describe('UserSelectItemComponent', () => {
+  let component: UserSelectItemComponent;
+  let fixture: ComponentFixture<UserSelectItemComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SelectItemEditorComponent ]
+      declarations: [ UserSelectItemComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SelectItemEditorComponent);
+    fixture = TestBed.createComponent(UserSelectItemComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
