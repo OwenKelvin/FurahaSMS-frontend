@@ -174,8 +174,10 @@ a:hover {
   border: rgba(211, 211, 211, 0.3) solid 2px;
 }
 .label-value, .label-name {
- font-weight: bold;
  line-height: 2em;
+}
+.label-name{
+  font-weight: bold;
 }
 .modal-container {
    border: rgba(165, 165, 165, 0.8) solid 2px;

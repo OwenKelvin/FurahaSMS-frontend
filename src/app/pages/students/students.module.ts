@@ -41,7 +41,8 @@ import { StudentProfileEffects } from './store/effects/student-profile.effects';
     AppUserProfileModule,
     StoreModule.forFeature(fromStudentProfile.studentProfileFeatureKey, fromStudentProfile.reducer),
     EffectsModule.forFeature([StudentProfileEffects]),
-    AppUserProfileModule
+    AppUserProfileModule,
+    
   ]
 })
 export class StudentsModule { }

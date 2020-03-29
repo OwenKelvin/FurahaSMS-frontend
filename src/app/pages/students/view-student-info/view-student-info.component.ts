@@ -43,7 +43,14 @@ export class ViewStudentInfoComponent implements OnInit, OnDestroy {
   ngOnDestroy() {
     this.componentIsActive = false;
   }
-  
+  changeProfile(fieldName: string, $event: string | number) {
+    this.store.dispatch(loadStudentProfilesSuccess({
+      data: {
+        id: this.studentId,
+        [fieldName ]: $event,
+      }
+    }))
+  }
   updateSelectValue(fieldName: string, $event: {id: number, name: string}) {
     
     this.store.dispatch(loadStudentProfilesSuccess({

@@ -26,16 +26,16 @@
         <h2>{{ fullName | uppercase }}</h2>
       </section>
       <section class='col-lg-6'>
-        <app-name-item (valueChanged)='changeProfile("firstName", $event)' [userId]='profile.id' label='First' [editMode]='editMode' [name]='profile.firstName'></app-name-item>
+        <app-name-item (valueChanged)='changeProfile("firstName", $event)' [userId]='profile.id' label='First' [name]='profile.firstName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item  (valueChanged)='changeProfile("lastName", $event)' [userId]='profile.id' label='Last' [editMode]='editMode' [name]='profile.lastName'></app-name-item>
+        <app-name-item  (valueChanged)='changeProfile("lastName", $event)' [userId]='profile.id' label='Last' [name]='profile.lastName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item  (valueChanged)='changeProfile("middleName", $event)' [userId]='profile.id' label='Middle' [editMode]='editMode' [name]='profile.middleName'></app-name-item>
+        <app-name-item  (valueChanged)='changeProfile("middleName", $event)' [userId]='profile.id' label='Middle' [name]='profile.middleName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item (valueChanged)='changeProfile("otherNames", $event)'  [userId]='profile.id' label='Other' [editMode]='editMode' [name]='profile.otherNames'></app-name-item>
+        <app-name-item (valueChanged)='changeProfile("otherNames", $event)'  [userId]='profile.id' label='Other' [name]='profile.otherNames'></app-name-item>
       </section>
     </section>
   </section>

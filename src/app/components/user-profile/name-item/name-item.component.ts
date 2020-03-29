@@ -1,9 +1,11 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, tap } from 'rxjs/operators';
+import { selectEditModeOnState } from 'src/app/store/selectors/app.selectors';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-name-item',
@@ -12,9 +14,10 @@ import { takeWhile } from 'rxjs/operators';
 })
 export class NameItemComponent implements OnInit, OnDestroy {
 
+  @Input() type: string;
   @Input() name: string;
   @Input() label: string = '';
-  @Input() editMode: boolean = false;
+  // @Input() editMode: boolean = false;
   @Input() userId: number;
   @Output() valueChanged = new EventEmitter();
   itemForm: FormGroup;
@@ -22,6 +25,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
   editable: boolean = false;
   isSubmitting: boolean = false;
   componentIsActive: boolean;
+  editMode$: Observable<boolean>;
 
   constructor(
     private fb: FormBuilder,
@@ -30,6 +34,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit(): void {
+    this.editMode$ = this.store.pipe(select(selectEditModeOnState))
     this.componentIsActive = true;
     this.itemForm = this.fb.group({
       name: [this.name, Validators.minLength(2)]

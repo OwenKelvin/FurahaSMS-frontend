@@ -26,7 +26,8 @@ import { UserSelectItemComponent } from './user-select-item/user-select-item.com
   ],
   exports: [
     UserProfileComponent,
-    UserSelectItemComponent
+    UserSelectItemComponent,
+    NameItemComponent
   ]
 })
 export class AppUserProfileModule { }

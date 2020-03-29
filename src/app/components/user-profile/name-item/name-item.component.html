@@ -2,7 +2,7 @@
   <form (submit)='submitFormItem()' [formGroup]='itemForm' class='d-flex flex-wrap align-items-center'>
     <div *ngIf='editable' class="edit-field p-3 pt-0">
 
-      <app-input [label]='label + " Name"' type="text"
+      <app-input [type]='type' [label]='label + " Name"' type="text"
         id=itemNameInput labelClass='col-lg-12' inputClass='col-lg-12' formControlName='name'
         [placeholder]='"Enter " + label + "Name" '></app-input>
       <div class="d-flex justify-content-between">
@@ -19,7 +19,7 @@
 
       &nbsp; {{ name }}
       <button type="button" (click)='editable = true' (mouseout)='editHovered = false' (mouseover)='editHovered = true'
-        *ngIf='editMode' [attr.aria-label]='"Edit " + label +" Name"' class="icon">
+        *ngIf='editMode$ | async' [attr.aria-label]='"Edit " + label +" Name"' class="icon">
         <span [class.icon-pencil-1]='!editHovered' [class.icon-edit]="editHovered"></span>
       </button>
 
