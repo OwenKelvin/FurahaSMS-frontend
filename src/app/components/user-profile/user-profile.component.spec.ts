@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserProfileComponent } from './user-profile.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { ModalModule } from 'ngx-bootstrap/modal/public_api';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;

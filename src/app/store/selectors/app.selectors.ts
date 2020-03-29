@@ -12,7 +12,21 @@ export const selectGenders = createSelector(
   app => Object.values(app[genderFeatureKey])
 );
 
+export const selectGender = (id: number | string) => createSelector(
+  selectGenders,
+  genders => {    
+    return genders.find(({ id: itemId }) => +id === +itemId)
+  }
+);
+
 export const selectReligions = createSelector(
   selectAppState,
   app => Object.values(app[religionFeatureKey])
+);
+
+export const selectReligion = (id: number | string) => createSelector(
+  selectReligions,
+  religion => {
+    return religion.find(({ id: itemId }) => +id === +itemId);
+  }
 );

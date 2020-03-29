@@ -1,10 +1,10 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map, tap, mergeMap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromReligions from 'src/app/store/reducers/religion.reducer'
-import { selectReligions } from '../store/selectors/app.selectors';
+import { selectReligions, selectReligion } from '../store/selectors/app.selectors';
 import { loadReligions } from '../store/actions/religion.actions';
 
 @Injectable({
@@ -27,4 +27,6 @@ export class ReligionService {
         }
       ));
   }
+  
+  getReligion$ = (id: number | string) => this.store.pipe(select(selectReligion(id)))
 }

@@ -21,7 +21,7 @@ export class ViewStudentInfoComponent implements OnInit {
   ngOnInit() {
     this.student$ = this.route.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))))
+      .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))));
   }
 
 }

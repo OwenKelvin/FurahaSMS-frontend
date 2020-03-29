@@ -54,3 +54,6 @@ h2 {
   height: 100%;
   font-size: 1.5em; color: rgba(115, 136, 74, 0.8); position: absolute;
 }
+.custom-control-label {
+ cursor: pointers; 
+}
