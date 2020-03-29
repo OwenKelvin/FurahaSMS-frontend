@@ -26,17 +26,20 @@ export class UsersService {
   ): Observable<any> {
     const data: any = {
       [fieldName]: fieldNewValue
-    }    
+    };
+    console.log({ userId, fieldName, fieldNewValue });
     return this.http.patch(`api/users/${userId}`, {
       first_name: data.FirstName,
       last_name: data.LastName,
       middle_name: data.MiddleName,
       other_names: data.OtherName,
-    })
+      gender_id: data.gender,
+      religion_id: data.religion,
+    });
   }
-  
+
   uploadPhoto({ file }: { file: File; }): Observable<any> {
-    
+
     const myFormData = new FormData();
     const headers = new HttpHeaders();
     headers.append('Content-Type', 'multipart/form-data');
@@ -47,19 +50,19 @@ export class UsersService {
       headers
     });
   }
-  
-  saveProfilePicture({ userId, profilePicId}: {userId: number, profilePicId: number}): Observable<any> {
+
+  saveProfilePicture({ userId, profilePicId }: { userId: number, profilePicId: number; }): Observable<any> {
     const data: any = {
-      
+
       'profile_pic_id': profilePicId
-    }
-    return this.http.patch(`api/users/${userId}`, data)
+    };
+    return this.http.patch(`api/users/${userId}`, data);
   }
-  
+
   getProfilePicture({ userId }: { userId: number; }) {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/pdf');
     headers.append('Content-Type', 'application/pdf');
-    return this.http.get(`api/users/profile-picture/${userId}`, { headers, responseType: 'blob' })
+    return this.http.get(`api/users/profile-picture/${userId}`, { headers, responseType: 'blob' });
   }
 }

@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UserSelectItemComponent } from './user-select-item.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('UserSelectItemComponent', () => {
   let component: UserSelectItemComponent;
@@ -8,7 +11,19 @@ describe('UserSelectItemComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ UserSelectItemComponent ]
+      imports: [
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [UserSelectItemComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

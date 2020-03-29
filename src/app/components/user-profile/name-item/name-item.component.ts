@@ -16,7 +16,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
   @Input() label: string = '';
   @Input() editMode: boolean = false;
   @Input() userId: number;
-  @Output() change = new EventEmitter();
+  @Output() valueChanged = new EventEmitter();
   itemForm: FormGroup;
   editHovered: boolean = false;
   editable: boolean = false;
@@ -51,7 +51,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
       })
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
-          this.change.emit(fieldNewValue);
+          this.valueChanged.emit(fieldNewValue);
           this.isSubmitting = false;
           this.editable = false;
           this.store.dispatch(loadToastShowsSuccess({

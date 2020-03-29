@@ -14,6 +14,7 @@ import { UsersService } from 'src/app/services/users.service';
 import { takeWhile, mergeMap, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { loadEditModesSuccess, loadEditModesFailure } from 'src/app/store/actions/edit-mode.actions';
 
 @Component({
   selector: 'app-user-profile',
@@ -27,7 +28,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   @Input() links: any[];
   @Input() includeProfileId = true;
   @ViewChild('profPic') profPic: ElementRef;
-  @Output() change: EventEmitter<any> = new EventEmitter;
+  @Output() valueChanged: EventEmitter<any> = new EventEmitter;
   editMode: boolean = false;
 
   photoSrc: any;
@@ -46,6 +47,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.componentIsActive = true;
     this.getProfilePic();
+  }
+  editModeChangeHandler() {
+    this.editMode ? this.store.dispatch(loadEditModesSuccess()) : this.store.dispatch(loadEditModesFailure())
   }
   getProfilePic() {
     this.profPicLoading = true;
@@ -117,7 +121,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   }
   changeProfile(fieldName: string, $event: string) {
-    this.change.emit({fieldName, fieldNewValue: $event});
+    this.valueChanged.emit({fieldName, fieldNewValue: $event});
   }
   fitImageOn(canvas: any, imageObj: any) {
     const imageAspectRatio = imageObj.width / imageObj.height;

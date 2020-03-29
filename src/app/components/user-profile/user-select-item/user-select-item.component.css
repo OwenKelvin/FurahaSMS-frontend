@@ -1,7 +1,1 @@
-.icon {
-  /* background-color:  rgba(0, 0, 0, 0) !important; */
-  background-color: inherit;
-  border: none;
-  padding: 0;
-  color: #2cb5e2;
-}
+@import './../name-item/name-item.component.css';

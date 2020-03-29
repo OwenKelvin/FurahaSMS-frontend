@@ -20,7 +20,9 @@ import { UserSelectItemComponent } from './user-select-item/user-select-item.com
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule
   ],
   exports: [
     UserProfileComponent,

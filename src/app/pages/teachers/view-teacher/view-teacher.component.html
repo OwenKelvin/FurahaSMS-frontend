@@ -1,5 +1,5 @@
 <ng-container *ngIf='teacherProfile$ | async as teacherProfile; else loading'>
-  <app-user-profile (change)='changeProfile($event)' title='Teacher' [profile]='teacherProfile'
+  <app-user-profile (valueChanged)='changeProfile($event)' title='Teacher' [profile]='teacherProfile'
     [linkBase]='["/teachers"]' [links]='["info", "subjects"]'></app-user-profile>
 </ng-container>
 <ng-template #loading>
