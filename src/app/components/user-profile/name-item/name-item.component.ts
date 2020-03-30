@@ -43,7 +43,7 @@ export class NameItemComponent implements OnInit, OnDestroy {
       this.itemForm.get('name')?.setValidators([Validators.required, Validators.minLength(2)]);
     }
     this.itemForm.updateValueAndValidity();
-    
+
   }
 
   submitFormItem() {
@@ -51,13 +51,13 @@ export class NameItemComponent implements OnInit, OnDestroy {
       this.isSubmitting = true;
       const fieldNewValue = this.itemForm.get('name')?.value;
       this.usersService.update({
-        fieldName: this.label.replace(" ", ""),
+        fieldName: this.label.replace(' ', ''),
         fieldNewValue,
         userId: this.userId
       })
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe({
-          error: (e) => console.log(e), 
+          error: (e) => console.log(e),
           complete: () => this.isSubmitting = false,
           next: res => {
             this.valueChanged.emit(fieldNewValue);

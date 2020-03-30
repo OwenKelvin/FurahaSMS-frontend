@@ -10,7 +10,7 @@ import { TeacherService } from 'src/app/pages/admissions/services/teacher.servic
 
 @Injectable()
 export class TeacherProfileEffects {
-  
+
   constructor(private actions$: Actions, private teacherService: TeacherService) { }
 
   loadTeacherProfiles$ = createEffect(() => {

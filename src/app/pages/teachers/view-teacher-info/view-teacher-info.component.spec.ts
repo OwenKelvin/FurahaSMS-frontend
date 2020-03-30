@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 
 describe('ViewTeacherInfoComponent', () => {
   let component: ViewTeacherInfoComponent;
@@ -25,7 +26,8 @@ describe('ViewTeacherInfoComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        AppUserProfileModule
       ],
       declarations: [ViewTeacherInfoComponent],
       providers: [
@@ -36,7 +38,10 @@ describe('ViewTeacherInfoComponent', () => {
         },
         {
           provide: Store,
-          useValue: { pipe: () => of({ 1: 1 })}
+          useValue: {
+            pipe: () => of({ 1: 1 }),
+            dispatch: () => ({})
+          }
         }
       ]
     })
