@@ -19,9 +19,6 @@ export class UsersService {
   update(
     { userId, fieldName, fieldNewValue }: { userId: number, fieldName: string, fieldNewValue: string; }
   ): Observable<any> {
-    if (fieldName === 'Date of BirthName') {
-      fieldName = 'dateOfBirth';
-    }
     const data: any = {
       [fieldName]: fieldNewValue
     };
@@ -29,10 +26,12 @@ export class UsersService {
       first_name: data.FirstName,
       last_name: data.LastName,
       middle_name: data.MiddleName,
-      other_names: data.OtherName,
+      other_names: data.OtherNames,
       gender_id: data.gender,
       religion_id: data.religion,
-      date_of_birth: data.dateOfBirth
+      date_of_birth: data.DateOfBirth,
+      email: data.Email,
+      phone: data.Phone,
     });
   }
 
