@@ -13,7 +13,7 @@ import { loadReligions } from '../store/actions/religion.actions';
 export class ReligionService {
   constructor(private http: HttpClient, private store: Store) { }
   loadAll$: Observable<fromReligions.State> = this.store.pipe(select(selectReligions))
-    .pipe(tap(religion => !religion[0].id ? this.store.dispatch(loadReligions()) : ''))
+    .pipe(tap(religion => !(religion[0] && religion[0].id) ? this.store.dispatch(loadReligions()) : ''))
 
 
   getAll(): Observable<any> {

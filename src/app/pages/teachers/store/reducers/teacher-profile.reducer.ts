@@ -30,7 +30,15 @@ const teacherProfileReducer = createReducer(
   initialState,
 
   on(TeacherProfileActions.loadTeacherProfiles, (state, payload) => ({ ...state, [(payload as any).id]: payload })),
-  on(TeacherProfileActions.loadTeacherProfilesSuccess, (state, _action) => state),
+  on(TeacherProfileActions.loadTeacherProfilesSuccess, (state, action) => {
+    return {
+      ...state,
+      [action.data.id]: {
+        ...state[action.data.id],
+        ...action.data
+      }
+    };
+  }),
   on(TeacherProfileActions.loadTeacherProfilesFailure, (state, _action) => state),
 
 );

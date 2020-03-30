@@ -1,21 +1,27 @@
 <section class='d-flex flex-wrap name-field  mt-4' *ngIf='(teacherProfile$ | async) as profile; else content_loading'>
-  <section class='col-lg-4 col-md-5 col-sm-6'>
-    <section class='d-flex flex-wrap'>
-      <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Gender:</span>
-      <span class='label-value col col-xs-12'> {{ profile.gender }}</span>
-    </section>
+  <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
+    <app-name-item type='email' (valueChanged)='changeProfile("email", $event)' [userId]='profile.id'
+      label='Email' [name]='profile.email'></app-name-item>
   </section>
-  <section class='col-md-7 col-lg-4 col-sm-6'>
-    <section class='d-flex flex-wrap'>
-      <span class='label-name col-xs-12 col-sm-4 col-md-6 col-lg-6'>Date Of Birth:</span>
-      <span class='label-value col col-xs-12'> {{ profile.dateOfBirth }}</span>
+  
+    <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
+      <app-name-item type='tel' (valueChanged)='changeProfile("Phone", $event)' [userId]='profile.id' label='Phone'
+        [name]='profile.phone'></app-name-item>
     </section>
+  
+  <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
+    <app-user-select-item (valueChanged)='updateSelectValue("gender", $event)' [valueName]='profile.gender_name'
+      [value]='profile.gender_id' [label]='"gender"' [items]='genders$' [userId]='profile.id'></app-user-select-item>
   </section>
-  <section class='col-lg-4 col-md-5 col-sm-6'>
-    <section class='d-flex flex-wrap'>
-      <span class='label-name col-xs-12 col-sm-4 col-lg-4 col-md-5'>Religion:</span>
-      <span class='label-value col col-xs-12'> {{ profile.religion }}</span>
-    </section>
+  <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
+    <app-name-item type='date' (valueChanged)='changeProfile("dateOfBirth", $event)' [userId]='profile.id'
+      label='Date of Birth' [name]='profile.dateOfBirth'></app-name-item>
+  </section>
+
+  <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
+    <app-user-select-item (valueChanged)='updateSelectValue("religion", $event)' [valueName]='profile.religion_name'
+      [value]='profile.religion_id' [label]='"religion"' [items]='religions$' [userId]='profile.id'>
+    </app-user-select-item>
   </section>
 </section>
 <ng-template #content_loading>

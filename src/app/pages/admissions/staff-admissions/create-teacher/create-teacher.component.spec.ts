@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 
 describe('CreateTeacherComponent', () => {
   let component: CreateTeacherComponent;
@@ -20,6 +21,7 @@ describe('CreateTeacherComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AppInputModule,
+        AppTelInputModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

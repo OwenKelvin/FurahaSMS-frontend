@@ -1,9 +1,9 @@
-<section [formGroup]='phoneNumberGroup' class='form-group' style="position: relative;" [id]='id + "-container"'>
+<section [formGroup]='phoneNumberGroup' class='form-group p-0 m-0' style="position: relative;" [id]='id + "-container"'>
   <section class='d-flex flex-wrap'>
     <label [class]='"col-md-4 col-lg-4 control-label " + labelClass' [for]='id'>
       <span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
     </label>
-    <section [class]='inputClass ? inputClass + " input-group" : "col-md-8 col-lg-8 " + inputClass + " input-group"'>
+    <section [class]='inputClass ? inputClass + " input-group" : "col-md-8 col-lg-8 " + inputClass + " input-group p-0"'>
       <section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
         <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
       </section>

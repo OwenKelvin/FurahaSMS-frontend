@@ -19,7 +19,7 @@ describe('StudentProfileEffects', () => {
       ]
     });
 
-    effects = TestBed.get<StudentProfileEffects>(StudentProfileEffects);
+    effects = TestBed.inject<StudentProfileEffects>(StudentProfileEffects);
   });
 
   it('should be created', () => {

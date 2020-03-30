@@ -1,27 +1,19 @@
 <h1>Create New {{ (supportStaff && supportStaff.id !== 0) ? 'Support Staff': 'Teacher'}}</h1>
 <form [formGroup]='newTeacherForm' (submit)='submitNewTeacherForm()'>
   <fieldset>
-    <legend><h2>Email</h2></legend>
+    <legend>
+      <h2>Email</h2>
+    </legend>
     <section>
       <section class="col-lg-5">
-      
-        <app-input 
-          [triggerValidation]="triggerValidation" 
-          label='Email' 
-          id="email" 
-          type="email"
-          placeholder="Please Enter Email" 
-          formControlName="email"></app-input>
+
+        <app-input [triggerValidation]="triggerValidation" label='Email' id="email" type="email"
+          placeholder="Please Enter Email" formControlName="email"></app-input>
       </section>
       <section aria-atomic="true" aria-live="polite" class="col-sm-12 col-md-12 col-lg-7" *ngIf="confirmData">
         <span id='email-confirm'>User with the email Exists. Do You wish to Use this Email?</span>
-        <button 
-          aria-label="Yes" 
-          aria-describedby='email-confirm' 
-          (click)="updateFieldsForEmail()"
-          style="margin-left: 15px" 
-          type="button" 
-          class="btn btn-outline-primary">Yes</button>
+        <button aria-label="Yes" aria-describedby='email-confirm' (click)="updateFieldsForEmail()"
+          style="margin-left: 15px" type="button" class="btn btn-outline-primary">Yes</button>
         <button aria-describedby='email-confirm' (click)="clearEmail()" style="margin-left: 15px" type="button"
           class="btn btn-outline-warning">No</button>
       </section>
@@ -58,14 +50,58 @@
     </legend>
     <section class='d-flex flex-wrap'>
       <section class='col-lg-5 col-md-6 col-sm-12 col-xs-12'>
-        <app-input labelClass='col-lg-6' inputClass='col-md-6 col-lg-6' type='date'
+        <app-input labelClass='col-lg-5' inputClass='col-md-6 col-lg-7' type='date'
           [triggerValidation]='triggerValidation' placeholder='Enter Date Of Birth' id='dateOfBirth'
           label='Date Of Birth' formControlName='dateOfBirth'>
         </app-input>
       </section>
-      <!-- <section class='col-lg-5 col-sm-6 col-xs-12'>
-            Test
-          </section> -->
+      <section class='col-lg-6 col-md-6 col-sm-6 col-xs-12 d-flex flex-wrap mt-xs-1 mt-sm-0 p-0'>
+        <app-tel-input id='tel' labelClass='col-lg-4' inputClass='col-lg-8' formControlName='phone' [triggerValidation]='triggerValidation'
+          label='Phone' placeholder='Enter Phone Number' type='tel'>
+        </app-tel-input>
+      </section>
+      <section class='col-lg-5 col-md-6 col-sm-6 col-xs-12 d-flex flex-wrap mt-xs-1 mt-sm-0'>
+        <label class="col-lg-5 control-label p-0" for="genderField">
+          Gender
+        </label>
+        <section class="col-xs-12 col-lg-7 p-0">
+          <select formControlName='gender' id="genderField" class="custom-select">
+            <ng-container *ngIf='(genders$ | async) as genders'>
+              <ng-container *ngIf='genders[0]?.id; else genderLoading'>
+                <option value=''>Select Gender</option>
+                <ng-container *ngFor='let gender of genders'>
+                  <option [value]='gender.id'>{{ gender.name }}</option>
+                </ng-container>
+              </ng-container>
+              <ng-template #genderLoading>
+                <option value="">Please wait ... </option>
+              </ng-template>
+            </ng-container>
+          </select>
+        </section>
+      </section>
+      <section class='col-lg-5 col-md-6 col-sm-6 col-xs-12 d-flex flex-wrap mt-xs-1 mt-sm-0'>
+        <label class="col-lg-4 control-label p-0" for="religionField">
+          Religion
+        </label>
+        <section class="col-xs-12 col-lg-7 p-0">
+          <select formControlName='religion' id="religionField" class="custom-select">
+            <ng-container *ngIf='(religions$ | async) as religions' )>
+              <ng-container *ngIf='religions[0]?.id; else religionLoading'>
+                <option value=''>Select Religion</option>
+                <ng-container *ngFor='let religion of religions'>
+                  <option [value]='religion.id'>{{ religion.name }}</option>
+                </ng-container>
+              </ng-container>
+              <ng-template #religionLoading>
+                <option value="">Please wait ... </option>
+              </ng-template>
+            </ng-container>
+
+          </select>
+        </section>
+      </section>
+
     </section>
   </fieldset>
   <section class="p-2">

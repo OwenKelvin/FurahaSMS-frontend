@@ -17,7 +17,9 @@ export class TeacherService {
       first_name: data.firstName,
       last_name: data.lastName,
       middle_name: data.middleName,
-      other_names: data.otherNames
+      other_names: data.otherNames,
+      gender_id: data.gender,
+      religion_id: data.religion,
     };
     return this.http.post('api/admissions/teachers', submitDate);
   }

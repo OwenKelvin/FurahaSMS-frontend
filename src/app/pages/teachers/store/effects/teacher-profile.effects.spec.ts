@@ -3,6 +3,9 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 
 import { TeacherProfileEffects } from './teacher-profile.effects';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('TeacherProfileEffects', () => {
   const actions$: Observable<any> = of('Load');
@@ -10,7 +13,18 @@ describe('TeacherProfileEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        })
+      ],
       providers: [
+        reducerProvider,
         TeacherProfileEffects,
         provideMockActions(() => actions$)
       ]
