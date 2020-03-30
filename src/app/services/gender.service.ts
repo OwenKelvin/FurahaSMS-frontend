@@ -14,7 +14,7 @@ export class GenderService {
 
   constructor(private http: HttpClient, private store: Store) { }
   loadAll$: Observable<fromGenders.State> = this.store.pipe(select(selectGenders))
-    .pipe(tap(gender => !gender[0].id ? this.store.dispatch(loadGenders()) : ''));
+    .pipe(tap(gender => !(gender[0] && gender[0].id) ? this.store.dispatch(loadGenders()) : ''));
 
   getAll(): Observable<any> {
     const url = 'api/genders/all';
