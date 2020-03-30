@@ -13,13 +13,15 @@ describe('DashboardComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule, StoreModule.forRoot(REDUCER_TOKEN, {
+        RouterTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), AppDashboardLinksModule],
+        }),
+        AppDashboardLinksModule],
       declarations: [DashboardComponent],
       providers: [reducerProvider]
     })

@@ -9,7 +9,7 @@ import { map } from 'rxjs/operators';
 export class LinkService {
 
   constructor() { }
-  getLinks({ type, id }): Observable<LinkInterface[]> {
+  getLinks({ type, id }: any): Observable<LinkInterface[]> {
     switch (type) {
       case 'academics':
         return this.getAcademicsLinks();
@@ -83,7 +83,7 @@ export class LinkService {
     return of([
       {
         name: 'Add Library Book',
-        icon: ' icon-plus-squared',
+        icon: 'icon-plus-squared',
         link: 'library/admin/books/create'
       },
     ]);
@@ -303,6 +303,11 @@ export class LinkService {
         link: 'academics'
       },
       {
+        name: 'Roles & Permissions',
+        icon: 'icon-block',
+        link: 'roles-and-permissions'
+      },
+      {
         name: 'Reports',
         icon: 'icon-doc-text-inv',
         link: 'reports'
@@ -326,6 +331,16 @@ export class LinkService {
         icon: 'icon-balance-scale',
         link: 'academics/exam-bank'
       },
+      {
+        name: 'Study Materials',
+        icon: 'icon-book-1',
+        link: 'academics/study-materials'
+      },
+      {
+        name: 'E-Learning',
+        icon: 'icon-paper-plane-empty',
+        link: 'academics/e-learning'
+      },
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {
@@ -337,7 +352,7 @@ export class LinkService {
       },
       {
         name: 'View Archives',
-        icon: ' icon-folder',
+        icon: 'icon-folder',
         link: 'academics/academic-year/archives'
       },
       {
@@ -347,7 +362,7 @@ export class LinkService {
       }
     ]);
   }
-  getAcademicYearLinks($id): Observable<LinkInterface[]> {
+  getAcademicYearLinks($id: number): Observable<LinkInterface[]> {
     return of([
       {
         name: 'Financial Plan',

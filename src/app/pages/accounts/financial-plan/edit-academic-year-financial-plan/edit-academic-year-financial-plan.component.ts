@@ -6,7 +6,7 @@ import {
   selectAcademicYearPlanState, selectAcademicYearPlanId
 } from '../store/selectors/academic-year-plan.selectors';
 import { ClassLevelService } from 'src/app/services/class-level.service';
-import { mergeMap, map, tap } from 'rxjs/operators';
+import { mergeMap, map, tap, takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
@@ -61,7 +61,9 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
     this.otherCosts$ = this.financialCostService.getAll();
-    this.otherCosts$.subscribe(res => this.otherCosts = res);
+    this.otherCosts$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => this.otherCosts = res);
     this.classLevels$ = this.academicYearPlanId$
       .pipe(
         mergeMap(academicYearId => {
@@ -72,17 +74,22 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
 
         })
       )
-      .pipe(map(([item, item1]) => {
-        this.plans = item1;
-        return [...item.map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))];
+      .pipe(map(([classLevel, financialPlan]) => {
+        const activeClassLevels: any[] = financialPlan.tuitionFee
+          .map(({ classLevelId }: { classLevelId: number; }) => classLevelId)
+        this.plans = financialPlan;
+        return [
+          ...(classLevel.filter(({ id: classLevelId }: { id: number; }) => activeClassLevels.includes(classLevelId)))
+            .map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))
+        ];
       }))
       .pipe(
         tap(item => {
-          item.forEach(i => {
+          item.forEach((i: any) => {
             const unitLevels = this.fb.array([]);
             (i.unitLevels as any[]).forEach(b => {
               const semesters = this.fb.array([]);
-              b.semesters.forEach(c => {
+              b.semesters.forEach((c: any) => {
                 semesters.push(
                   this.fb.group({
                     id: c.id,
@@ -111,13 +118,13 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
             this.tuitionFees.setValue(this.plans.tuitionFee);
           }
           if (this.plans.otherFees.length > 0) {
-            this.plans.otherFees.forEach(fee => {
+            this.plans.otherFees.forEach((fee: any) => {
               const financialCosts = this.fb.array([]);
-              fee.financialCosts.forEach(cost => {
+              fee.financialCosts.forEach((cost: any) => {
                 const costItems = this.fb.array([]);
-                cost.costItems.forEach(itemCostItem => {
+                cost.costItems.forEach((itemCostItem: any) => {
                   const semesters = this.fb.array([]);
-                  itemCostItem.semesters.forEach(sem => {
+                  itemCostItem.semesters.forEach((sem: any) => {
                     semesters.push(this.fb.group({
                       name: sem.name,
                       id: sem.id,
@@ -165,9 +172,9 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   totalTuitionFee(i: number) {
 
     return this.tuitionFees.value[i].unitLevels
-      .map(item => item.semesters).flat()
-      .map(item => item.amount).flat()
-      .reduce((a, b) => +a + +b, 0);
+      .map((item: any) => item.semesters).flat()
+      .map((item: any) => item.amount).flat()
+      .reduce((a: any, b: any) => +a + +b, 0);
 
 
   }
@@ -175,26 +182,26 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   totalClassLevelCost(i: number, j?: number, k?: number) {
 
     if (typeof j === 'undefined') {
-      return this.otherFees.controls[i].value.financialCosts
-        .map(item => item.costItems).flat()
-        .map(item => item.semesters).flat()
-        .map(item => item.amount).flat()
-        .reduce((a, b) => +a + +b, 0);
+      return this.otherFees.controls[i]?.value?.financialCosts
+        .map((item: any) => item.costItems).flat()
+        .map((item: any) => item.semesters).flat()
+        .map((item: any) => item.amount).flat()
+        .reduce((a: any, b: any) => +a + +b, 0);
     } else if (typeof k === 'undefined') {
       return this.otherFees.controls[i].value.financialCosts[j]
         .costItems.flat()
-        .map(item => item.semesters).flat()
-        .map(item => item.amount).flat()
-        .reduce((a, b) => +a + +b, 0);
+        .map((item: any) => item.semesters).flat()
+        .map((item: any) => item.amount).flat()
+        .reduce((a: any, b: any) => +a + +b, 0);
     } else {
       return this.otherFees.controls[i].value.financialCosts[j]
         .costItems.flat()
-        .map(item => item.semesters).flat()
-        .map(item => {
+        .map((item: any) => item.semesters).flat()
+        .map((item: any) => {
           return (item.id === k ? item.amount : 0);
 
         }).flat()
-        .reduce((a, b) => +a + +b, 0);
+        .reduce((a: any, b: any) => +a + +b, 0);
     }
 
 
@@ -214,15 +221,17 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
           mergeMap(
             id => this.financialPlanService
               .submit({ academicYearId: id, data: this.feePlanForm.value }))
-        )
+      )
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
           this.isSubmitting = false;
           this.store.dispatch(loadToastShowsSuccess({
             showMessage: true,
             toastBody: res.message,
-            toastHeader: 'Success'
+            toastHeader: 'Success',
+            toastTime: 'Just Now'
           }));
-        }, err => this.isSubmitting = false);
+        }, () => this.isSubmitting = false);
     }
 
   }

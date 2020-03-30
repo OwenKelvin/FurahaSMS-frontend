@@ -1,0 +1,70 @@
+<ng-container *ngIf='docSrc; else loading'>
+  <h1>
+    E-Learning Course Study Material View
+    <span class='icon-right-dir'></span>
+    {{ studyMaterial.title }}
+  </h1>
+  <section class="d-flex flex-wrap justify-content-between">
+    <section class="col-lg-5 d-flex flex-wrap">
+      <section class="col-lg-12">
+        <fieldset>
+          <legend>File Info</legend>
+          <table class="table table-sm text-light table-bordered">
+            <tr>
+              <td>File Name</td>
+              <td>{{ studyMaterial.file_document_info.name }}</td>
+            </tr>
+            <tr>
+              <td>FileSize</td>
+              <td>{{ studyMaterial.file_document_info.size | filesize}}</td>
+            </tr>
+            <tr>
+              <td>File Type</td>
+              <td>{{ studyMaterial.file_document_info.type }}</td>
+            </tr>
+          </table>
+        </fieldset>
+      </section>
+     
+      <!-- <a class="btn btn-secondary btn-block mt-4" [routerLink]='["/document", docSrc]'>
+        <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
+          [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
+        View Document
+        <span class="icon-eye"></span>
+      </a> -->
+      <button (click)='downloadFIle()' type="button" class="btn btn-block btn-success btn-lg text-light mt-4">
+        <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
+          [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
+        Download File
+        <span class="icon-download"></span>
+      </button>
+    </section>
+    <fieldset class="col-lg-6">
+      <legend>Course Info</legend>
+      <table class="table text-light table-bordered">
+        <tr>
+          <td><span>Course Name</span></td>
+          <td>{{ course?.name }}</td>
+        </tr>
+        <tr>
+          <td><span>Class Level</span></td>
+          <td>{{ course?.classLevelName }}</td>
+        </tr>
+        <tr>
+          <td><span>Unit/ Subject</span></td>
+          <td>{{ course?.unitName }}</td>
+        </tr>
+        <tr>
+          <td><span>Academic Year</span></td>
+          <td>{{ course?.academicYearName }}</td>
+        </tr>
+      </table>
+    </fieldset>
+  </section>
+</ng-container>
+
+<ng-template #loading>
+  <h1>E-Learning Course Study Material View</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>
+

@@ -25,6 +25,11 @@
   background-color: rgb(68, 68, 68) !important;
   color: white !important;
   border-radius: 3px !important;
+  padding: 3px;
+  padding-left: 5px;
+  padding-right: 5px;
+  margin-top: 4px;
+  margin-left: 4px;
 }
 .ng-dropdown-panel {
   background: red;
@@ -39,14 +44,7 @@ html, body {
   height: 100%;
   overflow: auto;
 }
-#main:focus {
-  outline: none;
-  border-left: 1px solid rgba(172, 255, 47, 0.527);
-  min-height: calc(100%);
-}
-#main:focus + #sidebar-wrapper {
-  background-color: red;
-}
+
 h1, h2, h3, h4 {
   font-size: 1.3rem;
   line-height: 1.3rem;
@@ -103,6 +101,12 @@ a:hover {
 
 .btn-success {
   background: green;
+}
+.btn-primary {
+  background: rgb(0, 61, 66);
+}
+.btn-primary:hover {
+  background: rgb(0, 117, 128);
 }
 .invalid-feedback {
   
@@ -170,8 +174,10 @@ a:hover {
   border: rgba(211, 211, 211, 0.3) solid 2px;
 }
 .label-value, .label-name {
- font-weight: bold;
  line-height: 2em;
+}
+.label-name{
+  font-weight: bold;
 }
 .modal-container {
    border: rgba(165, 165, 165, 0.8) solid 2px;
@@ -187,7 +193,7 @@ a:hover {
   font-size: 0.9rem;;
 }
 .text-success {
-  color: aqua !important;
+  color: rgb(129, 211, 82) !important ;
 }
 .text-danger {
   color: #F88A99 !important;
@@ -201,6 +207,15 @@ a:hover {
     outline-color: rgba(153, 205, 50, 0.5);
     outline-width: 2px;
 }
+#main {
+  padding-left: 10px;
+}
+#main:focus, #main:focus-within{
+  outline: none;
+  border-left: 3px solid rgba(172, 255, 47, 0.3);
+   padding-left: 7px;
+  min-height: calc(100%);
+}
 
 html, body {
   background-image: url(./assets/images/graduation-cap.webp);
@@ -209,4 +224,7 @@ html, body {
 #main:fullscreen {
   background-image: url(./assets/images/graduation-cap.webp);
    background-size: cover;
+}
+.aquamarine {
+  color: aquamarine;
 }

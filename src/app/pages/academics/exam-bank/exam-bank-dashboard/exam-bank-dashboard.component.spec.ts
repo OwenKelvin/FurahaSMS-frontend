@@ -21,7 +21,9 @@ describe('ExamBankDashboardComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })],
+        }),
+
+      ],
       declarations: [ExamBankDashboardComponent],
       providers: [reducerProvider]
     })

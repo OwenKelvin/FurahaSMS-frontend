@@ -49,7 +49,7 @@ export class CreateExamComponent implements OnInit, OnDestroy {
       description: ['', [Validators.required]]
     });
   }
-  deleteInstruction(i) {
+  deleteInstruction(i: number) {
     const deletionConfirmed = confirm(`Are You Sure you wish to delete instruction ${i + 1}`);
     if (deletionConfirmed) {
       this.examInstructions.controls.splice(i, 1);

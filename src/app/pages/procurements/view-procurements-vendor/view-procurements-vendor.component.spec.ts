@@ -30,7 +30,7 @@ describe('ViewProcurementsVendorComponent', () => {
         provide: ActivatedRoute,
         useValue: {
           paramMap: of({
-            get: (id) => 1
+            get: () => 1
           })
         }
       }]
@@ -42,7 +42,7 @@ describe('ViewProcurementsVendorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewProcurementsVendorComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

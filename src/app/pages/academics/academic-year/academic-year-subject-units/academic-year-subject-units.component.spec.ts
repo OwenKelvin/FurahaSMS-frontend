@@ -12,6 +12,7 @@ import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('AcademicYearSubjectUnitsComponent', () => {
   let component: AcademicYearSubjectUnitsComponent;
@@ -28,6 +29,7 @@ describe('AcademicYearSubjectUnitsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         AcademicsModule,
         HttpClientTestingModule,
         FormsModule,
@@ -59,7 +61,7 @@ describe('AcademicYearSubjectUnitsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AcademicYearSubjectUnitsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

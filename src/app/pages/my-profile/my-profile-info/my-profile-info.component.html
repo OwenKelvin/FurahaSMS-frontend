@@ -1,0 +1,35 @@
+<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(profile$ | async) as profile; else content_loading'>
+  <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
+    <section class='d-flex flex-wrap'>
+      <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Email:</span>
+      <span class='label-value col-lg-8 col-md-7 col-sm-8 col-xs-12'> {{ profile.email }}</span>
+    </section>
+  </section>
+  <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
+    <section class='d-flex flex-wrap'>
+      <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Phone:</span>
+      <span class='label-value col-lg-8 col-md-7 col-sm-8 col-xs-12'> {{ profile.phine }}</span>
+    </section>
+  </section>
+  <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
+    <section class='d-flex flex-wrap'>
+      <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Gender:</span>
+      <span class='label-value col-lg-8 col-md-7 col-sm-8 col-xs-12'> {{ profile.genderName }}</span>
+    </section>
+  </section>
+  <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
+    <section class='d-flex flex-wrap'>
+      <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Date of Birth:</span>
+      <span class='label-value col-lg-8 col-md-7 col-sm-8 col-xs-12'> {{ profile.dateOfBirth }}</span>
+    </section>
+  </section>
+  <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
+    <section class='d-flex flex-wrap'>
+      <span class='label-name col-xs-12 col-sm-4 col-lg-4 col-md-5'>Religion:</span>
+      <span class='label-value col-lg-8 col-md-7 col-sm-8 col-xs-12'> {{ profile.religionName }}</span>
+    </section>
+  </section>
+</section>
+<ng-template #content_loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

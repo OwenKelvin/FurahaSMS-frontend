@@ -9,7 +9,7 @@ describe('LibraryBookTagService', () => {
   }));
 
   it('should be created', () => {
-    const service: LibraryBookTagService = TestBed.get(LibraryBookTagService);
+    const service: LibraryBookTagService = TestBed.inject(LibraryBookTagService);
     expect(service).toBeTruthy();
   });
 });

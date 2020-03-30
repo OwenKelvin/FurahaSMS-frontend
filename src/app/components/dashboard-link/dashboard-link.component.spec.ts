@@ -11,13 +11,15 @@ describe('DashboardLinkComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule ],
+        }),
+        RouterTestingModule],
       declarations: [DashboardLinkComponent],
       providers: [reducerProvider]
     });
@@ -28,7 +30,7 @@ describe('DashboardLinkComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(DashboardLinkComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

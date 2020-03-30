@@ -1,0 +1,10 @@
+.list-group-item {
+  background: none;
+}
+.list-group-item:hover {
+  outline: rgba(172, 255, 47, 0.438) solid 1px;
+}
+.list-group-item a:hover {
+  color: greenyellow !important ;
+  text-decoration: none;
+}

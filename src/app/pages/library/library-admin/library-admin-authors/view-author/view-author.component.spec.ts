@@ -10,7 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 describe('ViewAuthorComponent', () => {
   let component: ViewAuthorComponent;
   let fixture: ComponentFixture<ViewAuthorComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -36,7 +36,7 @@ describe('ViewAuthorComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewAuthorComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

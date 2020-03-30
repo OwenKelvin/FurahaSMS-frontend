@@ -5,7 +5,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 })
 export class Number2AlphabetPipe implements PipeTransform {
 
-  transform(value: any, ...args: any[]): any {
+  transform(value: any, ..._args: any[]): any {
     return String.fromCharCode(value + 65);
   }
 

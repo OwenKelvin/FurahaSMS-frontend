@@ -8,7 +8,7 @@ export interface StudentProfileStateInterface {
   id: number;
   firstName: string;
   lastName: string;
-  studentId: number;
+  studentId?: number;
   middleName?: string;
   otherNames?: string;
   dateOfBirth?: string;
@@ -27,7 +27,7 @@ const StudentProfileUpdateReducer = createReducer(
   initialState,
   on(loadStudentProfileUpdatesSuccess, (state, payload) => {
     return {
-      ...state, ...payload
+      ...state, ...payload.data
     };
 
   }),

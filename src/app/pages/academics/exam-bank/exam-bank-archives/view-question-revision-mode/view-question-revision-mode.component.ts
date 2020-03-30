@@ -28,7 +28,7 @@ export class ViewQuestionRevisionModeComponent implements OnInit, OnChanges {
   }
   emitChangedAnswer(k: number) {
     if (!!!this.question.multipleAnswers) {
-      this.question.answers = this.question.answers.map(element => ({
+      this.question.answers = this.question.answers.map((element: any) => ({
         ...element,
         selected: false
       }));

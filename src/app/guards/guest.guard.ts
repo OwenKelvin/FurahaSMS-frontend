@@ -17,15 +17,17 @@ export class GuestGuard implements CanActivate {
   ) { }
 
   canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
+    _next: ActivatedRouteSnapshot,
+    _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     const currentUser = this.authenticationService.currentUserValue;
     if (!currentUser) {
       return true;
     }
     this.store.dispatch(loadToastShowsSuccess({
       toastHeader: 'Logged in',
-      toastBody: 'Successfully authenticated!'
+      toastBody: 'Successfully authenticated!',
+      showMessage: true,
+      toastTime: 'Just Now'
     }));
     this.router.navigate(['/dashboard']);
     return false;

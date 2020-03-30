@@ -1,18 +1,19 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { ProcurementService } from 'src/app/services/procurement.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-procurements-request',
   templateUrl: './procurements-request.component.html',
   styleUrls: ['./procurements-request.component.css']
 })
-export class ProcurementsRequestComponent implements OnInit {
-  @Input() requestId;
+export class ProcurementsRequestComponent implements OnInit, OnDestroy {
+  @Input() requestId: number;
   procurementRequestForm: FormGroup;
   triggerValidation: boolean;
   isSubmitting: boolean;
@@ -20,6 +21,7 @@ export class ProcurementsRequestComponent implements OnInit {
   submitError: boolean;
   showErrorMessage: boolean;
   loadingContents: boolean;
+  componentIsActive: boolean;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
@@ -27,7 +29,12 @@ export class ProcurementsRequestComponent implements OnInit {
     private procurementService: ProcurementService
   ) { }
 
+  get idControl() {
+    return this.procurementRequestForm.get('id') as FormControl;
+  }
+
   ngOnInit() {
+    this.componentIsActive = true;
     this.triggerValidation = true;
     this.procurementRequestForm = this.fb.group({
       id: [0],
@@ -38,7 +45,9 @@ export class ProcurementsRequestComponent implements OnInit {
     });
     if (this.requestId) {
       this.loadingContents = true;
-      this.procurementService.getProcurementRequestWithId(this.requestId).subscribe(res => {
+      this.procurementService.getProcurementRequestWithId(this.requestId)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(res => {
         this.procurementRequestForm.setValue({
           id: res.id,
           name: res.name,
@@ -54,21 +63,26 @@ export class ProcurementsRequestComponent implements OnInit {
   submitProcurementRequestForm() {
     this.isSubmitting = true;
     if (this.procurementRequestForm.valid) {
-      this.procurementService.saveProcurementRequest(this.procurementRequestForm.value).subscribe(res => {
+      this.procurementService.saveProcurementRequest(this.procurementRequestForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(res => {
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true, toastBody: res.message, toastHeader: 'Successful', toastTime: 'just now'
         }));
         this.isSubmitting = false;
         this.formSubmitted = true;
         this.router.navigate(['/procurements', 'requests', res.data.id, 'view']);
-      }, error => {
+      }, () => {
         this.formSubmitted = true;
-        console.log(error); // TODO Handle Student creation error
         this.isSubmitting = false;
       });
     } else {
       this.triggerValidation = !this.triggerValidation;
     }
+  }
+
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

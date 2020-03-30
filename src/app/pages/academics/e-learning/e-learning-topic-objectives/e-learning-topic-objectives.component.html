@@ -1,0 +1,10 @@
+<fieldset *ngIf='learningOutcomes && learningOutcomes.length > 0'>
+  <legend>Learning Outcomes</legend>
+  By End of this {{ topicNumberStyleName | lowercase }} you should be able to;
+  <ul class="list-group">
+    <li class="list-group-item  bg-dark" *ngFor='let learningOutcome of learningOutcomes'>
+      <span class='icon-lightbulb'></span>
+      {{ learningOutcome.description }}
+    </li>
+  </ul>
+</fieldset>

@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
@@ -41,13 +41,17 @@ export class GuardiansService {
       }));
     }
   }
-  getForStudent(userId: number) {
+  getForStudent(userId: number): Observable<any[]> {
+    if (userId === 0) {
+      return of([]);
+    }
     const url = 'api/students/' + userId + '/guardians';
     return this.http.get<any>(url).pipe(map(user => {
       return user;
     }));
+
   }
-  getGuardianWithId(userId): Observable<any> {
+  getGuardianWithId(userId: number | string): Observable<any> {
     const url = `api/guardians/${userId}`;
     return this.http.get<any>(url)
       .pipe(map(user => ({
@@ -59,7 +63,7 @@ export class GuardiansService {
         dateOfBirth: user.date_of_birth
       })));
   }
-  getStudents(userId): Observable<any> {
+  getStudents(userId: number | string): Observable<any> {
     const url = `api/guardians/${userId}/students`;
     return this.http.get<any>(url);
   }

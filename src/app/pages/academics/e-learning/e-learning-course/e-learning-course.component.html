@@ -1,0 +1,17 @@
+<a class="card-link  btn-block p-2 bg-dark"
+  [routerLink]='["/academics","e-learning","courses", course.id]'>
+
+  <span class="icon-folder-open"></span>
+  <strong>{{ course.name }}</strong><br />
+  <div class="d-flex justify-content-between">
+    <small> Class Level : {{ course.classLevelAbbreviation }}</small>
+    <small> Subject/Unit : {{ course.unitAbbreviation }}</small>
+    <small> Year : {{ course.academicYearName }}</small>
+  </div>
+  <!-- <br>
+            <small class="ml-2"> Created by : Owen Kelvin </small>
+            <br>
+            <small class="ml-2"> Taught by : Owen Kelvin, Peter Junior </small> -->
+  <!-- TODO-me make above functionality -->
+
+</a>

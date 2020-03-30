@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class AcademicYearUnitService {
 
   constructor(private http: HttpClient) { }
-  getUnitsFor({ academicYear, classLevel }): Observable<any> {
+  getUnitsFor({ academicYear, classLevel }: any): Observable<any> {
 
     return this.http.get(`api/academic-years/${academicYear}/unit-levels/?class_level=${classLevel}`);
 

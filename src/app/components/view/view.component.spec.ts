@@ -33,7 +33,7 @@ describe('ViewComponent', () => {
     fixture = TestBed.createComponent(ViewComponent);
     component = fixture.componentInstance;
     component.service = { getItemById: () => of({id: 1})};
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

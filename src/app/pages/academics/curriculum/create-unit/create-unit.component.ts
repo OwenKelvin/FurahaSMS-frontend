@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
 import {
   FormBuilder,
   FormGroup,
@@ -11,6 +11,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { AppState } from 'src/app/store/reducers';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
+import { takeWhile } from 'rxjs/operators';
 
 export default interface IUnitForm {
   id?: number;
@@ -25,19 +26,20 @@ export default interface IUnitForm {
   templateUrl: './create-unit.component.html',
   styleUrls: ['./create-unit.component.css']
 })
-export class CreateUnitComponent implements OnInit {
+export class CreateUnitComponent implements OnInit, OnDestroy {
   unitCategories: UnitCategoryInterface[];
   unitCategorySelected: any;
   formId: any;
   @Input() category: number;
   @Input() idIndex: number;
   @Input() submitButton = true;
-  @Input() inputValue;
+  @Input() inputValue: any;
   @Input() hasCategories = true;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Input() hideSubmit: boolean;
   triggerValidation: boolean;
   isSubmitting: boolean;
+  componentIsActive: boolean;
   constructor(
 
     private fb: FormBuilder,
@@ -50,6 +52,7 @@ export class CreateUnitComponent implements OnInit {
   newForm: boolean;
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.newForm = true;
     this.unitForm = this.fb.group({
       id: [null, []],
@@ -59,7 +62,9 @@ export class CreateUnitComponent implements OnInit {
       active: [true],
       unitCategory: [null, Validators.required]
     });
-    this.unitForm.valueChanges.subscribe(() => {
+    this.unitForm.valueChanges
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(() => {
       this.valueChange.emit(this.unitForm);
     });
   }
@@ -67,7 +72,9 @@ export class CreateUnitComponent implements OnInit {
   submit() {
     if (this.unitForm.valid) {
       this.isSubmitting = true;
-      this.unitService.submit(this.unitForm.value).subscribe(success => {
+      this.unitService.submit(this.unitForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(success => {
         this.router.navigate([VIEW_UNIT_CURRICULUM(success.id)]);
         this.isSubmitting = false;
         this.store.dispatch(loadToastShowsSuccess({
@@ -90,5 +97,8 @@ export class CreateUnitComponent implements OnInit {
       this.unitForm.markAllAsTouched();
       this.triggerValidation = true;
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

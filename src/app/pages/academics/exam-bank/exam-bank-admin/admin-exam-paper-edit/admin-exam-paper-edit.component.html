@@ -31,7 +31,7 @@
           </label>
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
-          <fieldset *ngIf='editDialogForm.get("multipleChoices").value'>
+          <fieldset *ngIf='editDialogForm.get("multipleChoices")?.value'>
             <legend>Number of Correct Answes</legend>
             <div class="d-flex">
               <div class="form-check col-lg-5">
@@ -116,12 +116,12 @@
         <legend>Errors Found on the Form</legend>
         <ul>
           <li *ngIf='editDialogForm.errors?.answersMismatch' class="text-danger">
-            {{ editDialogForm.errors.answersMismatch }}
+            {{ editDialogForm?.errors?.answersMismatch }}
           </li>
-          <li *ngIf='editDialogForm.get("description").errors' class="text-danger">
+          <li *ngIf='editDialogForm.get("description")?.errors' class="text-danger">
             Question is required
           </li>
-          <li *ngIf='editDialogForm.get("points").errors' class="text-danger">
+          <li *ngIf='editDialogForm.get("points")?.errors' class="text-danger">
             Points Field is required
           </li>
         </ul>

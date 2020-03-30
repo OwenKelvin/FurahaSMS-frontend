@@ -9,7 +9,7 @@ describe('UnitService', () => {
   }));
 
   it('should be created', () => {
-    const service: UnitLevelService = TestBed.get(UnitLevelService);
+    const service: UnitLevelService = TestBed.inject(UnitLevelService);
     expect(service).toBeTruthy();
   });
 });

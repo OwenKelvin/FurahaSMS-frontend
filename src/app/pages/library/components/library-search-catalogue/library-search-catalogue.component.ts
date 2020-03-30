@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
@@ -6,13 +6,14 @@ import { LibraryAuthorService } from '../../services/library-author.service';
 import { Observable } from 'rxjs';
 import { LibraryBookService } from '../../services/library-book.service';
 import { LibraryPublisherService } from '../../services/library-publisher.service';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-library-search-catalogue',
   templateUrl: './library-search-catalogue.component.html',
   styleUrls: ['./library-search-catalogue.component.css']
 })
-export class LibrarySearchCatalogueComponent implements OnInit {
+export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
   searchParamsForm: FormGroup;
   authors$: Observable<any>;
   books$: Observable<any[]>;
@@ -20,6 +21,7 @@ export class LibrarySearchCatalogueComponent implements OnInit {
   titles$: Observable<any>;
   isSubmitting: boolean;
   books: any;
+  componentIsActive: boolean;
 
   constructor(
     private fb: FormBuilder, private store: Store<fromStore.AppState>,
@@ -29,6 +31,7 @@ export class LibrarySearchCatalogueComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.searchParamsForm = this.fb.group({
       title: [''],
       author: [''],
@@ -50,9 +53,14 @@ export class LibrarySearchCatalogueComponent implements OnInit {
   submitSearchParamsForm() {
     this.isSubmitting = true;
     this.books$ = this.booksService.filter(this.searchParamsForm.value);
-    this.books$.subscribe(books => {
+    this.books$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(books => {
       this.books = books;
       this.isSubmitting = false;
     });
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

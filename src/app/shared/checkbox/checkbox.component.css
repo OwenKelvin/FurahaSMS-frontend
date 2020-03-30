@@ -33,7 +33,8 @@
   display: none;
 }
 .check-container input:focus ~ .checkmark {
-  background-color: grey;
+  margin: 0px !important;
+  outline: greenyellow 1px dotted;
 }
 label {
   margin-bottom: 0 !important;

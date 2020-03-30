@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
 })
 export class AcademicYearService {
   constructor(private http: HttpClient) { }
-  saveUnitLevels(academicYearId, data): Observable<any> {
+  saveUnitLevels(academicYearId: number, data: any): Observable<any> {
     const url = `api/academic-years/${academicYearId}/unit-levels`;
     return this.http.post(url, data);
   }
@@ -46,10 +46,10 @@ export class AcademicYearService {
       })
     );
   }
-  getAcademicYearWithId({id}): Observable<any> {
+  getAcademicYearWithId({id} : {id: number}): Observable<any> {
     return this.get({ id });
   }
-  save(data) {
+  save(data: any) {
     let url = `api/academic-years`;
     if (data.id) {
       url += '/' + data.id;

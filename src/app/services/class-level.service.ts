@@ -11,7 +11,7 @@ export class ClassLevelService {
   constructor(private http: HttpClient) { }
 
   getAll(
-    data: { includeUnits?: 1; includeLevels?: 1; academicYearId?: number } = {
+    data: { includeUnits?: 1 | null; includeLevels?: 1 | null; academicYearId?: number | null } = {
       includeUnits: null,
       includeLevels: null,
       academicYearId: null
@@ -30,7 +30,7 @@ export class ClassLevelService {
 
     return this.http.get<any[]>(`api/curriculum/class-levels/?${queryStringParams}`);
   }
-  get({ id }) {
+  get({ id }: {id: number}) {
     const url = `api/curriculum/class-levels/${id}`;
     return this.http.get<any>(url).pipe(
       map(res => {
@@ -38,7 +38,7 @@ export class ClassLevelService {
       })
     );
   }
-  getItemById(id): Observable<any> {
+  getItemById(id: number): Observable<any> {
     const url = `api/curriculum/class-levels/${id}`;
     return this.http.get<any>(url).pipe(
       map(res => {

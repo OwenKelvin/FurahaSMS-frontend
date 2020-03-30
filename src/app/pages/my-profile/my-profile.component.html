@@ -1,0 +1,10 @@
+<ng-container *ngIf='profile$ | async as profile; else loading'>
+  <ng-container *ngIf='profile.id !== 0; else loading'>
+    <app-user-profile title='My Profile' [profile]='profile' [linkBase]='["/my-profile"]' [links]='["info"]'
+      [includeProfileId]='false'></app-user-profile>
+  </ng-container>
+</ng-container>
+<ng-template #loading>
+  <h1>My Profile</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, Input } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, FormsModule, FormControl } from '@angular/forms';
 import { TeacherService } from '../../services/teacher.service';
 import { Store } from '@ngrx/store';
@@ -7,6 +7,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { debounceTime, takeWhile } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { Router } from '@angular/router';
+import { SupportStaffService } from '../../services/support-staff.service';
 
 @Component({
   selector: 'app-create-teacher',
@@ -14,6 +15,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./create-teacher.component.css']
 })
 export class CreateTeacherComponent implements OnInit, OnDestroy {
+  @Input() supportStaff: {id: number, name: string};
   newTeacherForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
@@ -26,7 +28,8 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     private users: UsersService,
     private store: Store<AppState>,
     private fb: FormBuilder, private teacherService: TeacherService,
-    private router: Router
+    private router: Router,
+    private supportStaffService: SupportStaffService
   ) { }
 
   ngOnInit() {
@@ -47,7 +50,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   subscribeToEmailChecking(): void {
 
-    this.newTeacherForm.get('email').valueChanges.pipe(
+    (this.newTeacherForm.get('email') as FormControl).valueChanges.pipe(
       debounceTime(1000)
     ).pipe(
       takeWhile(() => this.componentIsActive)
@@ -72,14 +75,14 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   updateFieldsForEmail() {
     const data = this.usersData;
-    this.newTeacherForm.get('firstName').setValue(data.first_name);
-    this.newTeacherForm.get('lastName').setValue(data.last_name);
-    this.newTeacherForm.get('middleName').setValue(data.middle_name);
-    this.newTeacherForm.get('otherNames').setValue(data.other_names);
-    this.newTeacherForm.get('namePrefix').setValue(data.name_prefix_id);
-    this.newTeacherForm.get('dateOfBirth').setValue(data.date_of_birth);
-    this.newTeacherForm.get('gender').setValue(data.gender_id);
-    this.newTeacherForm.get('religion').setValue(data.religion_id);
+    (this.newTeacherForm.get('firstName') as FormControl).setValue(data.first_name);
+    (this.newTeacherForm.get('lastName') as FormControl).setValue(data.last_name);
+    (this.newTeacherForm.get('middleName') as FormControl).setValue(data.middle_name);
+    (this.newTeacherForm.get('otherNames') as FormControl).setValue(data.other_names);
+    (this.newTeacherForm.get('namePrefix') as FormControl).setValue(data.name_prefix_id);
+    (this.newTeacherForm.get('dateOfBirth') as FormControl).setValue(data.date_of_birth);
+    (this.newTeacherForm.get('gender') as FormControl).setValue(data.gender_id);
+    (this.newTeacherForm.get('religion') as FormControl).setValue(data.religion_id);
     this.confirmData = false;
     this.confirmedData = true;
   }
@@ -88,21 +91,28 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     this.usersData = null;
     this.confirmData = false;
     this.confirmedData = false;
-    this.newTeacherForm.get('firstName').setValue('');
-    this.newTeacherForm.get('lastName').setValue('');
-    this.newTeacherForm.get('middleName').setValue('');
-    this.newTeacherForm.get('otherNames').setValue('');
-    this.newTeacherForm.get('namePrefix').setValue('');
-    this.newTeacherForm.get('dateOfBirth').setValue('');
-    this.newTeacherForm.get('gender').setValue('');
-    this.newTeacherForm.get('religion').setValue('');
+    (this.newTeacherForm.get('firstName') as FormControl).setValue('');
+    (this.newTeacherForm.get('lastName') as FormControl).setValue('');
+    (this.newTeacherForm.get('middleName') as FormControl).setValue('');
+    (this.newTeacherForm.get('otherNames') as FormControl).setValue('');
+    (this.newTeacherForm.get('namePrefix') as FormControl).setValue('');
+    (this.newTeacherForm.get('dateOfBirth') as FormControl).setValue('');
+    (this.newTeacherForm.get('gender') as FormControl).setValue('');
+    (this.newTeacherForm.get('religion') as FormControl).setValue('');
   }
   submitNewTeacherForm() {
     this.isSubmitting = true;
+    if (this.supportStaff && this.supportStaff.id !== 0) {
+      this.createSupportStaff();
+    } else {
+      this.createTeacher();
+    }
+
+  }
+  createTeacher() {
     this.teacherService.store(this.newTeacherForm.value)
-      .pipe(
-        takeWhile(() => this.componentIsActive)
-      ).subscribe(res => {
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
         this.isSubmitting = false;
         this.store.dispatch(loadToastShowsSuccess({
           toastHeader: 'Success',
@@ -111,7 +121,23 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
           toastBody: res.message
         }));
         this.router.navigate(['/teachers', res.data.id, 'info']);
-      }, err => {
+      }, () => {
+        this.isSubmitting = false;
+      });
+  }
+  createSupportStaff() {
+    this.supportStaffService.save({ ...this.newTeacherForm.value, staff_type: this.supportStaff.id })
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
+        this.isSubmitting = false;
+        this.store.dispatch(loadToastShowsSuccess({
+          toastHeader: 'Success',
+          showMessage: true,
+          toastTime: 'Just Now',
+          toastBody: res.message
+        }));
+        this.router.navigate(['/support-staffs', res.data.id, 'info']);
+      }, () => {
         this.isSubmitting = false;
       });
   }

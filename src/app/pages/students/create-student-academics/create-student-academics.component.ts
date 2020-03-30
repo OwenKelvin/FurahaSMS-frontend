@@ -22,7 +22,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
   academicCategory: FormGroup;
   unitLevels$: Observable<any>;
   academicYearUnitLevels: any;
-  unitsLoaded: boolean;
+  unitsLoaded: boolean | undefined;
   triggerValidation: boolean;
   isSubmitting: boolean;
   componentIsActive: boolean;
@@ -47,10 +47,10 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       classLevel: [''],
       unitLevels: this.fb.array([])
     });
-    this.unitLevels$ = combineLatest(
-      this.academicCategory.get('academicYear').valueChanges,
-      this.academicCategory.get('classLevel').valueChanges
-    ).pipe(tap(_ => {
+    this.unitLevels$ = combineLatest([
+      (this.academicCategory.get('academicYear') as FormControl).valueChanges,
+      (this.academicCategory.get('classLevel') as FormControl).valueChanges
+    ]).pipe(tap(_ => {
       this.unitsLoaded = false;
     })).pipe(mergeMap(item => {
       if (item[0] === '' || item[1] === '') {
@@ -62,7 +62,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       if (res.length > 0) {
         this.unitLevels.setValue([]); // TODO fails if we reset the value
       }
-      res.map(({ id }) => id).forEach(val => {
+      res.map(({ id }: { id: number }) => id).forEach((val: any) => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
@@ -77,7 +77,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
     return this.academicCategory.get('unitLevels') as FormArray;
   }
 
-  onCheckboxChange(e) {
+  onCheckboxChange(e: any) {
     if (e.target.checked) {
       this.unitLevels.push(new FormControl(e.target.value));
     } else {
@@ -93,7 +93,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
   }
 
   submitAllocationForm() {
-    let studentIdParam;
+    let studentIdParam: any;
     this.isSubmitting = true;
     const data = this.unitLevels.value;
     this.route.paramMap
@@ -114,7 +114,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
           }));
           this.router.navigate(['students', studentIdParam, 'academics']);
         },
-        err => this.isSubmitting = false);
+        () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;

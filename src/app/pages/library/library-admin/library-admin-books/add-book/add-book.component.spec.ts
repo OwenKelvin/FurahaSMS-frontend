@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
   let fixture: ComponentFixture<AddBookComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -48,7 +48,7 @@ describe('AddBookComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(AddBookComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     spyOn(store, 'pipe').and.returnValue(of([{ id: 1 }]));

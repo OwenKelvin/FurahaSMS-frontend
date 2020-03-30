@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -7,13 +7,14 @@ import { Observable, Subscriber } from 'rxjs';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { Router } from '@angular/router';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-procurements-vendors',
   templateUrl: './create-procurements-vendors.component.html',
   styleUrls: ['./create-procurements-vendors.component.css']
 })
-export class CreateProcurementsVendorsComponent implements OnInit, CanComponentDeactivate {
+export class CreateProcurementsVendorsComponent implements OnInit, CanComponentDeactivate, OnDestroy {
   procurementVendorForm: FormGroup;
   sub: Subscriber<any>[];
   itemCategories$: Observable<any>;
@@ -22,6 +23,7 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
   formSubmitted: boolean;
+  componentIsActive: boolean;
   constructor(
     private store: Store<fromStore.AppState>,
     private fb: FormBuilder,
@@ -30,7 +32,7 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
   ) { }
 
   ngOnInit() {
-
+    this.componentIsActive = true;
     this.isSubmitting = false;
     this.sub = [];
     this.itemCategories$ = this.procurementService.getItemCaterories();
@@ -69,11 +71,14 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       this.phonesContactInfo.updateValueAndValidity();
     }
   }
+  controlAsFormGroup(formGroupName: string): FormGroup {
+    return this.procurementVendorForm.get(formGroupName) as FormGroup;
+  }
   get emailsContactInfo(): FormArray {
-    return this.procurementVendorForm.get('contactInfo').get('emails') as FormArray;
+    return this.controlAsFormGroup('contactInfo').get('emails') as FormArray;
   }
   get phonesContactInfo(): FormArray {
-    return this.procurementVendorForm.get('contactInfo').get('phones') as FormArray;
+    return this.controlAsFormGroup('contactInfo').get('phones') as FormArray;
   }
   get newEmailField() {
     return this.fb.group({
@@ -89,11 +94,13 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
   }
   submitProcurementVendorForm() {
     this.isSubmitting = true;
-    this.procurementService.createNewVendor(this.procurementVendorForm.value).subscribe(res => {
+    this.procurementService.createNewVendor(this.procurementVendorForm.value)
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(() => {
       this.isSubmitting = false;
       this.formSubmitted = true;
       this.router.navigate(['/procurements/vendors']);
-    }, err => {
+    }, () => {
         this.isSubmitting = false;
     });
   }
@@ -105,27 +112,27 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       this.markTabsWithError = true;
   }
   get generalInfoHasError() {
-    if (this.procurementVendorForm.get('name').errors) {
+    if (this.controlAsFormGroup('name').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('address').errors) {
+    if (this.controlAsFormGroup('address').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('description').errors) {
+    if (this.controlAsFormGroup('description').errors) {
       return true;
     }
-    if (this.procurementVendorForm.get('procurementItemsCategory').invalid) {
+    if (this.controlAsFormGroup('procurementItemsCategory').invalid) {
       return true;
     }
     return false;
   }
   get contactInfoHasError() {
-    if (this.procurementVendorForm.get('contactInfo').invalid) {
+    if (this.controlAsFormGroup('contactInfo').invalid) {
       return true;
     }
     return false;
   }
-  onCheckboxChange(e) {
+  onCheckboxChange(e: any) {
     const checkArray: FormArray = this.procurementVendorForm.get('procurementItemsCategory') as FormArray;
 
     if (e.target.checked) {
@@ -146,5 +153,8 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       return confirm('Your changes are unsaved!! Do you like to exit');
     }
     return true;
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

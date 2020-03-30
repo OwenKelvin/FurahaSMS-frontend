@@ -23,8 +23,8 @@ export class ViewGuardianStudentsComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.students$ = this.route.parent.paramMap
-      .pipe(map(params => +params.get('id')))
+    this.students$ = (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(guardianId => this.guardianService.getStudents(guardianId)));
 
   }

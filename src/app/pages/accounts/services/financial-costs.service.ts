@@ -17,8 +17,6 @@ export class FinancialCostsService {
   }
 
   save(financialCosts: any[]) {
-    console.log(financialCosts);
-
     const url = 'api/accounts/financial-costs';
     return this.http.post(url, financialCosts);
   }

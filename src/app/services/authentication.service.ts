@@ -5,36 +5,55 @@ import { OauthInterface } from './../interfaces/oauth.interface';
 import { UserInterface } from './../interfaces/user.interface';
 import { PASSPORT_CLIENT } from './../configs/app.config';
 import { map, catchError } from 'rxjs/operators';
+import { IUserProfile } from '../interfaces/user-profile.interface';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AuthenticationService {
-  private currentUserSubject: BehaviorSubject<UserInterface>;
-  public currentUser: Observable<UserInterface>;
+  private currentUserSubject: BehaviorSubject<UserInterface | null>;
+  public currentUser: Observable<UserInterface | null>;
   constructor( private http: HttpClient ) {
-    const storedUser = localStorage.getItem('currentUser');
+    const storedUser: any = JSON.parse(String(localStorage.getItem('currentUser')));
 
-    this.currentUserSubject = new BehaviorSubject<UserInterface>(JSON.parse(localStorage.getItem('currentUser')));
+    this.currentUserSubject = new BehaviorSubject<UserInterface>(storedUser);
     this.currentUser = this.currentUserSubject.asObservable();
   }
   get authorizationToken(): string | undefined {
-    const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+    const currentUser = JSON.parse(String(localStorage.getItem('currentUser')));
     if (currentUser) {
       return `Bearer ${currentUser.access_token}`;
     }
-
+    return;
   }
-  public get currentUserValue(): UserInterface {
+  public get currentUserValue(): UserInterface | null {
     return this.currentUserSubject.value;
   }
-  contactAdmin(data: { email: string }) {
+  public get currentUserProfile$(): Observable<IUserProfile> {
+    return this.http.get('api/users/auth')
+      .pipe(map((res: any) => {
+        return {
+          ...res,
+          id: res.id,
+          firstName: res.first_name,
+          lastName: res.last_name,
+          middleName: res.middle_name,
+          otherNames: res.other_names,
+          phone: res.phone,
+          email: res.email,
+          dateOfBirth: res.date_of_birth,
+          religionName: res.religion_name,
+          genderName: res.gender_name
+        }
+      }));
+  }
+  contactAdmin(_data: { email: string }) {
     // TODO-me Authentication Service Contact admin
     return of({
       message: 'Successfully Contacted Admin'
     });
   }
-  resetPassword(data: { email: string }) {
+  resetPassword(_data: { email: string }) {
     // TODO-me Authentication Service reset Password
     return of({
       message: 'Password Reset Successful'

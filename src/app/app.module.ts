@@ -17,6 +17,9 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { PagesModule } from './pages/pages.module';
 import { EffectsModule } from '@ngrx/effects';
 import { ServiceWorkerModule } from '@angular/service-worker';
+import * as fromApp from './store/reducers/app.reducer';
+import { GenderEffects } from './store/effects/gender.effects';
+import { ReligionEffects } from './store/effects/religion.effects';
 
 @NgModule({
   declarations: [
@@ -41,6 +44,10 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     EffectsModule.forRoot([]),
     BrowserAnimationsModule,
     ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
+    StoreModule.forFeature(fromApp.appFeatureKey, fromApp.APP_REDUCER_TOKEN, {
+      metaReducers: fromApp.appMetaReducers
+    }),
+    EffectsModule.forFeature([GenderEffects, ReligionEffects]),
 
   ],
   providers: [
@@ -49,7 +56,8 @@ import { ServiceWorkerModule } from '@angular/service-worker';
     { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
-    reducerProvider
+    reducerProvider,
+    fromApp.appReducerProvider
   ],
   bootstrap: [AppComponent]
 })

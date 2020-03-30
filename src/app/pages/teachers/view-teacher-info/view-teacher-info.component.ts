@@ -19,8 +19,8 @@ export class ViewTeacherInfoComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.teacherProfile$ = this.route.parent.paramMap
-      .pipe( map(params => +params.get('id')))
+    this.teacherProfile$ = (this.route.parent as ActivatedRoute).paramMap
+      .pipe( map(params => Number(params.get('id'))))
       .pipe(
         mergeMap(id => {
           return this.store.pipe(select(selectTeacherProfileState))

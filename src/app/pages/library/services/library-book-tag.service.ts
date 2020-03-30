@@ -12,17 +12,17 @@ export class LibraryBookTagService {
   getAll(): Observable<any> {
     return this.http.get('/api/library-books/tags/all');
   }
-  save(data): Observable<any> {
+  save(data: any): Observable<any> {
     if (data.id === 0) {
       return this.http.post('api/library-book-tag', data);
     } else {
       return this.http.patch(`api/library-book-tag/${data.id}`, data);
     }
   }
-  deleteItem(id): Observable<any> {
+  deleteItem(id: number): Observable<any> {
     return this.http.delete(`api/library-book-tag/${id}`);
   }
-  getTagWithId(id) {
+  getTagWithId(id: number) {
     return this.http.get(`api/library-book-tag/${id}`);
   }
 }

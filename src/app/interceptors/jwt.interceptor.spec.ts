@@ -25,8 +25,8 @@ describe(`AuthHttpInterceptor`, () => {
       ],
     });
 
-    authenticationService = TestBed.get(AuthenticationService);
-    httpMock = TestBed.get(HttpTestingController);
+    authenticationService = TestBed.inject(AuthenticationService);
+    httpMock = TestBed.inject(HttpTestingController);
   });
   it('should not add an Authorization header to api/oauth/token', () => {
     authenticationService.login({ username: '', password: '' }).subscribe(response => {

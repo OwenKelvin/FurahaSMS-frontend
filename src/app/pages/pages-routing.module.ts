@@ -119,6 +119,27 @@ const routes: Routes = [
         data: {
           breadcrumb: 'Guardians'
         }
+      },
+      {
+        path: 'roles-and-permissions',
+        loadChildren: () => import('./roles-and-permissions/roles-and-permissions.module').then(m => m.RolesAndPermissionsModule),
+        data: {
+          breadcrumb: 'Roles & Permissions'
+        }
+      },
+      {
+        path: 'support-staffs',
+        loadChildren: () => import('./support-staffs/support-staffs.module').then(m => m.SupportStaffsModule),
+        data: {
+          breadcrumb: 'Support Staffs'
+        }
+      },
+      {
+        path: 'my-profile',
+        loadChildren: () => import('./my-profile/my-profile.module').then(m => m.MyProfileModule),
+        data: {
+          breadcrumb: 'My Profile'
+        }
       }
     ]
   }

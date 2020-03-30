@@ -1,9 +1,10 @@
-import { Component, OnInit, Input, SimpleChange, OnChanges, forwardRef } from '@angular/core';
+import { Component, OnInit, Input, SimpleChange, OnChanges, forwardRef, OnDestroy } from '@angular/core';
 import { LibraryBookClassesService } from '../../services/library-book-classes.service';
 import { Observable, of } from 'rxjs';
 
 import { DbService } from 'src/app/services/db.service';
 import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl } from '@angular/forms';
+import { takeWhile } from 'rxjs/operators';
 
 
 @Component({
@@ -23,48 +24,52 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl } f
     }
   ]
 })
-export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
+  componentIsActive: boolean;
   constructor(
     private libraryBookClassesService: LibraryBookClassesService,
     private db: DbService
   ) { }
   libraryBookClassValue: any;
-  @Input() classification;
+  @Input() classification: any;
   libraryBookClasses$: Observable<any>;
 
-  onChanges: ($value) => void;
+  onChanges: ($value: any) => void;
   onTouched: () => void;
 
   ngOnInit() {
+    this.componentIsActive = true;
 
   }
-  ngOnChanges(changes: { classification: SimpleChange }) {
-    let currentValue;
+  ngOnChanges(changes: { classification: SimpleChange; }) {
+    let currentValue: any;
     if (changes) {
       currentValue = changes.classification.currentValue;
     }
     if (+currentValue > 0) {
       this.db.get(currentValue)
-        .then(doc => {
+        .then((doc: any) => {
           this.libraryBookClasses$ = of(doc.items);
-        }).catch(e => {
+        }).catch(() => {
           this.libraryBookClasses$ = this.libraryBookClassesService
             .getClass({ classification: currentValue, libraryClass: null });
-          this.libraryBookClasses$.subscribe(items => {
+          this.libraryBookClasses$
+            .pipe(takeWhile(() => this.componentIsActive))
+            .subscribe(items => {
             const doc = {
               _id: currentValue,
               items
             };
             if (items.length > 0) {
 
-              this.db.put(doc).then(() => { }).catch(err => console.log('Data Retrieved from Cache'));
+              this.db.put(doc).then(() => { }).catch(() => console.log('Data Retrieved from Cache'));
             }
           });
         });
 
     }
   }
-  validate(control: FormControl) {
+  validate(_control: FormControl) {
     // this.formControl = control;
   }
   writeValue(value: any): void {
@@ -79,7 +84,10 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
     this.onTouched = fn;
   }
 
-  handleChange($event) {
+  handleChange($event: any) {
     this.onChanges($event);
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

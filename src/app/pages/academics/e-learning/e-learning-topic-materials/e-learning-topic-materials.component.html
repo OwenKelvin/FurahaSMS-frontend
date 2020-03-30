@@ -1,0 +1,21 @@
+<section *ngIf='learningContents && learningContents.length > 0' class='card p-2 m-2'>
+  <a 
+    *ngFor='let learningContent of learningContents'
+    [routerLink]='["..","study-materials", learningContent.study_material_id]'
+    class="d-flex flex-wrap p-2">
+    <div class="col-lg-12">
+      <span [style.color]='learningContent.study_material.study_material_doc.type | fileExtentionColor'
+        [class]="learningContent.study_material.study_material_doc.type | fileExtentionIcon"></span>
+      <strong>{{ learningContent.study_material.title }}</strong>
+    </div>
+    <div class="col-lg-12 d-flex flex-wrap justify-content-between pb-2" style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'>
+      <small class="col-lg-4"><span class="sr-only">File</span> Name: {{ learningContent.study_material.study_material_doc.name }}</small>
+      <small class="col-lg-2"><span class="sr-only">File</span>Size: {{ learningContent.study_material.study_material_doc.size | filesize }}</small>
+      <!-- <small >Created <span class="sr-only">On</span>: {{ learningContent.study_material.study_material_doc.created_at }}</small> -->
+      <small class="col-lg-3"><span class="sr-only">Last</span> Updated: {{ learningContent.study_material.study_material_doc.updated_at }}</small>
+      <small class="col-lg-2"><span class="sr-only">File</span> Extention: {{ learningContent.study_material.study_material_doc.type }}</small>
+    </div>
+      
+  </a>
+
+</section>

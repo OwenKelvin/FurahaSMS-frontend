@@ -1,0 +1,6 @@
+.required {
+	font-size: 0.5em;
+	position: absolute;
+	left: 5px; top: 5px;
+	color: greenyellow;
+}

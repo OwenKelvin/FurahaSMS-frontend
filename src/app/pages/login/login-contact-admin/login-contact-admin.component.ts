@@ -11,7 +11,7 @@ import { FullWithCenterComponent } from '../../../components/full-with-center/fu
 export class LoginContactAdminComponent implements OnInit {
   loginContactAdminForm: FormGroup;
   errors: {
-    email: string;
+    email: string | null;
   };
   constructor(
     private fb: FormBuilder,

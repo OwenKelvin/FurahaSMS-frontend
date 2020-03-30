@@ -8,7 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class LibraryBookClassesService {
 
   constructor(private http: HttpClient) { }
-  getClass({ classification, libraryClass }): Observable<any> {
+  getClass({ classification, libraryClass }: any): Observable<any> {
     let url = `api/library-books/classifications/${classification}/classes?`;
     if (libraryClass) {
       url += `library_class=${libraryClass}`;

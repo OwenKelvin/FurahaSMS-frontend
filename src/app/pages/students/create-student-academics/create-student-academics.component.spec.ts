@@ -8,11 +8,12 @@ import { StudentsModule } from '../students.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('CreateStudentAcademicsComponent', () => {
   let component: CreateStudentAcademicsComponent;
   let fixture: ComponentFixture<CreateStudentAcademicsComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -24,6 +25,7 @@ describe('CreateStudentAcademicsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         ReactiveFormsModule,
         FormsModule,
         StudentsModule,
@@ -41,7 +43,7 @@ describe('CreateStudentAcademicsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateStudentAcademicsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

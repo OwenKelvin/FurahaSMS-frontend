@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
 import { ActivatedRoute } from '@angular/router';
 import { Observable } from 'rxjs';
 import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-author',
@@ -12,6 +13,7 @@ import { LibraryAuthorService } from 'src/app/pages/library/services/library-aut
 })
 export class ViewAuthorComponent implements OnInit {
   author$: Observable<any>;
+  componentIsActive: boolean;
 
   constructor(
     private libraryAuthorService: LibraryAuthorService,
@@ -20,9 +22,8 @@ export class ViewAuthorComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.author$ = this.libraryAuthorService.getAuthorWithId(+params.get('id'));
-    });
+    this.author$ = this.route.paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(mergeMap(id => this.libraryAuthorService.getAuthorWithId(id)));
   }
-
 }

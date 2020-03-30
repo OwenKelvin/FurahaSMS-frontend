@@ -21,10 +21,10 @@ export class ExamPaperService {
     private http: HttpClient
   ) { }
 
-  save(data): Observable<any> {
+  save(data: any): Observable<any> {
     return this.http.post('api/academics/exam-papers', data);
   }
-  getByFilter(params): Observable<any> {
+  getByFilter(params: any): Observable<any> {
     const url = 'api/academics/exam-papers';
     const querystring = require('querystring');
     const queryString = querystring.stringify(params);

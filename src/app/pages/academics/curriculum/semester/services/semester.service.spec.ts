@@ -9,7 +9,7 @@ describe('SemesterService', () => {
   }));
 
   it('should be created', () => {
-    const service: SemesterService = TestBed.get(SemesterService);
+    const service: SemesterService = TestBed.inject(SemesterService);
     expect(service).toBeTruthy();
   });
 });

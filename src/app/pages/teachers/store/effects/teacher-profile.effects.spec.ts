@@ -16,7 +16,7 @@ describe('TeacherProfileEffects', () => {
       ]
     });
 
-    effects = TestBed.get<TeacherProfileEffects>(TeacherProfileEffects);
+    effects = TestBed.inject<TeacherProfileEffects>(TeacherProfileEffects);
   });
 
   it('should be created', () => {

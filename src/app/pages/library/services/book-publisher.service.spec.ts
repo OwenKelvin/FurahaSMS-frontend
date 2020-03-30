@@ -9,7 +9,7 @@ describe('BookPublisherService', () => {
   }));
 
   it('should be created', () => {
-    const service: BookPublisherService = TestBed.get(BookPublisherService);
+    const service: BookPublisherService = TestBed.inject(BookPublisherService);
     expect(service).toBeTruthy();
   });
 });

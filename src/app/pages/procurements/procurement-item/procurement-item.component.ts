@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./procurement-item.component.css']
 })
 export class ProcurementItemComponent implements OnInit {
-  @Input() item;
+  @Input() item: any;
   procurementItem: any;
   constructor() { }
 

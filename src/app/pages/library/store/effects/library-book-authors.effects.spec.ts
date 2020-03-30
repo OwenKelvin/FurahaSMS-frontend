@@ -18,7 +18,7 @@ describe('LibraryBookAuthorEffects', () => {
       ]
     });
 
-    effects = TestBed.get<LibraryBookAuthorEffects>(LibraryBookAuthorEffects);
+    effects = TestBed.inject<LibraryBookAuthorEffects>(LibraryBookAuthorEffects);
   });
 
   it('should be created', () => {

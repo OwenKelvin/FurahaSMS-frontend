@@ -1,0 +1,74 @@
+<h1>Student Fee</h1>
+<table class="table table-dark">
+  <thead>
+    <tr>
+      <th>Academic Year</th>
+      <th></th>
+      <th colspan="3">Semester/ Term</th>
+      <th>TOTAL</th>
+    </tr>
+  </thead>
+  <tbody>
+   
+    <ng-container *ngIf='statement$ | async as statement; else loading'>
+      
+      <ng-container *ngFor='let academicYear of academicYears'>
+        <tr>
+          <td></td>
+          <td></td>
+          <td class="aquamarine" *ngFor='let sem of semesters'><strong>{{ sem.semesterName }}</strong></td>
+          <td class="aquamarine"><strong>KES</strong></td>
+          <td class="aquamarine"><strong>KES</strong></td>
+
+        </tr>
+        <tr>
+
+          <td [attr.rowspan]="otherFees.length + 3">{{ academicYear.academicYearName }},
+            {{ academicYear.classLevelName }}</td>
+          <td class="aquamarine">Tuition Fees</td>
+          <td *ngFor='let sem of semesters'>
+            {{ getCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId) | currency: ' ' }}
+          </td>
+          <td></td>
+          <td colspan="2">
+            {{ getTotalClassLevelFees(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</td>
+
+        </tr>
+        <tr *ngFor='let otherFee of otherFees; let p = index'>
+
+          <td  class="aquamarine">{{ otherFee.financialCostItemName }}</td>
+          <td *ngFor='let sem of semesters'>
+            {{ getOtherCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId, otherFee.financialCostItemId) | currency: ' ' }}
+          </td>
+          <td colspan="2">
+            {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId, otherFee.financialCostItemId) | currency: ' ' }}
+          </td>
+        </tr>
+        <tr>
+
+          <td  class="aquamarine">TOTAL</td>
+          <td *ngFor='let sem of semesters'>
+            {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId,null,sem.semesterId) + getCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId) | currency: ' ' }}
+          </td>
+          <td>{{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</td>
+          <td>{{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</td>
+        </tr>
+        <tr>
+
+          <td colspan="5"><strong>TOTAL</strong></td>
+          <td>
+            <strong>{{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) + getTotalClassLevelFees(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}</strong>
+          </td>
+
+        </tr>
+      </ng-container>
+    </ng-container>
+    <ng-template #loading>
+      <tr>
+        <td colspan="7">
+          <app-loading-bubble></app-loading-bubble>
+        </td>
+      </tr>
+    </ng-template>
+  </tbody>
+</table>

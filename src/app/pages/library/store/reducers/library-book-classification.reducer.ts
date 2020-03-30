@@ -19,8 +19,8 @@ const libraryBookClassificationReducer = createReducer(
   initialState,
 
   on(LibraryBookClassificationActions.loadBookClassifications, state => state),
-  on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (state, action) => action.data),
-  on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (state, action) => state),
+  on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (_state, action) => action.data),
+  on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (state, _action) => state),
 
 );
 

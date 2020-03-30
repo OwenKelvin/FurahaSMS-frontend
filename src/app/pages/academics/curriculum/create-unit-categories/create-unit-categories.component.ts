@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { UnitCategoryService } from 'src/app/services/unit-category.service';
 import { Router, ActivatedRouteSnapshot } from '@angular/router';
@@ -8,6 +8,7 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { VIEW_UNIT_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 import { AppState } from 'src/app/store/reducers';
+import { takeWhile } from 'rxjs/operators';
 
 interface Ierror {
   name: string;
@@ -18,12 +19,13 @@ interface Ierror {
   templateUrl: './create-unit-categories.component.html',
   styleUrls: ['./create-unit-categories.component.css']
 })
-export class CreateUnitCategoriesComponent implements OnInit {
+export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
   newUnitCategoryForm: FormGroup;
   errors: Ierror;
   newForm: boolean;
   submitInProgress: boolean;
   triggerValidation: boolean;
+  componentIsActive: boolean;
   constructor(
     private fb: FormBuilder,
     private unitCategoryService: UnitCategoryService,
@@ -31,6 +33,7 @@ export class CreateUnitCategoriesComponent implements OnInit {
     private store: Store<AppState>) { }
 
   ngOnInit() {
+    this.componentIsActive = true;
     this.generateForm();
     this.addSubject();
     this.errors = { name: '' };
@@ -47,7 +50,9 @@ export class CreateUnitCategoriesComponent implements OnInit {
         this.newForm = true;
       } else {
         this.newForm = false;
-        this.unitCategoryService.get({ id }).subscribe(item => {
+        this.unitCategoryService.get({ id })
+          .pipe(takeWhile(() => this.componentIsActive))
+          .subscribe(item => {
           this.generateForm(item);
         });
       }
@@ -72,10 +77,8 @@ export class CreateUnitCategoriesComponent implements OnInit {
   get units() {
     return this.newUnitCategoryForm.get('units') as FormArray;
   }
-  updateForm($event: FormGroup, i) {
+  updateForm($event: FormGroup, i: number) {
     this.units.controls[i].setValue($event.value);
-
-
   }
   addSubject() {
     const newGroup = this.fb.group({
@@ -91,6 +94,9 @@ export class CreateUnitCategoriesComponent implements OnInit {
   allSectionsValid(): boolean {
     return (this.units).controls.every(item => item.valid);
   }
+  get nameControl(): FormGroup {
+    return this.newUnitCategoryForm.get('name') as FormGroup;
+  }
   submit() {
     this.submitInProgress = true;
     if (this.newUnitCategoryForm.valid) {
@@ -98,12 +104,14 @@ export class CreateUnitCategoriesComponent implements OnInit {
         ...this.newUnitCategoryForm.value,
         units: this.units.controls.map(item => item.value)
       };
-      this.unitCategoryService.submit(dataSubmit).subscribe(data => {
+      this.unitCategoryService.submit(dataSubmit)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe(data => {
         this.router.navigate([VIEW_UNIT_CATEGORY_CURRICULUM(data.id)]);
         if (this.newForm) {
           this.generateForm();
-          this.newUnitCategoryForm.get('name').clearValidators();
-          this.newUnitCategoryForm.get('name').updateValueAndValidity();
+          this.nameControl.clearValidators();
+          this.nameControl.updateValueAndValidity();
           this.addSubject();
         }
         this.store.dispatch(loadToastShowsSuccess({
@@ -127,14 +135,16 @@ export class CreateUnitCategoriesComponent implements OnInit {
   }
   validateForm() {
     this.triggerValidation = !this.triggerValidation;
-    console.log(this.newUnitCategoryForm.value);
   }
-  removeSubject(i) {
+  removeSubject(i: number) {
     const removalConfirmed = confirm(
       'Please confirm you wish to remove section'
     );
     if (removalConfirmed) {
       this.units.controls.splice(i, 1);
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

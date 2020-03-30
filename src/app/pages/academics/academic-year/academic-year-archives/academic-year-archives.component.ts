@@ -17,7 +17,6 @@ export class AcademicYearArchivesComponent implements OnInit {
 
   ngOnInit() {
     this.academicYears$ = this.academicYearService.getAll();
-    this.academicYears$.subscribe(e => console.log(e));
   }
 
 }

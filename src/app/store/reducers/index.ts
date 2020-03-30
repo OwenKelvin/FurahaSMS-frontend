@@ -14,6 +14,7 @@ import * as fromErrorMessage from './error-message.reducer';
 import * as fromActivePage from './active-page.reducer';
 import * as fromDialog from './dialog.reducer';
 import * as fromTinyMCEConfig from './tiny-mce-config.reducer';
+import * as fromApp from './app.reducer';
 
 
 export interface AppState {
@@ -25,9 +26,6 @@ export interface AppState {
   [fromActivePage.activePageFeatureKey]: fromActivePage.ActivePageStateInterface;
   [fromDialog.dialogFeatureKey]: fromDialog.IDialogShow;
   [fromTinyMCEConfig.tinyMCEConfigFeatureKey]: fromTinyMCEConfig.State;
-
-
-
 
 }
 

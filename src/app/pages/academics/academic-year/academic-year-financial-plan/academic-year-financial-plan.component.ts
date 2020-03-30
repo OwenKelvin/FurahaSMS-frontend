@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -10,7 +10,7 @@ import { takeWhile, map } from 'rxjs/operators';
   templateUrl: './academic-year-financial-plan.component.html',
   styleUrls: ['./academic-year-financial-plan.component.css']
 })
-export class AcademicYearFinancialPlanComponent implements OnInit {
+export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
   componentIsActive: boolean;
 
   constructor(
@@ -22,8 +22,8 @@ export class AcademicYearFinancialPlanComponent implements OnInit {
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.route.parent.paramMap
-      .pipe(map(params => +params.get('id')))
+    (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(id => {
         const confirmRedirect = confirm('You are being redirected to Accounts, do you wish to continue?');
@@ -34,6 +34,9 @@ export class AcademicYearFinancialPlanComponent implements OnInit {
         }
       });
 
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

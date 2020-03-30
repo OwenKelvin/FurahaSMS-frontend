@@ -17,7 +17,7 @@ export class UnitLevelService {
     );
   }
   getFilter(
-    data: { academicYear: number } = { academicYear: null }
+    data: { academicYear: number | null } = { academicYear: null }
   ): Observable<any> {
     const { academicYear } = data;
     let url = 'api/curriculum/unit-levels/?';
@@ -26,7 +26,7 @@ export class UnitLevelService {
     }
     return this.http.get<any>(url);
   }
-  getAll(data = { unit: null }) {
+  getAll(data: {unit: number | null} = { unit: null }) {
     const { unit } = data;
     let url = 'api/curriculum/unit-levels/?';
     if (unit) {
@@ -35,11 +35,11 @@ export class UnitLevelService {
     return this.http.get<any>(url).pipe(
       map(
         res => {
-          return res.map(item => {
+          return res.map((item: any) => {
             return { ...item };
           });
         },
-        error => {
+        () => {
           // Error Has been captured by interceptor
         }
       )

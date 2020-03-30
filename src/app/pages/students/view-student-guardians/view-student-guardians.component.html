@@ -1,0 +1,38 @@
+<ng-container *ngIf='guardians$ | async as guardians; else loading_guardians'>
+  <button class="btn btn-primary btn-sm mt-2 mb-1" [routerLink]='["/students", studentId, "guardians", "create"]'>
+    <span class="icon-plus-circled"></span>
+    Add Student Guardian
+  </button>
+  <table class="table table-dark">
+    <caption>Guardian List</caption>
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Name</th>
+        <th scope="col">Email</th>
+        <th scope="col">Tel</th>
+        <th scope="col">Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+
+      <tr *ngFor='let guardian of guardians; let i = index'>
+        <th scope="row">{{ i + 1 }}</th>
+        <th scope="col">{{ guardian.first_name }} {{ guardian.last_name }}</th>
+        <th scope="col">{{ guardian.email }}</th>
+        <th scope="col">{{ guardian.phone }}</th>
+        <td>
+          <a [routerLink]='["/guardians", guardian.id]' [attr.aria-label]='"View Guardian" + guardian.first_name'
+            class="btn btn-primary btn-sm"><span class="icon-eye"></span></a>
+        </td>
+      </tr>
+
+    </tbody>
+  </table>
+</ng-container>
+
+<ng-template #loading_guardians>
+  <div class="mt-4">
+    <app-loading-bubble></app-loading-bubble>
+  </div>
+</ng-template>

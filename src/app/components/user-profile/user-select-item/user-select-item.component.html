@@ -1,0 +1,32 @@
+<form (submit)='submitFormItem()' action="" [formGroup]='itemForm'>
+  <section class='d-flex flex-wrap'>
+    <div *ngIf='editable' class="edit-field p-3 pt-0">
+      <label [attr.for]='"editItem + label"'>{{ label | titlecase }}</label>
+      <select #selectInput formControlName='fieldName' [id]='"editItem + label"' class="custom-select">
+        <ng-container *ngIf='items | async as itemsAsync'>
+          <option value="">Prefer not to specify</option>
+          <option *ngFor='let item of itemsAsync' [value]="item.id"> {{ item.name }}</option>
+        </ng-container>
+
+      </select>
+      <div class="d-flex justify-content-between">
+        <button type="button" (click)='editable = false' class="btn btn-secondary mt-2">Cancel
+        </button>
+        <button [disabled]='itemForm.invalid || !itemForm.dirty' class="btn btn-success mt-2">
+          <i *ngIf='itemForm.valid && !isSubmitting' class='icon-ok'></i>
+          <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+          <span class="icon-save"></span>Save </button>
+      </div>
+    </div>
+    <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>{{ label | titlecase }}:</span>
+    <span class='label-value col col-xs-12 d-flex justify-content-between'>
+      <span>
+        &nbsp;{{ valueName | titlecase }}
+      </span>
+      <button type="button" (click)='editable = true' (mouseout)='editHovered = false' (mouseover)='editHovered = true'
+        *ngIf='editMode$ | async' [attr.aria-label]='"Edit " + label' class="icon">
+        <span [class.icon-pencil-1]='!editHovered' [class.icon-edit]="editHovered"></span>
+      </button>
+    </span>
+  </section>
+</form>

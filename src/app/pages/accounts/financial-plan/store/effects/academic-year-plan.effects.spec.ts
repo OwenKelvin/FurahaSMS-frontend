@@ -16,7 +16,7 @@ describe('AcademicYearPlanEffects', () => {
       ]
     });
 
-    effects = TestBed.get<AcademicYearPlanEffects>(AcademicYearPlanEffects);
+    effects = TestBed.inject<AcademicYearPlanEffects>(AcademicYearPlanEffects);
   });
 
   it('should be created', () => {

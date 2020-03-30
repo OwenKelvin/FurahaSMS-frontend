@@ -23,7 +23,7 @@ describe('GuestGuard', () => {
     await TestBed.compileComponents();
   });
 
-  it('should create auth guard', inject([GuestGuard, Store], (guard: GuestGuard, store: Store<AppState>) => {
+  it('should create auth guard', inject([GuestGuard, Store], (guard: GuestGuard, _store: Store<AppState>) => {
     expect(guard).toBeTruthy();
   }));
   it('should return true if no current user ', inject([

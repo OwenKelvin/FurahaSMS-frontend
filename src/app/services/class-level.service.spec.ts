@@ -13,7 +13,7 @@ describe('ClassLevelService', () => {
   );
 
   it('should be created', () => {
-    const service: ClassLevelService = TestBed.get(ClassLevelService);
+    const service: ClassLevelService = TestBed.inject(ClassLevelService);
     expect(service).toBeTruthy();
   });
 });

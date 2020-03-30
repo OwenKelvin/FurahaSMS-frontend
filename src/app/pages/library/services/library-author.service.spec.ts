@@ -9,7 +9,7 @@ describe('LibraryAuthorService', () => {
   }));
 
   it('should be created', () => {
-    const service: LibraryAuthorService = TestBed.get(LibraryAuthorService);
+    const service: LibraryAuthorService = TestBed.inject(LibraryAuthorService);
     expect(service).toBeTruthy();
   });
 });

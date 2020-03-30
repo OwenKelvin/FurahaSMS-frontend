@@ -9,7 +9,7 @@ export class LibraryBookService {
 
   constructor(private http: HttpClient) { }
 
-  save(data): Observable<any> {
+  save(data: any): Observable<any> {
     const subData = {
       ...data,
       title: data.bookTitle,
@@ -24,7 +24,7 @@ export class LibraryBookService {
     return this.http.get(`api/library-books`);
   }
 
-  filter(params): Observable<any[]> {
+  filter(params: any): Observable<any[]> {
     const querystring = require('querystring');
 
     const queryString = querystring.stringify(params);

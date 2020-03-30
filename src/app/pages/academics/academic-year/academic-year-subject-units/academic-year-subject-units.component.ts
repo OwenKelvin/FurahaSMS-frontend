@@ -37,8 +37,8 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentIsActive = true;
-    this.academicYearId$ = this.route.parent.paramMap
-      .pipe(map(params => +params.get('id')))
+    this.academicYearId$ = (this.route.parent as ActivatedRoute).paramMap
+      .pipe(map(params => Number(params.get('id'))))
       .pipe(takeWhile(() => this.componentIsActive));
     this.isSubmitting = false;
     this.allocationsForm = this.fb.group({
@@ -51,13 +51,12 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
       )
       .pipe(takeWhile(() => this.componentIsActive));
     this.classLevels$.subscribe(res => {
-      console.log(res);
       res.forEach(item => {
         this.classLevels.push(
           this.fb.group({
             id: item.id,
             // Problem is Here
-            unitLevels: [item.unit_levels.map(({id}) => id)],
+            unitLevels: [item.unit_levels.map(({id} : {id: number}) => id)],
             name: [item.name]
           })
         );
@@ -88,7 +87,7 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
           toastHeader: 'Success!',
           toastTime: 'Just now'
         }));
-      }, err => this.isSubmitting = false);
+      }, () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;

@@ -1,0 +1,32 @@
+<h1>Study Material</h1>
+<ng-container *ngIf='!isLoaded'>
+  <app-loading-bubble></app-loading-bubble>
+</ng-container>
+<section class='d-flex flex-wrap'>
+  <div *ngIf="isLoaded" class="col-md-12 col-lg-12 d-flex justify-content-center">
+    <button aria-label="Toggle Outline" (click)='showOutline = !showOutline' class="btn btn-secondary btn-sm mr-2 align-self-start"><span
+        class="icon-align-justify"></span></button>
+    <button aria-label="Zoom in" (click)='zoomIn()' class="btn btn-secondary btn-sm mr-2"><span
+        class="icon-minus-circled"></span></button>
+    <button aria-label="Zoom out" (click)='zoomOut()' class="btn btn-secondary btn-sm mr-2"><span
+        class="icon-plus-circled"></span></button>
+    <button class="btn btn-secondary btn-sm" type="button" (click)="prevPage()" [disabled]="page === 1">Prev</button>
+    <span class="ml-1 mr-1"> <input class="text-center" [attr.size]="totalPages/3 + 1" min="1" [max]="totalPages"
+        [(ngModel)]='page' [ngModelOptions]="{standalone: true}" type="number" name="page" id=""> /
+      {{ totalPages }}</span>
+    <button class="btn btn-secondary btn-sm" type="button" (click)="nextPage()"
+      [disabled]="page === totalPages">Next</button>
+    <button (click)='goFullScreen()' aria-label="Go fullscreen" class="btn btn-sm btn-secondary ml-2"><span class="icon-resize-full-1"></span></button>
+  </div>
+  <section class="col-lg-3" *ngIf='!showOutline'>
+    <app-add-study-materials-title [items]='outline'></app-add-study-materials-title>
+  </section>
+  <section 
+    [class.col-lg-9]='!showOutline' 
+    [class.col-lg-12]='showOutline' 
+    class="mt-2" 
+    id='docSection'>
+    <pdf-viewer [zoom]='zoom' [page]="page" (after-load-complete)="afterLoadComplete($event)" [show-all]='false'
+      [fit-to-page]="true" [src]="pdfSrc" [render-text]="true" style="display: block;"></pdf-viewer>
+  </section>
+</section>

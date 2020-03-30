@@ -9,7 +9,7 @@
     </app-select>
   </section>
   <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
-    <app-select [parentId]='newExamForm.get("unit").value' 
+    <app-select [parentId]='newExamForm.get("unit")?.value' 
       [triggerValidation]='triggerValidation' id='unit' type="unit-levels" formControlName="unitLevel">
     </app-select>
   </section>

@@ -15,7 +15,7 @@ export const selectExamPapersState = createSelector(
   }
 );
 
-export const selectExamPaperItemState = (id) => createSelector(
+export const selectExamPaperItemState = (id: any) => createSelector(
   selectExamPapersState,
   examPaper => examPaper[id]
 );

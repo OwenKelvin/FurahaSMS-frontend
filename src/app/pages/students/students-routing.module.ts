@@ -1,10 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { ViewStudentComponent } from '../admissions/student-admissions/view-student/view-student.component';
-import { ViewStudentInfoComponent } from '../admissions/student-admissions/view-student-info/view-student-info.component';
-import { ViewStudentGuardiansComponent } from '../admissions/student-admissions/view-student-guardians/view-student-guardians.component';
-import { ViewStudentAcademicsComponent } from '../admissions/student-admissions/view-student-academics/view-student-academics.component';
-import { CreateStudentGuardianComponent } from '../admissions/student-admissions/create-student-guardian/create-student-guardian.component';
+import { ViewStudentComponent } from './view-student/view-student.component';
+import { ViewStudentInfoComponent } from './view-student-info/view-student-info.component';
+import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
+import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
+import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 import { CreateStudentAcademicsComponent } from './create-student-academics/create-student-academics.component';
 
 const routes: Routes = [

@@ -1,0 +1,21 @@
+<h1> Support staff admissions</h1>
+
+<section class="d-flex">
+  <section class="col-lg-4 col-md-7">
+    <label for="staffTypes">Select Staff Type</label>
+    <select class="form-control" [(ngModel)]='staffType' id='staffTypes' >
+      <ng-container *ngIf='staffTypes$ | async as staffTypesd; else loading'>
+         <option *ngFor='let staffTyped of staffTypesd' [value]="staffTyped.id">{{ staffTyped.name }}</option>
+      </ng-container>
+      <ng-template #loading>
+        <option value="" disabled>Loading...</option>
+      </ng-template>
+    
+    </select>
+  </section>
+  <section class="col-lg-4 col-md-5">
+  
+    <button (click)='navigateToNewStaffPage()' class="btn btn-primary mt-2 btn-sm mt-lg-3 ">GO <span class="icon-paper-plane-empty"></span></button>
+  </section>
+
+</section>

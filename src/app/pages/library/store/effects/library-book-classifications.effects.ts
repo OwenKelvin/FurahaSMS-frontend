@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType, Effect } from '@ngrx/effects';
 import { catchError, map, concatMap, mergeMap } from 'rxjs/operators';
-import { EMPTY, of } from 'rxjs';
+import { of } from 'rxjs';
 
 import * as LibraryBookClassificationActions from '../actions/library-book-classification.actions';
 import { LibraryBookClassificationService } from '../../services/library-book-classification.service';

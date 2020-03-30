@@ -11,14 +11,11 @@ import { AppState } from 'src/app/store/reducers';
 })
 export class ViewAcademicYearInfoComponent implements OnInit {
   @Input() params: { id: number };
-  id$: Observable<number>;
+  id$: Observable<number | null | undefined>;
   constructor(private store: Store<AppState>) { }
 
   ngOnInit() {
     this.id$ = this.store.select(selectActivePageStateId);
-    // this.store.select(selectActivePageStateId).subscribe(item => {
-    //   alert(item)
-    // });
   }
 
 }

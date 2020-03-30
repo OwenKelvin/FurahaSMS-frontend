@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +11,8 @@ export class StudentService {
   constructor(
     private http: HttpClient
   ) { }
-  createNewStudent(newStudentData): Observable<any> {
+  createNewStudent(newStudentData: any): Observable<any> {
+
     return this.save(newStudentData);
   }
   save(data: any, idNumber: any = null): Observable<any> {
@@ -40,7 +41,7 @@ export class StudentService {
       }));
     }
   }
-  getStudentById(id: string): Observable<any> {
+  getStudentById(id: string | number): Observable<any> {
     const url = `api/students?id=${id}`;
     return this.http.get<any>(url)
       .pipe(
@@ -58,7 +59,7 @@ export class StudentService {
         })
       );
   }
-  getStudentBySchoolId(idNumber: string): Observable<any> {
+  getStudentBySchoolId(idNumber: string | number): Observable<any> {
     const url = `api/student/id-number?q=${idNumber}`;
     return this.http.get<any>(url)
       .pipe(

@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { map, mergeMap, tap } from 'rxjs/operators';
 import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
+import { AppState } from 'src/app/store/reducers';
 
 @Component({
   selector: 'app-exam-revision-mode',
@@ -18,16 +19,16 @@ export class ExamRevisionModeComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private store: Store<any>
+    private store: Store<AppState>
   ) { }
 
   ngOnInit() {
-    this.examPaper$ = this.route.parent.paramMap
+    this.examPaper$ = (this.route.parent as ActivatedRoute).paramMap
       .pipe(map(params => params.get('id')))
       .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
       .pipe(tap(res => {
         if (res) {
-          this.questions = res.questions.map(item => ({
+          this.questions = res.questions.map((item: any) => ({
             id: item.id,
             correctAnswerDescription: item.correct_answer_description,
             multipleAnswers: item.multiple_answers,
@@ -35,7 +36,7 @@ export class ExamRevisionModeComponent implements OnInit {
             points: item.points,
             description: item.description,
             tags: item.tags_value,
-            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }) => ({
+            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }: any) => ({
               id,
               description,
               isCorrect,
@@ -50,7 +51,5 @@ export class ExamRevisionModeComponent implements OnInit {
     this.activeQuestion = i;
     (document.querySelector(`#question-section`) as HTMLDivElement).focus();
   }
-  handleAnswerChange(event) {
-
-  }
+  handleAnswerChange(_event: any) { }
 }

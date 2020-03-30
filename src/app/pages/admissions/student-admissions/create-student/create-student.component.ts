@@ -8,6 +8,11 @@ import { StudentService } from 'src/app/services/student.service';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
+import { takeWhile } from 'rxjs/operators';
+import * as fromGenders from 'src/app/store/reducers/gender.reducer'
+import * as fromReligions from 'src/app/store/reducers/religion.reducer'
+import { GenderService } from 'src/app/services/gender.service';
+import { ReligionService } from 'src/app/services/religion.service';
 
 @Component({
   selector: 'app-create-student',
@@ -19,15 +24,24 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   triggerValidation: boolean;
   isSubmitting: boolean;
   formSubmitted: boolean;
+  componentIsActive: boolean;
+  genders$: Observable<fromGenders.State>;
+  religions$: Observable<fromReligions.State>;
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
     private idNumberValidator: IdNumberValidator,
     private studentService: StudentService,
-    private router: Router
+    private router: Router,
+    private genderService: GenderService,
+    private religionService: ReligionService,
   ) { }
 
   ngOnInit() {
+    this.genders$ = this.genderService.loadAll$;
+    this.religions$ = this.religionService.loadAll$;
+
+    this.componentIsActive = true;
     this.newStudentForm = this.fb.group({
       firstName: ['', [Validators.required, Validators.minLength(2)]],
       lastName: ['', [Validators.required, Validators.minLength(2)]],
@@ -36,19 +50,21 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
       otherNames: [''],
       autoGenerateId: [false, Validators.required],
       namePrefix: [''],
-      gender: [null],
-      religion: [null],
-      dateOfBirth: [null, Validators.required],
+      gender: [''],
+      religion: [''],
+      dateOfBirth: ['', Validators.required],
     });
-    this.autoGenerate.valueChanges.subscribe(checked => {
-      if (checked) {
-        this.schoolIdNumber.setValidators([Validators.required]);
-        this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
-      } else {
-        this.schoolIdNumber.setValidators(null);
-      }
-      this.schoolIdNumber.updateValueAndValidity();
-    });
+    this.autoGenerate.valueChanges
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(checked => {
+        if (checked) {
+          this.schoolIdNumber.setValidators([Validators.required]);
+          this.schoolIdNumber.setAsyncValidators([this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)]);
+        } else {
+          this.schoolIdNumber.setValidators(null);
+        }
+        this.schoolIdNumber.updateValueAndValidity();
+      });
   }
   get schoolIdNumber(): FormControl {
     return this.newStudentForm.get('schoolIdNumber') as FormControl;
@@ -59,18 +75,23 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   submitNewStudentForm() {
     this.isSubmitting = true;
     if (this.newStudentForm.valid) {
-      this.studentService.createNewStudent(this.newStudentForm.value).subscribe(student => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true, toastBody: 'Student Successfully created', toastHeader: 'Successful', toastTime: 'just now'
-        }));
-        this.isSubmitting = false;
-        this.formSubmitted = true;
-        this.router.navigate(['/students', student.id]);
-      }, error => {
-          this.formSubmitted = true;
-          console.log(error); // TODO Handle Student creation error
+      this.studentService.createNewStudent(this.newStudentForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe((res: any) => {
+
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: res.message,
+            toastHeader: 'Successful',
+            toastTime: 'just now'
+          }));
           this.isSubmitting = false;
-      });
+          this.formSubmitted = true;
+          this.router.navigate(['/students', res.data.id]);
+        }, () => {
+          this.formSubmitted = true;
+          this.isSubmitting = false;
+        });
     } else {
       this.triggerValidation = !this.triggerValidation;
     }

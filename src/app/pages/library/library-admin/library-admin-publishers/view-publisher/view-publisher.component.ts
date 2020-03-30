@@ -4,6 +4,7 @@ import * as fromStore from '../../../../../store/reducers';
 import { Observable } from 'rxjs';
 import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
 import { ActivatedRoute } from '@angular/router';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view-publisher',
@@ -21,9 +22,10 @@ export class ViewPublisherComponent implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.route.paramMap.subscribe(params => {
-      this.publisher$ = this.libraryPublisherService.getPublisherWithId(+params.get('id'));
-    });
+
+    this.publisher$ = this.route.paramMap
+      .pipe(map(params => Number(params.get('id'))))
+      .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
   }
 
 }

@@ -13,7 +13,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 describe('MyProcurementsRequestComponent', () => {
   let component: MyProcurementsRequestComponent;
   let fixture: ComponentFixture<MyProcurementsRequestComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -40,7 +40,7 @@ describe('MyProcurementsRequestComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(MyProcurementsRequestComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

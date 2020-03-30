@@ -31,6 +31,7 @@ before_install:
 
 script:
   - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox --code-coverage
+  - npm run lint
   
 after_success:
   - cat ./coverage/**/lcov.info | coveralls

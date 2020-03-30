@@ -1,0 +1,30 @@
+<h1>Study Materials Archives</h1>
+<ng-container *ngIf='studyMaterials$ | async; else loading'>
+  <div class="container">
+    <label for="searchMaterial" class="control-label">Search Materials</label>
+    <input [(ngModel)]='filterString' type="search" id="searchMaterial" class="form-control">
+  </div>
+  <div class="container">
+    <div *ngIf='filteredStudyMaterials && filteredStudyMaterials.length < 1' class="alert alert-info mt-3">
+      No Study Materials Found</div>
+    <ul class="d-flex justify-content-between flex-wrap p-0 ">
+
+      <li *ngFor='let studyMaterial of filteredStudyMaterials'
+        class="list-group-item bg-dark list-group-flush mb-0 col-lg-5 mt-2 mb-1 p-0">
+        <a [routerLink]='getLink(studyMaterial.id, studyMaterial.file_document_info.type)'
+          class="card-link btn-block m-0 p-3">
+          <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
+            [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
+          <strong>{{ studyMaterial.title }}</strong>
+          <div class="col-lg-12 d-flex flex-wrap ">
+            <small class="mr-3">Size: {{ studyMaterial.file_document_info.size | filesize }}</small>
+            <small class="mr-3">filename: {{ studyMaterial.file_document_info.name }}</small>
+          </div>
+        </a>
+      </li>
+    </ul>
+  </div>
+</ng-container>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

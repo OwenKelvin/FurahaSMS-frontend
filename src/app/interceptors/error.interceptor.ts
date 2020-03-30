@@ -29,7 +29,6 @@ export class ErrorInterceptor implements HttpInterceptor {
       } else {
         helperMessage = err.error.message;
       }
-      // console.log(err.error);
       const error = err.statusText || err.error.message;
       if (err.status === 0) {
         this.message = {
@@ -91,7 +90,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         };
       }
       this.store.dispatch(loadErrorMessagesSuccess({
-        body: this.message.help,
+        body: String(this.message.help),
         show: true,
         title: this.message.message,
         status: this.message.status

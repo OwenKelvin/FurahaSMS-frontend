@@ -6,7 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Router, ActivatedRoute } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { ProcurementItemComponent } from '../procurement-item/procurement-item.component';
 import { ViewProcurementTenderBidsComponent } from '../view-procurement-tender-bids/view-procurement-tender-bids.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -16,7 +16,7 @@ import { of } from 'rxjs';
 describe('ViewProcurementTendersBidsComponent', () => {
   let component: ViewProcurementTendersBidsComponent;
   let fixture: ComponentFixture<ViewProcurementTendersBidsComponent>;
-  let store: Store<any>;
+  let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
@@ -42,7 +42,7 @@ describe('ViewProcurementTendersBidsComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({get: (params) => 1 })
+            paramMap: of({get: () => 1 })
           }
         }
       ]
@@ -54,7 +54,7 @@ describe('ViewProcurementTendersBidsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewProcurementTendersBidsComponent);
     component = fixture.componentInstance;
-    store = TestBed.get<Store<AppState>>(Store);
+    store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();

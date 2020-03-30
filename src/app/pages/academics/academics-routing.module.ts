@@ -33,6 +33,18 @@ const routes: Routes = [
     data: {
       breadcrumb: 'Exam Bank'
     },
+  }, {
+    path: 'study-materials',
+    loadChildren: () => import('../academics/study-materials/study-materials.module').then(m => m.StudyMaterialsModule),
+    data: {
+      breadcrumb: 'Study Materials'
+    },
+  }, {
+    path: 'e-learning',
+    loadChildren: () => import('../academics/e-learning/e-learning.module').then(m => m.ELearningModule),
+    data: {
+      breadcrumb: 'E Learning'
+    },
   }
 ];
 
