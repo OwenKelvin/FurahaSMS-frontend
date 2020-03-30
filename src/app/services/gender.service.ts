@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap, mergeMap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import { selectGenders, selectGender } from '../store/selectors/app.selectors';
 import { loadGenders } from '../store/actions/gender.actions';
