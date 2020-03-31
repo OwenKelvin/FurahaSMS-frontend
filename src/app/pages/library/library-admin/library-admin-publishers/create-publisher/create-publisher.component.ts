@@ -5,7 +5,7 @@ import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms'
 import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { map, mergeMap, takeWhile, tap } from 'rxjs/operators';
+import { map, mergeMap, takeWhile, tap, filter } from 'rxjs/operators';
 
 @Component({
   selector: 'app-create-publisher',
@@ -37,46 +37,47 @@ export class CreatePublisherComponent implements OnInit {
       biography: ['']
     });
     this.route.paramMap
-      .pipe(tap(() => this.isLoading = true))
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(publisher => {
-        const publisherConverted = publisher as { name: string, id: string, biography: string; };
-        (this.newBookPublisherForm.get('id') as FormControl).setValue(publisherConverted.id);
-        (this.newBookPublisherForm.get('name') as FormControl).setValue(publisherConverted.name);
-        this.isLoading = false;
-       })
-    // this.route.paramMap.subscribe(params => {
-    //   const id = Number(params.get('id'));
-    //   if (id > 0) {
-    //     this.editPage = true;
-    //     this.isLoading = true;
-    //     const sub = this.libraryPublisherService.getPublisherWithId(id).subscribe(publisher => {
-    //       const publisherConverted = publisher as { name: string, id: string, biography: string; };
-    //       this.newBookPublisherForm.get('id').setValue(publisherConverted.id);
-    //       this.newBookPublisherForm.get('name').setValue(publisherConverted.name);
-    //       this.isLoading = false;
-    //       sub.unsubscribe();
-    //     });
-    //   }
-    // });
+      .pipe(
+        map(params => Number(params.get('id'))),
+        filter(id => id > 0),
+        tap(() => {
+          this.isLoading = true;
+          this.editPage = true;
+        }),
+        mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)),
+        takeWhile(() => this.componentIsActive))
+      .subscribe({
+        next: (publisher: any) => {
+          this.newBookPublisherForm.setValue({
+            id: publisher.id,
+            name: publisher.name,
+            biography: publisher.biography
+          });
+        },
+        complete: () => {
+          this.isLoading = false;
+        }
+      });
   }
 
   submitNewBookPublisherForm() {
     this.isSubmitting = true;
-    this.libraryPublisher.save(this.newBookPublisherForm.value).subscribe(res => {
-      this.isSubmitting = false;
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true,
-        toastBody: res.message,
-        toastHeader: 'Success',
-        toastTime: 'Just Now'
-      }));
-      this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
-    }, () => {
-      this.isSubmitting = false;
-    });
+    this.libraryPublisher.save(this.newBookPublisherForm.value)
+      .subscribe({
+        next: res => {
+          this.isSubmitting = false;
+          this.store.dispatch(loadToastShowsSuccess({
+            showMessage: true,
+            toastBody: res.message,
+            toastHeader: 'Success',
+            toastTime: 'Just Now'
+          }));
+          this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
+        },
+        complete: () => {
+          this.isSubmitting = false;
+        }
+      });
   }
 
 }
