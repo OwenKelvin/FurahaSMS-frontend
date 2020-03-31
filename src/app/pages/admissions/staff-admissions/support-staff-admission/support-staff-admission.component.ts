@@ -43,6 +43,6 @@ export class SupportStaffAdmissionComponent implements OnInit {
     if (this.staffTypeFrom.valid) {
        this.router.navigate(['admissions', 'staff', 'support', this.staffTypeFrom.get('staffTypeId')?.value,'create']);
     }
-   
+
   }
 }

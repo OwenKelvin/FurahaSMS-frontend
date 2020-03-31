@@ -10,13 +10,13 @@ import { loadStaffTypes } from '../../admissions/store/actions/staff-type.action
   providedIn: 'root'
 })
 export class RolesAndPermissionsService {
-  
+
   loadAllStaffTypes$: Observable<any> = this.store.pipe(
     select(selectStaffTypes),
     filter(res => Number(res?.length) < 2),
     tap(() => this.store.dispatch(loadStaffTypes()))
   );
-  
+
   staffTypes(): Observable<any>{
     return this.http.get(`api/permissions-and-roles/roles/?staff=${true}`)
   }

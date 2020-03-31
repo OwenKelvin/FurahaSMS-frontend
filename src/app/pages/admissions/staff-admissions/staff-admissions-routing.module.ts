@@ -36,6 +36,9 @@ const routes: Routes = [
   },
   {
     path: 'support',
+    data: {
+      breadcrumb: null
+    },
     children: [
       {
         path: '',

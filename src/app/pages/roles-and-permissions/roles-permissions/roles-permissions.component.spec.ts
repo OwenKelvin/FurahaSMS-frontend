@@ -6,6 +6,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('RolesPermissionsComponent', () => {
   let component: RolesPermissionsComponent;
@@ -19,9 +21,17 @@ describe('RolesPermissionsComponent', () => {
         ReactiveFormsModule,
         AppLoadingBubbleModule,
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ RolesPermissionsComponent ]
+      declarations: [RolesPermissionsComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

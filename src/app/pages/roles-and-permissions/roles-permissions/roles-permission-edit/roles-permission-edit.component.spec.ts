@@ -7,6 +7,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('RolesPermissionEditComponent', () => {
   let component: RolesPermissionEditComponent;
@@ -21,9 +23,17 @@ describe('RolesPermissionEditComponent', () => {
         ReactiveFormsModule,
         AppCheckboxModule,
         AppInputModule,
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ RolesPermissionEditComponent ]
+      declarations: [RolesPermissionEditComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

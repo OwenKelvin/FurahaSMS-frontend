@@ -30,7 +30,7 @@ export class AdmissionsEffects {
     return this.actions$.pipe(
 
       ofType(StaffTypeActions.loadStaffTypes),
-      concatMap(() => 
+      concatMap(() =>
         this.rolesPermissionService.staffTypes().pipe(
           map(data => StaffTypeActions.loadStaffTypesSuccess({ data })),
           catchError(error => of(StaffTypeActions.loadStaffTypesFailure({ error }))))
