@@ -15,6 +15,8 @@ import { EffectsModule } from '@ngrx/effects';
 import * as fromLibraryEffects from './store/effects';
 import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import * as fromLibraryBook from './store/reducers/library-book.reducer';
+import { LibraryBookEffects } from './store/effects/library-book.effects';
 
 
 @NgModule({
@@ -36,7 +38,8 @@ import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
     EffectsModule.forFeature([
       fromLibraryEffects.LibraryBookAuthorEffects,
       fromLibraryEffects.LibraryBookPublisherEffects,
-      fromLibraryEffects.LibraryBookClassificationEffects
+      fromLibraryEffects.LibraryBookClassificationEffects,
+      LibraryBookEffects
     ]),
     TypeaheadModule.forRoot(),
 
