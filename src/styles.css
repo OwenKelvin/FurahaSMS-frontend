@@ -5,6 +5,10 @@
 @import './vendor/daneden/animate.css';
 @import 'flag-icon-css/css/flag-icon.css';
 
+label {
+  margin-bottom: 0.1rem;
+}
+
 .ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
 
   height: 100%;
@@ -170,6 +174,7 @@ a:hover {
     margin-left: -15rem;
   }
 }
+
 .label-value {
   border: rgba(211, 211, 211, 0.3) solid 2px;
 }

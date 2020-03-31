@@ -6,7 +6,7 @@ import { LibraryAuthorService } from '../../services/library-author.service';
 import { Observable } from 'rxjs';
 import { LibraryBookService } from '../../services/library-book.service';
 import { LibraryPublisherService } from '../../services/library-publisher.service';
-import { takeWhile } from 'rxjs/operators';
+import { takeWhile, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-library-search-catalogue',
@@ -20,8 +20,9 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
   publishers$: Observable<any>;
   titles$: Observable<any>;
   isSubmitting: boolean;
-  books: any;
+  books: any[];
   componentIsActive: boolean;
+  bookSearched: boolean;
 
   constructor(
     private fb: FormBuilder, private store: Store<fromStore.AppState>,
@@ -32,14 +33,18 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
 
   ngOnInit() {
     this.componentIsActive = true;
+    this.bookSearched = false;
+    this.clearForm();
+    this.authors$ = this.authorsService.filter(this.author.value);
+    this.titles$ = this.booksService.filter({ title: this.title.value });
+    this.publishers$ = this.publisherservice.filter(this.publisher.value);
+  }
+  clearForm() {
     this.searchParamsForm = this.fb.group({
       title: [''],
       author: [''],
       publisher: [''],
     });
-    this.authors$ = this.authorsService.filter(this.author.value);
-    this.titles$ = this.booksService.filter({ title: this.title.value});
-    this.publishers$ = this.publisherservice.filter(this.publisher.value);
   }
   get author(): FormControl {
     return this.searchParamsForm.get('author') as FormControl;
@@ -55,10 +60,13 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
     this.books$ = this.booksService.filter(this.searchParamsForm.value);
     this.books$
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(books => {
-      this.books = books;
-      this.isSubmitting = false;
-    });
+      .subscribe({
+        complete: () => {
+          this.bookSearched = true;
+          this.isSubmitting = false;
+        },
+        next: books => this.books = books
+      });
   }
   ngOnDestroy() {
     this.componentIsActive = false;
