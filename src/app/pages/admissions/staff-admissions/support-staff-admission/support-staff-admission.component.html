@@ -1,21 +1,25 @@
 <h1> Support staff admissions</h1>
+<form (submit)='staffTypeFormSubmit()' [formGroup]='staffTypeFrom'>
+  <section class="d-flex align-items-end">
+    <section class="col-lg-4 col-md-7">
+      <label for="staffTypes" class="control-label">Select Staff Type</label>
+      <select class="custom-select" formControlName='staffTypeId' id='staffTypes'>
+        <ng-container *ngIf='staffTypes$ | async as staffTypes;'>
+          <ng-container *ngIf='staffTypes.length > 1; else loading'>
+            <option value="" selected>--Please Select--</option>
+            <option *ngFor='let staffType of staffTypes' [value]="staffType.id">{{ staffType.name | titlecase }}</option>
+          </ng-container>
+          <ng-template #loading>
+            <option value="" disabled selected>Please Wait...</option>
+          </ng-template>
+        </ng-container>
+      </select>
+    </section>
+    <section class="col-lg-4 col-md-5">
 
-<section class="d-flex">
-  <section class="col-lg-4 col-md-7">
-    <label for="staffTypes">Select Staff Type</label>
-    <select class="form-control" [(ngModel)]='staffType' id='staffTypes' >
-      <ng-container *ngIf='staffTypes$ | async as staffTypesd; else loading'>
-         <option *ngFor='let staffTyped of staffTypesd' [value]="staffTyped.id">{{ staffTyped.name }}</option>
-      </ng-container>
-      <ng-template #loading>
-        <option value="" disabled>Loading...</option>
-      </ng-template>
-    
-    </select>
-  </section>
-  <section class="col-lg-4 col-md-5">
-  
-    <button (click)='navigateToNewStaffPage()' class="btn btn-primary mt-2 btn-sm mt-lg-3 ">GO <span class="icon-paper-plane-empty"></span></button>
-  </section>
+      <button class="btn btn-primary mt-2 mt-lg-3" [disabled]='staffTypeFrom.invalid'>GO <span
+          class="icon-paper-plane-empty"></span></button>
+    </section>
 
-</section>
+  </section>
+</form>

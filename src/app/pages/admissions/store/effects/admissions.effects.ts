@@ -4,11 +4,15 @@ import { catchError, map, concatMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as AdmissionsActions from '../actions/admissions.actions';
-
-
+import * as StaffTypeActions from '../actions/staff-type.actions';
+import { RolesAndPermissionsService } from 'src/app/pages/roles-and-permissions/services/roles-and-permissions.service';
 
 @Injectable()
 export class AdmissionsEffects {
+  constructor(
+    private actions$: Actions,
+    private rolesPermissionService: RolesAndPermissionsService
+  ) { }
 
   loadAdmissionss$ = createEffect(() => {
     return this.actions$.pipe(
@@ -22,9 +26,15 @@ export class AdmissionsEffects {
       )
     );
   });
+  loadStaffTypes$ = createEffect(() => {
+    return this.actions$.pipe(
 
-
-
-  constructor(private actions$: Actions) {}
-
+      ofType(StaffTypeActions.loadStaffTypes),
+      concatMap(() => 
+        this.rolesPermissionService.staffTypes().pipe(
+          map(data => StaffTypeActions.loadStaffTypesSuccess({ data })),
+          catchError(error => of(StaffTypeActions.loadStaffTypesFailure({ error }))))
+      )
+    );
+  });
 }
