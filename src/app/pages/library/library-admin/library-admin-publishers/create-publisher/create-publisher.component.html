@@ -1,22 +1,42 @@
 <section>
   <h1>{{ editPage ? 'Edit': 'Create' }} Book Publisher</h1>
-  <form (submit)='submitNewBookPublisherForm()' [formGroup]='newBookPublisherForm' *ngIf='!isLoading; else loading'>
-    <section class='col-lg-7'>
-      <app-input labelClass='col-lg-5' inputClass='col-lg-7' formControlName='name'
-        [triggerValidation]='triggerValidation' id='name' placeholder='Enter Publishers Name' label="Publisher's Name">
-      </app-input>
+  <div class="card mt-2 p-2 pt-4">
+    <section *ngIf='!editorInitialized'>
+      <app-loading-bubble></app-loading-bubble>
     </section>
-    <section class='col-lg-12'>
-      <label for="biography">Biography</label>
-      <textarea placeholder="Enter Publishers Biography" formControlName="biography" id="biography" cols="15" rows="5"
-        class="form-control"></textarea>
-    </section>
-    <section class='col-lg-12 mt-3'>
-      <app-validate-submit-buttons [isSubmitting]='isSubmitting'
-        (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookPublisherForm'>
-      </app-validate-submit-buttons>
-    </section>
-  </form>
+    <form [class.sr-only]='!editorInitialized' (submit)='submitNewBookPublisherForm()' [formGroup]='newBookPublisherForm' *ngIf='!isLoading; else loading'>
+      <div class="d-flex align-items-start flex-wrap justify-content-sm-center">
+        <section class='col-lg-12 col-md-12 col-sm-8 mb-0'>
+          <app-input labelClass='col-lg-2 col-md-3' inputClass='col-lg-3 col-md-6 col-sm-12' formControlName='name'
+            [triggerValidation]='triggerValidation' id='name' placeholder='Enter Publishers Name'
+            label="Publisher's Name">
+          </app-input>
+        </section>
+        <section class='col-sm-8 col-lg-3'>
+          <span *ngIf='profPicLoading' class="prof-pic-loading d-flex align-items-center justify-content-center"><i
+              class='icon-spin3 animate-spin'></i></span>
+            <div class="upload-profile-pic">
+            <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected()' #fileInput hidden
+              type="file">
+            <button (click)='fileInput.click()' type="button" class='btn btn secondary text-light'><span>Upload Photo</span></button>
+          </div>
+          <img id='profilePhotoCanvas' onerror='this.src="assets/images/default-user.jpg";' (click)='fileInput.click()'  class="img-fluid"
+            src="assets/images/placeholder.webp" alt="">
+        </section>
+        <section class='col-lg-8 ml-auto pl-1'>
+          <label for="biography">Biography</label>
+          <editor (onInit)='editorInitialized = true' id='biography' *ngIf='editorInit' formControlName='biography'
+          [init]="editorInit"></editor>
+        </section>
+      </div>
+
+      <section class='col-lg-12 mt-2'>
+        <app-validate-submit-buttons [isSubmitting]='isSubmitting'
+          (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newBookPublisherForm'>
+        </app-validate-submit-buttons>
+      </section>
+    </form>
+  </div>
   <ng-template #loading>
     <app-loading-bubble></app-loading-bubble>
   </ng-template>

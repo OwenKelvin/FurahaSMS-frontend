@@ -27,6 +27,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../modules/select-library-class.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -60,7 +61,8 @@ import { AppSelectLibraryClassModule } from '../modules/select-library-class.mod
     ReactiveFormsModule,
     AppInputModule,
     TabsModule.forRoot(),
-    AppSelectLibraryClassModule
+    AppSelectLibraryClassModule,
+    EditorModule
   ]
 })
 export class LibraryAdminModule { }

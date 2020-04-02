@@ -136,7 +136,7 @@ const routes: Routes = [
         path: ':id/view',
         component: ViewPublisherComponent,
         data: {
-          breadcrumb: 'View Author'
+          breadcrumb: 'View Publisher'
         },
       },
       {
