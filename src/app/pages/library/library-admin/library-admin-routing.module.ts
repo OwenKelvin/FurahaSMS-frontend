@@ -11,10 +11,6 @@ import { LibraryAdminAuthorsComponent } from './library-admin-authors/library-ad
 import { CreateAuthorComponent } from './library-admin-authors/create-author/create-author.component';
 import { ViewAuthorComponent } from './library-admin-authors/view-author/view-author.component';
 import { EditAuthorComponent } from './library-admin-authors/edit-author/edit-author.component';
-import { LibraryAdminPublishersComponent } from './library-admin-publishers/library-admin-publishers.component';
-import { CreatePublisherComponent } from './library-admin-publishers/create-publisher/create-publisher.component';
-import { ViewPublisherComponent } from './library-admin-publishers/view-publisher/view-publisher.component';
-import { EditPublisherComponent } from './library-admin-publishers/edit-publisher/edit-publisher.component';
 import { LibraryAdminTagsComponent } from './library-admin-tags/library-admin-tags.component';
 import { CreateTagComponent } from './library-admin-tags/create-tag/create-tag.component';
 import { ViewTagComponent } from './library-admin-tags/view-tag/view-tag.component';
@@ -116,37 +112,9 @@ const routes: Routes = [
     path: 'publishers',
     data: {
       breadcrumb: 'Publishers'
-    }, children: [
-      {
-        path: '',
-        pathMatch: 'full',
-        component: LibraryAdminPublishersComponent,
-        data: {
-          breadcrumb: null
-        },
-      },
-      {
-        path: 'create',
-        component: CreatePublisherComponent,
-        data: {
-          breadcrumb: 'Create Author'
-        },
-      },
-      {
-        path: ':id/view',
-        component: ViewPublisherComponent,
-        data: {
-          breadcrumb: 'View Publisher'
-        },
-      },
-      {
-        path: ':id/edit',
-        component: EditPublisherComponent,
-        data: {
-          breadcrumb: 'Edit Author'
-        },
-      }
-    ]
+    },
+    loadChildren: () => import('./library-admin-publishers/library-admin-publisher.module')
+      .then(m => m.LibraryAdminPublisherModule)
   },
   {
     path: 'tags',

@@ -63,7 +63,7 @@ export class CreatePublisherComponent implements OnInit {
         complete: () => this.isLoading = false
       });
   }
-  
+
   onFileSelected() {
     const $input: any = document.querySelector('#profilePhotoInput');
     const $canvas: HTMLImageElement = document.querySelector('#profilePhotoCanvas') as HTMLImageElement;
@@ -81,12 +81,12 @@ export class CreatePublisherComponent implements OnInit {
 
   submitNewBookPublisherForm() {
     this.isSubmitting = true;
-    
+
     if (this.newBookPublisherForm.invalid) {
       alert('Form is not fully filled')
       return;
     }
-    
+
     return this.libraryPublisher.save(this.newBookPublisherForm.value, this.photoFile)
       .subscribe({
         next: res => {

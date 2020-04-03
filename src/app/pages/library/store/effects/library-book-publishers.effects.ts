@@ -4,15 +4,15 @@ import { catchError, map, concatMap } from 'rxjs/operators';
 import { EMPTY, of } from 'rxjs';
 
 import * as LibraryBookPublisherActions from '../actions/library-book-publisher.actions';
-import { BookPublisherService } from '../../services/book-publisher.service';
+import { LibraryPublisherService } from '../../services/library-publisher.service';
 
 
 
 @Injectable()
 export class LibraryBookPublisherEffects {
-  constructor(private actions$: Actions, private bookPublisherService: BookPublisherService) { }
+  constructor(private actions$: Actions, private bookPublisherService: LibraryPublisherService) { }
 
-  loadLibrarys$ = createEffect(() => {
+  loadLibraryBookPublishers$ = createEffect(() => {
     return this.actions$.pipe(
 
       ofType(LibraryBookPublisherActions.loadLibraryBookPublishers),
@@ -20,6 +20,18 @@ export class LibraryBookPublisherEffects {
         this.bookPublisherService.getAll().pipe(
           map(data => LibraryBookPublisherActions.loadLibraryBookPublishersSuccess({ data })),
           catchError(error => of(LibraryBookPublisherActions.loadLibraryBookPublishersFailure({ error }))))
+      )
+    );
+  });
+
+  loadLibraryBookPublisher$ = createEffect(() => {
+    return this.actions$.pipe(
+
+      ofType(LibraryBookPublisherActions.loadLibraryBookPublisher),
+      concatMap(({data}) =>
+        this.bookPublisherService.getPublisherWithId(data.id).pipe(
+          map(value => LibraryBookPublisherActions.loadLibraryBookPublisherSuccess({ data: value })),
+          catchError(error => of(LibraryBookPublisherActions.loadLibraryBookPublisherFailure({ error }))))
       )
     );
   });

@@ -21,11 +21,11 @@ const libraryBookReducer = createReducer(
 
   on(LibraryBookActions.loadLibraryBooks, state => state),
   on(LibraryBookActions.loadLibraryBooksSuccess, (state, action) => {
-    let data: any = {};
+    const data: any = {};
     action.data.forEach(element => {
       data[element.id] = element
     });
-    
+
     return {
       ...state, ...data}
   }),

@@ -13,7 +13,7 @@ import { map, mergeMap } from 'rxjs/operators';
 })
 export class ViewPublisherComponent implements OnInit {
 
-  publisher$: Observable<any>;
+  publisher$: Observable<any> | undefined;
 
   constructor(
     private libraryPublisherService: LibraryPublisherService,
@@ -23,7 +23,9 @@ export class ViewPublisherComponent implements OnInit {
 
   ngOnInit() {
 
-    this.publisher$ = this.route.paramMap
+
+
+    this.publisher$ = this.route.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)))
   }

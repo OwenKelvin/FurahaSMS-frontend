@@ -14,14 +14,14 @@ export const libraryFeatureKey = 'library';
 
 export interface LibraryState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
-  libraryBookPublishers: fromLibraryBookPublisher.State[];
+  libraryBookPublishers: fromLibraryBookPublisher.State;
   libraryBookClassifications: fromLibraryBookClassification.State[];
   [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.State
 }
 
 export interface State extends fromRoot.AppState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
-  libraryBookPublishers: fromLibraryBookPublisher.State[];
+  [fromLibraryBookPublisher.libraryPublisherFeatureKey]: fromLibraryBookPublisher.State;
   libraryBookClassifications: fromLibraryBookClassification.State[];
   [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.State;
 }

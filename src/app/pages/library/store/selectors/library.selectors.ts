@@ -12,7 +12,14 @@ export const selectLibraryBookAuthors = createSelector(
 
 export const selectLibraryBookPublishers = createSelector(
   selectLibraryState,
-  library => library ? library.libraryBookPublishers : null
+  library => library ? Object.values(library.libraryBookPublishers).filter((item: any) => item.id !== 0) : []
+);
+
+export const selectLibraryBookPublisher = (id: number) => createSelector(
+  selectLibraryBookPublishers,
+  publisher => {
+    return publisher ? publisher[id] : null
+  }
 );
 
 export const selectLibraryBookClassifications = createSelector(

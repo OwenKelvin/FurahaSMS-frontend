@@ -11,7 +11,7 @@ import * as LibraryBookActions from '../actions/library-book.actions';
 export class LibraryBookEffects {
 
   loadLibraryBooks$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(LibraryBookActions.loadLibraryBooks),
       concatMap(() =>

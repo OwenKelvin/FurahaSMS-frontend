@@ -8,6 +8,7 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 describe('CreatePublisherComponent', () => {
   let component: CreatePublisherComponent;
@@ -29,7 +30,9 @@ describe('CreatePublisherComponent', () => {
         AppInputModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,
-        RouterTestingModule],
+        RouterTestingModule,
+        EditorModule
+      ],
       declarations: [CreatePublisherComponent],
       providers: [reducerProvider]
     });
