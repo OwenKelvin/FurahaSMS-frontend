@@ -41,7 +41,6 @@ export class ViewTeacherInfoComponent implements OnInit {
       .pipe(mergeMap((id) => this.store.pipe(select(selectTeacher(id)))))
   }
   changeProfile(fieldName: string, $event: string | number) {
-    console.log(this.teacherId)
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {
         id: this.teacherId,
@@ -50,7 +49,6 @@ export class ViewTeacherInfoComponent implements OnInit {
     }));
   }
   updateSelectValue(fieldName: string, $event: { id: number, name: string; }) {
-    console.log(this.teacherId)
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {
         id: this.teacherId,

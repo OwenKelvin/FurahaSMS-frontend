@@ -14,7 +14,7 @@
   <section class='col-sm-5 col-md-4 col-lg-2 d-flex justify-content-center'>
     <span *ngIf='profPicLoading' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
     <div *ngIf='editMode' class="upload-profile-pic">
-      <input id='profilePhotoInput' accept="image/*" (valueChanged)='onFileSelected(template)' #fileInput hidden type="file">
+      <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected(template)' #fileInput hidden type="file">
       <button (click)='fileInput.click()' class='btn btn secondary'><span>Upload Photo</span></button>
     </div>
     <img #profPic class='img-thumbnail img-fluid' src='assets/images/default-user.jpg'

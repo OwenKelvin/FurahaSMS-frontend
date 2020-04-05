@@ -57,7 +57,6 @@ export class NameItemComponent implements OnInit, OnDestroy {
       })
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe({
-          error: (e) => console.log(e),
           complete: () => this.isSubmitting = false,
           next: res => {
             this.valueChanged.emit(fieldNewValue);

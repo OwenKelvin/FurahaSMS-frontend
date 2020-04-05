@@ -64,7 +64,6 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe({
         next: books => {
-          console.log(books)
           this.books = books;
           this.store.dispatch(loadLibraryBooksSuccess({ data: books }));
         },

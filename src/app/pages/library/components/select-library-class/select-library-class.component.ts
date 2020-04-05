@@ -62,7 +62,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
             };
             if (items.length > 0) {
 
-              this.db.put(doc).then(() => { }).catch(() => console.log('Data Retrieved from Cache'));
+              this.db.put(doc).then(() => { }).catch(() => {});
             }
           });
         });

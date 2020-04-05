@@ -14,7 +14,7 @@ export const libraryFeatureKey = 'library';
 
 export interface LibraryState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
-  libraryBookPublishers: fromLibraryBookPublisher.State;
+  [fromLibraryBookPublisher.libraryPublisherFeatureKey]: fromLibraryBookPublisher.State;
   libraryBookClassifications: fromLibraryBookClassification.State[];
   [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.State
 }
@@ -28,7 +28,7 @@ export interface State extends fromRoot.AppState {
 
 export const reducers: ActionReducerMap<LibraryState> = {
   libraryBookAuthors: fromLibraryBookAuthor.reducer,
-  libraryBookPublishers: fromLibraryBookPublisher.reducer,
+  [fromLibraryBookPublisher.libraryPublisherFeatureKey]: fromLibraryBookPublisher.reducer,
   libraryBookClassifications: fromLibraryBookClassification.reducer,
   [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.reducer
 };

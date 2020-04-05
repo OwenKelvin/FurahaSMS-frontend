@@ -111,7 +111,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
             items
           };
           if (items && items.length > 0) {
-            this.db.put(doc).then(() => { }).catch(() => console.log('Data Retrieved from Cache'));
+            this.db.put(doc).then(() => { }).catch(() => {});
           }
         });
       });

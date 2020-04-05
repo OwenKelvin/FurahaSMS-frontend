@@ -31,7 +31,6 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    console.log(this.itemService)
     this.itemLoading = false;
     this.componentIsActive = true;
     this.getItems();

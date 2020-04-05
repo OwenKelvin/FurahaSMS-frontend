@@ -3,7 +3,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable, pipe } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { selectLibraryBookPublisher, selectLibraryBookPublishers } from '../store/selectors/library.selectors';
-import { tap, filter, map } from 'rxjs/operators';
+import { tap, filter, map, mergeMap } from 'rxjs/operators';
 import { loadLibraryBookPublishers, loadLibraryBookPublisher } from '../store/actions/library-book-publisher.actions';
 
 @Injectable({
@@ -22,7 +22,7 @@ export class LibraryPublisherService {
     return this.store.pipe(
       select(selectLibraryBookPublisher(id)),
       filter((a: any) => !a),
-      map(() => this.store.dispatch(loadLibraryBookPublisher({ data: { id }}))),
+      map(() => this.store.dispatch(loadLibraryBookPublisher({ data: { id }})))
     )
   };
 

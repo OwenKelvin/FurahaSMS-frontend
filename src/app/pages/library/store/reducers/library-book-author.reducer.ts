@@ -1,6 +1,7 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as LibraryBookAuthorActions from '../actions/library-book-author.actions';
 
+export const libraryBookAuthorsFeatureKey = 'libraryBookAuthors';
 export interface State {
   id?: number;
   name: string;

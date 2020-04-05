@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { of } from 'rxjs';
 
 describe('LibraryAdminPublishersComponent', () => {
   let component: LibraryAdminPublishersComponent;
@@ -27,7 +28,16 @@ describe('LibraryAdminPublishersComponent', () => {
         RouterTestingModule
       ],
       declarations: [LibraryAdminPublishersComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: Store,
+          useValue: {
+            pipe: () => of([]),
+            dispatch: () => {}
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();
