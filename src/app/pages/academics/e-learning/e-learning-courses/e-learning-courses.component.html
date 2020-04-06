@@ -4,16 +4,42 @@
 
     <section class="col-lg-12">
       <label for="search">Search Courses</label>
-      <input [(ngModel)]='filterString' type="search" id='search' class='form-control'>
+      <input autofocus [(ngModel)]='filterString' type="search" id='search' class='form-control'>
     </section>
   </section>
-  <section class="mt-2">
+  <section class="mt-2 d-flex flex-wrap">
+    <ng-container *ngIf='filteredCourses.length < 1'>
+      <div class="col-lg-12">
+      <section class="alert alert-info m-0"><span class="icon-info"></span> Search returned 0 items!</section>
+        
+      </div>
+    </ng-container>
+    <ng-container *ngFor='let academicYearCourse of groupedCourses(filteredCourses, "academicYearName"); let i = index'>
+      <div class="col-lg-12 m-1">
+        <section class="card p-2">
+          <h2 [class.active]='isCollapsed[i]' [attr.aria-expanded]="!isCollapsed[i]" 
+              (click)="toggleCollapse(i)" class="mt-1">
+              <span [class.icon-folder-open]='isCollapsed[i]' [class.icon-folder]='!isCollapsed[i]'></span>Academic Year: {{ academicYearCourse[0] }}
 
-    <ul class="d-flex justify-content-start flex-wrap p-3">
-      <li *ngFor='let course of filteredCourses' class="list-group-item bg-none list-group-flush p-0 col-lg-6 mt-2">
-        <app-e-learning-course [course]='course'></app-e-learning-course>
-      </li>
-    </ul>
+          </h2>
+          <div class="d-flex" *ngIf='isCollapsed[i]'>
+            <div class="col-lg-12">
+              <section class="card p-2 mt-2">
+                <ng-container *ngFor='let classLevelCourse of groupedCourses(academicYearCourse[1], "classLevelName")'>
+                  <h3>Class Level: {{ classLevelCourse[0] !== 'null' ? classLevelCourse[0] : 'Not Specified'}}</h3>
+                  <ul class="d-flex justify-content-around flex-wrap p-3">
+                    <li *ngFor='let course of classLevelCourse[1]' class="list-group-item bg-none list-group-flush p-0 col-lg-5 mt-2">
+                      <app-e-learning-course [course]='course'></app-e-learning-course>
+                    </li>
+                  </ul>
+                </ng-container>
+              </section>
+            </div>
+          </div>
+        </section>
+      </div>
+
+    </ng-container>
   </section>
 </ng-container>
 <ng-template #contentLoading>

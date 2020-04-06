@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -8,13 +8,15 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { map, mergeMap, takeWhile, tap, filter } from 'rxjs/operators';
 import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
 import { Observable } from 'rxjs';
+import { selectLibraryBookPublisher } from '../../../store/selectors/library.selectors';
+import { CanvasService } from 'src/app/services/canvas.service';
 
 @Component({
   selector: 'app-create-publisher',
   templateUrl: './create-publisher.component.html',
   styleUrls: ['./create-publisher.component.css']
 })
-export class CreatePublisherComponent implements OnInit {
+export class CreatePublisherComponent implements OnInit, AfterViewInit {
 
   isLoading: boolean;
   isSubmitting: boolean;
@@ -27,6 +29,8 @@ export class CreatePublisherComponent implements OnInit {
   editorInit: any;
   editorInitialized: boolean;
   photoFile: File;
+  profPicId: any;
+  @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef
   constructor(
     private libraryPublisher: LibraryPublisherService,
     private store: Store<fromStore.AppState>,
@@ -34,6 +38,7 @@ export class CreatePublisherComponent implements OnInit {
     private router: Router,
     private route: ActivatedRoute,
     private libraryPublisherService: LibraryPublisherService,
+    private canvasService: CanvasService
   ) { }
 
   ngOnInit() {
@@ -41,16 +46,18 @@ export class CreatePublisherComponent implements OnInit {
     this.editorInit$ = this.store.pipe(select(selectTinyMceConfig));
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(conf => { this.editorInit = conf; })
+      .subscribe(conf => { this.editorInit = conf; });
     this.resetForm();
-    this.route.paramMap
+
+    this.route.parent?.paramMap
       .pipe(
         map(params => Number(params.get('id'))),
-        filter(id => id > 0),
-        tap(() => this.isLoading = true),
-        tap(() => this.editPage = true),
-        mergeMap(id => this.libraryPublisherService.getPublisherWithId(id)),
-        takeWhile(() => this.componentIsActive)
+        tap(id => this.libraryPublisherService.loadItem(id)),
+        mergeMap(id => this.store.pipe(select(selectLibraryBookPublisher(id)))),
+        filter(publisher => publisher),
+        tap(publisher => {
+          this.profPicId = publisher.profile_pic_id
+        })
       )
       .subscribe({
         next: (publisher: any) => {
@@ -62,6 +69,13 @@ export class CreatePublisherComponent implements OnInit {
         },
         complete: () => this.isLoading = false
       });
+  }
+  ngAfterViewInit() {
+    this.canvasService.getProfilePicture({ fileId: this.profPicId })
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe(res => {
+        (this.profilePicImgTag.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
+      })
   }
 
   onFileSelected() {
@@ -83,7 +97,7 @@ export class CreatePublisherComponent implements OnInit {
     this.isSubmitting = true;
 
     if (this.newBookPublisherForm.invalid) {
-      alert('Form is not fully filled')
+      alert('Form is not fully filled');
       return;
     }
 

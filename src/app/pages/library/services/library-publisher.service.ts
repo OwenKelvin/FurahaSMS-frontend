@@ -37,8 +37,7 @@ export class LibraryPublisherService {
     headers.append('Accept', 'application/json');
     myFormData.append('profilePicture', file ? file : '');
 
-    Object.keys(data).forEach((item) => myFormData.append(item, data[item]))
-      ;
+    Object.keys(data).forEach((item) => myFormData.append(item, data[item]));
 
     if (data.id === 0) {
       return this.http.post('api/library-book-publisher', myFormData, { headers });

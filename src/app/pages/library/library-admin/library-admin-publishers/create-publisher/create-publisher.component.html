@@ -20,7 +20,7 @@
               type="file">
             <button (click)='fileInput.click()' type="button" class='btn btn secondary text-light'><span>Upload Photo</span></button>
           </div>
-          <img id='profilePhotoCanvas' onerror='this.src="assets/images/default-user.jpg";' (click)='fileInput.click()'  class="img-fluid"
+          <img #profilePicImgTag id='profilePhotoCanvas' onerror='this.src="assets/images/default-user.jpg";' (click)='fileInput.click()'  class="img-fluid"
             src="assets/images/placeholder.webp" alt="">
         </section>
         <section class='col-lg-8 ml-auto pl-1'>
