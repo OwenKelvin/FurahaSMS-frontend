@@ -42,7 +42,7 @@ export class NewPaymentReceiptComponent implements OnInit {
       paymentAmount: ['', [Validators.required]],
       paymentType: ['', [Validators.required]],
       paymentRef: [''],
-      paymentDate: [''],
+      paymentDate: ['', Validators.required],
     });
   }
   validateForm() {

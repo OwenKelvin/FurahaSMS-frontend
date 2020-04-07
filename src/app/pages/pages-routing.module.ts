@@ -142,6 +142,10 @@ const routes: Routes = [
         }
       }
     ]
+  },
+  {
+    path: 'print',
+    loadChildren: () => import('./print/print.module').then(m => m.PrintModule)
   }
 ];
 

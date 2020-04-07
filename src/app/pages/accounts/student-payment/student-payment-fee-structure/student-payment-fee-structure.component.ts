@@ -1,6 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
-import { StudentAcademicsService } from 'src/app/pages/students/services/student-academics.service';
+import { StudentFeePaymentService } from '../../services/student-fee-payment.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, takeWhile, mergeMap, tap } from 'rxjs/operators';
 
@@ -19,7 +19,7 @@ export class StudentPaymentFeeStructureComponent implements OnInit, OnDestroy {
   otherFeesCosts: any[];
 
   constructor(
-    private studentAcademicsService: StudentAcademicsService,
+    private studentFeePaymentService: StudentFeePaymentService,
     private route: ActivatedRoute
   ) { }
 
@@ -43,7 +43,7 @@ export class StudentPaymentFeeStructureComponent implements OnInit, OnDestroy {
     this.statement$ = this.route.paramMap
       .pipe(map(params => Number(params.get('id'))),
         takeWhile(() => this.componentIsActive),
-        mergeMap(studentId => this.studentAcademicsService.getFeesStatementForStudentWithId(studentId)),
+        mergeMap(studentId => this.studentFeePaymentService.getFeesStatementForStudentWithId(studentId)),
         tap(item => {
 
           const array = item.feeStructure

@@ -10,6 +10,7 @@ import { AccountEffects } from './store/effects/account.effects';
 import { PaymentTypeEffects } from './store/effects/payment-type.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromAccounts from './store/reducers';
+import { StudentFeeStatementEffects } from './store/effects/student-fee-statement.effects';
 
 
 @NgModule({
@@ -20,7 +21,7 @@ import * as fromAccounts from './store/reducers';
     AppLayoutModule,
     AppDashboardLinksModule,
     StoreModule.forFeature(fromAccounts.accountFeatureKey, fromAccounts.reducers),
-    EffectsModule.forFeature([AccountEffects, PaymentTypeEffects])
+    EffectsModule.forFeature([AccountEffects, PaymentTypeEffects, StudentFeeStatementEffects])
 
   ]
 })
