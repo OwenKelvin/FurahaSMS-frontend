@@ -34,6 +34,10 @@ export class NewPaymentReceiptComponent implements OnInit {
     this.paymentMethods$ = this.store.pipe(
       select(selectPaymentMethods)
     );
+    this.resetForm();
+  }
+  
+  resetForm() {
     this.newPaymentForm = this.fb.group({
       paymentAmount: ['', [Validators.required]],
       paymentType: ['', [Validators.required]],
@@ -54,6 +58,7 @@ export class NewPaymentReceiptComponent implements OnInit {
       .subscribe({
         next: () => {
           this.isSubmitting = false;
+          this.resetForm();
         },
         error: () => this.isSubmitting = false
       });
