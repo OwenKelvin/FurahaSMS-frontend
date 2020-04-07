@@ -33,14 +33,8 @@ export class ExamBankAdminComponent implements OnInit, OnDestroy {
       this.deleting[index] = true;
       this.examPaperService.deleteItem(id)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
+        .subscribe(() => {
           this.deleting[index] = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastHeader: 'Success',
-            toastBody: res.message,
-            toastTime: 'Just now'
-          }));
         }, () => {
           this.deleting[index] = false;
         });

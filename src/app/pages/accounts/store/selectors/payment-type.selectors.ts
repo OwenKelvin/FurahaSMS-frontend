@@ -4,5 +4,5 @@ import { paymentTypeFeatureKey } from '../reducers/payment-type.reducer';
 
 export const selectPaymentMethods = createSelector(
   selectAccountState,
-  account => Object.values(account[paymentTypeFeatureKey])
+  account => account ? Object.values(account[paymentTypeFeatureKey]): []
 );

@@ -8,6 +8,6 @@ import { Component, OnInit } from '@angular/core';
 export class StudentPaymentStatementComponent implements OnInit {
   constructor() { }
   ngOnInit() {
-    
+
   }
 }

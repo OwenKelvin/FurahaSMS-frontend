@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { AppState } from '../../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { ProcurementService } from 'src/app/services/procurement.service';
 import { takeWhile } from 'rxjs/operators';
@@ -23,7 +22,6 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
   loadingContents: boolean;
   componentIsActive: boolean;
   constructor(
-    private store: Store<AppState>,
     private fb: FormBuilder,
     private router: Router,
     private procurementService: ProcurementService
@@ -66,9 +64,6 @@ export class ProcurementsRequestComponent implements OnInit, OnDestroy {
       this.procurementService.saveProcurementRequest(this.procurementRequestForm.value)
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true, toastBody: res.message, toastHeader: 'Successful', toastTime: 'just now'
-        }));
         this.isSubmitting = false;
         this.formSubmitted = true;
         this.router.navigate(['/procurements', 'requests', res.data.id, 'view']);

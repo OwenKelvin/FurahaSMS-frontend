@@ -11,7 +11,7 @@ import * as AccountActions from '../actions/account.actions';
 export class AccountEffects {
 
   loadAccounts$ = createEffect(() => {
-    return this.actions$.pipe( 
+    return this.actions$.pipe(
 
       ofType(AccountActions.loadAccounts),
       concatMap(() =>

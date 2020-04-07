@@ -1,4 +1,4 @@
-import { Directive, ElementRef, Renderer2, HostBinding, HostListener } from '@angular/core';
+import { Directive, ElementRef, HostListener } from '@angular/core';
 
 @Directive({
   selector: '[appAddComma]'
@@ -9,13 +9,13 @@ export class AddCommaDirective {
   constructor(elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
   }
-  
+
   @HostListener('change') onMouseEnter() {
     const initialValue = this.element.value;
     let value = initialValue.toUpperCase();
     let concatValue = 1;
     if (/[A-Z]$/.test(value)) {
-      
+
       switch (value[value.length - 1]) {
        case 'K':
           concatValue = 1000;
@@ -29,18 +29,18 @@ export class AddCommaDirective {
        case 'B':
           concatValue = 1000000000;
          break;
-     
+
        default:
          break;
       }
       value = value.substr(0, value.length - 1)
     }
-    
+
     if (isNaN(Number(value.replace(/,/g, '')))) {
       this.element.value = initialValue
     } else {
       this.element.value = (Number(value.replace(/,/g, '')) * concatValue).toLocaleString()
     }
-    
+
   }
 }

@@ -10,18 +10,18 @@ import { HttpClient } from '@angular/common/http';
   providedIn: 'root'
 })
 export class PaymentTypeService {
-  getAll(): Observable<any> {
-    return this.http.get('api/accounts/payment-methods?active=true')
-  }
 
   constructor(
     private http: HttpClient,
     private store: Store<any>
   ) { }
-  
+
   loadAll$: Observable<any> = this.store.pipe(
     select(selectPaymentMethods),
     filter(res => Object.keys(res).length < 1),
     tap(() => this.store.dispatch(loadPaymentTypes()))
   )
+  getAll(): Observable<any> {
+    return this.http.get('api/accounts/payment-methods?active=true')
+  }
 }

@@ -3,7 +3,6 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router, ActivatedRoute } from '@angular/router';
 import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
 import { takeWhile } from 'rxjs/operators';
@@ -62,12 +61,6 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
       this.isSubmitting = false;
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true,
-        toastBody: res.message,
-        toastHeader: 'Success',
-        toastTime: 'Just Now'
-      }));
       this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']);
     }, () => {
       this.isSubmitting = false;

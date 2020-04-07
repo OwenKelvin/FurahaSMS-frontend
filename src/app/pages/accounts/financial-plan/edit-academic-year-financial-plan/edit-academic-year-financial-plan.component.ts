@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Observable, of, forkJoin } from 'rxjs';
+import { Observable, forkJoin } from 'rxjs';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import {
@@ -10,7 +10,6 @@ import { mergeMap, map, tap, takeWhile } from 'rxjs/operators';
 import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
 import { FinancialPlanService } from '../../services/financial-plan.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { FinancialCostsService } from '../../services/financial-costs.service';
 
 @Component({
@@ -45,9 +44,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
     private classLevelService: ClassLevelService,
     private fb: FormBuilder,
     private financialPlanService: FinancialPlanService,
-    private financialCostService: FinancialCostsService,
-    private cdr: ChangeDetectorRef
-  ) { }
+    private financialCostService: FinancialCostsService  ) { }
   triggerChange() {
     this.otherFees.setValue(this.otherFees.value);
     this.otherFees.updateValueAndValidity();
@@ -223,14 +220,8 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
               .submit({ academicYearId: id, data: this.feePlanForm.value }))
       )
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
+        .subscribe(() => {
           this.isSubmitting = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success',
-            toastTime: 'Just Now'
-          }));
         }, () => this.isSubmitting = false);
     }
 

@@ -3,11 +3,8 @@ import { Observable } from 'rxjs';
 import { UnitsService } from 'src/app/services/units.service';
 import { ClassLevelService } from 'src/app/services/class-level.service';
 import { PDFDocumentProxy } from 'ng2-pdf-viewer';
-import { mergeMap, takeWhile, map, tap } from 'rxjs/operators';
+import { mergeMap, takeWhile, map } from 'rxjs/operators';
 import { StudyMaterialsService } from '../../services/study-materials.service';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
@@ -37,7 +34,6 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
     private unitService: UnitsService,
     private classLevelService: ClassLevelService,
     private studyMaterialService: StudyMaterialsService,
-    private store: Store<AppState>,
     private fb: FormBuilder
   ) { }
 
@@ -103,13 +99,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
       .pipe(map(({ data }) => data))
       .pipe(mergeMap(({ id: docId }) => this.studyMaterialService.saveStudyaterialInfo({ docId, data: this.studyMaterialForm.value })))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success',
-          toastTime: 'Just Now'
-        }));
+      .subscribe(() => {
         this.isSubmitting = false;
       }, () => this.isSubmitting = false );
   }

@@ -62,7 +62,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       if (res.length > 0) {
         this.unitLevels.setValue([]); // TODO fails if we reset the value
       }
-      res.map(({ id }: { id: number }) => id).forEach((val: any) => {
+      res.map(({ id }: { id: number; }) => id).forEach((val: any) => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
@@ -103,18 +103,13 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
         studentIdParam = studentId;
         return this.studentAcademicsService.saveSubjectAllocation({ studentId, data });
       }))
-      .subscribe(
-        res => {
+      .subscribe({
+        next: () => {
           this.isSubmitting = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastHeader: 'Success',
-            toastTime: 'Just Now',
-            toastBody: res.message
-          }));
           this.router.navigate(['students', studentIdParam, 'academics']);
         },
-        () => this.isSubmitting = false);
+        error: () => this.isSubmitting = false
+      });
   }
   ngOnDestroy() {
     this.componentIsActive = false;

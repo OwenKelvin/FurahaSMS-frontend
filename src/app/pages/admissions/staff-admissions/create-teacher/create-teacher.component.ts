@@ -138,12 +138,6 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          toastHeader: 'Success',
-          showMessage: true,
-          toastTime: 'Just Now',
-          toastBody: res.message
-        }));
         this.router.navigate(['/teachers', res.data.id, 'info']);
       }, () => {
         this.isSubmitting = false;
@@ -154,12 +148,6 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          toastHeader: 'Success',
-          showMessage: true,
-          toastTime: 'Just Now',
-          toastBody: res.message
-        }));
         this.router.navigate(['/support-staffs', res.data.id, 'info']);
       }, () => {
         this.isSubmitting = false;

@@ -2,7 +2,6 @@ import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angu
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
 import { Store, select } from '@ngrx/store';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { takeWhile } from 'rxjs/operators';
 import { selectEditModeOnState } from 'src/app/store/selectors/app.selectors';
 import { Observable } from 'rxjs';
@@ -58,15 +57,9 @@ export class NameItemComponent implements OnInit, OnDestroy {
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe({
           complete: () => this.isSubmitting = false,
-          next: res => {
+          next: () => {
             this.valueChanged.emit(fieldNewValue);
             this.editable = false;
-            this.store.dispatch(loadToastShowsSuccess({
-              showMessage: true,
-              toastBody: res.message,
-              toastHeader: 'Success!',
-              toastTime: 'Just now'
-            }));
           }
         });
     } else {

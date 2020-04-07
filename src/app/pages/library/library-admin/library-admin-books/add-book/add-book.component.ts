@@ -122,9 +122,6 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
     this.libraryBookService.save(this.newBookForm.value)
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true, toastBody: res.message, toastHeader: 'Successful', toastTime: 'just now'
-      }));
       this.isSubmitting = false;
       this.formSubmitted = true;
       this.router.navigate(['/library', 'books', res.data.id, 'view']);

@@ -105,12 +105,6 @@ export class CreatePublisherComponent implements OnInit, AfterViewInit {
       .subscribe({
         next: res => {
           this.isSubmitting = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success',
-            toastTime: 'Just Now'
-          }));
           this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
         },
         complete: () => this.isSubmitting = false

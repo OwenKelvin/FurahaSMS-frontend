@@ -35,10 +35,10 @@ export class NewPaymentReceiptComponent implements OnInit {
       select(selectPaymentMethods)
     );
     this.newPaymentForm = this.fb.group({
-      paymentAmount: ['', [Validators.required]],
-      paymentType: ['', [Validators.required]],
-      paymentRef: [''],
-      paymentDate: [''],
+      paymentAmount: ['100000', [Validators.required]],
+      paymentType: ['4', [Validators.required]],
+      paymentRef: ['wertyu'],
+      paymentDate: ['01/01/2020'],
     });
   }
   validateForm() {
@@ -53,7 +53,7 @@ export class NewPaymentReceiptComponent implements OnInit {
     )
       .subscribe({
         next: () => {
-
+          this.isSubmitting = false;
         },
         error: () => this.isSubmitting = false
       });

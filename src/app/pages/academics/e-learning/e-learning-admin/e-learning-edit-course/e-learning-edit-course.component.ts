@@ -7,7 +7,6 @@ import { ICourse } from '../../interfaces/course.interface';
 import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ELearningService } from '../../services/e-learning.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { StudyMaterialsService } from '../../../study-materials/services/study-materials.service';
 
@@ -78,15 +77,9 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
     const course: any = this.course ? this.course : {};
     this.eLearningService.deleteCourseWithId(course.id)
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe((res: any) => {
+      .subscribe(() => {
         this.modalRef.hide();
         this.router.navigate(['academics/', 'e-learning', 'admin']);
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
       });
   }
   saveNewContent() {
@@ -115,15 +108,9 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
           });
         }))
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
+        .subscribe(() => {
           // this.course$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
           this.getCourses();
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success',
-            toastTime: 'Just Now'
-          }));
           this.savingNewContent = false;
           this.modalRef.hide();
         }, () => this.savingNewContent = false);
@@ -137,14 +124,8 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
     if (this.newLearningOutcomeForm.valid) {
       this.savingNewContent = true;
       this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)
-        .subscribe(res => {
+        .subscribe(() => {
           this.getCourses();
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success',
-            toastTime: 'Just Now'
-          }));
           this.savingNewContent = false;
           this.modalRef.hide();
         }, () => this.savingNewContent = false);

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { StudentAcademicsService } from 'src/app/pages/students/services/student-academics.service';
 import { ActivatedRoute } from '@angular/router';
@@ -9,7 +9,7 @@ import { map, takeWhile, mergeMap, tap } from 'rxjs/operators';
   templateUrl: './student-payment-fee-structure.component.html',
   styleUrls: ['./student-payment-fee-structure.component.css']
 })
-export class StudentPaymentFeeStructureComponent implements OnInit {
+export class StudentPaymentFeeStructureComponent implements OnInit, OnDestroy {
   componentIsActive: boolean;
   statement$: Observable<any>;
   academicYears: any[];

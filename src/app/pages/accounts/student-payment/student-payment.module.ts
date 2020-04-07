@@ -27,7 +27,7 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     TabsModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
-    AddCommaModule, 
+    AddCommaModule,
     AppInputModule
   ]
 })

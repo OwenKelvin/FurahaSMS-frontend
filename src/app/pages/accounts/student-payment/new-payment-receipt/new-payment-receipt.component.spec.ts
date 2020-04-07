@@ -2,6 +2,11 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { NewPaymentReceiptComponent } from './new-payment-receipt.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppInputModule } from 'src/app/modules/app-input.module';
 
 describe('NewPaymentReceiptComponent', () => {
   let component: NewPaymentReceiptComponent;
@@ -10,10 +15,21 @@ describe('NewPaymentReceiptComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        HttpClientTestingModule,
+        RouterTestingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        AppInputModule
       ],
-      declarations: [ NewPaymentReceiptComponent ]
+      declarations: [NewPaymentReceiptComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

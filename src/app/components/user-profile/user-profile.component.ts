@@ -13,7 +13,6 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/services/users.service';
 import { takeWhile, mergeMap, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { loadEditModesSuccess, loadEditModesFailure } from 'src/app/store/actions/edit-mode.actions';
 import { CanvasService } from 'src/app/services/canvas.service';
 
@@ -83,16 +82,10 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         takeWhile(() => this.componentIsActive)
       )
       .subscribe({
-        next: res => {
+        next: () => {
           this.savingProfPic = false;
           this.hideModal();
           (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success!',
-            toastTime: 'Just now'
-          }));
         },
         error: () => this.savingProfPic = false
       });

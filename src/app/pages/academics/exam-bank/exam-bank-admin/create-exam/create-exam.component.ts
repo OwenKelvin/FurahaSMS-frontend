@@ -1,9 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ExamPaperService } from '../../services/exam-paper.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
 import { Router } from '@angular/router';
 import { takeWhile } from 'rxjs/operators';
 
@@ -19,7 +16,6 @@ export class CreateExamComponent implements OnInit, OnDestroy {
   componentIsActive: boolean;
   constructor(
     private fb: FormBuilder,
-    private store: Store<AppState>,
     private examPaperService: ExamPaperService,
     private router: Router
   ) { }
@@ -62,12 +58,6 @@ export class CreateExamComponent implements OnInit, OnDestroy {
         .pipe(takeWhile(() => this.componentIsActive))
         .subscribe(res => {
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastHeader: 'Success',
-          toastTime: 'Just Now',
-          toastBody: res.message
-        }));
         this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', res.data.id, 'view']);
       }, () => this.isSubmitting = false);
     } else {

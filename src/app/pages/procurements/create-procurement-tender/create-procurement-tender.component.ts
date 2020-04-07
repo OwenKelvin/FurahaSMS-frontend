@@ -57,10 +57,7 @@ export class CreateProcurementTenderComponent implements OnInit, OnDestroy {
         expiry_datetime: this.tenderForm.value.expiryDatetime
       })
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true, toastBody: res.message , toastHeader: 'Successful', toastTime: 'just now'
-        }));
+        .subscribe(() => {
         this.isSubmitting = false;
       }, () => this.isSubmitting = false);
     });
