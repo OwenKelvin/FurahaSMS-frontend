@@ -10,6 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { reducer } from 'src/app/pages/support-staffs/store/reducers/support-staff.reducer';
+import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 
 describe('CreateStaffComponent', () => {
   let component: CreateStaffComponent;
@@ -30,13 +31,17 @@ describe('CreateStaffComponent', () => {
         StoreModule.forFeature('admissions', reducer),
         FormsModule,
         ReactiveFormsModule,
-        AppInputModule
+        AppInputModule,
+        AppTelInputModule
       ],
       providers: [
         reducerProvider,
         {
           provide: Store,
-          useValue: of({})
+          useValue: {
+            pipe: () => of({}),
+            dispatch: () => ({ })
+          }
         }
       ],
       declarations: [CreateStaffComponent, CreateTeacherComponent]

@@ -4,6 +4,12 @@ import { StudentPaymentStatementComponent } from './student-payment-statement.co
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { NewPaymentReceiptComponent } from '../new-payment-receipt/new-payment-receipt.component';
+import { StudentPaymentFeeStructureComponent } from '../student-payment-fee-structure/student-payment-fee-structure.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('StudentPaymentStatementComponent', () => {
   let component: StudentPaymentStatementComponent;
@@ -14,9 +20,26 @@ describe('StudentPaymentStatementComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        TabsModule.forRoot(),
+        FormsModule,
+        ReactiveFormsModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ StudentPaymentStatementComponent ]
+      declarations: [
+        StudentPaymentStatementComponent,
+        NewPaymentReceiptComponent,
+        StudentPaymentFeeStructureComponent
+      ],
+      providers: [
+        reducerProvider
+      ]
     })
     .compileComponents();
   }));

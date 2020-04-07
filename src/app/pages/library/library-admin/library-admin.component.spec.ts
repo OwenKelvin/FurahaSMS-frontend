@@ -13,13 +13,16 @@ describe('LibraryAdminComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, AppDashboardLinksModule ],
+        }),
+        RouterTestingModule,
+        AppDashboardLinksModule],
       declarations: [LibraryAdminComponent],
       providers: [reducerProvider]
     });

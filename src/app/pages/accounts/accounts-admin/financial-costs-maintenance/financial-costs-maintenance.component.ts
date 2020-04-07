@@ -4,7 +4,6 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { FinancialCostsService } from '../../services/financial-costs.service';
 import { Observable } from 'rxjs';
 import { map, takeWhile } from 'rxjs/operators';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Store } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 
@@ -50,10 +49,10 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     this.financialCosts$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(financialCosts => {
-      this.financialCosts = financialCosts;
+        this.financialCosts = financialCosts;
 
-      this.isLoading = false;
-    });
+        this.isLoading = false;
+      });
   }
   resetEditForm() {
     this.financialCostEditForm = this.fb.group({
@@ -114,16 +113,8 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     this.financialCostsService.save(this.financialCosts)
       .pipe(map(res => res as any))
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
-
-
       });
   }
   deleteItem(j: number) {
@@ -133,18 +124,13 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
       this.deleting[j] = true;
       this.financialCostsService.destroy(this.financialCosts[j].id)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(
-        res => {
-          this.deleting[j] = false;
-          this.financialCosts.splice(j, 1);
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success!',
-            toastTime: 'Just now'
-          }));
-        }, () => this.deleting[j] = false
-      );
+        .subscribe({
+          next: () => {
+            this.deleting[j] = false;
+            this.financialCosts.splice(j, 1);
+          },
+          error: () => this.deleting[j] = false
+        });
 
 
     }

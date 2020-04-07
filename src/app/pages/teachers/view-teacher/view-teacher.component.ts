@@ -2,10 +2,11 @@ import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Observable } from 'rxjs';
 import { TeacherService } from '../../admissions/services/teacher.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap, takeWhile } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
+import { map, mergeMap, takeWhile, tap } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { loadTeacherProfiles, loadTeacherProfilesSuccess } from '../store/actions/teacher-profile.actions';
+import { selectTeacher } from '../store/selectors/teacher-profile.selectors';
 
 @Component({
   selector: 'app-view-teacher',
@@ -17,6 +18,7 @@ export class ViewTeacherComponent implements OnInit, OnDestroy {
   linkBase: any[];
   links: any[];
   componentIsActive: boolean;
+  teacherId: number;
   constructor(
     private teacherService: TeacherService,
     private route: ActivatedRoute,
@@ -27,17 +29,15 @@ export class ViewTeacherComponent implements OnInit, OnDestroy {
     this.componentIsActive = true;
     this.teacherProfile$ = this.route.paramMap
       .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.teacherService.getTeacherById(id)));
-    this.teacherProfile$
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(profile => this.store.dispatch(loadTeacherProfiles(profile)));
-
+      .pipe(tap(id => this.teacherId = id))
+      .pipe(tap(id => this.store.dispatch(loadTeacherProfiles({data: {id}}))))
+      .pipe(mergeMap(id => this.store.pipe(select(selectTeacher(id)))))
   }
   ngOnDestroy() {
     this.componentIsActive = false;
   }
   changeProfile($event: { fieldName: string, fieldNewValue: string; }) {
-    this.store.dispatch(loadTeacherProfilesSuccess({data: {[$event.fieldName]: $event.fieldNewValue}}))
+    this.store.dispatch(loadTeacherProfilesSuccess({ data: { id: this.teacherId, [$event.fieldName]: $event.fieldNewValue}}))
   }
 
 }

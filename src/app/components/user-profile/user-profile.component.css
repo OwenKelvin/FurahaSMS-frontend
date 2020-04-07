@@ -29,31 +29,3 @@ h2 {
   border-top-right-radius: 15px;
   
 }
-
-.upload-profile-pic {
-  position: absolute;
-  width: 100%;
-  height: 100%;
-}
-.upload-profile-pic:hover {
-  color: blue;
-   background-color: rgba(128, 128, 128, 0.7);
-}
-.upload-profile-pic button{
- 
-  width: 100%;
-  height: 100%;
-}
-.upload-profile-pic button:hover span, .upload-profile-pic button:hover span{
-  padding: 5px;
-  border-radius: 20px;
-  border: 2px solid;
-}
-.prof-pic-loading{
-   width: 100%;
-  height: 100%;
-  font-size: 1.5em; color: rgba(115, 136, 74, 0.8); position: absolute;
-}
-.custom-control-label, .custom-control-input{
- cursor: pointer !important; 
-}

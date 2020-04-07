@@ -6,6 +6,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { StoreModule } from '@ngrx/store';
+import { TabsModule } from 'ngx-bootstrap/tabs';
 
 describe('StudentPaymentComponent', () => {
   let component: StudentPaymentComponent;
@@ -17,6 +18,7 @@ describe('StudentPaymentComponent', () => {
         HttpClientTestingModule,
         AppRecentlyCreatedStudent,
         RouterTestingModule,
+        TabsModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

@@ -1,6 +1,26 @@
 <h1>View Book Publisher</h1>
 <section *ngIf='(publisher$ | async) as publisher; else loading'>
-  Name: <strong>{{ publisher.name }}</strong>
+  <section class="card">
+    <section class="d-flex flex-wrap justify-content-center align-items-center">
+      <section class="col-lg-12 card-header">
+        <h2>{{ publisher.name }}</h2>
+      </section>
+      <section class="col-sm-6 col-md-5 col-lg-4 p-3">
+        <img class="img-fluid" id='placeholder' [class.sr-only]='!showPlaceholderImage' src="assets/images/placeholder.webp" alt="Profile Picture for publisher">
+        <canvas class="img-fluid" id='profPicCanvas'>
+        </canvas>
+      </section>
+      <section class="col-sm-6 col-md-7 col-lg-6">
+        <h3 class="mt-3">About the Publisher</h3>
+        <div *ngIf='publisher.biography && publisher.biography !== "" else noDescription' [innerHtml]='publisher.biography | json'></div>
+        <ng-template #noDescription>
+          <div class="alert alert-info mt-3"><span class="icon-info"></span>
+            No Description provided yet
+          </div>
+        </ng-template>
+      </section>
+    </section>
+  </section>
 </section>
 <ng-template #loading>
   <app-loading-bubble></app-loading-bubble>

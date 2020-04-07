@@ -90,7 +90,7 @@ export class ErrorInterceptor implements HttpInterceptor {
         };
       }
       this.store.dispatch(loadErrorMessagesSuccess({
-        body: String(this.message.help),
+        body: String(this.message?.help),
         show: true,
         title: this.message.message,
         status: this.message.status

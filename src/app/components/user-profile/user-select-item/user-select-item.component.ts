@@ -4,7 +4,6 @@ import { selectEditModeOnState } from 'src/app/store/selectors/app.selectors';
 import { Store, select } from '@ngrx/store';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { UsersService } from 'src/app/services/users.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { takeWhile } from 'rxjs/operators';
 
 @Component({
@@ -52,19 +51,13 @@ export class UserSelectItemComponent implements OnInit, OnDestroy {
         userId: this.userId
       })
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(res => {
+        .subscribe(() => {
           this.valueChanged.emit({
             id: (this.selectInput.nativeElement as HTMLSelectElement).selectedIndex,
             name: (this.selectInput.nativeElement as HTMLSelectElement).selectedOptions[0].innerText.trim()
           });
           this.isSubmitting = false;
           this.editable = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success!',
-            toastTime: 'Just now'
-          }));
         }, () => this.isSubmitting = false);
     } else {
       alert('Form not filled correctly');

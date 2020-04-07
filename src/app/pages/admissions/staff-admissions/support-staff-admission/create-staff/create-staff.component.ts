@@ -4,6 +4,7 @@ import { AppState } from 'src/app/store/reducers';
 import { selectStaffType } from '../../../store/selectors/staff-type.selectors';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap, takeWhile } from 'rxjs/operators';
+import * as fromStaffType from 'src/app/pages/admissions/store/reducers/staff-type.reducer';
 
 @Component({
   selector: 'app-create-staff',
@@ -11,8 +12,9 @@ import { map, mergeMap, takeWhile } from 'rxjs/operators';
   styleUrls: ['./create-staff.component.css']
 })
 export class CreateStaffComponent implements OnInit, OnDestroy {
-  staffType: {id: number, name: string} | null = { id: 0, name: '' };
+
   componentIsActive: boolean;
+  staffType: fromStaffType.State | null;
   constructor(
     private store: Store<AppState>,
     private route: ActivatedRoute

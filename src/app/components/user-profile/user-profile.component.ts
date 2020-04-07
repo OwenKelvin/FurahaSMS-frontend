@@ -13,8 +13,8 @@ import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { UsersService } from 'src/app/services/users.service';
 import { takeWhile, mergeMap, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { loadEditModesSuccess, loadEditModesFailure } from 'src/app/store/actions/edit-mode.actions';
+import { CanvasService } from 'src/app/services/canvas.service';
 
 @Component({
   selector: 'app-user-profile',
@@ -41,7 +41,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   constructor(
     private modalService: BsModalService,
     private usersService: UsersService,
-    private store: Store
+    private store: Store,
+    private canvasService: CanvasService
   ) { }
 
   ngOnInit() {
@@ -49,7 +50,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
     this.getProfilePic();
   }
   editModeChangeHandler() {
-    this.editMode ? this.store.dispatch(loadEditModesSuccess()) : this.store.dispatch(loadEditModesFailure())
+    this.editMode ? this.store.dispatch(loadEditModesSuccess()) : this.store.dispatch(loadEditModesFailure());
   }
   getProfilePic() {
     this.profPicLoading = true;
@@ -75,20 +76,19 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   saveProfilePic() {
     this.savingProfPic = true;
     this.usersService.uploadPhoto({ file: this.photoFile })
-      .pipe(map((res: any) => res.data.id))
-      .pipe(mergeMap((id: number) => this.usersService.saveProfilePicture({ userId: this.profile.id, profilePicId: id })))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-        this.savingProfPic = false;
-        this.hideModal();
-        (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
-      }, () => this.savingProfPic = false);
+      .pipe(
+        map((res: any) => res.data.id),
+        mergeMap((id: number) => this.usersService.saveProfilePicture({ userId: this.profile.id, profilePicId: id })),
+        takeWhile(() => this.componentIsActive)
+      )
+      .subscribe({
+        next: () => {
+          this.savingProfPic = false;
+          this.hideModal();
+          (this.profPic.nativeElement as HTMLImageElement).src = this.photoSrc;
+        },
+        error: () => this.savingProfPic = false
+      });
   }
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
@@ -102,8 +102,8 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   }
 
   onFileSelected(template: TemplateRef<any>) {
-    const $input: any = document.querySelector('#profilePhotoInput');
-    this.photoFile = (($input as HTMLInputElement).files as FileList)[0];
+    const $input: HTMLInputElement = document.querySelector('#profilePhotoInput') as HTMLInputElement;
+    this.photoFile = ($input.files as FileList)[0];
     if (this.photoFile) {
       this.openModal(template);
       const $canvas: any = document.querySelector('#profilePhotoCanvas');
@@ -113,7 +113,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
       this.photoSrc = URL.createObjectURL(this.photoFile);
       imageObj.onload = () => {
-        this.fitImageOn($canvas, imageObj);
+        this.canvasService.fitImageOn($canvas, imageObj);
       };
       imageObj.src = this.photoSrc;
     }
@@ -121,43 +121,43 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
   }
   changeProfile(fieldName: string, $event: string) {
-    this.valueChanged.emit({fieldName, fieldNewValue: $event});
+    this.valueChanged.emit({ fieldName, fieldNewValue: $event });
   }
-  fitImageOn(canvas: any, imageObj: any) {
-    const imageAspectRatio = imageObj.width / imageObj.height;
-    const canvasAspectRatio = canvas.width / canvas.height;
-    let renderableHeight;
-    let renderableWidth;
-    let xStart;
-    let yStart;
+  // fitImageOn(canvas: any, imageObj: any) {
+  //   const imageAspectRatio = imageObj.width / imageObj.height;
+  //   const canvasAspectRatio = canvas.width / canvas.height;
+  //   let renderableHeight;
+  //   let renderableWidth;
+  //   let xStart;
+  //   let yStart;
 
-    // If image's aspect ratio is less than canvas's we fit on height
-    // and place the image centrally along width
-    if (imageAspectRatio < canvasAspectRatio) {
-      renderableHeight = canvas.height;
-      renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
-      xStart = (canvas.width - renderableWidth) / 2;
-      yStart = 0;
-    }
+  //   // If image's aspect ratio is less than canvas's we fit on height
+  //   // and place the image centrally along width
+  //   if (imageAspectRatio < canvasAspectRatio) {
+  //     renderableHeight = canvas.height;
+  //     renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
+  //     xStart = (canvas.width - renderableWidth) / 2;
+  //     yStart = 0;
+  //   }
 
-    // If image's aspect ratio is greater than canvas's we fit on width
-    // and place the image centrally along height
-    else if (imageAspectRatio > canvasAspectRatio) {
-      renderableWidth = canvas.width;
-      renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
-      xStart = 0;
-      yStart = (canvas.height - renderableHeight) / 2;
-    }
+  //   // If image's aspect ratio is greater than canvas's we fit on width
+  //   // and place the image centrally along height
+  //   else if (imageAspectRatio > canvasAspectRatio) {
+  //     renderableWidth = canvas.width;
+  //     renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
+  //     xStart = 0;
+  //     yStart = (canvas.height - renderableHeight) / 2;
+  //   }
 
-    // Happy path - keep aspect ratio
-    else {
-      renderableHeight = canvas.height;
-      renderableWidth = canvas.width;
-      xStart = 0;
-      yStart = 0;
-    }
-    this.context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
-  };
+  //   // Happy path - keep aspect ratio
+  //   else {
+  //     renderableHeight = canvas.height;
+  //     renderableWidth = canvas.width;
+  //     xStart = 0;
+  //     yStart = 0;
+  //   }
+  //   this.context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
+  // };
 
   ngOnDestroy() {
     this.componentIsActive = false;

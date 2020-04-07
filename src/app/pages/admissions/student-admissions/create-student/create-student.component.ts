@@ -1,16 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../store/reducers';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { IdNumberValidator } from 'src/app/validators/student-id-taken.validator';
 import { StudentService } from 'src/app/services/student.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { takeWhile } from 'rxjs/operators';
-import * as fromGenders from 'src/app/store/reducers/gender.reducer'
-import * as fromReligions from 'src/app/store/reducers/religion.reducer'
+import * as fromGenders from 'src/app/store/reducers/gender.reducer';
+import * as fromReligions from 'src/app/store/reducers/religion.reducer';
 import { GenderService } from 'src/app/services/gender.service';
 import { ReligionService } from 'src/app/services/religion.service';
 
@@ -28,7 +25,6 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
   genders$: Observable<fromGenders.State>;
   religions$: Observable<fromReligions.State>;
   constructor(
-    private store: Store<AppState>,
     private fb: FormBuilder,
     private idNumberValidator: IdNumberValidator,
     private studentService: StudentService,
@@ -77,20 +73,15 @@ export class CreateStudentComponent implements OnInit, CanComponentDeactivate {
     if (this.newStudentForm.valid) {
       this.studentService.createNewStudent(this.newStudentForm.value)
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe((res: any) => {
-
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Successful',
-            toastTime: 'just now'
-          }));
-          this.isSubmitting = false;
-          this.formSubmitted = true;
-          this.router.navigate(['/students', res.data.id]);
-        }, () => {
-          this.formSubmitted = true;
-          this.isSubmitting = false;
+        .subscribe({
+          next: (res: any) => {
+            this.isSubmitting = false;
+            this.formSubmitted = true;
+            this.router.navigate(['/students', res.data.id]);
+          }, error: () => {
+            this.formSubmitted = true;
+            this.isSubmitting = false;
+          }
         });
     } else {
       this.triggerValidation = !this.triggerValidation;

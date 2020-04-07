@@ -255,17 +255,12 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     this.isSubmitting = true;
     const data = this.Queries;
     this.questionId$
-      .pipe(mergeMap(examPaperId => this.examPaperQuestionsService.store({ examPaperId, data })))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .pipe(
+        mergeMap(examPaperId => this.examPaperQuestionsService.store({ examPaperId, data })),
+        takeWhile(() => this.componentIsActive))
+      .subscribe(() => {
         this.submitted = true;
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
         this.questionId$
           .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
           .pipe(takeWhile(() => this.componentIsActive))

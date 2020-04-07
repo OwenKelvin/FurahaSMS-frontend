@@ -8,8 +8,7 @@ import { ClassLevelService } from 'src/app/services/class-level.service';
 import { Observable } from 'rxjs';
 import { FormBuilder, FormArray, FormGroup } from '@angular/forms';
 import { AcademicYearService } from '../../services/academic-year.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-academic-year-subject-units',
@@ -27,7 +26,6 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
   academicYearId$: Observable<number>;
   componentIsActive: boolean;
   constructor(
-    private store: Store<fromStore.AppState>,
     private unitLevelService: UnitLevelService,
     private classLevelService: ClassLevelService,
     private fb: FormBuilder,
@@ -79,14 +77,8 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
         flatMap(id => this.academicYearService.saveUnitLevels(id, this.classLevels.value))
     )
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
+      .subscribe(() => {
         this.isSubmitting = false;
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: res.message,
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
       }, () => this.isSubmitting = false);
   }
   ngOnDestroy() {

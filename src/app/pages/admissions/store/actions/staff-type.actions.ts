@@ -6,7 +6,7 @@ export const loadStaffTypes = createAction(
 
 export const loadStaffTypesSuccess = createAction(
   '[StaffType] Load StaffTypes Success',
-  props<{id: number, name: string} >()
+  props<{ data: any[]} >()
 );
 
 export const loadStaffTypesFailure = createAction(

@@ -8,6 +8,7 @@ import { Store } from '@ngrx/store';
 import { loadToastShowsSuccess } from '../../store/actions/toast-show.actions';
 import { AppState } from '../../store/reducers';
 import { takeWhile } from 'rxjs/operators';
+import { loadErrorMessagesFailure } from 'src/app/store/actions/error-message.actions';
 
 @Component({
   selector: 'app-login',
@@ -48,25 +49,27 @@ export class LoginComponent implements OnInit, OnDestroy {
   submitLoginForm() {
     this.submitInProgress = true;
     if (this.loginForm.valid) {
-      const username: string = this.username.value ;
-      const password: string = this.password.value ;
+      const username: string = this.username.value;
+      const password: string = this.password.value;
       this.authService.login({ username, password })
         .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(() => {
-          this.submitInProgress = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            toastHeader: 'Login Successful!',
-            toastBody: 'Successfully authenticated',
-            showMessage: true,
-            toastTime: 'Just Now'
-          }));
-          this.router.navigate(['/dashboard']);
-        },
-        error => {
+        .subscribe({
+          next: () => {
+            this.submitInProgress = false;
+            this.store.dispatch(loadErrorMessagesFailure());
+            this.store.dispatch(loadToastShowsSuccess({
+              toastHeader: 'Login Successful!',
+              toastBody: 'Successfully authenticated',
+              showMessage: true,
+              toastTime: 'Just Now'
+            }));
+            this.router.navigate(['/dashboard']);
+          },
+          error: error => {
           this.submitInProgress = false;
           this.submitError = error as MessageInterface;
           this.showErrorMessage = true;
-        });
+        }});
     } else {
       this.password.markAsTouched();
       this.username.markAsTouched();

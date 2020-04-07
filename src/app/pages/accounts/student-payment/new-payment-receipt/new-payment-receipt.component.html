@@ -1,0 +1,52 @@
+<form [formGroup]='newPaymentForm' (submit)='submitPayment()'>
+  <section class="d-flex flex-wrap justify-content-around pt-3">
+    <section class="col-lg-3">
+
+      <label class="control-label" for="paymentAmount">Receipt Amount</label>
+      <div class="input-group mb-3">
+        <div class="input-group-prepend">
+          <span class="input-group-text">KES</span>
+        </div>
+        <input formControlName='paymentAmount' id='paymentAmount' type="text" class="form-control" placeholder="0.00"
+          appAddComma>
+      </div>
+    </section>
+    <section class="col-lg-3">
+      <label class="control-label" for="paymentType">Payment Type</label>
+      <select formControlName='paymentType' class='custom-select' id="paymentType">
+        <ng-container *ngIf='paymentMethods$ | async as paymentMethods; else loading'>
+          <ng-container *ngIf='paymentMethods.length > 1; else loading'>
+            <option value="">---Please Select---</option>
+            <option *ngFor='let paymentMethod of paymentMethods' [value]="paymentMethod.id">
+              {{ paymentMethod.name }}
+            </option>
+          </ng-container>
+        </ng-container>
+        <ng-template #loading>
+          <option value="">Loading...</option>
+        </ng-template>
+
+      </select>
+    </section>
+    <section class="col-lg-3">
+
+      <label class="control-label" for="paymentRef">Payment Reference</label>
+      <div>
+        <input formControlName='paymentRef' id='paymentRef' type="text" class="form-control" placeholder="e.g Chq No 123456">
+      </div>
+    </section>
+    <section class="col-lg-3">
+    
+      <label class="control-label" for="paymentDate">Payment Date</label>
+      <div>
+        <input formControlName='paymentDate' id='paymentDate' type="date" class="form-control" placeholder="0.00">
+      </div>
+    </section>
+    <section class="col-lg-12">
+      <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
+        [formItem]='newPaymentForm'>
+       <span>Save Payment</span>
+      </app-validate-submit-buttons>
+    </section>
+  </section>
+</form>

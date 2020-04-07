@@ -1,38 +1,51 @@
 <h1>Library Catalogue</h1>
 
-<form (submit)='submitSearchParamsForm()' [formGroup]='searchParamsForm' class="d-flex justify-content-start flex-wrap">
-  <section class="col-md-3 col-sm-5">
-    <label class="control-label" for="title">Title</label>
-    <input formControlName='title' [typeahead]="titles$ | async" typeaheadOptionField="title" placeholder="Enter Title"
-      class="form-control" [adaptivePosition]="true">
-  </section>
-  <section class="col-md-3 col-sm-5">
-    <label class="control-label" for="author">Author</label>
-    <input formControlName='author' [typeahead]="authors$ | async" typeaheadOptionField="name"
-      placeholder="Enter Author" class="form-control" [adaptivePosition]="true">
-  </section>
-  <section class="col-md-3 col-sm-5">
-    <label class="control-label" for="author">Publisher</label>
-    <input formControlName='publisher' [typeahead]="publishers$ | async" typeaheadOptionField="name"
-      placeholder="Enter Publisher" class="form-control" [adaptivePosition]="true">
-  </section>
-  <section class="col-lg-3">
-    <button class='btn btn-success mt-4'
-      [disabled]='!searchParamsForm.dirty || !searchParamsForm.valid || isSubmitting'>
-      Search
-      <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
-      <i *ngIf='!isSubmitting && searchParamsForm.valid && searchParamsForm.dirty' class='icon-search'></i>
-    </button>
-  </section>
-  <table class="table table-dark mt-2">
+<section class="card p-2">
+  <h2>Search Catalogue</h2>
+  <form (submit)='submitSearchParamsForm()' [formGroup]='searchParamsForm'
+    class="d-flex justify-content-start align-items-end flex-wrap mb-1">
+    <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
+      <label class="control-label" for="title">Title</label>
+      <input formControlName='title' [typeahead]="titles$ | async" typeaheadOptionField="title"
+        placeholder="Enter Title" class="form-control" [adaptivePosition]="true">
+    </section>
+    <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
+      <label class="control-label" for="author">Author</label>
+      <input formControlName='author' [typeahead]="authors$ | async" typeaheadOptionField="name"
+        placeholder="Enter Author" class="form-control" [adaptivePosition]="true">
+    </section>
+    <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
+      <label class="control-label" for="author">Publisher</label>
+      <input formControlName='publisher' [typeahead]="publishers$ | async" typeaheadOptionField="name"
+        placeholder="Enter Publisher" class="form-control" [adaptivePosition]="true">
+    </section>
+    <section class="col-lg-3 mb-3 d-flex justify-content-around">
+
+      <button class='btn btn-success' [disabled]='!searchParamsForm.dirty || !searchParamsForm.valid || isSubmitting'>
+        Search
+        <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+        <i *ngIf='!isSubmitting' class='icon-search'></i>
+      </button>
+      <button [disabled]='!searchParamsForm.dirty'  class="btn btn-secondary" type="button" (click)='clearForm()'>
+        Clear
+        <i class='icon-cancel'></i>
+      </button>
+    </section>
+  </form>
+</section>
+<section class="card mt-3 p-2">
+  <h2>Search Results</h2>
+  <div class="d-flex p-3" *ngIf='!bookSearched'>
+    <div class="col-lg-12 alert alert-info">
+      <span class="icon-info"></span> No Search Creteria Submitted
+    </div>
+  </div>
+  <table class="table table-dark mt-2" *ngIf='searchParamsForm.dirty && bookSearched'>
     <thead>
       <tr>
         <th>Book Title</th>
         <th>Category</th>
         <th>Publisher</th>
-        <th>Total Book Copies</th>
-        <th>Available Copies</th>
-        <th>Reserved Copies</th>
         <th>Actions</th>
       </tr>
     </thead>
@@ -54,13 +67,17 @@
           </ul>
         </td>
         <td>{{ book.book_items.length }}</td>
-        <td>{{ book.available }}</td>
-        <td>{{ book.reserves }}</td>
-        <td>{{ book.reserves }}</td>
         <td>
-          <a [routerLink]='["/library", "books", book.id]' class="btn btn-sm btn-primary"> <span class='icon-eye'></span> <span class="sr-only">View Book</span></a>
+          <a [routerLink]='["/library", "books", book.id]' class="btn btn-sm btn-primary"> <span
+              class='icon-eye'></span>
+            <span class="sr-only">View Book</span></a>
+        </td>
+      </tr>
+      <tr *ngIf='books?.length < 1'>
+        <td class="m-1 pb-0" colspan="7">
+          <div class="alert alert-info"><span class="icon-info-circled"></span>No Book Items Found!</div>
         </td>
       </tr>
     </tbody>
   </table>
-</form>
+</section>

@@ -5,7 +5,6 @@ import { ClassLevelService } from 'src/app/services/class-level.service';
 import { UnitsService } from 'src/app/services/units.service';
 import { AcademicYearService } from '../../../services/academic-year.service';
 import { ELearningService } from '../../services/e-learning.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Store, select } from '@ngrx/store';
 import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
 import { takeWhile } from 'rxjs/operators';
@@ -87,14 +86,8 @@ export class ELearningCreateCourseComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     if (this.newCourseForm.valid) {
       this.eLearningService.saveCourse(this.newCourseForm.value)
-        .subscribe(res => {
+        .subscribe(() => {
           this.isSubmitting = false;
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastBody: res.message,
-            toastHeader: 'Success!',
-            toastTime: 'Just now'
-          }));
         }, () => {
           this.isSubmitting = false;
         });

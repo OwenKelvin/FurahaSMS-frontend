@@ -1,22 +1,48 @@
 import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { Observable, pipe } from 'rxjs';
+import { Store, select } from '@ngrx/store';
+import { selectLibraryBookPublisher, selectLibraryBookPublishers } from '../store/selectors/library.selectors';
+import { tap, filter, map, mergeMap } from 'rxjs/operators';
+import { loadLibraryBookPublishers, loadLibraryBookPublisher } from '../store/actions/library-book-publisher.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryPublisherService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store) { }
+  loadAll$: Observable<any> = this.store.pipe(
+    select(selectLibraryBookPublishers),
+    filter((a: any) => Object.keys(a)?.length < 2),
+    tap(() => this.store.dispatch(loadLibraryBookPublishers())),
+  )
+
+  loadItem = (id: number): Observable<any> => {
+    return this.store.pipe(
+      select(selectLibraryBookPublisher(id)),
+      filter((a: any) => !a),
+      map(() => this.store.dispatch(loadLibraryBookPublisher({ data: { id }})))
+    )
+  };
+
 
   getAll(): Observable<any> {
     return this.http.get('api/library-books/publishers/all');
   }
-  save(data: any): Observable<any> {
+  save(data: any, file?: File): Observable<any> {
+    const myFormData = new FormData();
+    const headers = new HttpHeaders();
+    headers.append('Content-Type', 'multipart/form-data');
+    headers.append('Accept', 'application/json');
+    myFormData.append('profilePicture', file ? file : '');
+
+    Object.keys(data).forEach((item) => myFormData.append(item, data[item]));
+
     if (data.id === 0) {
-      return this.http.post('api/library-book-publisher', data);
+      return this.http.post('api/library-book-publisher', myFormData, { headers });
     } else {
-      return this.http.patch(`api/library-book-publisher/${data.id}`, data);
+      return this.http.patch(`api/library-book-publisher/${data.id}`, myFormData, { headers });
     }
   }
   deleteItem(id: number): Observable<any> {

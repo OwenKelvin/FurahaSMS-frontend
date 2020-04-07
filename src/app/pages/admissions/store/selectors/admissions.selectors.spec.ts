@@ -5,21 +5,11 @@ describe('Admissions Selectors', () => {
   it('should select the feature state', () => {
     const result = selectAdmissionsState({
       [fromAdmissions.admissionsFeatureKey]: {
-        staffTypes: {
-          0: {
-            id: 0,
-            name: ''
-          }
-        }}
+        staffTypes: [{}]}
     });
 
     expect(result).toEqual({
-      staffTypes: {
-        0: {
-          id: 0,
-          name: ''
-        }
-      }
+      staffTypes: [{}]
     });
   });
 });

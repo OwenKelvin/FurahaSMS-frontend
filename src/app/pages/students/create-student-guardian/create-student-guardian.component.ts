@@ -61,12 +61,12 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
       .pipe(map(params => Number(params.get('id'))))
       .pipe(tap(id => this.studentId = id))
       .pipe(mergeMap((id) => this.store.pipe(select(selectStudent(id)))))
-      .pipe(tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } })): null))
-      // .pipe(tap(profile => {
-      //   if (!profile) {
-      //     this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } }))
-      //   }
-      // }))
+      .pipe(tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } })) : null));
+    // .pipe(tap(profile => {
+    //   if (!profile) {
+    //     this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } }))
+    //   }
+    // }))
   }
   get guardians(): FormArray {
     return this.userIdentificaionForm.get('guardians') as FormArray;
@@ -168,27 +168,15 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
           .pipe(map(params => params.get('id')))
           .pipe(takeWhile(() => this.componentIsActive))
           .pipe(mergeMap((id) => this.studentGuardian.submit({ ...item, student_id: id })))
-          .subscribe(res => {
-            this.isSubmitting = false;
-            this.store.dispatch(loadToastShowsSuccess({
-              showMessage: true,
-              toastBody: res.message,
-              toastHeader: 'Success',
-              toastTime: 'Just Now'
-            }));
-          }, () => this.isSubmitting = false);
-
-
-
+          .subscribe({
+            next: () => {
+              this.isSubmitting = false;
+            },
+            error: () => this.isSubmitting = false
+          });
         // this.studentGuardian.submit({ ...item, student_id: 24 })
         //   .subscribe(res => {
         //     this.isSubmitting = false;
-        //     this.store.dispatch(loadToastShowsSuccess({
-        //       showMessage: true,
-        //       toastBody: res.message,
-        //       toastHeader: 'Success',
-        //       toastTime: 'Just Now'
-        //     }));
         //   }, err => this.isSubmitting = false);
       });
     } else {

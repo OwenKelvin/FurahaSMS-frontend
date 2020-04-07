@@ -14,7 +14,7 @@
   <section class='col-sm-5 col-md-4 col-lg-2 d-flex justify-content-center'>
     <span *ngIf='profPicLoading' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
     <div *ngIf='editMode' class="upload-profile-pic">
-      <input id='profilePhotoInput' accept="image/*" (valueChanged)='onFileSelected(template)' #fileInput hidden type="file">
+      <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected(template)' #fileInput hidden type="file">
       <button (click)='fileInput.click()' class='btn btn secondary'><span>Upload Photo</span></button>
     </div>
     <img #profPic class='img-thumbnail img-fluid' src='assets/images/default-user.jpg'
@@ -26,16 +26,16 @@
         <h2>{{ fullName | uppercase }}</h2>
       </section>
       <section class='col-lg-6'>
-        <app-name-item (valueChanged)='changeProfile("firstName", $event)' [userId]='profile.id' label='First' [name]='profile.firstName'></app-name-item>
+        <app-name-item (valueChanged)='changeProfile("firstName", $event)' [userId]='profile.id' label='First Name' [name]='profile.firstName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item  (valueChanged)='changeProfile("lastName", $event)' [userId]='profile.id' label='Last' [name]='profile.lastName'></app-name-item>
+        <app-name-item  (valueChanged)='changeProfile("lastName", $event)' [userId]='profile.id' label='Last Name' [name]='profile.lastName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item  (valueChanged)='changeProfile("middleName", $event)' [userId]='profile.id' label='Middle' [name]='profile.middleName'></app-name-item>
+        <app-name-item  (valueChanged)='changeProfile("middleName", $event)' [userId]='profile.id' label='Middle Name' [name]='profile.middleName'></app-name-item>
       </section>
       <section class='col-lg-6'>
-        <app-name-item (valueChanged)='changeProfile("otherNames", $event)'  [userId]='profile.id' label='Other' [name]='profile.otherNames'></app-name-item>
+        <app-name-item (valueChanged)='changeProfile("otherNames", $event)'  [userId]='profile.id' label='Other Names' [name]='profile.otherNames'></app-name-item>
       </section>
     </section>
   </section>

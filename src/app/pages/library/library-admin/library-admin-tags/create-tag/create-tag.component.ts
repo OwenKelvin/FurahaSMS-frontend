@@ -71,12 +71,6 @@ export class CreateTagComponent implements OnInit, OnDestroy {
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
       this.isSubmitting = false;
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true,
-        toastBody: res.message,
-        toastHeader: 'Success',
-        toastTime: 'Just Now'
-      }));
       this.router.navigate(['library', 'admin', 'tags', res.data.id, 'view']);
     }, () => {
       this.isSubmitting = false;

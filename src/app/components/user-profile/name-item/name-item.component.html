@@ -2,14 +2,14 @@
   <form (submit)='submitFormItem()' [formGroup]='itemForm' class='d-flex flex-wrap align-items-center'>
     <div *ngIf='editable' class="edit-field p-3 pt-0">
 
-      <app-input [type]='type' [label]='label + " Name"' type="text"
+      <app-input [type]='type' [label]='label' type="text"
         id=itemNameInput labelClass='col-lg-12' inputClass='col-lg-12' formControlName='name'
-        [placeholder]='"Enter " + label + "Name" '></app-input>
+        [placeholder]='"Enter " + label '></app-input>
       <div class="d-flex justify-content-between">
         <button type="button" (click)='editable = false' class="btn btn-secondary mt-2">Cancel
         </button>
-        <button [disabled]='itemForm.invalid' class="btn btn-success mt-2">
-          <i *ngIf='itemForm.valid && !isSubmitting' class='icon-ok'></i>
+        <button [disabled]='itemForm.invalid || !itemForm.dirty' class="btn btn-success mt-2">
+          <i *ngIf='itemForm.valid && !isSubmitting' class='icon-floppy'></i>
           <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
           <span class="icon-save"></span>Save </button>
       </div>

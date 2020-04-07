@@ -36,12 +36,26 @@ const routes: Routes = [
     },
     children: [
       {
-        path: ':id/view',
+        path: ':id',
+        data: {
+          breadcrumb: null
+        },
+        children: [
+          {
+            path: '',
+            pathMatch: 'full',
+            redirectTo: 'view'
+          },
+          {
+        path: 'view',
         data: {
           breadcrumb: 'View'
         },
         component: ViewLibraryBookComponent
       }
+        ]
+      },
+
     ]
   },
   {

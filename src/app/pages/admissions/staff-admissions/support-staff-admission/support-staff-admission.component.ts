@@ -1,11 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Store, select } from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
 import { RolesAndPermissionsService } from '../../../roles-and-permissions/services/roles-and-permissions.service';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { tap, takeWhile } from 'rxjs/operators';
 import { loadStaffTypesSuccess } from '../../store/actions/staff-type.actions';
 import { Router } from '@angular/router';
+import { selectStaffTypes } from '../../store/selectors/staff-type.selectors';
+import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 
 @Component({
   selector: 'app-support-staff-admission',
@@ -14,25 +16,33 @@ import { Router } from '@angular/router';
 })
 export class SupportStaffAdmissionComponent implements OnInit {
   staffTypes$: Observable<any>;
-  staffTypes: any;
   staffType: any;
+  staffTypeFrom: FormGroup;
+  componentIsActive: boolean;
 
   constructor(
     private store: Store<fromStore.AppState>,
     private rolesPermissionService: RolesAndPermissionsService,
-    private router: Router
+    private router: Router,
+    private fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.staffTypes$ = this.rolesPermissionService.staffTypes()
-      .pipe(tap(res => {
-        this.staffTypes = res as any[]
-      }))
+    this.rolesPermissionService.loadAllStaffTypes$
+      .pipe(takeWhile(() => this.componentIsActive))
+      .subscribe();
+    this.staffTypes$ = this.store.pipe(
+      select(selectStaffTypes)
+    )
+    this.staffTypeFrom = this.fb.group({
+      staffTypeId: ['', [Validators.required]]
+    })
   }
 
-  navigateToNewStaffPage() {
-    this.store.dispatch(loadStaffTypesSuccess(this.staffTypes.find((item: any) => +item.id === +this.staffType)))
-    this.router.navigate(['admissions','staff','support',this.staffType,'create']);
-  }
+  staffTypeFormSubmit() {
+    if (this.staffTypeFrom.valid) {
+       this.router.navigate(['admissions', 'staff', 'support', this.staffTypeFrom.get('staffTypeId')?.value,'create']);
+    }
 
+  }
 }
