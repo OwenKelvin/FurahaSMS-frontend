@@ -11,10 +11,11 @@ export class AddCommaDirective {
   }
   
   @HostListener('change') onMouseEnter() {
-    let value = this.element.value.toUpperCase();
+    const initialValue = this.element.value;
+    let value = initialValue.toUpperCase();
     let concatValue = 1;
-    if (/\w$/.test(value)) {
-    
+    if (/[A-Z]$/.test(value)) {
+      
       switch (value[value.length - 1]) {
        case 'K':
           concatValue = 1000;
@@ -35,6 +36,11 @@ export class AddCommaDirective {
       value = value.substr(0, value.length - 1)
     }
     
-    this.element.value = (Number(value.replace(',', '')) * concatValue).toLocaleString()
+    if (isNaN(Number(value.replace(/,/g, '')))) {
+      this.element.value = initialValue
+    } else {
+      this.element.value = (Number(value.replace(/,/g, '')) * concatValue).toLocaleString()
+    }
+    
   }
 }
