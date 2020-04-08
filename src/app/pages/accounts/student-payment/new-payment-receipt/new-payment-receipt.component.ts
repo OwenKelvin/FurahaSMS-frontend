@@ -5,7 +5,8 @@ import { PaymentTypeService } from '../../services/payment-type.service';
 import { selectPaymentMethods } from '../../store/selectors/payment-type.selectors';
 import { StudentFeePaymentService } from '../../services/student-fee-payment.service';
 import { ActivatedRoute } from '@angular/router';
-import { mergeMap, map, takeWhile } from 'rxjs/operators';
+import { mergeMap, map, takeWhile, tap } from 'rxjs/operators';
+import { loadNewPaymentReceiptSuccess } from '../../store/actions/student-fee-statement.actions';
 
 
 @Component({
@@ -18,6 +19,7 @@ export class NewPaymentReceiptComponent implements OnInit {
   paymentMethods$: any;
   isSubmitting: boolean;
   componentIsActive: boolean;
+  studentId: number;
   constructor(
     private fb: FormBuilder,
     private store: Store,
@@ -27,7 +29,7 @@ export class NewPaymentReceiptComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.componentIsActive = true
+    this.componentIsActive = true;
     this.paymentTypeService.loadAll$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe();
@@ -36,7 +38,7 @@ export class NewPaymentReceiptComponent implements OnInit {
     );
     this.resetForm();
   }
-  
+
   resetForm() {
     this.newPaymentForm = this.fb.group({
       paymentAmount: ['', [Validators.required]],
@@ -52,13 +54,17 @@ export class NewPaymentReceiptComponent implements OnInit {
     this.isSubmitting = true;
     this.route.paramMap.pipe(
       map((params) => Number(params.get('id'))),
+      tap(id => this.studentId = id),
       mergeMap((id) => this.studentFeePaymentService.save({ studentId: id, data: this.newPaymentForm.value })),
       takeWhile(() => this.componentIsActive)
     )
       .subscribe({
-        next: () => {
+        next: (res) => {
           this.isSubmitting = false;
           this.resetForm();
+          this.store.dispatch(loadNewPaymentReceiptSuccess({
+            data: { studentId: this.studentId, newPayment: res.data }
+           }));
         },
         error: () => this.isSubmitting = false
       });

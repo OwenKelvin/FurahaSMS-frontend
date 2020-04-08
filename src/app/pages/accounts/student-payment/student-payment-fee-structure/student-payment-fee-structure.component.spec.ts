@@ -4,6 +4,8 @@ import { StudentPaymentFeeStructureComponent } from './student-payment-fee-struc
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('StudentPaymentFeeStructureComponent', () => {
   let component: StudentPaymentFeeStructureComponent;
@@ -14,9 +16,17 @@ describe('StudentPaymentFeeStructureComponent', () => {
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
       ],
-      declarations: [ StudentPaymentFeeStructureComponent ]
+      declarations: [StudentPaymentFeeStructureComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

@@ -9,6 +9,6 @@ export const selectStudentsFeeStatements = createSelector(
 export const selectStudentFeeStatement = (id: number) => createSelector(
   selectStudentsFeeStatements,
   accounts => {
-    return accounts[studentFeeStatementFeatureKey][id]
+    return accounts ? accounts[studentFeeStatementFeatureKey][id] : {}
   }
 )

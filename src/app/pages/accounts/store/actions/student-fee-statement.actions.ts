@@ -14,3 +14,8 @@ export const loadStudentFeeStatementsFailure = createAction(
   '[StudentFeeStatement] Load StudentFeeStatements Failure',
   props<{ error: any }>()
 );
+
+export const loadNewPaymentReceiptSuccess = createAction(
+  '[StudentFeeStatement] Load New Payment Receipt Success',
+  props<{ data: { studentId: number, newPayment: any}; }>()
+);

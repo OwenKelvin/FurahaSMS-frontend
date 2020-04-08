@@ -20,6 +20,16 @@ const studentFeeStatementReducer = createReducer(
     ...state, [action.data.studentId]: action.data.statementDetails
   }))),
   on(fromStudentFeeStatementActions.loadStudentFeeStatementsFailure, (state => state)),
+  
+  
+  on(fromStudentFeeStatementActions.loadNewPaymentReceiptSuccess, ((state, action) => ({
+    ...state, [action.data.studentId]: {
+      ...state[action.data.studentId],
+      payments: [...state[action.data.studentId].payments, action.data.newPayment ]
+    }
+  }))),
+  
+  
 
 );
 
