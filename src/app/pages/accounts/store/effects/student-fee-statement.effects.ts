@@ -11,13 +11,13 @@ export class StudentFeeStatementEffects {
 
   constructor(
     private actions$: Actions,
-    private StudentFeePaymentService: StudentFeePaymentService
+    private studentFeePaymentService: StudentFeePaymentService
   ) { }
-  
+
   loadStudentFeeStatement$ = createEffect(() => this.actions$.pipe(
     ofType(fromStudentFeeStatementActions.loadStudentFeeStatements),
     concatMap((payload) =>
-      this.StudentFeePaymentService.getFeesStatementForStudentWithId(payload.data.id).pipe(
+      this.studentFeePaymentService.getFeesStatementForStudentWithId(payload.data.id).pipe(
         map(data => fromStudentFeeStatementActions.loadStudentFeeStatementsSuccess({
           data: { studentId: payload.data.id, statementDetails: data }
         })),
@@ -26,4 +26,3 @@ export class StudentFeeStatementEffects {
   ));
 
 }
- 

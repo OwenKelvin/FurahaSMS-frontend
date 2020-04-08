@@ -15,12 +15,12 @@ export class StudentFeePaymentService {
     private http: HttpClient,
     private store: Store
   ) { }
-  
+
   loadStudentFee$ = (id: number) => this.store.pipe(
     select(selectStudentFeeStatement(id)),
     tap((res) => !res ? this.store.dispatch(loadStudentFeeStatements({ data: { id } })) : ''),
   );
-  
+
   getFeesStatementForStudentWithId(studentId: number): Observable<any> {
     const url = `api/students/${studentId}/fee-statement`;
     return this.http.get(url);
@@ -34,7 +34,7 @@ export class StudentFeePaymentService {
     };
     return this.http.post(`api/accounts/students/${studentId}/fee-payment-receipt`, submitData)
   }
-  
+
   getFeeItemsDetails(item: any) {
     if (!item?.feeStructure) {
       return {};
@@ -90,7 +90,7 @@ export class StudentFeePaymentService {
     const otherFees = uniqueCostIds.map(item1 => item.otherFees.find((_: any) => _.financialCostItemId === item1));
     return { costItems, academicYears, semesters, otherFeesCosts, otherFees, paymentReceipts };
   }
-  
+
   getTotalClassLevelFees(costItems: any[], academicYearId: number, classLevelId: number) {
     return costItems.filter(item => {
       const itemValue = item as any;
@@ -106,7 +106,7 @@ export class StudentFeePaymentService {
         classLevelId === itemValue.classLevelId;
     }).map(({ amount }) => amount).reduce((a, b) => a + b, 0);
   }
-  
+
   getOtherCostValue(
     otherFeesCosts: any[],
     academicYearId: number,
@@ -149,5 +149,5 @@ export class StudentFeePaymentService {
         val.academicYearId === academicYearId;
     }).reduce((a, b) => a + b.amount, 0);
   }
-  
+
 }

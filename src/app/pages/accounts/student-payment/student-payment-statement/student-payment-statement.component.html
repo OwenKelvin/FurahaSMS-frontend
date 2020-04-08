@@ -52,7 +52,7 @@
               <td class="aquamarine">Payment Date</td>
               <td class="aquamarine">Payment Method</td>
               <td class="aquamarine">Payment Particulars</td>
-              <td [attr.colspan]='semesters.length - 2'></td>
+              <td [attr.colspan]='semesters?.length - 2'></td>
               <td class="aquamarine"><strong>KES</strong></td>
               <td class="aquamarine"><strong>KES</strong></td>
             
@@ -70,7 +70,7 @@
               <td>
                 {{ payment.ref }}
               </td>
-              <td [attr.colspan]='semesters.length - 2'></td>
+              <td [attr.colspan]='semesters?.length - 2'></td>
               <td colspan="2">
                 {{ payment.amount }}
               </td>

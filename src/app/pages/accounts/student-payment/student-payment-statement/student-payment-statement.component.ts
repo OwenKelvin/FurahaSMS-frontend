@@ -55,16 +55,16 @@ export class StudentPaymentStatementComponent implements OnInit, OnDestroy {
     )
 
   }
-  
+
   get totalCost(): number {
     const totalTuitionFee = this.costItems?.reduce((a: number, b) => a + b.amount, 0);
     const otherFees = this.otherFeesCosts?.reduce((a: number, b) => a + b.amount, 0);
     return totalTuitionFee + otherFees;
-    
+
   }
-  
-  get totalFeePayments() {
-    return this.paymentReceipts.reduce((a, b) => a + b.amount, 0);
+
+  get totalFeePayments():number {
+    return this.paymentReceipts ? this.paymentReceipts.reduce((a, b) => a + b.amount, 0) : 0;
   }
   getTotalClassLevelFees = (academicYearId: number, classLevelId: number): number =>
     this.studentFeePaymentService
