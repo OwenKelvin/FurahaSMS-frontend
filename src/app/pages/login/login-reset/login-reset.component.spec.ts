@@ -28,17 +28,6 @@ describe('LoginResetComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should have function updateEmailFieldValidation', () => {
-    component.errors.email = 'Email Error';
-    fixture.detectChanges();
-    component.updateEmailFieldValidation();
-    expect(component).toBeTruthy();
-
-    component.errors.email = null;
-    fixture.detectChanges();
-    component.updateEmailFieldValidation();
-    expect(component).toBeTruthy();
-  });
   it('should have as function submitPasswordResetForm', () => {
     const inputElement = fixture.debugElement.query(By.css('input'));
     const formElement = fixture.debugElement.query(By.css('form'));

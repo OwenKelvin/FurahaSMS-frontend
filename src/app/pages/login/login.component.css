@@ -22,3 +22,20 @@ a {
   	min-width: 480px;
   }
 }
+
+@media (max-width: 400px) {
+  .card {
+  	width: 95%;
+  }
+}
+@media (max-width: 500px) {
+  .login-error .alert {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+  }
+
+}
+.login-error {
+  position: absolute; width: 100%
+}

@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import { Component } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
 
 @Component({
   selector: 'app-login-reset',
@@ -10,12 +10,11 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 })
 export class LoginResetComponent {
   passwordResetForm: FormGroup = this.fb.group({
-    email: ['', [Validators.required, Validators.email]]
+    email: ['', [Validators.required, new EmailValidatorDirective()]]
   });
   errors: { email: string | null; } = { email: null };
   constructor(
     private fb: FormBuilder,
-    private appFormService: AppFormService,
     private authService: AuthenticationService
   ) {}
 
@@ -28,13 +27,6 @@ export class LoginResetComponent {
         .subscribe();
     } else {
       this.email.markAsTouched();
-      this.appFormService.getErrorMessage(this.email, 'Email');
-    }
-  }
-  updateEmailFieldValidation() {
-    if (this.errors.email) {
-      this.appFormService.getErrorMessage(this.email, 'Email');
-      this.appFormService.getErrorMessage(this.email, 'Email');
     }
   }
 }

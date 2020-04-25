@@ -3,7 +3,7 @@
   	display: none;
   }
 }
-.is-invalid {
+input {
 	margin-bottom: 15px;
 }
 .invalid-feedback-message {

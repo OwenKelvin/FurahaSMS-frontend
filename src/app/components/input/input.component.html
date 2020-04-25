@@ -1,4 +1,4 @@
-<section class='form-group' style="position: relative;">
+<section class='form-group mb-4' style="position: relative;">
   <section class='d-flex flex-wrap m-0 p-0'>
   	<label [class]='"col-md-4 col-lg-3 col-sm-12 control-label " + labelClass + " m-0 p-0"' [for]='id'>
 			<span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
@@ -14,7 +14,8 @@
 	      [autofocus]='autofocus'
 	      [formControl]='formControl'
 	      (keyup)='updateFieldValidation()'
-	      [class]='fieldClass'
+				[class]='fieldClass'
+				[class.is-valid]='formControl.valid && formControl.touched'
 	      (blur)='validateField()'
 	      [id]='[id]'
 	      [type]='fieldType'

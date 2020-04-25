@@ -1,6 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { MessageInterface } from 'src/app/interfaces/message.interface';
 import { Router } from '@angular/router';
@@ -15,31 +14,23 @@ import { loadErrorMessagesFailure } from 'src/app/store/actions/error-message.ac
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit, OnDestroy {
-  loginForm: FormGroup;
-  errors: { username?: string | null, password?: string | null };
+export class LoginComponent implements OnDestroy {
+  loginForm: FormGroup = this.fb.group({
+    username: ['', [Validators.required]],
+    password: ['', [Validators.required]],
+  });
   triggerValidation: boolean;
   submitInProgress: boolean;
   showErrorMessage: boolean;
   submitError: MessageInterface;
-  componentIsActive: boolean;
+  componentIsActive: boolean = true;
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private authService: AuthenticationService,
-    private fb: FormBuilder,
-    private appFormService: AppFormService) { }
-  ngOnInit() {
-    this.componentIsActive = true;
-    this.errors = {
-      password: null,
-      username: null
-    };
-    this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
-      password: ['', [Validators.required]],
-    });
-  }
+    private fb: FormBuilder
+  ) { }
+
   get username() {
     return this.loginForm.get('username') as FormControl;
   }
