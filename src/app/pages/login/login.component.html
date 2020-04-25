@@ -1,11 +1,5 @@
 <section class="login-error">
-  <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show m-3'>
-    <strong class='alert-heading'><i class='icon-user-times'></i> {{ submitError.status }} :
-      {{ submitError.message }}</strong>
-    <p class='mb-0'>{{ submitError.help }}</p>
-    <button type='button' class='close' data-dismiss='alert' (click)='showErrorMessage = false'>&times;</button>
-  
-  </section>
+  <app-error></app-error>
 </section>
 <app-full-with-center>
   <section class='d-flex'>
@@ -21,11 +15,11 @@
           formControlName='password' prependIcon='icon-lock-filled' autocomplete='current-password' type='password'>
         </app-input>
         <section class='d-flex justify-content-end'>
-          <button [disabled]='!loginForm.valid || submitInProgress || showErrorMessage' class='btn btn-success'
+          <button [disabled]='!(submitButtonActive$ | async)' class='btn btn-success'
             type='submit'>
             Login
-            <i *ngIf='loginForm.valid && !submitInProgress' class='icon-ok'></i>
-            <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='loginForm.valid && !isSubmitting' class='icon-ok'></i>
+            <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
           </button>
 
         </section>
