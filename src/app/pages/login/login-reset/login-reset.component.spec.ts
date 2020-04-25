@@ -27,15 +27,7 @@ describe('LoginResetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have as function validateEmail', () => {
-    component.validateEmail();
-    expect(component).toBeTruthy();
-  });
-  it('should have emailFieldClass property containing "is-invalid" if invalid email', () => {
-    component.errors.email = 'Email Error';
-    fixture.detectChanges();
-    expect(component.emailFieldClass).toContain('is-invalid');
-  });
+
   it('should have function updateEmailFieldValidation', () => {
     component.errors.email = 'Email Error';
     fixture.detectChanges();

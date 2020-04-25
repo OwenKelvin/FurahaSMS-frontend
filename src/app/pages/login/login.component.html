@@ -5,46 +5,41 @@
         <h1>Login</h1>
       </section>
       <form [formGroup]='loginForm' (ngSubmit)='submitLoginForm()' class='card-body form-horizontal'>
-        <app-input
-            [triggerValidation]='triggerValidation'
-            label='Username'
-            placeholder='Enter username/email'icon-lock-filled
-            id='username'
-            formControlName='username'
-            prependIcon='icon-user'
-            autocomplete='username'
-          ></app-input>
-          <app-input
-            [triggerValidation]='triggerValidation'
-            label='Password'
-            placeholder='Enter P@55w0rd!'
-            id='password'
-            formControlName='password'
-            prependIcon='icon-lock-filled'
-            autocomplete='current-password'
-            type='password'
-          ></app-input>
-          <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show'>
-            
-            <strong class='alert-heading'><i class='icon-user-times'></i> {{ submitError.status }} : {{ submitError.message }}</strong>
-            <p class='mb-0'>{{ submitError.help }}</p>
-            <button type='button' class='close' data-dismiss='alert' (click)='showErrorMessage = false'>&times;</button>
+        <app-input [triggerValidation]='triggerValidation' label='Username' placeholder='Enter username/email'
+          icon-lock-filled id='username' formControlName='username' prependIcon='icon-user' autocomplete='username'>
+        </app-input>
+        <app-input [triggerValidation]='triggerValidation' label='Password' placeholder='Enter P@55w0rd!' id='password'
+          formControlName='password' prependIcon='icon-lock-filled' autocomplete='current-password' type='password'>
+        </app-input>
+        <section *ngIf='showErrorMessage' class='alert alert-danger alert-dismissible fade show'>
 
-          </section>
+          <strong class='alert-heading'><i class='icon-user-times'></i> {{ submitError.status }} :
+            {{ submitError.message }}</strong>
+          <p class='mb-0'>{{ submitError.help }}</p>
+          <button type='button' class='close' data-dismiss='alert' (click)='showErrorMessage = false'>&times;</button>
+
+        </section>
         <section class='d-flex justify-content-end'>
-          <button [disabled]='!loginForm.valid || submitInProgress || showErrorMessage' class='btn btn-success' type='submit'>
+          <button [disabled]='!loginForm.valid || submitInProgress || showErrorMessage' class='btn btn-success'
+            type='submit'>
             Login
             <i *ngIf='loginForm.valid && !submitInProgress' class='icon-ok'></i>
             <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
           </button>
-          
+
         </section>
       </form>
-      
+
       <section class='card-footer d-flex justify-content-between flex-wrap'>
-        <span>forgot password? <a routerLink='/login/contact-admin'>contact admin</a> | <a
-            routerLink='/login/reset'>Reset</a></span>
-        <a title='go to home' routerLink='/'><i class='icon-home'></i></a>
+        <section class="col-9 col-sm-10 col-md-10 col-md-11 p-0 d-flex justify-content-between">
+          <span class="d-none d-sm-inline-block">forgot password?</span>
+          <a routerLink='/login/contact-admin'>Contact Admin</a>
+          |
+          <a aria-label="Reset Password" routerLink='/login/reset'>Reset <span class="d-xs-inline-block d-sm-none">Password</span></a>
+        </section>
+        <section class="col-1">
+          <a title='go to home' routerLink='/'><i class='icon-home'></i></a>
+        </section>
       </section>
     </section>
   </section>
