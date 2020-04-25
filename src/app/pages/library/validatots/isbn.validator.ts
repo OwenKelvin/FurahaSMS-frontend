@@ -1,5 +1,20 @@
 import { FormControl } from '@angular/forms';
 
+const validateISBNSum = (a: any) => {
+  let b = 0;
+  let i = 0;
+  let r = false;
+  let t = 10;
+  let l = a.length;
+  if (l == t) {
+    for (i; i < 9; i++)b += a[i] * (t - i); r = (b + (a[9] == 'X' ? t : a[9])) % 11 == 0;
+  }
+  if (l == 13) {
+    for (i; i < 12; i++)b += (i + 1) % 2 ? +a[i] : a[i] * 3; r = b % t == t - (+a[12] || t);
+  } return r ? a : 0;
+}
+
+
 export const validateISBN = (c: FormControl) => {
   /* tslint:disable-next-line:max-line-length */
   const ISBN_REGEXP = /^(?:ISBN(?:-1[03])?:? )?(?=[0-9X]{10}$|(?=(?:[0-9]+[- ]){3})[- 0-9X]{13}$|97[89][0-9]{10}$|(?=(?:[0-9]+[- ]){4})[- 0-9]{17}$)(?:97[89][- ]?)?[0-9]{1,5}[- ]?[0-9]+[- ]?[0-9]+[- ]?[0-9X]$/;
@@ -8,43 +23,14 @@ export const validateISBN = (c: FormControl) => {
     // Remove non ISBN digits, then split into an array
     const chars = subject.replace(/[- ]|^ISBN(?:-1[03])?:?/g, '').split('');
     // Remove the final ISBN digit from `chars`, and assign it to `last`
-    const last = chars.pop();
-    let sum = 0;
-    let check;
-    let i;
-
-    if (chars.length === 9) {
-      // Compute the ISBN-10 check digit
-      chars.reverse();
-      for (i = 0; i < chars.length; i++) {
-        sum += (i + 2) * parseInt(chars[i], 10);
-      }
-      check = 11 - (sum % 11);
-      if (check === 10) {
-        check = 'X';
-      } else if (check === 11) {
-        check = '0';
-      }
-    } else {
-      // Compute the ISBN-13 check digit
-      for (i = 0; i < chars.length; i++) {
-        sum += (i % 2 * 2 + 1) * parseInt(chars[i], 10);
-      }
-      check = 10 - (sum % 10);
-      if (check === 10) {
-        check = '0';
-      }
-    }
-
-    if (check === last) {
-      return null;
-    } else {
+    if (validateISBNSum(chars) === 0) {
       return {
         validateISBN: {
           valid: false
         }
       };
     }
+    return null
   } else {
     return {
       validateISBN: {
@@ -53,3 +39,4 @@ export const validateISBN = (c: FormControl) => {
     };
   }
 };
+

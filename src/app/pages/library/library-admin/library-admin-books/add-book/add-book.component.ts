@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import * as fromLibraryAuthors from '../../../store/reducers';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
@@ -49,7 +49,8 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
     private libraryBookTagService: LibraryBookTagService,
     private libraryBookService: LibraryBookService,
     private db: DbService,
-    private router: Router
+    private router: Router,
+    private cdr: ChangeDetectorRef
   ) { }
 
   get formbookItems(): FormArray {
@@ -158,7 +159,12 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
     return !['bookItems']
       .every(item => (this.newBookForm.get(item) as FormControl).valid);
   }
-
+  updateISBN(value: any) {
+    this.newBookForm.get('ISBN')?.setValue(value)
+    this.newBookForm.get('ISBN')?.updateValueAndValidity();
+    this.newBookForm.updateValueAndValidity();
+    this.cdr.detectChanges()
+  }
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.newBookForm.dirty && this.formSubmitted === false) {
       return confirm('Your changes are unsaved!! Do you like to exit');

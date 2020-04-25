@@ -1,4 +1,6 @@
 <h1>Add Library Book</h1>
+
+
 <form (submit)='submitNewBookForm()' [formGroup]='newBookForm'>
 
   <tabset role="tablist" #staticTabs>
@@ -10,18 +12,25 @@
           [class.text-danger]='generalInfoHasError && markTabsWithError'
           [class.text-success]='!generalInfoHasError && markTabsWithError'></span>
       </ng-template>
+
       <section class='d-flex flex-wrap pt-3'>
+        <section class='col-lg-6 col-md-12 d-flex'>
+          <div class="col-sm-11 col-md-11 col-lg-11 m-0 p-0">
+            <app-input id="ISBN" placeholder="Please Enter ISBN Number" label="ISBN Number" formControlName="ISBN">
+            </app-input>
+          </div>
+          <div class="col-lg-1 m-0 p-0">
+            <app-barcode (valueChange)='updateISBN($event)'></app-barcode>
+          </div>
+          
+        </section>
         <section class='col-lg-6 col-md-12'>
           <app-input [triggerValidation]='triggerValidation' id="bookTitle" placeholder='Enter Book Title'
             formControlName='bookTitle' label="Book Title">
 
           </app-input>
         </section>
-        <section class='col-lg-6 col-md-12'>
-          <app-input id="ISBN" placeholder="Please Enter ISBN Number" label="ISBN Number" formControlName="ISBN">
 
-          </app-input>
-        </section>
         <section class='col-lg-6 col-md-12 p-4'>
           <label for="authors">Authors</label>
           <select multiple class='form-control' id="authors" formControlName='authors'>
@@ -63,7 +72,8 @@
           </select>
         </section>
         <section class="col-lg-6">
-          <app-select-library-class formControlName='category' [classification]='newBookForm.get("classification")?.value'>
+          <app-select-library-class formControlName='category'
+            [classification]='newBookForm.get("classification")?.value'>
           </app-select-library-class>
         </section>
         <section class='col-lg-6 col-md-12'>
@@ -84,15 +94,17 @@
           [class.text-success]='!bookItemsHasError && markTabsWithError'></span>
       </ng-template>
       <section class="mt-3" formArrayName='bookItems'>
-        <button (click)='addBookItem()' type="button" class="btn btn-primary btn-sm"> <span class="icon-plus-circled"></span>Add Tag</button>
+        <button (click)='addBookItem()' type="button" class="btn btn-primary btn-sm"> <span
+            class="icon-plus-circled"></span>Add Tag</button>
         <section class='d-flex' *ngFor='let item of formbookItems.controls; let i=index' [formGroupName]='i'>
           <section class="col-lg-4">
             <app-input [triggerValidation]='triggerValidation' [id]='"bookRef" + i' placeholder='Enter Book Ref'
               formControlName='ref' label="Book Ref"></app-input>
           </section>
           <section class="col-lg-4">
-            <app-input [triggerValidation]='triggerValidation' [id]='"procuredDate" + i' placeholder='Enter Procured Date'
-              formControlName='dateProcured' label="Procured Date" type='date'></app-input>
+            <app-input [triggerValidation]='triggerValidation' [id]='"procuredDate" + i'
+              placeholder='Enter Procured Date' formControlName='dateProcured' label="Procured Date" type='date'>
+            </app-input>
           </section>
           <section class="col-lg-2">
             <div class="form-check col-lg-3 col-md-4 col-sm-6 mt-2">

@@ -11,6 +11,7 @@ import { LibraryAdminBooksComponent } from './library-admin-books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
 import { LibraryAdminBooksRoutingModule } from './library-admin-books-routing.module';
+import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { LibraryAdminBooksRoutingModule } from './library-admin-books-routing.mo
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
-    AppDashboardLinksModule
+    AppDashboardLinksModule,
+    AppBarcodeModule
   ]
 })
 export class LibraryAdminBooksModule { }
