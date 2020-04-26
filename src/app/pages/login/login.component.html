@@ -14,7 +14,10 @@
         <app-input [triggerValidation]='triggerValidation' label='Password' placeholder='Enter Password' id='password'
           formControlName='password' prependIcon='icon-lock-filled' autocomplete='current-password' type='password'>
         </app-input>
-        <section class='d-flex justify-content-end'>
+        <section class='d-flex justify-content-between align-items-end'>
+          <section>
+            <a [routerLink]='["/login/token"]'>Login Using Token</a>
+          </section>
           <button [disabled]='!(submitButtonActive$ | async)' class='btn btn-success'
             type='submit'>
             Login
@@ -24,7 +27,6 @@
 
         </section>
       </form>
-
       <section class='card-footer d-flex justify-content-between flex-wrap'>
         <section class="col-9 col-sm-10 col-md-10 col-md-11 p-0 d-flex justify-content-between">
           <span class="d-none d-sm-inline-block">forgot password?</span>

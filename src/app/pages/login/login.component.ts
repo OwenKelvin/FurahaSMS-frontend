@@ -1,7 +1,6 @@
 import { Component, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { MessageInterface } from 'src/app/interfaces/message.interface';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadToastShowsSuccess } from '../../store/actions/toast-show.actions';
@@ -16,14 +15,14 @@ import { Subject, combineLatest, Observable } from 'rxjs';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnDestroy {
+  triggerValidation: boolean;
+  isSubmitting: boolean;
+  componentIsActive: boolean = true;
+  
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
   });
-  triggerValidation: boolean;
-  isSubmitting: boolean;
-  submitError: MessageInterface;
-  componentIsActive: boolean = true;
 
   inputSubmittedSubject$ = new Subject();
   inputSubmittedAction$ = this.inputSubmittedSubject$.asObservable();
@@ -47,12 +46,6 @@ export class LoginComponent implements OnDestroy {
     private fb: FormBuilder
   ) { }
 
-  get username() {
-    return this.loginForm.get('username') as FormControl;
-  }
-  get password() {
-    return this.loginForm.get('password') as FormControl;
-  }
   submitLoginForm() {
     this.inputSubmittedSubject$.next(true);
     this.isSubmitting = true;
@@ -63,33 +56,32 @@ export class LoginComponent implements OnDestroy {
       ]).pipe(
         takeWhile(() => this.componentIsActive),
       ).subscribe({
-        next: ([returnUrl]) => {
-          returnUrl = returnUrl || '/dashboard';
-          this.isSubmitting = false;
-          this.store.dispatch(loadErrorMessagesFailure());
-          this.store.dispatch(loadToastShowsSuccess({
-            toastHeader: 'Login Successful!',
-            toastBody: 'Successfully authenticated',
-            showMessage: true,
-            toastTime: 'Just Now'
-          }));
-          this.route.queryParams.pipe(map(params => params.returnUrl)).subscribe({
-            next: (res) => console.log(res)
-          });
-          this.router.navigate([returnUrl]);
-        },
+        next: this.loginSuccessful,
         error: error => {
           this.store.dispatch(loadErrorMessagesSuccess(error));
           this.isSubmitting = false;
         }
       });
     } else {
-      this.password.markAsTouched();
-      this.username.markAsTouched();
+      this.loginForm.get('password')?.markAsTouched();
+      this.loginForm.get('username')?.markAsTouched();
       this.triggerValidation = !this.triggerValidation;
     }
   }
+  loginSuccessful = ([returnUrl ]: any []) => {
+    returnUrl = returnUrl || '/dashboard';
+    this.isSubmitting = false;
+    this.store.dispatch(loadErrorMessagesFailure());
+    this.store.dispatch(loadToastShowsSuccess({
+      toastHeader: 'Login Successful!',
+      toastBody: 'Successfully authenticated',
+      showMessage: true,
+      toastTime: 'Just Now'
+    }));
+    this.router.navigate([returnUrl]);
+  };
   ngOnDestroy() {
     this.componentIsActive = false;
   }
+
 }

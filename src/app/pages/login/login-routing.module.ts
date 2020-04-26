@@ -6,7 +6,7 @@ import { LoginResetComponent } from './login-reset/login-reset.component';
 import { GuestGuard } from '../../guards/guest.guard';
 
 const routes: Routes = [
- {
+  {
     path: '',
     canActivate: [GuestGuard],
     children: [
@@ -16,15 +16,21 @@ const routes: Routes = [
         component: LoginComponent,
       },
       {
-      path: 'contact-admin',
-      component: LoginContactAdminComponent,
-      canActivate: [GuestGuard],
-    },
-    {
-      path: 'reset',
-      component: LoginResetComponent,
-      canActivate: [GuestGuard],
-    },
+        path: 'contact-admin',
+        component: LoginContactAdminComponent,
+        canActivate: [GuestGuard],
+      },
+      {
+        path: 'reset',
+        component: LoginResetComponent,
+        canActivate: [GuestGuard],
+      },
+      {
+        path: 'token',
+        canActivate: [GuestGuard],
+        loadChildren: () => import('./login-token/login-token.module')
+          .then(m => m.LoginTokenModule)
+      }
     ]
   }
 ];

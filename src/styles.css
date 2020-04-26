@@ -272,3 +272,14 @@ html, body {
   }
 
 }
+.login-error {
+  position: absolute; width: 100%
+}
+@media (max-width: 500px) {
+  .login-error .alert {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+  }
+
+}

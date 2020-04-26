@@ -1,32 +1,37 @@
-import { Component } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-login-reset',
   templateUrl: './login-reset.component.html',
-  styleUrls: ['./login-reset.component.css']
+  styleUrls: ['./login-reset.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class LoginResetComponent {
   passwordResetForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, new EmailValidatorDirective()]]
   });
-  errors: { email: string | null; } = { email: null };
+  isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService
   ) {}
 
-  get email() {
-    return this.passwordResetForm.get('email') as FormControl;
-  }
   submitPasswordResetForm() {
+    
+    this.isSubmittingSubject$.next(true)
     if (this.passwordResetForm.valid) {
       this.authService.resetPassword(this.passwordResetForm.value)
-        .subscribe();
+        .subscribe({
+          next: () => this.isSubmittingSubject$.next(false),
+          error: () => this.isSubmittingSubject$.next(false)
+        });
     } else {
-      this.email.markAsTouched();
+      this.passwordResetForm.get('email')?.markAsTouched();
     }
   }
 }

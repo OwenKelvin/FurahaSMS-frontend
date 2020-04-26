@@ -11,6 +11,20 @@ import { IUserProfile } from '../interfaces/user-profile.interface';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  tokenLogin(data: { token: string}): Observable<any> {
+    const url = `api/password/token`;
+    return this.http.post<any>(url, data)
+      .pipe(
+        map(user => {
+          localStorage.setItem('currentUser', JSON.stringify(user));
+          this.currentUserSubject.next(user);
+          return user;
+        }),
+        catchError(error => {
+          return throwError(error);
+        })
+      );
+  }
   private currentUserSubject: BehaviorSubject<UserInterface | null>;
   public currentUser: Observable<UserInterface | null>;
   constructor( private http: HttpClient ) {
@@ -53,11 +67,8 @@ export class AuthenticationService {
       message: 'Successfully Contacted Admin'
     });
   }
-  resetPassword(_data: { email: string }) {
-    // TODO-me Authentication Service reset Password
-    return of({
-      message: 'Password Reset Successful'
-    });
+  resetPassword(email: { email: string }) {
+    return this.http.post('api/password/email', email)
   }
   login(data: { username: string, password: string; }): Observable<any> {
     const { username, password } = data;
@@ -88,6 +99,7 @@ export class AuthenticationService {
     );
   }
   logout(): Observable<any> {
+    // TODO-me Log user out from server
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
     return this.revokeToken();
