@@ -26,10 +26,11 @@
 						<i [class.icon-eye-off]='fieldType !== "password"'></i>
 					</button>
 				</section>
+				<section *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;">
+					<div class="arrow-up"></div>
+					{{ fieldError }}
+				</section>
 		</section>
-	  <section  *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;" > 
-      <div class="arrow-up"></div>
-	     {{ fieldError }} 
-   	</section>
+	  
   </section>
 </section>
