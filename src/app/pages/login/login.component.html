@@ -16,7 +16,7 @@
         </app-input>
         <section class='d-flex justify-content-between align-items-end'>
           <section>
-            <a [routerLink]='["/login/token"]'>Login Using Token</a>
+            <a [routerLink]='["/login/token"]' queryParamsHandling='preserve'>Login Using Token</a>
           </section>
           <button [disabled]='!(submitButtonActive$ | async)' class='btn btn-success'
             type='submit'>
@@ -30,9 +30,9 @@
       <section class='card-footer d-flex justify-content-between flex-wrap'>
         <section class="col-9 col-sm-10 col-md-10 col-md-11 p-0 d-flex justify-content-between">
           <span class="d-none d-sm-inline-block">forgot password?</span>
-          <a routerLink='/login/contact-admin'>Contact Admin</a>
+          <a routerLink='/login/contact-admin' queryParamsHandling='preserve'>Contact Admin</a>
           |
-          <a aria-label="Reset Password" routerLink='/login/reset'>Reset <span
+          <a aria-label="Reset Password" routerLink='/login/reset' queryParamsHandling='preserve'>Reset <span
               class="d-xs-inline-block d-sm-none">Password</span></a>
         </section>
         <section class="col-1">

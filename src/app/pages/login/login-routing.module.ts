@@ -4,6 +4,7 @@ import { LoginComponent } from './login.component';
 import { LoginContactAdminComponent } from './login-contact-admin/login-contact-admin.component';
 import { LoginResetComponent } from './login-reset/login-reset.component';
 import { GuestGuard } from '../../guards/guest.guard';
+import { AuthGuard } from 'src/app/guards/auth.guard';
 
 const routes: Routes = [
   {
@@ -30,8 +31,14 @@ const routes: Routes = [
         canActivate: [GuestGuard],
         loadChildren: () => import('./login-token/login-token.module')
           .then(m => m.LoginTokenModule)
-      }
+      },
     ]
+  },
+  {
+    path: 'password-change',
+    canActivate: [AuthGuard],
+    loadChildren: () => import('./login-password-change/login-password-change.module')
+      .then(m => m.LoginPasswordChangeModule)
   }
 ];
 

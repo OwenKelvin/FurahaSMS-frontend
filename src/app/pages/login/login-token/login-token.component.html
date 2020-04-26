@@ -11,7 +11,7 @@
         <textarea class="form-control mb-2" placeholder='Enter Token' id='token' formControlName='token'
           prependIcon='icon-mail' [autofocus]=[true]></textarea>
         <section class='d-flex justify-content-between'>
-          <button type="button" routerLink='/login' class='btn btn-secondary'>Cancel</button>
+          <button type="button" routerLink='/login' queryParamsHandling='preserve' class='btn btn-secondary'>Cancel</button>
 
           <button class='btn btn-success'
             [disabled]='!tokenLoginForm.dirty || !tokenLoginForm.valid || (isSubmittingActions$ | async)'>

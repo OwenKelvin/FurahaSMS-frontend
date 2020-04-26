@@ -3,6 +3,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
 import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-reset',
@@ -18,7 +19,8 @@ export class LoginResetComponent {
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
   constructor(
     private fb: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
   submitPasswordResetForm() {
@@ -27,7 +29,10 @@ export class LoginResetComponent {
     if (this.passwordResetForm.valid) {
       this.authService.resetPassword(this.passwordResetForm.value)
         .subscribe({
-          next: () => this.isSubmittingSubject$.next(false),
+          next: () => {
+            this.router.navigate(['/login', 'token'], {queryParamsHandling: 'preserve'})
+            this.isSubmittingSubject$.next(false)
+          },
           error: () => this.isSubmittingSubject$.next(false)
         });
     } else {

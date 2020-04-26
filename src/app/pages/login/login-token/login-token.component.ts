@@ -1,8 +1,9 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { BehaviorSubject, Observable, timer, from, of, combineLatest } from 'rxjs';
+import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
-import { map, takeWhile, tap, filter } from 'rxjs/operators';
+import { takeWhile, tap, filter } from 'rxjs/operators';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-login-token',
@@ -20,7 +21,8 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
   componentIsActive: boolean = true;
   constructor(
     private fb: FormBuilder,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) { }
 
   submitTokenLoginForm() {
@@ -30,24 +32,27 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
       this.authService.tokenLogin(this.tokenLoginForm.value).pipe(
         takeWhile(() => this.componentIsActive)
       ).subscribe({
-          next: () => this.isSubmittingSubject$.next(false),
-          error: () => this.isSubmittingSubject$.next(false)
-        });
+        next: ({ token }: { token: string }) => {
+          this.isSubmittingSubject$.next(false);
+          this.router.navigate(['/login/password-change'], { queryParams: { token }, queryParamsHandling: 'merge' });
+        },
+        error: () => this.isSubmittingSubject$.next(false)
+      });
     } else {
       this.tokenLoginForm.get('email')?.markAsTouched();
     }
   }
-  
+
   ngOnInit() {
     let clipboardTextSubject$ = new BehaviorSubject('');
-    let clipboardTextAction$ = clipboardTextSubject$.asObservable()
+    let clipboardTextAction$ = clipboardTextSubject$.asObservable();
     this.clipBoardChange$.pipe(
       tap(() =>
         navigator
           .clipboard
           .readText()
           .then(success => clipboardTextSubject$.next(success))
-          .catch(() => {})
+          .catch(() => { })
       )
     ).subscribe();
     clipboardTextAction$.pipe(
@@ -56,9 +61,9 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
       filter(res => /^[a-zA-Z0-9]{50}$/.test(res)),
       tap(res => this.tokenLoginForm.get('token')?.setValue(res)),
       tap(() => this.tokenLoginForm.markAsDirty())
-    ).subscribe()
+    ).subscribe();
   }
   ngOnDestroy() {
-    this.componentIsActive = false
+    this.componentIsActive = false;
   }
 }

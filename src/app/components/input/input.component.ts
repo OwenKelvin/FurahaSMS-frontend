@@ -39,7 +39,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   onChanges: ($value: any) => void;
   onTouched: () => void;
   inputValue: any;
-  constructor(private appFormService: AppFormService) {}
+  constructor(private appFormService: AppFormService) { }
 
   ngOnInit() {
     this.fieldType = 'text';

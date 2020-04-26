@@ -11,6 +11,15 @@ import { IUserProfile } from '../interfaces/user-profile.interface';
   providedIn: 'root'
 })
 export class AuthenticationService {
+  changePassword(data: any) {
+    const submitData = {
+      token: data.token,
+      old_password: data.oldPassword,
+      new_password: data.newPassword,
+      new_password_confirmation: data.newPasswordConfirmation,
+    };
+    return this.http.post('api/password/reset', submitData);
+  }
   tokenLogin(data: { token: string}): Observable<any> {
     const url = `api/password/token`;
     return this.http.post<any>(url, data)
@@ -18,7 +27,7 @@ export class AuthenticationService {
         map(user => {
           localStorage.setItem('currentUser', JSON.stringify(user));
           this.currentUserSubject.next(user);
-          return user;
+          return { ...user, ...data };
         }),
         catchError(error => {
           return throwError(error);

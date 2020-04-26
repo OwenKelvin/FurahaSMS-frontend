@@ -7,10 +7,10 @@ import { LayoutComponent } from '../components/layout/layout.component';
 const routes: Routes = [
   {
     path: '',
-    canActivate: [GuestGuard],
     children: [
       {
         path: '',
+        canActivate: [GuestGuard],
         pathMatch: 'full',
         loadChildren: () => import('./home/home.module').then(m => m.HomeModule)
       },
