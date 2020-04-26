@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as fromStore from '../../store/reducers';
 import { AuthenticationService } from 'src/app/services/authentication.service';
@@ -11,19 +11,17 @@ import { takeWhile } from 'rxjs/operators';
   templateUrl: './user-button.component.html',
   styleUrls: ['./user-button.component.css']
 })
-export class UserButtonComponent implements OnInit, OnDestroy {
-  componentIsActive: any;
+export class UserButtonComponent implements OnDestroy {
+  componentIsActive: boolean = true;
+  user$ = this.authService.currentUserProfile$
 
   constructor(
     private store: Store<fromStore.AppState>,
     private authService: AuthenticationService,
     private router: Router) { }
 
-  ngOnInit() {
-  }
   logout() {
-    this.componentIsActive = true;
-    const confirmedLogout = window.confirm('Are you sure you wish to logout?');
+    const confirmedLogout = confirm('Are you sure you wish to logout?');
     if (confirmedLogout) {
       this.authService.logout()
         .pipe(takeWhile(() => this.componentIsActive))

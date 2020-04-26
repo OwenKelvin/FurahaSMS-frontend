@@ -1,10 +1,9 @@
 import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormsModule, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { TeacherService } from '../../services/teacher.service';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { debounceTime, takeWhile, mergeMap, filter } from 'rxjs/operators';
+import { debounceTime, takeWhile, mergeMap, filter, tap } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { Router } from '@angular/router';
 import { SupportStaffService } from '../../services/support-staff.service';
@@ -12,6 +11,8 @@ import { GenderService } from 'src/app/services/gender.service';
 import { ReligionService } from 'src/app/services/religion.service';
 import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
 import { Observable } from 'rxjs';
+import { selectStaffType } from '../../store/selectors/staff-type.selectors';
+import { RolesAndPermissionsService } from 'src/app/pages/roles-and-permissions/services/roles-and-permissions.service';
 
 @Component({
   selector: 'app-create-teacher',
@@ -19,16 +20,17 @@ import { Observable } from 'rxjs';
   styleUrls: ['./create-teacher.component.css']
 })
 export class CreateTeacherComponent implements OnInit, OnDestroy {
-  @Input() supportStaff: { id: number, name: string; };
+  @Input() supportStaff: number;
   newTeacherForm: FormGroup;
-  isSubmitting: boolean;
+  isSubmitting: boolean = false;
   triggerValidation: boolean;
-  componentIsActive: boolean;
+  componentIsActive: boolean = true;
   confirmData: boolean;
   usersData: any;
   confirmedData: boolean;
-  genders$: Observable<any[]>;
-  religions$: Observable<any[]>;
+  genders$: Observable<any[]> = this.store.pipe(select(selectGenders));
+  religions$: Observable<any[]> = this.store.pipe(select(selectReligions));
+  staffType$ : Observable<any> 
 
   constructor(
     private users: UsersService,
@@ -37,19 +39,19 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     private router: Router,
     private supportStaffService: SupportStaffService,
     private genderService: GenderService,
-    private religionService: ReligionService
+    private religionService: ReligionService,
+    private rolesPermissionService: RolesAndPermissionsService
   ) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
+    this.rolesPermissionService.loadAllStaffTypes$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.genderService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.religionService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
-    this.genders$ = this.store.pipe(select(selectGenders));
-    this.religions$ = this.store.pipe(select(selectReligions));
-    this.isSubmitting = false;
     this.resetForm();
-    this.componentIsActive = true;
     this.subscribeToEmailChecking();
+    this.staffType$ = this.store.pipe(
+      select(selectStaffType(this.supportStaff))
+    )
   }
 
   resetForm() {
@@ -68,10 +70,10 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   subscribeToEmailChecking(): void {
     this.email.valueChanges
-      .pipe(debounceTime(1000))
-      .pipe(filter(event => event && event.length && event.length > 5))
-      .pipe(mergeMap((event) => this.users.findIfEmailExists(event)))
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(debounceTime(1000),
+        filter(event => event && event.length && event.length > 5),
+        mergeMap((event) => this.users.findIfEmailExists(event)),
+        takeWhile(() => this.componentIsActive))
       .subscribe(data => {
         this.confirmData = false;
         if (data) {
@@ -80,22 +82,6 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
         this.usersData = data;
         this.confirmedData = true;
       });
-    // .subscribe({
-    //   next: (event) => {
-    //     if (event && event.length && event.length > 5) {
-    //       this.users.findIfEmailExists(event)
-    //         .pipe(takeWhile(() => this.componentIsActive && !this.confirmedData))
-    //         .subscribe(data => {
-    //         this.confirmData = false;
-    //         if (data) {
-    //           this.confirmData = true;
-    //         }
-    //         this.usersData = data;
-    //         this.confirmedData = true;
-    //       });
-    //     }
-    //   }
-    // });
   }
   get email(): FormControl {
     return this.newTeacherForm.get('email') as FormControl;
@@ -126,7 +112,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   }
   submitNewTeacherForm() {
     this.isSubmitting = true;
-    if (this.supportStaff && this.supportStaff.id !== 0) {
+    if (this.supportStaff && this.supportStaff !== 0) {
       this.createSupportStaff();
     } else {
       this.createTeacher();
@@ -144,7 +130,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
       });
   }
   createSupportStaff() {
-    this.supportStaffService.save({ ...this.newTeacherForm.value, staff_type: this.supportStaff.id })
+    this.supportStaffService.save({ ...this.newTeacherForm.value, staff_type: this.supportStaff })
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;

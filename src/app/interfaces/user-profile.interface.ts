@@ -10,4 +10,5 @@ export interface IUserProfile {
   genderName?: string;
   religionName?: string;
   studentId?: number;
+  permissions?: []
 }
