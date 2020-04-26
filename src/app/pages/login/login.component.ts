@@ -22,6 +22,7 @@ export class LoginComponent implements OnDestroy {
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],
+    rememberMe: [false]
   });
 
   inputSubmittedSubject$ = new Subject();

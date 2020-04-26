@@ -283,3 +283,9 @@ html, body {
   }
 
 }
+a.disabled {
+  text-decoration: none !important;
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}

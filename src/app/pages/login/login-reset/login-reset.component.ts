@@ -4,6 +4,7 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
 import { BehaviorSubject, Observable } from 'rxjs';
 import { Router } from '@angular/router';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-reset',
@@ -17,6 +18,7 @@ export class LoginResetComponent {
   });
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
+  componentIsActive: boolean = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -28,6 +30,7 @@ export class LoginResetComponent {
     this.isSubmittingSubject$.next(true)
     if (this.passwordResetForm.valid) {
       this.authService.resetPassword(this.passwordResetForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe({
           next: () => {
             this.router.navigate(['/login', 'token'], {queryParamsHandling: 'preserve'})
@@ -38,5 +41,8 @@ export class LoginResetComponent {
     } else {
       this.passwordResetForm.get('email')?.markAsTouched();
     }
+  }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

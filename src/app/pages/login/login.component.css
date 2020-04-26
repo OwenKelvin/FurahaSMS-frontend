@@ -28,5 +28,7 @@ a {
   	width: 95%;
   }
 }
-
+.card-footer {
+  font-size: 80%;
+}
 

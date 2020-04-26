@@ -4,6 +4,8 @@ import { BehaviorSubject, Observable, timer } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { takeWhile, tap, filter } from 'rxjs/operators';
 import { Router } from '@angular/router';
+import { Store } from '@ngrx/store';
+import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-login-token',
@@ -22,7 +24,8 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
-    private router: Router
+    private router: Router,
+    private store: Store
   ) { }
 
   submitTokenLoginForm() {
@@ -35,6 +38,12 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
         next: ({ token }: { token: string }) => {
           this.isSubmittingSubject$.next(false);
           this.router.navigate(['/login/password-change'], { queryParams: { token }, queryParamsHandling: 'merge' });
+          this.store.dispatch(loadToastShowsSuccess({
+            toastHeader: 'Login Successful!',
+            toastBody: 'Successfully authenticated',
+            showMessage: true,
+            toastTime: 'Just Now'
+          }));
         },
         error: () => this.isSubmittingSubject$.next(false)
       });
