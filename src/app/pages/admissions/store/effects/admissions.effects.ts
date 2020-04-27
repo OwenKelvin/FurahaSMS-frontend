@@ -5,13 +5,13 @@ import { EMPTY, of } from 'rxjs';
 
 import * as AdmissionsActions from '../actions/admissions.actions';
 import * as StaffTypeActions from '../actions/staff-type.actions';
-import { RolesAndPermissionsService } from 'src/app/pages/roles-and-permissions/services/roles-and-permissions.service';
+import { SupportStaffService } from 'src/app/pages/support-staffs/services/support-staff.service';
 
 @Injectable()
 export class AdmissionsEffects {
   constructor(
     private actions$: Actions,
-    private rolesPermissionService: RolesAndPermissionsService
+    private supportStaffService: SupportStaffService
   ) { }
 
   loadAdmissionss$ = createEffect(() => {
@@ -31,7 +31,7 @@ export class AdmissionsEffects {
 
       ofType(StaffTypeActions.loadStaffTypes),
       concatMap(() =>
-        this.rolesPermissionService.staffTypes().pipe(
+        this.supportStaffService.staffTypes().pipe(
           map(data => StaffTypeActions.loadStaffTypesSuccess({ data })),
           catchError(error => of(StaffTypeActions.loadStaffTypesFailure({ error }))))
       )

@@ -6,13 +6,12 @@ import { AppState } from 'src/app/store/reducers';
 import { debounceTime, takeWhile, mergeMap, filter, tap } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { Router } from '@angular/router';
-import { SupportStaffService } from '../../services/support-staff.service';
 import { GenderService } from 'src/app/services/gender.service';
 import { ReligionService } from 'src/app/services/religion.service';
 import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
 import { Observable } from 'rxjs';
 import { selectStaffType } from '../../store/selectors/staff-type.selectors';
-import { RolesAndPermissionsService } from 'src/app/pages/roles-and-permissions/services/roles-and-permissions.service';
+import { SupportStaffService } from 'src/app/pages/support-staffs/services/support-staff.service';
 
 @Component({
   selector: 'app-create-teacher',
@@ -40,11 +39,10 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     private supportStaffService: SupportStaffService,
     private genderService: GenderService,
     private religionService: ReligionService,
-    private rolesPermissionService: RolesAndPermissionsService
   ) { }
 
   ngOnInit() {
-    this.rolesPermissionService.loadAllStaffTypes$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
+    this.supportStaffService.loadAllStaffTypes$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.genderService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.religionService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.resetForm();

@@ -8,6 +8,7 @@ import { loadStaffTypesSuccess } from '../../store/actions/staff-type.actions';
 import { Router } from '@angular/router';
 import { selectStaffTypes } from '../../store/selectors/staff-type.selectors';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
+import { SupportStaffService } from 'src/app/pages/support-staffs/services/support-staff.service';
 
 @Component({
   selector: 'app-support-staff-admission',
@@ -22,13 +23,13 @@ export class SupportStaffAdmissionComponent implements OnInit {
 
   constructor(
     private store: Store<fromStore.AppState>,
-    private rolesPermissionService: RolesAndPermissionsService,
+    private supportStaffService: SupportStaffService,
     private router: Router,
     private fb: FormBuilder
   ) { }
 
   ngOnInit() {
-    this.rolesPermissionService.loadAllStaffTypes$
+    this.supportStaffService.loadAllStaffTypes$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe();
     this.staffTypes$ = this.store.pipe(

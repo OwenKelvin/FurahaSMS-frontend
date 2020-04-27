@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { takeWhile, map, mergeMap } from 'rxjs/operators';
 import { ActivatedRoute } from '@angular/router';
-import { SupportStaffService } from 'src/app/pages/admissions/services/support-staff.service';
+import { SupportStaffService } from '../../services/support-staff.service';
 
 @Component({
   selector: 'app-view-support-staff',
@@ -17,10 +17,13 @@ export class ViewSupportStaffComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+   
     this.route.paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.supportStaffService.getSupportStaffById(id)))
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(
+        map(params => Number(params.get('id'))),
+        mergeMap(id => this.supportStaffService.loadStaffWithId$(id)),
+        takeWhile(() => this.componentIsActive)
+      )
       .subscribe();
   }
 
