@@ -23,6 +23,15 @@ const routes: Routes = [
           breadcrumb: 'My Info'
         },
         component: MyProfileInfoComponent
+      },
+      {
+        path: 'password-management',
+        loadChildren: () => import('src/app/pages/login/password-management/password-management.module')
+          .then(m => m.PasswordManagementModule)
+      },
+      {
+        path: '**',
+        loadChildren: () => import('src/app/components/error/error.module').then(m => m.ErrorModule)
       }
     ]
   }
