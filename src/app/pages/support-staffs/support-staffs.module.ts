@@ -11,13 +11,16 @@ import { StoreModule } from '@ngrx/store';
 import { supportStaffFeatureKey, reducer } from './store/reducers/support-staff.reducer';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { ErrorModule } from 'src/app/components/error/error.module';
+import { ViewSupportStaffRolesComponent } from './view-support-staff-roles/view-support-staff-roles.component';
 
 
 @NgModule({
   declarations: [
     ViewSupportStaffInfoComponent,
     ViewSupportStaffComponent,
-    SupportStaffComponent
+    SupportStaffComponent,
+    ViewSupportStaffRolesComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +28,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     StoreModule.forFeature(supportStaffFeatureKey, reducer ),
     EffectsModule.forFeature([SupportStaffEffects]),
     AppUserProfileModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ErrorModule
   ]
 })
 export class SupportStaffsModule { }

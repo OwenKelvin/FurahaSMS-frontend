@@ -4,6 +4,7 @@ import { ViewSupportStaffInfoComponent } from './support-staff/view-support-staf
 import { ViewSupportStaffComponent } from './support-staff/view-support-staff/view-support-staff.component';
 
 
+
 const routes: Routes = [
   {
     path: ':id',
@@ -23,6 +24,15 @@ const routes: Routes = [
           breadcrumb: 'Info'
         },
         component: ViewSupportStaffInfoComponent
+      },
+      {
+        path: 'password-management',
+        loadChildren: () => import('src/app/pages/login/password-management/password-management.module')
+          .then(m => m.PasswordManagementModule)
+      },
+      {
+        path: '**',
+        loadChildren: () => import('src/app/components/error/error.module').then(m => m.ErrorModule)
       }
     ]
   }

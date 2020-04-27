@@ -1,1 +1,14 @@
-<router-outlet></router-outlet>
+
+<ng-container *ngIf='supportStaffProfile$ | async as supportStaffProfile; else loading'>
+  <app-user-profile
+  (valueChanged)='changeProfile($event)'
+  title='Support Staff'
+  [profile]='supportStaffProfile'
+  [linkBase]='["/support-staffs"]'
+  [links]='["info", "roles"]'
+></app-user-profile>
+</ng-container>
+<ng-template #loading>
+  <h1>Staff Profile</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

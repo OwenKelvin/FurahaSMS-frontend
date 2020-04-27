@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 
 @NgModule({

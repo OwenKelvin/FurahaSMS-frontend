@@ -12,7 +12,7 @@
 
 <section class='d-flex flex-wrap'>
   <section class='col-sm-5 col-md-4 col-lg-2 d-flex justify-content-center'>
-    <span *ngIf='profPicLoading' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
+    <span *ngIf='profPicLoadingAction$ | async' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
     <div *ngIf='editMode' class="upload-profile-pic">
       <input id='profilePhotoInput' accept="image/*" (change)='onFileSelected(template)' #fileInput hidden type="file">
       <button (click)='fileInput.click()' class='btn btn secondary'><span>Upload Photo</span></button>
@@ -43,6 +43,9 @@
     <ul class="nav nav-tabs nav-fill">
       <li class="nav-item" *ngFor='let link of links'>
         <a class="nav-link" [routerLink]='fullLink(link)' routerLinkActive='active'>{{ link | titlecase }}</a>
+      </li>
+      <li  class="nav-item" >
+        <a class="nav-link" [routerLink]='["password-management"]'  routerLinkActive='active'>Password Management</a>
       </li>
     </ul>
   </section>

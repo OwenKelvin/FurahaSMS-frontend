@@ -15,6 +15,7 @@ import { takeWhile, mergeMap, map } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 import { loadEditModesSuccess, loadEditModesFailure } from 'src/app/store/actions/edit-mode.actions';
 import { CanvasService } from 'src/app/services/canvas.service';
+import { BehaviorSubject, Subject } from 'rxjs';
 
 @Component({
   selector: 'app-user-profile',
@@ -36,8 +37,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   savingProfPic: boolean;
   photoFile: File;
-  componentIsActive: boolean;
-  profPicLoading: boolean;
+  componentIsActive: boolean = true;
+  profPicLoadingSubject$: Subject<boolean> = new BehaviorSubject(true);
+  profPicLoadingAction$ = this.profPicLoadingSubject$.asObservable();
   constructor(
     private modalService: BsModalService,
     private usersService: UsersService,
@@ -46,19 +48,18 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
     this.getProfilePic();
   }
   editModeChangeHandler() {
     this.editMode ? this.store.dispatch(loadEditModesSuccess()) : this.store.dispatch(loadEditModesFailure());
   }
   getProfilePic() {
-    this.profPicLoading = true;
+    this.profPicLoadingSubject$.next(true)
     this.usersService.getProfilePicture({ userId: this.profile.id })
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
-        this.profPicLoading = false;
+        this.profPicLoadingSubject$.next(false)
       });
   }
   get fullName(): string {
@@ -123,41 +124,6 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   changeProfile(fieldName: string, $event: string) {
     this.valueChanged.emit({ fieldName, fieldNewValue: $event });
   }
-  // fitImageOn(canvas: any, imageObj: any) {
-  //   const imageAspectRatio = imageObj.width / imageObj.height;
-  //   const canvasAspectRatio = canvas.width / canvas.height;
-  //   let renderableHeight;
-  //   let renderableWidth;
-  //   let xStart;
-  //   let yStart;
-
-  //   // If image's aspect ratio is less than canvas's we fit on height
-  //   // and place the image centrally along width
-  //   if (imageAspectRatio < canvasAspectRatio) {
-  //     renderableHeight = canvas.height;
-  //     renderableWidth = imageObj.width * (renderableHeight / imageObj.height);
-  //     xStart = (canvas.width - renderableWidth) / 2;
-  //     yStart = 0;
-  //   }
-
-  //   // If image's aspect ratio is greater than canvas's we fit on width
-  //   // and place the image centrally along height
-  //   else if (imageAspectRatio > canvasAspectRatio) {
-  //     renderableWidth = canvas.width;
-  //     renderableHeight = imageObj.height * (renderableWidth / imageObj.width);
-  //     xStart = 0;
-  //     yStart = (canvas.height - renderableHeight) / 2;
-  //   }
-
-  //   // Happy path - keep aspect ratio
-  //   else {
-  //     renderableHeight = canvas.height;
-  //     renderableWidth = canvas.width;
-  //     xStart = 0;
-  //     yStart = 0;
-  //   }
-  //   this.context.drawImage(imageObj, xStart, yStart, renderableWidth, renderableHeight);
-  // };
 
   ngOnDestroy() {
     this.componentIsActive = false;

@@ -37,9 +37,8 @@
 input ~ section .show-password {
 	color: rgba(0, 0, 0, 0.2);
 }
-input:focus ~ section .show-password {
-	color: rgba(0, 0, 0, 1);
-}
-input ~ section .show-password:hover {
-	color: rgba(0, 0, 0, 1);
+input:focus ~ section .show-password, 
+input ~ section .show-password:hover, 
+section .show-password:focus {
+	color: rgba(0, 0, 0, 1) !important;
 }
