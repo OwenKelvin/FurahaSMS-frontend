@@ -5,6 +5,7 @@ import { PasswordManagementRoutingModule } from './password-management-routing.m
 import { PasswordManagementComponent } from './password-management.component';
 import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
 import { UserPasswordResetModule } from '../user-password-reset/user-password-reset.module';
+import { UserPasswordChangeModule } from '../user-password-change/user-password-change.module';
 
 
 @NgModule({
@@ -12,7 +13,7 @@ import { UserPasswordResetModule } from '../user-password-reset/user-password-re
   imports: [
     CommonModule,
     PasswordManagementRoutingModule,
-    PasswordChangeFormModule,
+    UserPasswordChangeModule,
     UserPasswordResetModule
   ]
 })

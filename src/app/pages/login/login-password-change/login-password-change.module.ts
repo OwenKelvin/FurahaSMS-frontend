@@ -5,6 +5,7 @@ import { LoginPasswordChangeRoutingModule } from './login-password-change-routin
 import { LoginPasswordChangeComponent } from './login-password-change.component';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
+import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
 
 @NgModule({
   declarations: [LoginPasswordChangeComponent],
@@ -12,7 +13,8 @@ import { AppLayoutModule } from 'src/app/modules/app-layout.module';
     CommonModule,
     LoginPasswordChangeRoutingModule,
     ErrorModule,
-    AppLayoutModule
+    AppLayoutModule,
+    PasswordChangeFormModule
   ]
 })
 export class LoginPasswordChangeModule { }
