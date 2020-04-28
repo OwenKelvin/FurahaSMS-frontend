@@ -3,8 +3,7 @@ import { CommonModule } from '@angular/common';
 import { PasswordChangeFormComponent } from './password-change-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
-
-
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [PasswordChangeFormComponent],
@@ -13,6 +12,7 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,
+    RouterModule
   ],
   exports: [PasswordChangeFormComponent]
 })

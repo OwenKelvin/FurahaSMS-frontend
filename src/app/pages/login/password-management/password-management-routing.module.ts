@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { PasswordManagementComponent } from './password-management.component';
 import { UserPasswordResetComponent } from '../user-password-reset/user-password-reset.component';
-import { PasswordChangeFormComponent } from '../password-change-form/password-change-form.component';
+import { UserPasswordChangeComponent } from '../user-password-change/user-password-change.component';
 
 
 
@@ -22,7 +22,7 @@ const routes: Routes = [
       },
       {
         path: 'change-password',
-        component: PasswordChangeFormComponent
+        component: UserPasswordChangeComponent
       },
       {
         path: '**',

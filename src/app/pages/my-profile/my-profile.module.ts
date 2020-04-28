@@ -20,7 +20,7 @@ import { MyProfileEffects } from './store/effects/my-profile.effects';
     AppUserProfileModule,
     AppLoadingBubbleModule,
     StoreModule.forFeature(fromMyProfile.myProfileFeatureKey, fromMyProfile.reducer),
-    EffectsModule.forFeature([MyProfileEffects])
+    EffectsModule.forFeature([MyProfileEffects]),
   ]
 })
 export class MyProfileModule { }
