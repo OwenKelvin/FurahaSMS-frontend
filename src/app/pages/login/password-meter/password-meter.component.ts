@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./password-meter.component.css']
 })
 export class PasswordMeterComponent implements OnInit {
-  @Input() passwordString: string
+  @Input() passwordString: string;
   constructor() { }
 
   ngOnInit(): void {
@@ -44,6 +44,11 @@ export class PasswordMeterComponent implements OnInit {
     }
 
     return (score / 20) * 100;
+  }
+
+  get colorString() {
+    const hue = ((this.passwordStrength / 100) * 120).toString(10);
+    return ["hsl(", hue, ",100%,50%)"].join("");
   }
 
 }

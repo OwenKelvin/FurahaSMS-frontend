@@ -26,7 +26,7 @@ export class PasswordChangeFormComponent implements OnDestroy  {
     newPasswordConfirmation: ['', [Validators.required]]
   }, { validators: [this.checkPasswords] });
   
-  passwordStringValue$: Observable<string> = (this.passwordChangeForm.get('newPassword') as FormControl).valueChanges
+  // passwordStringValue$: Observable<string> = (this.passwordChangeForm.get('newPassword') as FormControl).valueChanges
 
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();

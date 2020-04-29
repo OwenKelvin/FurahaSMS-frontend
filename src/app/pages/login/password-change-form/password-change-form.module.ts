@@ -4,7 +4,6 @@ import { PasswordChangeFormComponent } from './password-change-form.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { RouterModule } from '@angular/router';
-import { PasswordMeterModule } from '../password-meter/password-meter.module';
 
 @NgModule({
   declarations: [
@@ -16,7 +15,6 @@ import { PasswordMeterModule } from '../password-meter/password-meter.module';
     ReactiveFormsModule,
     AppInputModule,
     RouterModule,
-    PasswordMeterModule
   ],
   exports: [PasswordChangeFormComponent]
 })

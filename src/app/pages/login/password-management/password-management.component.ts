@@ -24,7 +24,6 @@ export class PasswordManagementComponent {
   isMyProfile$ = combineLatest([this.userProfileId$, this.myProfileId$]).pipe(
     map(([userProfileId, myProfileId]: any[]) => (userProfileId === myProfileId) || !(userProfileId)),
     map(truthy => ({ truthy })),
-    tap(res => console.log(res))
   );
 
   constructor(

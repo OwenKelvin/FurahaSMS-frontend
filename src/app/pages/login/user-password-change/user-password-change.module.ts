@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { UserPasswordChangeComponent } from './user-password-change.component';
 import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
-import { PasswordMeterModule } from '../password-meter/password-meter.module';
 
 
 
@@ -11,7 +10,6 @@ import { PasswordMeterModule } from '../password-meter/password-meter.module';
   imports: [
     CommonModule,
     PasswordChangeFormModule,
-    PasswordMeterModule
   ]
 })
 export class UserPasswordChangeModule { }

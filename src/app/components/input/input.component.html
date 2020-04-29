@@ -4,7 +4,7 @@
 			<span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
 		</label>
 	  <section [class]='inputClass ? inputClass + " input-group" + " m-0 p-0": "col-md-8 col-lg-9 " + inputClass + " input-group" + " m-0 p-0"'>
-	  	<section *ngIf='prependIcon' [class]='"input-group-prepend " + fieldClassIsValid'>
+	  	<section *ngIf='prependIcon' class='input-group-prepend' [class.is-invalid]='fieldError'>
 	      <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
 	    </section>
 			<input
@@ -14,7 +14,8 @@
 	      [autofocus]='autofocus'
 	      [formControl]='formControl'
 	      (keyup)='updateFieldValidation()'
-				[class]='fieldClass'
+				class='form-control'
+				[class.is-invalid]='fieldError'
 				[class.is-valid]='formControl.valid && formControl.touched'
 	      (blur)='validateField()'
 	      [id]='[id]'
@@ -31,6 +32,6 @@
 					{{ fieldError }}
 				</section>
 		</section>
-	  
-  </section>
+	</section>
+	<app-password-meter *ngIf='showPasswordStrength' [passwordString]='passwordStringChangeAction$ | async'></app-password-meter>
 </section>

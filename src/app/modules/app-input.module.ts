@@ -4,6 +4,7 @@ import { SelectComponent } from 'src/app/components/select/select.component';
 import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { ValidateSubmitButtonsComponent } from '../components/validate-submit-buttons/validate-submit-buttons.component';
+import { PasswordMeterModule } from '../pages/login/password-meter/password-meter.module';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { ValidateSubmitButtonsComponent } from '../components/validate-submit-bu
     FormsModule,
     ReactiveFormsModule,
     CommonModule,
+    PasswordMeterModule
   ]
 })
 export class AppInputModule { }
