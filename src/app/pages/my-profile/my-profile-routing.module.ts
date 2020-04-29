@@ -27,7 +27,10 @@ const routes: Routes = [
       {
         path: 'password-management',
         loadChildren: () => import('src/app/pages/login/password-management/password-management.module')
-          .then(m => m.PasswordManagementModule)
+          .then(m => m.PasswordManagementModule),
+        data: {
+          routeName: 'my-profile-route'
+        }
       },
       {
         path: '**',

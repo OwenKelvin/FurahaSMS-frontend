@@ -16,7 +16,7 @@ export class PasswordChangeFormComponent implements OnDestroy  {
 
   checkPasswords = (group: FormGroup) => {
     const matchedPasswords = group.get('newPassword')?.value === group.get('newPasswordConfirmation')?.value;
-    return matchedPasswords ? null : { newPasswordMismatch: true };
+    return matchedPasswords ? null : { passwordMismatch: true };
   };
 
   passwordChangeForm: FormGroup = this.fb.group({
@@ -40,6 +40,14 @@ export class PasswordChangeFormComponent implements OnDestroy  {
     })
   );
   componentIsActive: boolean = true;
+  
+  get showPasswordMismatch() {
+    return this.passwordChangeForm.hasError('passwordMismatch') &&
+      this.passwordChangeForm.get('newPassword')?.touched &&
+      this.passwordChangeForm.get('newPassword')?.dirty &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.touched &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.dirty
+  }
 
   constructor(
     private fb: FormBuilder,

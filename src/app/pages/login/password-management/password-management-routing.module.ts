@@ -14,7 +14,9 @@ const routes: Routes = [
       {
         path: '',
         pathMatch: 'full',
-        redirectTo: 'reset-user-password'
+        data: {
+          
+        }
       },
       {
         path: 'reset-user-password',

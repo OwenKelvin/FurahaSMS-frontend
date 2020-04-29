@@ -3,18 +3,25 @@ import { CommonModule } from '@angular/common';
 
 import { PasswordManagementRoutingModule } from './password-management-routing.module';
 import { PasswordManagementComponent } from './password-management.component';
-import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
 import { UserPasswordResetModule } from '../user-password-reset/user-password-reset.module';
 import { UserPasswordChangeModule } from '../user-password-change/user-password-change.module';
+import { RouterModule } from '@angular/router';
+import { LoadMyProfileModule } from '../../my-profile/load-my-profile.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 
 @NgModule({
-  declarations: [PasswordManagementComponent],
+  declarations: [
+    PasswordManagementComponent
+  ],
   imports: [
     CommonModule,
     PasswordManagementRoutingModule,
     UserPasswordChangeModule,
-    UserPasswordResetModule
+    UserPasswordResetModule,
+    RouterModule,
+    LoadMyProfileModule,
+    AppLoadingBubbleModule
   ]
 })
 export class PasswordManagementModule { }
