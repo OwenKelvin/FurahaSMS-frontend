@@ -1,4 +1,4 @@
-import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
@@ -12,13 +12,13 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./login-reset.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginResetComponent {
+export class LoginResetComponent implements OnDestroy {
   passwordResetForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, new EmailValidatorDirective()]]
   });
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -26,7 +26,7 @@ export class LoginResetComponent {
   ) {}
 
   submitPasswordResetForm() {
-    
+
     this.isSubmittingSubject$.next(true)
     if (this.passwordResetForm.valid) {
       this.authService.resetPassword(this.passwordResetForm.value)

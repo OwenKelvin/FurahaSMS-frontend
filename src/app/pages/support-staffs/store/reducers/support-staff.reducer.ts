@@ -11,7 +11,7 @@ export interface State {
 }
 
 export const initialState: State = {
-  
+
 };
 
 const supportStaffReducer = createReducer(
@@ -20,7 +20,7 @@ const supportStaffReducer = createReducer(
   on(SupportStaffActions.loadSupportStaffs, state => state),
   on(SupportStaffActions.loadSupportStaffsSuccess, (state, _action) => state),
   on(SupportStaffActions.loadSupportStaffsFailure, (state, _action) => state),
-  
+
   on(SupportStaffActions.loadSupportStaffById, state => state),
   on(SupportStaffActions.loadSupportStaffByIdSuccess, (state, action) => {
     const newStaffs = {...state.staffs, [action.data.id]: action.data }

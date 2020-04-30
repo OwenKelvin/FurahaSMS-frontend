@@ -11,6 +11,7 @@ import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { examPaperFeatureKey, reducer } from '../../store/reducers/exam-paper.reducer';
 
 describe('ExamRevisionModeComponent', () => {
   let component: ExamRevisionModeComponent;
@@ -29,6 +30,7 @@ describe('ExamRevisionModeComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(examPaperFeatureKey, reducer),
         Number2AlphabetModule,
         AppCheckboxModule
       ],

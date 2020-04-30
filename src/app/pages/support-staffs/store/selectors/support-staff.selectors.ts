@@ -8,7 +8,7 @@ export const selectSupportStaffState = createFeatureSelector<fromSupportStaff.St
 export const selectSupportStaffWithId = (id: number) => createSelector(
   selectSupportStaffState,
   (supportStaffProfile) => {
-    
+
     return (supportStaffProfile && supportStaffProfile.staffs) ? supportStaffProfile.staffs[id] : null
   }
 );

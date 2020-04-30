@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 })
 export class CreateStaffComponent {
 
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   staffType$: Observable<number> = this.route.paramMap
     .pipe(
       map(params => Number(params.get('id')))

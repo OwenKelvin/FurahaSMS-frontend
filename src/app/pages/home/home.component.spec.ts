@@ -23,10 +23,6 @@ describe('HomeComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it(`should have as title 'Furaha School Management System'`, () => {
-    const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('Furaha School Management System');
-  });
 
   it('should render title', () => {
     fixture.detectChanges();

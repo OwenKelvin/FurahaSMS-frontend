@@ -18,7 +18,7 @@ import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
   ]
 })
 export class BarcodeComponent implements OnInit, ControlValueAccessor {
-  showOpenScannerButton:boolean = false;
+  showOpenScannerButton = false;
   scannerIsRunning: boolean;
   modalRef: BsModalRef;
   @Output() private valueChange = new EventEmitter();
@@ -47,26 +47,26 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
   startScanner() {
     Quagga.init({
       inputStream: {
-        name: "Live",
-        type: "LiveStream",
+        name: 'Live',
+        type: 'LiveStream',
         target: document.querySelector('#scanner-container'),
         constraints: {
           width: 750,
           height: 400,
-          facingMode: "environment"
+          facingMode: 'environment'
         },
       },
       decoder: {
         readers: [
-          "code_128_reader",
-          "ean_reader",
-          "ean_8_reader",
-          "code_39_reader",
-          "code_39_vin_reader",
-          "codabar_reader",
-          "upc_reader",
-          "upc_e_reader",
-          "i2of5_reader"
+          'code_128_reader',
+          'ean_reader',
+          'ean_8_reader',
+          'code_39_reader',
+          'code_39_vin_reader',
+          'codabar_reader',
+          'upc_reader',
+          'upc_e_reader',
+          'i2of5_reader'
         ],
         debug: {
           showCanvas: true,
@@ -89,7 +89,7 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
         return;
       }
 
-      console.log("Initialization finished. Ready to start");
+      console.log('Initialization finished. Ready to start');
       Quagga.start();
 
       // Set flag to is running
@@ -97,21 +97,21 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
     });
 
     Quagga.onProcessed((result: any) => {
-      var drawingCtx = Quagga.canvas.ctx.overlay,
-        drawingCanvas = Quagga.canvas.dom.overlay;
+      const drawingCtx = Quagga.canvas.ctx.overlay;
+      const drawingCanvas = Quagga.canvas.dom.overlay;
 
       if (result) {
         if (result.boxes) {
-          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width')), parseInt(drawingCanvas.getAttribute('height')));
           result.boxes.filter((box: any) => {
             return box !== result.box;
           }).forEach((box: any) => {
-            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+            Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 2 });
           });
         }
 
         if (result.box) {
-          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+          Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: '#00F', lineWidth: 2 });
         }
 
         if (result.codeResult && result.codeResult.code) {
@@ -120,7 +120,7 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
       }
     });
     Quagga.onDetected((result: any) => {
-      
+
       const c = new FormControl();
       c.setValue(result.codeResult.code);
       this.attempt = result.codeResult.code
@@ -129,24 +129,24 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
         this.valueChange.emit(this.attempt);
           Quagga.stop(),
           this.modalRef.hide()
-        
+
       }
     });
   }
-  
+
   openModal(template: TemplateRef<any>) {
 
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
-    
+
     if (this.showOpenScannerButton) {
       this.startScanner();
     }
   }
-  
+
   closeModal() {
     this.modalRef.hide()
     Quagga.stop()
   }
-  
+
 }

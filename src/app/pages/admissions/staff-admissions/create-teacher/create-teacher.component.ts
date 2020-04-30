@@ -21,15 +21,15 @@ import { SupportStaffService } from 'src/app/pages/support-staffs/services/suppo
 export class CreateTeacherComponent implements OnInit, OnDestroy {
   @Input() supportStaff: number;
   newTeacherForm: FormGroup;
-  isSubmitting: boolean = false;
+  isSubmitting = false;
   triggerValidation: boolean;
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   confirmData: boolean;
   usersData: any;
   confirmedData: boolean;
   genders$: Observable<any[]> = this.store.pipe(select(selectGenders));
   religions$: Observable<any[]> = this.store.pipe(select(selectReligions));
-  staffType$ : Observable<any> 
+  staffType$ : Observable<any>
 
   constructor(
     private users: UsersService,

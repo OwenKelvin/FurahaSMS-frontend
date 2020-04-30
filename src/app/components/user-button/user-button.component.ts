@@ -12,7 +12,7 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./user-button.component.css']
 })
 export class UserButtonComponent implements OnDestroy {
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   user$ = this.authService.currentUserProfile$
 
   constructor(

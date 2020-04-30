@@ -37,7 +37,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   savingProfPic: boolean;
   photoFile: File;
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   profPicLoadingSubject$: Subject<boolean> = new BehaviorSubject(true);
   profPicLoadingAction$ = this.profPicLoadingSubject$.asObservable();
   constructor(

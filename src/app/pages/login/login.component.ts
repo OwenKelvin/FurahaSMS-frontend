@@ -17,8 +17,8 @@ import { Subject, combineLatest, Observable } from 'rxjs';
 export class LoginComponent implements OnDestroy {
   triggerValidation: boolean;
   isSubmitting: boolean;
-  componentIsActive: boolean = true;
-  
+  componentIsActive = true;
+
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
     password: ['', [Validators.required]],

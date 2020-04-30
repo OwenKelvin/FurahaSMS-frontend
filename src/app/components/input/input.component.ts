@@ -34,9 +34,9 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() inputClass: string;
   @Input() step: number;
   @Input() min: number;
-  @Input() showPasswordStrength: boolean = false;
+  @Input() showPasswordStrength = false;
   fieldError: string | null;
-  fieldType: string = 'text';;
+  fieldType = 'text';;
   disabled: boolean;
   onChanges: ($value: any) => void;
   onTouched: () => void;
@@ -77,7 +77,9 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   }
   validate(control: FormControl) {
     this.formControl = control;
-    this.showPasswordStrength ? this.passwordStringChangeSubject$.next(this.formControl.value) : '';
+    if (this.showPasswordStrength) {
+      this.passwordStringChangeSubject$.next(this.formControl.value);
+    }
   }
   writeValue(value: any): void {
     if (value !== undefined) {

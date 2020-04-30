@@ -7,6 +7,7 @@ import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/redu
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppInputModule } from 'src/app/modules/app-input.module';
+import { ValidateSubmitButtonsComponent } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.component';
 
 describe('NewPaymentReceiptComponent', () => {
   let component: NewPaymentReceiptComponent;
@@ -28,7 +29,7 @@ describe('NewPaymentReceiptComponent', () => {
         }),
         AppInputModule
       ],
-      declarations: [NewPaymentReceiptComponent],
+      declarations: [NewPaymentReceiptComponent, ValidateSubmitButtonsComponent],
       providers: [reducerProvider]
     })
     .compileComponents();

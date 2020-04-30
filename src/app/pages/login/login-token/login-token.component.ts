@@ -20,7 +20,7 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
   clipBoardChange$: Observable<any> = timer(500, 500);
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -53,8 +53,8 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    let clipboardTextSubject$ = new BehaviorSubject('');
-    let clipboardTextAction$ = clipboardTextSubject$.asObservable();
+    const clipboardTextSubject$ = new BehaviorSubject('');
+    const clipboardTextAction$ = clipboardTextSubject$.asObservable();
     this.clipBoardChange$.pipe(
       tap(() =>
         navigator

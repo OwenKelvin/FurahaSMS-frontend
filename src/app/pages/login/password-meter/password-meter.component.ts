@@ -48,7 +48,7 @@ export class PasswordMeterComponent implements OnInit {
 
   get colorString() {
     const hue = ((this.passwordStrength / 100) * 120).toString(10);
-    return ["hsl(", hue, ",100%,50%)"].join("");
+    return ['hsl(', hue, ',100%,50%)'].join('');
   }
 
 }

@@ -21,7 +21,7 @@ export class SupportStaffEffects {
       )
     );
   });
-  
+
   loadStaffById$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SupportStaffActions.loadSupportStaffById),

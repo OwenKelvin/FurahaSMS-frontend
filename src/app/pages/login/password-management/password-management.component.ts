@@ -12,13 +12,11 @@ import { combineLatest } from 'rxjs';
 export class PasswordManagementComponent {
 
   userProfileId$ = this.route.parent?.parent?.paramMap.pipe(
-    map(params => Number(params.get('id'))),
-    tap(res => console.log(res))
+    map(params => Number(params.get('id')))
   );
 
   myProfileId$ = this.myProfileService.loadMyProfile$.pipe(
-    map((profile) => profile.id),
-    tap(res => console.log(res))
+    map((profile) => profile.id)
   );
 
   isMyProfile$ = combineLatest([this.userProfileId$, this.myProfileId$]).pipe(
@@ -30,6 +28,6 @@ export class PasswordManagementComponent {
     private route: ActivatedRoute,
     private myProfileService: MyProfileService
   ) { }
-  
-  
+
+
 }

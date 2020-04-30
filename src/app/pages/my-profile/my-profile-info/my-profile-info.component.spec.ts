@@ -4,6 +4,7 @@ import { MyProfileInfoComponent } from './my-profile-info.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { myProfileFeatureKey, reducer } from '../store/reducers/my-profile.reducer';
 
 describe('MyProfileInfoComponent', () => {
   let component: MyProfileInfoComponent;
@@ -20,6 +21,7 @@ describe('MyProfileInfoComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [MyProfileInfoComponent],
       providers: [reducerProvider]

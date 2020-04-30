@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { By } from '@angular/platform-browser';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { ErrorModule } from 'src/app/components/error/error.module';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -26,7 +27,8 @@ describe('LoginComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        ErrorModule
       ],
       declarations: [LoginComponent, FullWithCenterComponent, InputComponent],
       providers: [reducerProvider]

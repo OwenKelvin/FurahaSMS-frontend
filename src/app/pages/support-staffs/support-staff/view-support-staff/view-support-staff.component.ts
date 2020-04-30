@@ -21,7 +21,7 @@ export class ViewSupportStaffComponent {
     private route: ActivatedRoute,
     private supportStaffService: SupportStaffService
   ) { }
-  
+
   changeProfile($event: any) {
     console.log($event)
   }

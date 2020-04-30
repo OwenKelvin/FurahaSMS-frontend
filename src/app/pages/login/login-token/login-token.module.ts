@@ -17,7 +17,7 @@ import { LoginTokenComponent } from './login-token.component';
     ReactiveFormsModule,
     AppLayoutModule,
     ErrorModule
-    
+
   ]
 })
 export class LoginTokenModule { }

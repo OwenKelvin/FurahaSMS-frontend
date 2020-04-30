@@ -13,7 +13,7 @@ export class MyProfileService {
   constructor(
     private store: Store
   ) { }
-  
+
   loadMyProfile$: Observable<any> = this.store.pipe(
     select(selectMyProfileState),
     tap((profile) => profile.id === 0 ? this.store.dispatch(loadMyProfiles()) : '')

@@ -13,6 +13,9 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { ValidateSubmitButtonsComponent } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.component';
+import { studentProfileFeatureKey } from '../store/reducers/student-profile.reducer';
+import { reducer } from 'src/app/store/reducers/student-profile-update.reducer';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('CreateStudentGuardianComponent', () => {
   let component: CreateStudentGuardianComponent;
@@ -29,10 +32,12 @@ describe('CreateStudentGuardianComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(studentProfileFeatureKey, reducer),
         FormsModule,
         ReactiveFormsModule,
         NgSelectModule,
         HttpClientTestingModule,
+        AppLoadingBubbleModule
       ],
       declarations: [
         CreateStudentGuardianComponent,

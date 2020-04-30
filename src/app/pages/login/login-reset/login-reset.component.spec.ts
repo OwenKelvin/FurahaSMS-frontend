@@ -5,6 +5,10 @@ import { InputComponent } from '../../../components/input/input.component';
 import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ErrorModule } from 'src/app/components/error/error.module';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('LoginResetComponent', () => {
   let component: LoginResetComponent;
@@ -12,8 +16,24 @@ describe('LoginResetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [ LoginResetComponent, FullWithCenterComponent, InputComponent ]
+      imports: [
+        RouterTestingModule,
+        ErrorModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [LoginResetComponent, FullWithCenterComponent, InputComponent],
+      providers: [
+        reducerProvider
+      ]
     })
     .compileComponents();
   }));
