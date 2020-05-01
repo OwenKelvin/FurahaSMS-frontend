@@ -1,0 +1,10 @@
+a{
+  color: lightblue !important;
+}
+a:hover {
+  cursor: pointer !important;
+  background-color: rgba(2, 1, 1, 0.589);
+}
+a:hover span {
+   color: greenyellow !important;
+}
