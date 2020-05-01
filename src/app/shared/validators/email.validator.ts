@@ -2,7 +2,7 @@ import { NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@an
 import { Directive } from '@angular/core';
 
 @Directive({
-  selector: '[emailValidator]',
+  selector: '[appEmailValidator]',
   providers: [{ provide: NG_VALIDATORS, useExisting: EmailValidatorDirective, multi: true }]
 })
 export class EmailValidatorDirective implements Validator {

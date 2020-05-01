@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { teacherProfileFeatureKey, reducer } from '../store/reducers/teacher-profile.reducer';
 
 describe('ViewTeacherComponent', () => {
   let component: ViewTeacherComponent;
@@ -25,7 +26,8 @@ describe('ViewTeacherComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        StoreModule.forFeature(teacherProfileFeatureKey, reducer)
       ],
       declarations: [ViewTeacherComponent],
       providers: [reducerProvider]

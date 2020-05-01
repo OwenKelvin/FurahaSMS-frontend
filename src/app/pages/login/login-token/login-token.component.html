@@ -17,7 +17,7 @@
             [disabled]='!tokenLoginForm.dirty || !tokenLoginForm.valid || (isSubmittingActions$ | async)'>
             Submit
             <i *ngIf='(isSubmittingActions$ | async)' class='icon-spin3 animate-spin'></i>
-            <i *ngIf='!(isSubmittingActions$ | async) && tokenLoginForm.valid && tokenLoginForm.dirty'
+            <i *ngIf='(isSubmittingActions$ | async) === false && tokenLoginForm.valid && tokenLoginForm.dirty'
               class='icon-ok-1'></i>
           </button>
         </section>

@@ -15,6 +15,7 @@ describe('NewPaymentReceiptComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      declarations: [NewPaymentReceiptComponent, ValidateSubmitButtonsComponent],
       imports: [
         HttpClientTestingModule,
         RouterTestingModule,
@@ -29,7 +30,6 @@ describe('NewPaymentReceiptComponent', () => {
         }),
         AppInputModule
       ],
-      declarations: [NewPaymentReceiptComponent, ValidateSubmitButtonsComponent],
       providers: [reducerProvider]
     })
     .compileComponents();

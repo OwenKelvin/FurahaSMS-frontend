@@ -102,7 +102,7 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
 
       if (result) {
         if (result.boxes) {
-          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width')), parseInt(drawingCanvas.getAttribute('height')));
+          drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width'), 10), parseInt(drawingCanvas.getAttribute('height'), 10));
           result.boxes.filter((box: any) => {
             return box !== result.box;
           }).forEach((box: any) => {

@@ -22,7 +22,7 @@
               Remember me
             </label>
           </section>
-          <button [disabled]='!(submitButtonActive$ | async)' class='btn btn-success' type='submit'>
+          <button [disabled]='(submitButtonActive$ | async) === false' class='btn btn-success' type='submit'>
             Login
             <i *ngIf='loginForm.valid && !isSubmitting' class='icon-login'></i>
             <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>

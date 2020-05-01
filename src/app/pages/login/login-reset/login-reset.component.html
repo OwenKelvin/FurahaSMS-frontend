@@ -17,7 +17,7 @@
             [disabled]='!passwordResetForm.dirty || !passwordResetForm.valid || (isSubmittingActions$ | async)'>
             Submit
             <i *ngIf='(isSubmittingActions$ | async)' class='icon-spin3 animate-spin'></i>
-            <i *ngIf='!(isSubmittingActions$ | async) && passwordResetForm.valid && passwordResetForm.dirty'
+            <i *ngIf='(isSubmittingActions$ | async) === false && passwordResetForm.valid && passwordResetForm.dirty'
               class='icon-ok-1'></i>
           </button>
         </section>

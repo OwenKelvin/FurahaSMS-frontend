@@ -10,8 +10,10 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { LibraryAdminModule } from '../../library-admin.module';
 import { of } from 'rxjs';
+import { SelectLibraryClassComponent } from '../../../components/select-library-class/select-library-class.component';
+import { TabsModule } from 'ngx-bootstrap/tabs';
+import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -36,10 +38,20 @@ describe('AddBookComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AppInputModule,
-        LibraryAdminModule
+        TabsModule.forRoot(),
+        AppBarcodeModule
       ],
-      declarations: [],
-      providers: [reducerProvider]
+      declarations: [AddBookComponent, SelectLibraryClassComponent],
+      providers: [
+        reducerProvider,
+        {
+          provide: Store,
+          useValue: {
+            dispatch: () => { },
+            pipe: () => of([])
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();
@@ -49,9 +61,6 @@ describe('AddBookComponent', () => {
     fixture = TestBed.createComponent(AddBookComponent);
     component = fixture.componentInstance;
     store = TestBed.inject<Store<AppState>>(Store);
-
-    spyOn(store, 'dispatch').and.callThrough();
-    spyOn(store, 'pipe').and.returnValue(of([{ id: 1 }]));
     fixture.detectChanges();
   });
 

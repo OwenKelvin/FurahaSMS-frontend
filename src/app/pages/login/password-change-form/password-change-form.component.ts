@@ -7,20 +7,17 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { loadErrorMessagesFailure } from 'src/app/store/actions/error-message.actions';
 
+const checkPasswords = (group: FormGroup) => {
+  const matchedPasswords = group.get('newPassword')?.value === group.get('newPasswordConfirmation')?.value;
+  return matchedPasswords ? null : { passwordMismatch: true };
+};
+
 @Component({
   selector: 'app-password-change-form',
   templateUrl: './password-change-form.component.html',
   styleUrls: ['./password-change-form.component.css']
 })
 export class PasswordChangeFormComponent implements OnDestroy  {
-
-  get showPasswordMismatch() {
-    return this.passwordChangeForm.hasError('passwordMismatch') &&
-      this.passwordChangeForm.get('newPassword')?.touched &&
-      this.passwordChangeForm.get('newPassword')?.dirty &&
-      this.passwordChangeForm.get('newPasswordConfirmation')?.touched &&
-      this.passwordChangeForm.get('newPasswordConfirmation')?.dirty
-  }
 
   constructor(
     private fb: FormBuilder,
@@ -29,15 +26,21 @@ export class PasswordChangeFormComponent implements OnDestroy  {
     private router: Router,
     private store: Store
   ) { }
+  get showPasswordMismatch() {
+    return this.passwordChangeForm.hasError('passwordMismatch') &&
+      this.passwordChangeForm.get('newPassword')?.touched &&
+      this.passwordChangeForm.get('newPassword')?.dirty &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.touched &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.dirty;
+  }
 
+  componentIsActive = true;
   passwordChangeForm: FormGroup = this.fb.group({
     token: [''],
     oldPassword: [''],
     newPassword: ['', [Validators.required]],
     newPasswordConfirmation: ['', [Validators.required]]
-  }, { validators: [this.checkPasswords] });
-
-  // passwordStringValue$: Observable<string> = (this.passwordChangeForm.get('newPassword') as FormControl).valueChanges
+  }, { validators: [checkPasswords] });
 
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
@@ -50,12 +53,9 @@ export class PasswordChangeFormComponent implements OnDestroy  {
       showField ? c.setValidators([Validators.required]) : c.setValidators([]);
     })
   );
-  componentIsActive = true;
 
-  checkPasswords = (group: FormGroup) => {
-    const matchedPasswords = group.get('newPassword')?.value === group.get('newPasswordConfirmation')?.value;
-    return matchedPasswords ? null : { passwordMismatch: true };
-  };
+
+
   submitPasswordChangeForm() {
 
     this.isSubmittingSubject$.next(true);

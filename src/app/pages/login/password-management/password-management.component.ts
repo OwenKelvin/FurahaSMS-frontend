@@ -1,8 +1,8 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 import { MyProfileService } from '../../my-profile/services/my-profile.service';
-import { combineLatest } from 'rxjs';
+import { combineLatest, Observable, EMPTY } from 'rxjs';
 
 @Component({
   selector: 'app-password-management',
@@ -11,23 +11,21 @@ import { combineLatest } from 'rxjs';
 })
 export class PasswordManagementComponent {
 
-  userProfileId$ = this.route.parent?.parent?.paramMap.pipe(
+  userProfileId$: Observable<number> = this.route.parent?.parent?.paramMap.pipe(
     map(params => Number(params.get('id')))
-  );
+  ) || EMPTY;
 
-  myProfileId$ = this.myProfileService.loadMyProfile$.pipe(
+  myProfileId$: Observable<number> = this.myProfileService.loadMyProfile$.pipe(
     map((profile) => profile.id)
   );
 
-  isMyProfile$ = combineLatest([this.userProfileId$, this.myProfileId$]).pipe(
-    map(([userProfileId, myProfileId]: any[]) => (userProfileId === myProfileId) || !(userProfileId)),
-    map(truthy => ({ truthy })),
-  );
+  isMyProfile$: Observable<boolean> = combineLatest([this.userProfileId$, this.myProfileId$])
+    .pipe(
+      map(([userProfileId, myProfileId]) => (userProfileId === myProfileId) || !(userProfileId))
+    );
 
   constructor(
     private route: ActivatedRoute,
     private myProfileService: MyProfileService
   ) { }
-
-
 }
