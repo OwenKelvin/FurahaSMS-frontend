@@ -10,7 +10,7 @@ import { LibraryAdminTagsRoutingModule } from './library-admin-tags-routing.modu
 
 @NgModule({
   declarations: [
-   
+
   ],
   imports: [
     CommonModule,

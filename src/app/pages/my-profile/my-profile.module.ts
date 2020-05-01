@@ -6,10 +6,7 @@ import { MyProfileComponent } from './my-profile.component';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { MyProfileInfoComponent } from './my-profile-info/my-profile-info.component';
-import { StoreModule } from '@ngrx/store';
-import * as fromMyProfile from './store/reducers/my-profile.reducer';
-import { EffectsModule } from '@ngrx/effects';
-import { MyProfileEffects } from './store/effects/my-profile.effects';
+import { LoadMyProfileModule } from './load-my-profile.module';
 
 
 @NgModule({
@@ -19,8 +16,7 @@ import { MyProfileEffects } from './store/effects/my-profile.effects';
     MyProfileRoutingModule,
     AppUserProfileModule,
     AppLoadingBubbleModule,
-    StoreModule.forFeature(fromMyProfile.myProfileFeatureKey, fromMyProfile.reducer),
-    EffectsModule.forFeature([MyProfileEffects])
+    LoadMyProfileModule
   ]
 })
 export class MyProfileModule { }

@@ -1,4 +1,11 @@
-<h1>Create New {{ (supportStaff && supportStaff.id !== 0) ? 'Support Staff': 'Teacher'}}</h1>
+<h1>
+  Create New {{ (supportStaff !== 0) ? 'Support Staff': 'Teacher'}}
+  <ng-container *ngIf='(staffType$ | async) as staffType'>
+     <span *ngIf='supportStaff !== 0' class="icon-right-dir"></span>
+     <span *ngIf='supportStaff !== 0'>{{ staffType.name | titlecase }}</span>
+  </ng-container>
+ 
+</h1>
 <form [formGroup]='newTeacherForm' (submit)='submitNewTeacherForm()'>
   <div class="card p-2 mt-1 pb-4">
     <fieldset>

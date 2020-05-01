@@ -8,8 +8,11 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NewPaymentReceiptComponent } from '../new-payment-receipt/new-payment-receipt.component';
 import { StudentPaymentFeeStructureComponent } from '../student-payment-fee-structure/student-payment-fee-structure.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, Store } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { accountFeatureKey } from '../../store/reducers';
+import { reducer } from '../../store/reducers/account.reducer';
+import { of } from 'rxjs';
 
 describe('StudentPaymentStatementComponent', () => {
   let component: StudentPaymentStatementComponent;
@@ -31,6 +34,7 @@ describe('StudentPaymentStatementComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(accountFeatureKey, reducer)
       ],
       declarations: [
         StudentPaymentStatementComponent,
@@ -38,7 +42,14 @@ describe('StudentPaymentStatementComponent', () => {
         StudentPaymentFeeStructureComponent
       ],
       providers: [
-        reducerProvider
+        reducerProvider,
+        {
+          provide: Store,
+          useValue: {
+            select: () => of(1),
+            pipe: () => of(1),
+          }
+        }
       ]
     })
     .compileComponents();

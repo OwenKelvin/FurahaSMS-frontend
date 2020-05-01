@@ -1,6 +1,7 @@
 import { Component, OnInit, Input, forwardRef, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
 import { AppFormService } from 'src/app/services/AppForm.service';
+import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-input',
@@ -24,7 +25,7 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() placeholder: string;
   @Input() id: string;
   @Input() prependIcon: string;
-  @Input() formControl: FormControl;
+  @Input() formControl: FormControl = new FormControl();
   @Input() triggerValidation: boolean;
   @Input() autofocus: false;
   @Input() autocomplete: string;
@@ -33,20 +34,21 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   @Input() inputClass: string;
   @Input() step: number;
   @Input() min: number;
+  @Input() showPasswordStrength = false;
   fieldError: string | null;
-  fieldType: string;
+  fieldType = 'text';;
   disabled: boolean;
   onChanges: ($value: any) => void;
   onTouched: () => void;
   inputValue: any;
-  constructor(private appFormService: AppFormService) {}
+  passwordStringChangeSubject$: Subject<string> = new BehaviorSubject('');
+  passwordStringChangeAction$:Observable<string> = this.passwordStringChangeSubject$.asObservable()
+  constructor(private appFormService: AppFormService) { }
 
   ngOnInit() {
-    this.fieldType = 'text';
     if (['tel', 'phone', 'password', 'number', 'date', 'datetime-local'].includes(this.type)) {
       this.fieldType = this.type;
     }
-    this.formControl = new FormControl();
   }
   get isRequired(): boolean {
     if (this.formControl.validator) {
@@ -75,6 +77,9 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   }
   validate(control: FormControl) {
     this.formControl = control;
+    if (this.showPasswordStrength) {
+      this.passwordStringChangeSubject$.next(this.formControl.value);
+    }
   }
   writeValue(value: any): void {
     if (value !== undefined) {
@@ -86,19 +91,6 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   }
   registerOnTouched(fn: any): void {
     this.onTouched = fn;
-  }
-  get fieldClassIsValid(): string | null {
-    if (this.fieldError) {
-      return 'is-invalid';
-    }
-    return null;
-  }
-  get fieldClass() {
-    const formControlClass = 'form-control';
-    if (this.fieldError) {
-      return `${formControlClass} is-invalid`;
-    }
-    return formControlClass;
   }
   validateField() {
     this.fieldError = this.appFormService.getErrorMessage(this.formControl, this.label);

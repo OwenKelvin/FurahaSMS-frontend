@@ -5,6 +5,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { appFeatureKey, reducers } from 'src/app/store/reducers/app.reducer';
 
 describe('UserSelectItemComponent', () => {
   let component: UserSelectItemComponent;
@@ -23,6 +24,7 @@ describe('UserSelectItemComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [UserSelectItemComponent],
       providers: [reducerProvider]

@@ -4,7 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { AppState } from 'src/app/store/reducers';
 import { map, mergeMap } from 'rxjs/operators';
-import { selectSupportStaffState } from '../../store/selectors/support-staff.selectors';
+import { selectSupportStaffWithId } from '../../store/selectors/support-staff.selectors';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { selectSupportStaffState } from '../../store/selectors/support-staff.sel
   styleUrls: ['./view-support-staff-info.component.css']
 })
 export class ViewSupportStaffInfoComponent implements OnInit {
-  supportStaffProfile$: Observable<any>
+  supportStaffProfile$: Observable<any> | undefined
 
   constructor(
     private route: ActivatedRoute,
@@ -25,15 +25,10 @@ export class ViewSupportStaffInfoComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.supportStaffProfile$ = (this.route.parent as ActivatedRoute).paramMap
-      .pipe(map(params => Number(params.get('id'))))
+    this.supportStaffProfile$ = this.route.parent?.paramMap
       .pipe(
-        mergeMap(id => {
-          return this.store.pipe(select(selectSupportStaffState))
-            .pipe(
-              map((supportStaffProfile: any) => supportStaffProfile ? supportStaffProfile[id] : null)
-            );
-        })
+        map(params => Number(params.get('id'))),
+        mergeMap(id => this.store.pipe(select(selectSupportStaffWithId(id))))
       );
   }
 

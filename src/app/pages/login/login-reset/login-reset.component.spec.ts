@@ -5,6 +5,10 @@ import { InputComponent } from '../../../components/input/input.component';
 import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
 import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
 import { By } from '@angular/platform-browser';
+import { RouterTestingModule } from '@angular/router/testing';
+import { ErrorModule } from 'src/app/components/error/error.module';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('LoginResetComponent', () => {
   let component: LoginResetComponent;
@@ -12,8 +16,24 @@ describe('LoginResetComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [ LoginResetComponent, FullWithCenterComponent, InputComponent ]
+      imports: [
+        RouterTestingModule,
+        ErrorModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [LoginResetComponent, FullWithCenterComponent, InputComponent],
+      providers: [
+        reducerProvider
+      ]
     })
     .compileComponents();
   }));
@@ -27,26 +47,7 @@ describe('LoginResetComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
-  it('should have as function validateEmail', () => {
-    component.validateEmail();
-    expect(component).toBeTruthy();
-  });
-  it('should have emailFieldClass property containing "is-invalid" if invalid email', () => {
-    component.errors.email = 'Email Error';
-    fixture.detectChanges();
-    expect(component.emailFieldClass).toContain('is-invalid');
-  });
-  it('should have function updateEmailFieldValidation', () => {
-    component.errors.email = 'Email Error';
-    fixture.detectChanges();
-    component.updateEmailFieldValidation();
-    expect(component).toBeTruthy();
 
-    component.errors.email = null;
-    fixture.detectChanges();
-    component.updateEmailFieldValidation();
-    expect(component).toBeTruthy();
-  });
   it('should have as function submitPasswordResetForm', () => {
     const inputElement = fixture.debugElement.query(By.css('input'));
     const formElement = fixture.debugElement.query(By.css('form'));

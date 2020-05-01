@@ -1,0 +1,27 @@
+<section class="login-error">
+  <app-error></app-error>
+</section>
+<app-full-with-center>
+  <section class='card col-lg-12'>
+    <section class='card-header'>
+      <h1>Password Token</h1>
+    </section>
+    <section class='card-body'>
+      <form (submit)='submitTokenLoginForm()' [formGroup]='tokenLoginForm' class='form-horizontal'>
+        <textarea class="form-control mb-2" placeholder='Enter Token' id='token' formControlName='token'
+          prependIcon='icon-mail' [autofocus]=[true]></textarea>
+        <section class='d-flex justify-content-between'>
+          <button type="button" routerLink='/login' queryParamsHandling='preserve' class='btn btn-secondary'>Cancel</button>
+
+          <button class='btn btn-success'
+            [disabled]='!tokenLoginForm.dirty || !tokenLoginForm.valid || (isSubmittingActions$ | async)'>
+            Submit
+            <i *ngIf='(isSubmittingActions$ | async)' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='(isSubmittingActions$ | async) === false && tokenLoginForm.valid && tokenLoginForm.dirty'
+              class='icon-ok-1'></i>
+          </button>
+        </section>
+      </form>
+    </section>
+  </section>
+</app-full-with-center>

@@ -1,58 +1,48 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
+import { Component, ChangeDetectionStrategy, OnDestroy } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
+import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
+import { BehaviorSubject, Observable } from 'rxjs';
+import { Router } from '@angular/router';
+import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login-reset',
   templateUrl: './login-reset.component.html',
-  styleUrls: ['./login-reset.component.css']
+  styleUrls: ['./login-reset.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class LoginResetComponent implements OnInit {
-  passwordResetForm: FormGroup;
-  errors: {
-    email: string | null
-  };
+export class LoginResetComponent implements OnDestroy {
+  passwordResetForm: FormGroup = this.fb.group({
+    email: ['', [Validators.required, new EmailValidatorDirective()]]
+  });
+  isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
+  isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
+  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
-    private appFormService: AppFormService,
-    private authService: AuthenticationService
+    private authService: AuthenticationService,
+    private router: Router
   ) {}
 
-  ngOnInit() {
-    this.errors = {
-      email: null
-    };
-    this.passwordResetForm = this.fb.group({
-      email: ['', [Validators.required, Validators.email]]
-    });
-  }
-  get email() {
-    return this.passwordResetForm.get('email') as FormControl;
-  }
-  validateEmail() {
-    this.errors.email = this.appFormService.getErrorMessage(this.email, 'Email');
-  }
-  get emailFieldClass() {
-    const formControlClass = 'form-control';
-    if (this.errors.email) {
-      return `${formControlClass} is-invalid`;
-    }
-    return formControlClass;
-  }
   submitPasswordResetForm() {
+
+    this.isSubmittingSubject$.next(true)
     if (this.passwordResetForm.valid) {
-      this.authService.resetPassword({email: this.email.value}).subscribe((success) => {
-        alert(success.message);
-      });
+      this.authService.resetPassword(this.passwordResetForm.value)
+        .pipe(takeWhile(() => this.componentIsActive))
+        .subscribe({
+          next: () => {
+            this.router.navigate(['/login', 'token'], {queryParamsHandling: 'preserve'})
+            this.isSubmittingSubject$.next(false)
+          },
+          error: () => this.isSubmittingSubject$.next(false)
+        });
     } else {
-      this.email.markAsTouched();
-      this.validateEmail();
+      this.passwordResetForm.get('email')?.markAsTouched();
     }
   }
-  updateEmailFieldValidation() {
-    if (this.errors.email) {
-      this.validateEmail();
-    }
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 }

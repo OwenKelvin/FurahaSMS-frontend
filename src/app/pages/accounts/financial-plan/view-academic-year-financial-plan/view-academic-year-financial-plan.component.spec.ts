@@ -5,6 +5,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { academicYearPlanFeatureKey, reducer } from '../store/reducers/academic-year-plan.reducer';
 
 describe('ViewAcademicYearFinancialPlanComponent', () => {
   let component: ViewAcademicYearFinancialPlanComponent;
@@ -21,7 +22,9 @@ describe('ViewAcademicYearFinancialPlanComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })],
+        }),
+        StoreModule.forFeature(academicYearPlanFeatureKey, reducer)
+      ],
       declarations: [ViewAcademicYearFinancialPlanComponent],
       providers: [reducerProvider]
     })

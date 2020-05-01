@@ -21,6 +21,8 @@ describe('AuthenticationServiceService', () => {
   });
   it('should have function "login', () => {
     const service: AuthenticationService = TestBed.inject(AuthenticationService);
-    expect(service.login({username: 'some@valid.email', password: 'someValidPassword'})).toBeTruthy();
+    expect(service.login({
+      username: 'some@valid.email', password: 'someValidPassword', rememberMe: true
+    })).toBeTruthy();
   });
 });

@@ -259,3 +259,33 @@ html, body {
 .custom-control-label, .custom-control-input{
  cursor: pointer !important; 
 }
+
+@media (max-width: 400px) {
+  .container {
+    padding:0 !important;
+    margin:0.5rem !important;
+  }
+}
+@media (max-width: 500px) {
+  .card-body {
+    padding: 0.5rem;
+  }
+
+}
+.login-error {
+  position: absolute; width: 100%
+}
+@media (max-width: 500px) {
+  .login-error .alert {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+  }
+
+}
+a.disabled {
+  text-decoration: none !important;
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}

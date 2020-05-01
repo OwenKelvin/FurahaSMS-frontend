@@ -3,22 +3,32 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { catchError, map, concatMap } from 'rxjs/operators';
 import { of } from 'rxjs';
 import * as SupportStaffActions from '../actions/support-staff.actions';
-import {
-  RolesAndPermissionsService
-} from 'src/app/pages/roles-and-permissions/services/roles-and-permissions.service';
+import { SupportStaffService } from '../../services/support-staff.service';
 
 @Injectable()
 export class SupportStaffEffects {
   constructor(
     private actions$: Actions,
-    private rolesPermissionService: RolesAndPermissionsService ) { }
-  loadSupportStaffs$ = createEffect(() => {
+    private staffService: SupportStaffService
+  ) { }
+  loadSupportStaffType$ = createEffect(() => {
     return this.actions$.pipe(
       ofType(SupportStaffActions.loadSupportStaffs),
       concatMap(() =>
-        this.rolesPermissionService.staffTypes().pipe(
+        this.staffService.staffTypes().pipe(
           map(data => SupportStaffActions.loadSupportStaffsSuccess({ data })),
           catchError(error => of(SupportStaffActions.loadSupportStaffsFailure({ error }))))
+      )
+    );
+  });
+
+  loadStaffById$ = createEffect(() => {
+    return this.actions$.pipe(
+      ofType(SupportStaffActions.loadSupportStaffById),
+      concatMap((action) =>
+        this.staffService.getSupportStaffById(action.data.id).pipe(
+          map(data => SupportStaffActions.loadSupportStaffByIdSuccess({ data })),
+          catchError(error => of(SupportStaffActions.loadSupportStaffByIdFailure({ error }))))
       )
     );
   });

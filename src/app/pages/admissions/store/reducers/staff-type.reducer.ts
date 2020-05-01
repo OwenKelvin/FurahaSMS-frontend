@@ -4,21 +4,31 @@ import * as StaffTypsActions from '../actions/staff-type.actions';
 export const staffTypeFeatureKey = 'staffTypes';
 
 export interface State {
-  id?: number;
-  name?: string;
+  [id: number]: {
+    id?: number;
+    name?: string;
+  }
 }
 
-export const initialState: State[] = [{ }];
+export const initialState: State = {
+  0: {
+    id: 0,
+    name: ''
+  }
+ };
 
 const staffTypeReducer = createReducer(
   initialState,
   on(StaffTypsActions.loadStaffTypes, state => state),
   on(StaffTypsActions.loadStaffTypesSuccess, (state, action) => {
-    return [...state, ...action.data].filter(item => item?.id > 0);
+    const newState = action.data.reduce((a, b) => ({
+      ...a, [b.id]: b
+    }), {});
+    return { ...state, ...newState };
   }),
   on(StaffTypsActions.loadStaffTypesFailure, (state, _action) => state),
 );
 
-export function reducer(state: State[] | undefined, action: Action) {
+export function reducer(state: State | undefined, action: Action) {
   return staffTypeReducer(state, action);
 }

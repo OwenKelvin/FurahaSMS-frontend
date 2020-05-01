@@ -29,3 +29,7 @@ h2 {
   border-top-right-radius: 15px;
   
 }
+
+.nav-link:focus, .nav-link:active {
+  outline-style: dashed ;
+}

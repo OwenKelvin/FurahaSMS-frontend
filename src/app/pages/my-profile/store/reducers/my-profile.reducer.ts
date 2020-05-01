@@ -18,6 +18,7 @@ export const initialState: IUserProfile = {
   phone: '',
   email: '',
   dateOfBirth: '',
+  permissions: []
 };
 
 const myProfileReducer = createReducer(

@@ -265,7 +265,8 @@ export class LinkService {
       {
         name: 'Admissions',
         icon: 'icon-user-plus',
-        link: 'admissions'
+        link: 'admissions',
+        permissions: ['view admissions', 'access teacher admission', 'view student admissions']
       },
       {
         name: 'Library',

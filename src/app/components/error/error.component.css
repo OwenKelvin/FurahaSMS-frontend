@@ -15,5 +15,11 @@ p {
 .alert-dismissible .close {
   padding: 0;
   padding-top: 0.35em;
-  
+}
+
+@media (max-width: 500px) {
+  .alert-dismissible .close {
+    padding: 0;
+    padding-top: 0;
+  }
 }

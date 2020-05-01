@@ -1,15 +1,12 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../../store/reducers';
 import { AcademicYearService } from '../../academics/services/academic-year.service';
 import { Observable, combineLatest, of } from 'rxjs';
 import { ClassLevelService } from 'src/app/services/class-level.service';
-import { FormBuilder, FormGroup, FormArray, FormControl, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
 import { mergeMap, tap, map, takeWhile } from 'rxjs/operators';
 import { StudentAcademicsService } from '../services/student-academics.service';
 import { AcademicYearUnitService } from '../../academics/services/academic-year-unit.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-create-student-academics',
@@ -17,15 +14,31 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
   styleUrls: ['./create-student-academics.component.css']
 })
 export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
-  academicYears$: Observable<any>;
-  classLevels$: Observable<any>;
-  academicCategory: FormGroup;
-  unitLevels$: Observable<any>;
+  academicYears$: Observable<any> = this.academicYearService.getAll();
+  classLevels$: Observable<any> = this.classLevelService.getAll();
+  academicCategory: FormGroup = this.fb.group({
+    academicYear: [''],
+    classLevel: [''],
+    unitLevels: this.fb.array([])
+  });
+  unitLevels$: Observable<any> = combineLatest([
+    (this.academicCategory.get('academicYear') as FormControl).valueChanges,
+    (this.academicCategory.get('classLevel') as FormControl).valueChanges
+  ])
+    .pipe(
+      tap(() => this.unitsLoaded = false),
+      mergeMap(item => {
+        if (item[0] === '' || item[1] === '') {
+          return of([]);
+        }
+        return this.academicYearUnitService.getUnitsFor({ academicYear: item[0], classLevel: item[1] });
+      })
+    );
   academicYearUnitLevels: any;
   unitsLoaded: boolean | undefined;
   triggerValidation: boolean;
-  isSubmitting: boolean;
-  componentIsActive: boolean;
+  isSubmitting = false;
+  componentIsActive = true;
 
   constructor(
     private classLevelService: ClassLevelService,
@@ -33,31 +46,12 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
     private studentAcademicsService: StudentAcademicsService,
     private academicYearUnitService: AcademicYearUnitService,
     private fb: FormBuilder,
-    private store: Store<fromStore.AppState>,
     private router: Router,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.academicYears$ = this.academicYearService.getAll();
-    this.classLevels$ = this.classLevelService.getAll();
-    this.academicCategory = this.fb.group({
-      academicYear: [''],
-      classLevel: [''],
-      unitLevels: this.fb.array([])
-    });
-    this.unitLevels$ = combineLatest([
-      (this.academicCategory.get('academicYear') as FormControl).valueChanges,
-      (this.academicCategory.get('classLevel') as FormControl).valueChanges
-    ]).pipe(tap(_ => {
-      this.unitsLoaded = false;
-    })).pipe(mergeMap(item => {
-      if (item[0] === '' || item[1] === '') {
-        return of([]);
-      }
-      return this.academicYearUnitService.getUnitsFor({ academicYear: item[0], classLevel: item[1] });
-    }));
+
     this.unitLevels$.subscribe(res => {
       if (res.length > 0) {
         this.unitLevels.setValue([]); // TODO fails if we reset the value
@@ -79,6 +73,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
 
   onCheckboxChange(e: any) {
     if (e.target.checked) {
+      this.unitLevels.push(new FormControl(e.target.value));
       this.unitLevels.push(new FormControl(e.target.value));
     } else {
       let i = 0;

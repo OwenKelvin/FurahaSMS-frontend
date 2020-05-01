@@ -4,3 +4,11 @@ import * as fromSupportStaff from '../reducers/support-staff.reducer';
 export const selectSupportStaffState = createFeatureSelector<fromSupportStaff.State>(
   fromSupportStaff.supportStaffFeatureKey
 );
+
+export const selectSupportStaffWithId = (id: number) => createSelector(
+  selectSupportStaffState,
+  (supportStaffProfile) => {
+
+    return (supportStaffProfile && supportStaffProfile.staffs) ? supportStaffProfile.staffs[id] : null
+  }
+);

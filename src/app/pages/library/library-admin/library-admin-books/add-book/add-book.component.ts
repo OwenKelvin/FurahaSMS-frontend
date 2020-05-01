@@ -13,12 +13,10 @@ import { loadLibraryBookPublishers } from 'src/app/pages/library/store/actions/l
 import { Observable, of } from 'rxjs';
 import { loadBookClassifications } from 'src/app/pages/library/store/actions/library-book-classification.actions';
 import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { LibraryBookClassificationService } from 'src/app/pages/library/services/library-book-classification.service';
 import { DbService } from 'src/app/services/db.service';
 import { LibraryBookTagService } from 'src/app/pages/library/services/library-book-tag.service';
 import { LibraryBookService } from 'src/app/pages/library/services/library-book.service';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { Router } from '@angular/router';
 import { validateISBN } from '../../../validatots/isbn.validator';
 import { takeWhile } from 'rxjs/operators';
@@ -32,19 +30,18 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
 
   newBookForm: FormGroup;
   triggerValidation: boolean;
-  isSubmitting: boolean;
+  isSubmitting = false;
   bookAuthors$: Observable<any[] | null>;
   bookPublishers$: Observable<any[] | null>;
   @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
   bookClassifications$: Observable<any[] | null>;
   markTabsWithError: boolean;
   bookTags$: Observable<any | null>;
-  formSubmitted: boolean;
-  componentIsActive: boolean;
+  formSubmitted = false;
+  componentIsActive = true;
   constructor(
     private store: Store<fromLibraryAuthors.State>,
     private fb: FormBuilder,
-    private libraryBookClassificationService: LibraryBookClassificationService,
 
     private libraryBookTagService: LibraryBookTagService,
     private libraryBookService: LibraryBookService,
@@ -77,8 +74,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
   }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.isSubmitting = false;
+
     this.newBookForm = this.fb.group({
       bookTitle: ['', Validators.required],
       authors: [[], [Validators.required]],

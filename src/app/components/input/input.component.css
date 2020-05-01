@@ -3,34 +3,28 @@
   	display: none;
   }
 }
-.is-invalid {
-	margin-bottom: 15px;
-}
 .invalid-feedback-message {
-	padding: 5px;
+	padding: 4px;
 	line-height: 80%;
-	font-size: 80%;
+	font-size: 65%;
 	background: red;
 	right: 4%;
-	margin-top: 40px;
+	margin-bottom: -21px;
+	bottom: 0;
 	border-radius: 4px;
+	position: absolute;
 }
 .arrow-up {
   width: 0; 
   height: 0; 
-  border-left: 7px solid transparent;
-  border-right: 7px solid transparent;
-  
-  border-bottom: 7px solid red;
+  border-left: 6px solid transparent;
+  border-right: 6px solid transparent;
+  border-bottom: 6px solid red;
   position: absolute;
-  margin-top: -12px;
+  margin-top: -10px;
   margin-left: 20px;
 }
-@media (max-width: 768px) {
-	.invalid-feedback-message {
-		margin-top: 72px;
-	}
-}
+
 .required {
 	font-size: 0.5em;
 	position: absolute;
@@ -39,4 +33,12 @@
 }
 .required-inVisible {
 	display: none;
+}
+input ~ section .show-password {
+	color: rgba(0, 0, 0, 0.2);
+}
+input:focus ~ section .show-password, 
+input ~ section .show-password:hover, 
+section .show-password:focus {
+	color: rgba(0, 0, 0, 1) !important;
 }

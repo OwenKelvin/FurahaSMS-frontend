@@ -5,6 +5,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { supportStaffFeatureKey, reducer } from '../../store/reducers/support-staff.reducer';
 
 describe('ViewSupportStaffComponent', () => {
   let component: ViewSupportStaffComponent;
@@ -21,7 +23,9 @@ describe('ViewSupportStaffComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        HttpClientTestingModule
+        StoreModule.forFeature(supportStaffFeatureKey, reducer),
+        HttpClientTestingModule,
+        AppLoadingBubbleModule
       ],
       declarations: [ViewSupportStaffComponent],
       providers: [reducerProvider],

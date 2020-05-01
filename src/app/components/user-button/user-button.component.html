@@ -1,10 +1,10 @@
-<ul class='nav'>
-  <li class='nav-item dropdown'>
+<ul class='nav' *ngIf='user$ | async as user'>
+  <li class='nav-item dropdown bg-dark'>
     <a class='nav-link dropdown-toggle' href='#' id='navbarDropdown' role='button' data-toggle='dropdown'
       aria-haspopup='true' aria-expanded='false'>
-      info@furahacapital.com
+      {{ user.firstName }} {{ user.lastName }}
     </a>
-    <div class='dropdown-menu dropdown-menu-right' aria-label='User Profile'>
+    <div class='dropdown-menu dropdown-menu-right bg-dark' aria-label='User Profile'>
       <a class='dropdown-item' routerLink='/my-profile'><span class='icon-user'>My Profile</span></a>
       <div class='dropdown-divider'></div>
       <a class='dropdown-item' (click)='logout()'><span class='icon-logout-2'></span>Log Out</a>

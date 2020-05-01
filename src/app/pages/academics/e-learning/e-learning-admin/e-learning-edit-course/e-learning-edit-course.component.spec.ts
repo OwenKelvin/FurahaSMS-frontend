@@ -12,6 +12,7 @@ import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { academicsFeatureKey, reducers } from '../../../store/reducers';
 
 describe('ELearningEditCourseComponent', () => {
   let component: ELearningEditCourseComponent;
@@ -34,7 +35,8 @@ describe('ELearningEditCourseComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        StoreModule.forFeature(academicsFeatureKey, reducers)
       ],
       declarations: [ELearningEditCourseComponent],
       providers: [

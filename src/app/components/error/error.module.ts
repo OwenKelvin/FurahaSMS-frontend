@@ -21,6 +21,9 @@ import { PageNotFoundComponent } from '../page-not-found/page-not-found.componen
 
 
   ],
-  exports: [ErrorComponent, NetworkErrorComponent, PageUnderMaintenanceComponent]
+  exports: [
+    ErrorComponent,
+    NetworkErrorComponent,
+    PageUnderMaintenanceComponent]
 })
 export class ErrorModule { }
