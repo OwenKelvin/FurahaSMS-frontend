@@ -1,0 +1,26 @@
+<button 
+  type="button"
+  title="BarCode Scanner"
+  aria-label="Bar Code Scanner"
+  *ngIf='showOpenScannerButton' (click)='openModal(template)' class="btn btn-primary">
+  <span class="icon-camera"></span>
+</button>
+<ng-template #template>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">BarCode Scanner</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <section class="container">
+    <div class="card m-2 p-2">
+      Attempting ... {{ attempt }}
+    </div>
+    <div id="scanner-container"></div>
+  </section>
+
+  <div class="modal-footer bg-dark">
+    <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
+  </div>
+
+</ng-template>

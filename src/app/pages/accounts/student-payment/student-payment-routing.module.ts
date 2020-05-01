@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { StudentPaymentComponent } from './student-payment.component';
 import { StudentPaymentStatementComponent } from './student-payment-statement/student-payment-statement.component';
+import { StudentPaymentFeeStructureComponent } from './student-payment-fee-structure/student-payment-fee-structure.component';
 
 
 const routes: Routes = [
@@ -16,6 +17,10 @@ const routes: Routes = [
       breadcrumb: 'Student'
     },
     children: [
+      {
+        path: ':id/fee-structure',
+        component: StudentPaymentFeeStructureComponent
+      },
       {
         path: ':id',
         data: {

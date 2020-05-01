@@ -1,10 +1,107 @@
-<h1>Student Fee</h1>
+<h1 class="d-print-none">Student Fee</h1>
 
 <div>
   <tabset>
     <tab heading="Fee Payment Statement">
-      <app-new-payment-receipt></app-new-payment-receipt>
-      Under Construction
+      <table class="table table-dark">
+        <thead>
+          <tr>
+            <th>Academic Year</th>
+            <th></th>
+            <th colspan="3">Semester/ Term</th>
+            <th>TOTAL</th>
+          </tr>
+        </thead>
+        <tbody>
+          <ng-container *ngIf='feeStatement$ | async as statement; else loading'>
+            <tr>
+              <td></td>
+              <td></td>
+              <td class="aquamarine" *ngFor='let sem of semesters'><strong>{{ sem.semesterName }}</strong></td>
+              <td class="aquamarine"><strong>KES</strong></td>
+              <td class="aquamarine"><strong>KES</strong></td>
+            
+            </tr>
+
+            <ng-container *ngFor='let academicYear of academicYears'>
+              <tr>
+              
+                <td class="aquamarine" colspan="2">{{ academicYear.academicYearName }}, {{ academicYear.classLevelName }}</td>
+                <td *ngFor='let sem of semesters'>
+                  {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId,null,sem.semesterId) + getCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId) | currency: ' ' }}
+                </td>
+                <td></td>
+                <td>
+                  {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId) + getTotalClassLevelFees(academicYear.academicYearId, academicYear.classLevelId) | currency: ' ' }}
+                </td>
+              </tr>
+            </ng-container>
+            <tr>
+            
+              <td colspan="6"><strong>TOTAL FEES</strong></td>
+              <td>
+                <strong>{{ totalCost | currency: ' ' }}</strong>
+              </td>
+            
+            </tr>
+            <tr>
+              <td colspan="7"></td>
+            </tr>
+            <tr>
+              <td class="aquamarine">Payment ID</td>
+              <td class="aquamarine">Payment Date</td>
+              <td class="aquamarine">Payment Method</td>
+              <td class="aquamarine">Payment Particulars</td>
+              <td [attr.colspan]='semesters?.length - 2'></td>
+              <td class="aquamarine"><strong>KES</strong></td>
+              <td class="aquamarine"><strong>KES</strong></td>
+            
+            </tr>
+            <tr *ngFor='let payment of statement.payments'>
+              <td>
+                {{ payment.id}}
+              </td>
+              <td>
+                {{ payment.transaction_date}}
+              </td>
+              <td>
+                {{ payment.payment_method_name }}
+              </td>
+              <td>
+                {{ payment.ref }}
+              </td>
+              <td [attr.colspan]='semesters?.length - 2'></td>
+              <td colspan="2">
+                {{ payment.amount }}
+              </td>
+            </tr>
+            <tr>
+              <td colspan="5"><strong>TOTAL PAYMENT RECEIPTS</strong></td>
+              <td>{{ totalFeePayments| currency: ' ' }}</td>
+              <td><strong>{{ totalFeePayments| currency: ' ' }}</strong></td>
+            </tr>
+            <tr>
+              <td colspan="7"></td>
+            </tr>
+            <tr>
+              <td colspan="6"><strong>PAYMENT DUE</strong></td>
+              <td><strong>{{ totalCost - totalFeePayments | currency: ' ' }}</strong></td>
+            </tr>
+            <tr>
+              <td colspan="7"></td>
+            </tr>
+            
+          </ng-container>
+          <ng-template #loading>
+            <tr>
+              <td colspan="7">
+                <app-loading-bubble></app-loading-bubble>
+              </td>
+            </tr>
+          </ng-template>
+        </tbody>
+      </table>
+
     </tab>
     <tab heading="Fee Structure" id="tab1">
       <app-student-payment-fee-structure>
@@ -14,4 +111,4 @@
       <app-new-payment-receipt></app-new-payment-receipt>
     </tab>
   </tabset>
-</div>  
+</div>
