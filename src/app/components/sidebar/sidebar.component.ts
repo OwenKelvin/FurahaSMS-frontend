@@ -25,7 +25,7 @@ export class SidebarComponent implements OnInit {
     this.isMenuClosed$.subscribe(isMenuClosed => {
       this.isMenuClosed = isMenuClosed;
     });
-    this.listItems$ = this.linkService.getDashboardLinks();
+    this.listItems$ = this.linkService.dashboardLinks;
   }
   toggleMenu(): void {
     if (this.isMenuClosed) {

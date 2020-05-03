@@ -1,14 +1,120 @@
 import { Injectable } from '@angular/core';
 import { LinkInterface } from './../interfaces/link.interface';
-import { Observable, of, zip } from 'rxjs';
+import { Observable, of, zip, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { Store, select } from '@ngrx/store';
+import { selectMyPermissions } from '../pages/my-profile/store/selectors/my-profile.selectors';
+
 
 @Injectable({
   providedIn: 'root'
 })
 export class LinkService {
+  myPermissions$ = this.store.pipe(select(selectMyPermissions));
+  filerAllowed = (links: LinkInterface[]): Observable<LinkInterface[]> =>
+    combineLatest([this.myPermissions$, of(links)]).pipe(
+      map(([myPermissions, links]) =>
+        links.filter(link => myPermissions?.some(r => link.permissions?.includes(r)))
+      )
+    );
+  dashboardLinks: Observable<LinkInterface[]> = this.filerAllowed([
+    {
+      name: 'Admissions',
+      icon: 'icon-user-plus',
+      link: 'admissions',
+      permissions: [
+        'view admissions',
+        'access teacher admission',
+        'view student admissions']
+    },
+    {
+      name: 'Library',
+      icon: 'icon-library',
+      link: 'library',
+      permissions: ['edit library book tag',
+        'add library book tag',
+        'add library book',
+        'edit library book',
+        'issue Library book',
+        'mark library book returned',
+        'access library admin',
+        'access library account',
+        'access library']
+    },
+    {
+      name: 'Accounts',
+      icon: 'icon-bank',
+      link: 'accounts',
+      permissions: ['access accounting'],
+    },
+    {
+      name: 'Procuments',
+      icon: 'icon-truck',
+      link: 'procurements',
+      permissions: [
+        'make procurement request',
+        'approve procurement request',
+        'create procurement vendor',
+        'create procurement tender',
+        'create procurement bid'
+      ]
+    },
+    {
+      name: 'Sports',
+      icon: 'icon-tennis',
+      link: 'sports'
+    },
+    {
+      name: 'Management',
+      icon: 'icon-flow-tree',
+      link: 'school-management'
+    },
+    {
+      name: 'Time Table',
+      icon: 'icon-clock',
+      link: 'time-table'
+    },
+    {
+      name: 'Academics',
+      icon: 'icon-book',
+      link: 'academics',
+      permissions: [
+        "access student academic reports",
+        "upload curriculum content",
+        "update curriculum content",
+        "access academics",
+        "view subject curriculum",
+        "edit subject curriculum",
+        "create subject curriculum",
+        "access curriculum management",
+        "view academic year",
+        "create academic year",
+        "access academic year",
+        "access academic year management",
+        "update curriculum system",
+        "create curriculum system",
+        "create e-learning course"]
+    },
+    {
+      name: 'Roles & Permissions',
+      icon: 'icon-block',
+      link: 'roles-and-permissions',
+      permissions: ['assign role', 'change role permissions']
+    },
+    {
+      name: 'Reports',
+      icon: 'icon-doc-text-inv',
+      link: 'reports',
+      permissions: [
+        'view student scores reports',
+        'access student academic reports',
+        'access student list report',
+        'access reports'
+      ]
+    }
+  ]);
 
-  constructor() { }
+  constructor(private store: Store) { }
   getLinks({ type, id }: any): Observable<LinkInterface[]> {
     switch (type) {
       case 'academics':
@@ -40,12 +146,12 @@ export class LinkService {
       case 'accounts':
         return this.accountsLinks;
       default:
-        return this.getDashboardLinks();
+        return this.dashboardLinks;
     }
   }
 
   get accountsLinks(): Observable<any> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Financial Plan',
         icon: 'icon-edit-1',
@@ -65,7 +171,7 @@ export class LinkService {
   }
 
   get examBankLinks(): Observable<any> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Past Exams',
         icon: 'icon-folder-open',
@@ -79,8 +185,8 @@ export class LinkService {
     ]);
   }
 
-  getLibraryAdminBooksLinks(): Observable<LinkInterface[]>  {
-    return of([
+  getLibraryAdminBooksLinks(): Observable<LinkInterface[]> {
+    return this.filerAllowed([
       {
         name: 'Add Library Book',
         icon: 'icon-plus-squared',
@@ -88,8 +194,8 @@ export class LinkService {
       },
     ]);
   }
-  getLibraryAdminUsersLinks(): Observable<LinkInterface[]>  {
-    return of([
+  getLibraryAdminUsersLinks(): Observable<LinkInterface[]> {
+    return this.filerAllowed([
       {
         name: 'Add Library User',
         icon: 'icon-user-plus',
@@ -99,7 +205,7 @@ export class LinkService {
   }
 
   getProcurementLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'My Requests',
         icon: 'icon-user',
@@ -139,7 +245,7 @@ export class LinkService {
     ]);
   }
   getLibraryAdminLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Users Management',
         icon: 'icon-users-1',
@@ -168,7 +274,7 @@ export class LinkService {
     ]);
   }
   getAcademicCurriculumLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Subject Categories',
         icon: 'icon-docs',
@@ -197,7 +303,7 @@ export class LinkService {
     ]);
   }
   getLibraryLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Search Catalogue',
         icon: 'icon-search',
@@ -214,109 +320,61 @@ export class LinkService {
     ]);
   }
   getAdmissionsLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Student Admissions',
         icon: 'icon-user-plus',
-        link: 'admissions/students'
+        link: 'admissions/students',
+        permissions: ['create student', 'update student']
       },
       {
         name: 'Teaching Staff Admissions',
         icon: 'icon-user-plus',
-        link: 'admissions/staff/teachers'
+        link: 'admissions/staff/teachers',
+        permissions: ['create teacher', 'update teacher']
       },
       {
         name: 'Support Staff Admissions',
         icon: 'icon-user-plus',
-        link: 'admissions/staff/support'
+        link: 'admissions/staff/support',
+        permissions: ['create support staff']
       }
     ]);
   }
   getStudentAdmissionsLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'New Student',
         icon: 'icon-user-plus',
-        link: 'admissions/students/create'
+        link: 'admissions/students/create',
+        permissions: ['create student']
       },
       {
         name: 'Edit Student Details',
         icon: 'icon-user-plus',
-        link: 'admissions/students/edit'
+        link: 'admissions/students/edit',
+        permissions: ['update student']
       }
     ]);
   }
   getTeachingStaffAdmissionsLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'New Teaching Staff',
         icon: 'icon-user-plus',
-        link: 'admissions/staff/teachers/create'
+        link: 'admissions/staff/teachers/create',
+        permissions: ['create teacher']
       },
       {
         name: 'Edit Student Details',
         icon: 'icon-pencil-1',
-        link: 'admissions/staff/teachers/edit'
-      }
-    ]);
-  }
-  getDashboardLinks(): Observable<LinkInterface[]> {
-    return of([
-      {
-        name: 'Admissions',
-        icon: 'icon-user-plus',
-        link: 'admissions',
-        permissions: ['view admissions', 'access teacher admission', 'view student admissions']
-      },
-      {
-        name: 'Library',
-        icon: 'icon-library',
-        link: 'library'
-      },
-      {
-        name: 'Accounts',
-        icon: 'icon-bank',
-        link: 'accounts'
-      },
-      {
-        name: 'Procuments',
-        icon: 'icon-truck',
-        link: 'procurements'
-      },
-      {
-        name: 'Sports',
-        icon: 'icon-tennis',
-        link: 'sports'
-      },
-      {
-        name: 'Management',
-        icon: 'icon-flow-tree',
-        link: 'school-management'
-      },
-      {
-        name: 'Time Table',
-        icon: 'icon-clock',
-        link: 'time-table'
-      },
-      {
-        name: 'Academics',
-        icon: 'icon-book',
-        link: 'academics'
-      },
-      {
-        name: 'Roles & Permissions',
-        icon: 'icon-block',
-        link: 'roles-and-permissions'
-      },
-      {
-        name: 'Reports',
-        icon: 'icon-doc-text-inv',
-        link: 'reports'
+        link: 'admissions/staff/teachers/edit',
+        permissions: ['update teacher']
       }
     ]);
   }
   getAcademicsLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Academic Year',
         icon: 'icon-calendar',
@@ -345,7 +403,7 @@ export class LinkService {
     ]);
   }
   getAcademicYearsLinks(): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Create New',
         icon: 'icon-folder-open',
@@ -364,7 +422,7 @@ export class LinkService {
     ]);
   }
   getAcademicYearLinks($id: number): Observable<LinkInterface[]> {
-    return of([
+    return this.filerAllowed([
       {
         name: 'Financial Plan',
         icon: 'icon-dollar',
@@ -378,11 +436,10 @@ export class LinkService {
     ]);
   }
   getAllLinks(): Observable<LinkInterface[]> {
-    // const $forkJoined = forkJoin([this.getAdmissionsLinks(), this.getDashboardLinks()]);
-    // return $forkJoined;
+
     return zip(
       this.getAdmissionsLinks(),
-      this.getDashboardLinks(),
+      this.dashboardLinks,
       this.getAcademicYearsLinks(),
       this.getAdmissionsLinks(),
       this.getAcademicsLinks(),
