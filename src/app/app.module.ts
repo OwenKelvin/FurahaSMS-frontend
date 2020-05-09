@@ -21,6 +21,7 @@ import * as fromApp from './store/reducers/app.reducer';
 import { GenderEffects } from './store/effects/gender.effects';
 import { ReligionEffects } from './store/effects/religion.effects';
 import { ResMessageInterceptor } from './interceptors/res-message.interceptor';
+import { NetworkLoadingInterceptor, NetworkLoadingModule } from './shared/network-loading';
 
 @NgModule({
   declarations: [
@@ -49,10 +50,12 @@ import { ResMessageInterceptor } from './interceptors/res-message.interceptor';
       metaReducers: fromApp.appMetaReducers
     }),
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
+    NetworkLoadingModule
 
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },
+    { provide: HTTP_INTERCEPTORS, useClass: NetworkLoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: APIInterceptor, multi: true },

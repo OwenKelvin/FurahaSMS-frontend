@@ -111,10 +111,7 @@ export class AuthenticationService {
     localStorage.removeItem('currentUser');
     sessionStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
-    return this.revokeToken();
+    return this.revokeToken;
   }
-  revokeToken(): Observable<any> {
-    // TODO-me Authentication Service send request to invalidate token
-    return of(true);
-  }
+  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
 }
