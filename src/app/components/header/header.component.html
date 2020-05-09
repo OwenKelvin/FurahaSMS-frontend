@@ -1,30 +1,29 @@
-<nav class='navbar navbar-expand-lg navbar-dark bg-dark'>
-  <button
-    aria-live="polite"
-    [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'
-    (click)='toggleMenu()'
-    class='btn btn-secondary hidden-sm'
-    id='menu-toggle'>Menu<span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
-    <i [class]='isMenuClosed ? "icon-indent-right": "icon-indent-left"'></i></button>
-  <span *ngIf='!isMenuClosed' class="hidden-sm-up">&nbsp;</span>
-  <button
-    [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'
-    *ngIf='isMenuClosed'
-    (click)='toggleMenu()'
-    class="hidden-sm-up btn btn-secondary"
-    type="button">
-          <span class="icon-indent-left"></span>
-          <span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
-  </button>
-  <button aria-label='Toggle Menu' class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
-  <div class='collapse navbar-collapse' id='navbarSupportedContent'>
-    <section class='navbar-nav ml-auto mt-2 mt-lg-0'>
-      <app-menu-search></app-menu-search>
-      <app-user-button></app-user-button>
-    </section>
-  </div>
+<nav class='bg-dark d-flex justify-content-between flex-wrap'>
+  <section class="col-2 col-sm-2 col-md-2 col-lg-2 col-xl-2 p-0">
+    <button aria-live="polite" [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"'
+      (click)='toggleMenu()' class='btn btn-sm btn-secondary hidden-sm mt-1 ml-1' id='menu-toggle'>Menu<span
+        class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
+      <i [class]='isMenuClosed ? "icon-indent-right": "icon-indent-left"'></i></button>
+    <span *ngIf='!isMenuClosed' class="hidden-sm-up">&nbsp;</span>
+    <button [attr.aria-label]='isMenuClosed ? "Open sidebar menu": "close side bar menu"' *ngIf='isMenuClosed'
+      (click)='toggleMenu()' class="hidden-sm-up btn-sm btn btn-secondary mt-1 ml-1" type="button">
+      <span class="icon-indent-left"></span>
+      <span class="sr-only">{{ isMenuClosed ? "Side Menu closed": "side menu opened" }}</span>
+    </button>
+  </section>
+  <section class="col-10 col-sm-9 col-md-10 col-lg-10 text-right">
+    <button *ngIf='isSmallDevice$ | async' type="button" class="btn btn-secondary btn-sm mr-2 mt-1"
+      (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><span
+        class="icon-align-justify"></span>
+    </button>
+    <div style="position: relative;" class="d-flex justify-content-end flex-wrap">
+      <div *ngIf='isSmallDevice$ | async' id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+        <app-header-collapse></app-header-collapse>
+      </div>
+      <div *ngIf='(isSmallDevice$ | async) === false'>
+        <app-header-collapse></app-header-collapse>
+      </div>
+    </div>
+  </section>
 </nav>
-
 <app-breadcrumb></app-breadcrumb>

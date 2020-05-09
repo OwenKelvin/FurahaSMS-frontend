@@ -1,6 +1,6 @@
-import { Component, OnDestroy } from '@angular/core';
+import { Component } from '@angular/core';
 import { Store } from '@ngrx/store';
-import * as fromStore from '../../store/reducers';
+import * as fromStore from 'src/app/store/reducers';
 import { myProfileLogout } from 'src/app/pages/my-profile/store/actions/my-profile.actions';
 
 @Component({
@@ -8,9 +8,7 @@ import { myProfileLogout } from 'src/app/pages/my-profile/store/actions/my-profi
   templateUrl: './logout-button.component.html',
   styleUrls: ['./logout-button.component.css']
 })
-export class LogoutButtonComponent implements OnDestroy {
-
-  componentIsActive = true;
+export class LogoutButtonComponent {
 
   constructor(
     private store: Store<fromStore.AppState>) { }
@@ -21,7 +19,5 @@ export class LogoutButtonComponent implements OnDestroy {
       this.store.dispatch(myProfileLogout());
     }
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
+
 }

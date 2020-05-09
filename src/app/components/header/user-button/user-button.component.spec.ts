@@ -1,14 +1,14 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { BreadcrumbComponent } from './breadcrumb.component';
+import { UserButtonComponent } from './user-button.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('BreadcrumbComponent', () => {
-  let component: BreadcrumbComponent;
-  let fixture: ComponentFixture<BreadcrumbComponent>;
+describe('UserButtonComponent', () => {
+  let component: UserButtonComponent;
+  let fixture: ComponentFixture<UserButtonComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
@@ -21,9 +21,9 @@ describe('BreadcrumbComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        HttpClientTestingModule, RouterTestingModule
-      ],
-      declarations: [BreadcrumbComponent, BreadcrumbComponent],
+        HttpClientTestingModule,
+        RouterTestingModule],
+      declarations: [UserButtonComponent],
       providers: [reducerProvider]
     });
 
@@ -31,7 +31,7 @@ describe('BreadcrumbComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(BreadcrumbComponent);
+    fixture = TestBed.createComponent(UserButtonComponent);
     component = fixture.componentInstance;
     store = TestBed.inject<Store<AppState>>(Store);
 

@@ -1,26 +1,30 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UserButtonComponent } from './user-button.component';
+import { MenuSearchComponent } from './menu-search.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 
-describe('UserButtonComponent', () => {
-  let component: UserButtonComponent;
-  let fixture: ComponentFixture<UserButtonComponent>;
+describe('MenuSearchComponent', () => {
+  let component: MenuSearchComponent;
+  let fixture: ComponentFixture<MenuSearchComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), HttpClientTestingModule, RouterTestingModule ],
-      declarations: [UserButtonComponent],
+        }),
+        ReactiveFormsModule,
+        FormsModule,
+        RouterTestingModule],
+      declarations: [MenuSearchComponent],
       providers: [reducerProvider]
     });
 
@@ -28,7 +32,7 @@ describe('UserButtonComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(UserButtonComponent);
+    fixture = TestBed.createComponent(MenuSearchComponent);
     component = fixture.componentInstance;
     store = TestBed.inject<Store<AppState>>(Store);
 
