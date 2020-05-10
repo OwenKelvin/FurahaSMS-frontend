@@ -16,7 +16,7 @@ import { selectShowMenu } from 'src/app/store/selectors/menu-toggle.selector';
 export class HeaderComponent implements OnInit {
   isMenuClosed$: Observable<boolean>;
   isMenuClosed: boolean;
-  isCollapsed: boolean = true;
+  isCollapsed = true;
   isSmallDevice$: Observable<boolean> = this.breakpointObserver
     .observe([Breakpoints.XSmall, Breakpoints.Small])
     .pipe(

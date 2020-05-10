@@ -9,6 +9,9 @@ import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { HeaderCollapseComponent } from './header-collapse/header-collapse.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -28,13 +31,19 @@ describe('HeaderComponent', () => {
           strictStateImmutability: true,
           strictActionImmutability: true,
         }
-      }),  ],
+        }),
+        CollapseModule.forRoot(),
+        BrowserAnimationsModule
+      ],
       declarations: [
         HeaderComponent,
         MenuSearchComponent,
         UserButtonComponent,
         UserButtonComponent,
-        BreadcrumbComponent],
+        BreadcrumbComponent,
+        HeaderCollapseComponent,
+
+      ],
       providers: [reducerProvider]
     });
 

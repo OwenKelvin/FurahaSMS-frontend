@@ -53,6 +53,7 @@ export class AuthenticationService {
   }
   private currentUserSubject: BehaviorSubject<UserInterface | null>;
   public currentUser: Observable<UserInterface | null>;
+  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
   changePassword(data: any) {
     const submitData = {
       token: data.token,
@@ -113,5 +114,4 @@ export class AuthenticationService {
     this.currentUserSubject.next(null);
     return this.revokeToken;
   }
-  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
 }

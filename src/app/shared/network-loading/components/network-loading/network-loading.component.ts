@@ -7,7 +7,7 @@ import { NetworkLoadingService } from '../../services/network-loading.service';
   styleUrls: ['./network-loading.component.less']
 })
 export class NetworkLoadingComponent implements OnInit {
-  
+
   isLoading$ = this.networkLoadingService.isLoadingSubject$.asObservable();
 
   constructor(

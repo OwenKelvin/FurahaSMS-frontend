@@ -11,27 +11,27 @@ import { takeWhile, tap, finalize } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserButtonComponent {
+  constructor(
+    private eRef: ElementRef,
+    private myProfileService: MyProfileService
+  ) { }
   @ViewChild('dropdown') dropDownMenu: ElementRef;
-  @HostListener('document:click', ['$event']) 
+  isCollapsed = false;
+  isCollapsedSubject$ = new BehaviorSubject<boolean>(false);
+  isCollapsedAction$ = this.isCollapsedSubject$.asObservable();
+
+  user$ = this.myProfileService.loadMyProfile$;
+  @HostListener('document:click', ['$event'])
   clicked(event: any) {
     if (this.isCollapsed && !this.eRef.nativeElement.contains(event.target)) {
       this.toggleMenu();
     }
   }
-  isCollapsed: boolean = false;
-  isCollapsedSubject$ = new BehaviorSubject<boolean>(false);
-  isCollapsedAction$ = this.isCollapsedSubject$.asObservable();
   menuAnimator: () =>
     Observable<number> = () => timer(100, 10);
-  constructor(
-    private eRef: ElementRef,
-    private myProfileService: MyProfileService
-  ) { }
-
-  user$ = this.myProfileService.loadMyProfile$;
 
   toggleMenu() {
-    const dropDownElement = <HTMLDivElement>this.dropDownMenu.nativeElement;
+    const dropDownElement = this.dropDownMenu.nativeElement as HTMLDivElement;
     if (!this.isCollapsed) { dropDownElement.style.opacity = '0'; }
     this.isCollapsedSubject$.next(!this.isCollapsed);
     combineLatest([

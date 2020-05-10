@@ -4,6 +4,7 @@ import { AppComponent } from './app.component';
 import { ToastComponent } from './components/toast/toast.component';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from './store/reducers';
+import { NetworkLoadingModule } from './shared/network-loading';
 
 describe('AppComponent', () => {
   beforeEach(async(() => {
@@ -16,7 +17,8 @@ describe('AppComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        RouterTestingModule
+        RouterTestingModule,
+        NetworkLoadingModule
       ],
       declarations: [
         AppComponent, ToastComponent

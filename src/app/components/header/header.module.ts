@@ -11,7 +11,7 @@ import { HeaderCollapseComponent } from './header-collapse/header-collapse.compo
 import { CollapseModule } from 'ngx-bootstrap/collapse';
 
 @NgModule({
-  declarations: [ 
+  declarations: [
     HeaderComponent,
     BreadcrumbComponent,
     MenuSearchComponent,

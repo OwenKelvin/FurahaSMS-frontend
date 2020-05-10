@@ -1,33 +1,34 @@
 import { createSelector } from '@ngrx/store';
 import { selectAppState } from './app.selectors';
 import { permissionsFeatureKey } from '../reducers/permissions.reducer';
+import { LinkInterface } from 'src/app/interfaces/link.interface';
 
 export const selectAppPermissionsState = createSelector(
-  selectAppState, 
-  state => state[permissionsFeatureKey]
+  selectAppState,
+  state => state ? state[permissionsFeatureKey] : { }
 );
 
 export const selectDashdoardLinks = createSelector(
-  selectAppPermissionsState, 
+  selectAppPermissionsState,
   state => state.dashboard
 );
 
 export const selectAccountsLinks = createSelector(
-  selectAppPermissionsState, 
+  selectAppPermissionsState,
   state => state.accounts
 );
 
 export const selectexamBankLinks = createSelector(
-  selectAppPermissionsState, 
+  selectAppPermissionsState,
   state => state.examBank
 );
 
 export const selectLibraryAdminBooksLinks = createSelector(
-  selectAppPermissionsState, 
+  selectAppPermissionsState,
   state => state.libraryAdminBooks
 );
 export const selectAcademicsLinks = createSelector(
-  selectAppPermissionsState, 
+  selectAppPermissionsState,
   state => state.academics
 );
 
@@ -84,5 +85,10 @@ export const selectTimeTableLinks = createSelector(
 export const rolesAndPermissionsLinks = createSelector(
   selectAppPermissionsState,
   state => state.rolesAndPermissions
+);
+
+export const allLinks = createSelector(
+  selectAppPermissionsState,
+  state => Object.values(state).reduce((a, b) => ([...a, ...b]), [])
 );
 

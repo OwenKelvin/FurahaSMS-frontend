@@ -71,21 +71,21 @@ export const initialState: State = {
       icon: 'icon-book',
       link: 'academics',
       permissions: [
-        "access student academic reports",
-        "upload curriculum content",
-        "update curriculum content",
-        "access academics",
-        "view subject curriculum",
-        "edit subject curriculum",
-        "create subject curriculum",
-        "access curriculum management",
-        "view academic year",
-        "create academic year",
-        "access academic year",
-        "access academic year management",
-        "update curriculum system",
-        "create curriculum system",
-        "create e-learning course"]
+        'access student academic reports',
+        'upload curriculum content',
+        'update curriculum content',
+        'access academics',
+        'view subject curriculum',
+        'edit subject curriculum',
+        'create subject curriculum',
+        'access curriculum management',
+        'view academic year',
+        'create academic year',
+        'access academic year',
+        'access academic year management',
+        'update curriculum system',
+        'create curriculum system',
+        'create e-learning course']
     },
     {
       name: 'Roles & Permissions',
@@ -373,7 +373,7 @@ export const initialState: State = {
       link: `academics/academic-year/:id/units`
     },
   ],
-  
+
   timeTable: [
     { name: 'My Schedules', icon: 'icon-user-circle-o', link: 'time-table/my-schedules' },
     { name: 'Admin', icon: 'icon-user-secret', link: 'time-table/admin' },

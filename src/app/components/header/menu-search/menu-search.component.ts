@@ -1,46 +1,60 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, Subject, combineLatest } from 'rxjs';
 
 import { FormGroup, FormBuilder, FormControl } from '@angular/forms';
-import { AppState } from 'src/app/store/reducers';
 import { LinkService } from '../../../services/link.service';
 import { LinkInterface } from 'src/app/interfaces/link.interface';
+import { filter, tap, map, takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-menu-search',
   templateUrl: './menu-search.component.html',
   styleUrls: ['./menu-search.component.css']
 })
-export class MenuSearchComponent implements OnInit {
-  listItems$: Observable<LinkInterface[]>;
-  listItems: LinkInterface[];
-  searchForm: FormGroup;
+export class MenuSearchComponent implements OnInit, OnDestroy {
+  searchForm: FormGroup = this.fb.group({
+    search: ['']
+  });
+  listItems$: Observable<LinkInterface[]> = this.linkService.allLinks;
+  searchSubmittedSubject$ = new Subject<boolean>();
+  searchSubmittedAction$ = this.searchSubmittedSubject$.asObservable();
+  searchValueChanges = this.search.valueChanges.pipe(filter((search) => search.length > 0));
+  componentIsActive: boolean = true;
+
   constructor(
-    private store: Store<AppState>,
     private fb: FormBuilder,
     private linkService: LinkService,
     private router: Router
   ) { }
 
   ngOnInit() {
-    this.searchForm = this.fb.group({
-      search: ['']
-    });
-    this.listItems$ = this.linkService.getAllLinks();
-
-    this.listItems$.subscribe(items => (this.listItems = items));
+    combineLatest([
+      this.listItems$,
+      this.searchValueChanges,
+      this.searchSubmittedAction$
+    ]).pipe(
+      filter(([_links, _search, submitted]) => submitted),
+      map(([links, search]) => links.filter(item => item.name === search)),
+      tap((links) => {
+        if (links.length > 0) {
+          this.router.navigate([`/${links[0].link}`]);
+        }
+      }),
+      tap(() => this.searchSubmittedSubject$.next(false)),
+      tap(() => this.search.setValue('')),
+      takeWhile(() => this.componentIsActive)
+    ).subscribe()
   }
   get search(): FormControl {
     return this.searchForm.get('search') as FormControl;
   }
   submitSearchForm() {
-    const matched = this.listItems.filter(item => item.name === this.search.value);
-    this.search.setValue('');
-    if (matched.length > 0) {
-      this.router.navigate([`/${matched[0].link}`]);
-    }
+    this.searchSubmittedSubject$.next(true);
+  }
+  
+  ngOnDestroy() {
+    this.componentIsActive = false;
   }
 
 }

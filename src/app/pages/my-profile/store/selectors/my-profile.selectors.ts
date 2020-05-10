@@ -8,10 +8,10 @@ export const selectMyProfileState = createFeatureSelector<IUserProfile>(
 
 export const selectMyPermissions = createSelector(
   selectMyProfileState,
-  profile => profile.permissions
+  profile => profile?.permissions
 );
 
 export const selectMyRoles = createSelector(
   selectMyProfileState,
-  profile => profile.roles
+  profile => profile?.roles
 );

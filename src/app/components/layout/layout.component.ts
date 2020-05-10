@@ -22,7 +22,7 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.isMenuOpen$ = this.store.select(selectShowMenu);
   }
-  
+
   getState(outlet: RouterOutlet) {
     return outlet.component;
   }

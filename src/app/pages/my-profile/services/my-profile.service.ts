@@ -18,11 +18,11 @@ export class MyProfileService {
     select(selectMyProfileState),
     tap((profile) => {
       if (profile && profile.id === 0) {
-        this.store.dispatch(loadMyProfiles()) 
+        this.store.dispatch(loadMyProfiles())
       }
     })
   )
-  
+
   loadMyPermissions$ = this.store.pipe(
     select(selectMyPermissions)
   )

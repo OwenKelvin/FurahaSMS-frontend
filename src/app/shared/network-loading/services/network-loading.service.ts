@@ -5,9 +5,9 @@ import { Subject } from 'rxjs';
   providedIn: 'root'
 })
 export class NetworkLoadingService {
-  
+
   isLoadingSubject$ = new Subject<boolean>();
-  
+
   show = () => this.isLoadingSubject$.next(true);
   hide = () => this.isLoadingSubject$.next(false);
 
