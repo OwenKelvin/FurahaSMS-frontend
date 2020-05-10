@@ -8,13 +8,14 @@
     <app-error></app-error>
     <!-- <app-network-error></app-network-error> -->
     <div tabindex="0" class='container-fluid' id="main">
-      <button
-        (click)='closeFullScreenMode()' 
-        class="escape-fullsreen icon-resize-small btn text-light"><span class="sr-only">Exit Full Screen</span></button>
-      <router-outlet></router-outlet>
+      <button (click)='closeFullScreenMode()' class="escape-fullsreen icon-resize-small btn text-light"><span
+          class="sr-only">Exit Full Screen</span></button>
+      <div [@routerTransition]="getState(o)">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
     </div>
   </div>
   <!-- /#page-content-wrapper -->
-  
+
 </div>
 <app-footer></app-footer>
