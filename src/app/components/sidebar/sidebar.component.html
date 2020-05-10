@@ -2,40 +2,30 @@
 <div class='bg-dark' id='sidebar-wrapper'>
   <div class='sidebar-heading d-flex justify-content-between'>
     Furaha SMS
-    <button
-    aria-label='Close Menu Bar'
-    (click)='toggleMenu()'
-    class='hidden-sm-up btn btn-secondary'
-    type='button'>
-          <span class='icon-indent-right'></span>
+    <button aria-label='Close Menu Bar' (click)='toggleMenu()' class='hidden-sm-up btn btn-secondary' type='button'>
+      <span class='icon-indent-right'></span>
     </button>
 
   </div>
   <div class='list-group list-group-flush'>
   </div>
   <div role='menu' id='accordion' class='list-group list-group-flush'>
-    <a routerLink='/dashboard'
-      class='list-group-item list-group-item-action bg-dark' routerLinkActive='activated'>Dashboard</a>
+    <a  (click)='handleLinkClick()' routerLink='/dashboard' class='list-group-item list-group-item-action bg-dark'
+      routerLinkActive='activated'>Dashboard</a>
     <ng-container *ngFor='let item of listItems$ | async; let i = index'>
-       <a
-        role='menuitem'
-        [routerLink]='"/" + item.link'
-        routerLinkActive='activated'
-        data-toggle='collapse'
-        
-        [attr.data-target]='"#collapse" + i'
-        class='list-group-item list-group-item-action bg-dark'
-      >
-      <span [class]='item.icon'> {{ item.name }}</span>
-      
-     </a>
+      <a (click)='handleLinkClick()' role='menuitem' [routerLink]='"/" + item.link' routerLinkActive='activated'
+        data-toggle='collapse' [attr.data-target]='"#collapse" + i'
+        class='list-group-item list-group-item-action bg-dark'>
+        <span [class]='item.icon'> {{ item.name }}</span>
+
+      </a>
       <!-- <ul [id]='"collapse" + i' class='collapse'  aria-labelledby='heading1' data-parent='#accordion'>
         <li>SOME CONTENTS HERE </li>
         <li>SOME CONTENTS HERE </li>
         <li>SOME CONTENTS HERE </li>
       </ul> -->
     </ng-container>
-   
+
   </div>
 </div>
-    <!-- /#sidebar-wrapper -->
+<!-- /#sidebar-wrapper -->

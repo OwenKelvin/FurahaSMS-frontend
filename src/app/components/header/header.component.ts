@@ -4,7 +4,7 @@ import { AppState } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
 import { map } from 'rxjs/operators';
-import { loadMenuTogglesSuccess, loadMenuTogglesFailure } from 'src/app/store/actions/menu-toggle.actions';
+import { showMenu, hideMenu } from 'src/app/store/actions/menu-toggle.actions';
 import { selectShowMenu } from 'src/app/store/selectors/menu-toggle.selector';
 
 @Component({
@@ -37,9 +37,9 @@ export class HeaderComponent implements OnInit {
 
   toggleMenu(): void {
     if (this.isMenuClosed) {
-      this.store.dispatch(loadMenuTogglesFailure());
+      this.store.dispatch(hideMenu());
     } else {
-      this.store.dispatch(loadMenuTogglesSuccess());
+      this.store.dispatch(showMenu());
     }
   }
 

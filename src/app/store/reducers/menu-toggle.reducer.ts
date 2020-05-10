@@ -1,5 +1,5 @@
 import { Action, createReducer, on } from '@ngrx/store';
-import { loadMenuTogglesFailure, loadMenuTogglesSuccess } from './../actions/menu-toggle.actions';
+import { hideMenu, showMenu } from './../actions/menu-toggle.actions';
 
 export const menuToggleFeatureKey = 'menuToggle';
 
@@ -13,13 +13,13 @@ export const initialState: MenuStateInterface = {
 
 const menuToggleReducer = createReducer(
   initialState,
-  on(loadMenuTogglesSuccess, state => {
+  on(showMenu, state => {
     return {
       ...state, showMenu : true
     };
 
   }),
-  on(loadMenuTogglesFailure, state => {
+  on(hideMenu, state => {
     return {
       ...state, showMenu : false
     };
