@@ -3,7 +3,7 @@ import { LinkInterface } from './../interfaces/link.interface';
 import { Observable, of, zip, combineLatest } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
-import { selectMyPermissions } from '../pages/my-profile/store/selectors/my-profile.selectors';
+import { selectMyPermissions, selectMyRoles } from '../pages/my-profile/store/selectors/my-profile.selectors';
 
 
 @Injectable({
@@ -11,10 +11,11 @@ import { selectMyPermissions } from '../pages/my-profile/store/selectors/my-prof
 })
 export class LinkService {
   myPermissions$ = this.store.pipe(select(selectMyPermissions));
+  myRoles$ = this.store.pipe(select(selectMyRoles));
   filerAllowed = (links: LinkInterface[]): Observable<LinkInterface[]> =>
-    combineLatest([this.myPermissions$, of(links)]).pipe(
-      map(([myPermissions, links]) =>
-        links.filter(link => myPermissions?.some(r => link.permissions?.includes(r)))
+    combineLatest([this.myPermissions$, this.myRoles$, of(links)]).pipe(
+      map(([myPermissions, myRoles, links]) =>
+        links.filter(link => myRoles?.includes('super admin') || myPermissions?.some(r => link.permissions?.includes(r)))
       )
     );
   dashboardLinks: Observable<LinkInterface[]> = this.filerAllowed([

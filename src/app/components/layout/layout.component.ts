@@ -24,8 +24,7 @@ export class LayoutComponent implements OnInit {
   }
   
   getState(outlet: RouterOutlet) {
-    return outlet.component
-    // return outlet.activatedRouteData.state;
+    return outlet.component;
   }
 
 }

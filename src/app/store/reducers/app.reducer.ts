@@ -1,6 +1,6 @@
 import { ActionReducerMap, MetaReducer } from '@ngrx/store';
 import * as fromEditMode from './edit-mode.reducer';
-
+import * as fromPermissions from './permissions.reducer';
 import * as fromGenders from './gender.reducer';
 import * as fromReligions from './religion.reducer';
 import { InjectionToken } from '@angular/core';
@@ -12,18 +12,21 @@ export interface State {
   [fromGenders.genderFeatureKey]: fromGenders.State;
   [fromReligions.religionFeatureKey]: fromReligions.State;
   [fromEditMode.editModeFeatureKey]: fromEditMode.State;
+  [fromPermissions.permissionsFeatureKey]: fromPermissions.State
 }
 
 export const initialState: State = {
   [fromGenders.genderFeatureKey]: fromGenders.initialState,
   [fromReligions.religionFeatureKey]: fromReligions.initialState,
-  [fromEditMode.editModeFeatureKey]: fromEditMode.initialState
+  [fromEditMode.editModeFeatureKey]: fromEditMode.initialState,
+  [fromPermissions.permissionsFeatureKey]: fromPermissions.initialState
 };
 
 export const reducers: ActionReducerMap<State> = {
   [fromGenders.genderFeatureKey]: fromGenders.reducer,
   [fromReligions.religionFeatureKey]: fromReligions.reducer,
-  [fromEditMode.editModeFeatureKey]: fromEditMode.reducer
+  [fromEditMode.editModeFeatureKey]: fromEditMode.reducer,
+  [fromPermissions.permissionsFeatureKey]: fromPermissions.reducer
 }
 
 export const APP_REDUCER_TOKEN = new InjectionToken<ActionReducerMap<State>>('App Reducers');

@@ -10,3 +10,8 @@ export const selectMyPermissions = createSelector(
   selectMyProfileState,
   profile => profile.permissions
 );
+
+export const selectMyRoles = createSelector(
+  selectMyProfileState,
+  profile => profile.roles
+);
