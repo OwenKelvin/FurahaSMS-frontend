@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LinkInterface } from 'src/app/interfaces/link.interface';
+import { LinkService } from 'src/app/services/link.service';
 
 @Component({
   selector: 'app-academics-curriculum',
   templateUrl: './academics-curriculum.component.html',
   styleUrls: ['./academics-curriculum.component.css']
 })
-export class AcademicsCurriculumComponent implements OnInit {
+export class AcademicsCurriculumComponent {
 
-  constructor(private store: Store<AppState>) { }
-
-  ngOnInit() {
-  }
+  links$: Observable<LinkInterface[]> = this.linkService.academicCurriculumLinks;
+  constructor(private linkService: LinkService) { }
 
 }

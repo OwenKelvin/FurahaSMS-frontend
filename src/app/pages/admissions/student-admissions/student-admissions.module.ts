@@ -11,15 +11,15 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppStarLabelRequiredModule } from 'src/app/modules/app-star-label-required';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppRecentlyCreatedStudent } from './students-recently-created/students-recently-created.module';
+
 
 
 @NgModule({
   declarations: [
     StudentAdmissionsEditComponent,
     StudentSearchComponent,
-
     CreateStudentComponent,
     EditStudentComponent,
     StudentAdmissionComponent,
@@ -32,7 +32,7 @@ import { AppRecentlyCreatedStudent } from './students-recently-created/students-
     ReactiveFormsModule,
     AppInputModule,
     AppStarLabelRequiredModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     AppRecentlyCreatedStudent
   ]
 })

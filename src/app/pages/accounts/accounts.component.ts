@@ -1,17 +1,16 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../store/reducers';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { LinkInterface } from 'src/app/interfaces/link.interface';
+import { LinkService } from 'src/app/services/link.service';
 
 @Component({
   selector: 'app-accounts',
   templateUrl: './accounts.component.html',
   styleUrls: ['./accounts.component.css']
 })
-export class AccountsComponent implements OnInit {
+export class AccountsComponent {
 
-  constructor(private store: Store<fromStore.AppState>) { }
-
-  ngOnInit() {
-  }
+  links$: Observable<LinkInterface[]> = this.linkService.accountsLinks;
+  constructor(private linkService: LinkService) { }
 
 }

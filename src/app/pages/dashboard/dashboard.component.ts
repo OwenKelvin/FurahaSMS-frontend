@@ -1,4 +1,7 @@
 import { Component } from '@angular/core';
+import { LinkService } from 'src/app/services/link.service';
+import { Observable } from 'rxjs';
+import { LinkInterface } from 'src/app/interfaces/link.interface';
 
 @Component({
   selector: 'app-dashboard',
@@ -6,5 +9,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent {
-  constructor() { }
+  links$: Observable<LinkInterface[]> = this.linkService.dashboardLinks;
+  constructor( private linkService: LinkService ) { }
 }

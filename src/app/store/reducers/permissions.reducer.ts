@@ -308,7 +308,7 @@ export const initialState: State = {
       permissions: ['create teacher']
     },
     {
-      name: 'Edit Student Details',
+      name: 'Edit Teacher Details',
       icon: 'icon-pencil-1',
       link: 'admissions/staff/teachers/edit',
       permissions: ['update teacher']
@@ -372,6 +372,15 @@ export const initialState: State = {
       icon: 'icon-user-plus',
       link: `academics/academic-year/:id/units`
     },
+  ],
+  
+  timeTable: [
+    { name: 'My Schedules', icon: 'icon-user-circle-o', link: 'time-table/my-schedules' },
+    { name: 'Admin', icon: 'icon-user-secret', link: 'time-table/admin' },
+  ],
+  rolesAndPermissions: [
+    { name: 'User Roles/ Permissions', icon: 'icon-user-circle-o', link: 'roles-and-permissions/user' },
+    { name: 'Roles & Permissions', icon: 'icon-sliders', link: 'roles-and-permissions/roles' },
   ]
 };
 

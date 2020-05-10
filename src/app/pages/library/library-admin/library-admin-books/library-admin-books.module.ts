@@ -9,9 +9,10 @@ import { AppSelectLibraryClassModule } from '../../modules/select-library-class.
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { LibraryAdminBooksComponent } from './library-admin-books.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { LibraryAdminBooksRoutingModule } from './library-admin-books-routing.module';
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
+
 
 @NgModule({
   declarations: [
@@ -29,7 +30,7 @@ import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     AppBarcodeModule
   ]
 })

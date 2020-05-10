@@ -4,11 +4,12 @@ import { CommonModule } from '@angular/common';
 import { AdmissionsRoutingModule } from './admissions-routing.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { AdmissionsComponent } from './admissions.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AdmissionsEffects } from './store/effects/admissions.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromAdmissions from './store/reducers';
+
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import * as fromAdmissions from './store/reducers';
     CommonModule,
     AdmissionsRoutingModule,
     AppLayoutModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     StoreModule.forFeature(fromAdmissions.admissionsFeatureKey, fromAdmissions.reducers),
     EffectsModule.forFeature([AdmissionsEffects]),
   ]

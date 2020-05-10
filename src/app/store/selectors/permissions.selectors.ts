@@ -75,3 +75,14 @@ export const selectTeachingStaffAdmissionsLinks = createSelector(
   selectAppPermissionsState,
   state => state.teachingStaffAdmissions
 );
+
+export const selectTimeTableLinks = createSelector(
+  selectAppPermissionsState,
+  state => state.timeTable
+);
+
+export const rolesAndPermissionsLinks = createSelector(
+  selectAppPermissionsState,
+  state => state.rolesAndPermissions
+);
+
