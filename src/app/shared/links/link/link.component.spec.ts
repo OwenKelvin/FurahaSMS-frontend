@@ -1,12 +1,12 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { DashboardLinkComponent } from './dashboard-link.component';
+import { LinkComponent } from './link.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
-describe('DashboardLinkComponent', () => {
-  let component: DashboardLinkComponent;
-  let fixture: ComponentFixture<DashboardLinkComponent>;
+describe('LinkComponent', () => {
+  let component: LinkComponent;
+  let fixture: ComponentFixture<LinkComponent>;
   let store: Store<AppState>;
 
   beforeEach(async () => {
@@ -20,7 +20,7 @@ describe('DashboardLinkComponent', () => {
           }
         }),
         RouterTestingModule],
-      declarations: [DashboardLinkComponent],
+      declarations: [LinkComponent],
       providers: [reducerProvider]
     });
 
@@ -28,7 +28,7 @@ describe('DashboardLinkComponent', () => {
   });
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(DashboardLinkComponent);
+    fixture = TestBed.createComponent(LinkComponent);
     component = fixture.componentInstance;
     store = TestBed.inject<Store<AppState>>(Store);
 

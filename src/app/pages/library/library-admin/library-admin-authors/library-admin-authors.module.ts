@@ -5,7 +5,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { LibraryAdminAuthorsRoutingModule } from './library-admin-authors-routing.module';
 import { CreateAuthorComponent } from './create-author/create-author.component';
 import { ViewAuthorComponent } from './view-author/view-author.component';
@@ -30,7 +30,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     AppViewItemsModule,
     AppLoadingBubbleModule
   ]

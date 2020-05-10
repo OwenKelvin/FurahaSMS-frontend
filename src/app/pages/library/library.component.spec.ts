@@ -6,7 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -36,7 +36,7 @@ describe('LibraryComponent', () => {
         FormsModule,
         RouterTestingModule,
         AppLayoutModule,
-        AppDashboardLinksModule,
+        AppLinksModule,
         AppViewItemsModule,
         AppInputModule,
         AppLoadingBubbleModule

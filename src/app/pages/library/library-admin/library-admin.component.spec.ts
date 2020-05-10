@@ -4,7 +4,7 @@ import { LibraryAdminComponent } from './library-admin.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 describe('LibraryAdminComponent', () => {
   let component: LibraryAdminComponent;
@@ -22,7 +22,7 @@ describe('LibraryAdminComponent', () => {
           }
         }),
         RouterTestingModule,
-        AppDashboardLinksModule],
+        AppLinksModule],
       declarations: [LibraryAdminComponent],
       providers: [reducerProvider]
     });

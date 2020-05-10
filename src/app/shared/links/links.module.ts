@@ -1,15 +1,16 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LinksComponent } from './links.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { LinkComponent } from './link/link.component';
+import { RouterModule } from '@angular/router';
 
 
 
 @NgModule({
-  declarations: [LinksComponent],
+  declarations: [LinksComponent, LinkComponent],
   imports: [
     CommonModule,
-    AppDashboardLinksModule
+    RouterModule
   ],
   exports: [LinksComponent]
 })
