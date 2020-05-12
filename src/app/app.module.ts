@@ -22,6 +22,7 @@ import { GenderEffects } from './store/effects/gender.effects';
 import { ReligionEffects } from './store/effects/religion.effects';
 import { ResMessageInterceptor } from './interceptors/res-message.interceptor';
 import { NetworkLoadingInterceptor, NetworkLoadingModule } from './shared/network-loading';
+import { ErrorModule } from './components/error/error.module';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { NetworkLoadingInterceptor, NetworkLoadingModule } from './shared/networ
       metaReducers: fromApp.appMetaReducers
     }),
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
-    NetworkLoadingModule
+    NetworkLoadingModule,
+    ErrorModule
 
   ],
   providers: [

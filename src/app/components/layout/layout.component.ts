@@ -14,6 +14,8 @@ import { RouterOutlet } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
   isMenuOpen$: Observable<boolean>;
+  
+  routerActivated = false;
   closeFullScreenMode = (): void => {
     document.exitFullscreen();
   }
@@ -22,9 +24,17 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.isMenuOpen$ = this.store.select(selectShowMenu);
   }
+  
+  onRouterOutletActivate($event: any) {
+    console.log($event)
+    this.routerActivated = true;
+  }
 
-  getState(outlet: RouterOutlet) {
-    return outlet.component;
+  getState(outlet: any) {
+    if (outlet.isActivated) {
+      return outlet?.component;
+    }
+    return null
   }
 
 }
