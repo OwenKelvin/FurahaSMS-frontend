@@ -8,7 +8,7 @@
       <button (click)='closeFullScreenMode()' class="escape-fullsreen icon-resize-small btn text-light"><span
           class="sr-only">Exit Full Screen</span></button>
       <div [@routerTransition]="getState(o)">
-        <router-outlet (activate)='onRouterOutletActivate($event)'  #o="outlet"></router-outlet>
+        <router-outlet #o="outlet"></router-outlet>
       </div>
     </div>
   </div>

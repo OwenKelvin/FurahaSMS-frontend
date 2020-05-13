@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { StudentSearchComponent } from './student-search.component';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
   declarations: [
@@ -15,7 +16,8 @@ import { StudentSearchComponent } from './student-search.component';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    TypeaheadModule.forRoot()
+    TypeaheadModule.forRoot(),
+    RouterModule
   ]
 })
 

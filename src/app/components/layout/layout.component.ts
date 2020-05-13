@@ -24,11 +24,6 @@ export class LayoutComponent implements OnInit {
   ngOnInit() {
     this.isMenuOpen$ = this.store.select(selectShowMenu);
   }
-  
-  onRouterOutletActivate($event: any) {
-    console.log($event)
-    this.routerActivated = true;
-  }
 
   getState(outlet: any) {
     if (outlet.isActivated) {
