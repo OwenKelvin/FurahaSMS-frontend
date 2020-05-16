@@ -26,7 +26,7 @@ import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
@@ -62,7 +62,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     AppLoadingBubbleModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     ErrorModule,
     TabErrorStateModule,
     TabsModule.forRoot(),

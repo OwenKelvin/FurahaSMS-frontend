@@ -133,6 +133,8 @@ a:hover {
   -moz-transition: margin .25s ease-out;
   -o-transition: margin .25s ease-out;
   transition: margin .25s ease-out;
+  position: sticky;
+  z-index: 1;
 }
 
 #sidebar-wrapper .sidebar-heading {
@@ -277,6 +279,32 @@ html, body {
 }
 @media (max-width: 500px) {
   .login-error .alert {
+    padding: 0.8rem;
+    font-size: 0.8rem;
+    line-height: 0.8rem;
+  }
+
+}
+a.disabled {
+  text-decoration: none !important;
+  pointer-events: none;
+  opacity: 0.5;
+  cursor: not-allowed !important;
+}
+@media (max-width: 500px) {
+  .card-body {
+    padding: 0.5rem;
+  }
+
+}
+.app-error {
+  position: absolute; width: 80%;
+  z-index: 2;
+  left: 10%;
+  right: 10%;
+}
+@media (max-width: 500px) {
+  .app-error .alert {
     padding: 0.8rem;
     font-size: 0.8rem;
     line-height: 0.8rem;

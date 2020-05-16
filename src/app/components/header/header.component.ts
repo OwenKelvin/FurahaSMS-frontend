@@ -1,41 +1,46 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
+import { AppState } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
-import { AppState } from './../../store/reducers';
-import { loadMenuTogglesFailure, loadMenuTogglesSuccess } from './../../store/actions/menu-toggle.actions';
-import { selectShowMenu } from './../../store/selectors/menu-toggle.selector';
-import { takeWhile } from 'rxjs/operators';
+import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
+import { map } from 'rxjs/operators';
+import { showMenu, hideMenu } from 'src/app/store/actions/menu-toggle.actions';
+import { selectShowMenu } from 'src/app/store/selectors/menu-toggle.selector';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
-  styleUrls: ['./header.component.css']
+  styleUrls: ['./header.component.less']
 })
-export class HeaderComponent implements OnInit, OnDestroy {
+
+export class HeaderComponent implements OnInit {
   isMenuClosed$: Observable<boolean>;
   isMenuClosed: boolean;
-  componentIsActive: boolean;
+  isCollapsed = true;
+  isSmallDevice$: Observable<boolean> = this.breakpointObserver
+    .observe([Breakpoints.XSmall, Breakpoints.Small])
+    .pipe(
+      map(state => state.matches)
+    );
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>,
+    public breakpointObserver: BreakpointObserver) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
     this.isMenuClosed = true;
-    this.isMenuClosed$ = this.store.select(selectShowMenu)
-      .pipe(takeWhile(() => this.componentIsActive));
+    this.isMenuClosed$ = this.store.select(selectShowMenu);
+
     this.isMenuClosed$.subscribe(isMenuClosed => {
       this.isMenuClosed = isMenuClosed;
     });
-
   }
+
   toggleMenu(): void {
     if (this.isMenuClosed) {
-      this.store.dispatch(loadMenuTogglesFailure());
+      this.store.dispatch(hideMenu());
     } else {
-      this.store.dispatch(loadMenuTogglesSuccess());
+      this.store.dispatch(showMenu());
     }
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
+
 }

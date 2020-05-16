@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LinksComponent } from './links.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 describe('LinksComponent', () => {
   let component: LinksComponent;
@@ -9,7 +9,7 @@ describe('LinksComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [AppDashboardLinksModule],
+      imports: [AppLinksModule],
       declarations: [ LinksComponent ]
     })
     .compileComponents();

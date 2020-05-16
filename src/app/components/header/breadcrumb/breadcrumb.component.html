@@ -1,0 +1,37 @@
+<nav aria-label="breadcrumb">
+  <ol class="breadcrumb bg-dark" *ngIf='breadcrumbs.length; else dashboard'>
+    <li class="breadcrumb-item">
+      <button aria-label="Navigate to previous page" (click)='backClicked()' class='btn btn-sm btn-info'><span
+          class='icon-left-big'></span>Back</button>
+    </li>
+    <li class="breadcrumb-item">
+      <a aria-label='Home' routerLinkActive='active' [routerLink]='["/dashboard"]'><span class='icon-home'></span></a>
+    </li>
+    <ng-template #breadcrumbLi>
+      <li *ngFor="let breadcrumb of breadcrumbs.slice(0,breadcrumbs.length-1); let i = index" class="breadcrumb-item">
+        <a routerLinkActive='active' [routerLink]='["/dashboard"]'
+          *ngIf='breadcrumb.label === "Home"; else nonHomeLink'><span class='icon-home'></span></a>
+        <ng-template #nonHomeLink>
+          <a [routerLink]="[breadcrumb.url]" [queryParams]="breadcrumb.params"> {{ breadcrumb.label }} </a>
+        </ng-template>
+
+      </li>
+      <li class="breadcrumb-item active" aria-current="page">{{ breadcrumbs[breadcrumbs.length-1].label }}</li>
+    </ng-template>
+
+    <li *ngIf='showSpinner; else breadcrumbLi'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
+    <li class="breadcrumb-controls"><span class="icon-resize-full" (click)='goFullScreen()'></span></li>
+  </ol>
+  <ng-template #dashboard>
+    <ol class="breadcrumb bg-dark">
+      <li class="breadcrumb-item">
+        <button (click)='backClicked()' class='btn btn-sm btn-info'><span class='icon-left-big'></span>Back</button>
+      </li>
+      <li class="breadcrumb-item active">
+        <span class='icon-home'></span>
+      </li>
+      <li *ngIf='showSpinner'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
+    </ol>
+  </ng-template>
+
+</nav>

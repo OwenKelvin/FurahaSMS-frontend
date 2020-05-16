@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { AddBookComponent } from './add-book.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
@@ -33,7 +33,7 @@ describe('AddBookComponent', () => {
         EffectsModule.forRoot([]),
         HttpClientTestingModule,
         RouterTestingModule,
-        AppDashboardLinksModule,
+        AppLinksModule,
         AppLayoutModule,
         FormsModule,
         ReactiveFormsModule,

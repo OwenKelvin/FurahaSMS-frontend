@@ -5,7 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('TeachingStaffAdmissionComponent', () => {
@@ -25,7 +25,7 @@ describe('TeachingStaffAdmissionComponent', () => {
         RouterTestingModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,
-        AppDashboardLinksModule],
+        AppLinksModule],
       declarations: [TeachingStaffAdmissionComponent],
       providers: [reducerProvider]
     });

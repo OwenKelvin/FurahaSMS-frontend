@@ -1,7 +1,7 @@
 import { Component, OnInit, Input, forwardRef, SimpleChanges, SimpleChange, OnChanges } from '@angular/core';
 import { FormControl, ControlValueAccessor, NG_VALUE_ACCESSOR, NG_VALIDATORS } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
+import { AppFormService } from 'src/app/services/AppForm.service';
 
 @Component({
   selector: 'app-input',

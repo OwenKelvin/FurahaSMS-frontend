@@ -7,6 +7,8 @@ import { StoreModule } from '@ngrx/store';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -15,6 +17,7 @@ describe('LayoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
@@ -25,6 +28,7 @@ describe('LayoutComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         HttpClientTestingModule,
         AppLayoutModule
       ],

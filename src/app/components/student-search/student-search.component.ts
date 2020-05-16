@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../store/reducers';
+
+import { noop, Observable, Observer, of, Subject } from 'rxjs';
+import { switchMap, tap } from 'rxjs/operators';
+import { IUserProfile } from 'src/app/interfaces/user-profile.interface';
+import { StudentService } from 'src/app/services/student.service';
+import { TypeaheadMatch } from 'ngx-bootstrap/typeahead';
 
 @Component({
   selector: 'app-student-search',
@@ -9,9 +13,36 @@ import * as fromStore from '../../store/reducers';
 })
 export class StudentSearchComponent implements OnInit {
 
-  constructor(private store: Store<fromStore.AppState>) { }
+  constructor(private studentService: StudentService) { }
 
-  ngOnInit() {
+  search: string;
+  suggestions$: Observable<IUserProfile[]> = of([]);
+  errorMessage: string;
+  selectedItemSubject$ = new Subject<any>();
+  selectedItemAction$ = this.selectedItemSubject$.asObservable();
+
+  ngOnInit(): void {
+    this.suggestions$ = new Observable((observer: Observer<string>) => {
+      observer.next(this.search);
+    }).pipe(
+      switchMap((query: string) => {
+
+        if (query) {
+
+          return this.studentService.getStudentByName(query)
+            .pipe(
+              tap(() => noop, err => {
+                this.errorMessage = err && err.message || 'Something goes wrong';
+              })
+            );
+        }
+
+        return of([]);
+      })
+    );
   }
 
+  onSelect(event: TypeaheadMatch) {
+    this.selectedItemSubject$.next(event.item);
+  }
 }

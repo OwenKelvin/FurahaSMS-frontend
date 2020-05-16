@@ -1,0 +1,8 @@
+<form (submit)='submitSearchForm()' [formGroup]='searchForm' class='d-flex align-items-center'>
+  <section class='input-group search'>
+  	<input aria-label="Search"  list='searches' formControlName='search' type='search' placeholder='Search . . .' required>
+	</section>
+  <datalist id='searches' *ngIf='(listItems$ | async ) as listItems'>
+  	<option *ngFor='let listItem of listItems' [value]='listItem.name'></option>
+  </datalist>
+</form>

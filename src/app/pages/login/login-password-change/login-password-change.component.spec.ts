@@ -10,6 +10,7 @@ import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { EffectsModule } from '@ngrx/effects';
 
 describe('LoginPasswordChangeComponent', () => {
   let component: LoginPasswordChangeComponent;
@@ -28,6 +29,7 @@ describe('LoginPasswordChangeComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        EffectsModule.forRoot([]),
         AppInputModule,
         AppLayoutModule,
         PasswordChangeFormModule,

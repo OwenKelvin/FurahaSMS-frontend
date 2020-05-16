@@ -1,0 +1,36 @@
+button {
+	background: none;
+	color: inherit;
+	border: none;
+	width: 100%;
+	text-align: center;
+}
+.dashboard-link-item {
+	
+	margin: 20px;
+	border-radius: 14px;
+	box-shadow: 5px 10px #888888;
+}
+
+.dashboard-link-item:hover, .dashboard-link-item:focus {
+	outline: none;
+	border: lightblue solid 2px;
+	margin-left: 20px; 
+	margin-top: 18px; 
+	margin-bottom: 18px;
+	cursor: pointer;
+	color: greenyellow;
+	box-shadow: 5px 10px lightblue;
+}
+.dashboard-link-item span {
+	text-align: center;
+}
+
+.dashboard-link-item span:first-child {
+	font-size: 3rem;
+	width: 100%;
+	display: block;
+}
+.dashboard-link-item span:nth-child(2) {
+	font-size: 0.8rem;
+} 

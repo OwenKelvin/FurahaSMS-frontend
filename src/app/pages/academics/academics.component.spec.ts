@@ -4,7 +4,8 @@ import { AcademicsComponent } from './academics.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
+
 
 describe('AcademicsComponent', () => {
   let component: AcademicsComponent;
@@ -22,7 +23,7 @@ describe('AcademicsComponent', () => {
           }
         }),
         RouterTestingModule,
-        AppDashboardLinksModule],
+        AppLinksModule],
       declarations: [AcademicsComponent],
       providers: [reducerProvider]
     });

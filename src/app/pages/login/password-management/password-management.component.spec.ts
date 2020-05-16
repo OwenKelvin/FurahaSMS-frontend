@@ -12,6 +12,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
+import { MyProfileService } from '../../my-profile/services/my-profile.service';
 
 describe('PasswordManagementComponent', () => {
   let component: PasswordManagementComponent;
@@ -40,15 +41,26 @@ describe('PasswordManagementComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
+            snapshot: {},
             parent: {
-              parent: { paramMap: of({get: () => 1 })}
+              snapshot: {},
+              parent: {
+                snapshot: {},
+                paramMap: of({ get: () => 1 })
+              }
             }
+          }
+        },
+        {
+          provide: MyProfileService,
+          useValue: {
+            loadMyProfile$: of({ id: 1 })
           }
         }
       ],
-      declarations: [ PasswordManagementComponent ]
+      declarations: [PasswordManagementComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

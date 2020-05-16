@@ -4,6 +4,9 @@ import { Observable, of } from 'rxjs';
 
 import { MyProfileEffects } from './my-profile.effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('MyProfileEffects', () => {
   let actions$: Observable<any>;
@@ -12,8 +15,19 @@ describe('MyProfileEffects', () => {
   beforeEach(() => {
     actions$ = of({});
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        RouterTestingModule
+      ],
       providers: [
+        reducerProvider,
         MyProfileEffects,
         provideMockActions(() => actions$)
       ]

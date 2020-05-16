@@ -1,0 +1,13 @@
+<ul class='nav' *ngIf='user$ | async as user'>
+  <li class='nav-item bg-dark'>
+    <button [attr.aria-expanded]="(isCollapsedAction$ | async) === false" (click)="toggleMenu()" class='bg-dark nav-link dropdown-toggle'
+      role='button' aria-haspopup='true' aria-expanded='false'>
+      {{ user.firstName }} {{ user.lastName }}
+    </button>
+    <div #dropdown [class.show]="(isCollapsedAction$ | async) || ((isCollapsedAction$ | async) !== isCollapsed)" class='dropdown-menu dropdown-menu-right bg-dark' aria-label='User Profile'>
+      <a (click)='toggleMenu()' class='dropdown-item' routerLink='/my-profile'><span class='icon-user'>My Profile</span></a>
+      <div class='dropdown-divider'></div>
+      <app-logout-button (click)='toggleMenu()'></app-logout-button>
+    </div>
+  </li>
+</ul>

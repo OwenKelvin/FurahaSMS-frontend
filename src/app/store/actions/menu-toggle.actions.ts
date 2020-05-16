@@ -4,10 +4,10 @@ export const menuToggles = createAction(
   '[MenuToggle] Load MenuToggles'
 );
 
-export const loadMenuTogglesSuccess = createAction(
+export const showMenu = createAction(
   '[MenuToggle] Load MenuToggles Success'
 );
 
-export const loadMenuTogglesFailure = createAction(
+export const hideMenu = createAction(
   '[MenuToggle] Load MenuToggles Failure'
 );

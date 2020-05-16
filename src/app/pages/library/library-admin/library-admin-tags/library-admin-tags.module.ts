@@ -5,7 +5,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { LibraryAdminTagsRoutingModule } from './library-admin-tags-routing.module';
 
 @NgModule({
@@ -21,7 +21,7 @@ import { LibraryAdminTagsRoutingModule } from './library-admin-tags-routing.modu
     EditorModule,
     FormsModule,
     ReactiveFormsModule,
-    AppDashboardLinksModule
+    AppLinksModule
   ]
 })
 export class LibraryAdminTagsModule { }

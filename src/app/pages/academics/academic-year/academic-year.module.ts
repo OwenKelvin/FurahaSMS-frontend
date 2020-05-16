@@ -12,7 +12,7 @@ import { CreateAcademicYearComponent } from './create-academic-year/create-acade
 import { ViewAcademicYearComponent } from './view-academic-year/view-academic-year.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
@@ -36,7 +36,7 @@ import { ErrorModule } from 'src/app/components/error/error.module';
     AppLoadingBubbleModule,
     FormsModule,
     ReactiveFormsModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     NgSelectModule,
     AppInputModule,
     ErrorModule

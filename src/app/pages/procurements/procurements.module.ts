@@ -33,7 +33,7 @@ import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { ErrorModule } from '../../components/error/error.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { ProcurementsComponent } from './procurements.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 
 
@@ -71,7 +71,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     AppTelInputModule,
     ErrorModule,
     AppLayoutModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     ModalModule.forRoot()
   ],
   entryComponents: [

@@ -1,0 +1,14 @@
+a, button{
+  color: lightblue !important;
+  border: none;
+}
+a:hover, button:hover, button:active {
+  cursor: pointer !important;
+  background-color: rgb(2, 1, 1);
+}
+a:hover span {
+   color: greenyellow !important;
+}
+.dropdown-menu {
+  border: 2px rgba(128, 128, 128, 0.589) solid;
+}

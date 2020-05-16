@@ -7,7 +7,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ActivatedRoute } from '@angular/router';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { of } from 'rxjs';
 
@@ -28,7 +28,7 @@ describe('ViewAcademicYearComponent', () => {
         }),
         RouterTestingModule,
         HttpClientTestingModule,
-        AppDashboardLinksModule,
+        AppLinksModule,
         AppLoadingBubbleModule
       ],
       declarations: [

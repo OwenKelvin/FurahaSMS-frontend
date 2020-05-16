@@ -13,6 +13,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
+    "newLine": "crlf",
+    "pretty": true,
     "module": "esnext",
     "moduleResolution": "node",
     "importHelpers": true,

@@ -1,9 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { AccountsAdminComponent } from './accounts-admin.component';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
@@ -16,7 +15,7 @@ describe('AccountsAdminComponent', () => {
       imports: [
         AppLinksModule,
         RouterTestingModule,
-        AppDashboardLinksModule,
+        AppLinksModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

@@ -4,7 +4,7 @@ import { StudentAdmissionComponent } from './student-admission.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 describe('StudentAdmissionComponent', () => {
   let component: StudentAdmissionComponent;
@@ -19,7 +19,7 @@ describe('StudentAdmissionComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, AppDashboardLinksModule ],
+        }), RouterTestingModule, AppLinksModule ],
       declarations: [StudentAdmissionComponent],
       providers: [reducerProvider]
     });

@@ -1,43 +1,61 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HeaderComponent } from './header.component';
-import { MenuSearchComponent } from './../menu-search/menu-search.component';
-import { UserButtonComponent } from './../user-button/user-button.component';
-import { FormsModule, ReactiveFormsModule} from '@angular/forms';
 import { Store, StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, metaReducers, AppState, reducerProvider } from 'src/app/store/reducers';
+import { MenuSearchComponent } from './menu-search/menu-search.component';
+import { UserButtonComponent } from './user-button/user-button.component';
+import { BreadcrumbComponent } from './breadcrumb/breadcrumb.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { BreadcrumbComponent } from '../breadcrumb/breadcrumb.component';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { HeaderCollapseComponent } from './header-collapse/header-collapse.component';
+import { CollapseModule } from 'ngx-bootstrap/collapse';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
   let fixture: ComponentFixture<HeaderComponent>;
+  let store: Store<AppState>;
 
-  beforeEach(async(() => {
+  beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        StoreModule.forRoot(REDUCER_TOKEN, {
-          metaReducers,
-          runtimeChecks: {
-            strictStateImmutability: true,
-            strictActionImmutability: true,
-          }
-        }),
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        }
+        }),
+        CollapseModule.forRoot(),
+        BrowserAnimationsModule
       ],
-      declarations: [HeaderComponent, MenuSearchComponent, UserButtonComponent, BreadcrumbComponent],
+      declarations: [
+        HeaderComponent,
+        MenuSearchComponent,
+        UserButtonComponent,
+        UserButtonComponent,
+        BreadcrumbComponent,
+        HeaderCollapseComponent,
+
+      ],
       providers: [reducerProvider]
-    })
-    .compileComponents();
-  }));
+    });
+
+    await TestBed.compileComponents();
+  });
 
   beforeEach(() => {
     fixture = TestBed.createComponent(HeaderComponent);
     component = fixture.componentInstance;
+    store = TestBed.inject<Store<AppState>>(Store);
+
+    spyOn(store, 'dispatch').and.callThrough();
     fixture.detectChanges();
   });
 

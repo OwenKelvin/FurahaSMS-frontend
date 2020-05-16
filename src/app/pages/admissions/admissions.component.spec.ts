@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AdmissionsComponent } from './admissions.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, reducerProvider } from '../../store/reducers';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
 
 describe('AdmissionsComponent', () => {
@@ -22,7 +22,7 @@ describe('AdmissionsComponent', () => {
           }
         }),
         RouterTestingModule,
-        AppDashboardLinksModule
+        AppLinksModule
       ],
       declarations: [AdmissionsComponent],
       providers: [reducerProvider]

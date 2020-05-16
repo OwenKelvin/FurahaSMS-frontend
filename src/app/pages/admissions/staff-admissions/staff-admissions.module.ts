@@ -7,7 +7,7 @@ import { EditTeacherComponent } from './edit-teacher/edit-teacher.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { TeachingStaffAdmissionComponent } from './teaching-staff-admission/teaching-staff-admission.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { SupportStaffAdmissionComponent } from './support-staff-admission/support-staff-admission.component';
 import { AppInputModule } from 'src/app/modules/app-input.module';
 import { NgSelectModule } from '@ng-select/ng-select';
@@ -30,7 +30,7 @@ import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
     FormsModule,
     ReactiveFormsModule,
     AppLoadingBubbleModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     AppInputModule,
     AppTelInputModule,
     NgSelectModule

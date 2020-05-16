@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { LibraryAdminBooksComponent } from './library-admin-books.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { RouterTestingModule } from '@angular/router/testing';
 
 describe('LibraryAdminBooksComponent', () => {
@@ -21,7 +21,7 @@ describe('LibraryAdminBooksComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        AppDashboardLinksModule,
+        AppLinksModule,
         RouterTestingModule
       ],
       declarations: [LibraryAdminBooksComponent],

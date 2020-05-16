@@ -53,6 +53,7 @@ export class AuthenticationService {
   }
   private currentUserSubject: BehaviorSubject<UserInterface | null>;
   public currentUser: Observable<UserInterface | null>;
+  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
   changePassword(data: any) {
     const submitData = {
       token: data.token,
@@ -108,13 +109,12 @@ export class AuthenticationService {
       );
   }
   logout(): Observable<any> {
-    localStorage.removeItem('currentUser');
-    sessionStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-    return this.revokeToken();
-  }
-  revokeToken(): Observable<any> {
-    // TODO-me Authentication Service send request to invalidate token
-    return of(true);
+    return this.revokeToken.pipe(
+      tap(() => {
+        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+      })
+    );
   }
 }

@@ -9,7 +9,7 @@ import { EditTagComponent } from './library-admin-tags/edit-tag/edit-tag.compone
 import { ViewTagComponent } from './library-admin-tags/view-tag/view-tag.component';
 import { LibraryAdminTagsComponent } from './library-admin-tags/library-admin-tags.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/modules/app-input.module';
@@ -31,7 +31,7 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     CommonModule,
     LibraryAdminRoutingModule,
     AppLoadingBubbleModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     AppViewItemsModule,
     FormsModule,
     ReactiveFormsModule,

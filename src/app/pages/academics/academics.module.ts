@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { AcademicsRoutingModule } from './academics-routing.module';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AcademicsComponent } from './academics.component';
 import { EffectsModule } from '@ngrx/effects';
 import { CoursesEffects } from './store/effects/courses.effects';
@@ -18,7 +18,7 @@ import { StoreModule } from '@ngrx/store';
   imports: [
     CommonModule,
     AcademicsRoutingModule,
-    AppDashboardLinksModule,
+    AppLinksModule,
     StoreModule.forFeature(fromAcademics.academicsFeatureKey, fromAcademics.reducers),
     EffectsModule.forFeature([CoursesEffects, AcademicsEffects]),
 

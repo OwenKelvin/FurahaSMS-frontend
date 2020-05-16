@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ExamBankDashboardComponent } from './exam-bank-dashboard.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
@@ -14,7 +14,7 @@ describe('ExamBankDashboardComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        AppDashboardLinksModule,
+        AppLinksModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

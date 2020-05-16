@@ -3,7 +3,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 
 import { DashboardComponent } from './dashboard.component';
 import { StoreModule } from '@ngrx/store';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 
 describe('DashboardComponent', () => {
@@ -21,7 +21,7 @@ describe('DashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        AppDashboardLinksModule],
+        AppLinksModule],
       declarations: [DashboardComponent],
       providers: [reducerProvider]
     })

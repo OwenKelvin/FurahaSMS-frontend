@@ -4,7 +4,8 @@ import { CommonModule } from '@angular/common';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { DashboardComponent } from './dashboard.component';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { LoadMyProfileModule } from '../my-profile/load-my-profile.module';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 
 @NgModule({
@@ -13,7 +14,8 @@ import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
     CommonModule,
     DashboardRoutingModule,
     AppLayoutModule,
-    AppDashboardLinksModule
+    AppLinksModule,
+    LoadMyProfileModule
   ]
 })
 export class DashboardModule { }

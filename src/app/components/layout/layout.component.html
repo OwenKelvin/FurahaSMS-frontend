@@ -2,19 +2,16 @@
 <div class='d-flex' [class.toggled]='(isMenuOpen$ | async) === false' id='wrapper'>
   <app-sidebar></app-sidebar>
 
-  <!-- Page Content -->
   <div id='page-content-wrapper' style="max-height: 34rem">
     <app-header></app-header>
-    <app-error></app-error>
-    <!-- <app-network-error></app-network-error> -->
     <div tabindex="0" class='container-fluid' id="main">
-      <button
-        (click)='closeFullScreenMode()' 
-        class="escape-fullsreen icon-resize-small btn text-light"><span class="sr-only">Exit Full Screen</span></button>
-      <router-outlet></router-outlet>
+      <button (click)='closeFullScreenMode()' class="escape-fullsreen icon-resize-small btn text-light"><span
+          class="sr-only">Exit Full Screen</span></button>
+      <div [@routerTransition]="getState(o)">
+        <router-outlet #o="outlet"></router-outlet>
+      </div>
     </div>
   </div>
-  <!-- /#page-content-wrapper -->
-  
+
 </div>
 <app-footer></app-footer>

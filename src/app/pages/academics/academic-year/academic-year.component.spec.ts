@@ -4,7 +4,7 @@ import { AcademicYearComponent } from './academic-year.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppDashboardLinksModule } from 'src/app/modules/app-dashboard-links';
+import { AppLinksModule } from 'src/app/shared/links/links.module';
 
 describe('AcademicYearComponent', () => {
   let component: AcademicYearComponent;
@@ -19,7 +19,7 @@ describe('AcademicYearComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, AppDashboardLinksModule ],
+        }), RouterTestingModule, AppLinksModule ],
       declarations: [AcademicYearComponent],
       providers: [reducerProvider]
     });

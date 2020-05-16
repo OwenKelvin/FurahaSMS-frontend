@@ -28,3 +28,7 @@ export const loadMyProfilesFailure = createAction(
   '[MyProfile] Load MyProfiles Failure',
   props<{ error: any }>()
 );
+
+export const myProfileLogout = createAction(
+  '[MyProfile] Log out'
+);
