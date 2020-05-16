@@ -21,4 +21,4 @@ import { RouterModule } from '@angular/router';
   ]
 })
 
-export class StudentSearchModule { }; 
+export class StudentSearchModule { };

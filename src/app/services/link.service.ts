@@ -11,18 +11,10 @@ import * as fromLinks from '../store/selectors/permissions.selectors';
   providedIn: 'root'
 })
 export class LinkService {
-;
-
 
   constructor(private store: Store) { }
   myPermissions$ = this.store.pipe(select(selectMyPermissions));
   myRoles$ = this.store.pipe(select(selectMyRoles));
-  filerAllowed = (links$: Observable<LinkInterface[]>): Observable<LinkInterface[]> =>
-    combineLatest([this.myPermissions$, this.myRoles$, links$]).pipe(
-      map(([myPermissions, myRoles, links]) =>
-        links?.filter(link => myRoles?.includes('super admin') || myPermissions?.some(r => link.permissions?.includes(r)))
-      )
-    );
 
   dashboardLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectDashdoardLinks));
   accountsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAccountsLinks));
@@ -38,12 +30,19 @@ export class LinkService {
   libraryAdminLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectLibraryAdminLinks));
   procurementLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectProcurementLinks));
   libraryAdminUsersLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectLibraryAdminUsersLinks));
-  teachingStaffAdmissionsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectTeachingStaffAdmissionsLinks));
+  teachingStaffAdmissionsLinks: Observable<LinkInterface[]>
+    = this.filerAllowed(this.store.select(fromLinks.selectTeachingStaffAdmissionsLinks));
   timeTableLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectTimeTableLinks));
   rolesAndPermissionsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.rolesAndPermissionsLinks));
   allLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.allLinks));
-  
+  filerAllowed(links$: Observable<LinkInterface[]>): Observable<LinkInterface[]> {
+    return combineLatest([this.myPermissions$, this.myRoles$, links$]).pipe(
+      map(([myPermissions, myRoles, links]) =>
+        links?.filter(link => myRoles?.includes('super admin') || myPermissions?.some(r => link.permissions?.includes(r)))
+      )
+    );
 
+  }
   academicYearLinks(id: any): Observable<LinkInterface[]> {
     return this.filerAllowed(this.store.select(fromLinks.selectAcademicYearsLinks)).pipe(
       map(res => res.map(item => ({...item, link: item.link?.replace(':id', id)})))

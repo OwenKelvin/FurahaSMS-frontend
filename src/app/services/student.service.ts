@@ -76,7 +76,7 @@ export class StudentService {
     const url = `api/students?last=30`;
     return this.http.get(url).pipe(map(res => res as any[]));
   }
-  
+
   getStudentByName(query: string): Observable<any[]> {
     return this.http.get<any>(
       'api/students', {

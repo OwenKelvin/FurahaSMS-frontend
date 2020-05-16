@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { EffectsModule } from '@ngrx/effects';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('LayoutComponent', () => {
   let component: LayoutComponent;
@@ -16,6 +17,7 @@ describe('LayoutComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        BrowserAnimationsModule,
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
@@ -40,7 +42,6 @@ describe('LayoutComponent', () => {
     fixture = TestBed.createComponent(LayoutComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-    spyOnProperty(component, 'getState').and.callFake(() => true)
   });
 
   it('should create', () => {

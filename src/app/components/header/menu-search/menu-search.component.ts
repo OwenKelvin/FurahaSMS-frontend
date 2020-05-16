@@ -20,7 +20,7 @@ export class MenuSearchComponent implements OnInit, OnDestroy {
   searchSubmittedSubject$ = new Subject<boolean>();
   searchSubmittedAction$ = this.searchSubmittedSubject$.asObservable();
   searchValueChanges = this.search.valueChanges.pipe(filter((search) => search.length > 0));
-  componentIsActive: boolean = true;
+  componentIsActive = true;
 
   constructor(
     private fb: FormBuilder,
@@ -52,7 +52,7 @@ export class MenuSearchComponent implements OnInit, OnDestroy {
   submitSearchForm() {
     this.searchSubmittedSubject$.next(true);
   }
-  
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }
