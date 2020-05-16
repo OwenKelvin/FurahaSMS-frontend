@@ -109,9 +109,12 @@ export class AuthenticationService {
       );
   }
   logout(): Observable<any> {
-    localStorage.removeItem('currentUser');
-    sessionStorage.removeItem('currentUser');
-    this.currentUserSubject.next(null);
-    return this.revokeToken;
+    return this.revokeToken.pipe(
+      tap(() => {
+        sessionStorage.removeItem('currentUser');
+        localStorage.removeItem('currentUser');
+        this.currentUserSubject.next(null);
+      })
+    );
   }
 }

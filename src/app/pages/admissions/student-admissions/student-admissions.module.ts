@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { StudentAdmissionsRoutingModule } from './student-admissions-routing.module';
 import { StudentAdmissionsEditComponent } from './student-admissions-edit/student-admissions-edit.component';
-import { StudentSearchComponent } from 'src/app/components/student-search/student-search.component';
+import { StudentSearchModule } from 'src/app/components/student-search/student-search.module';
 import { CreateStudentComponent } from './create-student/create-student.component';
 import { EditStudentComponent } from './edit-student/edit-student.component';
 import { StudentAdmissionComponent } from './student-admission/student-admission.component';
@@ -19,7 +19,6 @@ import { AppRecentlyCreatedStudent } from './students-recently-created/students-
 @NgModule({
   declarations: [
     StudentAdmissionsEditComponent,
-    StudentSearchComponent,
     CreateStudentComponent,
     EditStudentComponent,
     StudentAdmissionComponent,
@@ -33,7 +32,8 @@ import { AppRecentlyCreatedStudent } from './students-recently-created/students-
     AppInputModule,
     AppStarLabelRequiredModule,
     AppLinksModule,
-    AppRecentlyCreatedStudent
+    AppRecentlyCreatedStudent,
+    StudentSearchModule
   ]
 })
 export class StudentAdmissionsModule { }

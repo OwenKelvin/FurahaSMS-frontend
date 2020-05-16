@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { catchError, map } from 'rxjs/operators';
+import { Observable, throwError, noop } from 'rxjs';
+import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -75,5 +75,23 @@ export class StudentService {
   getRecentlyCreatedStudents(): Observable<any[]> {
     const url = `api/students?last=30`;
     return this.http.get(url).pipe(map(res => res as any[]));
+  }
+
+  getStudentByName(query: string): Observable<any[]> {
+    return this.http.get<any>(
+      'api/students', {
+      params: { q: query }
+    }).pipe(
+      map((data: any) => data.map((item: any) => ({
+        ...item,
+        name: item.first_name + ' ' + item.last_name + ' ' + (item.middle_name ? item.middle_name : ''),
+        firstName: item.first_name,
+        lastName: item.last_name,
+        middleName: item.middle_name,
+        otherNames: item.other_names,
+        dateOfBirth: item.date_of_birth,
+      })) || []),
+      catchError((e) => throwError(e))
+    );
   }
 }
