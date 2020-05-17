@@ -6,7 +6,7 @@ import { ELearningEditCourseComponent } from './e-learning-edit-course.component
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
 

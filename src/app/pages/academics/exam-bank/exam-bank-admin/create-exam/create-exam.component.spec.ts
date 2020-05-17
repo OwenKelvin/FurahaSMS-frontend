@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { CreateExamComponent } from './create-exam.component';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';

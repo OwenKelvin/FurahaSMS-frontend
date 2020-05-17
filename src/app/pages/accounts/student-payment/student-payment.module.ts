@@ -11,7 +11,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { NewPaymentReceiptComponent } from './new-payment-receipt/new-payment-receipt.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddCommaModule } from 'src/app/shared/add-comma/add-comma.module';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -28,7 +29,8 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     FormsModule,
     ReactiveFormsModule,
     AddCommaModule,
-    AppInputModule
+    AppInputModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class StudentPaymentModule { }

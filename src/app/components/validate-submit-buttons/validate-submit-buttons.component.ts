@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 
 
@@ -7,7 +7,7 @@ import { FormGroup } from '@angular/forms';
   templateUrl: './validate-submit-buttons.component.html',
   styleUrls: ['./validate-submit-buttons.component.css'],
 })
-export class ValidateSubmitButtonsComponent implements OnInit {
+export class ValidateSubmitButtonsComponent {
 
   @Input() formItem: FormGroup;
   @Input() isSubmitting: boolean;
@@ -15,8 +15,6 @@ export class ValidateSubmitButtonsComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
-  }
   triggerValidation() {
     this.validationButtonClicked.emit();
   }

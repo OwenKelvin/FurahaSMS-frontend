@@ -14,8 +14,9 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -39,7 +40,8 @@ import { ErrorModule } from 'src/app/components/error/error.module';
     AppLinksModule,
     NgSelectModule,
     AppInputModule,
-    ErrorModule
+    ErrorModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class AcademicYearModule { }

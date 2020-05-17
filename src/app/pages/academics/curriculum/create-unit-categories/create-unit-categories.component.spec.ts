@@ -7,7 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { CreateUnitComponent } from '../create-unit/create-unit.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorComponent } from 'src/app/components/error/error.component';
 
 describe('CreateUnitCategoriesComponent', () => {

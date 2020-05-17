@@ -9,7 +9,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterModule } from '@angular/router';
 import { RolesPermissionEditComponent } from './roles-permission-edit/roles-permission-edit.component';
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -23,7 +24,8 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     AppLoadingBubbleModule,
     RouterModule,
     AppCheckboxModule,
-    AppInputModule
+    AppInputModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class RolesPermissionsModule { }

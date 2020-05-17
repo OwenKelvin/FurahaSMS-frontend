@@ -7,10 +7,11 @@ import { EditPublisherComponent } from './edit-publisher/edit-publisher.componen
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { LibraryAdminPublisherRoutingModule } from './library-admin-publisher-routing.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { LibraryAdminPublisherItemComponent } from './library-admin-publisher-item/library-admin-publisher-item.component';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 @NgModule({
   declarations: [
@@ -30,7 +31,8 @@ import { LibraryAdminPublisherItemComponent } from './library-admin-publisher-it
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,
-    EditorModule
+    EditorModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class LibraryAdminPublisherModule { }

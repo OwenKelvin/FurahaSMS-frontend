@@ -6,7 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
