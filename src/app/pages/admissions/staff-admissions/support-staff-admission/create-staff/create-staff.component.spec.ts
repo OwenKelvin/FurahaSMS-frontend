@@ -8,7 +8,7 @@ import { of } from 'rxjs';
 import { CreateTeacherComponent } from '../../create-teacher/create-teacher.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { reducer } from 'src/app/pages/support-staffs/store/reducers/support-staff.reducer';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 

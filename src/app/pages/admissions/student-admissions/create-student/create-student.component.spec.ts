@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { GenderService } from 'src/app/services/gender.service';
 import { of } from 'rxjs';
 import { ReligionService } from 'src/app/services/religion.service';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 
 describe('CreateStudentComponent', () => {
   let component: CreateStudentComponent;

@@ -11,7 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { NgSelectModule } from '@ng-select/ng-select';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EffectsModule } from '@ngrx/effects';
 
 describe('AcademicYearSubjectUnitsComponent', () => {

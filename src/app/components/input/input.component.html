@@ -22,7 +22,10 @@
 	      [type]='fieldType'
 				[placeholder]='placeholder'>
 				<section class='input-group-append' *ngIf='type === "password"'>
-					<button (mousedown)='fieldType = "text"' (mouseup)='fieldType = "password"' type="button" class='show-password'>
+					<button
+						appShowPassword
+					  (touchstart)='fieldType = "text"'
+					  (mousedown)='fieldType = "text"' (mouseup)='fieldType = "password"' type="button" class='show-password'>
 						<i [class.icon-eye]='fieldType === "password"'></i>
 						<i [class.icon-eye-off]='fieldType !== "password"'></i>
 					</button>

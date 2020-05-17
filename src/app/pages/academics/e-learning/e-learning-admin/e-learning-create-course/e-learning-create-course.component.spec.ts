@@ -2,7 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ELearningCreateCourseComponent } from './e-learning-create-course.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';

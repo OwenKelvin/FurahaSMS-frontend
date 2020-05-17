@@ -1,4 +1,4 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnDestroy } from '@angular/core';
 import { Validators, FormBuilder, FormGroup, FormArray } from '@angular/forms';
 import { ExamPaperService } from '../../services/exam-paper.service';
 import { Router } from '@angular/router';
@@ -9,30 +9,23 @@ import { takeWhile } from 'rxjs/operators';
   templateUrl: './create-exam.component.html',
   styleUrls: ['./create-exam.component.css']
 })
-export class CreateExamComponent implements OnInit, OnDestroy {
-  newExamForm: FormGroup;
+export class CreateExamComponent implements OnDestroy {
+  newExamForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    unit: ['', Validators.required],
+    unitLevel: ['', Validators.required],
+    instructions: this.fb.array([
+      this.newInstructions
+    ])
+  });
   triggerValidation: boolean;
-  isSubmitting: boolean;
-  componentIsActive: boolean;
+  isSubmitting: boolean = false;
+  componentIsActive: boolean = true;
   constructor(
     private fb: FormBuilder,
     private examPaperService: ExamPaperService,
     private router: Router
   ) { }
-
-  ngOnInit() {
-    this.componentIsActive = true;
-    this.isSubmitting = false;
-    this.newExamForm = this.fb.group({
-      name: ['', [Validators.required]],
-      unit: ['', Validators.required],
-      unitLevel: ['', Validators.required],
-      instructions: this.fb.array([
-        this.newInstructions
-      ])
-    });
-
-  }
   get examInstructions(): FormArray {
     return this.newExamForm.get('instructions') as FormArray;
   }

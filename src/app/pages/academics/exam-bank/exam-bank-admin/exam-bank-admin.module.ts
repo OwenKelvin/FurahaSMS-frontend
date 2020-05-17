@@ -7,7 +7,7 @@ import { CreateExamComponent } from './create-exam/create-exam.component';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AdminExamPaperViewComponent } from './admin-exam-paper-view/admin-exam-paper-view.component';
 import { AdminExamPaperComponent } from './admin-exam-paper/admin-exam-paper.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -16,6 +16,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
 import { QuestionViewComponent } from './question-view/question-view.component';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { QuestionViewComponent } from './question-view/question-view.component';
     AppLoadingBubbleModule,
     ModalModule.forRoot(),
     EditorModule,
-    Number2AlphabetModule
+    Number2AlphabetModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class ExamBankAdminModule { }

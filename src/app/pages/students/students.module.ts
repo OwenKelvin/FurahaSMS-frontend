@@ -8,7 +8,7 @@ import { ViewStudentInfoComponent } from './view-student-info/view-student-info.
 import { ViewStudentGuardiansComponent } from './view-student-guardians/view-student-guardians.component';
 import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { AppOrdinalModule } from 'src/app/modules/app-ordinal.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -18,6 +18,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromStudentProfile from './store/reducers/student-profile.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentProfileEffects } from './store/effects/student-profile.effects';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -42,6 +43,7 @@ import { StudentProfileEffects } from './store/effects/student-profile.effects';
     StoreModule.forFeature(fromStudentProfile.studentProfileFeatureKey, fromStudentProfile.reducer),
     EffectsModule.forFeature([StudentProfileEffects]),
     AppUserProfileModule,
+    AppValidateSubmitButtonsModule
 
   ]
 })

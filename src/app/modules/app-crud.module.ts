@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CrudComponent } from '../components/crud/crud.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { ErrorModule } from '../components/error/error.module';
-import { AppInputModule } from './app-input.module';
+import { AppInputModule } from '../components/input/app-input.module';
 
 
 @NgModule({
