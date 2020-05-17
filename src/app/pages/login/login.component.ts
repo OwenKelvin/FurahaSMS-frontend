@@ -49,8 +49,8 @@ export class LoginComponent implements OnDestroy {
 
   submitLoginForm() {
     this.inputSubmittedSubject$.next(true);
-    this.isSubmitting = true;
     if (this.loginForm.valid) {
+      this.isSubmitting = true;
       combineLatest([
         this.route.queryParams.pipe(map(params => params.returnUrl)),
         this.authService.login(this.loginForm.value)

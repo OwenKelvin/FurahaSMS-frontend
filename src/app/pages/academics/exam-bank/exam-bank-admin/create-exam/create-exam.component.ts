@@ -19,8 +19,8 @@ export class CreateExamComponent implements OnDestroy {
     ])
   });
   triggerValidation: boolean;
-  isSubmitting: boolean = false;
-  componentIsActive: boolean = true;
+  isSubmitting = false;
+  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
     private examPaperService: ExamPaperService,
