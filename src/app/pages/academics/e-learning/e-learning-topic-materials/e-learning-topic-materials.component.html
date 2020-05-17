@@ -4,8 +4,8 @@
     [routerLink]='["..","study-materials", learningContent.study_material_id]'
     class="d-flex flex-wrap p-2">
     <div class="col-lg-12">
-      <span [style.color]='learningContent.study_material.study_material_doc.type | fileExtentionColor'
-        [class]="learningContent.study_material.study_material_doc.type | fileExtentionIcon"></span>
+      <span [style.color]='learningContent.study_material.study_material_doc.type | fileExtention:"color"'
+        [class]='learningContent.study_material.study_material_doc.type | fileExtention:"icon"'></span>
       <strong>{{ learningContent.study_material.title }}</strong>
     </div>
     <div class="col-lg-12 d-flex flex-wrap justify-content-between pb-2" style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'>

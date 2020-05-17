@@ -4,48 +4,16 @@ import { AppState } from 'src/app/store/reducers';
 import { Observable } from 'rxjs';
 import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
 import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup, FormArray, Validators, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
 import { takeWhile, map, mergeMap, tap } from 'rxjs/operators';
 import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
 import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
 import { ExamPaperQuestionsService } from '../../services/exam-paper-questions.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { loadExamPapers } from '../../store/actions/exam-paper.actions';
+import { answersMatchValidator } from '../../validators/answers-match.validator';
+import { IExamPaperQuestion } from '../../interfaces/exam-paper-question.interface';
 
-const answersMatchValidator = (group: FormGroup): { answersMismatch: any; } | null => {
-  const multipleAnswers = (group.get('multipleAnswers') as FormControl).value;
-  const multipleChoices = (group.get('multipleChoices') as FormControl).value;
-  const answers = (group.get('answers') as FormArray).value as any[];
-  if ((answers.every(({ isCorrect }) => !isCorrect))) {
-    return { answersMismatch: 'A question must have at least one answer correct' };
-  }
-  if (!multipleChoices) {
-    if (!(answers.every(({ isCorrect }) => isCorrect))) {
-      return { answersMismatch: 'You Have marked Answers to have no choices. All answers for no choice question must be correct' };
-    }
-  } else {
-    if (!multipleAnswers) {
-      if (answers.reduce((a, b) => +a + +b.isCorrect, 0) > 1) {
-        return { answersMismatch: 'A single choice question can have only 1 correct answer' };
-      }
-    }
-  }
-
-  return null;
-};
-
-interface IExamPaperQuestion {
-  id: number;
-  correctAnswerDescription: string;
-  multipleAnswers: boolean;
-  multipleChoices: boolean;
-  points: number;
-  description: string;
-  tags: any[];
-  answers: any[];
-
-}
 @Component({
   selector: 'app-admin-exam-paper-edit',
   templateUrl: './admin-exam-paper-edit.component.html',
@@ -53,14 +21,19 @@ interface IExamPaperQuestion {
 })
 export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeactivateGuard {
   examPaper$: Observable<any>;
-  activeQuestion: number;
+  activeQuestion: number = 0;
   Queries: IExamPaperQuestion[];
   modalRef: BsModalRef;
-  dialog: any;
+  dialog: any = {
+    title: 'Add Item',
+    type: 'new',
+    value: {
+    }
+  };
   editDialogForm: FormGroup;
-  componentIsActive: boolean;
-  submitted: boolean;
-  editorInit$: Observable<any>;
+  componentIsActive: boolean = true;
+  submitted: boolean = true;
+  editorInit$: Observable<any> = this.store.pipe(select(selectTinyMceConfig));;
   questionId$: Observable<any>;
   editorInit: any;
   tagInput = '';
@@ -77,25 +50,16 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
   ) { }
   editorInitialized = false;
   ngOnInit() {
-    this.componentIsActive = true;
-    this.editorInit$ = this.store.pipe(select(selectTinyMceConfig));
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(conf => { this.editorInit = conf; });
-    this.submitted = true;
 
-    this.dialog = {
-      title: 'Add Item',
-      type: 'new',
-      value: {
-      }
-    };
     this.questionId$ =
       (this.route.parent as ActivatedRoute).paramMap.pipe(map(params => params.get('id')));
     this.examPaper$ = this.questionId$
-      .pipe(takeWhile(() => this.componentIsActive))
-      .pipe(mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))))
-      .pipe(tap(res => {
+      .pipe(takeWhile(() => this.componentIsActive),
+        mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))),
+        tap(res => {
         if (res) {
           this.Queries = res.questions.map((item: any) => ({
             id: item.id,
@@ -109,7 +73,6 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
           }));
         }
       }));
-    this.activeQuestion = 0;
 
     this.resetForm();
     this.multipleChoices.valueChanges

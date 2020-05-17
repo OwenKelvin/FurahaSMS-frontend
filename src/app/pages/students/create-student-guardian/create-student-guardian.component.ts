@@ -1,13 +1,11 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
 import { FormGroup, FormBuilder, Validators, FormControl, FormArray } from '@angular/forms';
-import { AppState } from 'src/app/store/reducers';
-import { debounceTime, takeWhile, map, mergeMap, tap } from 'rxjs/operators';
+import { debounceTime, takeWhile, map, mergeMap } from 'rxjs/operators';
 import { UsersService } from 'src/app/services/users.service';
 import { GuardiansService } from 'src/app/services/guardians.service';
-import { ActivatedRoute } from '@angular/router';
-import { selectStudent } from '../store/selectors/student-profile.selectors';
-import { loadStudentProfiles } from '../store/actions/student-profile.actions';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { StudentService } from 'src/app/services/student.service';
 
 @Component({
   selector: 'app-create-student-guardian',
@@ -15,54 +13,39 @@ import { loadStudentProfiles } from '../store/actions/student-profile.actions';
   styleUrls: ['./create-student-guardian.component.css']
 })
 export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
-  userIdentificaionForm: FormGroup;
+  emailPattern = '^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$';
+  userIdentificaionForm: FormGroup = this.fb.group({
+    guardians: this.fb.array([this.buildGuardianProfile()])
+  });
   usersData: any[];
   confirmData: boolean[];
-  validators = {
-    firstName: [Validators.required, Validators.minLength(2)],
-    lastName: [Validators.required, Validators.minLength(2)],
-    middleName: [],
-    otherNames: [],
-    namePrefix: [],
-    dateOfBirth: [Validators.required],
-    email: [
-      Validators.email,
-      Validators.required,
-      Validators.pattern('^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$'), Validators.required]
-  };
+
   triggerValidation: boolean;
-  isSubmitting: boolean;
+  isSubmitting: boolean = false;
   confirmedData: boolean[];
-  componentIsActive: boolean;
-  student$: any;
+  componentIsActive: boolean = true;
+  student$: Observable<any> = this.route.paramMap
+    .pipe(
+      map(params => Number(params.get('id'))),
+      mergeMap(id => this.studentService.loadStudentProfile$(id))
+    );
+
   studentId: number;
   constructor(
     private studentGuardian: GuardiansService,
     private users: UsersService,
-    private store: Store<AppState>,
     private fb: FormBuilder,
-    private route: ActivatedRoute  ) {
+    private route: ActivatedRoute,
+    private router: Router,
+    private studentService: StudentService
+  ) {
     this.usersData = [null];
     this.confirmData = [false];
     this.confirmedData = [false];
   }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.userIdentificaionForm = this.fb.group({
-      guardians: this.fb.array([this.buildGuardianProfile()])
-    });
     this.subscribeToEmailChecking();
-    this.student$ = this.route.paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(tap(id => this.studentId = id))
-      .pipe(mergeMap((id) => this.store.pipe(select(selectStudent(id)))))
-      .pipe(tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } })) : null));
-    // .pipe(tap(profile => {
-    //   if (!profile) {
-    //     this.store.dispatch(loadStudentProfiles({ data: { id: this.studentId } }))
-    //   }
-    // }))
   }
   get guardians(): FormArray {
     return this.userIdentificaionForm.get('guardians') as FormArray;
@@ -83,8 +66,9 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
     (this.userIdentificaionForm.get('guardians') as FormArray).controls
       .forEach((element, i) => {
         (element.get('email') as FormControl).valueChanges
-          .pipe(debounceTime(1000))
-          .pipe(takeWhile(() => this.componentIsActive))
+          .pipe(
+            debounceTime(1000),
+            takeWhile(() => this.componentIsActive))
           .subscribe(
             (event) => {
               if (event && event.length && event.length > 5) {
@@ -134,21 +118,25 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   }
   buildGuardianProfile(): FormGroup {
     return this.fb.group({
-      firstName: ['', this.validators.firstName],
-      lastName: ['', this.validators.lastName],
-      otherNames: ['', this.validators.otherNames],
-      middleName: ['', this.validators.middleName],
-      namePrefix: ['', this.validators.namePrefix],
+      firstName: ['', Validators.required, Validators.minLength(2)],
+      lastName: ['', Validators.required, Validators.minLength(2)],
+      otherNames: [''],
+      middleName: [''],
+      namePrefix: [''],
       gender: [null],
       religion: [null],
-      dateOfBirth: [null, this.validators.dateOfBirth],
+      dateOfBirth: [null, Validators.required],
       autogenerateIdNumber: [true, Validators.required],
       idNumber: [],
       // idNumber: new FormControl(
       //   { value: '', disabled: true },
       //   Validators.required, this.idNumberValidator.studentIdTaken.bind(this.idNumberValidator)),
       birthCertNumber: [''],
-      email: ['', this.validators.email],
+      email: ['', [
+        Validators.email,
+        Validators.required,
+        Validators.pattern(this.emailPattern), Validators.required
+      ]],
       phone: ['', []],
       relation: ['', Validators.required]
     });
@@ -161,19 +149,17 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
       this.userIdentificaionForm.get('guardians')?.value.forEach((item: any) => {
 
         this.route.paramMap
-          .pipe(map(params => params.get('id')))
-          .pipe(takeWhile(() => this.componentIsActive))
-          .pipe(mergeMap((id) => this.studentGuardian.submit({ ...item, student_id: id })))
+          .pipe(
+            map(params => params.get('id')),
+            mergeMap((id) => this.studentGuardian.submit({ ...item, student_id: id })),
+            takeWhile(() => this.componentIsActive))
           .subscribe({
             next: () => {
               this.isSubmitting = false;
+              this.router.navigate(['students', this.studentId, 'guardians']);
             },
             error: () => this.isSubmitting = false
           });
-        // this.studentGuardian.submit({ ...item, student_id: 24 })
-        //   .subscribe(res => {
-        //     this.isSubmitting = false;
-        //   }, err => this.isSubmitting = false);
       });
     } else {
       this.triggerValidation = !this.triggerValidation;

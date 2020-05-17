@@ -1,0 +1,34 @@
+.list-group {
+  flex-direction: row;
+}
+
+
+ .list-group-item {
+    width: calc(100% - 2em);
+     padding: 0;
+  }
+
+@media (min-width: 576px) { 
+  .list-group-item {
+    width: calc((100% - 2em) / 2 );
+  }
+}
+
+@media (min-width: 768px) {
+   .list-group-item {
+    width: calc((100% - 2em) / 2 );
+  }
+}
+
+@media (min-width: 992px) {
+   .list-group-item {
+    width: calc((100% - 2em) / 3 );
+  }
+ }
+
+
+@media (min-width: 1200px) { 
+   .list-group-item {
+    width: calc((100% - 2em) / 4 );
+  }
+ }

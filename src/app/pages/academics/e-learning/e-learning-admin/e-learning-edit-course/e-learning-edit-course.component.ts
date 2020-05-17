@@ -47,9 +47,10 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
 
   getCourses() {
     this.course$ = (this.route.parent as ActivatedRoute).paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))))
-      .pipe(tap((res) => this.course = res))
+      .pipe(
+        map(params => Number(params.get('id'))),
+        mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
+        tap((res) => this.course = res));
   }
   resetNewContentForm(topicId?: number) {
     this.newContentUploadForm = this.fb.group({
@@ -60,7 +61,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
     this.newLearningOutcomeForm = this.fb.group({
       description: ['', [Validators.required]],
       topicId: [topicId, []]
-    })
+    });
   }
   openModal(template: TemplateRef<any>) {
     this.courseNameConfirmation = '';
@@ -90,24 +91,24 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
       this.savingNewContent = true;
       const course: any = this.course ? this.course : {};
       const data = {
-        title: (this.newContentUploadForm.get('description') as FormControl).value,
+        title: this.newContentUploadForm.get('description')?.value,
         units: [course.unitId],
         classLevels: [course.classLevelId],
       };
 
       this.studyMaterialsService.uploadDocument(pdfFile)
-        .pipe(map(({ data: uploadRes }: any) => uploadRes.id))
-        .pipe(mergeMap((docId: number) => this.studyMaterialsService.saveStudyaterialInfo({ docId, data })))
-        .pipe(map(({ data: studyMatRes }: any) => studyMatRes.id))
-        .pipe(mergeMap((studyMaterialId: any) => {
-          return this.eLearningService.saveCourseContent({
-            studyMaterialId,
-            data: {
-              eLearningTopicId: (this.newContentUploadForm.get('topicId') as FormControl).value
-            }
-          });
-        }))
-        .pipe(takeWhile(() => this.componentIsActive))
+        .pipe(
+          map(({ data: uploadRes }: any) => uploadRes.id),
+          mergeMap((docId: number) => this.studyMaterialsService.saveStudyaterialInfo({ docId, data })),
+          map(({ data: studyMatRes }: any) => studyMatRes.id),
+          mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
+              studyMaterialId,
+              data: {
+                eLearningTopicId: this.newContentUploadForm.get('topicId')?.value
+              }
+            })
+          ),
+          takeWhile(() => this.componentIsActive))
         .subscribe(() => {
           // this.course$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
           this.getCourses();
@@ -143,7 +144,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
         return 'newLearningOutcomeForm';
 
       default:
-        return 'newContentUploadForm'
+        return 'newContentUploadForm';
     }
   }
   get activeForm(): FormGroup {

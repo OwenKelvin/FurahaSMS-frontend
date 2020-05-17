@@ -16,6 +16,7 @@ import { ValidateSubmitButtonsComponent } from 'src/app/components/validate-subm
 import { studentProfileFeatureKey } from '../store/reducers/student-profile.reducer';
 import { reducer } from 'src/app/store/reducers/student-profile-update.reducer';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('CreateStudentGuardianComponent', () => {
   let component: CreateStudentGuardianComponent;
@@ -37,7 +38,8 @@ describe('CreateStudentGuardianComponent', () => {
         ReactiveFormsModule,
         NgSelectModule,
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        RouterTestingModule
       ],
       declarations: [
         CreateStudentGuardianComponent,

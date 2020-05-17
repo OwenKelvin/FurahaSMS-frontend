@@ -2,6 +2,9 @@ import { Injectable } from '@angular/core';
 import { Observable, throwError, noop } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
 import { HttpClient } from '@angular/common/http';
+import { Store, select } from '@ngrx/store';
+import { selectStudent } from '../pages/students/store/selectors/student-profile.selectors';
+import { loadStudentProfiles } from '../pages/students/store/actions/student-profile.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -9,8 +12,15 @@ import { HttpClient } from '@angular/common/http';
 export class StudentService {
 
   constructor(
-    private http: HttpClient
+    private http: HttpClient,
+    private store: Store
   ) { }
+  
+  loadStudentProfile$ = (id: number) => this.store.pipe(
+    select(selectStudent(id)),
+    tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id } })) : null)
+  )
+  
   createNewStudent(newStudentData: any): Observable<any> {
 
     return this.save(newStudentData);

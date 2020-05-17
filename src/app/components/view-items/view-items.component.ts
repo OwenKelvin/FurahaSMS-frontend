@@ -1,10 +1,6 @@
 import { Component, OnInit, Input, OnDestroy, Output, EventEmitter } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
 import { Observable } from 'rxjs';
 import { map, takeWhile, tap } from 'rxjs/operators';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 
 @Component({
   selector: 'app-view-items',
@@ -22,19 +18,14 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
   items$: Observable<any[]>;
   createUnitCategoryCurriculum: string;
   editUnitCategoryCurriculum: any;
-  deleting: boolean[];
+  deleting: boolean[] = [false];
   viewUnitCategoryCurriculum: (id: string | number) => string;
-  componentIsActive: any;
-  itemLoading: boolean;
-  constructor(
-    private store: Store<AppState>,
-  ) { }
+  componentIsActive: boolean = true;
+  itemLoading: boolean = false;
+  constructor( ) { }
 
   ngOnInit() {
-    this.itemLoading = false;
-    this.componentIsActive = true;
     this.getItems();
-    this.deleting = [false];
   }
   getItems(): void {
     this.items$ = this.itemService.getAll().pipe(
@@ -60,21 +51,10 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
         .subscribe({
           next: () => {
             this.deleted.emit(id);
-            this.store.dispatch(loadToastShowsSuccess({
-              showMessage: true,
-              toastHeader: 'Success',
-              toastTime: 'Just now',
-              toastBody: `Successfully deleted "${name}"`
-            }));
+            this.deleting[index] = false;
           },
-          error: (error: any) => {
-
-            this.store.dispatch(loadErrorMessagesSuccess({
-              body: error.help,
-              show: true,
-              title: error.message,
-              status: error.status
-            }));
+          error: () => {
+            this.deleting[index] = false;
           },
           complete: () => {
             this.deleting[index] = false;

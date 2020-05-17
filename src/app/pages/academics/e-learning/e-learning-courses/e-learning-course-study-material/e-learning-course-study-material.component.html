@@ -27,14 +27,14 @@
       </section>
      
       <!-- <a class="btn btn-secondary btn-block mt-4" [routerLink]='["/document", docSrc]'>
-        <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
-          [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
+        <span [style.color]='studyMaterial.file_document_info.type | fileExtention:color'
+          [class]="studyMaterial.file_document_info.type | fileExtention:icon"></span>
         View Document
         <span class="icon-eye"></span>
       </a> -->
       <button (click)='downloadFIle()' type="button" class="btn btn-block btn-success btn-lg text-light mt-4">
-        <span [style.color]='studyMaterial.file_document_info.type | fileExtentionColor'
-          [class]="studyMaterial.file_document_info.type | fileExtentionIcon"></span>
+        <span [style.color]='studyMaterial.file_document_info.type | fileExtention:"color"'
+          [class]='studyMaterial.file_document_info.type | fileExtention:"icon"'></span>
         Download File
         <span class="icon-download"></span>
       </button>
