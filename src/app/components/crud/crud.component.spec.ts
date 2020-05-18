@@ -47,4 +47,11 @@ describe('CrudComponent', () => {
   it('should create', () => {
     expect(component).toBeTruthy();
   });
+
+  it('should call itemService submit function', () => {
+    const itemService = spyOnProperty(component.itemService, 'submit');
+    spyOnProperty(component.itemForm, 'valid').and.returnValue(true);
+    component.submitForm();
+    expect(itemService).toHaveBeenCalled();
+  });
 });

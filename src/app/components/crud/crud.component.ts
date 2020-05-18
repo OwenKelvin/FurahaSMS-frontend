@@ -1,19 +1,14 @@
-import { Component, OnInit, Input, ɵConsole, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
-import { takeWhile } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.css']
 })
-export class CrudComponent implements OnInit, OnDestroy {
+export class CrudComponent implements OnInit {
   @Input() newForm: boolean;
   @Input() title: boolean;
   @Input() fields: any[] = [];
@@ -23,74 +18,47 @@ export class CrudComponent implements OnInit, OnDestroy {
   @Input() transforms: TransformInterface[];
   @Input() idIndex: number;
   showErrorMessage: boolean;
-  itemForm: FormGroup;
+  itemForm: FormGroup = this.fb.group({ });
+;
   isSubmitting: boolean;
   triggerValidation: boolean;
-  componentIsActive: boolean;
-  constructor(private store: Store<AppState>, private fb: FormBuilder, private router: Router) { }
+  constructor(private fb: FormBuilder, private router: Router) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.itemForm = this.fb.group({
 
-    });
-
-    if (this.fields.includes('name')) {
-      this.itemForm.setControl('name', this.fb.control('', [Validators.required]));
-    }
-    if (this.fields.includes('abbr')) {
-      this.itemForm.setControl('abbr', this.fb.control('', []));
-    }
+    ['name', 'abbr', 'active'].forEach(item => {
+      if (this.fields.includes(item)) {
+        this.itemForm.setControl(item, this.fb.control('', []));
+      }
+    })
     if (this.parent) {
       this.itemForm.setControl('parentCategory', this.fb.control(null, [Validators.required]));
-    }
-    if (this.fields.includes('active')) {
-      this.itemForm.setControl('active', this.fb.control(true, [Validators.required]));
     }
   }
   get submitData() {
     const toSubmit = this.itemForm.value;
     if (this.transforms) {
       this.transforms.forEach(item => {
-
         toSubmit[item.to] = toSubmit[item.from];
-
       });
     }
     return toSubmit;
   }
   submitForm() {
 
-    this.isSubmitting = true;
     if (this.itemForm.valid) {
+      this.isSubmitting = true;
       this.itemService
         .submit(this.submitData)
-        .pipe(takeWhile(() => this.componentIsActive))
         .subscribe((success: any) => {
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastHeader: 'Success',
-            toastBody: `Successfully created ${this.title}!`,
-            toastTime: 'Just now'
-          }));
           this.router.navigate([this.viewLink(success.id)]);
-
-        }, (error: any) => {
+        }, () => {
           this.isSubmitting = false;
-          this.store.dispatch(loadErrorMessagesSuccess({
-            body: error.help,
-            show: true,
-            title: error.message,
-            status: error.status
-          }));
+
         });
     } else {
       this.itemForm.markAllAsTouched();
       this.triggerValidation = true;
     }
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
-
 }
