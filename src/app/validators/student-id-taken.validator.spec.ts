@@ -1,14 +1,16 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import { TestBed } from '@angular/core/testing';
 
 import { IdNumberValidator } from './student-id-taken.validator';
 import { StudentService } from '../services/student.service';
 import { FormControl } from '@angular/forms';
 import { of } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
 
 describe('IdNumberValidator', () => {
 
-  const studentService: StudentService = new StudentService(jasmine.createSpyObj({get: 1 }));
+  const studentService: StudentService = new StudentService(
+    jasmine.createSpyObj({ get: 1 }),
+    jasmine.createSpyObj({ dispatch: ()=> true }),
+  );
   beforeEach(() => TestBed.configureTestingModule({
     imports: [],
     providers: [{

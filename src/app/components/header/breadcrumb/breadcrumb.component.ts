@@ -19,7 +19,7 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   public breadcrumbs: BreadcrumbInterface[];
 
   showSpinner: boolean;
-  componentIsActive: boolean;
+  componentIsActive: boolean = true;
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -30,19 +30,20 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.componentIsActive = true;
+  
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
     // const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
-      .pipe(takeWhile(() => this.componentIsActive))
+    this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel),
+      takeWhile(() => this.componentIsActive))
       .subscribe(() => {
         this.showSpinner = false;
         const root: ActivatedRoute = this.activatedRoute.root;
         this.breadcrumbs = this.getBreadcrumbs(root);
       });
-    this.router.events.pipe(filter(event => event instanceof NavigationStart))
-      .pipe(takeWhile(() => this.componentIsActive))
+    this.router.events.pipe(filter(event => event instanceof NavigationStart),
+      takeWhile(() => this.componentIsActive))
       .subscribe(() => {
         this.showSpinner = true;
       });

@@ -21,9 +21,9 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   confirmData: boolean[];
 
   triggerValidation: boolean;
-  isSubmitting: boolean = false;
+  isSubmitting = false;
   confirmedData: boolean[];
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   student$: Observable<any> = this.route.paramMap
     .pipe(
       map(params => Number(params.get('id'))),

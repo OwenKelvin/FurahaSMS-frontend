@@ -21,7 +21,7 @@ import { IExamPaperQuestion } from '../../interfaces/exam-paper-question.interfa
 })
 export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeactivateGuard {
   examPaper$: Observable<any>;
-  activeQuestion: number = 0;
+  activeQuestion = 0;
   Queries: IExamPaperQuestion[];
   modalRef: BsModalRef;
   dialog: any = {
@@ -31,8 +31,8 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     }
   };
   editDialogForm: FormGroup;
-  componentIsActive: boolean = true;
-  submitted: boolean = true;
+  componentIsActive = true;
+  submitted = true;
   editorInit$: Observable<any> = this.store.pipe(select(selectTinyMceConfig));;
   questionId$: Observable<any>;
   editorInit: any;

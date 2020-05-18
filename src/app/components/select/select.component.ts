@@ -127,13 +127,12 @@ export class SelectComponent
       }
     }
   }
-  
+
   ngOnInit() {
     if (typeof this.multiple === 'string') {
       this.multipleSelector = true;
     }
-    const typeString = this.type.replace(':', ' ').replace('-', ' ');
-    
+
     switch (this.type) {
       case 'vendor':
         this.categories$ = this.procurementService

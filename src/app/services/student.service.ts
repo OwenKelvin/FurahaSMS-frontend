@@ -15,12 +15,12 @@ export class StudentService {
     private http: HttpClient,
     private store: Store
   ) { }
-  
+
   loadStudentProfile$ = (id: number) => this.store.pipe(
     select(selectStudent(id)),
     tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id } })) : null)
   )
-  
+
   createNewStudent(newStudentData: any): Observable<any> {
 
     return this.save(newStudentData);

@@ -20,8 +20,8 @@ export class ViewItemsComponent implements OnInit, OnDestroy {
   editUnitCategoryCurriculum: any;
   deleting: boolean[] = [false];
   viewUnitCategoryCurriculum: (id: string | number) => string;
-  componentIsActive: boolean = true;
-  itemLoading: boolean = false;
+  componentIsActive = true;
+  itemLoading = false;
   constructor( ) { }
 
   ngOnInit() {
