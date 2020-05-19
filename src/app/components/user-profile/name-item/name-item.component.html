@@ -9,8 +9,8 @@
         <button type="button" (click)='editable = false' class="btn btn-secondary mt-2">Cancel
         </button>
         <button [disabled]='itemForm.invalid || !itemForm.dirty' class="btn btn-success mt-2">
-          <i *ngIf='itemForm.valid && !isSubmitting' class='icon-floppy'></i>
-          <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
+          <i *ngIf='itemForm.valid && (submitInProgressAction$ | async) === false' class='icon-floppy'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
           <span class="icon-save"></span>Save </button>
       </div>
     </div>

@@ -1,134 +1,61 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../store/reducers';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ClassLevelCategoryService } from 'src/app/services/class-level-category.service';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { ClassLevelCategoryInterface } from 'src/app/interfaces/class-level-category.interface';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { map, takeWhile } from 'rxjs/operators';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
+import { map, tap, filter, mergeMap } from 'rxjs/operators';
 import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
+import { submitMixin } from 'src/app/shared/mixins/submit-spinner.mixin';
+import { BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-create-class-level-category',
   templateUrl: './create-class-level-category.component.html',
-  styleUrls: ['./create-class-level-category.component.css']
+  styleUrls: ['./create-class-level-category.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateClassLevelCategoryComponent implements OnInit, OnDestroy {
+export class CreateClassLevelCategoryComponent extends submitMixin() implements OnInit {
 
-  showErrorMessage: boolean;
-  formId: any;
-  submitInProgress: boolean;
-  componentIsActive: any;
+  componentIsActive: boolean = true;
   constructor(
     private fb: FormBuilder,
-    private store: Store<AppState>,
     private classLevelCategory: ClassLevelCategoryService,
-    private router: Router
-  ) { }
-  errors: {
-    name: string | null;
-  };
-  classLevelCategoryForm: FormGroup;
-  newForm: boolean;
+    private router: Router,
+    private route: ActivatedRoute
+  ) { super(); }
+  classLevelCategoryForm: FormGroup = this.fb.group({
+    id: [null],
+    name: [name, [Validators.required]],
+    active: [false],
+    description: ['']
+  });
+  editFormSubject$ = new BehaviorSubject<boolean>(false);
+  editFormAction$ = this.editFormSubject$.asObservable();
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.newForm = true;
-    this.errors = {
-      name: ''
-    };
     this.generateClassLevelCategoryForm();
-    let activatedRoute: ActivatedRouteSnapshot;
-    if (
-      this.router.routerState.root &&
-      this.router.routerState.root.children &&
-      this.router.routerState.root.children[0]
-    ) {
-      activatedRoute = this.router.routerState.root.children[0].children[0]
-        .children[0].snapshot;
-      const id = activatedRoute.params.id;
-
-      if (id === undefined) {
-        this.newForm = true;
-      } else {
-        this.newForm = false;
-        this.formId = id;
-        this.classLevelCategory.get({ id })
-          .pipe(takeWhile(() => this.componentIsActive))
-          .subscribe(item => {
-          this.generateClassLevelCategoryForm(item);
-        });
-      }
-    }
+    this.route.paramMap.pipe(
+      map(params => Number(params.get('id'))),
+      filter(id => id > 0),
+      tap(() => this.editFormSubject$.next(true)),
+      mergeMap(id => this.classLevelCategory.get({ id })),
+      tap((item) => this.generateClassLevelCategoryForm(item))
+    ).subscribe();
   }
-  generateClassLevelCategoryForm(
-    { id = null, name = '', active = true, description = '' }: ClassLevelCategoryInterface = {
-      id: null,
-      name: '',
-      active: true,
-      description: ''
-    }
-  ) {
-    this.classLevelCategoryForm = this.fb.group({
-      id: [id],
-      name: [name, [Validators.required]],
-      active: [active],
-      description: [description]
-    });
+  generateClassLevelCategoryForm({ id = null, name = '', active = true, description = '' }: ClassLevelCategoryInterface =
+      {  id: null, name: '', active: true, description: ''}) {
+    this.classLevelCategoryForm.setValue({ id, name, active, description });
   }
-  get nameControl() {
-    return this.classLevelCategoryForm.get('name') as FormGroup;
-  }
-  validateName() {
-    if (
-      (this.nameControl.dirty ||
-        this.nameControl.touched) &&
-      !this.nameControl.valid
-    ) {
-      if (this.nameControl.errors && this.nameControl.errors.required) {
-        this.errors.name = 'Name is required';
-      } else {
-        if (this.errors) {
-           this.errors.name = null;
-        }
-
-      }
-    }
-  }
-
   submit() {
-    this.submitInProgress = true;
     if (this.classLevelCategoryForm.valid) {
-      this.classLevelCategory
-        .submit(this.classLevelCategoryForm.value)
-        .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(success => {
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastHeader: 'Success',
-            toastBody: 'Successfully created class Level category!',
-            toastTime: 'Just now'
-          }));
-          this.router.navigate([VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM(success.id)]);
-
-        }, error => {
-            this.submitInProgress = false;
-            this.showErrorMessage = true;
-            this.store.dispatch(loadErrorMessagesSuccess({
-              body: error.help,
-              show: true,
-              title: error.message,
-              status: error.status
-            }));
-        });
+      this.submitInProgressSubject$.next(true);
+      this.classLevelCategory.submit(this.classLevelCategoryForm.value)
+        .subscribe({
+          next: success => this.router.navigate([VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM(success.id)]),
+          error: () => this.submitInProgressSubject$.next(false)
+        })
     } else {
       this.classLevelCategoryForm.markAllAsTouched();
-      this.validateName();
     }
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

@@ -7,6 +7,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('TeachingStaffAdmissionComponent', () => {
   let component: TeachingStaffAdmissionComponent;
@@ -21,7 +22,8 @@ describe('TeachingStaffAdmissionComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }),
+      }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
         RouterTestingModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,

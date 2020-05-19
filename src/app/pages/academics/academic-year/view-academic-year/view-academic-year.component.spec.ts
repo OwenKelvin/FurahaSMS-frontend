@@ -10,6 +10,7 @@ import { ActivatedRoute } from '@angular/router';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { of } from 'rxjs';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('ViewAcademicYearComponent', () => {
   let component: ViewAcademicYearComponent;
@@ -29,7 +30,8 @@ describe('ViewAcademicYearComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         AppLinksModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [
         ViewAcademicYearComponent],
@@ -38,7 +40,7 @@ describe('ViewAcademicYearComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            paramMap: of({ get: () => 1})
+            paramMap: of({ get: () => 1 })
           }
         }
       ]

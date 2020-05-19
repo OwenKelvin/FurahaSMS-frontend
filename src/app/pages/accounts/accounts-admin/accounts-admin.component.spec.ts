@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { myProfileFeatureKey, reducer } from '../../my-profile/store/reducers/my-profile.reducer';
 
 describe('AccountsAdminComponent', () => {
   let component: AccountsAdminComponent;
@@ -13,7 +14,6 @@ describe('AccountsAdminComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppLinksModule,
         RouterTestingModule,
         AppLinksModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -23,6 +23,7 @@ describe('AccountsAdminComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer);
       ],
       declarations: [AccountsAdminComponent],
       providers: [reducerProvider]

@@ -14,6 +14,7 @@ import { of } from 'rxjs';
 import { SelectLibraryClassComponent } from '../../../components/select-library-class/select-library-class.component';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -39,7 +40,8 @@ describe('AddBookComponent', () => {
         ReactiveFormsModule,
         AppInputModule,
         TabsModule.forRoot(),
-        AppBarcodeModule
+        AppBarcodeModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [AddBookComponent, SelectLibraryClassComponent],
       providers: [

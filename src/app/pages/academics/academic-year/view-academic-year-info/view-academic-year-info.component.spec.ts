@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
+import { myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('ViewAcademicYearInfoComponent', () => {
   let component: ViewAcademicYearInfoComponent;
@@ -22,7 +23,8 @@ describe('ViewAcademicYearInfoComponent', () => {
           }
         }),
         RouterTestingModule,
-        AppLinksModule
+        AppLinksModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [ViewAcademicYearInfoComponent],
       providers: [reducerProvider]

@@ -1,4 +1,4 @@
-<h1> {{ newForm ? 'Create': 'Update'}} Class Level Category</h1>
+<h1> {{ (editFormAction$ | async) ? 'Update': 'Create'}} Class Level Category</h1>
 <form [formGroup]="classLevelCategoryForm" (submit)="submit()">
   <fieldset>
     <legend>General Details</legend>
@@ -23,13 +23,12 @@
     </section>
 
   </fieldset>
-  <app-error ></app-error>
   <section class='d-flex justify-content-end mt-2'>
     
-    <button [disabled]='!classLevelCategoryForm.valid || submitInProgress || showErrorMessage' class='btn btn-success' type='submit'>
-      {{ newForm ? 'Create': 'Update'}} Class Level
-      <i *ngIf='classLevelCategoryForm.valid && !submitInProgress' class='icon-ok'></i>
-      <i *ngIf='submitInProgress' class='icon-spin3 animate-spin'></i>
+    <button [disabled]='!classLevelCategoryForm.valid || (submitInProgressAction$ | async)' class='btn btn-success' type='submit'>
+      {{ (editFormAction$ | async) ? 'Update': 'Create'}}
+      <i *ngIf='classLevelCategoryForm.valid && (submitInProgressAction$ | async) === false' class='icon-ok'></i>
+      <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
     </button>
   </section>
 

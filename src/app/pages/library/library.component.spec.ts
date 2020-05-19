@@ -13,6 +13,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { LibraryModule } from './library.module';
 import { EffectsModule } from '@ngrx/effects';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('LibraryComponent', () => {
   let component: LibraryComponent;
@@ -39,10 +40,10 @@ describe('LibraryComponent', () => {
         AppLinksModule,
         AppViewItemsModule,
         AppInputModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
-      declarations: [
-      ],
+      declarations: [],
       providers: [reducerProvider]
     });
 
