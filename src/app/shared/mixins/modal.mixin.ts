@@ -1,0 +1,44 @@
+
+  
+import { Constructor } from './constructor.mixin';
+import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
+import { Store, select } from '@ngrx/store';
+import { closeModals, loadModals } from 'src/app/store/actions/modal.actions';
+import { filter, tap, takeWhile } from 'rxjs/operators';
+import { selectModalOpenState } from 'src/app/store/selectors/modal.selectors';
+
+export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
+  class extends BaseClass {
+    componentIsActive: boolean = true;
+    config: ModalOptions = {
+      initialState: { id: 0 },
+      backdrop: true,
+      ignoreBackdropClick: true,
+      animated: true,
+    };
+    modalRef: BsModalRef;
+    private modalServiceInjected: BsModalService;
+    private storeInjected: Store<any>
+    constructor(...args: any[]) { 
+      super(...args);
+      this.modalServiceInjected = args[0]
+      this.storeInjected = args[1]
+    }
+    
+    openModal({ id, component }: { id: number; component: any; }) {
+      this.storeInjected.dispatch(loadModals());
+      this.config.initialState = { id };
+      this.modalRef = this.modalServiceInjected.show(component, this.config);
+      this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
+      this.storeInjected.pipe(
+        select(selectModalOpenState),
+        filter(open => !open),
+        tap(() => this.modalRef.hide()),
+        takeWhile(() => this.componentIsActive)
+      ).subscribe();
+    }
+    
+    closeModal() {
+      this.storeInjected.dispatch(closeModals());
+    }
+  };

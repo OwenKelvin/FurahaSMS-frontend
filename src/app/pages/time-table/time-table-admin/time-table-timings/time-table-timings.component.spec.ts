@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeTableTimingsComponent } from './time-table-timings.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('TimeTableTimingsComponent', () => {
   let component: TimeTableTimingsComponent;
@@ -8,6 +9,9 @@ describe('TimeTableTimingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [
+        ModalModule.forRoot()
+      ],
       declarations: [ TimeTableTimingsComponent ]
     })
     .compileComponents();
