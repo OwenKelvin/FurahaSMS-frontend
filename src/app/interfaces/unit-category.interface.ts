@@ -3,5 +3,5 @@ export interface UnitCategoryInterface {
   name: string;
   active: boolean | 0 | 1 | null | undefined;
   description?: string;
-
+  units?: any[]
 }

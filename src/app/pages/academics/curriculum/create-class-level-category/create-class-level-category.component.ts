@@ -16,7 +16,6 @@ import { BehaviorSubject } from 'rxjs';
 })
 export class CreateClassLevelCategoryComponent extends formMixin() implements OnInit {
 
-  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
     private classLevelCategory: ClassLevelCategoryService,
@@ -29,8 +28,6 @@ export class CreateClassLevelCategoryComponent extends formMixin() implements On
     active: [false],
     description: ['']
   });
-  editFormSubject$ = new BehaviorSubject<boolean>(false);
-  editFormAction$ = this.editFormSubject$.asObservable();
 
   ngOnInit() {
     this.generateClassLevelCategoryForm();

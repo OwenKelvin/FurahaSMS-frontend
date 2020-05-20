@@ -39,7 +39,7 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
   @Input() hideSubmit: boolean;
   triggerValidation: boolean;
   isSubmitting: boolean;
-  componentIsActive: boolean;
+  componentIsActive: boolean = true;
   constructor(
 
     private fb: FormBuilder,
@@ -52,7 +52,6 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
   newForm: boolean;
 
   ngOnInit() {
-    this.componentIsActive = true;
     this.newForm = true;
     this.unitForm = this.fb.group({
       id: [null, []],

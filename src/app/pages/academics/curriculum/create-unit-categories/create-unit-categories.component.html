@@ -1,11 +1,11 @@
-<h1>{{ newForm ? 'Create': 'Update'}} Unit/Subject Category</h1>
-<section>
+<h1>{{ (editFormAction$ | async) ? 'Update': 'Create'}} Unit/Subject Category</h1>
+<section class="card p-2">
   <form (submit)="submit()" [formGroup]="newUnitCategoryForm">
     <fieldset>
       <legend>General Details</legend>
       <section class="d-flex flex-wrap">
         <section class="col-lg-5 col-md-6 col-sm-12">
-          <app-input [triggerValidation]='triggerValidation' label='Name' id="name" placeholder="Name"
+          <app-input [triggerValidation]='triggerValidationAction$ | async' label='Name' id="name" placeholder="Name"
             formControlName="name">
           </app-input>
         </section>
@@ -24,7 +24,7 @@
         </section>
       </section>
     </fieldset>
-    <fieldset>
+    <fieldset *ngIf='(editFormAction$ | async) === false'>
       <legend>Subject Details</legend>
       <button (click)="addSubject()" type="button" class="btn btn-sm btn-primary">Add <span
           class="icon-plus-circled"></span></button>
@@ -46,10 +46,12 @@
     </fieldset>
     <app-error></app-error>
 
-    <app-validate-submit-buttons [isSubmitting]='submitInProgress' (validationButtonClicked)='validateForm()'
-      [formItem]='newUnitCategoryForm'>
-      <span>{{ newForm ? 'Create': 'Update'}} Category</span>
-    </app-validate-submit-buttons>
+   <section class="mt-2">
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+        (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='newUnitCategoryForm'>
+        <span>{{ (editFormAction$ | async) ? 'Update': 'Create' }}</span>
+      </app-validate-submit-buttons>
 
+   </section>
   </form>
 </section>

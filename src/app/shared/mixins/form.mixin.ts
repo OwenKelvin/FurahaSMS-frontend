@@ -7,4 +7,6 @@ export const formMixin = <T extends Constructor>(BaseClass: T = class { } as T) 
     triggerValidationAction$ = this.triggerValidationSubject$.asObservable();
     submitInProgressSubject$ = new BehaviorSubject<boolean>(false);
     submitInProgressAction$ = this.submitInProgressSubject$.asObservable();
+    editFormSubject$ = new BehaviorSubject<boolean>(false);
+    editFormAction$ = this.editFormSubject$.asObservable();
   };
