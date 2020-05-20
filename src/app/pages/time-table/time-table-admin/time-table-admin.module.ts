@@ -7,6 +7,9 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TimeTableTimingsComponent } from './time-table-timings/time-table-timings.component';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { CreateTimingTemplateComponent } from './create-timing-template/create-timing-template.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -15,7 +18,11 @@ import { CreateTimingTemplateComponent } from './create-timing-template/create-t
     CommonModule,
     TimeTableAdminRoutingModule,
     TabsModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    FormsModule,
+    ReactiveFormsModule,
+    AppInputModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class TimeTableAdminModule { }

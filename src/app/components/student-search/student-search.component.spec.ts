@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { AppInputModule } from '../input/app-input.module';
 
 describe('StudentSearchComponent', () => {
   let component: StudentSearchComponent;
@@ -25,7 +26,10 @@ describe('StudentSearchComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }) ],
+        }),
+        TypeaheadModule.forRoot(),
+        AppInputModule
+      ],
       declarations: [StudentSearchComponent],
       providers: [reducerProvider]
     });

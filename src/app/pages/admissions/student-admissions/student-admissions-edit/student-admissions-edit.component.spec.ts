@@ -8,6 +8,8 @@ import { StudentsRecentlyCreatedComponent } from '../students-recently-created/s
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('StudentAdmissionsEditComponent', () => {
   let component: StudentAdmissionsEditComponent;
@@ -22,7 +24,11 @@ describe('StudentAdmissionsEditComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), AppLoadingBubbleModule, RouterTestingModule, HttpClientTestingModule ],
+      }), AppLoadingBubbleModule, RouterTestingModule, HttpClientTestingModule,
+        AppInputModule,
+        FormsModule,
+        ReactiveFormsModule
+      ],
       declarations: [StudentAdmissionsEditComponent, StudentSearchComponent, StudentsRecentlyCreatedComponent],
       providers: [reducerProvider]
     });

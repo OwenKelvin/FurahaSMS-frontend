@@ -23,7 +23,7 @@ describe('AccountsAdminComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(myProfileFeatureKey, reducer);
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [AccountsAdminComponent],
       providers: [reducerProvider]

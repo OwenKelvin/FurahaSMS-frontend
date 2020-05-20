@@ -5,7 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClassLevelCategoryInterface } from 'src/app/interfaces/class-level-category.interface';
 import { map, tap, filter, mergeMap } from 'rxjs/operators';
 import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
-import { submitMixin } from 'src/app/shared/mixins/submit-spinner.mixin';
+import { formMixin } from 'src/app/shared/mixins/form.mixin';
 import { BehaviorSubject } from 'rxjs';
 
 @Component({
@@ -14,9 +14,9 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./create-class-level-category.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateClassLevelCategoryComponent extends submitMixin() implements OnInit {
+export class CreateClassLevelCategoryComponent extends formMixin() implements OnInit {
 
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   constructor(
     private fb: FormBuilder,
     private classLevelCategory: ClassLevelCategoryService,

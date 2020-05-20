@@ -10,7 +10,8 @@ describe('LinksComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [AppLinksModule],
-      declarations: [ ]
+      declarations: [],
+      providers: []
     })
     .compileComponents();
   }));

@@ -4,14 +4,14 @@ import { UsersService } from 'src/app/services/users.service';
 import { Store, select } from '@ngrx/store';
 import { selectEditModeOnState } from 'src/app/store/selectors/app.selectors';
 import { Observable } from 'rxjs';
-import { submitMixin } from 'src/app/shared/mixins/submit-spinner.mixin';
+import { formMixin } from 'src/app/shared/mixins/form.mixin';
 
 @Component({
   selector: 'app-name-item',
   templateUrl: './name-item.component.html',
   styleUrls: ['./name-item.component.css']
 })
-export class NameItemComponent extends submitMixin() implements OnInit {
+export class NameItemComponent extends formMixin() implements OnInit {
 
   @Input() type: string;
   @Input() name: string;

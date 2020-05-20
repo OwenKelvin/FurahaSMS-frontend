@@ -5,6 +5,7 @@ import { TimeTableTimingsComponent } from './time-table-timings/time-table-timin
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 describe('TimeTableAdminComponent', () => {
   let component: TimeTableAdminComponent;
@@ -12,7 +13,10 @@ describe('TimeTableAdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [TabsModule.forRoot()],
+      imports: [
+        TabsModule.forRoot(),
+        ModalModule.forRoot()
+      ],
       declarations: [TimeTableAdminComponent, TimeTableTimingsComponent],
       providers: [
         {

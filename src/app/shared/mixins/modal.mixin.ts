@@ -1,5 +1,5 @@
 
-  
+
 import { Constructor } from './constructor.mixin';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { Store, select } from '@ngrx/store';
@@ -9,7 +9,7 @@ import { selectModalOpenState } from 'src/app/store/selectors/modal.selectors';
 
 export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
   class extends BaseClass {
-    componentIsActive: boolean = true;
+    componentIsActive = true;
     config: ModalOptions = {
       initialState: { id: 0 },
       backdrop: true,
@@ -19,12 +19,12 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
     modalRef: BsModalRef;
     private modalServiceInjected: BsModalService;
     private storeInjected: Store<any>
-    constructor(...args: any[]) { 
+    constructor(...args: any[]) {
       super(...args);
       this.modalServiceInjected = args[0]
       this.storeInjected = args[1]
     }
-    
+
     openModal({ id, component }: { id: number; component: any; }) {
       this.storeInjected.dispatch(loadModals());
       this.config.initialState = { id };
@@ -37,7 +37,7 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
         takeWhile(() => this.componentIsActive)
       ).subscribe();
     }
-    
+
     closeModal() {
       this.storeInjected.dispatch(closeModals());
     }

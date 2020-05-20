@@ -13,6 +13,7 @@ import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/redu
 import { accountFeatureKey } from '../../store/reducers';
 import { reducer } from '../../store/reducers/account.reducer';
 import { of } from 'rxjs';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('StudentPaymentStatementComponent', () => {
   let component: StudentPaymentStatementComponent;
@@ -34,7 +35,8 @@ describe('StudentPaymentStatementComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(accountFeatureKey, reducer)
+        StoreModule.forFeature(accountFeatureKey, reducer),
+        AppValidateSubmitButtonsModule
       ],
       declarations: [
         StudentPaymentStatementComponent,

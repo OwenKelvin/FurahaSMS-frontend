@@ -15,6 +15,7 @@ import { SelectLibraryClassComponent } from '../../../components/select-library-
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -41,7 +42,8 @@ describe('AddBookComponent', () => {
         AppInputModule,
         TabsModule.forRoot(),
         AppBarcodeModule,
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        AppValidateSubmitButtonsModule
       ],
       declarations: [AddBookComponent, SelectLibraryClassComponent],
       providers: [

@@ -5,21 +5,48 @@
 
   </button>
 </div>
-<div class="modal-body bg-dark">
-  <div class="d-flex justify-content-center">
-    <div class="col-lg-12">
-       wertyu
+<form (submit)='saveTimings()' [formGroup]='timeTableTimingForm'>
+
+  <div class="modal-body bg-dark">
+    <div class="d-flex justify-content-center flex-wrap">
+      <div class="col-lg-12">
+
+        <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-3'
+          inputClass='col-md-12 col-lg-9' label='Description' id='name' type="text" placeholder="Name"
+          formControlName="description"></app-input>
+      </div>
+     
+      <div class="col-lg-12 card pt-2" formArrayName='timings'>
+        <div class="d-flex">
+          <button class="btn btn-primary btn-sm" (click)='addTiming()'> <span class='icon-plus-circled'></span> Add </button>
+        </div>
+        <div class="d-flex flex-wrap mt-2"
+          *ngFor='let timing of timeTableTimingForm.get("timings")?.controls; let i = index' [formGroupName]='i'>
+          <div class="col-lg-5">
+            <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-5'
+              inputClass='col-md-12 col-lg-7' label='From' [id]='"from" + i' type="time" placeholder="From"
+              formControlName="from"></app-input>
+          </div>
+          <div class="col-lg-5">
+            <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-5'
+              inputClass='col-md-12 col-lg-7' label='To' [id]='"to" + i' type="time" placeholder="To"
+              formControlName="to"></app-input>
+          </div>
+          <div class="col-lg-2">
+            <button [disabled]='timeTableTimingForm.get("timings")?.controls?.length < 2' (click)='deleteTiming(i)' class="btn btn-danger btn-sm"><span class="icon icon-trash"></span></button>
+          </div>
+
+        </div>
+      </div>
     </div>
   </div>
-</div>
-<div class="modal-footer bg-dark">
+  <div class="modal-footer bg-dark d-flex justify-content-between">
+    <app-validate-submit-buttons [isSubmitting]='submitInProgressSubject$ | async'
+      (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='timeTableTimingForm'>
+      <span>Save Timings</span>
+    </app-validate-submit-buttons>
+    
+    <button (click)='closeModal()' class="btn btn-secondary">Cancel</button>
 
-
-  <button (click)='closeModal()' class="btn btn-secondary">Cancel</button>
-  <button (click)='saveTimings()' class="btn btn-success">
-
-    Save Profile Picture
-    <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-floppy'></i>
-    <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
-  </button>
-</div>
+  </div>
+</form>

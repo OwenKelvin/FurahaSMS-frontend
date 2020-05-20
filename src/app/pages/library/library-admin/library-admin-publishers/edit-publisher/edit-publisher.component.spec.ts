@@ -10,6 +10,7 @@ import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { CreatePublisherComponent } from '../create-publisher/create-publisher.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('EditPublisherComponent', () => {
   let component: EditPublisherComponent;
@@ -32,7 +33,8 @@ describe('EditPublisherComponent', () => {
         ReactiveFormsModule,
         AppInputModule,
         AppLoadingBubbleModule,
-        EditorModule
+        EditorModule,
+        AppValidateSubmitButtonsModule
        ],
       declarations: [EditPublisherComponent, CreatePublisherComponent],
       providers: [reducerProvider]

@@ -4,6 +4,7 @@ import { genderFeatureKey } from '../reducers/gender.reducer';
 import { religionFeatureKey } from '../reducers/religion.reducer';
 import { editModeFeatureKey } from '../reducers/edit-mode.reducer';
 import { permissionsFeatureKey } from '../reducers/permissions.reducer';
+import { modalFeatureKey } from '../reducers/modal.reducer';
 
 describe('App Selectors', () => {
   it('should select the feature state', () => {
@@ -12,7 +13,8 @@ describe('App Selectors', () => {
         [genderFeatureKey]: [{}],
         [religionFeatureKey]: [{}],
         [editModeFeatureKey]: { on: false },
-        [permissionsFeatureKey]: { }
+        [permissionsFeatureKey]: {},
+        [modalFeatureKey]: { open: false}
       }
     });
 
@@ -20,7 +22,8 @@ describe('App Selectors', () => {
       [genderFeatureKey]: [{}],
       [religionFeatureKey]: [{}],
       [editModeFeatureKey]: { on: false },
-      [permissionsFeatureKey]: {}
+      [permissionsFeatureKey]: {},
+      [modalFeatureKey]: { open: false }
 
     });
   });

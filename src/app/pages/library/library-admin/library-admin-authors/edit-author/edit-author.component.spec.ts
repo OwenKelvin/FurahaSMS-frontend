@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('EditAuthorComponent', () => {
   let component: EditAuthorComponent;
@@ -30,7 +31,8 @@ describe('EditAuthorComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         AppInputModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [EditAuthorComponent, CreateAuthorComponent],
       providers: [reducerProvider]

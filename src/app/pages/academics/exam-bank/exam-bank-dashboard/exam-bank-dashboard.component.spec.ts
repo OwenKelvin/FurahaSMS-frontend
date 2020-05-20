@@ -23,7 +23,6 @@ describe('ExamBankDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        ,
         StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [ExamBankDashboardComponent],
