@@ -6,9 +6,11 @@ import { HttpClient } from '@angular/common/http';
 })
 export class TimingTemplateService {
 
+  url = 'api/time-table/time-table-timing-templates';
+  all$ = this.http.get(this.url)
   constructor(private http: HttpClient) { }
 
-  url = 'api/time-table/time-table-timing-templates';
+  
 
   store = (data: any) => this.http.post( this.url, data);
 }

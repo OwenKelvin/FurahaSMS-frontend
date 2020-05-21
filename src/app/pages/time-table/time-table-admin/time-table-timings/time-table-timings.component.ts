@@ -3,6 +3,7 @@ import { modalMixin } from 'src/app/shared/mixins/modal.mixin';
 import { BsModalService } from 'ngx-bootstrap/modal';
 import { Store } from '@ngrx/store';
 import { CreateTimingTemplateComponent } from '../create-timing-template/create-timing-template.component';
+import { TimingTemplateService } from '../../services/timing-template.service';
 
 @Component({
   selector: 'app-time-table-timings',
@@ -11,7 +12,11 @@ import { CreateTimingTemplateComponent } from '../create-timing-template/create-
 })
 export class TimeTableTimingsComponent extends modalMixin() {
 
-  constructor(modalService: BsModalService, store: Store) {
+  isOpen: boolean[] = [false];
+
+  timings$ = this.timetableTimingService.all$;
+
+  constructor(modalService: BsModalService, store: Store, private timetableTimingService: TimingTemplateService) {
     super(modalService, store);
   }
 

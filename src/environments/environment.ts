@@ -4,7 +4,14 @@
 
 export const environment = {
   production: false,
-  API_URL: 'http://localhost:1234'
+  API_URL: 'http://localhost:1234',
+  
+  passportClient : {
+    grantType: 'password',
+    clientSecret: '3GzHQqqKDBZNI98w8UftyhD8Gx2j3AnJ0Hka7e5h',
+    clientId: '2'
+  }
+
 };
 
 /*

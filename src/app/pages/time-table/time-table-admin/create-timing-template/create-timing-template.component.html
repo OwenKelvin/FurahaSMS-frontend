@@ -25,12 +25,12 @@
           <div class="col-lg-5">
             <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='From' [id]='"from" + i' type="time" placeholder="From"
-              formControlName="from"></app-input>
+              formControlName="start"></app-input>
           </div>
           <div class="col-lg-5">
             <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='To' [id]='"to" + i' type="time" placeholder="To"
-              formControlName="to"></app-input>
+              formControlName="end"></app-input>
           </div>
           <div class="col-lg-2">
             <button [disabled]='timeTableTimingForm.get("timings")?.controls?.length < 2' (click)='deleteTiming(i)' class="btn btn-danger btn-sm"><span class="icon icon-trash"></span></button>
@@ -46,7 +46,7 @@
       <span>Save Timings</span>
     </app-validate-submit-buttons>
     
-    <button (click)='closeModal()' class="btn btn-secondary">Cancel</button>
+    <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
 
   </div>
 </form>

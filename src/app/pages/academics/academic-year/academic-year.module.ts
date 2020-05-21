@@ -17,6 +17,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { AcademicYearTimeTablesComponent } from './academic-year-time-tables/academic-year-time-tables.component';
 
 
 @NgModule({
@@ -29,6 +30,7 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     AcademicYearComponent,
     CreateAcademicYearComponent,
     ViewAcademicYearComponent,
+    AcademicYearTimeTablesComponent,
 
   ],
   imports: [

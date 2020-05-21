@@ -1,6 +1,5 @@
 <h1>Academic Year Archives</h1>
 
-
 <section class="d-flex flex-wrap justify-content-around" *ngIf='academicYears$ | async as academicYears; else loading'>
   <section class="card col-lg-5 m-1" *ngFor='let academicYear of academicYears'>
     <section class="card-header">
@@ -13,6 +12,8 @@
             Subject/Unit Allocations</a></li>
         <li class="list-group-item bg-dark"> <a class="card-link btn-block"
             [routerLink]='["/academics", "academic-year", academicYear.id, "financial-plan"]'>Financial Plan</a></li>
+        <li class="list-group-item bg-dark"> <a class="card-link btn-block"
+            [routerLink]='["/academics", "academic-year", academicYear.id, "time-table"]'>Time Table</a></li>
       </ul>
     </section>
   </section>

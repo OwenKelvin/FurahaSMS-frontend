@@ -10,6 +10,7 @@ import { CreateTimingTemplateComponent } from './create-timing-template/create-t
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 
 @NgModule({
@@ -19,6 +20,7 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     TimeTableAdminRoutingModule,
     TabsModule.forRoot(),
     ModalModule.forRoot(),
+    AccordionModule.forRoot(),
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,

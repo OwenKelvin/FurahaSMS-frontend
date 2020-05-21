@@ -23,8 +23,8 @@ export class CreateTimingTemplateComponent extends formMixin(modalMixin()) imple
 
   getInitialStateTiming(): FormGroup {
     return this.fb.group({
-      from: ['', [Validators.required]],
-      to: ['', [Validators.required]]
+      start: ['', [Validators.required]],
+      end: ['', [Validators.required]]
     });
   }
 
@@ -54,7 +54,7 @@ export class CreateTimingTemplateComponent extends formMixin(modalMixin()) imple
       this.timingTemplateService.store(this.timeTableTimingForm.value).pipe(
         tap(() => this.submitInProgressSubject$.next(false))
       ).subscribe({
-        next: () => '',
+        next: () => this.closeModal(),
         error: () => this.submitInProgressSubject$.next(false)
       });
     }

@@ -7,7 +7,11 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class AcademicYearService {
+  url = 'api/academic-years';
+  all$ = this.http.get<any> (this.url)
   constructor(private http: HttpClient) { }
+  
+ 
   saveUnitLevels(academicYearId: number, data: any): Observable<any> {
     const url = `api/academic-years/${academicYearId}/unit-levels`;
     return this.http.post(url, data);

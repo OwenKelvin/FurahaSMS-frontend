@@ -25,6 +25,13 @@ const routes: Routes = [
       breadcrumb: 'Admin'
     },
     loadChildren: () => import('./time-table-admin/time-table-admin.module').then(m => m.TimeTableAdminModule)
+  },
+  {
+    path: 'academic-years',
+    data: {
+      breadcrumb: 'Academic Years'
+    },
+    loadChildren: () => import('./academic-years/academic-years.module').then(m => m.AcademicYearsModule)
   }
 ];
 

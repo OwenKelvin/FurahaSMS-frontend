@@ -1,30 +1,24 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../../../store/reducers';
+import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Location } from '@angular/common';
-import { takeWhile, map } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-academic-year-financial-plan',
   templateUrl: './academic-year-financial-plan.component.html',
   styleUrls: ['./academic-year-financial-plan.component.css']
 })
-export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
-  componentIsActive: boolean;
+export class AcademicYearFinancialPlanComponent implements OnInit {
 
   constructor(
-    private store: Store<fromStore.AppState>,
     private router: Router,
     private location: Location,
     private route: ActivatedRoute
   ) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    (this.route.parent as ActivatedRoute).paramMap
+    this.route.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
-      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(id => {
         const confirmRedirect = confirm('You are being redirected to Accounts, do you wish to continue?');
         if (confirmRedirect) {
@@ -34,9 +28,6 @@ export class AcademicYearFinancialPlanComponent implements OnInit , OnDestroy{
         }
       });
 
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 
 }
