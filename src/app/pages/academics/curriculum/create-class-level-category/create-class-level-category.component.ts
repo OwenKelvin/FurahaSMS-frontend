@@ -5,8 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { ClassLevelCategoryInterface } from 'src/app/interfaces/class-level-category.interface';
 import { map, tap, filter, mergeMap } from 'rxjs/operators';
 import { VIEW_CLASS_LEVEL_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
-import { formMixin } from 'src/app/shared/mixins/form.mixin';
-import { BehaviorSubject } from 'rxjs';
+import { formWithEditorMixin } from 'src/app/shared/mixins/form-with-editor.mixin';
 
 @Component({
   selector: 'app-create-class-level-category',
@@ -14,7 +13,7 @@ import { BehaviorSubject } from 'rxjs';
   styleUrls: ['./create-class-level-category.component.css'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateClassLevelCategoryComponent extends formMixin() implements OnInit {
+export class CreateClassLevelCategoryComponent extends formWithEditorMixin() implements OnInit {
 
   constructor(
     private fb: FormBuilder,

@@ -9,9 +9,6 @@ import { map, takeWhile, tap } from 'rxjs/operators';
 })
 export class ViewItemsComponent implements OnInit, OnDestroy {
   @Input() title: string;
-  @Input() newItemUrl: string;
-  @Input() editItemUrl: any;
-  @Input() viewItemUrl: any;
   @Input() itemService: any;
   @Output() deleted: EventEmitter<any> = new EventEmitter();
 

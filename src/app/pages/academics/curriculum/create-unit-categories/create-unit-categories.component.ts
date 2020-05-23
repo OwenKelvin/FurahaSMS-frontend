@@ -43,7 +43,7 @@ export class CreateUnitCategoriesComponent extends formMixin() implements OnInit
       tap((res) => this.generateForm(res)),
       tap(({ units }) => units?.forEach((item, index) => {
         this.addSubject()
-        const { id, name, abbreviation: abbr, essence_statement: description, unit_category_id: unitCategory, active} = item
+        const { id, name, abbreviation: abbr, description, unit_category_id: unitCategory, active} = item
         this.units.controls[index].setValue({ id, name, abbr, description, unitCategory, active })
         console.log({ item });
         console.log({ controls: this.units.controls[0].value });

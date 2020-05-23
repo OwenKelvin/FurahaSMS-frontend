@@ -34,6 +34,7 @@ import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppCrudModule } from 'src/app/modules/app-crud.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -70,7 +71,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     AppViewItemsModule,
     AppCrudModule,
     NgSelectModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    EditorModule
   ]
 })
 export class CurriculumModule { }

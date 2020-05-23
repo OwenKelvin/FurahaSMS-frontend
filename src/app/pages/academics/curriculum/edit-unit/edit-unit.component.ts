@@ -66,7 +66,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       this.unit$ = this.unitService.getUnitWithId(Number(params.get('id')));
       this.unit$
 
-        .pipe(map(({ id, active, name, abbreviation: abbr, essence_statement: description,
+        .pipe(map(({ id, active, name, abbreviation: abbr, description,
           unit_category_id: unitCategory, unit_levels: unitLevels }) => ({
             id, active, name, abbr, description, unitCategory,
             unitLevels: (unitLevels ? unitLevels.map(({ id: id1, name: name1, level, semesters }: any) => ({

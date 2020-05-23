@@ -11,6 +11,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ClassLevelCategoryService } from 'src/app/services/class-level-category.service';
 import { of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 describe('CreateClassLevelCategoryComponent', () => {
   let component: CreateClassLevelCategoryComponent;
@@ -29,7 +30,8 @@ describe('CreateClassLevelCategoryComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        EditorModule
       ],
       declarations: [CreateClassLevelCategoryComponent, InputComponent, ErrorComponent],
       providers: [

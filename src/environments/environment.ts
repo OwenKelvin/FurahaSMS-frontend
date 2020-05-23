@@ -8,7 +8,7 @@ export const environment = {
   
   passportClient : {
     grantType: 'password',
-    clientSecret: 'a6aSnhef5kVc3nmCHk6BkNy8cbngcOe8mqDJ2rK2',
+    clientSecret: 'ClIzeJHb7SLLiS1HILvKtWrZH3JaT5dlEZ7SOtce',
     clientId: '2'
   }
 
