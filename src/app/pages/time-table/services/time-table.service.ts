@@ -5,6 +5,34 @@ import { of, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TimeTableService {
+  
+  daysOfTheWeek$: Observable<any[]> = of([
+    {id: 1 , name: 'Monday'},
+    {id: 2 , name: 'Tuesday'},
+    {id: 3 , name: 'Wednesday'},
+    {id: 4 , name: 'Thursday'},
+    {id: 5 , name: 'Friday'}
+
+  ]);
+  
+  groupByDayOfWeek(values: any[]) {
+
+    return values.reduce((prev, next) => {
+      const dayOfWeek = prev[next.dayOfWeekName] || {};
+      const stream = dayOfWeek[next.streamName] || {};
+      return {
+        ...prev,
+        [next.dayOfWeekName]: {
+          ...dayOfWeek,
+          [next.streamName]: {
+            ...stream,
+            [next.timeValue]: next
+          }
+        }
+      };
+    }, {});
+  }
+
   getForAcademicYear(_id: number): Observable<any[]> {
     return of([
       {

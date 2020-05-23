@@ -3,9 +3,11 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
 import { OauthInterface } from './../interfaces/oauth.interface';
 import { UserInterface } from './../interfaces/user.interface';
-import { PASSPORT_CLIENT } from './../configs/app.config';
 import { map, catchError, tap } from 'rxjs/operators';
 import { IUserProfile } from '../interfaces/user-profile.interface';
+import { environment } from 'src/environments/environment';
+
+const PASSPORT_CLIENT = environment.passportClient;
 
 @Injectable({
   providedIn: 'root'

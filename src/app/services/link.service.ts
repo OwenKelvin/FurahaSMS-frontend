@@ -64,18 +64,4 @@ export class LinkService {
   //     },
   //   ]);
   // }
-
-
-  getAllLinks(): Observable<LinkInterface[]> {
-
-    return zip(
-      this.admissionsLinks,
-      this.dashboardLinks,
-      this.academicYearsLinks,
-      this.admissionsLinks,
-      this.academicsLinks,
-      this.libraryLinks
-    )
-      .pipe(map(x => x[0].concat(x[1])));
-  }
 }

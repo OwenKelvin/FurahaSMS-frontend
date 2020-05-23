@@ -3,7 +3,7 @@ export const environment = {
   API_URL: 'https://school-app-1.furahacapital.com',
   passportClient: {
     grantType: 'password',
-    clientSecret: '3GzHQqqKDBZNI98w8UftyhD8Gx2j3AnJ0Hka7e5h',
+    clientSecret: 'a6aSnhef5kVc3nmCHk6BkNy8cbngcOe8mqDJ2rK2',
     clientId: '2'
   }
 };

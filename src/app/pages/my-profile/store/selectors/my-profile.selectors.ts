@@ -15,3 +15,8 @@ export const selectMyRoles = createSelector(
   selectMyProfileState,
   profile => profile?.roles
 );
+
+export const selectICan = (permission: string) => createSelector(
+  selectMyProfileState,
+  profile => profile?.permissions?.includes(permission) || profile?.roles?.includes('super admin')
+);
