@@ -21,7 +21,5 @@ export class PaymentTypeService {
     filter(res => Object.keys(res).length < 1),
     tap(() => this.store.dispatch(loadPaymentTypes()))
   )
-  getAll(): Observable<any> {
-    return this.http.get('api/accounts/payment-methods?active=true')
-  }
+  all$: Observable<any> = this.http.get('api/accounts/payment-methods?active=true')
 }

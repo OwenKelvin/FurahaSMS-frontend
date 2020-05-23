@@ -6,14 +6,13 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class SemesterService {
+  url = 'api/curriculum/semesters';
 
   constructor(
     private http: HttpClient
   ) { }
-  getAll(): Observable<any> {
-    const url = 'api/curriculum/semesters';
-    return this.http.get<any>(url);
-  }
+  all$: Observable<any>= this.http.get<any>(this.url);
+  
   deleteItem(id: number): Observable<any> {
     const url = `api/curriculum/semesters/${id}`;
     return this.http.delete<any>(url);

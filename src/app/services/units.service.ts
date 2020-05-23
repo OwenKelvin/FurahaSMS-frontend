@@ -7,6 +7,9 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UnitsService {
+  
+  url = 'api/curriculum/units';
+  all$ = this.http.get(`${ this.url}/all`);
   constructor(private http: HttpClient) { }
 
   getUnitWithId(id: number): Observable<any> {
@@ -23,45 +26,20 @@ export class UnitsService {
     } else if (includeClassLevels) {
       url += `include_class_levels=${includeClassLevels}`;
     }
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    return this.http.get<any>(url)
   }
   submit(data: any) {
     let url = `api/curriculum/units`;
     if (data.id) {
       url += '/' + data.id;
-      return this.http
-        .patch<any>(url, { ...data, unit_category_id: data.unitCategory })
-        .pipe(
-          map(res => {
-            return res;
-          })
-        );
+      return this.http.patch<any>(url, { ...data, unit_category_id: data.unitCategory })
     } else {
-      return this.http
-        .post<any>(url, { ...data, unit_category_id: data.unitCategory })
-        .pipe(
-          map(res => {
-            return res;
-          })
-        );
+      return this.http.post<any>(url, { ...data, unit_category_id: data.unitCategory })
     }
   }
   getAllActiveSubjects(): Observable<any> {
     const url = 'api/units/all/?active=1';
-    return this.http.get<any>(url).pipe(
-      map(
-        data => {
-          return data;
-        },
-        () => {
-          // Error Has been captured by interceptor
-        }
-      )
-    );
+    return this.http.get<any>(url)
   }
   getAll(data = { unitLevel: null }): Observable<any> {
     const { unitLevel } = data;
@@ -76,45 +54,17 @@ export class UnitsService {
           return res.map((item: any) => {
             return { ...item, abbr: item.abbreviation };
           });
-        },
-        () => {
-          // Error Has been captured by interceptor
         }
       )
     );
   }
-  // getAll(): Observable<any> {
-  //   const url = 'api/curriculum/units/all';
-  //   return this.http.get<any>(url).pipe(
-  //     map(
-  //       data => {
-  //         return data;
-  //       },
-  //       error => {
-  //         // Error Has been captured by interceptor
-  //       }
-  //     )
-  //   );
-  // }
+
   delete(id: number): Observable<any> {
     const url = `api/curriculum/units/${id}`;
-    return this.http.delete<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    return this.http.delete<any>(url)
   }
   deleteItem(id: number): Observable<any> {
     const url = `api/curriculum/units/${id}`;
-    return this.http.delete<any>(url).pipe(
-      map(
-        res => {
-          return res;
-        },
-        () => {
-          // Error Has been captured by interceptor
-        }
-      )
-    );
+    return this.http.delete<any>(url)
   }
 }

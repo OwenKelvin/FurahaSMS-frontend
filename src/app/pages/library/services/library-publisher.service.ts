@@ -27,9 +27,8 @@ export class LibraryPublisherService {
   };
 
 
-  getAll(): Observable<any> {
-    return this.http.get('api/library-books/publishers/all');
-  }
+  all$: Observable<any> = this.http.get('api/library-books/publishers/all');
+  
   save(data: any, file?: File): Observable<any> {
     const myFormData = new FormData();
     const headers = new HttpHeaders();

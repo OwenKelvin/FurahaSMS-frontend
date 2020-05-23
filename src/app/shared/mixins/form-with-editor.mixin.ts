@@ -7,7 +7,7 @@ export const formWithEditorMixin = () =>
     tinyMCEConfig = {
       forced_root_block: '',
       branding: false,
-      height: 150,
+      height: 300,
       base_url: '/tinymce',
       paste_data_images: true,
       menubar: false,

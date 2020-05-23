@@ -18,8 +18,14 @@
         <section class="col-lg-12 col-md-12 col-sm-12">
           <section>
             <label for="description">Subject Description</label>
-            <textarea class="form-control" id="description" placeholder="Subject Description"
-              formControlName="description"></textarea>
+
+            <div [hidden]='(editorInitializedAction$ | async) === false'>
+              <editor (onInit)='initializeEditor()' id='description' formControlName='description'
+                [init]="tinyMCEConfig"></editor>
+            </div>
+            <div>
+              <app-loading-bubble *ngIf='(editorInitializedAction$ | async) === false'></app-loading-bubble>
+            </div>
           </section>
         </section>
       </section>
@@ -46,12 +52,12 @@
     </fieldset>
     <app-error></app-error>
 
-   <section class="mt-2">
+    <section class="mt-2">
       <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
         (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='newUnitCategoryForm'>
         <span>{{ (editFormAction$ | async) ? 'Update': 'Create' }}</span>
       </app-validate-submit-buttons>
 
-   </section>
+    </section>
   </form>
 </section>

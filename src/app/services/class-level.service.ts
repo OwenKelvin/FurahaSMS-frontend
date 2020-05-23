@@ -9,6 +9,10 @@ import { ClassLevelInterface } from '../interfaces/class-level.interface';
 })
 export class ClassLevelService {
   constructor(private http: HttpClient) { }
+  
+  url = `api/curriculum/class-levels`;
+
+  all$ = this.http.get<any[]>(this.url);
 
   getAll(
     data: { includeUnits?: 1 | null; includeLevels?: 1 | null; academicYearId?: number | null } = {
@@ -83,4 +87,5 @@ export class ClassLevelService {
       })
     );
   }
+  deleteItem = this.delete
 }

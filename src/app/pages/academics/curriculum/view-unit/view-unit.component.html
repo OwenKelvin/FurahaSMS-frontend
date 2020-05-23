@@ -1,8 +1,26 @@
 <section *ngIf='unit$ | async as unit; else loading'>
-  <h1>View Subject/ Units <span class="icon-right-dir"></span> {{ unit.name }}</h1>
-  <ul *ngFor='let unitLevel of unit.unit_levels'>
-    <li class=''> {{ unitLevel.name }}</li>
-  </ul>
+  <h1>View Subject/ Units <span class="icon-right-dir"></span> {{ unit.name }} ({{ unit.abbreviation }})</h1>
+  <div class="card p-2">
+    <h2>Status</h2>
+    <span class="badge p-2" [class.badge-success]='unit.active' [class.badge-secondary]='!unit.active'>
+      <span *ngIf='unit.active'>Active</span>
+      <span *ngIf='!unit.active'>Inactive</span>
+    </span>
+    <h2 class="mt-3">Description</h2>
+    <div>
+      <span class="mt-1" [innerHTML]='unit.description'></span>
+    </div>
+    <div *ngIf='!unit.description || unit.description !== ""' class="alert alert-info">
+      No description available
+    </div>
+    <h2>Unit Levels</h2>
+    <ul *ngFor='let unitLevel of unit.unit_levels'>
+      <li class=''> {{ unitLevel.name }}</li>
+    </ul>
+    <div *ngIf=' unit.unit_levels?.length < 1' class="alert alert-info">
+      No description available
+    </div>
+  </div>
 </section>
 <ng-template #loading>
   <h1>View Subject/ Units</h1>

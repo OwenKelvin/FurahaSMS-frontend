@@ -15,7 +15,7 @@ export class SelectAcademicYearComponent implements OnInit {
   constructor(private academicYear: AcademicYearService) { }
 
   ngOnInit() {
-    this.academicYears$ = this.academicYear.getAll();
+    this.academicYears$ = this.academicYear.all$;
   }
 
   get routesLinks(): (string | number)[] {

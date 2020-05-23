@@ -5,7 +5,7 @@ import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interface';
 import { VIEW_UNIT_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { map, filter, mergeMap, tap } from 'rxjs/operators';
-import { formMixin } from 'src/app/shared/mixins/form.mixin';
+import { formWithEditorMixin } from 'src/app/shared/mixins/form-with-editor.mixin';
 
 
 @Component({
@@ -13,7 +13,7 @@ import { formMixin } from 'src/app/shared/mixins/form.mixin';
   templateUrl: './create-unit-categories.component.html',
   styleUrls: ['./create-unit-categories.component.css']
 })
-export class CreateUnitCategoriesComponent extends formMixin() implements OnInit {
+export class CreateUnitCategoriesComponent extends formWithEditorMixin() implements OnInit {
   newUnitCategoryForm: FormGroup = this.fb.group({
     id: [null],
     name: [name, [Validators.required]],

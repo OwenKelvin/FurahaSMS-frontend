@@ -1,14 +1,10 @@
 import { Component, OnInit, EventEmitter, Output, OnDestroy, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
 import { UnitsService } from 'src/app/services/units.service';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
 import { takeWhile, map } from 'rxjs/operators';
 import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
 import { SemesterService } from '../semester/services/semester.service';
 
 @Component({
@@ -23,7 +19,7 @@ export class EditUnitComponent implements OnInit, OnDestroy {
   newForm: boolean;
   @Input() idIndex: number;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
-  componentIsActive: boolean;
+  componentIsActive: boolean = true;
   isSubmitting: boolean;
   triggerValidation: boolean;
   markTabsWithError: boolean;
@@ -34,11 +30,10 @@ export class EditUnitComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private unitService: UnitsService,
-    private semesterService: SemesterService,
-    private store: Store<AppState>) { }
+    private semesterService: SemesterService) { }
 
   ngOnInit() {
-    this.componentIsActive = true;
+    
     this.newForm = false;
     this.unitForm = this.fb.group({
       id: [null, []],
@@ -54,9 +49,8 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       .subscribe(() => {
         this.valueChange.emit(this.unitForm);
       });
-    this.semesters$ = this.semesterService.getAll();
-    this.semesters$
-      .pipe(takeWhile(() => this.componentIsActive))
+    this.semesters$ = this.semesterService.all$;
+    this.semesters$?.pipe(takeWhile(() => this.componentIsActive))
       .subscribe(items => {
         this.semesters = items;
       });
@@ -130,20 +124,9 @@ export class EditUnitComponent implements OnInit, OnDestroy {
       .subscribe(success => {
       this.router.navigate([VIEW_UNIT_CURRICULUM(success.id)]);
       this.isSubmitting = false;
-      this.store.dispatch(loadToastShowsSuccess({
-        showMessage: true,
-        toastBody: 'Successfully created unit',
-        toastHeader: 'Success!',
-        toastTime: 'Just now'
-      }));
-    }, error => {
+      
+    }, () => {
 
-      this.store.dispatch(loadErrorMessagesSuccess({
-        body: error.help,
-        show: true,
-        title: error.message,
-        status: error.status
-      }));
       this.isSubmitting = false;
     });
   }

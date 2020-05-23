@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -20,9 +20,7 @@ export class LibraryBookService {
   getBookWithId(id: number): Observable<any> {
     return this.http.get(`api/library-books/${id}`);
   }
-  getAll(): Observable<any> {
-    return this.http.get(`api/library-books`);
-  }
+  all$: Observable<any> = this.http.get(`api/library-books`);
 
   filter(params: any): Observable<any[]> {
     const querystring = require('querystring');

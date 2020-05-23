@@ -19,9 +19,10 @@
 
         <th scope="row">{{ i + 1 }}</th>
         <td *ngIf='true'>{{ item.name }}</td>
-        <td>
-          <span [innerHTML]='(item.description | slice:0:100)'></span>
-            <a [routerLink]='[item.id, "view"]'>View More...<span class="icon-expand-right"></span></a>
+        <td class="p-1">
+          <span *ngIf='item.description' [innerHTML]='(item.description | slice:0:100)'></span>
+            <a *ngIf='item.description?.length > 100' [routerLink]='[item.id, "view"]'>View More...<span class="icon-expand-right"></span></a>
+          <span class="icon-info badge badge-info p-2" *ngIf='!item.description'>No description available!</span>
         </td>
         <td>
           <app-chips [value]='item.active'></app-chips>

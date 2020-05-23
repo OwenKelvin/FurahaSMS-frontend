@@ -8,18 +8,19 @@ import { ClassLevelCategoryInterface } from '../interfaces/class-level-category.
   providedIn: 'root'
 })
 export class ClassLevelCategoryService {
+  
+  url = 'api/curriculum/class-level-categories';  
+  all$ = this.http.get<any>(this.url);
+  
   constructor(private http: HttpClient) { }
-  getAll() {
-    const url = 'api/curriculum/class-level-categories';
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
-  }
+  
+  getCategoryWithId = (id: number) => this.http.get(`${this.url}/${id}`);
+  
+  
+  
   get(data: { id: number, classLevel?: 0 | 1}) {
     const { id, classLevel } = data;
-    let url = `api/curriculum/class-level-categories/${id}`;
+    let url = `${this.url}/${id}`;
     if (classLevel === 1) {
       url += '/?class_level=1';
     }
@@ -30,7 +31,7 @@ export class ClassLevelCategoryService {
     );
   }
   submit(data: ClassLevelCategoryInterface) {
-    let url = 'api/curriculum/class-level-categories';
+    let url = this.url;
     if (data.id) {
       url += '/' + data.id;
       return this.http.patch<any>(url, { ...data }).pipe(
@@ -47,7 +48,7 @@ export class ClassLevelCategoryService {
     }
   }
   delete(id: number): Observable<any> {
-    const url = `api/curriculum/class-level-categories/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.delete<any>(url).pipe(
       map(res => {
         return res;

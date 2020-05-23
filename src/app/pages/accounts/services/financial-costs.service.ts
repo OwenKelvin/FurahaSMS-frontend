@@ -6,18 +6,17 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FinancialCostsService {
+  url: string = 'api/accounts/financial-costs';
+  
   destroy(id: any): Observable<any> {
-    const url = `api/accounts/financial-costs/${id}`;
+    const url = `${this.url}/${id}`;
     return this.http.delete(url);
   }
 
-  getAll(): Observable<any> {
-    const url = 'api/accounts/financial-costs';
-    return this.http.get(url);
-  }
+  all$: Observable<any> = this.http.get(this.url);
 
   save(financialCosts: any[]) {
-    const url = 'api/accounts/financial-costs';
+    const url = '${this.url}';
     return this.http.post(url, financialCosts);
   }
 

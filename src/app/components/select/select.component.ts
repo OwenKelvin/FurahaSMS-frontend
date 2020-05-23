@@ -163,11 +163,11 @@ export class SelectComponent
         break;
       case 'class-level-categories':
         this.setParams({ label: 'Units' });
-        this.categories$ = this.classLevelsCategoriesService.getAll();
+        this.categories$ = this.classLevelsCategoriesService.all$;
         break;
       case 'unit-categories':
         this.setParams({ label: 'Unit Category' });
-        this.categories$ = this.subjectCategoriesService.getAll();
+        this.categories$ = this.subjectCategoriesService.all$;
         break;
       case 'units':
         this.setParams({ label: 'Units' });
@@ -183,11 +183,11 @@ export class SelectComponent
         break;
       case 'gender':
         this.setParams({ label: 'Gender' });
-        this.categories$ = this.genderService.getAll();
+        this.categories$ = this.genderService.all$;
         break;
       case 'religion':
         this.setParams({ label: 'Religion'});
-        this.categories$ = this.religionService.getAll();
+        this.categories$ = this.religionService.all$;
         break;
       default:
         this.categories = [];

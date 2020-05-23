@@ -46,7 +46,7 @@ export class ELearningCreateCourseComponent implements OnInit, OnDestroy {
     return this.newCourseForm.get('topics') as FormArray;
   }
   ngOnInit(): void {
-    this.numberingStyles$ = this.topicNumberungService.getAll();
+    this.numberingStyles$ = this.topicNumberungService.all$;
     this.resetNewTopicForm();
     this.newCourseForm = this.fb.group({
       name: ['', Validators.required],
@@ -59,7 +59,7 @@ export class ELearningCreateCourseComponent implements OnInit, OnDestroy {
     });
     this.classLevels$ = this.classLevelervice.getAll();
     this.units$ = this.unitsService.getAll();
-    this.academicYears$ = this.academicYearService.getAll();
+    this.academicYears$ = this.academicYearService.all$;
     this.editorInit$ = this.store.pipe(select(selectTinyMceConfig));
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))

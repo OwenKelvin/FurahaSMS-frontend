@@ -13,7 +13,7 @@ export class AcademicYearUnitAllocationComponent implements OnInit {
   constructor(private academicYear: AcademicYearService) { }
 
   ngOnInit() {
-    this.academicYears$ = this.academicYear.getAll();
+    this.academicYears$ = this.academicYear.all$;
   }
 
 }

@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, tap, mergeMap } from 'rxjs/operators';
+import { tap } from 'rxjs/operators';
 import { Store, select } from '@ngrx/store';
 import * as fromReligions from 'src/app/store/reducers/religion.reducer'
 import { selectReligions, selectReligion } from '../store/selectors/app.selectors';
@@ -11,22 +11,13 @@ import { loadReligions } from '../store/actions/religion.actions';
   providedIn: 'root'
 })
 export class ReligionService {
+  url = 'api/religions';
   constructor(private http: HttpClient, private store: Store) { }
   loadAll$: Observable<fromReligions.State> = this.store.pipe(select(selectReligions))
     .pipe(tap(religion => !(religion[0] && religion[0].id) ? this.store.dispatch(loadReligions()) : ''))
 
 
-  getAll(): Observable<any> {
-    const url = 'api/religions/all';
-    return this.http.get<any>(url)
-      .pipe(map(data => {
-        return data;
-      },
-        () => {
-          // Error Has been captured by interceptor
-        }
-      ));
-  }
+  all$: Observable<any> =this.http.get<any>(this.url)
 
   getReligion$ = (id: number | string) => this.store.pipe(select(selectReligion(id)))
 }

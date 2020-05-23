@@ -16,14 +16,7 @@ export class AcademicYearService {
     const url = `api/academic-years/${academicYearId}/unit-levels`;
     return this.http.post(url, data);
   }
-  getAll() {
-    const url = 'api/academic-years';
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
-  }
+
   getFilter(data: { active: boolean } = { active: false }) {
     const { active } = data;
     let url = 'api/academic-years/?';

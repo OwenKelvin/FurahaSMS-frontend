@@ -92,7 +92,7 @@ export class AddBookComponent implements OnInit, CanComponentDeactivate, OnDestr
     this.store.dispatch(loadBookClassifications());
     this.bookAuthors$ = this.store.pipe(select(selectLibraryBookAuthors));
     this.bookPublishers$ = this.store.pipe(select(selectLibraryBookPublishers));
-    this.bookTags$ = this.libraryBookTagService.getAll();
+    this.bookTags$ = this.libraryBookTagService.all$;
 
     this.bookClassifications$ = this.store.pipe(select(selectLibraryBookClassifications));
 

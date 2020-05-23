@@ -8,7 +8,7 @@ import { Observable } from 'rxjs';
   styleUrls: ['./academic-year-archives.component.css']
 })
 export class AcademicYearArchivesComponent {
-  academicYears$: Observable<any> = this.academicYearService.getAll();;
+  academicYears$: Observable<any> = this.academicYearService.all$;;
   constructor(private academicYearService: AcademicYearService) { }
 
 }

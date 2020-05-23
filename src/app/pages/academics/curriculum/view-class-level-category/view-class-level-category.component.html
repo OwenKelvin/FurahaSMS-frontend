@@ -1,1 +1,18 @@
-<p>view-class-level-category works!</p>
+<ng-container *ngIf='classLevelCategory$ | async as classLevelCategory; else loading'>
+  <div class="d-flex flex-wrap justify-content-between">
+    <h1>Class Level Category <span class="icon-right-dir"></span> {{ classLevelCategory.name }}</h1>
+    
+    <a [routerLink]='["../edit"]' *ngIf='iCanEditClassLevel$ | async' class="btn btn-primary btn-sm mt-2"><span class="icon-edit"></span>Edit</a>
+  </div>
+  <h2>Description</h2>
+  
+  <div>
+    <span class="badge badge-success pl-3 pt-2 pb-2 pr-3">Active</span>
+    <span [innerHTML]='classLevelCategory.description'></span>
+  </div>
+</ng-container>
+
+<ng-template #loading>
+  <h1>Class Level Category</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

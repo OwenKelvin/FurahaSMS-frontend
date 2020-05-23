@@ -9,9 +9,8 @@ export class LibraryBookClassificationService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get('/api/library-books/classifications');
-  }
+  all$: Observable<any> = this.http.get('/api/library-books/classifications');
+  
   save(data: any): Observable<any> {
     if (data.id === 0) {
       return this.http.post('api/library-books/classifications', data);
