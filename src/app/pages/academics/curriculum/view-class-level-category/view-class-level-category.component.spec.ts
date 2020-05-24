@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('ViewClassLevelCategoryComponent', () => {
   let component: ViewClassLevelCategoryComponent;
@@ -22,7 +23,8 @@ describe('ViewClassLevelCategoryComponent', () => {
           }
       }),
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AppLoadingBubbleModule
       ],
       declarations: [ViewClassLevelCategoryComponent],
       providers: [reducerProvider]

@@ -4,6 +4,8 @@ import { EditClassLevelComponent } from './edit-class-level.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 describe('EditClassLevelComponent', () => {
   let component: EditClassLevelComponent;
@@ -20,7 +22,10 @@ describe('EditClassLevelComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [EditClassLevelComponent],
       providers: [reducerProvider]

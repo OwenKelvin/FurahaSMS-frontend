@@ -5,6 +5,7 @@ import { ModalModule } from 'ngx-bootstrap/modal';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 describe('TimeTableTimingsComponent', () => {
   let component: TimeTableTimingsComponent;
@@ -21,7 +22,8 @@ describe('TimeTableTimingsComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        AccordionModule.forRoot()
       ],
       declarations: [TimeTableTimingsComponent],
       providers: [reducerProvider]

@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../../components/input/input.component';
 import { SelectComponent } from '../../../../components/select/select.component';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('CreateClassLevelComponent', () => {
   let component: CreateClassLevelComponent;
@@ -31,7 +33,9 @@ describe('CreateClassLevelComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        EditorModule
+        EditorModule,
+        AppValidateSubmitButtonsModule,
+        AppLoadingBubbleModule
       ],
       declarations: [
         CreateClassLevelComponent,

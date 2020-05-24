@@ -19,7 +19,6 @@ describe('StudentSearchComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        TypeaheadModule.forRoot(),
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

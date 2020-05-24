@@ -12,6 +12,7 @@ import { ClassLevelCategoryService } from 'src/app/services/class-level-category
 import { of } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('CreateClassLevelCategoryComponent', () => {
   let component: CreateClassLevelCategoryComponent;
@@ -31,7 +32,8 @@ describe('CreateClassLevelCategoryComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        EditorModule
+        EditorModule,
+        AppLoadingBubbleModule
       ],
       declarations: [CreateClassLevelCategoryComponent, InputComponent, ErrorComponent],
       providers: [
