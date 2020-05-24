@@ -1,5 +1,5 @@
 <h1> {{ (editFormAction$ | async) ? 'Update': 'Create'}} Class Level Category</h1>
-<form [formGroup]="classLevelCategoryForm" (submit)="submit()">
+<form class="card p-2" [formGroup]="classLevelCategoryForm" (submit)="submit()">
   <fieldset>
     <legend>General Details</legend>
     <section class="d-flex flex-wrap">

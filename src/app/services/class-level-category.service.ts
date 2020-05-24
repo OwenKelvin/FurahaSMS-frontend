@@ -8,16 +8,16 @@ import { ClassLevelCategoryInterface } from '../interfaces/class-level-category.
   providedIn: 'root'
 })
 export class ClassLevelCategoryService {
-  
-  url = 'api/curriculum/class-level-categories';  
+
+  url = 'api/curriculum/class-level-categories';
   all$ = this.http.get<any>(this.url);
-  
+
   constructor(private http: HttpClient) { }
-  
+
   getCategoryWithId = (id: number) => this.http.get(`${this.url}/${id}`);
-  
-  
-  
+
+
+
   get(data: { id: number, classLevel?: 0 | 1}) {
     const { id, classLevel } = data;
     let url = `${this.url}/${id}`;

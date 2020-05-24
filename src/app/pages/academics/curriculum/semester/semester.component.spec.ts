@@ -3,7 +3,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { SemesterComponent } from './semester.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
-import { AppCrudModule } from 'src/app/modules/app-crud.module';
+import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';

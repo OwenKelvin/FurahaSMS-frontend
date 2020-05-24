@@ -2,7 +2,7 @@ import { BehaviorSubject } from 'rxjs';
 import { formMixin } from './form.mixin';
 
 export const formWithEditorMixin = () =>
-  
+
   class extends formMixin() {
     tinyMCEConfig = {
       forced_root_block: '',
@@ -23,7 +23,7 @@ export const formWithEditorMixin = () =>
     };
     editorInitializedSubject$ = new BehaviorSubject<boolean>(false)
     editorInitializedAction$ = this.editorInitializedSubject$.asObservable();
-    
+
     initializeEditor() {
       this.editorInitializedSubject$.next(true);
     }

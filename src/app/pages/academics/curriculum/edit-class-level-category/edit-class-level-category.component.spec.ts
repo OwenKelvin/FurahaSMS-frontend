@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 describe('EditClassLevelCategoryComponent', () => {
   let component: EditClassLevelCategoryComponent;
@@ -29,7 +30,8 @@ describe('EditClassLevelCategoryComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        AppInputModule
+        AppInputModule,
+        EditorModule
       ],
       declarations: [EditClassLevelCategoryComponent, CreateClassLevelCategoryComponent],
       providers: [reducerProvider]

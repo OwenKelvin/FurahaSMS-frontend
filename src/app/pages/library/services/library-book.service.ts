@@ -8,6 +8,7 @@ import { HttpClient } from '@angular/common/http';
 export class LibraryBookService {
 
   constructor(private http: HttpClient) { }
+  all$: Observable<any> = this.http.get(`api/library-books`);
 
   save(data: any): Observable<any> {
     const subData = {
@@ -20,7 +21,6 @@ export class LibraryBookService {
   getBookWithId(id: number): Observable<any> {
     return this.http.get(`api/library-books/${id}`);
   }
-  all$: Observable<any> = this.http.get(`api/library-books`);
 
   filter(params: any): Observable<any[]> {
     const querystring = require('querystring');

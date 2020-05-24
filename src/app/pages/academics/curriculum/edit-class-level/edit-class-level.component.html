@@ -1,1 +1,7 @@
-<p>edit-class-level works!</p>
+<app-crud
+  title='Class Level'
+  parent='class-level-categories'
+  [fields]='["name", "active", "abbreviation", "active", "description"]'
+  [itemService]='classLevelService'
+  [transforms]='transforms'
+></app-crud>

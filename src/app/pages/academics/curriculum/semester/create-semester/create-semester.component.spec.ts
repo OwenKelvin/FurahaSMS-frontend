@@ -4,6 +4,7 @@ import { CreateSemesterComponent } from './create-semester.component';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { reducerProvider } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('CreateSemesterComponent', () => {
   let component: CreateSemesterComponent;
@@ -13,7 +14,9 @@ describe('CreateSemesterComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
-        ErrorModule],
+        ErrorModule,
+        HttpClientTestingModule
+      ],
       declarations: [CreateSemesterComponent],
       providers: [reducerProvider]
     })

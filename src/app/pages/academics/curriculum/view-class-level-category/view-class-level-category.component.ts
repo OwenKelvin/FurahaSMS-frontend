@@ -10,7 +10,7 @@ import { Store, select } from '@ngrx/store';
   styleUrls: ['./view-class-level-category.component.css']
 })
 export class ViewClassLevelCategoryComponent {
-  
+
   iCanEditClassLevel$ = this.store.pipe(select(selectICan('update class level')))
 
   classLevelCategory$ = this.route.paramMap.pipe(

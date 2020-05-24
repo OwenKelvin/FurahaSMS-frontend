@@ -6,21 +6,21 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class FinancialCostsService {
-  url: string = 'api/accounts/financial-costs';
-  
+
+  constructor(
+    private http: HttpClient
+  ) { }
+  url = 'api/accounts/financial-costs';
+
+  all$: Observable<any> = this.http.get(this.url);
+
   destroy(id: any): Observable<any> {
     const url = `${this.url}/${id}`;
     return this.http.delete(url);
   }
 
-  all$: Observable<any> = this.http.get(this.url);
-
   save(financialCosts: any[]) {
     const url = '${this.url}';
     return this.http.post(url, financialCosts);
   }
-
-  constructor(
-    private http: HttpClient
-  ) { }
 }

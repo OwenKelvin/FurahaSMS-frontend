@@ -7,7 +7,7 @@ import { UnitCategoryService } from 'src/app/services/unit-category.service';
   styleUrls: ['./academics-curriculum-unit-categories.component.css']
 })
 export class AcademicsCurriculumUnitCategoriesComponent {
-  
+
   itemService = this.unitCategoryService;
   constructor(private unitCategoryService: UnitCategoryService) { }
 }

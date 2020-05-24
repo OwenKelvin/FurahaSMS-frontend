@@ -27,7 +27,7 @@ export class ViewItemsComponent extends loadingMixin() implements OnInit {
         }
       }));
   }
-  
+
   deleteItem({ id, name, index }: { id: number, name: string, index: number; }): void {
     const deletionConfirmed = confirm(`Are you sure you wish to delete "${name}"`);
     if (deletionConfirmed) {

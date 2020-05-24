@@ -8,7 +8,7 @@ import { ClassLevelCategoryService } from 'src/app/services/class-level-category
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AcademicsCurriculumClassLevelCategoriesComponent {
-  
+
   itemService = this.classLevelCategories;
   constructor(private classLevelCategories: ClassLevelCategoryService) { }
 

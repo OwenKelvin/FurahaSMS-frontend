@@ -1,26 +1,27 @@
-<section *ngIf='unit as unit; else loading'>
-  <h1>Edit Subject/ Units <span class="icon-right-dir"></span> {{ unit.name }}</h1>
-  
-  <form [formGroup]="unitForm" (submit)="submitUnitForm()">
+<section  *ngIf='v$ | async as v; else loading'>
+  <h1>Edit Subject/ Units <span class="icon-right-dir"></span> {{ v.unit?.name }}</h1>
+
+  <form class="card p-2" [formGroup]="unitForm" (submit)="submitUnitForm()">
     <tabset role="tablist" #staticTabs>
       <tab role="tab">
         <ng-template tabHeading>
           General Info
-          <app-tab-error-state [hasError]='generalInfoHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          <app-tab-error-state [hasError]='generalInfoHasErrorAction$ | async'
+            [marked]='markTabsWithErrorAction$ | async'></app-tab-error-state>
         </ng-template>
         <section class="d-flex flex-wrap justify-content-start pt-3">
           <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-            <app-input [triggerValidation]='triggerValidation' labelClass='col-md-12 col-lg-5'
+            <app-input [triggerValidation]='triggerValidationAction$ | async' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='Name' [id]='"name" + (idIndex !== undefined ? idIndex: "")'
               type="text" placeholder="Name" formControlName="name"></app-input>
           </section>
           <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
-            <app-select [triggerValidation]='triggerValidation' id='unitCategory' type="unit-categories"
+            <app-select [triggerValidation]='triggerValidationAction$ | async' id='unitCategory' type="unit-categories"
               formControlName="unitCategory">
             </app-select>
           </section>
           <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-            <app-input [triggerValidation]='triggerValidation' labelClass='col-md-12 col-lg-5'
+            <app-input [triggerValidation]='triggerValidationAction$ | async' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='Subject/Unit abbreviation'
               [id]='"name-abbr" + (idIndex !== undefined ? idIndex: "")' type="text"
               placeholder="Subject/Unit Abbreviation" formControlName="abbr"></app-input>
@@ -35,47 +36,51 @@
             </div>
           </section>
           <section class="col-lg-12 mt-2">
-            <label class="control-label" for="description">Essence Statement</label>
-            <textarea formControlName='description' class="form-control" id="description" cols="30" rows="5"></textarea>
+            <label class="control-label" for="description">Description</label>
+            <div [hidden]='(editorInitializedAction$ | async) === false'>
+              <editor (onInit)='initializeEditor()' id='description' formControlName='description' [init]="tinyMCEConfig"></editor>
+            </div>
+            <div>
+              <app-loading-bubble *ngIf='(editorInitializedAction$ | async) === false'></app-loading-bubble>
+            </div>
           </section>
         </section>
       </tab>
       <tab role="tab">
         <ng-template tabHeading>
           Unit Levels
-          <app-tab-error-state [hasError]='unitLevelsHasError' [marked]='markTabsWithError'></app-tab-error-state>
+          <app-tab-error-state [hasError]='unitLevelsHasErrorAction$ | async'
+            [marked]='markTabsWithErrorAction$ | async'></app-tab-error-state>
         </ng-template>
         <section class="mt-3" formArrayName='unitLevels'>
           <button (click)='addUnitLevel()' type="button" class="btn btn-primary btn-sm mb-3"> <span
               class="icon-plus-circled"></span>Add Level</button>
-          <section *ngFor='let unitLevel of unitLevels.controls; let i = index' >
+          <section *ngFor='let unitLevel of unitLevels.controls; let i = index'>
             <section [formGroupName]='i' class="d-flex flex-wrap mt-3">
               <section class="col-lg-12 d-flex justify-content-end">
                 <button (click)='removeUnitLevel(i)' type="button" class="btn btn-danger btn-sm"> <span
                     class="icon-trash"></span>Remove</button>
               </section>
               <section class="col-lg-6">
-                <app-input [id]='"name" + i' [triggerValidation]='triggerValidation' placeholder='Enter Name'
-                  label='Level Name' formControlName='name'></app-input>
+                <app-input [id]='"name" + i' [triggerValidation]='triggerValidationAction$ | async'
+                  placeholder='Enter Name' label='Level Name' formControlName='name'></app-input>
               </section>
               <section class="col-lg-4">
-                <app-input [id]='"level" + i' [triggerValidation]='triggerValidation' placeholder='Enter Level'
-                  label='Level' formControlName='level' type='number'></app-input>
+                <app-input [id]='"level" + i' [triggerValidation]='triggerValidationAction$ | async'
+                  placeholder='Enter Level' label='Level' formControlName='level' type='number'></app-input>
 
               </section>
               <section class="col-lg-10">
                 <label [attr.for]='"semester-" + i'>Applicable Semesters/ Terms</label>
-                <ng-select [id]='"semester-" + i' class="custom" [items]='semesters' [multiple]="true" bindLabel="name" formControlName='semesters'
-                  [selectableGroup]="true" [closeOnSelect]="false" bindValue="id" >
+                <ng-select [id]='"semester-" + i' class="custom" [items]='v.semesters' [multiple]="true"
+                  bindLabel="name" formControlName='semesters' [selectableGroup]="true" [closeOnSelect]="false"
+                  bindValue="id">
                   <ng-template ng-option-tmp let-item="item" let-item$="item$" let-index="index">
-                    <input 
-                      id="item-{{index}}" 
-                      type="checkbox" 
-                      [ngModel]="item$.selected" 
+                    <input id="item-{{index}}" type="checkbox" [ngModel]="item$.selected"
                       [ngModelOptions]="{standalone: true}" />
                     {{item.name}}
                   </ng-template>
-                
+
                 </ng-select>
               </section>
             </section>
@@ -86,9 +91,9 @@
     </tabset>
     <app-error></app-error>
     <section class="mt-3">
-      <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
-        [formItem]='unitForm'>
-        <span>{{ newForm ? 'Create': 'Update'}} Subject/Unit</span>
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+        (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='unitForm'>
+        <span>Edit Subject/Unit</span>
       </app-validate-submit-buttons>
     </section>
   </form>

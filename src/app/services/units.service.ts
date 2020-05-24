@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class UnitsService {
-  
+
   url = 'api/curriculum/units';
   all$ = this.http.get(`${ this.url}/all`);
   constructor(private http: HttpClient) { }

@@ -9,6 +9,8 @@ import { ErrorComponent } from '../../../components/error/error.component';
 import { ChipsComponent } from '../../../components/chips/chips.component';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ProcurementService } from 'src/app/services/procurement.service';
+import { of } from 'rxjs';
 
 describe('ProcurementsVendorsComponent', () => {
   let component: ProcurementsVendorsComponent;
@@ -31,7 +33,16 @@ describe('ProcurementsVendorsComponent', () => {
         ChipsComponent,
         LoadingBubbleComponent
       ],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ProcurementService,
+          useValue: {
+            getVendors: of([]),
+            deleteVendor: of([])
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();

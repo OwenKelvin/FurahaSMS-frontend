@@ -18,7 +18,7 @@ export class TimeTableAcademicYearViewComponent {
   isOpen: boolean[] = [false];
 
   activatedRouteParam$ = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
-  
+
   canEditTimeTable$ = this.store.select(selectICan('update time table'));
 
   academicYearName$ = this.activatedRouteParam$.pipe(

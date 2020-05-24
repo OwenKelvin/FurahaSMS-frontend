@@ -6,6 +6,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TimeTableAdminComponent', () => {
   let component: TimeTableAdminComponent;
@@ -15,7 +16,8 @@ describe('TimeTableAdminComponent', () => {
     TestBed.configureTestingModule({
       imports: [
         TabsModule.forRoot(),
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        HttpClientTestingModule
       ],
       declarations: [TimeTableAdminComponent, TimeTableTimingsComponent],
       providers: [

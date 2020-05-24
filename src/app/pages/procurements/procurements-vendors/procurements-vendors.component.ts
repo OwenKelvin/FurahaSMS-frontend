@@ -10,15 +10,15 @@ export class ProcurementsVendorsComponent implements OnInit {
   editProcurementVendor: any;
   createProcurementVendor: any;
   viewProcurementVendor: any;
-  categories: any;
+  itemService: any;
 
   constructor(private procurementService: ProcurementService) { }
 
   ngOnInit() {
-   
-    this.categories = {
+
+    this.itemService = {
       ...this.procurementService,
-      getAll: this.procurementService.getVendors,
+      all$: this.procurementService.getVendors,
       deleteItem: this.procurementService.deleteVendor,
     };
   }

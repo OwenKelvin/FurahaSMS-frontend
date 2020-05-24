@@ -1,9 +1,7 @@
 <app-crud
-  [viewLink]='viewLink'
-  [newForm]='true'
   title='Class Level'
   parent='class-level-categories'
-  [fields]='["name", "active", "abbr", "active"]'
-  [itemService]='classLevel'
+  [fields]='["name", "active", "abbreviation", "active", "description"]'
+  [itemService]='classLevelService'
   [transforms]='transforms'
 ></app-crud>

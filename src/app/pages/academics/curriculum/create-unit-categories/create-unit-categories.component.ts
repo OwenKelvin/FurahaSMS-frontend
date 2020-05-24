@@ -35,7 +35,7 @@ export class CreateUnitCategoriesComponent extends formWithEditorMixin() impleme
       filter(id => id < 1),
       tap(() => this.addSubject())
     ).subscribe()
-    
+
     this.paramId$.pipe(
       filter(id => id > 0),
       mergeMap(id => this.unitCategoryService.get({ id })),
@@ -54,7 +54,7 @@ export class CreateUnitCategoriesComponent extends formWithEditorMixin() impleme
   generateForm({ id = null, active = true, name = '', description = '' }: UnitCategoryInterface = {
     id: null, active: true, name: '', description: ''
   } as UnitCategoryInterface) {
-    
+
     this.newUnitCategoryForm.setValue({ id, name, active, description, units: [] });
     // this.newUnitCategoryForm = this.fb.group({
     //   id: [id],

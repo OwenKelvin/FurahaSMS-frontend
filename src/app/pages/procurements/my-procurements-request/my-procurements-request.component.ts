@@ -11,20 +11,20 @@ import { Observable } from 'rxjs';
 export class MyProcurementsRequestComponent implements OnInit {
 
   procurementRequests$: Observable<any>;
-  categories: any;
+  itemService: any;
   createNewProcurementRequest: string;
   editProcurementRequest: any;
   viewProcurementRequest: any;
-  constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) { }
+  constructor(private procurementService: ProcurementService) { }
 
   ngOnInit() {
-    this.procurementRequests$ = this.procurementService.getMyRequests();
-    this.categories = {
+    // this.procurementRequests$ = this.procurementService.getMyRequests();
+    this.itemService = {
       ...this.procurementService,
-      getAll: this.procurementService.getMyRequests,
+      all$: this.procurementService.getMyRequests,
       deleteItem: this.procurementService.deleteProcurementRequest
     };
-    
+
   }
 
 }

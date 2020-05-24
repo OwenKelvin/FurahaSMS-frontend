@@ -1,20 +1,16 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable } from 'rxjs';
+import { crudMixin } from 'src/app/shared/mixins/crud.mixin';
 
 @Injectable({
   providedIn: 'root'
 })
-export class SemesterService {
+export class SemesterService extends crudMixin() {
+
   url = 'api/curriculum/semesters';
 
-  constructor(
-    private http: HttpClient
-  ) { }
-  all$: Observable<any>= this.http.get<any>(this.url);
-  
-  deleteItem(id: number): Observable<any> {
-    const url = `api/curriculum/semesters/${id}`;
-    return this.http.delete<any>(url);
+  constructor(_http: HttpClient) {
+    super(_http);
+    this.http = _http
   }
 }

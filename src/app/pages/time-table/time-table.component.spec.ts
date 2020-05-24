@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TimeTableComponent', () => {
   let component: TimeTableComponent;
@@ -24,7 +25,8 @@ describe('TimeTableComponent', () => {
         }),
         AppLinksModule,
         StoreModule.forFeature(myProfileFeatureKey, reducer),
-        RouterTestingModule
+        RouterTestingModule,
+        HttpClientTestingModule
       ],
       declarations: [TimeTableComponent],
       providers: [reducerProvider]

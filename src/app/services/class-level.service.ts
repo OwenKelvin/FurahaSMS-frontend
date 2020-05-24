@@ -1,18 +1,20 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { Observable, of } from 'rxjs';
 import { ClassLevelInterface } from '../interfaces/class-level.interface';
+import { crudMixin } from '../shared/mixins/crud.mixin';
 
 @Injectable({
   providedIn: 'root'
 })
-export class ClassLevelService {
-  constructor(private http: HttpClient) { }
-  
-  url = `api/curriculum/class-levels`;
+export class ClassLevelService extends crudMixin() {
+  constructor(public _http: HttpClient) { super(_http); }
 
-  all$ = this.http.get<any[]>(this.url);
+  url = `api/curriculum/class-levels`;
+  deleteItem = this.delete
+
+  // all$ = this.http.get<any[]>(this.url);
 
   getAll(
     data: { includeUnits?: 1 | null; includeLevels?: 1 | null; academicYearId?: number | null } = {
@@ -36,19 +38,12 @@ export class ClassLevelService {
   }
   get({ id }: {id: number}) {
     const url = `api/curriculum/class-levels/${id}`;
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    return this.http.get<any>(url)
   }
   getItemById(id: number): Observable<any> {
-    const url = `api/curriculum/class-levels/${id}`;
-    return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    return super.getItemById(id).pipe(
+      map(res => ({ ...res, classLevelCategory: res.class_level_category_id })),
+    )
   }
   submit(data: ClassLevelInterface) {
     let url = `api/curriculum/class-levels`;
@@ -57,35 +52,18 @@ export class ClassLevelService {
       return this.http
         .patch<any>(url, {
           ...data,
-          abbreviation: data.abbr,
           class_level_category_id: data.classLevelCategory
-        })
-        .pipe(
-          map(res => {
-            return res;
-          })
-        );
+        });
     } else {
       return this.http
         .post<any>(url, {
           ...data,
-          abbreviation: data.abbr,
           class_level_category_id: data.classLevelCategory
         })
-        .pipe(
-          map(res => {
-            return res;
-          })
-        );
     }
   }
   delete(id: number): Observable<any> {
     const url = `api/curriculum/class-levels/${id}`;
-    return this.http.delete<any>(url).pipe(
-      map(res => {
-        return res;
-      })
-    );
+    return this.http.delete<any>(url)
   }
-  deleteItem = this.delete
 }

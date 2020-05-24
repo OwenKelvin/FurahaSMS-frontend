@@ -5,7 +5,7 @@ import { of, Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class TimeTableService {
-  
+
   daysOfTheWeek$: Observable<any[]> = of([
     {id: 1 , name: 'Monday'},
     {id: 2 , name: 'Tuesday'},
@@ -14,7 +14,7 @@ export class TimeTableService {
     {id: 5 , name: 'Friday'}
 
   ]);
-  
+
   groupByDayOfWeek(values: any[]) {
 
     return values.reduce((prev, next) => {
@@ -131,7 +131,7 @@ export class TimeTableService {
         streamId: 2,
         streamName: 'B',
       },
-      
+
       {
         timeId: 1,
         timeValue: '08:00:00 - 09:00:00',
@@ -228,7 +228,7 @@ export class TimeTableService {
         streamId: 2,
         streamName: 'B',
       },
-      
+
       {
         timeId: 1,
         timeValue: '08:00:00 - 09:00:00',

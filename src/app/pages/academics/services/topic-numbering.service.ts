@@ -11,5 +11,5 @@ export class TopicNumberingService {
   ) { }
 
   all$ = this.http.get('api/e-learning/topic-numbering')
-  
+
 }

@@ -39,7 +39,7 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
   @Input() hideSubmit: boolean;
   triggerValidation: boolean;
   isSubmitting: boolean;
-  componentIsActive: boolean = true;
+  componentIsActive = true;
   constructor(
 
     private fb: FormBuilder,

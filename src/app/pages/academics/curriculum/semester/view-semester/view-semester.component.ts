@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SemesterService } from '../services/semester.service';
 
 @Component({
   selector: 'app-view-semester',
@@ -7,7 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ViewSemesterComponent implements OnInit {
 
-  constructor() { }
+  constructor(public semesterService: SemesterService) { }
 
   ngOnInit() {
   }

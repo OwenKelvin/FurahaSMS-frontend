@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   API_URL: 'http://localhost:1234',
-  
+
   passportClient : {
     grantType: 'password',
     clientSecret: 'ClIzeJHb7SLLiS1HILvKtWrZH3JaT5dlEZ7SOtce',

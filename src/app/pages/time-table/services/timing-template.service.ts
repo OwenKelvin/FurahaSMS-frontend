@@ -10,7 +10,7 @@ export class TimingTemplateService {
   all$ = this.http.get(this.url)
   constructor(private http: HttpClient) { }
 
-  
+
 
   store = (data: any) => this.http.post( this.url, data);
 }
