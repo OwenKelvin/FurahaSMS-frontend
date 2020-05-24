@@ -1307,6 +1307,48 @@
       "css": "file-audio",
       "code": 61895,
       "src": "fontawesome"
+    },
+    {
+      "uid": "c737078cb69dfd2e8484e134ecbce791",
+      "css": "child",
+      "code": 59520,
+      "src": "elusive"
+    },
+    {
+      "uid": "326b529aa8b8913d3bc4a632f3dcec69",
+      "css": "slideshare",
+      "code": 59521,
+      "src": "elusive"
+    },
+    {
+      "uid": "b622423405bcc984de6553e2f23c9fb6",
+      "css": "barcode",
+      "code": 59522,
+      "src": "elusive"
+    },
+    {
+      "uid": "6a96c51e961a2e48dfcbe2c47fd1204e",
+      "css": "ruler",
+      "code": 61508,
+      "src": "mfglabs"
+    },
+    {
+      "uid": "2e7c67db76849147d16a6763d07a03a9",
+      "css": "police",
+      "code": 59523,
+      "src": "maki"
+    },
+    {
+      "uid": "020dbfb0a5a4a25775bc751e5891e161",
+      "css": "college",
+      "code": 59524,
+      "src": "maki"
+    },
+    {
+      "uid": "653750436fc99eeb29ccd487e6a5bfa6",
+      "css": "school",
+      "code": 59525,
+      "src": "maki"
     }
   ]
 }
