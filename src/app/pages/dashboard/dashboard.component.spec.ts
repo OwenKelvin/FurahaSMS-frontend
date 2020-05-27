@@ -5,6 +5,7 @@ import { DashboardComponent } from './dashboard.component';
 import { StoreModule } from '@ngrx/store';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('DashboardComponent', () => {
   let component: DashboardComponent;
@@ -21,7 +22,9 @@ describe('DashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        AppLinksModule],
+        AppLinksModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        ],
       declarations: [DashboardComponent],
       providers: [reducerProvider]
     })

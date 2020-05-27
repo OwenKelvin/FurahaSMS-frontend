@@ -9,7 +9,7 @@ import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudyMaterialsTitleModule } from './add-study-materials-title/add-study-materials-title.module';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 
 @NgModule({
   declarations: [StudyMaterialsAdminComponent, CreateStudyMaterialComponent],

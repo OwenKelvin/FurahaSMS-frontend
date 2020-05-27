@@ -33,10 +33,7 @@ describe('ViewItemsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewItemsComponent);
     component = fixture.componentInstance;
-    component.itemService = { getAll: () => of([{id: 1}]) };
-    component.viewItemUrl = () => { };
-    component.viewItemUrl = () => { };
-    component.editItemUrl = () => { };
+    component.itemService = { all$: of([{id: 1}]) };
     store = TestBed.inject<Store<AppState>>(Store);
 
     spyOn(store, 'dispatch').and.callThrough();

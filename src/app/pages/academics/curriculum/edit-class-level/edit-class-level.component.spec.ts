@@ -3,6 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditClassLevelComponent } from './edit-class-level.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('EditClassLevelComponent', () => {
   let component: EditClassLevelComponent;
@@ -11,13 +12,16 @@ describe('EditClassLevelComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }) ],
+        }),
+        HttpClientTestingModule
+      ],
       declarations: [EditClassLevelComponent],
       providers: [reducerProvider]
     });

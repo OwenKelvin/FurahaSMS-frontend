@@ -14,7 +14,7 @@ export class GenderEffects {
     return this.actions$.pipe(
       ofType(loadGenders),
       concatMap(() =>
-        this.genderService.getAll().pipe(
+        this.genderService.all$.pipe(
           map(data => loadGendersSuccess({ data })),
           catchError((error) => of(loadGendersFailure({error}))))
       )

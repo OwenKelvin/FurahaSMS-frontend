@@ -5,6 +5,7 @@ import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('ExamBankDashboardComponent', () => {
   let component: ExamBankDashboardComponent;
@@ -22,7 +23,7 @@ describe('ExamBankDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [ExamBankDashboardComponent],
       providers: [reducerProvider]

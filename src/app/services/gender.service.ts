@@ -11,22 +11,14 @@ import * as fromGenders from 'src/app/store/reducers/gender.reducer';
   providedIn: 'root'
 })
 export class GenderService {
+  url = 'api/genders';
 
   constructor(private http: HttpClient, private store: Store) { }
   loadAll$: Observable<fromGenders.State> = this.store.pipe(select(selectGenders))
     .pipe(tap(gender => !(gender[0] && gender[0].id) ? this.store.dispatch(loadGenders()) : ''));
 
-  getAll(): Observable<any> {
-    const url = 'api/genders/all';
-    return this.http.get<any>(url)
-      .pipe(map(data => {
-        return data;
-      },
-        () => {
-          // Error Has been captured by interceptor
-        }
-      ));
-  }
+  all$: Observable<any> = this.http.get<any>(`${this.url}/all`)
+
   getGender = (id: number | string) => this.store.pipe(select(selectGender(id)));
 
 }

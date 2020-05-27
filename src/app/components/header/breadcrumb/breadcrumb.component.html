@@ -19,7 +19,7 @@
       <li class="breadcrumb-item active" aria-current="page">{{ breadcrumbs[breadcrumbs.length-1].label }}</li>
     </ng-template>
 
-    <li *ngIf='showSpinner; else breadcrumbLi'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
+    <li *ngIf='(showSpinnerAction$ | async); else breadcrumbLi'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
     <li class="breadcrumb-controls"><span class="icon-resize-full" (click)='goFullScreen()'></span></li>
   </ol>
   <ng-template #dashboard>
@@ -30,8 +30,7 @@
       <li class="breadcrumb-item active">
         <span class='icon-home'></span>
       </li>
-      <li *ngIf='showSpinner'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
+      <li *ngIf='(showSpinnerAction$ | async)'><span class="breadcrumb-item icon-spin3 animate-spin"></span></li>
     </ol>
   </ng-template>
-
 </nav>

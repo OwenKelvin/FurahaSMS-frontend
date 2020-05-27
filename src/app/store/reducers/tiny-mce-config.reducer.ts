@@ -1,5 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
-
+import { Action, createReducer } from '@ngrx/store';
 
 export const tinyMCEConfigFeatureKey = 'tinyMCEConfig';
 

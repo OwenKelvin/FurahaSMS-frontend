@@ -14,7 +14,7 @@ export class ReligionEffects {
     return this.actions$.pipe(
       ofType(loadReligions),
       concatMap(() =>
-        this.religionService.getAll().pipe(
+        this.religionService.all$.pipe(
           map(data => loadReligionsSuccess({ data })),
           catchError((error) => of(loadReligionsFailure({ error }))))
       )

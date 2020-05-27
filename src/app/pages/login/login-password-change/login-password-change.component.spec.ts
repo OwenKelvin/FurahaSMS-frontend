@@ -5,7 +5,7 @@ import { ErrorModule } from 'src/app/components/error/error.module';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppLayoutModule } from 'src/app/modules/app-layout.module';
 import { PasswordChangeFormModule } from '../password-change-form/password-change-form.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

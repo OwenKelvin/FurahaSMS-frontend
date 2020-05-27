@@ -17,7 +17,7 @@ export class PaymentTypeEffects {
   loadPaymentTypes$ = createEffect(() => this.actions$.pipe(
       ofType(PaymentTypesAction.loadPaymentTypes),
       concatMap(() =>
-        this.paymentTypeService.getAll().pipe(
+        this.paymentTypeService.all$.pipe(
           map(data => PaymentTypesAction.loadPaymentTypesSuccess({ data })),
           catchError(error => of(PaymentTypesAction.loadPaymentTypesFailure({ error }))))
       )

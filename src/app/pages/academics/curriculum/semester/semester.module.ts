@@ -8,6 +8,7 @@ import { ErrorModule } from 'src/app/components/error/error.module';
 import { CreateSemesterComponent } from './create-semester/create-semester.component';
 import { ViewSemesterComponent } from './view-semester/view-semester.component';
 import { EditSemesterComponent } from './edit-semester/edit-semester.component';
+import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import { EditSemesterComponent } from './edit-semester/edit-semester.component';
     CommonModule,
     SemesterRoutingModule,
     AppViewItemsModule,
-    ErrorModule
+    ErrorModule,
+    AppCrudModule
   ]
 })
 export class SemesterModule { }

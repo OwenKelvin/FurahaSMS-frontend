@@ -11,7 +11,7 @@ import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { examPaperFeatureKey, reducer } from '../../store/reducers/exam-paper.reducer';
+import { examPaperFeatureKey, reducer, initialState } from '../../store/reducers/exam-paper.reducer';
 
 describe('ExamRevisionModeComponent', () => {
   let component: ExamRevisionModeComponent;
@@ -50,7 +50,7 @@ describe('ExamRevisionModeComponent', () => {
         },
         {
           provide: Store,
-          useValue: of({})
+          useValue: of({ [examPaperFeatureKey]: initialState })
         }
       ]
     })

@@ -1,5 +1,5 @@
 <h1>{{ title }}</h1>
-<a [routerLink]="newItemUrl" type="button" class="btn btn-primary btn-sm">
+<a [routerLink]='["create"]' type="button" class="btn btn-primary btn-sm">
   New
   <span class='icon-plus-circled'></span>
 </a>
@@ -19,12 +19,16 @@
 
         <th scope="row">{{ i + 1 }}</th>
         <td *ngIf='true'>{{ item.name }}</td>
-        <td>{{ item.description }}</td>
+        <td class="p-1">
+          <span *ngIf='item.description' [innerHTML]='(item.description | slice:0:100)'></span>
+            <a *ngIf='item.description?.length > 100' [routerLink]='[item.id, "view"]'>View More...<span class="icon-expand-right"></span></a>
+          <span class="icon-info badge badge-info p-2" *ngIf='!item.description'>No description available!</span>
+        </td>
         <td>
           <app-chips [value]='item.active'></app-chips>
         </td>
         <td class='d-flex  justify-content-between flex-wrap'>
-          <button class='btn btn-primary btn-sm' [routerLink]="editItemUrl(item.id)"
+          <button class='btn btn-primary btn-sm' [routerLink]='[item.id, "edit"]'
             attr.aria-label="{{ 'Edit subject item ' + item.name }}" title="Edit" type="button">
             <i class="icon-edit" color="primary"></i><span class="sr-only">edit</span>
           </button>
@@ -34,7 +38,7 @@
             <i class="icon-trash-1" [class.animate-spin]='deleting[i]' color="primary"></i><span
               class="sr-only">delete</span>
           </button>
-          <button class='btn btn-info btn-sm' [routerLink]="viewItemUrl(item.id)"
+          <button class='btn btn-info btn-sm' [routerLink]="[item.id, 'view']"
             attr.aria-label="{{ 'View subject item ' + item.name }}" title="View Item" type="button">
             <i class="icon-eye" color="primary"></i><span class="sr-only">view</span>
           </button>

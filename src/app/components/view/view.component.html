@@ -1,9 +1,15 @@
 
 <section *ngIf='(item$ | async) as item; else loading_block'>
-  <h1>{{ title }} : <small>{{ item.name }}</small>
-  </h1>
-  <app-chips [value]='item.active'></app-chips>
-  <app-description></app-description>
+  <h1>{{ title }} : <small>{{ item.name }}</small></h1>
+  <div class="card p-2">
+    <h2 class="card-header mb-3">Status</h2>
+    <div class="badge p-3 pt-2 pb-2" [class.badge-secondary]='!item.active' [class.badge-success]='item.active'>
+      <span *ngIf='item.active'>Active</span>
+      <span *ngIf='!item.active'>Inactive</span>
+    </div>
+    <h2 class=" card-header mt-4 mb-3">Description</h2>
+    <app-description [value]='item.description'></app-description>
+  </div>
 </section>
 <ng-template #loading_block>
   <h1>{{ title }}</h1>

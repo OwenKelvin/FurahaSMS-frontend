@@ -14,7 +14,7 @@ import { ActivatedRoute, Router } from '@angular/router';
   styleUrls: ['./create-student-academics.component.css']
 })
 export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
-  academicYears$: Observable<any> = this.academicYearService.getAll();
+  academicYears$: Observable<any> = this.academicYearService.all$;
   classLevels$: Observable<any> = this.classLevelService.getAll();
   academicCategory: FormGroup = this.fb.group({
     academicYear: [''],

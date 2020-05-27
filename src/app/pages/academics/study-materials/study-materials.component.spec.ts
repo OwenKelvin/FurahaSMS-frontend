@@ -5,6 +5,7 @@ import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { myProfileFeatureKey, reducer } from '../../my-profile/store/reducers/my-profile.reducer';
 
 describe('StudyMaterialsComponent', () => {
   let component: StudyMaterialsComponent;
@@ -13,8 +14,8 @@ describe('StudyMaterialsComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        AppLinksModule,
         RouterTestingModule,
+        AppLinksModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
@@ -22,6 +23,7 @@ describe('StudyMaterialsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [StudyMaterialsComponent],
       providers: [reducerProvider]

@@ -35,7 +35,7 @@ export class FinancialCostsMaintenanceComponent implements OnInit, OnDestroy {
     this.deleting = [false];
     this.financialCosts = [];
     this.resetEditForm();
-    this.financialCosts$ = this.financialCostsService.getAll()
+    this.financialCosts$ = this.financialCostsService.all$
       .pipe(
         map(item => (
           item.map(({ id, name, costItems }: any) => ({

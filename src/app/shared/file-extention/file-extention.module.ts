@@ -1,13 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FileExtentionColorPipe } from './file-extention-color.pipe';
-import { FileExtentionIconPipe } from './file-extention-icon.pipe';
+import { FileExtentionPipe } from './file-extention.pipe';
 
 
 
 @NgModule({
-  declarations: [FileExtentionColorPipe, FileExtentionIconPipe],
-  exports: [FileExtentionColorPipe, FileExtentionIconPipe],
+  declarations: [FileExtentionPipe],
+  exports: [FileExtentionPipe],
   imports: [
     CommonModule
   ]

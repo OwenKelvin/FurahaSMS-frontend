@@ -3,6 +3,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { ViewClassLevelCategoryComponent } from './view-class-level-category.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewClassLevelCategoryComponent', () => {
   let component: ViewClassLevelCategoryComponent;
@@ -11,13 +13,17 @@ describe('ViewClassLevelCategoryComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }) ],
+      }),
+        HttpClientTestingModule,
+        RouterTestingModule
+      ],
       declarations: [ViewClassLevelCategoryComponent],
       providers: [reducerProvider]
     });

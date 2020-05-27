@@ -11,7 +11,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { GenderService } from 'src/app/services/gender.service';
 import { of } from 'rxjs';
 import { ReligionService } from 'src/app/services/religion.service';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('CreateStudentComponent', () => {
   let component: CreateStudentComponent;
@@ -32,7 +33,8 @@ describe('CreateStudentComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        AppInputModule
+        AppInputModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [CreateStudentComponent, InputComponent, LabelStarRequiredComponent],
       providers: [

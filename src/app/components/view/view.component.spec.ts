@@ -7,6 +7,7 @@ import { DescriptionComponent } from '../description/description.component';
 import { LoadingBubbleComponent } from '../loading-bubble/loading-bubble.component';
 import { ChipsComponent } from '../chips/chips.component';
 import { of } from 'rxjs';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewComponent', () => {
   let component: ViewComponent;
@@ -21,7 +22,9 @@ describe('ViewComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })],
+      }),
+        RouterTestingModule
+      ],
       declarations: [ViewComponent, DescriptionComponent, LoadingBubbleComponent, ChipsComponent],
       providers: [reducerProvider]
     });

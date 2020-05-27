@@ -9,9 +9,8 @@ export class LibraryAuthorService {
 
   constructor(private http: HttpClient) { }
 
-  getAll(): Observable<any> {
-    return this.http.get('/api/library-books/authors/all');
-  }
+  all$: Observable<any> = this.http.get('api/library-books/authors/all');
+
   save(data: any): Observable<any> {
     if (data.id === 0) {
       return this.http.post('api/library-book-author', data);

@@ -4,10 +4,11 @@ import { CreateAuthorComponent } from './create-author.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('CreateAuthorComponent', () => {
   let component: CreateAuthorComponent;
@@ -29,7 +30,8 @@ describe('CreateAuthorComponent', () => {
         AppInputModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [CreateAuthorComponent],
       providers: [reducerProvider]

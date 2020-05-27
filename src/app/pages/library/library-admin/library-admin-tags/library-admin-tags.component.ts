@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { CREATE_LIBRARY_BOOK_TAG, EDIT_LIBRARY_BOOK_TAG, VIEW_LIBRARY_BOOK_TAG } from 'src/app/helpers/links.helpers';
 import { LibraryBookTagService } from '../../services/library-book-tag.service';
 
 @Component({
@@ -17,9 +16,6 @@ export class LibraryAdminTagsComponent implements OnInit {
 
   ngOnInit() {
     this.categories = this.libraryBookTagService;
-    this.createTag = CREATE_LIBRARY_BOOK_TAG;
-    this.editTag = EDIT_LIBRARY_BOOK_TAG;
-    this.viewTag = VIEW_LIBRARY_BOOK_TAG;
   }
 
 }

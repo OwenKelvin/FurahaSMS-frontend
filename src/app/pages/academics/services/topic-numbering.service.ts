@@ -10,7 +10,6 @@ export class TopicNumberingService {
     private http: HttpClient
   ) { }
 
-  getAll() {
-    return this.http.get('api/e-learning/topic-numbering')
-  }
+  all$ = this.http.get('api/e-learning/topic-numbering')
+
 }

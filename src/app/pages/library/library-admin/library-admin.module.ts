@@ -12,10 +12,11 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AppInputModule,
     TabsModule.forRoot(),
     AppSelectLibraryClassModule,
-    EditorModule
+    EditorModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class LibraryAdminModule { }

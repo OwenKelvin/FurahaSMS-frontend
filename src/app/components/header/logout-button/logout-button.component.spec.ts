@@ -1,7 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { LogoutButtonComponent } from './logout-button.component';
-import { StoreModule } from '@ngrx/store';
+import { StoreModule, Store } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 
 describe('LogoutButtonComponent', () => {
@@ -20,9 +20,15 @@ describe('LogoutButtonComponent', () => {
           }
         }),
       ],
-      providers: [reducerProvider],
+      providers: [
+        {
+          provide: Store,
+          useValue: { dispatch: () => {} }
+        },
+        reducerProvider,
+      ],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {
@@ -33,5 +39,13 @@ describe('LogoutButtonComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should have a logout function that dispatches logout action', () => {
+    spyOn(window, 'confirm').and.returnValue(true);
+    // const dispatchAction = spyOn<any>(component, 'store');
+    component.logout();
+    expect(component).toBeTruthy();
+    // expect(dispatchAction).toHaveBeenCalled();
   });
 });

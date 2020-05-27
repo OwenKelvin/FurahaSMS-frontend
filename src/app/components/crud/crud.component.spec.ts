@@ -3,7 +3,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { CrudComponent } from './crud.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule, FormGroup } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InputComponent } from '../input/input.component';
@@ -46,5 +46,14 @@ describe('CrudComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
+  });
+
+  it('should call itemService submit function', () => {
+    Object.assign(component, { ...component, itemService: {}})
+    Object.assign(component.itemService, {submit: true})
+    const itemService = spyOn(component.itemService, 'submit').and.returnValue({ subscribe: () => true});
+    spyOnProperty(component.itemForm, 'valid').and.returnValue(true);
+    component.submitForm();
+    expect(itemService).toHaveBeenCalled();
   });
 });

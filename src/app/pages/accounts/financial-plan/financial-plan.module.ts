@@ -16,7 +16,8 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -37,7 +38,8 @@ import { AppInputModule } from 'src/app/modules/app-input.module';
     TabErrorStateModule,
     FormsModule,
     ReactiveFormsModule,
-    AppInputModule
+    AppInputModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class FinancialPlanModule { }

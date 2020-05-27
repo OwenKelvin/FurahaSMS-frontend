@@ -7,9 +7,10 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AcademicsModule } from '../../academics.module';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { EffectsModule } from '@ngrx/effects';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('CreateAcademicYearComponent', () => {
   let component: CreateAcademicYearComponent;
@@ -33,7 +34,8 @@ describe('CreateAcademicYearComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        ErrorModule
+        ErrorModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [CreateAcademicYearComponent],
       providers: [reducerProvider]

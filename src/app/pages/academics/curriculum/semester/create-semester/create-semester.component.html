@@ -1,2 +1,5 @@
-<app-page-under-maintenance></app-page-under-maintenance>
-<p>create-semester works!</p>
+<app-crud
+  title='Semester'
+  [fields]='["name", "active", "abbreviation", "active"]'
+  [itemService]='semesterService'
+></app-crud>

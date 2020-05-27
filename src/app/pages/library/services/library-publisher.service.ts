@@ -18,6 +18,9 @@ export class LibraryPublisherService {
     tap(() => this.store.dispatch(loadLibraryBookPublishers())),
   )
 
+
+  all$: Observable<any> = this.http.get('api/library-books/publishers/all');
+
   loadItem = (id: number): Observable<any> => {
     return this.store.pipe(
       select(selectLibraryBookPublisher(id)),
@@ -26,10 +29,6 @@ export class LibraryPublisherService {
     )
   };
 
-
-  getAll(): Observable<any> {
-    return this.http.get('api/library-books/publishers/all');
-  }
   save(data: any, file?: File): Observable<any> {
     const myFormData = new FormData();
     const headers = new HttpHeaders();

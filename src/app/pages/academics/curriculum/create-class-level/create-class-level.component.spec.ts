@@ -10,6 +10,7 @@ import { ErrorComponent } from '../../../../components/error/error.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../../components/input/input.component';
 import { SelectComponent } from '../../../../components/select/select.component';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 describe('CreateClassLevelComponent', () => {
   let component: CreateClassLevelComponent;
@@ -29,7 +30,8 @@ describe('CreateClassLevelComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        EditorModule
       ],
       declarations: [
         CreateClassLevelComponent,

@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, reducerProvider } from '../../store/reducers';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
+import { myProfileFeatureKey, reducer } from '../my-profile/store/reducers/my-profile.reducer';
 
 describe('AdmissionsComponent', () => {
   let component: AdmissionsComponent;
@@ -22,7 +23,8 @@ describe('AdmissionsComponent', () => {
           }
         }),
         RouterTestingModule,
-        AppLinksModule
+        AppLinksModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [AdmissionsComponent],
       providers: [reducerProvider]

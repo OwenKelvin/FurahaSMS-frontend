@@ -1,6 +1,10 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeTableTimingsComponent } from './time-table-timings.component';
+import { ModalModule } from 'ngx-bootstrap/modal';
+import { StoreModule } from '@ngrx/store';
+import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 describe('TimeTableTimingsComponent', () => {
   let component: TimeTableTimingsComponent;
@@ -8,7 +12,19 @@ describe('TimeTableTimingsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeTableTimingsComponent ]
+      imports: [
+        ModalModule.forRoot(),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        HttpClientTestingModule
+      ],
+      declarations: [TimeTableTimingsComponent],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

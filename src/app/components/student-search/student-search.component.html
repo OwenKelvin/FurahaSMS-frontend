@@ -1,11 +1,11 @@
-<input [(ngModel)]="search" typeaheadOptionField="name" [typeahead]="suggestions$" [typeaheadAsync]="true"
-  class="form-control" placeholder="Enter Student Name" (typeaheadOnSelect)="onSelect($event)">
-
-<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
-  {{ errorMessage }}
-</div>
-
-<div class="card mt-4 p-2">
+<div class="d-flex align-items-center flex-wrap">
+  <div class="col-lg-4 p-0">
+    <label for="studentName">Please enter One Name and Select from List</label>
+    <input [(ngModel)]="search" typeaheadOptionField="name" [typeahead]="suggestions$" [typeaheadAsync]="true"
+      class="form-control" placeholder="Enter Student Name" (typeaheadOnSelect)="onSelect($event)">
+  </div>
+  <div class="col-lg-8 p-0">
+    <div class="card p-2 ml-2">
   <h2>Selected Student Details</h2>
   <div class="d-flex justify-content-between flex-wrap" *ngIf='selectedItemAction$ | async as selectedItem; else noSelectedStudent'>
     <div class="col-12 col-xl-6 mt-1">First Name: <strong>{{ selectedItem.firstName }}</strong></div>
@@ -25,3 +25,10 @@
     </div>
  </ng-template>
 </div>
+  </div>
+</div>
+
+<div class="alert alert-danger" role="alert" *ngIf="errorMessage">
+  {{ errorMessage }}
+</div>
+

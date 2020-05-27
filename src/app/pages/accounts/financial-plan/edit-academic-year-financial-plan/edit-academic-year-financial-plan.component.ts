@@ -57,7 +57,7 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
     });
     this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
     this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
-    this.otherCosts$ = this.financialCostService.getAll();
+    this.otherCosts$ = this.financialCostService.all$;
     this.otherCosts$
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => this.otherCosts = res);

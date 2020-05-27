@@ -2,13 +2,14 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ELearningCreateCourseComponent } from './e-learning-create-course.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('ELearningCreateCourseComponent', () => {
   let component: ELearningCreateCourseComponent;
@@ -30,7 +31,8 @@ describe('ELearningCreateCourseComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [ELearningCreateCourseComponent],
       providers: [reducerProvider]

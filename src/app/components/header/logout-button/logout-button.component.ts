@@ -10,8 +10,7 @@ import { myProfileLogout } from 'src/app/pages/my-profile/store/actions/my-profi
 })
 export class LogoutButtonComponent {
 
-  constructor(
-    private store: Store<fromStore.AppState>) { }
+  constructor( private store: Store<fromStore.AppState>) { }
 
   logout() {
     const confirmedLogout = confirm('Are you sure you wish to logout?');

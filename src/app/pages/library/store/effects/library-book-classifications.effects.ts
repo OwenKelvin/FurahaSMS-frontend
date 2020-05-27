@@ -18,7 +18,7 @@ export class LibraryBookClassificationEffects {
 
       ofType(LibraryBookClassificationActions.loadBookClassifications),
       concatMap(() => {
-        return this.bookClassificationService.getAll().pipe(
+        return this.bookClassificationService.all$.pipe(
           map(data => LibraryBookClassificationActions.loadBookClassificationsSuccess({ data })),
           catchError(error => of(LibraryBookClassificationActions.loadBookClassificationsFailure({ error }))));
       })

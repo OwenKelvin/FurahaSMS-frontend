@@ -23,7 +23,7 @@ import {
   AcademicsCurriculumClassLevelCategoriesComponent
 } from './academics-curriculum-class-level-categories/academics-curriculum-class-level-categories.component';
 import { AcademicsCurriculumClassLevelsComponent } from './academics-curriculum-class-levels/academics-curriculum-class-levels.component';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
@@ -31,8 +31,10 @@ import { ErrorModule } from 'src/app/components/error/error.module';
 import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
-import { AppCrudModule } from 'src/app/modules/app-crud.module';
+import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 
 @NgModule({
@@ -68,7 +70,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     TabsModule.forRoot(),
     AppViewItemsModule,
     AppCrudModule,
-    NgSelectModule
+    NgSelectModule,
+    AppValidateSubmitButtonsModule,
+    EditorModule
   ]
 })
 export class CurriculumModule { }

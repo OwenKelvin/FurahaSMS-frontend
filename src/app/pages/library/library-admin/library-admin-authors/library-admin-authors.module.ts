@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -13,6 +13,7 @@ import { EditAuthorComponent } from './edit-author/edit-author.component';
 import { LibraryAdminAuthorsComponent } from './library-admin-authors.component';
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     ReactiveFormsModule,
     AppLinksModule,
     AppViewItemsModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class LibraryAdminAuthorsModule { }

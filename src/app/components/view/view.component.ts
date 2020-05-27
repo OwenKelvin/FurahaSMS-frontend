@@ -1,22 +1,20 @@
-import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
+import { Component, Input, ChangeDetectionStrategy } from '@angular/core';
 import { Observable } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
+import { map, mergeMap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-view',
   templateUrl: './view.component.html',
-  styleUrls: ['./view.component.css']
+  styleUrls: ['./view.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ViewComponent implements OnInit {
+export class ViewComponent {
   @Input() title: string;
   @Input() service: { getItemById: (id: number) => Observable<any>};
-  item$: Observable<any>;
-  constructor(private store: Store<AppState>) { }
-
-  ngOnInit() {
-    // TODO-me-urgent This is calling 1??
-    this.item$ = this.service.getItemById(1);
-  }
-
+  item$: Observable<any> = this.route.paramMap.pipe(
+    map(params => Number(params.get('id'))),
+    mergeMap(id => this.service.getItemById(id))
+  );
+  constructor(private route: ActivatedRoute) { }
 }

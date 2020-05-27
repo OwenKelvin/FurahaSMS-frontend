@@ -1,78 +1,68 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Component, OnInit } from '@angular/core';
 import { UnitCategoryService } from 'src/app/services/unit-category.service';
-import { Router, ActivatedRouteSnapshot } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators, FormArray } from '@angular/forms';
 import { UnitCategoryInterface } from 'src/app/interfaces/unit-category.interface';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
 import { VIEW_UNIT_CATEGORY_CURRICULUM } from 'src/app/helpers/links.helpers';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
-import { AppState } from 'src/app/store/reducers';
-import { takeWhile } from 'rxjs/operators';
+import { map, filter, mergeMap, tap } from 'rxjs/operators';
+import { formWithEditorMixin } from 'src/app/shared/mixins/form-with-editor.mixin';
 
-interface Ierror {
-  name: string;
-}
 
 @Component({
   selector: 'app-create-unit-categories',
   templateUrl: './create-unit-categories.component.html',
   styleUrls: ['./create-unit-categories.component.css']
 })
-export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
-  newUnitCategoryForm: FormGroup;
-  errors: Ierror;
-  newForm: boolean;
-  submitInProgress: boolean;
-  triggerValidation: boolean;
-  componentIsActive: boolean;
+export class CreateUnitCategoriesComponent extends formWithEditorMixin() implements OnInit {
+  newUnitCategoryForm: FormGroup = this.fb.group({
+    id: [null],
+    name: [name, [Validators.required]],
+    active: [false],
+    description: [''],
+    units: this.fb.array([])
+  });
+  paramId$ = this.route.paramMap.pipe(
+    map(params => Number(params.get('id'))));
   constructor(
     private fb: FormBuilder,
     private unitCategoryService: UnitCategoryService,
     private router: Router,
-    private store: Store<AppState>) { }
+    private route: ActivatedRoute
+  ) { super(); }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.generateForm();
-    this.addSubject();
-    this.errors = { name: '' };
-    let activatedRoute: ActivatedRouteSnapshot;
-    if (
-      this.router.routerState.root &&
-      this.router.routerState.root.children &&
-      this.router.routerState.root.children[0]
-    ) {
-      activatedRoute = this.router.routerState.root.children[0].children[0]
-        .children[0].snapshot;
-      const id = activatedRoute.params.id;
-      if (id === undefined) {
-        this.newForm = true;
-      } else {
-        this.newForm = false;
-        this.unitCategoryService.get({ id })
-          .pipe(takeWhile(() => this.componentIsActive))
-          .subscribe(item => {
-          this.generateForm(item);
-        });
-      }
-    }
+    this.paramId$.pipe(
+      filter(id => id < 1),
+      tap(() => this.addSubject())
+    ).subscribe()
+
+    this.paramId$.pipe(
+      filter(id => id > 0),
+      mergeMap(id => this.unitCategoryService.get({ id })),
+      tap(() => this.editFormSubject$.next(true)),
+      tap((res) => this.generateForm(res)),
+      tap(({ units }) => units?.forEach((item, index) => {
+        this.addSubject()
+        const { id, name, abbreviation: abbr, description, unit_category_id: unitCategory, active} = item
+        this.units.controls[index].setValue({ id, name, abbr, description, unitCategory, active })
+        console.log({ item });
+        console.log({ controls: this.units.controls[0].value });
+      }))
+    ).subscribe()
+
   }
-  generateForm(
-    { id = null, active = true, name = '', description = '' }: UnitCategoryInterface = {
-      id: null,
-      active: true,
-      name: '',
-      description: ''
-    } as UnitCategoryInterface
-  ) {
-    this.newUnitCategoryForm = this.fb.group({
-      id: [id],
-      name: [name, [Validators.required]],
-      active: [active],
-      description: [description],
-      units: this.fb.array([])
-    });
+  generateForm({ id = null, active = true, name = '', description = '' }: UnitCategoryInterface = {
+    id: null, active: true, name: '', description: ''
+  } as UnitCategoryInterface) {
+
+    this.newUnitCategoryForm.setValue({ id, name, active, description, units: [] });
+    // this.newUnitCategoryForm = this.fb.group({
+    //   id: [id],
+    //   name: [name, [Validators.required]],
+    //   active: [active],
+    //   description: [description],
+    //   units: this.fb.array([])
+    // });
   }
   get units() {
     return this.newUnitCategoryForm.get('units') as FormArray;
@@ -98,44 +88,23 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
     return this.newUnitCategoryForm.get('name') as FormGroup;
   }
   submit() {
-    this.submitInProgress = true;
     if (this.newUnitCategoryForm.valid) {
+      this.submitInProgressSubject$.next(true);
       const dataSubmit = {
         ...this.newUnitCategoryForm.value,
         units: this.units.controls.map(item => item.value)
       };
       this.unitCategoryService.submit(dataSubmit)
-        .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(data => {
-        this.router.navigate([VIEW_UNIT_CATEGORY_CURRICULUM(data.id)]);
-        if (this.newForm) {
-          this.generateForm();
-          this.nameControl.clearValidators();
-          this.nameControl.updateValueAndValidity();
-          this.addSubject();
-        }
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: 'Successfully created  unit category',
-          toastHeader: 'Success!',
-          toastTime: 'Just now'
-        }));
-      }, error => {
-          this.store.dispatch(loadErrorMessagesSuccess({
-            body: error.help,
-            show: true,
-            title: error.message,
-            status: error.status
-          }));
-          this.submitInProgress = true;
-      });
+
+        .subscribe({
+          next: data => this.router.navigate([VIEW_UNIT_CATEGORY_CURRICULUM(data.id)]),
+          error: () => this.submitInProgressSubject$.next(false)
+        });
     } else {
       this.newUnitCategoryForm.markAllAsTouched();
     }
   }
-  validateForm() {
-    this.triggerValidation = !this.triggerValidation;
-  }
+
   removeSubject(i: number) {
     const removalConfirmed = confirm(
       'Please confirm you wish to remove section'
@@ -143,8 +112,5 @@ export class CreateUnitCategoriesComponent implements OnInit, OnDestroy {
     if (removalConfirmed) {
       this.units.controls.splice(i, 1);
     }
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

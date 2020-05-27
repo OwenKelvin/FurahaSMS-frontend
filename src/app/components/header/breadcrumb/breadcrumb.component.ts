@@ -1,7 +1,8 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
 import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart, NavigationCancel } from '@angular/router';
-import { filter, takeWhile } from 'rxjs/operators';
+import { filter, tap } from 'rxjs/operators';
 import { Location } from '@angular/common';
+import { BehaviorSubject } from 'rxjs';
 
 interface BreadcrumbInterface {
   label: string;
@@ -12,15 +13,24 @@ interface BreadcrumbInterface {
 @Component({
   selector: 'app-breadcrumb',
   templateUrl: './breadcrumb.component.html',
-  styleUrls: ['./breadcrumb.component.css']
+  styleUrls: ['./breadcrumb.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class BreadcrumbComponent implements OnInit, OnDestroy {
+export class BreadcrumbComponent implements OnInit {
 
   public breadcrumbs: BreadcrumbInterface[];
-
-  showSpinner: boolean;
-  componentIsActive: boolean;
-
+  showSpinnerSubject$ = new BehaviorSubject<boolean>(false);
+  showSpinnerAction$ = this.showSpinnerSubject$.asObservable();
+  navigationEvent = this.router.events;
+  navigationEventEnd = this.navigationEvent.pipe(
+    filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel),
+    tap(() => this.showSpinnerSubject$.next(false)),
+    tap(() => { this.breadcrumbs = this.getBreadcrumbs(this.activatedRoute.root); })
+  );
+  navigationEventStart = this.navigationEvent.pipe(
+    filter(event => event instanceof NavigationStart),
+    tap(() => this.showSpinnerSubject$.next(true)),
+  )
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
@@ -30,22 +40,10 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
 
   ngOnInit() {
-    this.componentIsActive = true;
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
-    // const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
+    this.navigationEventStart.subscribe();
+    this.navigationEventEnd.subscribe();
 
-    this.router.events.pipe(filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(() => {
-        this.showSpinner = false;
-        const root: ActivatedRoute = this.activatedRoute.root;
-        this.breadcrumbs = this.getBreadcrumbs(root);
-      });
-    this.router.events.pipe(filter(event => event instanceof NavigationStart))
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(() => {
-        this.showSpinner = true;
-      });
   }
 
   private getBreadcrumbs(
@@ -89,9 +87,6 @@ export class BreadcrumbComponent implements OnInit, OnDestroy {
   }
   goFullScreen() {
     (document.querySelector('#main') as HTMLElement).requestFullscreen();
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 
 }

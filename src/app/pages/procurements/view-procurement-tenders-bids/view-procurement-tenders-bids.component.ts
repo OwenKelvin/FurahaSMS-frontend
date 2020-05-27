@@ -40,7 +40,6 @@ export class ViewProcurementTendersBidsComponent implements OnInit, OnDestroy {
   openModalWithComponent() {
     this.bsModalRef = this.modalService.show(CreateProcurementTenderBidComponent, this.config);
     this.route.paramMap
-      .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(params => {
       this.bsModalRef.content.tenderId = Number(params.get('id'));
       this.store.select(selectDialogShowState)

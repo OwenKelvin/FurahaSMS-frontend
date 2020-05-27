@@ -3,6 +3,13 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { EditClassLevelCategoryComponent } from './edit-class-level-category.component';
 import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import { CreateClassLevelCategoryComponent } from '../create-class-level-category/create-class-level-category.component';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { EditorModule } from '@tinymce/tinymce-angular';
 
 describe('EditClassLevelCategoryComponent', () => {
   let component: EditClassLevelCategoryComponent;
@@ -11,14 +18,22 @@ describe('EditClassLevelCategoryComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
-          metaReducers,
-          runtimeChecks: {
-            strictStateImmutability: true,
-            strictActionImmutability: true,
-          }
-        }) ],
-      declarations: [EditClassLevelCategoryComponent],
+      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        }
+      }),
+        AppValidateSubmitButtonsModule,
+        FormsModule,
+        ReactiveFormsModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        AppInputModule,
+        EditorModule
+      ],
+      declarations: [EditClassLevelCategoryComponent, CreateClassLevelCategoryComponent],
       providers: [reducerProvider]
     });
 

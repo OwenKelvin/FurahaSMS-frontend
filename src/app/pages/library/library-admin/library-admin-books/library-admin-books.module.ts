@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { EditBookComponent } from './edit-book/edit-book.component';
 import { AddBookComponent } from './add-book/add-book.component';
 import { ViewBookComponent } from './view-book/view-book.component';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
@@ -12,6 +12,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { LibraryAdminBooksRoutingModule } from './library-admin-books-routing.module';
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
     FormsModule,
     ReactiveFormsModule,
     AppLinksModule,
-    AppBarcodeModule
+    AppBarcodeModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class LibraryAdminBooksModule { }

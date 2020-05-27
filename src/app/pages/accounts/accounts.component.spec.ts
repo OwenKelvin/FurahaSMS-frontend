@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { RouterTestingModule } from '@angular/router/testing';
+import { myProfileFeatureKey, reducer } from '../my-profile/store/reducers/my-profile.reducer';
 
 describe('AccountsComponent', () => {
   let component: AccountsComponent;
@@ -22,6 +23,7 @@ describe('AccountsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
         RouterTestingModule
       ],
       declarations: [AccountsComponent],

@@ -8,6 +8,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ViewComponent } from 'src/app/components/view/view.component';
 import { ChipsComponent } from 'src/app/components/chips/chips.component';
 import { DescriptionComponent } from 'src/app/components/description/description.component';
+import { RouterTestingModule } from '@angular/router/testing';
 
 describe('ViewClassLevelComponent', () => {
   let component: ViewClassLevelComponent;
@@ -25,7 +26,8 @@ describe('ViewClassLevelComponent', () => {
           }
         }),
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        RouterTestingModule
       ],
       declarations: [
         ViewClassLevelComponent,

@@ -1,96 +1,92 @@
-import { Component, OnInit, Input, ɵConsole, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
-import { FormGroup, FormBuilder, FormControl, Validators } from '@angular/forms';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { Router } from '@angular/router';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
+import { Component, OnInit, Input } from '@angular/core';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router, ActivatedRoute } from '@angular/router';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
-import { takeWhile } from 'rxjs/operators';
+import { formWithEditorMixin } from 'src/app/shared/mixins/form-with-editor.mixin';
+import { map, mergeMap, filter, tap } from 'rxjs/operators';
 
 @Component({
   selector: 'app-crud',
   templateUrl: './crud.component.html',
   styleUrls: ['./crud.component.css']
 })
-export class CrudComponent implements OnInit, OnDestroy {
-  @Input() newForm: boolean;
+export class CrudComponent extends formWithEditorMixin() implements OnInit {
   @Input() title: boolean;
   @Input() fields: any[] = [];
   @Input() parent: string;
-  @Input() viewLink: any;
   @Input() itemService: any;
   @Input() transforms: TransformInterface[];
   @Input() idIndex: number;
-  showErrorMessage: boolean;
-  itemForm: FormGroup;
-  isSubmitting: boolean;
-  triggerValidation: boolean;
-  componentIsActive: boolean;
-  constructor(private store: Store<AppState>, private fb: FormBuilder, private router: Router) { }
+
+  controls: {name: string, validators: any[]}[] = [
+    { name: 'name', validators: [Validators.required]},
+    { name: 'abbreviation', validators: [Validators.required]},
+    { name: 'active', validators: []},
+    { name: 'description', validators: []}
+
+  ];
+  itemForm: FormGroup = this.fb.group({});
+
+  item$ = this.route.paramMap.pipe(
+    map(params => Number(params.get('id'))),
+    filter(id => id > 0),
+    tap(() => this.editFormSubject$.next(true)),
+    mergeMap(id => this.itemService.getItemById(id)),
+    tap((res: any) => {
+      this.itemForm.setControl('id', this.fb.control(res.id));
+      this.controls.forEach(item => {
+        if (this.fields.includes(item.name)) {
+          this.itemForm.get(item.name)?.setValue(res?.[item.name]);
+        }
+      });
+      if (this.transforms) {
+        this.transforms.forEach(item => {
+          this.itemForm.get(item.from)?.setValue(res?.[item.to]);
+        });
+      }
+    })
+  )
+
+  constructor(
+    private fb: FormBuilder,
+    private router: Router,
+    private route: ActivatedRoute
+  ) { super(); }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.itemForm = this.fb.group({
-
-    });
-
-    if (this.fields.includes('name')) {
-      this.itemForm.setControl('name', this.fb.control('', [Validators.required]));
-    }
-    if (this.fields.includes('abbr')) {
-      this.itemForm.setControl('abbr', this.fb.control('', []));
-    }
+    this.controls.forEach(item => {
+      if (this.fields.includes(item.name)) {
+        this.itemForm.setControl(item.name, this.fb.control('', item.validators));
+      }
+    })
     if (this.parent) {
       this.itemForm.setControl('parentCategory', this.fb.control(null, [Validators.required]));
     }
-    if (this.fields.includes('active')) {
-      this.itemForm.setControl('active', this.fb.control(true, [Validators.required]));
-    }
+
+    this.item$.subscribe();
   }
   get submitData() {
     const toSubmit = this.itemForm.value;
     if (this.transforms) {
       this.transforms.forEach(item => {
-
         toSubmit[item.to] = toSubmit[item.from];
-
       });
     }
     return toSubmit;
   }
   submitForm() {
 
-    this.isSubmitting = true;
     if (this.itemForm.valid) {
+      this.submitInProgressSubject$.next(true)
       this.itemService
         .submit(this.submitData)
-        .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe((success: any) => {
-          this.store.dispatch(loadToastShowsSuccess({
-            showMessage: true,
-            toastHeader: 'Success',
-            toastBody: `Successfully created ${this.title}!`,
-            toastTime: 'Just now'
-          }));
-          this.router.navigate([this.viewLink(success.id)]);
-
-        }, (error: any) => {
-          this.isSubmitting = false;
-          this.store.dispatch(loadErrorMessagesSuccess({
-            body: error.help,
-            show: true,
-            title: error.message,
-            status: error.status
-          }));
-        });
+        .subscribe({
+          next: (res: any) => this.router.navigate(['../', res.id, 'view']),
+          error: () => this.submitInProgressSubject$.next(false)
+        })
     } else {
       this.itemForm.markAllAsTouched();
-      this.triggerValidation = true;
+      this.triggerValidationSubject$.next(true);
     }
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
-
 }

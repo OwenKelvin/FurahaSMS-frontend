@@ -1,8 +1,8 @@
-import { FileExtentionIconPipe } from './file-extention-icon.pipe';
+import { FileExtentionPipe } from './file-extention.pipe';
 
 describe('FileExtentionIconPipe', () => {
   it('create an instance', () => {
-    const pipe = new FileExtentionIconPipe();
+    const pipe = new FileExtentionPipe();
     expect(pipe).toBeTruthy();
   });
 });

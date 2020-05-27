@@ -17,7 +17,7 @@ export class LibraryBookPublisherEffects {
 
       ofType(LibraryBookPublisherActions.loadLibraryBookPublishers),
       concatMap(() =>
-        this.bookPublisherService.getAll().pipe(
+        this.bookPublisherService.all$.pipe(
           map(data => LibraryBookPublisherActions.loadLibraryBookPublishersSuccess({ data })),
           catchError(error => of(LibraryBookPublisherActions.loadLibraryBookPublishersFailure({ error }))))
       )

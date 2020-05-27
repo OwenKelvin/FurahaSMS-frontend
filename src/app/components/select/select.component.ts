@@ -14,8 +14,6 @@ import {
   NG_VALIDATORS
 } from '@angular/forms';
 
-import { Store } from '@ngrx/store';
-import { AppState } from '../../store/reducers';
 import { UnitCategoryService } from 'src/app/services/unit-category.service';
 import { ClassLevelCategoryService } from 'src/app/services/class-level-category.service';
 import { ClassLevelService } from 'src/app/services/class-level.service';
@@ -62,7 +60,6 @@ export class SelectComponent
     private classLevels: ClassLevelService,
     private unitLevel: UnitLevelService,
     private academicYearService: AcademicYearService,
-    private store: Store<AppState>,
     private appFormService: AppFormService,
     private genderService: GenderService,
     private religionService: ReligionService,
@@ -95,9 +92,9 @@ export class SelectComponent
 
   onChanges: ($value: any) => void;
   onTouched: () => void;
-  error: { required: string; };
-  categorySelected: string | { id: number; name: string; }[];
-  categories: Array<any>;
+  error: { required: string; } = { required: 'Please Select a Category' };;
+  categorySelected: string | { id: number; name: string; }[] = '';
+  categories: Array<any> = [];
   inputValue: string;
   writeValue(value: any): void {
     if (value !== undefined) {
@@ -135,89 +132,62 @@ export class SelectComponent
     if (typeof this.multiple === 'string') {
       this.multipleSelector = true;
     }
-    this.error = { required: 'Please Select a Category' };
-    this.categorySelected = '';
-    this.categories = [];
+
     switch (this.type) {
       case 'vendor':
-        this.label = 'Vendor';
-        this.error.required = 'Vendor is required';
-        this.hint = 'Please select a vendor';
         this.categories$ = this.procurementService
           .getVendors();
         break;
       case 'procurement:items-categories':
-        this.label = 'Item Category';
-        this.error.required = 'Item Category is required';
-        this.hint = 'Please select an Item Category';
+        this.setParams({ label: 'Item Category' });
         this.categories$ = this.procurementService
           .getItemCaterories();
         break;
       case 'academic-years:active':
-        this.label = 'Academic Year';
-        this.error.required = 'Academic Year is required';
-        this.hint = 'Please select an Academic Year';
+        this.setParams({ label: 'Academic Year' });
         this.categories$ = this.academicYearService
           .getFilter({ active: true });
 
         break;
       case 'unit-levels':
-        this.label = 'Unit Levels';
-        this.error.required = 'Unit Level is required';
-        this.hint = 'Please select a unit';
-        const data : any = { unit: null };
+        this.setParams({ label: 'Unit Levels' });
+        const data: any = { unit: null };
         if (this.parentId) {
           data.unit = this.parentId;
         }
         this.categories$ = this.unitLevel.getAll(data);
         break;
       case 'class-levels:level':
-        this.label = 'Class Levels';
-        this.error.required = 'Class Level is required';
-        this.hint = 'Please select a class level';
+        this.setParams({ label: 'Class Levels' });
         this.categories$ = this.classLevels.getAll({ includeLevels: 1 });
         break;
       case 'class-level-categories':
-        this.label = 'Unit';
-        this.error.required = 'The unit field is required';
-        this.hint = 'Please select a unit';
-        this.categories$ = this.classLevelsCategoriesService.getAll();
+        this.setParams({ label: 'Units' });
+        this.categories$ = this.classLevelsCategoriesService.all$;
         break;
       case 'unit-categories':
-        this.label = 'Unit Categories';
-        this.error.required = 'The unit category field is required';
-        this.hint = 'Please select a unit catgory';
-        this.categories$ = this.subjectCategoriesService.getAll();
+        this.setParams({ label: 'Unit Category' });
+        this.categories$ = this.subjectCategoriesService.all$;
         break;
       case 'units':
-        this.label = 'Unit';
-        this.error.required = 'The unit field is required';
-        this.hint = 'Please select a unit';
+        this.setParams({ label: 'Units' });
         this.categories$ = this.unitService.getAll();
         break;
       case 'support-staffs':
-        this.label = 'Units';
-        this.error.required = 'The units field is required';
-        this.hint = 'Please select units';
+        this.setParams({ label: 'Units' });
         this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
         break;
       case 'units:academic-year':
-        this.label = 'Units';
-        this.error.required = 'The units field is required';
-        this.hint = 'Please select units';
+        this.setParams({ label: 'Units' });
         this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
         break;
       case 'gender':
-        this.setParams({
-          label: 'Gender'
-        });
-        this.categories$ = this.genderService.getAll();
+        this.setParams({ label: 'Gender' });
+        this.categories$ = this.genderService.all$;
         break;
       case 'religion':
-        this.setParams({
-          label: 'Religion'
-        });
-        this.categories$ = this.religionService.getAll();
+        this.setParams({ label: 'Religion'});
+        this.categories$ = this.religionService.all$;
         break;
       default:
         this.categories = [];

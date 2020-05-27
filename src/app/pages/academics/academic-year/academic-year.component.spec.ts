@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
+import { myProfileFeatureKey, reducer } from '../../my-profile/store/reducers/my-profile.reducer';
 
 describe('AcademicYearComponent', () => {
   let component: AcademicYearComponent;
@@ -19,7 +20,7 @@ describe('AcademicYearComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, AppLinksModule ],
+      }), RouterTestingModule, AppLinksModule, StoreModule.forFeature(myProfileFeatureKey, reducer) ],
       declarations: [AcademicYearComponent],
       providers: [reducerProvider]
     });

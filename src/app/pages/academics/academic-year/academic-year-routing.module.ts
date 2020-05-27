@@ -8,6 +8,7 @@ import { ViewAcademicYearComponent } from './view-academic-year/view-academic-ye
 import { ViewAcademicYearInfoComponent } from './view-academic-year-info/view-academic-year-info.component';
 import { AcademicYearFinancialPlanComponent } from './academic-year-financial-plan/academic-year-financial-plan.component';
 import { AcademicYearSubjectUnitsComponent } from './academic-year-subject-units/academic-year-subject-units.component';
+import { AcademicYearTimeTablesComponent } from './academic-year-time-tables/academic-year-time-tables.component';
 
 
 const routes: Routes = [
@@ -63,6 +64,13 @@ const routes: Routes = [
         component: AcademicYearFinancialPlanComponent,
         data: {
           breadcrumb: 'Financial Plan'
+        },
+      },
+      {
+        path: 'time-table',
+        component: AcademicYearTimeTablesComponent,
+        data: {
+          breadcrumb: 'Time Table'
         },
       },
       {

@@ -42,11 +42,11 @@ export class InputComponent implements OnInit, OnChanges, ControlValueAccessor {
   onTouched: () => void;
   inputValue: any;
   passwordStringChangeSubject$: Subject<string> = new BehaviorSubject('');
-  passwordStringChangeAction$:Observable<string> = this.passwordStringChangeSubject$.asObservable()
+  passwordStringChangeAction$: Observable<string> = this.passwordStringChangeSubject$.asObservable();
   constructor(private appFormService: AppFormService) { }
 
   ngOnInit() {
-    if (['tel', 'phone', 'password', 'number', 'date', 'datetime-local'].includes(this.type)) {
+    if (['tel', 'phone', 'password', 'number', 'date', 'datetime-local', 'time'].includes(this.type)) {
       this.fieldType = this.type;
     }
   }

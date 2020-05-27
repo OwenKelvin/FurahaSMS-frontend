@@ -4,10 +4,11 @@ import { CreateTeacherComponent } from './create-teacher.component';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/modules/app-input.module';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('CreateTeacherComponent', () => {
   let component: CreateTeacherComponent;
@@ -22,6 +23,7 @@ describe('CreateTeacherComponent', () => {
         ReactiveFormsModule,
         AppInputModule,
         AppTelInputModule,
+        AppValidateSubmitButtonsModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

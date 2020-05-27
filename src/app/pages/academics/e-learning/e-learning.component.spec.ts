@@ -5,6 +5,7 @@ import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import { myProfileFeatureKey, reducer } from '../../my-profile/store/reducers/my-profile.reducer';
 
 describe('ELearningComponent', () => {
   let component: ELearningComponent;
@@ -21,7 +22,8 @@ describe('ELearningComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        RouterTestingModule
+        RouterTestingModule,
+        StoreModule.forFeature(myProfileFeatureKey, reducer)
       ],
       declarations: [ELearningComponent],
       providers: [reducerProvider]

@@ -1,1 +1,34 @@
-<p>time-table-timings works!</p>
+<section class="mt-1">
+  <button class="btn btn-primary" color="primary" (click)="newTimeTablePlan()"><span
+      class="icon-plus-circled"></span>Create New Template</button>
+
+  <accordion [closeOthers]=[true] [isAnimated]='true'>
+    <accordion-group class="mt-2" *ngFor='let timing of timings$ | async; let i = index'
+      [(isOpen)]="isOpen[i]">
+
+      <section class="active" accordion-heading class="d-flex justify-content-between">
+        <h2>{{ timing.description }}</h2>
+        <section>
+          <button class="btn btn-primary btn-sm"><span [class.icon-down-dir]='!isOpen[i]'
+              [class.icon-up-dir]='isOpen[i]'></span>View</button>
+        </section>
+      </section>
+      <section>
+        <table class="table table-dark">
+          <thead>
+            <tr>
+              <th>From</th>
+              <th>To</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor='let item of timing.timings'>
+              <td>{{ item.start }}</td>
+              <td>{{ item.end }}</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </accordion-group>
+  </accordion>
+</section>

@@ -1,6 +1,4 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../../../store/reducers';
 import { Observable } from 'rxjs';
 import { StudentService } from 'src/app/services/student.service';
 
@@ -14,8 +12,7 @@ export class StudentsRecentlyCreatedComponent implements OnInit {
   students$: Observable<any[]>;
 
   constructor(
-    private studentsService: StudentService,
-    private store: Store<fromStore.AppState>) { }
+    private studentsService: StudentService) { }
 
   ngOnInit() {
     this.students$ = this.studentsService.getRecentlyCreatedStudents();
