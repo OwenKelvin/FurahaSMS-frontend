@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject, EMPTY } from 'rxjs';
 import { OauthInterface } from './../interfaces/oauth.interface';
 import { UserInterface } from './../interfaces/user.interface';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -13,15 +13,13 @@ const PASSPORT_CLIENT = environment.passportClient;
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {
-    let storedUser: any = JSON.parse(String(sessionStorage.getItem('currentUser')));
-    if (!storedUser) {
-      storedUser = JSON.parse(String(localStorage.getItem('currentUser')));
-    }
-
-    this.currentUserSubject = new BehaviorSubject<UserInterface>(storedUser);
-    this.currentUser = this.currentUserSubject.asObservable();
+  getStoredUser() {
+    return JSON.parse(String(sessionStorage.getItem('currentUser'))) || JSON.parse(String(localStorage.getItem('currentUser')));
   }
+  storedUser: Observable<UserInterface | null> = this.getStoredUser();
+  currentUserSubject: BehaviorSubject<UserInterface | null> = new BehaviorSubject<UserInterface | null>(null);
+  currentUser = this.currentUserSubject.asObservable();
+  constructor(private http: HttpClient) { }
   get authorizationToken(): string | undefined {
     const currentUser = JSON.parse(String(sessionStorage.getItem('currentUser')));
     if (!currentUser) {
@@ -53,8 +51,7 @@ export class AuthenticationService {
         };
       }));
   }
-  private currentUserSubject: BehaviorSubject<UserInterface | null>;
-  public currentUser: Observable<UserInterface | null>;
+
   revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
   changePassword(data: any) {
     const submitData = {
@@ -111,7 +108,14 @@ export class AuthenticationService {
       );
   }
   logout(): Observable<any> {
+   
+    if (!this.currentUserValue) {
+      alert(!this.currentUserValue)
+      return EMPTY;
+    }
+    alert('qwertyui')
     return this.revokeToken.pipe(
+      catchError(() => EMPTY),
       tap(() => {
         sessionStorage.removeItem('currentUser');
         localStorage.removeItem('currentUser');

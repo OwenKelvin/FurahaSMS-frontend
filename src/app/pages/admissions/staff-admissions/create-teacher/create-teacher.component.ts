@@ -12,6 +12,7 @@ import { selectGenders, selectReligions } from 'src/app/store/selectors/app.sele
 import { Observable } from 'rxjs';
 import { selectStaffType } from '../../store/selectors/staff-type.selectors';
 import { SupportStaffService } from 'src/app/pages/support-staffs/services/support-staff.service';
+import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
 
 @Component({
   selector: 'app-create-teacher',
@@ -69,7 +70,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
   subscribeToEmailChecking(): void {
     this.email.valueChanges
       .pipe(debounceTime(1000),
-        filter(event => event && event.length && event.length > 5),
+        filter(() => !(new EmailValidatorDirective()).validate(this.email)),
         mergeMap((event) => this.users.findIfEmailExists(event)),
         takeWhile(() => this.componentIsActive))
       .subscribe(data => {
@@ -133,9 +134,7 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
       .subscribe(res => {
         this.isSubmitting = false;
         this.router.navigate(['/support-staffs', res.data.id, 'info']);
-      }, () => {
-        this.isSubmitting = false;
-      });
+      }, () => this.isSubmitting = false);
   }
   ngOnDestroy() {
     this.componentIsActive = false;

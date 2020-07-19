@@ -226,8 +226,8 @@ a:hover {
 #main:focus, #main:focus-within{
   outline: none;
   border-left: 3px solid rgba(172, 255, 47, 0.3);
-   padding-left: 7px;
-  min-height: calc(100%);
+  padding-left: 7px;
+  min-height: calc(100% - 120px);
 }
 
 html, body {
