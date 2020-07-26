@@ -22,7 +22,7 @@ const errorMessageReducer = createReducer(
   initialState,
   on(loadErrorMessagesSuccess, (state, payload) => {
     return {
-      ...state, show: true, ...payload
+      ...state, ...payload
     };
 
   }),
