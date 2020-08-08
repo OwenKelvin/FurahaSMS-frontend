@@ -19,7 +19,7 @@ export class GuestGuard implements CanActivate {
   canActivate(
     _next: ActivatedRouteSnapshot,
     _state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    const currentUser = this.authenticationService.currentUserValue;
+    const currentUser = this.authenticationService.isLoggedInSubject.value;
     if (!currentUser) {
       return true;
     }

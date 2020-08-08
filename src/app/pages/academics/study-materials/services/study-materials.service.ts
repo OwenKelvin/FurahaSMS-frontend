@@ -1,15 +1,14 @@
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudyMaterialsService {
   downloadDocumentWithFilePath(filePath: any) {
-    const querystring = require('querystring');
-
-    const queryStringParams = querystring.stringify({ file_path: filePath });
+    const queryStringParams = stringify({ file_path: filePath });
     const headers = new HttpHeaders();
 
     headers.append('Accept', 'application/pdf');

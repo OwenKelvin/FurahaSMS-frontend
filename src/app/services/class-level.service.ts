@@ -1,9 +1,10 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { ClassLevelInterface } from '../interfaces/class-level.interface';
 import { crudMixin } from '../shared/mixins/crud.mixin';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -30,9 +31,7 @@ export class ClassLevelService extends crudMixin() {
       academic_year_id: academicYearId,
       include_units: includeUnits
     };
-    const querystring = require('querystring');
-
-    const queryStringParams = querystring.stringify(params);
+    const queryStringParams = stringify(params);
 
     return this.http.get<any[]>(`api/curriculum/class-levels/?${queryStringParams}`);
   }

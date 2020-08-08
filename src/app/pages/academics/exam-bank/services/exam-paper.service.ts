@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -26,8 +27,7 @@ export class ExamPaperService {
   }
   getByFilter(params: any): Observable<any> {
     const url = 'api/academics/exam-papers';
-    const querystring = require('querystring');
-    const queryString = querystring.stringify(params);
+    const queryString = stringify(params);
     return this.http.get<any[]>(`${url}?${queryString}`)
       .pipe(map(res => res.map(item => ({ ...item, unitLevelName: item.unit_level_name }))));
   }
