@@ -1,0 +1,13 @@
+.td-lesson {
+  position: relative;
+  padding: 2px;
+}
+.td-lesson button {
+  position: absolute;
+  right: 2px;
+}
+.td-lesson:hover {
+  background-color: rgba(172, 255, 47, 0.1);
+  color: greenyellow;
+  border-left: 3px solid;
+}
