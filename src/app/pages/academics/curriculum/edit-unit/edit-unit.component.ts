@@ -41,7 +41,6 @@ export class EditUnitComponent extends subscribedContainerMixin(formWithEditorMi
         })) : [])
       })),
     tap(unit => {
-      console.log(unit.unitLevels)
       if (unit.unitLevels.length === 0) {
         this.unitForm.setValue(unit);
         this.addUnitLevelFromValue(false);

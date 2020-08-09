@@ -1,7 +1,7 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TimeTableService } from '../../services/time-table.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap, tap } from 'rxjs/operators';
+import { map, mergeMap } from 'rxjs/operators';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
@@ -17,7 +17,9 @@ import { SchoolRoomService } from 'src/app/pages/infrastructures/services/school
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeTableAcademicYearEditComponent {
-
+  teachers$ = this.teacherService.getActiveTeachers();
+  units$ = this.unitsService.getAllActiveSubjects();
+  rooms$ = this.schoolRoomService.allAvailableClassRooms$;
   isOpen: boolean[] = [true];
   activatedRouteParam$ = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
   academicYearName$ = this.activatedRouteParam$.pipe(
@@ -26,8 +28,14 @@ export class TimeTableAcademicYearEditComponent {
   );
   timetable$: Observable<any[]> = this.activatedRouteParam$.pipe(
     mergeMap(id => this.timeTableService.getForAcademicYear(id)),
-    tap(values => console.log(values))
+
   );
+  editedTimetableSubject$: BehaviorSubject<any[]> = new BehaviorSubject([]);
+  editedTimetableAction$: Observable<any[]> = this.editedTimetableSubject$.asObservable();
+  editedTimetable$ = combineLatest([this.editedTimetableAction$, this.teachers$, this.units$, this.rooms$]).pipe(
+
+  );
+
   editItem$ = new BehaviorSubject({ classLevelName: null, streamName: null, timeValue: null, dayOfWeekName: null });
   editItemDetails$ = combineLatest([this.timetable$, this.editItem$]).pipe(
     map(([timetable, editItem]: [any[], any]) => {
@@ -86,13 +94,9 @@ export class TimeTableAcademicYearEditComponent {
     private unitsService: UnitsService,
     private schoolRoomService: SchoolRoomService
   ) { }
-  
-  teachers$ = this.teacherService.getActiveTeachers();
-  units$ = this.unitsService.getAllActiveSubjects();
-  rooms$ = this.schoolRoomService.allAvailableClassRooms$;
 
   editLesson({ template, classLevelName, stream: streamName, timing: timeValue, dayOfWeekName }: any) {
-    this.editLessonForm.setValue({ teacherId: null, roomId: null, subjectId: null});
+    this.editLessonForm.setValue({ teacherId: null, roomId: null, subjectId: null });
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
     this.editItem$.next({ classLevelName, streamName, timeValue, dayOfWeekName });
@@ -101,6 +105,34 @@ export class TimeTableAcademicYearEditComponent {
     teacherId: [null, Validators.required],
     roomId: [null],
     subjectId: [null],
-  })
+  });
+
+  saveLesson() {
+    const editItem = this.editItem$.value;
+    const filteredItems = this.editedTimetableSubject$.value.filter(item => {
+      return item.classLevelName === editItem.classLevelName &&
+        item.dayOfWeekName === editItem.dayOfWeekName &&
+        item.streamName === editItem.streamName &&
+        item.timeValue === editItem.timeValue;
+    });
+    if (filteredItems.length > 0) {
+      alert(this.editedTimetableSubject$.value.indexOf(filteredItems[0]));
+      
+    } else {
+      this.editedTimetableSubject$.next([
+        ...this.editedTimetableSubject$.value,
+        {
+          classLevelName: editItem.classLevelName,
+          dayOfWeekName: editItem.dayOfWeekName,
+          streamName: editItem.streamName,
+          timeValue: editItem.timeValue,
+          ...this.editLessonForm.value
+        }
+      ]);
+    }
+
+
+    this.modalRef.hide();
+  }
 
 }

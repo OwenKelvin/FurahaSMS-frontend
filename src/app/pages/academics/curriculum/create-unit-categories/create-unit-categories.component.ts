@@ -45,8 +45,6 @@ export class CreateUnitCategoriesComponent extends formWithEditorMixin() impleme
         this.addSubject()
         const { id, name, abbreviation: abbr, description, unit_category_id: unitCategory, active} = item
         this.units.controls[index].setValue({ id, name, abbr, description, unitCategory, active })
-        console.log({ item });
-        console.log({ controls: this.units.controls[0].value });
       }))
     ).subscribe()
 

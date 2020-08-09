@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError } from 'rxjs/operators';
+import { map, catchError, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -49,7 +49,8 @@ export class TeacherService {
         map(users => users.map(this.transformTeacher)),
         catchError(error => {
           return throwError(error);
-        })
+        }),
+        shareReplay()
       );
   }
 }

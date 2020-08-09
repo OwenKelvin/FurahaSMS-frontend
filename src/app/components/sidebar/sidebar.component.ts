@@ -46,7 +46,7 @@ export class SidebarComponent implements OnInit {
       filter(([clicked, isSmallDevice]) => clicked && isSmallDevice),
       tap(() => this.store.dispatch(showMenu())),
       tap(() => this.isClickedSubject$.next(false))
-    ).subscribe(res => console.log(res));
+    ).subscribe();
   }
   toggleMenu(): void {
     if (this.isMenuClosed) {

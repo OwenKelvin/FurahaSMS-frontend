@@ -72,7 +72,6 @@ export class LoginComponent implements OnDestroy {
   loginSuccessful = ([returnUrl]: any[]) => {
     returnUrl = returnUrl || '/dashboard';
     this.router.navigateByUrl(returnUrl);
-    console.log(returnUrl)
     this.isSubmitting = false;
     this.store.dispatch(loadErrorMessagesFailure());
     this.store.dispatch(loadToastShowsSuccess({
