@@ -5,6 +5,10 @@ import { map, mergeMap, tap } from 'rxjs/operators';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
 import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
 import { BsModalService } from 'ngx-bootstrap/modal';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { TeacherService } from 'src/app/pages/admissions/services/teacher.service';
+import { UnitsService } from 'src/app/services/units.service';
+import { SchoolRoomService } from 'src/app/pages/infrastructures/services/school-room.service';
 
 @Component({
   selector: 'app-time-table-academic-year-edit',
@@ -31,14 +35,20 @@ export class TimeTableAcademicYearEditComponent {
         return item.classLevelName === editItem.classLevelName &&
           item.dayOfWeekName === editItem.dayOfWeekName &&
           item.streamName === editItem.streamName &&
-          item.timeValue === editItem.timeValue
+          item.timeValue === editItem.timeValue;
       });
       if (filteredItems.length > 0) {
-        return filteredItems[0]
+        return filteredItems[0];
       }
-      return;
+      return {
+
+        timeValue: editItem.timeValue,
+        dayOfWeekName: editItem.dayOfWeekName,
+        classLevelName: editItem.classLevelName,
+        streamName: editItem.streamName,
+      };
     })
-  )
+  );
 
   classLevels$ = combineLatest([
     this.timeTableService.daysOfTheWeek$,
@@ -71,12 +81,26 @@ export class TimeTableAcademicYearEditComponent {
     private timeTableService: TimeTableService,
     private route: ActivatedRoute,
     private modalService: BsModalService,
+    private fb: FormBuilder,
+    private teacherService: TeacherService,
+    private unitsService: UnitsService,
+    private schoolRoomService: SchoolRoomService
   ) { }
   
+  teachers$ = this.teacherService.getActiveTeachers();
+  units$ = this.unitsService.getAllActiveSubjects();
+  rooms$ = this.schoolRoomService.allAvailableClassRooms$;
+
   editLesson({ template, classLevelName, stream: streamName, timing: timeValue, dayOfWeekName }: any) {
+    this.editLessonForm.setValue({ teacherId: null, roomId: null, subjectId: null});
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
-    this.editItem$.next({ classLevelName, streamName, timeValue, dayOfWeekName })
+    this.editItem$.next({ classLevelName, streamName, timeValue, dayOfWeekName });
   }
+  editLessonForm: FormGroup = this.fb.group({
+    teacherId: [null, Validators.required],
+    roomId: [null],
+    subjectId: [null],
+  })
 
 }

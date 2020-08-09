@@ -11,3 +11,6 @@
   color: greenyellow;
   border-left: 3px solid;
 }
+.tt-edit-details {
+ border-bottom: rgba(255, 255, 255, 0.4) solid 2px; 
+}

@@ -7,6 +7,9 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TimeTableAcademicYearEditComponent } from './time-table-academic-year-edit/time-table-academic-year-edit.component';
 import { TimetableEditorDirective } from '../directives/timetable-editor.directive';
 import { ModalModule } from 'ngx-bootstrap/modal';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { ReactiveFormsModule } from '@angular/forms';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 
 
@@ -21,7 +24,9 @@ import { ModalModule } from 'ngx-bootstrap/modal';
     CommonModule,
     AcademicYearsRoutingModule,
     AccordionModule.forRoot(),
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    NgSelectModule,
+    ReactiveFormsModule
   ]
 })
 export class AcademicYearsModule { }

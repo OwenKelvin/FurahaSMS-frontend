@@ -38,7 +38,7 @@ export class UnitsService {
     }
   }
   getAllActiveSubjects(): Observable<any> {
-    const url = 'api/units/all/?active=1';
+    const url = 'api/curriculum/units/all/?active=1';
     return this.http.get<any>(url)
   }
   getAll(data = { unitLevel: null }): Observable<any> {

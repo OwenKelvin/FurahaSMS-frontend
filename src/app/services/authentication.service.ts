@@ -41,21 +41,29 @@ export class AuthenticationService {
     }
 
     return this.http.get('api/users/auth')
-      .pipe(map((res: any) => {
-        return {
-          ...res,
-          id: res.id,
-          firstName: res.first_name,
-          lastName: res.last_name,
-          middleName: res.middle_name,
-          otherNames: res.other_names,
-          phone: res.phone,
-          email: res.email,
-          dateOfBirth: res.date_of_birth,
-          religionName: res.religion_name,
-          genderName: res.gender_name
-        };
-      }));
+      .pipe(
+        catchError(error => {
+          if (error.status === 401) {
+            this.clearStorage();
+          }
+
+          return throwError(error);
+        }),
+        map((res: any) => {
+          return {
+            ...res,
+            id: res.id,
+            firstName: res.first_name,
+            lastName: res.last_name,
+            middleName: res.middle_name,
+            otherNames: res.other_names,
+            phone: res.phone,
+            email: res.email,
+            dateOfBirth: res.date_of_birth,
+            religionName: res.religion_name,
+            genderName: res.gender_name
+          };
+        }));
   }
 
   revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
@@ -109,11 +117,17 @@ export class AuthenticationService {
         tap(user => !rememberMe ? sessionStorage.setItem('currentUser', JSON.stringify(user)) : ''),
         tap(user => this.currentUserSubject.next(user)),
         tap(() => this.isLoggedInSubject.next(true)),
-          catchError(error => {
-            return throwError(error);
-          })
-        );
+        catchError(error => {
+          return throwError(error);
+        })
+      );
   }
+  clearStorage = () => {
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    this.isLoggedInSubject.next(false);
+  };
   logout(): Observable<any> {
     if (!this.isLoggedInSubject.value) {
       return EMPTY;
@@ -121,12 +135,7 @@ export class AuthenticationService {
 
     return this.revokeToken.pipe(
       catchError(() => EMPTY),
-      tap(() => {
-        sessionStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-        this.isLoggedInSubject.next(false);
-      })
+      tap(this.clearStorage)
     );
   }
 }
