@@ -1,9 +1,10 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { TimeTableService } from '../../services/time-table.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap } from 'rxjs/operators';
+import { map, mergeMap, tap } from 'rxjs/operators';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
-import { Observable, combineLatest } from 'rxjs';
+import { Observable, combineLatest, BehaviorSubject } from 'rxjs';
+import { BsModalService } from 'ngx-bootstrap/modal';
 
 @Component({
   selector: 'app-time-table-academic-year-edit',
@@ -14,17 +15,30 @@ import { Observable, combineLatest } from 'rxjs';
 export class TimeTableAcademicYearEditComponent {
 
   isOpen: boolean[] = [true];
-
   activatedRouteParam$ = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
-
   academicYearName$ = this.activatedRouteParam$.pipe(
     mergeMap(id => this.academicYearService.getAcademicYearWithId({ id })),
     map(({ name }) => name)
   );
-
   timetable$: Observable<any[]> = this.activatedRouteParam$.pipe(
-    mergeMap(id => this.timeTableService.getForAcademicYear(id))
+    mergeMap(id => this.timeTableService.getForAcademicYear(id)),
+    tap(values => console.log(values))
   );
+  editItem$ = new BehaviorSubject({ classLevelName: null, streamName: null, timeValue: null, dayOfWeekName: null });
+  editItemDetails$ = combineLatest([this.timetable$, this.editItem$]).pipe(
+    map(([timetable, editItem]: [any[], any]) => {
+      const filteredItems = timetable.filter(item => {
+        return item.classLevelName === editItem.classLevelName &&
+          item.dayOfWeekName === editItem.dayOfWeekName &&
+          item.streamName === editItem.streamName &&
+          item.timeValue === editItem.timeValue
+      });
+      if (filteredItems.length > 0) {
+        return filteredItems[0]
+      }
+      return;
+    })
+  )
 
   classLevels$ = combineLatest([
     this.timeTableService.daysOfTheWeek$,
@@ -49,12 +63,20 @@ export class TimeTableAcademicYearEditComponent {
 
     }, {})))
   );
+  modalRef: any;
 
 
   constructor(
     private academicYearService: AcademicYearService,
     private timeTableService: TimeTableService,
     private route: ActivatedRoute,
+    private modalService: BsModalService,
   ) { }
+  
+  editLesson({ template, classLevelName, stream: streamName, timing: timeValue, dayOfWeekName }: any) {
+    this.modalRef = this.modalService.show(template);
+    this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
+    this.editItem$.next({ classLevelName, streamName, timeValue, dayOfWeekName })
+  }
 
 }

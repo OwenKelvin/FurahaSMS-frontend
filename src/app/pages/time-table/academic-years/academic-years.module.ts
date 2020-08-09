@@ -6,6 +6,7 @@ import { TimeTableAcademicYearViewComponent } from './time-table-academic-year-v
 import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TimeTableAcademicYearEditComponent } from './time-table-academic-year-edit/time-table-academic-year-edit.component';
 import { TimetableEditorDirective } from '../directives/timetable-editor.directive';
+import { ModalModule } from 'ngx-bootstrap/modal';
 
 
 
@@ -19,7 +20,8 @@ import { TimetableEditorDirective } from '../directives/timetable-editor.directi
   imports: [
     CommonModule,
     AcademicYearsRoutingModule,
-    AccordionModule.forRoot()
+    AccordionModule.forRoot(),
+    ModalModule.forRoot()
   ]
 })
 export class AcademicYearsModule { }

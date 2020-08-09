@@ -27,7 +27,7 @@
               <th [attr.rowspan]='classLevel.streams.length'>{{ dayOfWeek }}</th>
               <td>{{ classLevel.streams[0] }}</td>
               <td *ngFor='let timing of classLevel.timings' class="td-lesson" appTimetableEditor >
-                  <button hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i class="icon-edit"></i></button>
+                  <button (click)='editLesson({ template:template, classLevelName: classLevel.name, stream:classLevel.streams[0], timing:timing, dayOfWeekName:dayOfWeek })' hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i class="icon-edit"></i></button>
                   <ng-container *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
                     <div class="d-flex flex-column">
                       <div class="subject">{{ lesson.subjectName }}</div>
@@ -41,7 +41,7 @@
               <tr *ngIf='i > 0'>
                 <td>{{ stream }}</td>
                 <td *ngFor='let timing of classLevel.timings' class="td-lesson" appTimetableEditor>
-                  <button hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i class="icon-edit"></i></button>
+                  <button (click)='editLesson({template:template, classLevelName: classLevel.name, stream:stream, timing:timing, dayOfWeekName:dayOfWeek })' hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i class="icon-edit"></i></button>
                   <ng-container *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][stream][timing] as lesson'>
                     <div class="d-flex flex-column">
                       <div class="subject">{{ lesson.subjectName }}</div>
@@ -60,3 +60,23 @@
     </section>
   </accordion-group>
 </accordion>
+
+<ng-template #template>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">Time Table Content Editing Form</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body bg-dark d-flex flex-wrap" *ngIf='editItemDetails$ | async as editItemDetails'>
+    <pre class="text-light">{{ editItemDetails | json }}</pre>
+  </div>
+  <div class="modal-footer bg-dark">
+    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+    <button class="btn btn-success">
+      <span >Save Content</span>
+      <i class='icon-ok-1'></i>
+    </button>
+  </div>
+</ng-template>
