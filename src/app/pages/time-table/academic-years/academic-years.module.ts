@@ -7,9 +7,12 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
 import { TimeTableAcademicYearEditComponent } from './time-table-academic-year-edit/time-table-academic-year-edit.component';
 import { TimetableEditorDirective } from '../directives/timetable-editor.directive';
 import { ModalModule } from 'ngx-bootstrap/modal';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { TimeTableAcademicYearDashboardComponent } from './time-table-academic-year-dashboard/time-table-academic-year-dashboard.component';
+import { CreateAcademicYearTimeTableComponent } from './create-academic-year-time-table/create-academic-year-time-table.component';
+import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 
@@ -18,7 +21,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AcademicYearsComponent,
     TimeTableAcademicYearViewComponent,
     TimeTableAcademicYearEditComponent,
-    TimetableEditorDirective
+    TimetableEditorDirective,
+    TimeTableAcademicYearDashboardComponent,
+    CreateAcademicYearTimeTableComponent
   ],
   imports: [
     CommonModule,
@@ -26,7 +31,9 @@ import { NgSelectModule } from '@ng-select/ng-select';
     AccordionModule.forRoot(),
     ModalModule.forRoot(),
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppInputModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class AcademicYearsModule { }

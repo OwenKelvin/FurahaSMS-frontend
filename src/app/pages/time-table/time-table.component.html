@@ -7,7 +7,7 @@
     <h2>Academic Years</h2>
     <ul class="list-group bg-dark">
       <li *ngFor='let academicYear of academicYears$ | async' class="list-group-item bg-dark p-0">
-        <a class="btn-block p-3" [routerLink]='["academic-years", academicYear.id, "view"]'>{{ academicYear.name }}</a>
+        <a class="btn-block p-3" [routerLink]='["academic-years", academicYear.id]'>{{ academicYear.name }}</a>
       </li>
     </ul>
   </div>

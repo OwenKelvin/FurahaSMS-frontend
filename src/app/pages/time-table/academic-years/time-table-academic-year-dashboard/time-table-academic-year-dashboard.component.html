@@ -1,0 +1,9 @@
+<ng-container *ngIf='academicYear$ | async as academicYear'>
+  <h1>Time Tables For Academic Year {{ academicYear.name }}</h1>
+  <button (click)='newTimeTablePlan()' class="btn btn-primary mb-2"> <span class="icon-plus-circled"></span>  New Timetable</button>
+  <div *ngIf='timeTables$ | async as timeTables'>
+    <div class="alert alert-info" *ngIf='timeTables.length === 0'>
+        No Time Tables Found
+    </div>
+  </div>
+</ng-container>

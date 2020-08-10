@@ -1,4 +1,4 @@
-{{ editedTimetableAction$ | async | json }}
+{{ editedTimetable$ | async | json }}
 <h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
 <a class="btn btn-info btn-sm" [routerLink]='["../view"]'><span class="icon-eye"></span>View</a>
 <accordion [closeOthers]='true' [isAnimated]='true'>

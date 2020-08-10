@@ -26,18 +26,61 @@ export class TimeTableAcademicYearEditComponent {
     mergeMap(id => this.academicYearService.getAcademicYearWithId({ id })),
     map(({ name }) => name)
   );
-  timetable$: Observable<any[]> = this.activatedRouteParam$.pipe(
-    mergeMap(id => this.timeTableService.getForAcademicYear(id)),
-
-  );
+  
   editedTimetableSubject$: BehaviorSubject<any[]> = new BehaviorSubject([]);
   editedTimetableAction$: Observable<any[]> = this.editedTimetableSubject$.asObservable();
-  editedTimetable$ = combineLatest([this.editedTimetableAction$, this.teachers$, this.units$, this.rooms$]).pipe(
+  
+  timetable$: Observable<any[]> = this.activatedRouteParam$.pipe(
+    mergeMap(id => this.timeTableService.getForAcademicYear(id)),
+  );
+  editedTimetable$: Observable<any[]> = combineLatest([this.editedTimetableAction$, this.timetable$, this.teachers$, this.units$, this.rooms$]).pipe(
+    map(([editedTimeTable, timetables, teachers, units, rooms]) => {
+      
+      const uniqueTimeTableCantent = [...new Set([...editedTimeTable, ...timetables].map(({ classLevelName, dayOfWeekName, streamName, timeValue }) =>
+        ({ classLevelName, dayOfWeekName, streamName, timeValue })))]
+      
+      return uniqueTimeTableCantent.map(timetable => {
+        let itemContent = {};
+        let filteredItems = timetables.filter(item => {
+          return item.classLevelName === timetable.classLevelName &&
+            item.dayOfWeekName === timetable.dayOfWeekName &&
+            item.streamName === timetable.streamName &&
+            item.timeValue === timetable.timeValue;
+        });
+        if (filteredItems.length > 0) {
+          itemContent = filteredItems[0];
+        }
+        filteredItems = editedTimeTable.filter(item => {
+          return item.classLevelName === timetable.classLevelName &&
+            item.dayOfWeekName === timetable.dayOfWeekName &&
+            item.streamName === timetable.streamName &&
+            item.timeValue === timetable.timeValue;
+        });
+        if (filteredItems.length > 0) {
+          const teacher = teachers.find(item => item.id === filteredItems[0]['teacherId'])
+          const room = rooms.find(item => item.id === filteredItems[0]['roomId'])
+          const unit = units.find((item: any) => item.id === filteredItems[0]['subjectId'])
 
+         
+          itemContent = {
+            ...itemContent, ...filteredItems[0],
+            teacherId: teacher.id,
+            roomId: room.id,
+            subjectId: unit.id,
+            teacherName: teacher.firstName + ' ' + teacher.lastName,
+            subjectName: unit.name,
+            roomName: room.name
+          };
+        }
+       // console.log(filteredItems)
+        return itemContent;
+      
+      })
+    })
   );
 
   editItem$ = new BehaviorSubject({ classLevelName: null, streamName: null, timeValue: null, dayOfWeekName: null });
-  editItemDetails$ = combineLatest([this.timetable$, this.editItem$]).pipe(
+  editItemDetails$ = combineLatest([this.editedTimetable$, this.editItem$]).pipe(
     map(([timetable, editItem]: [any[], any]) => {
       const filteredItems = timetable.filter(item => {
         return item.classLevelName === editItem.classLevelName &&
@@ -60,7 +103,8 @@ export class TimeTableAcademicYearEditComponent {
 
   classLevels$ = combineLatest([
     this.timeTableService.daysOfTheWeek$,
-    this.timetable$
+    this.editedTimetable$
+    // this.timetable$
   ]).pipe(
     map(([daysOfTheWeek, timetable]) => Object.values(timetable.reduce((prev, next) => {
       const values = [...(prev[next.classLevelId]?.values || []), next];
@@ -106,21 +150,36 @@ export class TimeTableAcademicYearEditComponent {
     roomId: [null],
     subjectId: [null],
   });
+  
+  getEditedItem() {
+    const editItem = this.editItem$.value;
+    const timeTableItems = this.editedTimetableSubject$.value;
+    const filteredItems = timeTableItems.filter(item => {
+      return item.classLevelName === editItem.classLevelName &&
+        item.dayOfWeekName === editItem.dayOfWeekName &&
+        item.streamName === editItem.streamName &&
+        item.timeValue === editItem.timeValue;
+    });
+  }
 
   saveLesson() {
     const editItem = this.editItem$.value;
-    const filteredItems = this.editedTimetableSubject$.value.filter(item => {
+    const timeTableItems = this.editedTimetableSubject$.value;
+    const filteredItems = timeTableItems.filter(item => {
       return item.classLevelName === editItem.classLevelName &&
         item.dayOfWeekName === editItem.dayOfWeekName &&
         item.streamName === editItem.streamName &&
         item.timeValue === editItem.timeValue;
     });
     if (filteredItems.length > 0) {
-      alert(this.editedTimetableSubject$.value.indexOf(filteredItems[0]));
+      timeTableItems[timeTableItems.indexOf(filteredItems[0])] = {
+        ...timeTableItems[timeTableItems.indexOf(filteredItems[0])], 
+        ...this.editLessonForm.value
+      }
       
     } else {
       this.editedTimetableSubject$.next([
-        ...this.editedTimetableSubject$.value,
+        ...timeTableItems,
         {
           classLevelName: editItem.classLevelName,
           dayOfWeekName: editItem.dayOfWeekName,
@@ -130,7 +189,6 @@ export class TimeTableAcademicYearEditComponent {
         }
       ]);
     }
-
 
     this.modalRef.hide();
   }
