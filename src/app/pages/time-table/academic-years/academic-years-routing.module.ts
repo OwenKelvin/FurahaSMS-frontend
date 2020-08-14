@@ -18,7 +18,7 @@ const routes: Routes = [
         component: TimeTableAcademicYearDashboardComponent
       },
       {
-        path: 'view',
+        path: 'timetables/:id',
         data: {
           breadcrumb: 'View'
         },

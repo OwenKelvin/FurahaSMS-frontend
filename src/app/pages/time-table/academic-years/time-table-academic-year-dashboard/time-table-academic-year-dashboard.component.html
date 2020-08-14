@@ -5,5 +5,15 @@
     <div class="alert alert-info" *ngIf='timeTables.length === 0'>
         No Time Tables Found
     </div>
+    <div>
+      <ul class="list-group d-flex flex-wrap">
+        <li class="list-group-item bg-dark col-lg-4" *ngFor='let timeTable of timeTables'>
+          <a [routerLink]='["timetables", timeTable.id]' class="btn-block">
+            <span class='icon-clock'></span>
+            {{ timeTable.description }}
+          </a>
+        </li>
+      </ul>
+    </div>
   </div>
 </ng-container>
