@@ -1,5 +1,9 @@
 <h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
-<a class="btn btn-info btn-sm" [routerLink]='["../view"]'><span class="icon-eye"></span>View</a>
+<div class="d-flex flex-wrap justify-content-between">
+  <a class="btn btn-info btn-sm" [routerLink]='["../view"]'><span class="icon-eye"></span>View</a>
+  
+  <button class="btn btn-success btn-sm">Save All Changes <span class="icon-floppy"></span></button>
+</div>
 
 <accordion *ngIf='timetableLessons$ | async ' [closeOthers]='true' [isAnimated]='true'>
   <accordion-group class="mt-2" *ngFor='let classLevel of timeTableForm$ | async; let i = index' [(isOpen)]="isOpen[i]"
@@ -28,7 +32,7 @@
               <td>{{ classLevel.streams[0] }}</td>
               <td *ngFor='let timing of classLevel.timings' class="td-lesson" appTimetableEditor>
                 <button
-                  (click)='editLesson({ template:template, classLevelName: classLevel.name, stream:classLevel.streams[0], timing:timing, dayOfWeekName:dayOfWeek })'
+                  (click)='editLesson({ template:template, classLevelName: classLevel.name, stream:classLevel.streams[0], timing:timing, dayOfWeekName:dayOfWeek, lesson: classLevel.grouped[dayOfWeek] })'
                   hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i
                     class="icon-edit"></i></button>
                 <ng-container

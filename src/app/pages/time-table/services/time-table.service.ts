@@ -48,13 +48,12 @@ export class TimeTableService {
 
   getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
 
-    // return of ([])
     return of([{
       timeId: 1,
       timeValue: '08:00:00 - 08:40:00',
       streamId: 1,
       streamName: 'N',
-      teacherId: 1,
+      teacherId: 12,
       teacherName: 'Mr Johnson Kamau',
       dayOfWeekId: 1,
       dayOfWeekName: 'Mon',
