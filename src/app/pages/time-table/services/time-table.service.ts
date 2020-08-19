@@ -1,23 +1,19 @@
 import { Injectable } from '@angular/core';
 import { of, Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeTableService {
   createForAcademicYear(id: number, data: any): any {
-    return this.http.post(`api/academic-year/${id}/time-tables`, data)
+    return this.http.post(`api/academic-year/${id}/time-tables`, data);
   }
 
-  daysOfTheWeek$: Observable<any[]> = of([
-    { id: 1, name: 'Monday' },
-    { id: 2, name: 'Tuesday' },
-    { id: 3, name: 'Wednesday' },
-    { id: 4, name: 'Thursday' },
-    { id: 5, name: 'Friday' }
-
-  ]);
+  daysOfTheWeek$: Observable<any[]> = this.http.get<any[]>(`api/time-table/week-days`).pipe(
+    shareReplay()
+  );
 
   groupByDayOfWeek(values: any[]) {
 
@@ -37,24 +33,45 @@ export class TimeTableService {
     }, {});
   }
 
+  getTimetableWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}`;
+    return this.http.get<any[]>(url);
+  }
+
+  getTimetableTimingsWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+    
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/timings`;
+    return this.http.get<any[]>(url).pipe(
+      shareReplay()
+    );;
+  }
+
+  getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+
+    // return of ([])
+    return of([{
+      timeId: 1,
+      timeValue: '08:00:00 - 08:40:00',
+      streamId: 1,
+      streamName: 'N',
+      teacherId: 1,
+      teacherName: 'Mr Johnson Kamau',
+      dayOfWeekId: 1,
+      dayOfWeekName: 'Mon',
+      subjectId: 1,
+      subjectName: 'LA',
+      classLevelId: 1,
+      classLevelName: 'PP1',
+      roomId: 1,
+      roomAbbr: 'PP1 R'
+    }]);
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`;
+    return this.http.get<any[]>(url);
+  }
+
   getForAcademicYear(id: number): Observable<any[]> {
     return this.http.get<any[]>(`api/academic-year/${id}/time-tables`);
-    // return of([{
-    //   timeId: 1,
-    //   timeValue: '08:00:00 - 09:00:00',
-    //   streamId: 1,
-    //   streamName: 'R',
-    //   teacherId: 1,
-    //   teacherName: 'Mr Johnson Kamau',
-    //   dayOfWeekId: 1,
-    //   dayOfWeekName: 'Monday',
-    //   subjectId: 1,
-    //   subjectName: 'LA',
-    //   classLevelId: 1,
-    //   classLevelName: 'PP1',
-    //   roomId: 1,
-    //   roomAbbr: 'PP1 R'
-    // }]);
+
     // return of([
     //   {
     //     timeId: 1,

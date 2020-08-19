@@ -1,7 +1,7 @@
 import { Constructor } from './constructor.mixin';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
 
 export const crudMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
@@ -16,7 +16,8 @@ export const crudMixin = <T extends Constructor>(BaseClass: T = class { } as T) 
 
     get all$(): Observable<any[]> {
       return this.http.get(this.url).pipe(
-        map(res => res as any)
+        map(res => res as any),
+        shareReplay()
       );;
     };
     get active$(): Observable<any[]> {

@@ -14,12 +14,3 @@
 .tt-edit-details {
  border-bottom: rgba(255, 255, 255, 0.4) solid 2px; 
 }
-.subject {
-  font-weight: bold;
-  font-size: 2em;
-  text-align: center;
-}
-.room, .teacher {
-  font-size: 0.7em;
-  line-height: 0.9em;
-}

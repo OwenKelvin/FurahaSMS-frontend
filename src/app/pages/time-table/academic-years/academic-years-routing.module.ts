@@ -19,13 +19,14 @@ const routes: Routes = [
       },
       {
         path: 'timetables/:id',
+        pathMatch:'full',
         data: {
           breadcrumb: 'View'
         },
         component: TimeTableAcademicYearViewComponent
       },
       {
-        path: 'edit',
+        path: 'timetables/:id/edit',
         data: {
           breadcrumb: 'Edit'
         },

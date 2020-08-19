@@ -1,5 +1,5 @@
 <h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
-<a *ngIf='canEditTimeTable$ | async' class="btn btn-primary btn-sm" [routerLink]='["../edit"]'><span class="icon-edit"></span>Edit time table</a>
+<a *ngIf='canEditTimeTable$ | async' class="btn btn-primary btn-sm" [routerLink]='["edit"]'><span class="icon-edit"></span>Edit time table</a>
 <accordion [closeOthers]='true' [isAnimated]='true'>
   <accordion-group class="mt-2" *ngFor='let classLevel of classLevels$ | async; let i = index' [(isOpen)]="isOpen[i]"
     [class.active-group]="isOpen[i]">

@@ -3,7 +3,7 @@ import { TimeTableService } from '../../services/time-table.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, mergeMap } from 'rxjs/operators';
 import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest } from 'rxjs';
 import { Store } from '@ngrx/store';
 import { selectICan } from 'src/app/pages/my-profile/store/selectors/my-profile.selectors';
 
@@ -17,17 +17,22 @@ export class TimeTableAcademicYearViewComponent {
 
   isOpen: boolean[] = [false];
 
-  activatedRouteParam$ = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
+  academicYearId$ = this.route.parent?.paramMap.pipe(map(params => Number(params.get('id'))));
+  timeTableId$ = this.route.paramMap.pipe(map(params => Number(params.get('id'))));
+  
+  params$ = combineLatest([this.academicYearId$, this.timeTableId$]).pipe(
+    map(([academicYearId, timeTableId]: any[]) => ({ academicYearId, timeTableId}))
+  );
 
   canEditTimeTable$ = this.store.select(selectICan('update time table'));
 
-  academicYearName$ = this.activatedRouteParam$.pipe(
+  academicYearName$ = this.academicYearId$?.pipe(
     mergeMap(id => this.academicYearService.getAcademicYearWithId({ id })),
     map(({ name }) => name)
   );
 
-  timetable$: Observable<any[]> = this.activatedRouteParam$.pipe(
-    mergeMap(id => this.timeTableService.getForAcademicYear(id))
+  timetable$: Observable<any[]> = this.params$.pipe(
+    mergeMap(params => this.timeTableService.getLessonsFor(params))
   );
 
   classLevels$ = this.timetable$.pipe(
