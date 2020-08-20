@@ -50,42 +50,18 @@ export class TimeTableService {
   }
 
   getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
-
-    // return of([{
-    //   timeId: 1,
-    //   timeValue: '08:00:00 - 08:40:00',
-    //   streamId: 1,
-    //   streamName: 'N',
-    //   teacherId: 12,
-    //   teacherName: 'Mr Johnson Kamau',
-    //   dayOfWeekId: 1,
-    //   dayOfWeekName: 'Mon',
-    //   subjectId: 1,
-    //   subjectName: 'LA',
-    //   classLevelId: 1,
-    //   classLevelName: 'PP1',
-    //   roomId: 1,
-    //   roomAbbr: 'PP1 R'
-    // }]);
     const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`;
     return this.http.get<any[]>(url).pipe(
       map(res => res.map(
         item => ({
           ...item,
           timeId: item.time_table_timing_id,
-          timeValue: '08:00:00 - 08:40:00',
           streamId: item.stream_id,
-          streamName: 'N',
           teacherId: item.teacher_id,
-          teacherName: 'Mr Johnson Kamau',
           dayOfWeekId: item.week_day_id,
-          dayOfWeekName: 'Mon',
           subjectId: item.unit_id,
-          subjectName: 'LA',
           classLevelId: item.class_level_id,
-          classLevelName: 'PP1',
           roomId: item.room_id,
-          roomAbbr: 'PP1 R'
         })
       )),
       tap(res => console.log(res))

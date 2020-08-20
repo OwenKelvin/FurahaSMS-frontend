@@ -79,24 +79,31 @@ export class TimeTableAcademicYearEditComponent {
   ]).pipe(
     map(([timings, classLevels, editedTimeTable, teachers, units, rooms, streams, weekDays]: any[]) => {
       return editedTimeTable.map((item: any) => {
-       // if (item.classLevelId) { return item; }
-        const classLevel = classLevels.find(({ abbreviation }: any) => abbreviation === item.classLevelName);
+        
+        const classLevel = classLevels.find(({ abbreviation, id }: any) => abbreviation === item.classLevelName || id === item.classLevelId);
         const teacher = teachers.find(({ id }: any) => id === item.teacherId);
-        const timing = timings.find(({ start, end }: any) => start + ' - ' + end === item.timeValue);
-        const stream = streams.find(({ abbreviation }: any) => abbreviation === item.streamName);
-        const weekDay = weekDays.find(({ abbreviation }: any) => abbreviation === item.dayOfWeekName);
+        const timing = timings.find(({ start, end, id }: any) => start + ' - ' + end === item.timeValue || id === item.timeId);
+        const stream = streams.find(({ abbreviation, id }: any) => abbreviation === item.streamName || id === item.streamId);
+        const weekDay = weekDays.find(({ abbreviation, id }: any) => abbreviation === item.dayOfWeekName || id === item.dayOfWeekId);
         const unit = units.find(({ id }: any) => id === item.subjectId);
         const room = rooms.find(({ id }: any) => id === item.roomId);
 
         return {
           ...item,
           classLevelId: classLevel.id,
+          classLevelName: classLevel.abbreviation,
+          teacherId: teacher.id,
           teacherName: teacher.firstName + ' ' + teacher.lastName,
           timeId: timing.id,
           streamId: stream.id,
+          streamName: stream.abbreviation,
           dayOfWeekId: weekDay.id,
+          dayOfWeekName: weekDay.abbreviation,
           subjectName: unit.abbreviation,
-          roomAbbr: room.abbreviation
+          roomAbbr: room.abbreviation,
+          roomId: room.id,
+          timeValue: `${timing.start} - ${timing.end}`,
+          subjectId: item.unit_id,
         };
       });
     })
