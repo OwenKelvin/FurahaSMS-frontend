@@ -215,5 +215,16 @@ export class TimeTableAcademicYearEditComponent {
     }
     this.modalRef.hide();
   }
+  
+  saveChanges() {
+    combineLatest([
+      this.editedTimetable$,
+      this.params$
+    ]).pipe(
+      tap(res => console.log(res)),
+      mergeMap(([editedTimetable, params]) =>
+        this.timeTableService.saveLessonsFor({ ...params, data: editedTimetable })),
+    ).subscribe()
+  }
 
 }

@@ -2,7 +2,7 @@
 <div class="d-flex flex-wrap justify-content-between">
   <a class="btn btn-info btn-sm" [routerLink]='["../view"]'><span class="icon-eye"></span>View</a>
   
-  <button class="btn btn-success btn-sm">Save All Changes <span class="icon-floppy"></span></button>
+  <button (click)='saveChanges()' class="btn btn-success btn-sm">Save All Changes <span class="icon-floppy"></span></button>
 </div>
 
 <accordion *ngIf='timetableLessons$ | async ' [closeOthers]='true' [isAnimated]='true'>
@@ -36,7 +36,7 @@
                   hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i
                     class="icon-edit"></i></button>
                 <ng-container
-                  *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
+                  *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][classLevel.streams[0]] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
                   <div class="d-flex flex-column">
                     <div class="subject">{{ lesson.subjectName }}</div>
                     <div class="room">{{ lesson.roomAbbr }}</div>
