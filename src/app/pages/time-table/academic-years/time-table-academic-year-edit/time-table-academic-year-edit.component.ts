@@ -228,7 +228,6 @@ export class TimeTableAcademicYearEditComponent {
       this.editedTimetable$,
       this.params$
     ]).pipe(
-      tap(res => console.log(res)),
       mergeMap(([editedTimetable, params]) =>
         this.timeTableService.saveLessonsFor({ ...params, data: editedTimetable })),
     ).subscribe()
