@@ -22,7 +22,7 @@ cache:
 
 install:
   - npm install --registry https://registry.npmjs.org
-  - npm i coveralls
+  - npm i coveralls --registry https://registry.npmjs.org
   
 before_install:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
