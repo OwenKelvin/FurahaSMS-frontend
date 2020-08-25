@@ -65,7 +65,6 @@ export class ELearningService {
     });
   }
   getCourses({ limit }: { limit: number; }): Observable<ICourse[]> {
-    stringify
     const queryStringParams = stringify({ limit });
     return this.http.get(`api/e-learning/courses?${queryStringParams}`)
       .pipe(map((res: any[]) => {

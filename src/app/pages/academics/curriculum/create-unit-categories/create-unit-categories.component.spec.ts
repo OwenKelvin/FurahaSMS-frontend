@@ -12,6 +12,7 @@ import { ErrorComponent } from 'src/app/components/error/error.component';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import {ErrorModule} from '../../../../components/error/error.module';
 
 describe('CreateUnitCategoriesComponent', () => {
   let component: CreateUnitCategoriesComponent;
@@ -35,7 +36,9 @@ describe('CreateUnitCategoriesComponent', () => {
         AppInputModule,
         AppValidateSubmitButtonsModule,
         EditorModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ErrorModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [
         CreateUnitCategoriesComponent,

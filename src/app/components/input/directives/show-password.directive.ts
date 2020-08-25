@@ -27,12 +27,12 @@ export class ShowPasswordDirective {
     this.toggleType.emit('password');
   }
   @HostListener('keypress', ['$event']) onEnterKeyPress($event: KeyboardEvent) {
-    if ($event.key === 'Enter' || $event.which === 13) {
+    if ($event.key === 'Enter') {
       this.toggleType.emit('text');
     }
   }
   @HostListener('keyup', ['$event']) onEnterKeyUp($event: KeyboardEvent) {
-    if ($event.key === 'Enter' || $event.which === 13) {
+    if ($event.key === 'Enter') {
       this.toggleType.emit('password');
     }
   }

@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { TimingTemplateService } from '../../services/timing-template.service';
 import { TimeTableService } from '../../services/time-table.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-create-academic-year-time-table',
@@ -25,23 +25,20 @@ export class CreateAcademicYearTimeTableComponent extends formMixin(modalMixin()
     private route: ActivatedRoute,
     private router: Router
   ) { super(modal, store); }
-  // academicYearId$ = this.route.parent?.paramMap.pipe(
-  //   map(params => Number(params.get('id')))
-  // );
   timingTypes$ = this.timeTableTimingService.all$;
 
   newTimeTableForm = this.fb.group({
     description: ['', Validators.required],
     timing: [null, Validators.required]
   });
-  craateTimetable() {
+  createTimetable() {
     this.submitInProgressSubject$.next(true);
     this.timeTableService.createForAcademicYear(this.id, this.newTimeTableForm.value)
       .subscribe({
         next: (res: any) => {
           this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.router.navigate([ 'time-table','academic-years', this.id, 'timetables', res.data.id])
+          this.router.navigate([ 'time-table','academic-years', this.id, 'timetables', res.data.id]).then()
         },
         error: () => this.submitInProgressSubject$.next(false)
       });

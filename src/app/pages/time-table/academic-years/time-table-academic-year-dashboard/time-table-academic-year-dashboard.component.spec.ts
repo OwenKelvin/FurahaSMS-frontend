@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { TimeTableAcademicYearDashboardComponent } from './time-table-academic-year-dashboard.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 
 describe('TimeTableAcademicYearDashboardComponent', () => {
   let component: TimeTableAcademicYearDashboardComponent;
@@ -8,7 +13,20 @@ describe('TimeTableAcademicYearDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TimeTableAcademicYearDashboardComponent ]
+      imports: [
+        ModalModule.forRoot(),
+        RouterTestingModule,
+        HttpClientTestingModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [ TimeTableAcademicYearDashboardComponent ],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

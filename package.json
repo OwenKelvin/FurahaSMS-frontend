@@ -1,4 +1,4 @@
-{
+ {
   "engines": {
     "node": "12.6.0",
     "npm": "6.11.3"
@@ -9,10 +9,12 @@
     "ng": "ng",
     "serve": "ng serve",
     "ngh": "node --max_old_space_size=4000 node_modules/@angular/cli/bin/ng",
+    "ngh-serve": "npm run ngh serve",
     "start": "node server.js",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
+    "lint-fix": "npm run lint --fix",
     "e2e": "ng e2e",
     "postinstall": "ng build --aot --prod",
     "heroku-postbuild": "ng build --aot --prod",

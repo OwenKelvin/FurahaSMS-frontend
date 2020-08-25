@@ -9,6 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import {ErrorModule} from '../../../../components/error/error.module';
 
 describe('EditUnitCategoryComponent', () => {
   let component: EditUnitCategoryComponent;
@@ -29,7 +30,8 @@ describe('EditUnitCategoryComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         AppInputModule,
-        EditorModule
+        EditorModule,
+        ErrorModule
       ],
       declarations: [EditUnitCategoryComponent, CreateUnitCategoriesComponent],
       providers: [reducerProvider]

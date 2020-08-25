@@ -7,7 +7,7 @@ import { map, catchError, shareReplay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TeacherService {
-  url: string = 'api/teachers';
+  url = 'api/teachers';
   constructor(private http: HttpClient) { }
 
   store(data: any): Observable<any> {

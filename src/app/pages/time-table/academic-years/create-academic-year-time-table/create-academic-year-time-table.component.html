@@ -5,7 +5,7 @@
 
   </button>
 </div>
-<form (submit)='craateTimetable()' [formGroup]='newTimeTableForm'>
+<form (submit)='createTimetable()' [formGroup]='newTimeTableForm'>
 
   <div class="modal-body bg-dark">
     <div class="d-flex justify-content-center flex-wrap">
@@ -17,7 +17,7 @@
       </div>
 
       <div class="col-lg-6">
-        <label for="timinh">Timing</label>
+        <label for="timing">Timing</label>
         <ng-select id='timing' [items]="timingTypes$ | async" bindLabel="description" bindValue="id" formControlName='timing'>
 
         </ng-select>

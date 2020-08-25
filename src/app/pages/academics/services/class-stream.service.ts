@@ -7,7 +7,7 @@ import { shareReplay } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ClassStreamService {
-  
+
   all$: Observable<any[]> = this.http.get<any[]>('api/class-streams').pipe(
     shareReplay()
   );

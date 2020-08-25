@@ -8,7 +8,7 @@ import { shareReplay } from 'rxjs/operators';
 export class TimingTemplateService {
 
   url = 'api/time-table/time-table-timing-templates';
-  all$ = this.http.get(this.url).pipe(shareReplay());
+  all$ = this.http.get<any[]>(this.url).pipe(shareReplay());
   constructor(private http: HttpClient) { }
 
 

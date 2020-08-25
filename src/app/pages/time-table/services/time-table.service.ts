@@ -7,16 +7,18 @@ import { shareReplay, map } from 'rxjs/operators';
   providedIn: 'root'
 })
 export class TimeTableService {
+
+  constructor(private http: HttpClient) { }
+
+  daysOfTheWeek$: Observable<any[]> = this.http.get<any[]>(`api/time-table/week-days`).pipe(
+    shareReplay()
+  );
   saveLessonsFor({ academicYearId, timeTableId, data }: { academicYearId: number, timeTableId: number; data: any; }) {
     return this.http.post(`api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`, data);
   }
   createForAcademicYear(id: number, data: any): any {
     return this.http.post(`api/academic-year/${id}/time-tables`, data);
   }
-
-  daysOfTheWeek$: Observable<any[]> = this.http.get<any[]>(`api/time-table/week-days`).pipe(
-    shareReplay()
-  );
 
   groupByDayOfWeek(values: any[]) {
 
@@ -46,7 +48,7 @@ export class TimeTableService {
     const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/timings`;
     return this.http.get<any[]>(url).pipe(
       shareReplay()
-    );;
+    );
   }
 
   getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
@@ -70,6 +72,4 @@ export class TimeTableService {
   getForAcademicYear(id: number): Observable<any[]> {
     return this.http.get<any[]>(`api/academic-year/${id}/time-tables`);
   }
-
-  constructor(private http: HttpClient) { }
 }

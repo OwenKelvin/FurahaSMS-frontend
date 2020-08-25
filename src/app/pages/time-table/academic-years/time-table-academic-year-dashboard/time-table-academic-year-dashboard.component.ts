@@ -22,7 +22,7 @@ export class TimeTableAcademicYearDashboardComponent extends modalMixin() {
     private route: ActivatedRoute,
     private academicYearService: AcademicYearService,
     private timeTableService: TimeTableService
-  ) { super(modalService, store);; }
+  ) { super(modalService, store); }
   academicYearId$: Observable<number> = this.route.paramMap.pipe(
     map(params => Number(params.get('id'))),
     tap(id => this.academicYearId = id)

@@ -1,11 +1,11 @@
-import { TestBed, async, inject } from '@angular/core/testing';
+import {TestBed, inject} from '@angular/core/testing';
 
-import { GuestGuard } from './guest.guard';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AuthenticationService } from './../services/authentication.service';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {GuestGuard} from './guest.guard';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AuthenticationService} from '../services/authentication.service';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
 
 describe('GuestGuard', () => {
   beforeEach(async () => {
@@ -17,7 +17,7 @@ describe('GuestGuard', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }) ],
+        })],
       providers: [reducerProvider, GuestGuard]
     });
     await TestBed.compileComponents();
@@ -27,28 +27,34 @@ describe('GuestGuard', () => {
     expect(guard).toBeTruthy();
   }));
   it('should return true if no current user ', inject([
-    Store, AuthenticationService], (store: Store<AppState>, authenticationServive: AuthenticationService) => {
+    Store, AuthenticationService], (store: Store<AppState>, authenticationService: AuthenticationService) => {
     const next = jasmine.createSpyObj({queryParams: ''});
     const state = jasmine.createSpyObj({url: ''});
-    const router = jasmine.createSpyObj({ navigate: () => { } });
+    const router = jasmine.createSpyObj({
+      navigate: () => {
+      }
+    });
 
-    spyOnProperty(authenticationServive, 'currentUserValue').and.returnValue(false);
-    const guestGuard = new GuestGuard(store, router, authenticationServive);
+    spyOnProperty(authenticationService, 'currentUserValue').and.returnValue(false);
+    const guestGuard = new GuestGuard(store, router, authenticationService);
     expect(guestGuard.canActivate(next, state)).toBeTruthy();
   }));
   it(
     'should return false if current user ',
-    inject(
-      [AuthenticationService, Store],
-      (authenticationServive: AuthenticationService, store: Store<AppState>) => {
-        const next = jasmine.createSpyObj({queryParams: ''});
-        const state = jasmine.createSpyObj({url: ''});
-        const router = jasmine.createSpyObj({ navigate: () => { } });
-        const auth: AuthenticationService = Object.create(authenticationServive, {
-          currentUserValue : { value: true}
-        });
-        const guestGuard = new GuestGuard(store, router, auth);
-        expect(guestGuard.canActivate(next, state)).toBeFalsy();
-     })
-    );
+    inject([GuestGuard], (guestGuard: GuestGuard) => {
+      const next = jasmine.createSpyObj({queryParams: ''});
+      const state = jasmine.createSpyObj({url: ''});
+      const canActivate = {
+        ...guestGuard,
+        router: {
+          navigate: () => ({
+            then: () => {
+            }
+          })
+        },
+        authenticationService: {isLoggedInSubject: {value: true}},
+        canActivate: guestGuard.canActivate
+      };
+      expect(canActivate.canActivate(next, state)).toBeFalsy();
+    }))
 });
