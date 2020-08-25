@@ -1,19 +1,24 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
+import { HttpClient } from '@angular/common/http';
+import { shareReplay, map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TimeTableService {
 
-  daysOfTheWeek$: Observable<any[]> = of([
-    {id: 1 , name: 'Monday'},
-    {id: 2 , name: 'Tuesday'},
-    {id: 3 , name: 'Wednesday'},
-    {id: 4 , name: 'Thursday'},
-    {id: 5 , name: 'Friday'}
+  constructor(private http: HttpClient) { }
 
-  ]);
+  daysOfTheWeek$: Observable<any[]> = this.http.get<any[]>(`api/time-table/week-days`).pipe(
+    shareReplay()
+  );
+  saveLessonsFor({ academicYearId, timeTableId, data }: { academicYearId: number, timeTableId: number; data: any; }) {
+    return this.http.post(`api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`, data);
+  }
+  createForAcademicYear(id: number, data: any): any {
+    return this.http.post(`api/academic-year/${id}/time-tables`, data);
+  }
 
   groupByDayOfWeek(values: any[]) {
 
@@ -33,300 +38,38 @@ export class TimeTableService {
     }, {});
   }
 
-  getForAcademicYear(_id: number): Observable<any[]> {
-    return of([
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 1,
-        streamName: 'R',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 2,
-        streamName: 'B',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 1,
-        streamName: 'R',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 2,
-        streamName: 'B',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 2,
-        dayOfWeekName: 'Tuesday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 1,
-        classLevelName: 'PP1',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 1,
-        streamName: 'R',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2,
-        classLevelName: 'PP2',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2,
-        classLevelName: 'PP2',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2,
-        classLevelName: 'PP2',
-        roomId: 1,
-        roomAbbr: 'PP1 R',
-        streamId: 1,
-        streamName: 'R',
-      },
-      {
-        timeId: 1,
-        timeValue: '08:00:00 - 09:00:00',
-        streamId: 2,
-        streamName: 'B',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2,
-        classLevelName: 'PP2',
-        roomId: 1,
-        roomAbbr: 'PP1 R'
-      },
-      {
-        timeId: 2,
-        timeValue: '09:00:00 - 10:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2,
-        classLevelName: 'PP2',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-      {
-        timeId: 3,
-        timeValue: '11:00:00 - 12:00:00',
-        teacherId: 1,
-        teacherName: 'Mr Johnson Kamau',
-        dayOfWeekId: 1,
-        dayOfWeekName: 'Monday',
-        subjectId: 1,
-        subjectName: 'LA',
-        classLevelId: 2 ,
-        classLevelName: 'PP2',
-        roomId: 2,
-        roomAbbr: 'PP1 B',
-        streamId: 2,
-        streamName: 'B',
-      },
-    ]);
+  getTimetableWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}`;
+    return this.http.get<any[]>(url);
   }
 
-  constructor() { }
+  getTimetableTimingsWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/timings`;
+    return this.http.get<any[]>(url).pipe(
+      shareReplay()
+    );
+  }
+
+  getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+    const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`;
+    return this.http.get<any[]>(url).pipe(
+      map(res => res.map(
+        item => ({
+          ...item,
+          timeId: item.time_table_timing_id,
+          streamId: item.stream_id,
+          teacherId: item.teacher_id,
+          dayOfWeekId: item.week_day_id,
+          subjectId: item.unit_id,
+          classLevelId: item.class_level_id,
+          roomId: item.room_id,
+        })
+      ))
+    );
+  }
+
+  getForAcademicYear(id: number): Observable<any[]> {
+    return this.http.get<any[]>(`api/academic-year/${id}/time-tables`);
+  }
 }

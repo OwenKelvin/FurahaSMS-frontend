@@ -9,8 +9,12 @@ label {
   margin-bottom: 0.1rem;
 }
 
-.ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
+.ng-select .ng-select-container  {
+  min-height: 38px;
+}
 
+.ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
+  
   height: 100%;
   margin: 0;
 }
@@ -27,16 +31,17 @@ label {
 }
 
 .ng-select.ng-select-multiple .ng-select-container {
-  min-height: 38px;
+  min-height: 100px ;
 }
 .ng-select .ng-value {
-  background-color: rgb(68, 68, 68) !important;
-  color: white !important;
+  color: black;
+  background-color: rgba(226, 226, 226, 0.5);
+  font-weight: bold;
   border-radius: 3px !important;
   padding: 3px;
   padding-left: 5px;
   padding-right: 5px;
-  margin-top: 4px;
+  margin-top: 0px;
   margin-left: 4px;
 }
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
@@ -45,6 +50,43 @@ label {
 .ng-dropdown-panel {
   min-width: 150px !important;
   width: 150px !important;
+}
+.ng-select .ng-select-container .ng-value-container .ng-placeholder  {
+  margin-left: 10px;
+  color: gray;
+}
+
+.ng-dropdown-panel.ng-select-bottom {
+  width: 100% !important;
+  font-size: 15px;
+}
+
+
+.ng-select .ng-clear-wrapper .ng-clear {
+    color: rgb(255, 82, 82);
+    font-size: 18px;
+    line-height: 18px;
+    top: -1px;
+    left: 3px;
+    font-weight: bold;
+}
+
+.ng-select.ng-select-clearable .ng-select-container.ng-has-value:hover .ng-clear-wrapper {
+    width: 18px !important;
+    height: 18px !important;
+    background-color: rgb(246, 200, 200);
+    opacity: 1;
+}
+.ng-select .ng-arrow-wrapper .ng-arrow{
+  margin-right: 5px;
+  display: none;
+}
+.ng-select span.ng-arrow-wrapper:before {
+  content: "\e82c" !important;
+  font-family: "fontello";
+}
+.ng-select.ng-select-opened>.ng-select-container .ng-arrow-wrapper {
+  margin-right: 5px;
 }
 
 html, body {
@@ -226,8 +268,8 @@ a:hover {
 #main:focus, #main:focus-within{
   outline: none;
   border-left: 3px solid rgba(172, 255, 47, 0.3);
-   padding-left: 7px;
-  min-height: calc(100%);
+  padding-left: 7px;
+  min-height: calc(100% - 120px);
 }
 
 html, body {

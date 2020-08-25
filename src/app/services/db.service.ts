@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-
 // import * as PouchDB from 'pouchdb';
 const PouchDB = require('pouchdb').default;
 

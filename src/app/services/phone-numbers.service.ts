@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
+import { PhoneNumberUtil, shortnumbermetadata } from 'google-libphonenumber'
 
 @Injectable({
   providedIn: 'root'
@@ -10,8 +11,7 @@ export class PhoneNumbersService {
   lib: any;
   phoneUtil: any;
   constructor(private http: HttpClient) {
-    this.lib = require('google-libphonenumber');
-    this.phoneUtil = this.lib.PhoneNumberUtil.getInstance();
+    this.phoneUtil = PhoneNumberUtil.getInstance();
   }
   getAllowedCountries(): Observable<any> {
     const url = 'api/phones/allowed-countries';
@@ -25,7 +25,7 @@ export class PhoneNumbersService {
       ));
   }
   getAllCountryCodes(): Observable<any> {
-    const countries = require('google-libphonenumber').shortnumbermetadata.countryCodeToRegionCodeMap['0'];
+    const countries = shortnumbermetadata.countryCodeToRegionCodeMap['0'];
     return of(countries.map((country: any) => {
       const code = this.phoneUtil.getCountryCodeForRegion(country);
       return { code, country };
@@ -53,7 +53,7 @@ export class PhoneNumbersService {
 
   }
   splitNumberFromCountryCode(phoneNumber: string): { code: string, phone: string } {
-    const phoneUtil = require('google-libphonenumber').PhoneNumberUtil.getInstance();
+    const phoneUtil = PhoneNumberUtil.getInstance();
     try {
       const splitValues = phoneUtil.parse(/^\+(\w+\-?\s?)+/.test(phoneNumber.trim()) ? phoneNumber : '+' + phoneNumber).values_;
       return { code: splitValues[1], phone: splitValues[2] };

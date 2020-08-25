@@ -1,0 +1,28 @@
+.td-lesson {
+  position: relative;
+  padding: 2px;
+}
+.td-lesson button {
+  position: absolute;
+  right: 2px;
+}
+.td-lesson:hover {
+  background-color: rgba(172, 255, 47, 0.1);
+  color: greenyellow;
+  border-left: 3px solid;
+}
+.tt-edit-details {
+ border-bottom: rgba(255, 255, 255, 0.4) solid 2px; 
+}
+.subject {
+  font-weight: bold;
+  font-size: 2em;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+  margin-bottom: 0.2em;
+}
+.room, .teacher {
+  font-size: 0.7em;
+  line-height: 0.9em;
+  text-align: center;
+}

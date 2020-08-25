@@ -1,8 +1,12 @@
 <h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
-<a class="btn btn-info btn-sm" [routerLink]='["../view"]'><span
-    class="icon-eye"></span>View</a>
-<accordion [closeOthers]='true' [isAnimated]='true'>
-  <accordion-group class="mt-2" *ngFor='let classLevel of classLevels$ | async; let i = index' [(isOpen)]="isOpen[i]"
+<div class="d-flex flex-wrap justify-content-between">
+  <a class="btn btn-info btn-sm" [routerLink]='["../"]'><span class="icon-eye"></span>View</a>
+  
+  <button (click)='saveChanges()' class="btn btn-success btn-sm">Save All Changes <span class="icon-floppy"></span></button>
+</div>
+
+<accordion *ngIf='timetableLessons$ | async ' [closeOthers]='true' [isAnimated]='true'>
+  <accordion-group class="mt-2" *ngFor='let classLevel of timeTableForm$ | async; let i = index' [(isOpen)]="isOpen[i]"
     [class.active-group]="isOpen[i]">
 
     <section accordion-heading class="d-flex justify-content-between">
@@ -14,7 +18,7 @@
     </section>
     <section>
 
-      <table class="table table-dark">
+      <table class="table table-dark table-bordered">
         <thead>
           <th>Day of Week</th>
           <th>Stream</th>
@@ -22,25 +26,35 @@
 
         </thead>
         <tbody>
-          <ng-container *ngFor='let dayOfWeek of classLevel.daysOfWeek'>
+          <ng-container *ngFor='let dayOfWeek of classLevel.weekDays'>
             <tr>
               <th [attr.rowspan]='classLevel.streams.length'>{{ dayOfWeek }}</th>
               <td>{{ classLevel.streams[0] }}</td>
-              <td *ngFor='let timing of classLevel.timings'>
-                  <ng-container *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
-                    <div class="d-flex flex-column">
-                      <div class="subject">{{ lesson.subjectName }}</div>
-                      <div class="room">{{ lesson.roomAbbr }}</div>
-                      <div class="teacher">{{ lesson.teacherName }}</div>
-                    </div>
-                  </ng-container>
+              <td *ngFor='let timing of classLevel.timings' class="td-lesson" appTimetableEditor>
+                <button
+                  (click)='editLesson({ template:template, classLevelName: classLevel.name, stream:classLevel.streams[0], timing:timing, dayOfWeekName:dayOfWeek, lesson: classLevel.grouped[dayOfWeek] })'
+                  hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i
+                    class="icon-edit"></i></button>
+                <ng-container
+                  *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][classLevel.streams[0]] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
+                  <div class="d-flex flex-column">
+                    <div class="subject">{{ lesson.subjectName }}</div>
+                    <div class="room">{{ lesson.roomAbbr }}</div>
+                    <div class="teacher">{{ lesson.teacherName }}</div>
+                  </div>
+                </ng-container>
               </td>
             </tr>
             <ng-container *ngFor='let stream of classLevel.streams; let i = index'>
               <tr *ngIf='i > 0'>
                 <td>{{ stream }}</td>
-                <td *ngFor='let timing of classLevel.timings'>
-                  <ng-container *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][stream][timing] as lesson'>
+                <td *ngFor='let timing of classLevel.timings' class="td-lesson" appTimetableEditor>
+                  <button
+                    (click)='editLesson({template:template, classLevelName: classLevel.name, stream:stream, timing:timing, dayOfWeekName:dayOfWeek })'
+                    hidden aria-label="Edit Lesson" class="btn btn-outline-primary btn-sm"><i
+                      class="icon-edit"></i></button>
+                  <ng-container
+                    *ngIf='classLevel.grouped[dayOfWeek] && classLevel.grouped[dayOfWeek][stream] && classLevel.grouped[dayOfWeek][stream][timing] as lesson'>
                     <div class="d-flex flex-column">
                       <div class="subject">{{ lesson.subjectName }}</div>
                       <div class="room">{{ lesson.roomAbbr }}</div>
@@ -58,3 +72,50 @@
     </section>
   </accordion-group>
 </accordion>
+
+<ng-template #template>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">Time Table Content Editing Form</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body bg-dark d-flex flex-wrap" *ngIf='editItemDetails$ | async as editItemDetails'>
+    <div class="col-lg-12 d-flex justify-content-between tt-edit-details pb-3 mb-3">
+      <div>Class Level: {{ editItemDetails.classLevelName }}</div>
+      <div>Stream: {{ editItemDetails.streamName }}</div>
+      <div>Day Of the Week: {{ editItemDetails.dayOfWeekName }}</div>
+      <div>Time: {{ editItemDetails.timeValue }}</div>
+    </div>
+    <form [formGroup]='editLessonForm' class="col-lg-12 d-flex flex-wrap justify-content-between">
+
+      <div class="col-lg-5">
+        <label for="teacherId">Select Subject</label>
+        <ng-select style="width: 100%;" id='teacherId' [items]="units$ | async" bindLabel="name"
+          bindValue="id" formControlName='subjectId'>
+        </ng-select>
+      </div>
+      <div class="col-lg-5">
+        <label for="teacherId">Select Teacher</label>
+        <ng-select style="width: 100%;" id='teacherId' [items]="teachers$ | async" bindLabel="name"
+          bindValue="id" formControlName='teacherId'>
+        </ng-select>
+      </div>
+      <div class="col-lg-5">
+        <label for="teacherId">Select Room</label>
+        <ng-select style="width: 100%;" id='teacherId' [items]="rooms$ | async" bindLabel="abbreviation"
+          bindValue="id" formControlName='roomId'>
+        </ng-select>
+      </div>
+    </form>
+
+  </div>
+  <div class="modal-footer bg-dark">
+    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+    <button (click)='saveLesson()' class="btn btn-success">
+      <span>Save Content</span>
+      <i class='icon-ok-1'></i>
+    </button>
+  </div>
+</ng-template>

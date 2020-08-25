@@ -10,6 +10,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 describe('StudentAdmissionsEditComponent', () => {
   let component: StudentAdmissionsEditComponent;
@@ -27,7 +28,8 @@ describe('StudentAdmissionsEditComponent', () => {
       }), AppLoadingBubbleModule, RouterTestingModule, HttpClientTestingModule,
         AppInputModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        TypeaheadModule.forRoot()
       ],
       declarations: [StudentAdmissionsEditComponent, StudentSearchComponent, StudentsRecentlyCreatedComponent],
       providers: [reducerProvider]

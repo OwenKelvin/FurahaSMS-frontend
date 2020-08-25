@@ -26,5 +26,14 @@ export class ShowPasswordDirective {
   @HostListener('mouseup') onMouseUp() {
     this.toggleType.emit('password');
   }
-
+  @HostListener('keypress', ['$event']) onEnterKeyPress($event: KeyboardEvent) {
+    if ($event.key === 'Enter') {
+      this.toggleType.emit('text');
+    }
+  }
+  @HostListener('keyup', ['$event']) onEnterKeyUp($event: KeyboardEvent) {
+    if ($event.key === 'Enter') {
+      this.toggleType.emit('password');
+    }
+  }
 }

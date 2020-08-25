@@ -7,6 +7,7 @@ import { Subject } from 'rxjs';
 export class NetworkLoadingService {
 
   isLoadingSubject$ = new Subject<boolean>();
+  isLoadingAction$ = this.isLoadingSubject$.asObservable();
 
   show = () => this.isLoadingSubject$.next(true);
   hide = () => this.isLoadingSubject$.next(false);

@@ -1,5 +1,5 @@
 import { Component, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
@@ -69,8 +69,9 @@ export class LoginComponent implements OnDestroy {
       this.triggerValidation = !this.triggerValidation;
     }
   }
-  loginSuccessful = ([returnUrl ]: any []) => {
+  loginSuccessful = ([returnUrl]: any[]) => {
     returnUrl = returnUrl || '/dashboard';
+    this.router.navigateByUrl(returnUrl);
     this.isSubmitting = false;
     this.store.dispatch(loadErrorMessagesFailure());
     this.store.dispatch(loadToastShowsSuccess({
@@ -79,7 +80,6 @@ export class LoginComponent implements OnDestroy {
       showMessage: true,
       toastTime: 'Just Now'
     }));
-    this.router.navigate([returnUrl]);
   };
   ngOnDestroy() {
     this.componentIsActive = false;

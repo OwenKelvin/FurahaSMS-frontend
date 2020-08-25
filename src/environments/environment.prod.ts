@@ -1,9 +1,9 @@
 export const environment = {
   production: true,
-  API_URL: 'https://school-app-1.furahacapital.com',
+  API_URL: 'https://test-fsms-100-backend.furahacapital.com/',
   passportClient: {
     grantType: 'password',
-    clientSecret: 'a6aSnhef5kVc3nmCHk6BkNy8cbngcOe8mqDJ2rK2',
+    clientSecret: 'sw5G4BAztwr0OtNpgsnFSAS4Oa2iA7UVFn1J94FP',
     clientId: '2'
   }
 };

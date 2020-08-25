@@ -1,8 +1,9 @@
 import { Injectable } from '@angular/core';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { ICourse } from '../interfaces/course.interface';
 import { HttpClient } from '@angular/common/http';
-import { map, tap } from 'rxjs/operators';
+import { map } from 'rxjs/operators';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -64,8 +65,7 @@ export class ELearningService {
     });
   }
   getCourses({ limit }: { limit: number; }): Observable<ICourse[]> {
-    const querystring = require('querystring');
-    const queryStringParams = querystring.stringify({ limit });
+    const queryStringParams = stringify({ limit });
     return this.http.get(`api/e-learning/courses?${queryStringParams}`)
       .pipe(map((res: any[]) => {
         const data: ICourse[] = res.map((item: any) => ({

@@ -1,7 +1,7 @@
 <h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
-<a *ngIf='canEditTimeTable$ | async' class="btn btn-primary btn-sm" [routerLink]='["../edit"]'><span class="icon-edit"></span>Edit time table</a>
+<a class="btn btn-primary btn-sm" [routerLink]='["edit"]'><span class="icon-edit"></span>Edit time table</a>
 <accordion [closeOthers]='true' [isAnimated]='true'>
-  <accordion-group class="mt-2" *ngFor='let classLevel of classLevels$ | async; let i = index' [(isOpen)]="isOpen[i]"
+  <accordion-group class="mt-2" *ngFor='let classLevel of timeTableLessons$ | async; let i = index' [(isOpen)]="isOpen[i]"
     [class.active-group]="isOpen[i]">
 
     <section accordion-heading class="d-flex justify-content-between">
@@ -13,7 +13,7 @@
     </section>
     <section>
 
-      <table class="table table-dark">
+      <table class="table table-dark table-bordered">
         <thead>
           <th>Day of Week</th>
           <th>Stream</th>
@@ -26,7 +26,7 @@
               <th [attr.rowspan]='classLevel.streams.length'>{{ dayOfWeek }}</th>
               <td>{{ classLevel.streams[0] }}</td>
               <td *ngFor='let timing of classLevel.timings'>
-                <ng-container *ngIf='classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
+                <ng-container *ngIf='classLevel.grouped[dayOfWeek][classLevel.streams[0]] && classLevel.grouped[dayOfWeek][classLevel.streams[0]][timing] as lesson'>
                   <div class="d-flex flex-column">
                     <div class="subject">{{ lesson.subjectName }}</div>
                     <div class="room">{{ lesson.roomAbbr }}</div>
@@ -39,7 +39,7 @@
               <tr *ngIf='i > 0'>
                 <td >{{ stream }}</td>
                 <td *ngFor='let timing of classLevel.timings'>
-                  <ng-container *ngIf='classLevel.grouped[dayOfWeek][stream][timing] as lesson'>
+                  <ng-container *ngIf='classLevel.grouped[dayOfWeek][stream] && classLevel.grouped[dayOfWeek][stream][timing] as lesson'>
                     <div class="d-flex flex-column">
                       <div class="subject">{{ lesson.subjectName }}</div>
                       <div class="room">{{ lesson.roomAbbr }}</div>

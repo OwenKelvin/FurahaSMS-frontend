@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { map, shareReplay } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -38,8 +38,8 @@ export class UnitsService {
     }
   }
   getAllActiveSubjects(): Observable<any> {
-    const url = 'api/units/all/?active=1';
-    return this.http.get<any>(url)
+    const url = 'api/curriculum/units/all/?active=1';
+    return this.http.get<any>(url).pipe(shareReplay())
   }
   getAll(data = { unitLevel: null }): Observable<any> {
     const { unitLevel } = data;

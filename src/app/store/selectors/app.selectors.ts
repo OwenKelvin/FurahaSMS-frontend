@@ -33,5 +33,5 @@ export const selectReligion = (id: number | string) => createSelector(
 );
 export const selectEditModeOnState = createSelector(
   selectAppState,
-  app => app ? app[editModeFeatureKey].on: false
+  app => app ? app[editModeFeatureKey]?.on: false
 );

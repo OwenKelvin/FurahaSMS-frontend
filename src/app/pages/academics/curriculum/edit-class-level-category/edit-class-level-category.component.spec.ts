@@ -10,6 +10,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('EditClassLevelCategoryComponent', () => {
   let component: EditClassLevelCategoryComponent;
@@ -31,7 +32,8 @@ describe('EditClassLevelCategoryComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         AppInputModule,
-        EditorModule
+        EditorModule,
+        AppLoadingBubbleModule
       ],
       declarations: [EditClassLevelCategoryComponent, CreateClassLevelCategoryComponent],
       providers: [reducerProvider]

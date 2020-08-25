@@ -7,6 +7,7 @@ import { Store } from '@ngrx/store';
 import { of } from 'rxjs';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { AccordionModule } from 'ngx-bootstrap/accordion';
 
 describe('TimeTableAdminComponent', () => {
   let component: TimeTableAdminComponent;
@@ -17,7 +18,8 @@ describe('TimeTableAdminComponent', () => {
       imports: [
         TabsModule.forRoot(),
         ModalModule.forRoot(),
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        AccordionModule.forRoot()
       ],
       declarations: [TimeTableAdminComponent, TimeTableTimingsComponent],
       providers: [

@@ -5,6 +5,8 @@ import { ErrorModule } from 'src/app/components/error/error.module';
 import { RouterTestingModule } from '@angular/router/testing';
 import { reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
+import {AppCrudModule} from '../../../../../components/crud/app-crud.module';
 
 describe('CreateSemesterComponent', () => {
   let component: CreateSemesterComponent;
@@ -15,7 +17,10 @@ describe('CreateSemesterComponent', () => {
       imports: [
         RouterTestingModule,
         ErrorModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormsModule,
+        ReactiveFormsModule,
+        AppCrudModule
       ],
       declarations: [CreateSemesterComponent],
       providers: [reducerProvider]

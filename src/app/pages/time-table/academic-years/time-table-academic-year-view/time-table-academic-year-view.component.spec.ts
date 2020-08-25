@@ -1,12 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TimeTableAcademicYearViewComponent } from './time-table-academic-year-view.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import {TimeTableAcademicYearViewComponent} from './time-table-academic-year-view.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {RouterTestingModule} from '@angular/router/testing';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reducers';
+import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
 
 describe('TimeTableAcademicYearViewComponent', () => {
   let component: TimeTableAcademicYearViewComponent;
@@ -28,9 +30,19 @@ describe('TimeTableAcademicYearViewComponent', () => {
         }),
       ],
       declarations: [TimeTableAcademicYearViewComponent],
-      providers: [reducerProvider]
+      providers: [
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {paramMap: of({get: ()=> 1})},
+            paramMap: of({get: ()=> 1}),
+            snapshot: { }
+          }
+        },
+        reducerProvider
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

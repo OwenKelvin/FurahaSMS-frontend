@@ -1,7 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as fromStore from '../../../../store/reducers';
-import { map, flatMap, takeWhile, mergeMap } from 'rxjs/operators';
+import { map, takeWhile, mergeMap } from 'rxjs/operators';
 import { UnitLevelService } from 'src/app/services/unit-level.service';
 import { ViewEncapsulation } from '@angular/core';
 import { ClassLevelService } from 'src/app/services/class-level.service';
@@ -70,11 +68,11 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
   get classLevels(): FormArray {
     return this.allocationsForm.get('classLevels') as FormArray;
   }
-  submitunitAllocationForm() {
+  submitUnitAllocationForm() {
     this.isSubmitting = true;
     this.academicYearId$
       .pipe(
-        flatMap(id => this.academicYearService.saveUnitLevels(id, this.classLevels.value))
+        mergeMap(id => this.academicYearService.saveUnitLevels(id, this.classLevels.value))
     )
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(() => {

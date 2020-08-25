@@ -9,6 +9,8 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { InputComponent } from '../input/input.component';
 import { SelectComponent } from '../select/select.component';
 import { ErrorComponent } from '../error/error.component';
+import { AppValidateSubmitButtonsModule } from '../validate-submit-buttons/validate-submit-buttons.module';
+import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 
 describe('CrudComponent', () => {
   let component: CrudComponent;
@@ -27,7 +29,10 @@ describe('CrudComponent', () => {
         FormsModule,
         RouterTestingModule,
         ReactiveFormsModule,
-        HttpClientTestingModule],
+        HttpClientTestingModule,
+        AppValidateSubmitButtonsModule,
+        AppLoadingBubbleModule
+      ],
       declarations: [CrudComponent, InputComponent, SelectComponent, ErrorComponent],
       providers: [reducerProvider]
     });

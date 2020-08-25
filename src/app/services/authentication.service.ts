@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of, throwError, BehaviorSubject } from 'rxjs';
+import { Observable, of, throwError, BehaviorSubject, EMPTY } from 'rxjs';
 import { OauthInterface } from './../interfaces/oauth.interface';
 import { UserInterface } from './../interfaces/user.interface';
 import { map, catchError, tap } from 'rxjs/operators';
@@ -13,22 +13,22 @@ const PASSPORT_CLIENT = environment.passportClient;
   providedIn: 'root'
 })
 export class AuthenticationService {
-  constructor(private http: HttpClient) {
-    let storedUser: any = JSON.parse(String(sessionStorage.getItem('currentUser')));
-    if (!storedUser) {
-      storedUser = JSON.parse(String(localStorage.getItem('currentUser')));
-    }
+  currentUserSubject: BehaviorSubject<UserInterface | null> = new BehaviorSubject<UserInterface | null>(null);
+  currentUser = this.currentUserSubject.asObservable();
+  localStorageUser = JSON.parse(String(localStorage.getItem('currentUser')));
+  sessionStorageUser = JSON.parse(String(sessionStorage.getItem('currentUser')));
+  isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
-    this.currentUserSubject = new BehaviorSubject<UserInterface>(storedUser);
-    this.currentUser = this.currentUserSubject.asObservable();
+  constructor(private http: HttpClient) {
+    this.isLoggedInSubject.next(!!this.authorizationToken);
   }
   get authorizationToken(): string | undefined {
-    const currentUser = JSON.parse(String(sessionStorage.getItem('currentUser')));
-    if (!currentUser) {
-      JSON.parse(String(localStorage.getItem('currentUser')));
+
+    if (this.sessionStorageUser) {
+      return `Bearer ${this.sessionStorageUser.access_token}`;
     }
-    if (currentUser) {
-      return `Bearer ${currentUser.access_token}`;
+    if (this.localStorageUser) {
+      return `Bearer ${this.localStorageUser.access_token}`;
     }
     return;
   }
@@ -36,25 +36,36 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
   public get currentUserProfile$(): Observable<IUserProfile> {
+    if (!this.isLoggedInSubject.value) {
+      return EMPTY;
+    }
+
     return this.http.get('api/users/auth')
-      .pipe(map((res: any) => {
-        return {
-          ...res,
-          id: res.id,
-          firstName: res.first_name,
-          lastName: res.last_name,
-          middleName: res.middle_name,
-          otherNames: res.other_names,
-          phone: res.phone,
-          email: res.email,
-          dateOfBirth: res.date_of_birth,
-          religionName: res.religion_name,
-          genderName: res.gender_name
-        };
-      }));
+      .pipe(
+        catchError(error => {
+          if (error.status === 401) {
+            this.clearStorage();
+          }
+
+          return throwError(error);
+        }),
+        map((res: any) => {
+          return {
+            ...res,
+            id: res.id,
+            firstName: res.first_name,
+            lastName: res.last_name,
+            middleName: res.middle_name,
+            otherNames: res.other_names,
+            phone: res.phone,
+            email: res.email,
+            dateOfBirth: res.date_of_birth,
+            religionName: res.religion_name,
+            genderName: res.gender_name
+          };
+        }));
   }
-  private currentUserSubject: BehaviorSubject<UserInterface | null>;
-  public currentUser: Observable<UserInterface | null>;
+
   revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
   changePassword(data: any) {
     const submitData = {
@@ -102,21 +113,29 @@ export class AuthenticationService {
 
     return this.http.post<any>(url, loginData)
       .pipe(
-        tap((user) => rememberMe ? localStorage.setItem('currentUser', JSON.stringify(user)) : ''),
-        tap((user) => !rememberMe ? sessionStorage.setItem('currentUser', JSON.stringify(user)) : ''),
-        tap((user) => this.currentUserSubject.next(user)),
+        tap(user => rememberMe ? localStorage.setItem('currentUser', JSON.stringify(user)) : ''),
+        tap(user => !rememberMe ? sessionStorage.setItem('currentUser', JSON.stringify(user)) : ''),
+        tap(user => this.currentUserSubject.next(user)),
+        tap(() => this.isLoggedInSubject.next(true)),
         catchError(error => {
           return throwError(error);
         })
       );
   }
+  clearStorage = () => {
+    sessionStorage.removeItem('currentUser');
+    localStorage.removeItem('currentUser');
+    this.currentUserSubject.next(null);
+    this.isLoggedInSubject.next(false);
+  };
   logout(): Observable<any> {
+    if (!this.isLoggedInSubject.value) {
+      return EMPTY;
+    }
+
     return this.revokeToken.pipe(
-      tap(() => {
-        sessionStorage.removeItem('currentUser');
-        localStorage.removeItem('currentUser');
-        this.currentUserSubject.next(null);
-      })
+      catchError(() => EMPTY),
+      tap(this.clearStorage)
     );
   }
 }

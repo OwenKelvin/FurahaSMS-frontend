@@ -1,12 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 
 import { TimeTableService } from './time-table.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('TimeTableService', () => {
   let service: TimeTableService;
 
   beforeEach(() => {
-    TestBed.configureTestingModule({});
+    TestBed.configureTestingModule({
+      imports: [HttpClientTestingModule],
+    });
     service = TestBed.inject(TimeTableService);
   });
 

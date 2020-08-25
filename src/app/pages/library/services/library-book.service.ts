@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
+import { stringify } from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -23,9 +24,8 @@ export class LibraryBookService {
   }
 
   filter(params: any): Observable<any[]> {
-    const querystring = require('querystring');
 
-    const queryString = querystring.stringify(params);
+    const queryString = stringify(params);
 
     return this.http.get<any[]>(`api/library-books/filter?${queryString}`);
   }

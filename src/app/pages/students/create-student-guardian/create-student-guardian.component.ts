@@ -118,8 +118,8 @@ export class CreateStudentGuardianComponent implements OnInit, OnDestroy {
   }
   buildGuardianProfile(): FormGroup {
     return this.fb.group({
-      firstName: ['', Validators.required, Validators.minLength(2)],
-      lastName: ['', Validators.required, Validators.minLength(2)],
+      firstName: ['', [Validators.required, Validators.minLength(2)]],
+      lastName: ['', [Validators.required, Validators.minLength(2)]],
       otherNames: [''],
       middleName: [''],
       namePrefix: [''],

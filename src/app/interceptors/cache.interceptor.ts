@@ -22,7 +22,8 @@ export class CacheInterceptor implements HttpInterceptor {
 
     if (
       (req.method === 'GET' && cachableUrl.includes(req.url)) ||
-      (req.method === 'GET' && /api\/library-books\/classifications\/(\d)+\/classes/.test(req.url))
+      (req.method === 'GET' && /api\/library-books\/classifications\/(\d)+\/classes/.test(req.url)) ||
+      (req.method === 'GET' && /api\/academic-year\/\d\/time-tables\/\d\/timings/.test(req.url))
       ) {
       if (cachedResponse) {
         return of(cachedResponse);

@@ -21,7 +21,7 @@ const toastReducer = createReducer(
   initialState,
   on(loadToastShowsSuccess, (state, payload) => {
     return {
-      ...state, showMessage : true, ...payload
+      ...state, ...payload
     };
 
   }),

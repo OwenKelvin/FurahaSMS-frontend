@@ -127,6 +127,13 @@
 .icon-stopwatch:before { content: '\e87d'; } /* '' */
 .icon-note:before { content: '\e87e'; } /* '' */
 .icon-cog-1:before { content: '\e87f'; } /* '' */
+.icon-child:before { content: '\e880'; } /* '' */
+.icon-slideshare:before { content: '\e881'; } /* '' */
+.icon-barcode:before { content: '\e882'; } /* '' */
+.icon-police:before { content: '\e883'; } /* '' */
+.icon-college:before { content: '\e884'; } /* '' */
+.icon-school:before { content: '\e885'; } /* '' */
+.icon-ruler:before { content: '\f044'; } /* '' */
 .icon-move:before { content: '\f047'; } /* '' */
 .icon-users-1:before { content: '\f064'; } /* '' */
 .icon-link-ext:before { content: '\f08e'; } /* '' */
