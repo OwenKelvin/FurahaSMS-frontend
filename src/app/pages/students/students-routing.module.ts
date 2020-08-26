@@ -6,8 +6,17 @@ import { ViewStudentGuardiansComponent } from './view-student-guardians/view-stu
 import { ViewStudentAcademicsComponent } from './view-student-academics/view-student-academics.component';
 import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 import { CreateStudentAcademicsComponent } from './create-student-academics/create-student-academics.component';
+import {StudentDashboardComponent} from './student-dashboard/student-dashboard.component';
 
 const routes: Routes = [
+  {
+    path: '',
+    pathMatch: 'full',
+    data: {
+      breadcrumb: null
+    },
+    component: StudentDashboardComponent
+  },
 
   {
     path: ':id/guardians/create',

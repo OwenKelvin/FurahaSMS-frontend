@@ -1,30 +1,45 @@
-import { Injectable } from '@angular/core';
-import { Observable, throwError, noop } from 'rxjs';
-import { catchError, map, tap } from 'rxjs/operators';
-import { HttpClient } from '@angular/common/http';
-import { Store, select } from '@ngrx/store';
-import { selectStudent } from '../pages/students/store/selectors/student-profile.selectors';
-import { loadStudentProfiles } from '../pages/students/store/actions/student-profile.actions';
+import {Injectable} from '@angular/core';
+import {Observable, throwError, noop} from 'rxjs';
+import {catchError, map, tap} from 'rxjs/operators';
+import {HttpClient} from '@angular/common/http';
+import {Store, select} from '@ngrx/store';
+import {selectStudent} from '../pages/students/store/selectors/student-profile.selectors';
+import {loadStudentProfiles} from '../pages/students/store/actions/student-profile.actions';
+import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudentService {
+  url = 'api/students';
+
+  getStudents(data: { stream: number[], academicYear: number, classLevel: number[] }) {
+
+    const url = `${this.url}?${stringify({...data, last: 30})}`;
+    return this.http.get<any[]>(url).pipe(
+      map(res => res.map(item => ({
+        ...item,
+        name: `${item.first_name} ${item.last_name}`
+      })))
+    )
+  }
 
   constructor(
     private http: HttpClient,
     private store: Store
-  ) { }
+  ) {
+  }
 
   loadStudentProfile$ = (id: number) => this.store.pipe(
     select(selectStudent(id)),
-    tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({ data: { id } })) : null)
+    tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({data: {id}})) : null)
   )
 
   createNewStudent(newStudentData: any): Observable<any> {
 
     return this.save(newStudentData);
   }
+
   save(data: any, idNumber: any = null): Observable<any> {
     const submitData = {
       first_name: data.firstName,
@@ -42,7 +57,7 @@ export class StudentService {
 
     if (idNumber) {
       url = `${url}/${data.id}`;
-      return this.http.patch<any>(url, { ...submitData }).pipe(map(user => {
+      return this.http.patch<any>(url, {...submitData}).pipe(map(user => {
         return user;
       }));
     } else {
@@ -51,6 +66,7 @@ export class StudentService {
       }));
     }
   }
+
   getStudentById(id: string | number): Observable<any> {
     const url = `api/students?id=${id}`;
     return this.http.get<any>(url)
@@ -69,6 +85,7 @@ export class StudentService {
         })
       );
   }
+
   getStudentBySchoolId(idNumber: string | number): Observable<any> {
     const url = `api/student/id-number?q=${idNumber}`;
     return this.http.get<any>(url)
@@ -90,8 +107,8 @@ export class StudentService {
   getStudentByName(query: string): Observable<any[]> {
     return this.http.get<any>(
       'api/students', {
-      params: { q: query }
-    }).pipe(
+        params: {q: query}
+      }).pipe(
       map((data: any) => data.map((item: any) => ({
         ...item,
         name: item.first_name + ' ' + item.last_name + ' ' + (item.middle_name ? item.middle_name : ''),

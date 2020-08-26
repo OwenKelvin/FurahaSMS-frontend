@@ -14,8 +14,8 @@ label {
 }
 
 .ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
-  
-  height: 100%;
+
+  /*height: 100%;*/
   margin: 0;
 }
 .ng-select .ng-select-container {
@@ -30,18 +30,16 @@ label {
     color: black;
 }
 
-.ng-select.ng-select-multiple .ng-select-container {
-  min-height: 100px ;
-}
+/*.ng-select.ng-select-multiple .ng-select-container {*/
+/*  !*min-height: 100px ;*!*/
+/*}*/
 .ng-select .ng-value {
   color: black;
   background-color: rgba(226, 226, 226, 0.5);
   font-weight: bold;
   border-radius: 3px !important;
-  padding: 3px;
-  padding-left: 5px;
-  padding-right: 5px;
-  margin-top: 0px;
+  padding: 3px 5px;
+  margin-top: 0;
   margin-left: 4px;
 }
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
@@ -83,7 +81,7 @@ label {
 }
 .ng-select span.ng-arrow-wrapper:before {
   content: "\e82c" !important;
-  font-family: "fontello";
+  font-family: "fontello", sans-serif;
 }
 .ng-select.ng-select-opened>.ng-select-container .ng-arrow-wrapper {
   margin-right: 5px;
@@ -102,7 +100,7 @@ h1, h2, h3, h4 {
   line-height: 1.3rem;
   margin-top: 2px;
   border-left: 3px solid lightblue;
-  padding: 0px 0px 5px 5px;
+  padding: 0 0 5px 5px;
   font-weight: 500;
   color: aqua;
 }
@@ -161,7 +159,7 @@ a:hover {
   background: rgb(0, 117, 128);
 }
 .invalid-feedback {
-  
+
   color: rgb(240, 68, 68);
 }
 @media (max-width: 768px) {
@@ -254,8 +252,8 @@ a:hover {
   color: #F88A99 !important;
 }
 .btn-info {
-  background-color: #178192; 
-  
+  background-color: #178192;
+
 }
 :focus {
     outline-style: ridge;
@@ -293,7 +291,7 @@ html, body {
    background-color: rgba(128, 128, 128, 0.7);
 }
 .upload-profile-pic button{
- 
+
   width: 95%;
   height: 95%;
 }
@@ -308,7 +306,7 @@ html, body {
   padding: 0.1rem;
 }
 .custom-control-label, .custom-control-input{
- cursor: pointer !important; 
+ cursor: pointer !important;
 }
 
 @media (max-width: 400px) {

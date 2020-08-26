@@ -18,7 +18,7 @@
       <select formControlName='classLevel' id="classLevel" class="form-control">
         <option></option>
         <ng-container *ngIf='classLevels$ | async as classLevels; else loading_class_levels'>
-          
+
           <option [value]='classLevel.id' *ngFor='let classLevel of classLevels'> {{ classLevel.name }}</option>
         </ng-container>
         <ng-template #loading_class_levels>
@@ -52,6 +52,6 @@
     <app-validate-submit-buttons [isSubmitting]='isSubmitting'
       (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='academicCategory'>
     </app-validate-submit-buttons>
-  
+
   </section>
 </form>

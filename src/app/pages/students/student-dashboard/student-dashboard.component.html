@@ -1,0 +1,66 @@
+<h1>Students</h1>
+
+<section class="card p-2">
+  <div class="d-flex flex-wrap">
+    <a [routerLink]="['/admissions','students','create']" class="btn btn-primary ml-auto"><span class="icon-plus-circled"></span>New Student Admission</a>
+    <div class="col-12 d-flex justify-content-between flex-wrap">
+      <h2>Student List</h2>
+      <form [formGroup]="studentFilterForm" (submit)="submitStudentFilterForm()"
+            class="col-12 d-flex justify-content-between flex-wrap">
+        <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
+          <label for="AcademicYear">Academic Year</label>
+          <ng-select id="academicYear" style="width: 100%;" [items]="academicYears$ | async" bindLabel="name"
+                     bindValue="id" formControlName='academicYear'>
+          </ng-select>
+        </div>
+        <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
+          <label for="stream"> Select Stream</label>
+          <ng-select [multiple]="true" id='stream' [items]="streams$ | async" bindLabel="name"
+                     bindValue="id" formControlName='stream'>
+          </ng-select>
+        </div>
+        <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
+          <label for="classLevel">Class Level</label>
+          <ng-select [closeOnSelect]="false" [multiple]="true" style="width: 100%;" id='classLevel'
+                     [items]="classLevels$ | async" bindLabel="name"
+                     bindValue="id" formControlName='classLevel'>
+          </ng-select>
+        </div>
+        <div class="mt-2 col-12">
+          <button class='btn btn-success' [disabled]='!studentFilterForm.dirty'>
+            Get Students
+            <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          </button>
+        </div>
+      </form>
+    </div>
+
+    <div class="col-12 mt-3">
+      <app-print selector=".printable"></app-print>
+      <div class="printable">
+        <table class="table table-dark table-hover">
+          <thead>
+          <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th class="d-print-none">Action</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngIf="students$ | async as students">
+            <tr *ngFor="let student of students$ | async">
+              <td>#{{ student.id }}</td>
+              <td>{{ student.name}}</td>
+              <td><a aria-label="View Student" class="icon-eye" [routerLink]="[student.id]" ></a></td>
+            </tr>
+            <tr *ngIf="students.length === 0" class="alert alert-info d-print-none">
+              <td class="m-2" colspan="3"><span class="icon-info-circled"></span>No Data Found For Selected Criteria</td>
+            </tr>
+          </ng-container>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>

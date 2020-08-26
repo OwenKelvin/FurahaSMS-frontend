@@ -1,12 +1,12 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { AcademicYearService } from '../../academics/services/academic-year.service';
-import { Observable, combineLatest, of } from 'rxjs';
-import { ClassLevelService } from 'src/app/services/class-level.service';
-import { FormBuilder, FormGroup, FormArray, FormControl } from '@angular/forms';
-import { mergeMap, tap, map, takeWhile } from 'rxjs/operators';
-import { StudentAcademicsService } from '../services/student-academics.service';
-import { AcademicYearUnitService } from '../../academics/services/academic-year-unit.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, OnInit, OnDestroy} from '@angular/core';
+import {AcademicYearService} from '../../academics/services/academic-year.service';
+import {Observable, combineLatest, of} from 'rxjs';
+import {ClassLevelService} from 'src/app/services/class-level.service';
+import {FormBuilder, FormGroup, FormArray, FormControl} from '@angular/forms';
+import {mergeMap, tap, map, takeWhile} from 'rxjs/operators';
+import {StudentAcademicsService} from '../services/student-academics.service';
+import {AcademicYearUnitService} from '../../academics/services/academic-year-unit.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-create-student-academics',
@@ -31,7 +31,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
         if (item[0] === '' || item[1] === '') {
           return of([]);
         }
-        return this.academicYearUnitService.getUnitsFor({ academicYear: item[0], classLevel: item[1] });
+        return this.academicYearUnitService.getUnitsFor({academicYear: item[0], classLevel: item[1]});
       })
     );
   academicYearUnitLevels: any;
@@ -48,7 +48,8 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
     private fb: FormBuilder,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
 
@@ -56,7 +57,7 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
       if (res.length > 0) {
         this.unitLevels.setValue([]); // TODO fails if we reset the value
       }
-      res.map(({ id }: { id: number; }) => id).forEach((val: any) => {
+      res.map(({id}: { id: number; }) => id).forEach((val: any) => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
@@ -92,20 +93,22 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     const data = this.unitLevels.value;
     this.route.paramMap
-      .pipe(takeWhile(() => this.componentIsActive))
-      .pipe(map(params => params.get('id')))
-      .pipe(mergeMap(studentId => {
-        studentIdParam = studentId;
-        return this.studentAcademicsService.saveSubjectAllocation({ studentId, data });
-      }))
+      .pipe(
+        takeWhile(() => this.componentIsActive),
+        map(params => params.get('id')),
+        mergeMap(studentId => {
+          studentIdParam = studentId;
+          return this.studentAcademicsService.saveSubjectAllocation({studentId, data});
+        }))
       .subscribe({
         next: () => {
           this.isSubmitting = false;
-          this.router.navigate(['students', studentIdParam, 'academics']);
+          this.router.navigate(['students', studentIdParam, 'academics']).then();
         },
         error: () => this.isSubmitting = false
       });
   }
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }

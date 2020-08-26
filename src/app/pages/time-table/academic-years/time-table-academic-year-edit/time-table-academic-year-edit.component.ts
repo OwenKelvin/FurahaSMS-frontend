@@ -4,7 +4,7 @@ import {ActivatedRoute} from '@angular/router';
 import {map, mergeMap, tap} from 'rxjs/operators';
 import {AcademicYearService} from 'src/app/pages/academics/services/academic-year.service';
 import {Observable, combineLatest, BehaviorSubject} from 'rxjs';
-import {BsModalService} from 'ngx-bootstrap/modal';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {FormGroup, FormBuilder, Validators} from '@angular/forms';
 import {TeacherService} from 'src/app/pages/admissions/services/teacher.service';
 import {UnitsService} from 'src/app/services/units.service';
@@ -43,7 +43,7 @@ export class TimeTableAcademicYearEditComponent {
   classLevels$ = this.classLevelsService.all$;
   weekDays$ = this.timeTableService.daysOfTheWeek$;
   streams$ = this.streamsService.all$;
-  modalRef: any;
+  modalRef: BsModalRef;
   isOpen: boolean[] = [false];
   editItem$ = new BehaviorSubject({classLevelName: null, streamName: null, timeValue: null, dayOfWeekName: null});
 

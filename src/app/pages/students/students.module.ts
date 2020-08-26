@@ -19,6 +19,8 @@ import * as fromStudentProfile from './store/reducers/student-profile.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentProfileEffects } from './store/effects/student-profile.effects';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
+import {StudentDashboardModule} from "./student-dashboard/student-dashboard.module";
 
 
 @NgModule({
@@ -28,7 +30,7 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     ViewStudentInfoComponent,
     ViewStudentGuardiansComponent,
     ViewStudentAcademicsComponent,
-    CreateStudentAcademicsComponent
+    CreateStudentAcademicsComponent,
   ],
   imports: [
     CommonModule,
@@ -43,7 +45,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     StoreModule.forFeature(fromStudentProfile.studentProfileFeatureKey, fromStudentProfile.reducer),
     EffectsModule.forFeature([StudentProfileEffects]),
     AppUserProfileModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    StudentDashboardModule
 
   ]
 })
