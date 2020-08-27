@@ -3,7 +3,7 @@
 @import './vendor/fontello/css/fontello.css';
 @import './vendor/fontello/css/animation.css';
 @import './vendor/daneden/animate.css';
-@import 'flag-icon-css/css/flag-icon.css';
+@import '~flag-icon-css/css/flag-icon.css';
 
 label {
   margin-bottom: 0.1rem;
@@ -256,9 +256,7 @@ a:hover {
 
 }
 :focus {
-    outline-style: ridge;
-    outline-color: rgba(153, 205, 50, 0.5);
-    outline-width: 2px;
+  outline: rgba(153, 205, 50, 0.5) ridge 2px;
 }
 #main {
   padding-left: 10px;

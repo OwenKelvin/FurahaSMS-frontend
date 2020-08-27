@@ -1,12 +1,12 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import {formMixin} from '../../../shared/mixins/form.mixin';
-import {BehaviorSubject, Observable} from 'rxjs';
+import {BehaviorSubject, Observable, of} from 'rxjs';
 import {ClassStreamService} from '../../academics/services/class-stream.service';
 import {ClassLevelService} from '../../../services/class-level.service';
 import {AcademicYearService} from '../../academics/services/academic-year.service';
 import {StudentService} from '../../../services/student.service';
-import {tap} from 'rxjs/operators';
+import {catchError, tap} from 'rxjs/operators';
 
 @Component({
   selector: 'app-student-dashboard',
@@ -16,8 +16,8 @@ import {tap} from 'rxjs/operators';
 })
 export class StudentDashboardComponent extends formMixin() {
   studentFilterForm: FormGroup = this.fb.group({
-    classLevel: [],
-    stream: [],
+    classLevels: [],
+    streams: [],
     academicYear: []
   });
   streams$: Observable<any[]> = this.streamService.all$;
@@ -39,6 +39,7 @@ export class StudentDashboardComponent extends formMixin() {
   submitStudentFilterForm() {
     this.submitInProgressSubject$.next(true);
     this.studentService.getStudents(this.studentFilterForm.value).pipe(
+      catchError(() => of([])),
       tap(res => this.studentsSubject$.next(res)),
       tap(() => this.submitInProgressSubject$.next(false))
     ).subscribe()

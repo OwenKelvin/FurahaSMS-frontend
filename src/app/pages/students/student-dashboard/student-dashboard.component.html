@@ -1,5 +1,5 @@
 <h1>Students</h1>
-
+{{ studentFilterForm.value | json }}
 <section class="card p-2">
   <div class="d-flex flex-wrap">
     <a [routerLink]="['/admissions','students','create']" class="btn btn-primary ml-auto"><span class="icon-plus-circled"></span>New Student Admission</a>
@@ -16,14 +16,14 @@
         <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
           <label for="stream"> Select Stream</label>
           <ng-select [multiple]="true" id='stream' [items]="streams$ | async" bindLabel="name"
-                     bindValue="id" formControlName='stream'>
+                     bindValue="id" formControlName='streams'>
           </ng-select>
         </div>
         <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
           <label for="classLevel">Class Level</label>
           <ng-select [closeOnSelect]="false" [multiple]="true" style="width: 100%;" id='classLevel'
                      [items]="classLevels$ | async" bindLabel="name"
-                     bindValue="id" formControlName='classLevel'>
+                     bindValue="id" formControlName='classLevels'>
           </ng-select>
         </div>
         <div class="mt-2 col-12">
@@ -44,6 +44,7 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Class Level</th>
             <th class="d-print-none">Action</th>
           </tr>
           </thead>
@@ -52,6 +53,7 @@
             <tr *ngFor="let student of students$ | async">
               <td>#{{ student.id }}</td>
               <td>{{ student.name}}</td>
+              <td>{{ student.classLevelName }}</td>
               <td><a aria-label="View Student" class="icon-eye" [routerLink]="[student.id]" ></a></td>
             </tr>
             <tr *ngIf="students.length === 0" class="alert alert-info d-print-none">

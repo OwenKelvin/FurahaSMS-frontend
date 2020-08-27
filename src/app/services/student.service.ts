@@ -6,6 +6,7 @@ import {Store, select} from '@ngrx/store';
 import {selectStudent} from '../pages/students/store/selectors/student-profile.selectors';
 import {loadStudentProfiles} from '../pages/students/store/actions/student-profile.actions';
 import {stringify} from 'querystring';
+import {UrlParamsStringifyService} from '../shared/url-params-stringify/services/url-params-stringify.service';
 
 @Injectable({
   providedIn: 'root'
@@ -15,10 +16,13 @@ export class StudentService {
 
   getStudents(data: { stream: number[], academicYear: number, classLevel: number[] }) {
 
-    const url = `${this.url}?${stringify({...data, last: 30})}`;
+    const url = `${this.url}?${this.urlParamsStringifyService.stringify({...data, last: 30})}`;
     return this.http.get<any[]>(url).pipe(
+      tap(res => console.log(res)),
       map(res => res.map(item => ({
         ...item,
+        academicYearName: item.academic_year_name,
+        classLevelName: item.class_level_name,
         name: `${item.first_name} ${item.last_name}`
       })))
     )
@@ -26,7 +30,8 @@ export class StudentService {
 
   constructor(
     private http: HttpClient,
-    private store: Store
+    private store: Store,
+    private urlParamsStringifyService : UrlParamsStringifyService
   ) {
   }
 
