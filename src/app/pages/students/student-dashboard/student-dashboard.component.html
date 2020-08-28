@@ -43,7 +43,9 @@
           <tr>
             <th>ID</th>
             <th>Name</th>
+            <th>Gender</th>
             <th>Class Level</th>
+            <th>Stream</th>
             <th class="d-print-none">Action</th>
           </tr>
           </thead>
@@ -52,11 +54,13 @@
             <tr *ngFor="let student of students$ | async">
               <td>#{{ student.id }}</td>
               <td>{{ student.name}}</td>
+              <td>{{ student.genderAbbr}}</td>
               <td>{{ student.classLevelName }}</td>
+              <td>{{ student.streamName }}</td>
               <td><a aria-label="View Student" class="icon-eye" [routerLink]="[student.id]" ></a></td>
             </tr>
             <tr *ngIf="students.length === 0" class="alert alert-info d-print-none">
-              <td class="m-2" colspan="3"><span class="icon-info-circled"></span>No Data Found For Selected Criteria</td>
+              <td class="m-2" colspan="6"><span class="icon-info-circled"></span>No Data Found For Selected Criteria</td>
             </tr>
           </ng-container>
           </tbody>
