@@ -1,11 +1,10 @@
 import {Injectable} from '@angular/core';
-import {Observable, throwError, noop} from 'rxjs';
+import {Observable, throwError} from 'rxjs';
 import {catchError, map, tap} from 'rxjs/operators';
 import {HttpClient} from '@angular/common/http';
 import {Store, select} from '@ngrx/store';
 import {selectStudent} from '../pages/students/store/selectors/student-profile.selectors';
 import {loadStudentProfiles} from '../pages/students/store/actions/student-profile.actions';
-import {stringify} from 'querystring';
 import {UrlParamsStringifyService} from '../shared/url-params-stringify/services/url-params-stringify.service';
 
 @Injectable({
@@ -31,7 +30,7 @@ export class StudentService {
   constructor(
     private http: HttpClient,
     private store: Store,
-    private urlParamsStringifyService : UrlParamsStringifyService
+    private urlParamsStringifyService: UrlParamsStringifyService
   ) {
   }
 
@@ -124,6 +123,18 @@ export class StudentService {
         dateOfBirth: item.date_of_birth,
       })) || []),
       catchError((e) => throwError(e))
+    );
+  }
+
+  getStreamFor(params: { studentId: number; academicYearId: number; classLevelId: number }) {
+    const data = {
+      academic_year_id: params.academicYearId,
+      class_level_id: params.classLevelId
+    };
+    const url = `api/students/${params.studentId}/streams?${this.urlParamsStringifyService.stringify(data)}`;
+    return this.http.get<any>(url).pipe(
+      map(({id, name, abbreviation, associated_color: associatedColor}) =>
+        ({id, name, abbreviation, associatedColor}))
     );
   }
 }

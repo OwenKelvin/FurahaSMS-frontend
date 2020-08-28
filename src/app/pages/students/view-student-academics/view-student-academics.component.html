@@ -1,19 +1,31 @@
-
 <section *ngIf='academicYearSubjects$ | async as academicYearSubjects; else loading'>
-  <button [routerLink]='["/students", studentId,"academics", "create"]' type="button"
-    class="btn btn-sm btn-primary mt-2 mb-1">
+  <button *ngIf="editMode$ | async" [routerLink]='["/students", studentId,"academics", "create"]' type="button"
+          class="btn btn-sm btn-primary mt-2 mb-1">
     <span class="icon-plus-circled">Add To Academic Year</span>
   </button>
   <section *ngFor='let academicYearSubject of academicYearSubjects' class="card mt-1 p-2">
-    <h3>{{ academicYearSubject.academic_year_name }}</h3>
+    <h3>{{ academicYearSubject.academicYearName }}</h3>
+
+
     <section *ngFor='let classLevel of academicYearSubject.class_levels' class="m-3">
-     <div class="card">
-        <h4 class="card-header mb-2 ml-1">{{ classLevel.class_level_name }}</h4>
-        <div class="d-flex flex-wrap">
-          <span *ngFor='let unit of classLevel.units' class="badge badge-secondary m-2 p-2">{{ unit.name }}</span>
+      <div class="card">
+        <div class="card-header d-flex justify-content-between align-items-end  ml-1">
+          <h4 class="">{{ classLevel.class_level_name }}</h4>
+          <button *ngIf="editMode$ | async"
+                  [routerLink]='["/students", studentId,"academics", academicYearSubject.academicYearId, "edit", { classLevelId: classLevel.class_level_id }]'
+                  type="button"
+                  class="btn btn-sm btn-primary mt-2 mb-1"
+                  aria-label="Edit Academic Year Allocation"
+          >
+            <span class="icon-edit"></span>
+          </button>
         </div>
-        
-     </div>
+
+        <div class="d-flex flex-wrap">
+          <span *ngFor='let unit of classLevel.units' class="badge badge-secondary m-3 p-3">{{ unit.name }}</span>
+        </div>
+
+      </div>
 
     </section>
   </section>

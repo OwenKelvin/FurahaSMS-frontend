@@ -92,7 +92,7 @@ export class SelectComponent
 
   onChanges: ($value: any) => void;
   onTouched: () => void;
-  error: { required: string; } = { required: 'Please Select a Category' };;
+  error: { required: string; } = { required: 'Please Select a Category' };
   categorySelected: string | { id: number; name: string; }[] = '';
   categories: Array<any> = [];
   inputValue: string;
@@ -175,11 +175,11 @@ export class SelectComponent
         break;
       case 'support-staffs':
         this.setParams({ label: 'Units' });
-        this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
+        this.categories$ = this.unitLevel.getFilter({ academicYearId: this.parentId });
         break;
       case 'units:academic-year':
         this.setParams({ label: 'Units' });
-        this.categories$ = this.unitLevel.getFilter({ academicYear: this.parentId });
+        this.categories$ = this.unitLevel.getFilter({ academicYearId: this.parentId });
         break;
       case 'gender':
         this.setParams({ label: 'Gender' });
@@ -209,7 +209,7 @@ export class SelectComponent
     if (parentId) {
       if (this.type === 'units:academic-year') {
         this.unitLevel
-          .getFilter({ academicYear: this.parentId });
+          .getFilter({ academicYearId: this.parentId });
       }
       if (this.type === 'unit-levels') {
         this.categories$ = this.unitLevel.getAll({ unit: this.parentId});

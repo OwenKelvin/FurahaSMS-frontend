@@ -2,12 +2,13 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Observable } from 'rxjs';
+import {UrlParamsStringifyService} from '../shared/url-params-stringify/services/url-params-stringify.service';
 
 @Injectable({
   providedIn: 'root'
 })
 export class UnitLevelService {
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient, private UrlStringify: UrlParamsStringifyService) {}
   delete(id: number): Observable<any> {
     const url = `api/curriculum/unit-levels/${id}`;
     return this.http.delete<any>(url).pipe(
@@ -16,14 +17,12 @@ export class UnitLevelService {
       })
     );
   }
-  getFilter(
-    data: { academicYear: number | null } = { academicYear: null }
-  ): Observable<any> {
-    const { academicYear } = data;
-    let url = 'api/curriculum/unit-levels/?';
-    if (academicYear) {
-      url += 'academic-year=' + academicYear;
-    }
+  getFilter(data: { academicYearId: number | null, classLevelId?: number }): Observable<any> {
+    const params = {
+      academic_year_id : data?.academicYearId,
+      class_level_id: data?.classLevelId
+    };
+    const url = `api/curriculum/unit-levels/?${this.UrlStringify.stringify(params)}`;
     return this.http.get<any>(url);
   }
   getAll(data: {unit: number | null} = { unit: null }) {

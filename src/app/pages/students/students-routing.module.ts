@@ -7,6 +7,7 @@ import { ViewStudentAcademicsComponent } from './view-student-academics/view-stu
 import { CreateStudentGuardianComponent } from './create-student-guardian/create-student-guardian.component';
 import { CreateStudentAcademicsComponent } from './create-student-academics/create-student-academics.component';
 import {StudentDashboardComponent} from './student-dashboard/student-dashboard.component';
+import {EditStudentAcademicsComponent} from "./edit-student-academics/edit-student-academics.component";
 
 const routes: Routes = [
   {
@@ -25,6 +26,10 @@ const routes: Routes = [
   {
     path: ':id/academics/create',
     component: CreateStudentAcademicsComponent
+  },
+  {
+    path: ':studentId/academics/:id/edit',
+    component: EditStudentAcademicsComponent
   },
   {
     path: ':id',

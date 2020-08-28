@@ -1,0 +1,52 @@
+<h1>Student Academic Details Editing</h1>
+
+<section class="card mt-2 p-2">
+  <div *ngIf="v$ | async as v">
+    <table class="table table-dark">
+      <thead>
+      <th>Student Name</th>
+      <th>Academic Year</th>
+      <th>Class Level</th>
+      </thead>
+      <tbody>
+      <td><a [routerLink]='["/students", v.student?.id]' >{{ v.student?.firstName + ' ' + v.student?.lastName }}</a></td>
+      <td>{{ v.academicYear?.name }}</td>
+      <td>{{ v.classLevel?.name }}</td>
+      </tbody>
+    </table>
+    <form [formGroup]="unitLevelForm" (submit)="submitUnitLevelForm()">
+      <div class="card p-2">
+        <div formArrayName="unitLevels" class=" d-flex justify-content-start flex-wrap">
+          <div class="col-lg-12">
+            <h2>Units taken</h2>
+          </div>
+          <div *ngFor="let item of unitLevels.controls; let i = index" [formGroupName]="i" class="col-lg-4 nt-3 mb-3">
+            <app-checkbox [label]='item.value.name' formControlName="value"></app-checkbox>
+          </div>
+        </div>
+      </div>
+      <div class="card p-2 mt-2">
+        <h2>Stream Allocation</h2>
+        <div class=" p-2 d-flex justify-content-start flex-wrap">
+          <div *ngFor="let stream of v.streams" class="col-lg-4">
+            <div class="custom-control custom-radio">
+              <input formControlName="stream" type="radio" class="custom-control-input" [id]="'customRadio' + stream.id" [value]="stream.id">
+              <label class="custom-control-label" [attr.for]="'customRadio' + stream.id"> {{ stream.name }}</label>
+            </div>
+          </div>
+        </div>
+
+      </div>
+      <div>
+        <section class='d-flex justify-content-end mt-2'>
+          <button [disabled]='!unitLevelForm.valid || (submitInProgressAction$ | async)' class='btn btn-success' type='submit'>
+            Save Changes
+            <i *ngIf='unitLevelForm.valid && (submitInProgressAction$ | async) === false' class='icon-ok'></i>
+            <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+          </button>
+        </section>
+      </div>
+
+    </form>
+  </div>
+</section>
