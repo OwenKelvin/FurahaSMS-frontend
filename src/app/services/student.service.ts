@@ -20,6 +20,8 @@ export class StudentService {
       tap(res => console.log(res)),
       map(res => res.map(item => ({
         ...item,
+        genderAbbr: item.gender_abbreviation,
+        streamName: item.stream_name,
         academicYearName: item.academic_year_name,
         classLevelName: item.class_level_name,
         name: `${item.first_name} ${item.last_name}`

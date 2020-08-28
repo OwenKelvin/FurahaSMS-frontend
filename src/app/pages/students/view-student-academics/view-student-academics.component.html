@@ -20,9 +20,13 @@
             <span class="icon-edit"></span>
           </button>
         </div>
-
-        <div class="d-flex flex-wrap">
-          <span *ngFor='let unit of classLevel.units' class="badge badge-secondary m-3 p-3">{{ unit.name }}</span>
+        <div class="d-flex flex-wrap align-items-center ml-4">
+          <h5 class="m-3">Stream</h5>
+          {{  classLevel.stream_name }}({{  classLevel.stream_abbreviation}})
+        </div>
+        <div class="d-flex flex-wrap align-items-center ml-4">
+          <h5 class="m-3">Units</h5>
+          <span *ngFor='let unit of classLevel.units' class="badge badge-secondary m-3 p-3 mt-1">{{ unit.name }}</span>
         </div>
 
       </div>
