@@ -10,7 +10,7 @@
   </div>
 </div>
 
-<section class='d-flex flex-wrap'>
+<section class='d-flex flex-wrap pb-1'>
   <section class='col-sm-5 col-md-4 col-lg-2 d-flex justify-content-center'>
     <span *ngIf='profPicLoadingAction$ | async' class="prof-pic-loading d-flex align-items-center justify-content-center"><i class='icon-spin3 animate-spin'></i></span>
     <div *ngIf='editMode' class="upload-profile-pic">
@@ -49,8 +49,8 @@
       </li>
     </ul>
   </section>
-  <section class='col-sm-12 info-route'>
-    <router-outlet studentId='1'></router-outlet>
+  <section class='col-sm-12 info-route pb-2'>
+    <router-outlet></router-outlet>
   </section>
 </section>
 
@@ -74,7 +74,7 @@
 
     <button (click)='hideModal()' class="btn btn-secondary">Cancel</button>
     <button (click)='saveProfilePic()' class="btn btn-success">
-      
+
       Save Profile Picture
       <i *ngIf='!savingProfPic' class='icon-floppy'></i>
       <i *ngIf='savingProfPic' class='icon-spin3 animate-spin'></i>

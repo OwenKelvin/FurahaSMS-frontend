@@ -2,7 +2,7 @@ import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AcademicYearService} from '../../academics/services/academic-year.service';
 import {combineLatest, Observable, of} from 'rxjs';
 import {ClassLevelService} from 'src/app/services/class-level.service';
-import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {StudentAcademicsService} from '../services/student-academics.service';
 import {AcademicYearUnitService} from '../../academics/services/academic-year-unit.service';
@@ -10,7 +10,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {ClassStreamService} from '../../academics/services/class-stream.service';
 import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
 import {loadingMixin} from '../../../shared/mixins/loading.mixin';
-import {formMixin, getFormValidationErrors} from '../../../shared/mixins/form.mixin';
+import {formMixin} from '../../../shared/mixins/form.mixin';
 import {StudentService} from '../../../services/student.service';
 
 @Component({
@@ -31,7 +31,7 @@ export class CreateStudentAcademicsComponent
   academicYears$: Observable<any> = this.academicYearService.all$;
   classLevels$: Observable<any> = this.classLevelService.getAll();
   streams$: Observable<any[]> = this.streamsService.all$;
-  academicCategory: FormGroup = this.fb.group({
+  itemForm: FormGroup = this.fb.group({
     academicYear: ['', [Validators.required]],
     classLevel: ['', Validators.required],
     unitLevels: this.fb.array([]),
@@ -41,8 +41,8 @@ export class CreateStudentAcademicsComponent
     map(([streams, student, academicYears, classLevels]) => ({streams, student, academicYears, classLevels}))
   );
   unitLevels$: Observable<any> = combineLatest([
-    (this.academicCategory.get('academicYear') as FormControl).valueChanges,
-    (this.academicCategory.get('classLevel') as FormControl).valueChanges
+    (this.itemForm.get('academicYear') as FormControl).valueChanges,
+    (this.itemForm.get('classLevel') as FormControl).valueChanges
   ]).pipe(
     tap(() => this.loadingSubject$.next(false)),
     mergeMap(item => {
@@ -88,17 +88,17 @@ export class CreateStudentAcademicsComponent
   }
 
   get unitLevels(): FormArray {
-    return this.academicCategory.get('unitLevels') as FormArray;
+    return this.itemForm.get('unitLevels') as FormArray;
   }
-
   onCheckboxChange(e: any) {
     if (e.target.checked) {
-      this.unitLevels.push(new FormControl(e.target.value));
-      this.unitLevels.push(new FormControl(e.target.value));
+      if(!this.unitLevels.controls.find(({ value }) => Number(value) === Number(e.target.value))) {
+        this.unitLevels.push(new FormControl(Number(e.target.value)));
+      }
     } else {
       let i = 0;
       this.unitLevels.controls.forEach((item: FormControl) => {
-        if (item.value === e.target.value) {
+        if (Number(item.value) === Number(e.target.value)) {
           this.unitLevels.removeAt(i);
           return;
         }
@@ -110,7 +110,7 @@ export class CreateStudentAcademicsComponent
   submitAllocationForm() {
 
     this.submitInProgressSubject$.next(true)
-    const data = this.academicCategory.value;
+    const data = this.itemForm.value;
     this.studentId$
       .pipe(
         mergeMap(studentId => this.studentAcademicsService.saveSubjectAllocation({studentId, data})))
@@ -121,15 +121,6 @@ export class CreateStudentAcademicsComponent
         },
         error: () => this.submitInProgressSubject$.next(false)
       });
-  }
-
-  get formErrors() {
-    return getFormValidationErrors({
-      academicYear: this.academicCategory.get('academicYear') as AbstractControl,
-      classLevel: this.academicCategory.get('classLevel') as AbstractControl,
-      unitLevels: this.academicCategory.get('unitLevels') as AbstractControl,
-      stream: this.academicCategory.get('stream') as AbstractControl,
-    })
   }
 
 }

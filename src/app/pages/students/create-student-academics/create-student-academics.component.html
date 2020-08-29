@@ -1,5 +1,5 @@
 <h1>Allocate Subjects to Student</h1>
-<form [formGroup]='academicCategory' (submit)='submitAllocationForm()' class="card p-2">
+<form [formGroup]='itemForm' (submit)='submitAllocationForm()' class="card p-2">
   <section class="d-flex flex-wrap" *ngIf="v$ | async as v">
     <section class="col-12">
       <table class="table table-dark">
@@ -71,11 +71,11 @@
       <div>
         <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
                                      (validationButtonClicked)='triggerValidationSubject$.next(true)'
-                                     [formItem]='academicCategory'>
+                                     [formItem]='itemForm'>
         </app-validate-submit-buttons>
       </div>
       <div class="m-2" *ngIf="triggerValidationAction$ | async">
-        <app-form-errors [form]="academicCategory">
+        <app-form-errors [form]="itemForm">
         </app-form-errors>
       </div>
     </section>
