@@ -1,44 +1,59 @@
-import {Component, OnInit, OnDestroy} from '@angular/core';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {AcademicYearService} from '../../academics/services/academic-year.service';
-import {Observable, combineLatest, of} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {ClassLevelService} from 'src/app/services/class-level.service';
-import {FormBuilder, FormGroup, FormArray, FormControl} from '@angular/forms';
-import {mergeMap, tap, map, takeWhile} from 'rxjs/operators';
+import {AbstractControl, FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {StudentAcademicsService} from '../services/student-academics.service';
 import {AcademicYearUnitService} from '../../academics/services/academic-year-unit.service';
 import {ActivatedRoute, Router} from '@angular/router';
+import {ClassStreamService} from '../../academics/services/class-stream.service';
+import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
+import {loadingMixin} from '../../../shared/mixins/loading.mixin';
+import {formMixin, getFormValidationErrors} from '../../../shared/mixins/form.mixin';
+import {StudentService} from '../../../services/student.service';
 
 @Component({
   selector: 'app-create-student-academics',
   templateUrl: './create-student-academics.component.html',
-  styleUrls: ['./create-student-academics.component.css']
+  styleUrls: ['./create-student-academics.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
+export class CreateStudentAcademicsComponent
+  extends subscribedContainerMixin(loadingMixin(formMixin()))
+  implements OnInit {
+  studentId$: Observable<number> = this.route.paramMap.pipe(
+    map(params => Number(params.get('id')))
+  );
+  student$ = this.studentId$.pipe(
+    mergeMap(id => this.studentService.loadStudentProfile$(id))
+  )
   academicYears$: Observable<any> = this.academicYearService.all$;
   classLevels$: Observable<any> = this.classLevelService.getAll();
+  streams$: Observable<any[]> = this.streamsService.all$;
   academicCategory: FormGroup = this.fb.group({
-    academicYear: [''],
-    classLevel: [''],
-    unitLevels: this.fb.array([])
+    academicYear: ['', [Validators.required]],
+    classLevel: ['', Validators.required],
+    unitLevels: this.fb.array([]),
+    stream: []
   });
+  v$ = combineLatest([this.streams$, this.student$, this.academicYears$, this.classLevels$]).pipe(
+    map(([streams, student, academicYears, classLevels]) => ({streams, student, academicYears, classLevels}))
+  );
   unitLevels$: Observable<any> = combineLatest([
     (this.academicCategory.get('academicYear') as FormControl).valueChanges,
     (this.academicCategory.get('classLevel') as FormControl).valueChanges
-  ])
-    .pipe(
-      tap(() => this.unitsLoaded = false),
-      mergeMap(item => {
-        if (item[0] === '' || item[1] === '') {
-          return of([]);
-        }
-        return this.academicYearUnitService.getUnitsFor({academicYear: item[0], classLevel: item[1]});
-      })
-    );
+  ]).pipe(
+    tap(() => this.loadingSubject$.next(false)),
+    mergeMap(item => {
+      if (item[0] === '' || item[1] === '') {
+        return of([]);
+      }
+      return this.academicYearUnitService.getUnitsFor({academicYear: item[0], classLevel: item[1]});
+    }),
+    takeUntil(this.destroyed$)
+  );
   academicYearUnitLevels: any;
-  unitsLoaded: boolean | undefined;
-  triggerValidation: boolean;
-  isSubmitting = false;
-  componentIsActive = true;
 
   constructor(
     private classLevelService: ClassLevelService,
@@ -47,23 +62,27 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
     private academicYearUnitService: AcademicYearUnitService,
     private fb: FormBuilder,
     private router: Router,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private streamsService: ClassStreamService,
+    private studentService: StudentService,
   ) {
+    super();
   }
 
   ngOnInit() {
-
+    this.loadingSubject$.next(undefined);
     this.unitLevels$.subscribe(res => {
-      if (res.length > 0) {
-        this.unitLevels.setValue([]); // TODO fails if we reset the value
+      this.unitLevels.reset();
+      while (this.unitLevels.length) {
+        this.unitLevels.removeAt(0);
       }
       res.map(({id}: { id: number; }) => id).forEach((val: any) => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
-      this.unitsLoaded = true;
+      this.loadingSubject$.next(true);
       if (res.length === 0) {
-        this.unitsLoaded = undefined;
+        this.loadingSubject$.next(undefined);
       }
     });
   }
@@ -89,28 +108,28 @@ export class CreateStudentAcademicsComponent implements OnInit, OnDestroy {
   }
 
   submitAllocationForm() {
-    let studentIdParam: any;
-    this.isSubmitting = true;
-    const data = this.unitLevels.value;
-    this.route.paramMap
+
+    this.submitInProgressSubject$.next(true)
+    const data = this.academicCategory.value;
+    this.studentId$
       .pipe(
-        takeWhile(() => this.componentIsActive),
-        map(params => params.get('id')),
-        mergeMap(studentId => {
-          studentIdParam = studentId;
-          return this.studentAcademicsService.saveSubjectAllocation({studentId, data});
-        }))
+        mergeMap(studentId => this.studentAcademicsService.saveSubjectAllocation({studentId, data})))
       .subscribe({
         next: () => {
-          this.isSubmitting = false;
-          this.router.navigate(['students', studentIdParam, 'academics']).then();
+          this.submitInProgressSubject$.next(false)
+          this.router.navigate(['students', (this.route.params as any).value.id, 'academics']).then();
         },
-        error: () => this.isSubmitting = false
+        error: () => this.submitInProgressSubject$.next(false)
       });
   }
 
-  ngOnDestroy() {
-    this.componentIsActive = false;
+  get formErrors() {
+    return getFormValidationErrors({
+      academicYear: this.academicCategory.get('academicYear') as AbstractControl,
+      classLevel: this.academicCategory.get('classLevel') as AbstractControl,
+      unitLevels: this.academicCategory.get('unitLevels') as AbstractControl,
+      stream: this.academicCategory.get('stream') as AbstractControl,
+    })
   }
 
 }

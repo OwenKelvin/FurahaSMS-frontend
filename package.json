@@ -42,6 +42,7 @@
     "@ngrx/entity": "^10.0.0",
     "@ngrx/store": "^10.0.0",
     "@ngrx/store-devtools": "^10.0.0",
+    "@ngx-translate/core": "^13.0.0",
     "@tinymce/tinymce-angular": "^4.1.0",
     "@types/pouchdb": "^6.4.0",
     "bootstrap": "^4.5.0",

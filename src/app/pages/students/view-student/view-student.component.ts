@@ -24,10 +24,10 @@ export class ViewStudentComponent implements OnInit {
 
   ngOnInit() {
     this.student$ = this.route.paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(tap(id => this.store.dispatch(loadStudentProfiles({ data: { id } }))))
-      .pipe(tap(id => this.studentId = id))
-      .pipe(mergeMap(id => this.store.pipe(select(selectStudent(id)))))
+      .pipe(map(params => Number(params.get('id'))),
+        tap(id => this.store.dispatch(loadStudentProfiles({ data: { id } }))),
+        tap(id => this.studentId = id),
+        mergeMap(id => this.store.pipe(select(selectStudent(id)))))
 
   }
   changeProfile(event: { fieldName: string, fieldNewValue: string; } | Event) {
