@@ -22,7 +22,6 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
 import {StudentDashboardModule} from './student-dashboard/student-dashboard.module';
 import { EditStudentAcademicsComponent } from './edit-student-academics/edit-student-academics.component';
 import {AppCheckboxModule} from '../../shared/checkbox/checkbox.module';
-import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
 
 @NgModule({
   declarations: [
@@ -50,8 +49,6 @@ import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
     AppValidateSubmitButtonsModule,
     StudentDashboardModule,
     AppCheckboxModule,
-    FormErrorsModule
-
   ]
 })
 export class StudentsModule { }

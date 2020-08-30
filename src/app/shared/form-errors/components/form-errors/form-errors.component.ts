@@ -14,6 +14,7 @@ interface AllValidationErrors {
 })
 export class FormErrorsComponent implements OnInit {
   @Input() form: FormGroup;
+  @Input() validated: boolean;
   @Input() messages: { [id: string ]: string };
   constructor(
   ) {

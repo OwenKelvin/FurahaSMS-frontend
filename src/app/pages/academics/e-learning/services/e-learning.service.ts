@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
+import {Observable, of} from 'rxjs';
 import { ICourse } from '../interfaces/course.interface';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
@@ -48,6 +48,7 @@ export class ELearningService {
   }
 
   saveCourse(value: any): Observable<any> {
+    return of({})
     return this.http.post('api/e-learning/courses', {
       unit_id: value.unit,
       name: value.name,

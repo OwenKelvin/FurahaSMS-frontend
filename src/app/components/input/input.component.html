@@ -1,9 +1,9 @@
 <section class='form-group mb-4' style="position: relative;">
   <section class='d-flex flex-wrap m-0 p-0 align-items-center'>
-  	<label [class]='"col-md-4 col-lg-3 col-sm-12 control-label " + labelClass + " m-0 p-0"' [for]='id'>
-			<span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
+  	<label [class]='"col-12 control-label " + labelClass' [for]='id'>
+      <app-star-required></app-star-required>{{ label }}
 		</label>
-	  <section [class]='inputClass ? inputClass + " input-group" + " m-0 p-0": "col-md-8 col-lg-9 " + inputClass + " input-group" + " m-0 p-0"'>
+	  <section [class]='inputClass ? inputClass + " input-group" + " m-0 p-0": "col-12 " + inputClass + " input-group" + " m-0 p-0"'>
 	  	<section *ngIf='prependIcon' class='input-group-prepend' [class.is-invalid]='fieldError'>
 	      <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
 	    </section>

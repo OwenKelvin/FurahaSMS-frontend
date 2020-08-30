@@ -4,12 +4,13 @@ import { Constructor } from './constructor.mixin';
 import { BsModalRef, BsModalService, ModalOptions } from 'ngx-bootstrap/modal';
 import { Store, select } from '@ngrx/store';
 import { closeModals, loadModals } from 'src/app/store/actions/modal.actions';
-import { filter, tap, takeWhile } from 'rxjs/operators';
+import {filter, tap, takeUntil} from 'rxjs/operators';
 import { selectModalOpenState } from 'src/app/store/selectors/modal.selectors';
+import {Subject} from 'rxjs';
 
 export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
   class extends BaseClass {
-    componentIsActive = true;
+    destroyed$ = new Subject<void>();
     config: ModalOptions = {
       initialState: { id: 0 },
       backdrop: true,
@@ -34,7 +35,7 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
         select(selectModalOpenState),
         filter(open => !open),
         tap(() => this.modalRef.hide()),
-        takeWhile(() => this.componentIsActive)
+        takeUntil(this.destroyed$)
       ).subscribe();
     }
 

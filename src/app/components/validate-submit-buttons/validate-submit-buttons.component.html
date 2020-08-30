@@ -1,4 +1,8 @@
-<section class='d-flex justify-content-end'>
+
+<app-form-errors [validated]="validatedAction$ | async" [form]="formItem">
+</app-form-errors>
+
+<section class='d-flex justify-content-end mt-2'>
   <button *ngIf='!formItem.valid' (click)='triggerValidation()' type='button'
     class='btn btn-secondary mr-4'>Validate</button>
 
@@ -7,7 +11,7 @@
     <span #ref>
       <ng-content></ng-content>
     </span>
-    
+
     <span *ngIf="ref.children.length === 0">
       Save Details
     </span>
