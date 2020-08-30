@@ -1,26 +1,26 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
+import { Component, OnInit, TemplateRef} from '@angular/core';
 import { Store, select } from '@ngrx/store';
 import { ActivatedRoute, Router } from '@angular/router';
-import { map, mergeMap, tap, takeWhile } from 'rxjs/operators';
+import {map, mergeMap, tap, takeUntil} from 'rxjs/operators';
 import { selectAcademicsCourse } from '../../../store/selectors/courses.selectors';
 import { ICourse } from '../../interfaces/course.interface';
 import { Observable } from 'rxjs';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { ELearningService } from '../../services/e-learning.service';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { StudyMaterialsService } from '../../../study-materials/services/study-materials.service';
+import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
 
 @Component({
   selector: 'app-e-learning-edit-course',
   templateUrl: './e-learning-edit-course.component.html',
   styleUrls: ['./e-learning-edit-course.component.css']
 })
-export class ELearningEditCourseComponent implements OnInit, OnDestroy {
+export class ELearningEditCourseComponent extends subscribedContainerMixin() implements OnInit {
   course$: Observable<ICourse | null>;
   course: ICourse | null;
   modalRef: BsModalRef;
   courseNameConfirmation: string;
-  componentIsActive = true;
   deletingCourse: boolean;
   newContentUploadForm: FormGroup;
   triggerNewContentValidation: boolean;
@@ -38,7 +38,7 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
     private router: Router,
     private fb: FormBuilder,
     private studyMaterialsService: StudyMaterialsService
-  ) { }
+  ) { super(); }
 
   ngOnInit(): void {
     this.getCourses();
@@ -77,10 +77,11 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
     this.deletingCourse = true;
     const course: any = this.course ? this.course : {};
     this.eLearningService.deleteCourseWithId(course.id)
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(() => {
-        this.modalRef.hide();
-        this.router.navigate(['academics/', 'e-learning', 'admin']);
+      .subscribe({
+        next: () => {
+          this.modalRef.hide();
+          this.router.navigate(['academics/', 'e-learning', 'admin']).then();
+        }
       });
   }
   saveNewContent() {
@@ -108,9 +109,8 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
               }
             })
           ),
-          takeWhile(() => this.componentIsActive))
+         takeUntil(this.destroyed$))
         .subscribe(() => {
-          // this.course$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
           this.getCourses();
           this.savingNewContent = false;
           this.modalRef.hide();
@@ -155,8 +155,5 @@ export class ELearningEditCourseComponent implements OnInit, OnDestroy {
       default:
         return this.newContentUploadForm;
     }
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

@@ -1,44 +1,50 @@
-<ng-container *ngIf='course$ | async; else loading'>
-  <h1>View Course <span class="icon-right-dir"></span> {{ course?.name }}</h1>
+<ng-container *ngIf='(v$ | async) as v; else loading'>
+  <h1>View Course <span class="icon-right-dir"></span> {{ v.course?.name }}</h1>
   <table class="table table-dark">
     <tbody>
       <tr>
         <th>Class Level</th>
-        <td>{{ course?.classLevelName }}({{course?.classLevelAbbreviation}})</td>
+        <td>{{ v.course?.classLevelName }}({{v.course?.classLevelAbbreviation}})</td>
       </tr>
       <tr>
         <th>Unit/Subject</th>
-        <td>{{ course?.unitName }}({{ course?.unitAbbreviation }})</td>
+        <td>{{ v.course?.unitName }}({{ v.course?.unitAbbreviation }})</td>
       </tr>
       <tr>
         <th>Academic Year</th>
-        <td>{{ course?.academicYearName }}</td>
+        <td>{{ v.course?.academicYearName }}</td>
       </tr>
     </tbody>
   </table>
   <section>
     <h2>Contents</h2>
+    <a [routerLink]="['/academics','e-learning','admin','courses', v.courseId,'edit']" type="button" class="btn btn-primary" *ngIf="iCanUploadCurriculumContent$ | async">
+      <span class="icon-edit"></span>
+      Edit Course Content</a>
     <section class="d-flex flex-wrap justify-content-center">
-      <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of course?.topics; let i = index'>
-        <h3 class="mt-2">{{ course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
+      <div *ngIf="!(v.course?.topics) || (v.course?.topics?.length < 1)" class="col-12 alert alert-info">
+        <span class="icon-info-circled"></span>No contents are available for this Course
+      </div>
+      <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of v.course?.topics; let i = index'>
+        <h3 class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
         <section class="d-flex flex-wrap justify-content-center">
           <section class="col-lg-12 p-2 mb-2">
-            <app-e-learning-topic-objectives [topicNumberStyleName]='course?.topicNumberStyleName'
+            <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
               [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
             <app-e-learning-topic-materials [learningContents]='topic.learning_content_materials'>
             </app-e-learning-topic-materials>
           </section>
           <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
-            <ng-container *ngIf='course?.topicNumberStyleName === topic.topic_number_style_name; else normalNumbering'>
-              <h4>{{ course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</h4>
+            <ng-container *ngIf='v.course?.topicNumberStyleName === topic.topic_number_style_name; else normalNumbering'>
+              <h4>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</h4>
             </ng-container>
             <ng-template #normalNumbering>
               <h4>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</h4>
             </ng-template>
             <section class="d-flex justify-content-center">
               <div class="col-lg-12 pb-3">
-                <app-e-learning-topic-objectives [topicNumberStyleName]='course?.topicNumberStyleName'
+                <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
                   [learningOutcomes]='subTopic.expected_learning_outcomes'>
                 </app-e-learning-topic-objectives>
 

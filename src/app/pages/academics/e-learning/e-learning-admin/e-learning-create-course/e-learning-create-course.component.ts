@@ -12,6 +12,7 @@ import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-
 import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
 import {filter, takeUntil, tap} from 'rxjs/operators';
 import {modalMixin} from '../../../../../shared/mixins/modal.mixin';
+import {Router} from '@angular/router';
 
 @Component({
   selector: 'app-e-learning-create-course',
@@ -50,7 +51,8 @@ export class ELearningCreateCourseComponent
     private unitsService: UnitsService,
     private academicYearService: AcademicYearService,
     private eLearningService: ELearningService,
-    private topicNumberingService: TopicNumberingService
+    private topicNumberingService: TopicNumberingService,
+    private router: Router
   ) {
     super(modalService, store);
   }
@@ -112,7 +114,7 @@ export class ELearningCreateCourseComponent
     if (this.newCourseForm.valid) {
       this.eLearningService.saveCourse(this.newCourseForm.value)
         .subscribe({
-          next: () => this.submitInProgressSubject$.next(false),
+          next: (res) => this.router.navigate(['academics','e-learning', 'courses',res.data.id]).then(),
           error: () => this.submitInProgressSubject$.next(false),
         });
     } else {

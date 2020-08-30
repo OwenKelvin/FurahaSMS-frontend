@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 
 @Injectable({
@@ -10,6 +10,7 @@ export class ProcurementService {
   constructor(
     private http: HttpClient
   ) { }
+  allMyRequest$ = this.http.get('api/procurements/my-requests');
   getItemCaterories(): Observable<any> {
     return this.http.get('api/procurements/item-categories');
   }

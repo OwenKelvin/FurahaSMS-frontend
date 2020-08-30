@@ -1,5 +1,5 @@
 <h1>E Learning Courses</h1>
-<ng-container *ngIf='contentLoaded; else contentLoading'>
+<ng-container *ngIf="filteredCourses$ | async as filteredCourses; else contentLoading">
   <section class="d-flex justify-content-around align-items-center">
 
     <section class="col-lg-12">
@@ -11,13 +11,13 @@
     <ng-container *ngIf='filteredCourses.length < 1'>
       <div class="col-lg-12">
       <section class="alert alert-info m-0"><span class="icon-info"></span> Search returned 0 items!</section>
-        
+
       </div>
     </ng-container>
     <ng-container *ngFor='let academicYearCourse of groupedCourses(filteredCourses, "academicYearName"); let i = index'>
       <div class="col-lg-12 m-1">
         <section class="card p-2">
-          <h2 [class.active]='isCollapsed[i]' [attr.aria-expanded]="!isCollapsed[i]" 
+          <h2 [class.active]='isCollapsed[i]' [attr.aria-expanded]="!isCollapsed[i]"
               (click)="toggleCollapse(i)" class="mt-1">
               <span [class.icon-folder-open]='isCollapsed[i]' [class.icon-folder]='!isCollapsed[i]'></span>Academic Year: {{ academicYearCourse[0] }}
 

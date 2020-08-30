@@ -1,23 +1,23 @@
-import { Component, OnDestroy } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { loadToastShowsSuccess } from '../../store/actions/toast-show.actions';
-import { AppState } from '../../store/reducers';
-import { takeWhile, tap, map } from 'rxjs/operators';
-import { loadErrorMessagesFailure, loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
-import { Subject, combineLatest, Observable } from 'rxjs';
+import {Component, OnDestroy} from '@angular/core';
+import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {Router, ActivatedRoute} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {loadToastShowsSuccess} from '../../store/actions/toast-show.actions';
+import {AppState} from '../../store/reducers';
+import {tap, map, takeUntil} from 'rxjs/operators';
+import {loadErrorMessagesFailure, loadErrorMessagesSuccess} from 'src/app/store/actions/error-message.actions';
+import {Subject, combineLatest, Observable} from 'rxjs';
+import {subscribedContainerMixin} from '../../shared/mixins/subscribed-container.mixin';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnDestroy {
+export class LoginComponent extends subscribedContainerMixin() implements OnDestroy {
   triggerValidation: boolean;
   isSubmitting: boolean;
-  componentIsActive = true;
 
   loginForm: FormGroup = this.fb.group({
     username: ['', [Validators.required]],
@@ -39,13 +39,16 @@ export class LoginComponent implements OnDestroy {
       return !submitted && inputChange;
     }),
   );
+
   constructor(
     private store: Store<AppState>,
     private router: Router,
     private route: ActivatedRoute,
     private authService: AuthenticationService,
     private fb: FormBuilder
-  ) { }
+  ) {
+    super();
+  }
 
   submitLoginForm() {
     this.inputSubmittedSubject$.next(true);
@@ -55,7 +58,7 @@ export class LoginComponent implements OnDestroy {
         this.route.queryParams.pipe(map(params => params.returnUrl)),
         this.authService.login(this.loginForm.value)
       ]).pipe(
-        takeWhile(() => this.componentIsActive),
+        takeUntil(this.destroyed$),
       ).subscribe({
         next: this.loginSuccessful,
         error: error => {
@@ -69,9 +72,10 @@ export class LoginComponent implements OnDestroy {
       this.triggerValidation = !this.triggerValidation;
     }
   }
+
   loginSuccessful = ([returnUrl]: any[]) => {
     returnUrl = returnUrl || '/dashboard';
-    this.router.navigateByUrl(returnUrl);
+    this.router.navigateByUrl(returnUrl).then();
     this.isSubmitting = false;
     this.store.dispatch(loadErrorMessagesFailure());
     this.store.dispatch(loadToastShowsSuccess({
@@ -81,8 +85,5 @@ export class LoginComponent implements OnDestroy {
       toastTime: 'Just Now'
     }));
   };
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
 
 }
