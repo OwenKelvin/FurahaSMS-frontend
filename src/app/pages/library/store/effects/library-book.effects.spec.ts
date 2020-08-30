@@ -1,9 +1,8 @@
-import { TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
+import {TestBed} from '@angular/core/testing';
+import {provideMockActions} from '@ngrx/effects/testing';
+import {Observable, of} from 'rxjs';
 
-import { LibraryBookEffects } from './library-book.effects';
-import { createAction } from '@ngrx/store';
+import {LibraryBookEffects} from './library-book.effects';
 
 describe('LibraryBookEffects', () => {
   let actions$: Observable<any>;

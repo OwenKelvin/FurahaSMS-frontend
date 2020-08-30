@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 
 export const loadBookAuthors = createAction(
   '[Library Book Author] Load Authors'

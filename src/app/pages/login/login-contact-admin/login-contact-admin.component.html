@@ -1,25 +1,26 @@
 <app-full-with-center>
- 
-    <section class='card col-lg-12'>
-      <section class='card-header'>
-        <h1>Contact Admin</h1>
-      </section>
-      <section class='card-body'>
-        <form (submit)='submitLoginContactAdminForm()' [formGroup]='loginContactAdminForm' class=''>
-          <app-input
-            label='Email'
-            placeholder='email@example.com'
-            id='email'
-            formControlName='email'
-            prependIcon='icon-mail'
-            [autofocus]=[true]
-          ></app-input>
-          <section class='d-flex justify-content-between'>
-            <button type="button" routerLink='/login' queryParamsHandling='preserve' class='btn btn-secondary'>Cancel</button>
-            <button [disabled]='!loginContactAdminForm.valid' class='btn btn-success'>Submit</button>
-          </section>
-        </form>
-      </section>
+
+  <section class='card col-lg-12'>
+    <section class='card-header'>
+      <h1>Contact Admin</h1>
     </section>
+    <section class='card-body'>
+      <form (submit)='submitLoginContactAdminForm()' [formGroup]='loginContactAdminForm' class=''>
+        <app-input
+          label='Email'
+          placeholder='email@example.com'
+          id='email'
+          formControlName='email'
+          prependIcon='icon-mail'
+          [autofocus]=[true]
+        ></app-input>
+        <section class='d-flex justify-content-between'>
+          <button type="button" routerLink='/login' queryParamsHandling='preserve' class='btn btn-secondary'>Cancel
+          </button>
+          <button [disabled]='!loginContactAdminForm.valid' class='btn btn-success'>Submit</button>
+        </section>
+      </form>
+    </section>
+  </section>
 
 </app-full-with-center>

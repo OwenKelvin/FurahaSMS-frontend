@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { myProfileFeatureKey, reducer } from '../my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 
 describe('AcademicsComponent', () => {
@@ -24,6 +25,7 @@ describe('AcademicsComponent', () => {
           }
         }),
         StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers),
         RouterTestingModule,
         AppLinksModule],
       declarations: [AcademicsComponent],

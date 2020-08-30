@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LibraryBookTagService } from './library-book-tag.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {LibraryBookTagService} from './library-book-tag.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LibraryBookTagService', () => {
   beforeEach(() => TestBed.configureTestingModule({

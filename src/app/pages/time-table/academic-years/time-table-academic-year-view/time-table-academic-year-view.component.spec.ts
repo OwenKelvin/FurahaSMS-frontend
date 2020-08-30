@@ -9,6 +9,7 @@ import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reduce
 import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {FormErrorsModule} from '../../../../shared/form-errors/form-errors.module';
 
 describe('TimeTableAcademicYearViewComponent', () => {
   let component: TimeTableAcademicYearViewComponent;
@@ -28,15 +29,16 @@ describe('TimeTableAcademicYearViewComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        FormErrorsModule
       ],
       declarations: [TimeTableAcademicYearViewComponent],
       providers: [
         {
           provide: ActivatedRoute,
           useValue: {
-            parent: {paramMap: of({get: ()=> 1})},
-            paramMap: of({get: ()=> 1}),
-            snapshot: { }
+            parent: {paramMap: of({get: () => 1})},
+            paramMap: of({get: () => 1}),
+            snapshot: {}
           }
         },
         reducerProvider

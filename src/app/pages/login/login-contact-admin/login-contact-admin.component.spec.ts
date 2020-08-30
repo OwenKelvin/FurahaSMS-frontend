@@ -1,10 +1,11 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginContactAdminComponent } from './login-contact-admin.component';
-import { InputComponent } from '../../../components/input/input.component';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
-import { By } from '@angular/platform-browser';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {LoginContactAdminComponent} from './login-contact-admin.component';
+import {InputComponent} from '../../../components/input/input.component';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {FullWithCenterComponent} from '../../../components/full-with-center/full-with-center.component';
+import {By} from '@angular/platform-browser';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('LoginContactAdminComponent', () => {
   let component: LoginContactAdminComponent;
@@ -12,10 +13,13 @@ describe('LoginContactAdminComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [FormsModule, ReactiveFormsModule, HttpClientTestingModule],
-      declarations: [ LoginContactAdminComponent, FullWithCenterComponent, InputComponent ]
+      imports: [
+        FormsModule,
+        AppStarLabelRequiredModule,
+        ReactiveFormsModule, HttpClientTestingModule],
+      declarations: [LoginContactAdminComponent, FullWithCenterComponent, InputComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

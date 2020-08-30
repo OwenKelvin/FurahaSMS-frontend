@@ -8,6 +8,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorComponent } from 'src/app/components/error/error.component';
+import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
 
 describe('CreateUnitComponent', () => {
   let component: CreateUnitComponent;
@@ -28,7 +29,8 @@ describe('CreateUnitComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         HttpClientTestingModule,
-        AppInputModule
+        AppInputModule,
+        AppValidateSubmitButtonsModule
       ],
       declarations: [
         CreateUnitComponent,

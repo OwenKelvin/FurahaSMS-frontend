@@ -8,6 +8,7 @@ import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/redu
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { appFeatureKey, reducers } from 'src/app/store/reducers/app.reducer';
 import { AppValidateSubmitButtonsModule } from '../../validate-submit-buttons/validate-submit-buttons.module';
+import {AppStarLabelRequiredModule} from '../../label-star-required/app-star-label-required';
 
 describe('NameItemComponent', () => {
   let component: NameItemComponent;
@@ -28,7 +29,8 @@ describe('NameItemComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(appFeatureKey, reducers)
+        StoreModule.forFeature(appFeatureKey, reducers),
+        AppStarLabelRequiredModule
       ],
       declarations: [NameItemComponent],
       providers: [reducerProvider]

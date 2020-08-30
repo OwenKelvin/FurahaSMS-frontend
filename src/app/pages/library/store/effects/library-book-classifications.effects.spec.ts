@@ -1,9 +1,9 @@
-import { TestBed } from '@angular/core/testing';
-import { provideMockActions } from '@ngrx/effects/testing';
-import { Observable, of } from 'rxjs';
+import {TestBed} from '@angular/core/testing';
+import {provideMockActions} from '@ngrx/effects/testing';
+import {Observable, of} from 'rxjs';
 
-import { LibraryBookClassificationEffects } from './library-book-classifications.effects';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {LibraryBookClassificationEffects} from './library-book-classifications.effects';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LibraryBookClassificationEffects', () => {
   const actions$: Observable<any> = of(1);

@@ -6,10 +6,12 @@
       </section>
       <form [formGroup]='loginForm' (ngSubmit)='submitLoginForm()' class='card-body form-horizontal'>
         <app-input [triggerValidation]='triggerValidation' label='Username' placeholder='Enter username/email'
-          icon-lock-filled id='username' formControlName='username' prependIcon='icon-user' autocomplete='username'>
+                   icon-lock-filled id='username' formControlName='username' prependIcon='icon-user'
+                   autocomplete='username'>
         </app-input>
         <app-input [triggerValidation]='triggerValidation' label='Password' placeholder='Enter Password' id='password'
-          formControlName='password' prependIcon='icon-lock-filled' autocomplete='current-password' type='password'>
+                   formControlName='password' prependIcon='icon-lock-filled' autocomplete='current-password'
+                   type='password'>
         </app-input>
 
         <section class='d-flex justify-content-between align-items-end'>
@@ -26,7 +28,7 @@
           </button>
         </section>
       </form>
-      
+
       <section class='card-footer d-flex justify-content-between flex-wrap'>
         <section class="col-9 col-sm-10 col-md-10 col-md-11 p-0 d-flex justify-content-between flex-wrap">
           <span class="">
@@ -43,8 +45,8 @@
             <span class="d-inline-block d-sm-none mr-3 ml-3">|</span>
             <a routerLink='/login/contact-admin' queryParamsHandling='preserve' class="disabled">Contact Admin</a>
           </span>
-          
-          
+
+
         </section>
         <section class="col-1 d-none d-sm-inline-block">
           <a title='go to home' routerLink='/'><i class='icon-home'></i></a>

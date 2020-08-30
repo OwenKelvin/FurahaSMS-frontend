@@ -7,6 +7,8 @@ import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/redu
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { supportStaffFeatureKey, reducer } from '../../store/reducers/support-staff.reducer';
+import {CreateUnitComponent} from '../../../academics/curriculum/create-unit/create-unit.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 
 describe('ViewSupportStaffComponent', () => {
   let component: ViewSupportStaffComponent;
@@ -25,9 +27,11 @@ describe('ViewSupportStaffComponent', () => {
         }),
         StoreModule.forFeature(supportStaffFeatureKey, reducer),
         HttpClientTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        FormsModule,
+        ReactiveFormsModule
       ],
-      declarations: [ViewSupportStaffComponent],
+      declarations: [ViewSupportStaffComponent, CreateUnitComponent],
       providers: [reducerProvider],
     })
     .compileComponents();

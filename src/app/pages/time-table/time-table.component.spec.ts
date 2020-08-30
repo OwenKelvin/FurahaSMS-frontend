@@ -1,12 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TimeTableComponent } from './time-table.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {TimeTableComponent} from './time-table.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 describe('TimeTableComponent', () => {
   let component: TimeTableComponent;
@@ -23,6 +24,7 @@ describe('TimeTableComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers),
         AppLinksModule,
         StoreModule.forFeature(myProfileFeatureKey, reducer),
         RouterTestingModule,

@@ -9,6 +9,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
 
 describe('TimeTableAcademicYearEditComponent', () => {
   let component: TimeTableAcademicYearEditComponent;
@@ -23,7 +24,8 @@ describe('TimeTableAcademicYearEditComponent', () => {
         RouterTestingModule,
         BrowserAnimationsModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [TimeTableAcademicYearEditComponent],
       providers: [

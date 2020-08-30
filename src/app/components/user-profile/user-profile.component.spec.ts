@@ -1,13 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { UserProfileComponent } from './user-profile.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { AppUserProfileModule } from './user-profile.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {UserProfileComponent} from './user-profile.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {AppUserProfileModule} from './user-profile.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reducers';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 describe('UserProfileComponent', () => {
   let component: UserProfileComponent;
@@ -29,11 +30,12 @@ describe('UserProfileComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [UserProfileComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

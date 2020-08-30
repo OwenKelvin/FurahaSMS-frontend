@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { InputComponent } from '../../../components/input/input.component';
 import { ErrorComponent } from '../../../components/error/error.component';
 import { ValidateSubmitButtonsComponent } from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
+import {FormErrorsModule} from "../../../shared/form-errors/form-errors.module";
 
 describe('FulfillOrRejectTenderFormComponent', () => {
   let component: FulfillOrRejectTenderFormComponent;
@@ -25,7 +26,8 @@ describe('FulfillOrRejectTenderFormComponent', () => {
           }
         }), HttpClientTestingModule, RouterTestingModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        FormErrorsModule
       ],
       declarations: [
         FulfillOrRejectTenderFormComponent,

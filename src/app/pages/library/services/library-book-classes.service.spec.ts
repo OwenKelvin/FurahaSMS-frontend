@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LibraryBookClassesService } from './library-book-classes.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {LibraryBookClassesService} from './library-book-classes.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LibraryBookClassesService', () => {
   beforeEach(() => TestBed.configureTestingModule({

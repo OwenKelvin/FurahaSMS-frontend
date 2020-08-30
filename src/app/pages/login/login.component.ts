@@ -1,13 +1,13 @@
 import {Component, OnDestroy} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from 'src/app/services/authentication.service';
-import {Router, ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {loadToastShowsSuccess} from '../../store/actions/toast-show.actions';
 import {AppState} from '../../store/reducers';
-import {tap, map, takeUntil} from 'rxjs/operators';
+import {map, takeUntil, tap} from 'rxjs/operators';
 import {loadErrorMessagesFailure, loadErrorMessagesSuccess} from 'src/app/store/actions/error-message.actions';
-import {Subject, combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, Subject} from 'rxjs';
 import {subscribedContainerMixin} from '../../shared/mixins/subscribed-container.mixin';
 
 @Component({

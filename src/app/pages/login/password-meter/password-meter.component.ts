@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-password-meter',
@@ -7,10 +7,13 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class PasswordMeterComponent implements OnInit {
   @Input() passwordString: string;
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit(): void {
   }
+
   get passwordStrength() {
     const password = this.passwordString || '';
     let score = Math.min(4, password.length / 2);

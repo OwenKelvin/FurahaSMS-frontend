@@ -1,13 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewTeacherComponent } from './view-teacher.component';
-import { StoreModule } from '@ngrx/store';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { teacherProfileFeatureKey, reducer } from '../store/reducers/teacher-profile.reducer';
+import {ViewTeacherComponent} from './view-teacher.component';
+import {StoreModule} from '@ngrx/store';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {AppUserProfileModule} from 'src/app/components/user-profile/user-profile.module';
+import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {teacherProfileFeatureKey, reducer} from '../store/reducers/teacher-profile.reducer';
+import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 
 describe('ViewTeacherComponent', () => {
   let component: ViewTeacherComponent;
@@ -27,12 +28,13 @@ describe('ViewTeacherComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(teacherProfileFeatureKey, reducer)
+        StoreModule.forFeature(teacherProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [ViewTeacherComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

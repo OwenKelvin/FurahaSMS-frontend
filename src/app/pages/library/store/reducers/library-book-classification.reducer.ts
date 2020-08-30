@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 import * as LibraryBookClassificationActions from '../actions/library-book-classification.actions';
 
 export interface State {
@@ -21,7 +21,6 @@ const libraryBookClassificationReducer = createReducer(
   on(LibraryBookClassificationActions.loadBookClassifications, state => state),
   on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (_state, action) => action.data),
   on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (state, _action) => state),
-
 );
 
 export function reducer(state: State[] | undefined, action: Action) {

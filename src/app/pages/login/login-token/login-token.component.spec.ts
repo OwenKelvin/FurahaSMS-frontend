@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LoginTokenComponent } from './login-token.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { ErrorModule } from 'src/app/components/error/error.module';
-import { AppLayoutModule } from 'src/app/modules/app-layout.module';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
-import { EffectsModule } from '@ngrx/effects';
+import {LoginTokenComponent} from './login-token.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ErrorModule} from 'src/app/components/error/error.module';
+import {AppLayoutModule} from 'src/app/modules/app-layout.module';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {EffectsModule} from '@ngrx/effects';
 
 describe('LoginTokenComponent', () => {
   let component: LoginTokenComponent;
@@ -33,9 +33,9 @@ describe('LoginTokenComponent', () => {
         EffectsModule.forRoot([])
       ],
       providers: [reducerProvider],
-      declarations: [ LoginTokenComponent ]
+      declarations: [LoginTokenComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

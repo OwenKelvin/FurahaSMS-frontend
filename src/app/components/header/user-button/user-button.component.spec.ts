@@ -5,6 +5,7 @@ import { Store, StoreModule } from '@ngrx/store';
 import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
+import {myProfileFeatureKey, reducer} from '../../../pages/my-profile/store/reducers/my-profile.reducer';
 
 describe('UserButtonComponent', () => {
   let component: UserButtonComponent;
@@ -21,6 +22,7 @@ describe('UserButtonComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
         HttpClientTestingModule,
         RouterTestingModule],
       declarations: [UserButtonComponent],

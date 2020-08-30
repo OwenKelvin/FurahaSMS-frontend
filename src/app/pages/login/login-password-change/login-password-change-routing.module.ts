@@ -1,6 +1,6 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { LoginPasswordChangeComponent } from './login-password-change.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {LoginPasswordChangeComponent} from './login-password-change.component';
 
 
 const routes: Routes = [
@@ -15,4 +15,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class LoginPasswordChangeRoutingModule { }
+export class LoginPasswordChangeRoutingModule {
+}

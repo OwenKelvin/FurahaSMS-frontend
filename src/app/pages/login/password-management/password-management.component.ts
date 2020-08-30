@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { map } from 'rxjs/operators';
-import { MyProfileService } from '../../my-profile/services/my-profile.service';
-import { combineLatest, Observable, EMPTY } from 'rxjs';
+import {Component} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {map} from 'rxjs/operators';
+import {MyProfileService} from '../../my-profile/services/my-profile.service';
+import {combineLatest, EMPTY, Observable} from 'rxjs';
 
 @Component({
   selector: 'app-password-management',
@@ -27,5 +27,6 @@ export class PasswordManagementComponent {
   constructor(
     private route: ActivatedRoute,
     private myProfileService: MyProfileService
-  ) { }
+  ) {
+  }
 }

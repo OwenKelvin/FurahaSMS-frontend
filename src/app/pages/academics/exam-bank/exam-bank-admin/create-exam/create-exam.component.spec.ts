@@ -9,6 +9,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {FormErrorsModule} from '../../../../../shared/form-errors/form-errors.module';
 
 describe('CreateExamComponent', () => {
   let component: CreateExamComponent;
@@ -30,6 +31,7 @@ describe('CreateExamComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        FormErrorsModule,
         AppValidateSubmitButtonsModule
       ],
       declarations: [CreateExamComponent],

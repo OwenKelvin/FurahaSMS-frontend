@@ -10,6 +10,7 @@ describe('IdNumberValidator', () => {
   const studentService: StudentService = new StudentService(
     jasmine.createSpyObj({ get: 1 }),
     jasmine.createSpyObj({ dispatch: ()=> true }),
+    jasmine.createSpyObj({ stringify: ()=> 'api' }),
   );
   beforeEach(() => TestBed.configureTestingModule({
     imports: [],

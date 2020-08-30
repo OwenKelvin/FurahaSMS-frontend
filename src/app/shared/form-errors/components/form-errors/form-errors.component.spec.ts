@@ -1,6 +1,8 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { FormErrorsComponent } from './form-errors.component';
+import {of} from 'rxjs';
+import {FormGroup} from '@angular/forms';
 
 describe('FormErrorsComponent', () => {
   let component: FormErrorsComponent;
@@ -20,6 +22,7 @@ describe('FormErrorsComponent', () => {
   });
 
   it('should create', () => {
+    component.form = new FormGroup({})
     expect(component).toBeTruthy();
   });
 });

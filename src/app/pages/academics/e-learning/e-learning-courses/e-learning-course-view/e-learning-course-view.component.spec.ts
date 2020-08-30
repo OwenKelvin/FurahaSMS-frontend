@@ -9,7 +9,8 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { reducer } from '../../../exam-bank/store/reducers/exam-paper.reducer';
+import {myProfileFeatureKey, reducer as profileReducer} from '../../../../my-profile/store/reducers/my-profile.reducer';
+import {academicsFeatureKey, reducers} from '../../../store/reducers';
 
 describe('ELearningCourseViewComponent', () => {
   let component: ELearningCourseViewComponent;
@@ -27,7 +28,8 @@ describe('ELearningCourseViewComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature('academics', reducer),
+        StoreModule.forFeature(academicsFeatureKey, reducers),
+        StoreModule.forFeature(myProfileFeatureKey, profileReducer),
         RouterTestingModule,
         AppLoadingBubbleModule
       ],

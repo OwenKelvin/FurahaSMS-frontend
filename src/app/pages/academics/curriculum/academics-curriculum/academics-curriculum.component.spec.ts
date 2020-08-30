@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AcademicsCurriculumComponent } from './academics-curriculum.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {AcademicsCurriculumComponent} from './academics-curriculum.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
 
 describe('AcademicsCurriculumComponent', () => {
   let component: AcademicsCurriculumComponent;
@@ -14,15 +15,17 @@ describe('AcademicsCurriculumComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
-        metaReducers,
-        runtimeChecks: {
-          strictStateImmutability: true,
-          strictActionImmutability: true,
-        }
-      }),
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        StoreModule.forFeature(appFeatureKey, reducers),
         RouterTestingModule, AppLinksModule,
-      StoreModule.forFeature(myProfileFeatureKey, reducer)],
+        StoreModule.forFeature(myProfileFeatureKey, reducer)],
       declarations: [AcademicsCurriculumComponent],
       providers: [reducerProvider]
     });

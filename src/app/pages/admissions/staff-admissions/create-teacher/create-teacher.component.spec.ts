@@ -1,14 +1,16 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateTeacherComponent } from './create-teacher.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
-import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {CreateTeacherComponent} from './create-teacher.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppInputModule} from 'src/app/components/input/app-input.module';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppTelInputModule} from 'src/app/modules/app-tel-input.module';
+import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {appFeatureKey, reducers as appReducers} from '../../../../store/reducers/app.reducer';
+import {admissionsFeatureKey, reducers} from '../../store/reducers';
 
 describe('CreateTeacherComponent', () => {
   let component: CreateTeacherComponent;
@@ -30,12 +32,14 @@ describe('CreateTeacherComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        StoreModule.forFeature(appFeatureKey, appReducers),
+        StoreModule.forFeature(admissionsFeatureKey, reducers)
       ],
       declarations: [CreateTeacherComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

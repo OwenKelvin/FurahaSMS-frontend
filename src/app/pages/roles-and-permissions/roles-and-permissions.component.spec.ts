@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { RolesAndPermissionsComponent } from './roles-and-permissions.component';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {RolesAndPermissionsComponent} from './roles-and-permissions.component';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 describe('RolesAndPermissionsComponent', () => {
   let component: RolesAndPermissionsComponent;
@@ -23,12 +24,13 @@ describe('RolesAndPermissionsComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers),
       ],
       declarations: [RolesAndPermissionsComponent],
       providers: [reducerProvider],
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SelectLibraryClassComponent } from './select-library-class.component';
-import { StoreModule } from '@ngrx/store';
-import { reducers } from '../../store/reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LibraryAdminModule } from '../../library-admin/library-admin.module';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {SelectLibraryClassComponent} from './select-library-class.component';
+import {StoreModule} from '@ngrx/store';
+import {reducers} from '../../store/reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {LibraryAdminModule} from '../../library-admin/library-admin.module';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 
 describe('SelectLibraryClassComponent', () => {
   let component: SelectLibraryClassComponent;
@@ -30,7 +30,7 @@ describe('SelectLibraryClassComponent', () => {
       declarations: [],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

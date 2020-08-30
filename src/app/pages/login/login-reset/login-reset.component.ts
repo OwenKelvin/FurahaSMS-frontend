@@ -1,5 +1,5 @@
-import {Component, ChangeDetectionStrategy} from '@angular/core';
-import {FormGroup, FormBuilder, Validators} from '@angular/forms';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {EmailValidatorDirective} from 'src/app/shared/validators/email.validator';
 import {Router} from '@angular/router';
@@ -17,6 +17,7 @@ export class LoginResetComponent extends subscribedContainerMixin(formMixin()) {
   passwordResetForm: FormGroup = this.fb.group({
     email: ['', [Validators.required, new EmailValidatorDirective()]]
   });
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
@@ -24,6 +25,7 @@ export class LoginResetComponent extends subscribedContainerMixin(formMixin()) {
   ) {
     super();
   }
+
   submitPasswordResetForm() {
     this.submitInProgressSubject$.next(true)
     if (this.passwordResetForm.valid) {

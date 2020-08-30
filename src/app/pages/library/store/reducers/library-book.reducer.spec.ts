@@ -1,4 +1,4 @@
-import { reducer, initialState } from './library-book.reducer';
+import {initialState, reducer} from './library-book.reducer';
 
 describe('LibraryBook Reducer', () => {
   describe('an unknown action', () => {

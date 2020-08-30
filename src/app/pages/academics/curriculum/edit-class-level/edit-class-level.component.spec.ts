@@ -6,6 +6,8 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {AppCrudModule} from "../../../../components/crud/app-crud.module";
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('EditClassLevelComponent', () => {
   let component: EditClassLevelComponent;
@@ -25,7 +27,9 @@ describe('EditClassLevelComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        AppCrudModule,
+        RouterTestingModule
       ],
       declarations: [EditClassLevelComponent],
       providers: [reducerProvider]

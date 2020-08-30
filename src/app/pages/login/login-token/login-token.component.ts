@@ -1,11 +1,11 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormBuilder } from '@angular/forms';
-import { BehaviorSubject, Observable, timer } from 'rxjs';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { takeWhile, tap, filter } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {BehaviorSubject, Observable, timer} from 'rxjs';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {filter, takeWhile, tap} from 'rxjs/operators';
+import {Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {loadToastShowsSuccess} from 'src/app/store/actions/toast-show.actions';
 
 @Component({
   selector: 'app-login-token',
@@ -21,12 +21,14 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
   clipBoardChange$: Observable<any> = timer(500, 500);
   componentIsActive = true;
+
   constructor(
     private fb: FormBuilder,
     private authService: AuthenticationService,
     private router: Router,
     private store: Store
-  ) { }
+  ) {
+  }
 
   submitTokenLoginForm() {
 
@@ -35,9 +37,9 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
       this.authService.tokenLogin(this.tokenLoginForm.value).pipe(
         takeWhile(() => this.componentIsActive)
       ).subscribe({
-        next: ({ token }: { token: string }) => {
+        next: ({token}: { token: string }) => {
           this.isSubmittingSubject$.next(false);
-          this.router.navigate(['/login/password-change'], { queryParams: { token }, queryParamsHandling: 'merge' });
+          this.router.navigate(['/login/password-change'], {queryParams: {token}, queryParamsHandling: 'merge'});
           this.store.dispatch(loadToastShowsSuccess({
             toastHeader: 'Login Successful!',
             toastBody: 'Successfully authenticated',
@@ -61,7 +63,8 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
           .clipboard
           .readText()
           .then(success => clipboardTextSubject$.next(success))
-          .catch(() => { })
+          .catch(() => {
+          })
       )
     ).subscribe();
     clipboardTextAction$.pipe(
@@ -72,6 +75,7 @@ export class LoginTokenComponent implements OnInit, OnDestroy {
       tap(() => this.tokenLoginForm.markAsDirty())
     ).subscribe();
   }
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }

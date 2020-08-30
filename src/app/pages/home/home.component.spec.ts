@@ -1,7 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { HomeComponent } from './home.component';
-import { FullWithCenterComponent } from '../../components/full-with-center/full-with-center.component';
+import {HomeComponent} from './home.component';
+import {FullWithCenterComponent} from '../../components/full-with-center/full-with-center.component';
+import {AppStarLabelRequiredModule} from '../../components/label-star-required/app-star-label-required';
+import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -9,9 +11,13 @@ describe('HomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ HomeComponent, FullWithCenterComponent ]
+      imports: [
+        AppStarLabelRequiredModule,
+        FormErrorsModule
+      ],
+      declarations: [HomeComponent, FullWithCenterComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

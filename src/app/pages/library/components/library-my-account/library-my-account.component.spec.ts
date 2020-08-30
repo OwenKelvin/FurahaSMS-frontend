@@ -1,8 +1,10 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LibraryMyAccountComponent } from './library-my-account.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {LibraryMyAccountComponent} from './library-my-account.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LibraryMyAccountComponent', () => {
   let component: LibraryMyAccountComponent;
@@ -11,13 +13,17 @@ describe('LibraryMyAccountComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }) ],
+        }),
+        AppValidateSubmitButtonsModule,
+        HttpClientTestingModule
+      ],
       declarations: [LibraryMyAccountComponent],
       providers: [reducerProvider]
     });

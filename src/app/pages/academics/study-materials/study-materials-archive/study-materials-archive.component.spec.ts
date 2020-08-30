@@ -1,10 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { StudyMaterialsArchiveComponent } from './study-materials-archive.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { FormsModule } from '@angular/forms';
+import {StudyMaterialsArchiveComponent} from './study-materials-archive.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {FormsModule} from '@angular/forms';
+import {StoreModule} from '@ngrx/store';
+import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../store/reducers';
+import {myProfileFeatureKey, reducer} from '../../../my-profile/store/reducers/my-profile.reducer';
+import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
 
 describe('StudyMaterialsArchiveComponent', () => {
   let component: StudyMaterialsArchiveComponent;
@@ -16,9 +21,20 @@ describe('StudyMaterialsArchiveComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         AppLoadingBubbleModule,
-        FormsModule
+        FormsModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        StoreModule.forFeature(appFeatureKey, reducers),
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        AppStarLabelRequiredModule
       ],
-      declarations: [ StudyMaterialsArchiveComponent ]
+      declarations: [ StudyMaterialsArchiveComponent ],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));

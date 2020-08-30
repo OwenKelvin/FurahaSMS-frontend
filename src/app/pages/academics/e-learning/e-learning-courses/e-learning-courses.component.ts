@@ -10,18 +10,17 @@ import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-con
   templateUrl: './e-learning-courses.component.html',
   styleUrls: ['./e-learning-courses.component.css']
 })
-export class ELearningCoursesComponent extends subscribedContainerMixin() implements OnInit, OnDestroy {
+export class ELearningCoursesComponent extends subscribedContainerMixin() implements OnDestroy {
 
-
+  limit = 100;
   courses$: Observable<ICourse[]> = this.eLearningService.getCourses({limit: this.limit})
     .pipe(takeUntil(this.destroyed$));
-  limit = 100;
   filterString = '';
   isCollapsed: boolean[]= [false];
   filterSubject$ = new BehaviorSubject('')
   filterAction$ = this.filterSubject$.asObservable()
   filteredCourses$: Observable<ICourse[]> = combineLatest([
-    this.filterSubject$, this.courses$]).pipe(
+    this.courses$, this.filterAction$ ]).pipe(
       map(([courses, filterString]) => courses.filter(course => {
         return (course.name && course.name.includes(filterString)) ||
           (course.classLevelName && course.classLevelName.includes(filterString)) ||

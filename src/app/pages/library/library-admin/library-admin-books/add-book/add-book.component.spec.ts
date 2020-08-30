@@ -16,6 +16,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {AppStarLabelRequiredModule} from '../../../../../components/label-star-required/app-star-label-required';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -43,7 +44,8 @@ describe('AddBookComponent', () => {
         TabsModule.forRoot(),
         AppBarcodeModule,
         StoreModule.forFeature(myProfileFeatureKey, reducer),
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [AddBookComponent, SelectLibraryClassComponent],
       providers: [
