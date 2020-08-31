@@ -37,6 +37,7 @@ export class ELearningService {
       .pipe(map((res: any) => {
         return {
           name: res.name,
+          description: res.description,
           classLevelId: res.class_level_id,
           classLevelName: res.class_level_name,
           classLevelAbbreviation: res.class_level_abbreviation,
@@ -44,6 +45,7 @@ export class ELearningService {
           unitName: res.unit_name,
           unitId: res.unit_id,
           unitAbbreviation: res.unit_abbreviation,
+          academicYearId: res.academic_year_id,
           academicYearName: res.academic_year_name,
           topicNumberStyleName: res.topic_number_style_name,
           topics: res.topics

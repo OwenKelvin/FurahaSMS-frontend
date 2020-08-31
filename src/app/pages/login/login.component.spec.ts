@@ -9,7 +9,7 @@ import {By} from '@angular/platform-browser';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {ErrorModule} from 'src/app/components/error/error.module';
-import {AppStarLabelRequiredModule} from "../../components/label-star-required/app-star-label-required";
+import {AppStarLabelRequiredModule} from '../../components/label-star-required/app-star-label-required';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;

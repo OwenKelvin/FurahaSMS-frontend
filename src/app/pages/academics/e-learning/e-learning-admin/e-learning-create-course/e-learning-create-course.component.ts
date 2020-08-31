@@ -1,18 +1,19 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable} from 'rxjs';
+import {Observable, of} from 'rxjs';
 import {ClassLevelService} from 'src/app/services/class-level.service';
 import {UnitsService} from 'src/app/services/units.service';
 import {AcademicYearService} from '../../../services/academic-year.service';
 import {ELearningService} from '../../services/e-learning.service';
-import {Store} from '@ngrx/store';
+import {select, Store} from '@ngrx/store';
 import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {TopicNumberingService} from '../../../services/topic-numbering.service';
 import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
 import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
-import {filter, takeUntil, tap} from 'rxjs/operators';
+import {filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {modalMixin} from '../../../../../shared/mixins/modal.mixin';
-import {Router} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {selectAcademicsCourse} from '../../../store/selectors/courses.selectors';
 
 @Component({
   selector: 'app-e-learning-create-course',
@@ -25,6 +26,7 @@ export class ELearningCreateCourseComponent
   units$: Observable<any[]> = this.unitsService.getAll();
   academicYears$: Observable<any[]> = this.academicYearService.all$;
   newCourseForm: FormGroup = this.fb.group({
+    id: [0],
     name: ['', Validators.required],
     unit: [null, Validators.required],
     classLevel: [null, Validators.required],
@@ -34,8 +36,8 @@ export class ELearningCreateCourseComponent
     numbering: ['', Validators.required],
   });
   newTopicForm: FormGroup = this.fb.group({
-    numbering: ['', Validators.required],
-    name: ['', Validators.required],
+    numbering: ['TT', Validators.required],
+    name: ['TT', Validators.required],
     subTopics: this.fb.array([this.fb.control('', [Validators.required])])
   });
   modalRef: BsModalRef;
@@ -44,15 +46,54 @@ export class ELearningCreateCourseComponent
   topics: any[] = [];
   subTopics: any[] = [];
 
+  courseId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
+    map(params => Number(params.get('id')))
+  );
+  course$ = this.courseId$.pipe(
+    mergeMap(id => id > 0 ? this.store.pipe(select(selectAcademicsCourse(id))) : of(null)),
+    tap(course => {
+      if (course && course?.id && course?.id > 0) {
+        course?.topics?.forEach(item => {
+          this.newTopicForm.patchValue({
+            name: item.description,
+            numbering: item.topic_number_style_name,
+            // subTopics: [item.sub_topics.map(({description}: any) => description)]
+            // subTopics: item.sub_topics.map(({description}: any) => description)
+          });
+          this.addNewTopicCommit();
+          while (this.subTopicsControl.length) {
+            this.subTopicsControl.removeAt(0);
+          }
+          item.sub_topics.forEach(() => {
+            this.addSubTopic()
+          });
+          this.subTopicsControl.setValue(item.sub_topics.map(({description}: any) => description))
+        })
+        this.newCourseForm.patchValue({
+          id: course.id,
+          name: course.name,
+          unit: course.unitId,
+          classLevel: course.classLevelId,
+          academicYear: course.academicYearId,
+          description: course.description,
+          numbering: course.topicNumberStyleName,
+        })
+      }
+    }),
+    map(() => true)
+  );
+
   constructor(
-    modalService: BsModalService, store: Store,
+    modalService: BsModalService,
     private fb: FormBuilder,
     private classLevelService: ClassLevelService,
     private unitsService: UnitsService,
     private academicYearService: AcademicYearService,
     private eLearningService: ELearningService,
     private topicNumberingService: TopicNumberingService,
-    private router: Router
+    private router: Router,
+    private route: ActivatedRoute,
+    private store: Store
   ) {
     super(modalService, store);
   }
@@ -114,7 +155,7 @@ export class ELearningCreateCourseComponent
     if (this.newCourseForm.valid) {
       this.eLearningService.saveCourse(this.newCourseForm.value)
         .subscribe({
-          next: (res) => this.router.navigate(['academics','e-learning', 'courses',res.data.id]).then(),
+          next: (res) => this.router.navigate(['academics', 'e-learning', 'courses', res.data.id]).then(),
           error: () => this.submitInProgressSubject$.next(false),
         });
     } else {
@@ -132,15 +173,19 @@ export class ELearningCreateCourseComponent
     return this.newTopicForm.get('numbering') as FormControl;
   }
 
+  addNewTopicCommit() {
+    this.topicsControl.push(this.fb.group({
+      description: [this.nameControl.value, [Validators.required]],
+      numberLabel: [this.numberingControl.value],
+      subTopics: [this.newTopicSubTopics.value],
+    }))
+    this.topicsControl.updateValueAndValidity();
+    this.newCourseForm.updateValueAndValidity();
+  }
+
   addNewTopic() {
     if (this.newTopicForm.valid) {
-      this.topicsControl.push(this.fb.group({
-        description: [this.nameControl.value, [Validators.required]],
-        numberLabel: [this.numberingControl.value],
-        subTopics: [this.newTopicSubTopics.value],
-      }))
-      this.topicsControl.updateValueAndValidity();
-      this.newCourseForm.updateValueAndValidity();
+      this.addNewTopicCommit();
       this.modalRef.hide();
     } else {
       alert('Please complete form to continue');

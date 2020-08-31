@@ -1,8 +1,9 @@
 <h1>E-Learning Course Maintenance</h1>
-<div class="card p-2">
+<div class="card p-2" *ngIf="course$ | async">
   <section *ngIf='(editorInitializedAction$ | async) === false'>
     <app-loading-bubble></app-loading-bubble>
   </section>
+  <pre class="text-warning">{{ newCourseForm.value | json }}</pre>
   <form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
         [class.sr-only]='(editorInitializedAction$ | async) === false'>
     <div class="col-12 mt-2 pt-1">

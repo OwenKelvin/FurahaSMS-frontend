@@ -1,6 +1,7 @@
 export interface ICourse {
   id?: number;
   name: string;
+  description?: string;
   unitId?: number;
   unitName?: string;
   unitAbbreviation?: string;
@@ -12,4 +13,4 @@ export interface ICourse {
   academicYearName?: string;
   topicNumberStyleName?: string;
   topics?: any[];
-};
+}

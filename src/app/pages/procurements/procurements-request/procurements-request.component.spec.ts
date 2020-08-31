@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {ProcurementsRequestComponent} from './procurements-request.component';
 import {Store, StoreModule} from '@ngrx/store';
-import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {SelectComponent} from '../../../components/select/select.component';
 import {InputComponent} from '../../../components/input/input.component';
@@ -10,7 +10,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading-bubble.component';
 import {ValidateSubmitButtonsComponent} from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
-import {FormErrorsModule} from "../../../shared/form-errors/form-errors.module";
+import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
 
 describe('ProcurementsRequestComponent', () => {
   let component: ProcurementsRequestComponent;

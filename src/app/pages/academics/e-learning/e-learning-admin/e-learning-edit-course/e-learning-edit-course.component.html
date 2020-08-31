@@ -1,177 +1,202 @@
-<ng-container *ngIf='(course$ | async) || componentLoaded; else loading'>
-  <h1>Edit Course <span class="icon-right-dir"></span> {{ course?.name }}</h1>
-  <table class="table table-dark">
-    <tbody>
-      <tr>
-        <th>Class Level</th>
-        <td>{{ course?.classLevelName }}({{course?.classLevelAbbreviation}})</td>
-      </tr>
-      <tr>
-        <th>Unit/Subject</th>
-        <td>{{ course?.unitName }}({{ course?.unitAbbreviation }})</td>
-      </tr>
-      <tr>
-        <th>Academic Year</th>
-        <td>{{ course?.academicYearName }}</td>
-      </tr>
-    </tbody>
-  </table>
-  <section>
-    <h2>Contents</h2>
-    <section class="d-flex flex-wrap justify-content-center">
-      <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of course?.topics; let i = index'>
-        <h3 class="mt-2">{{ course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
+<ng-container *ngIf='(v$ | async) as v ; else loading'>
+  <h1>Edit Course <span class="icon-right-dir"></span> {{ v.course?.name }}</h1>
+  <section class="card p-2">
+    <ng-container>
+      <div class="d-flex justify-content-start">
+        <button type="button" [routerLink]="['/academics', 'e-learning', 'admin', 'courses', 4, 'edit']"
+                class="btn btn-primary"><span class="icon-edit"></span>Edit Course Details
+        </button>
+      </div>
+      <fieldset class="card p-2 mt-2 mb-2">
+        <legend>
+          <h2>General Info</h2>
+        </legend>
+        <table class="table table-dark">
+          <tbody>
+          <tr>
+            <th>Class Level</th>
+            <td>{{ v.course?.classLevelName }}({{v.course?.classLevelAbbreviation}})</td>
+          </tr>
+          <tr>
+            <th>Unit/Subject</th>
+            <td>{{ v.course?.unitName }}({{ v.course?.unitAbbreviation }})</td>
+          </tr>
+          <tr>
+            <th>Academic Year</th>
+            <td>{{ v.course?.academicYearName }}</td>
+          </tr>
+          </tbody>
+        </table>
+      </fieldset>
+      <fieldset class="card p-2">
+        <legend><h2>Contents</h2></legend>
         <section class="d-flex flex-wrap justify-content-center">
-          <section class="col-lg-12 p-2 mb-2">
-            <app-e-learning-topic-objectives [topicNumberStyleName]='course?.topicNumberStyleName'
-              [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
+          <div class="col-12 alert alert-info" *ngIf="!v.course?.topics || v.course?.topics?.length < 1">
+            <span class="icon-info-circled"></span> No course contents were found!
+          </div>
+          <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of v.course?.topics; let i = index'>
+            <h3 class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
+            <section class="d-flex flex-wrap justify-content-center">
+              <section class="col-lg-12 p-2 mb-2">
+                <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                                                 [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
-            <app-e-learning-topic-materials [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
+                <app-e-learning-topic-materials
+                  [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
 
-            <div>
-              <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
-                type="button">
-                <span class="icon-plus-circled"></span>
-                New Content</button>
-            </div>
-          </section>
-          <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
-            <ng-container *ngIf='course?.topicNumberStyleName === topic?.topic_number_style_name; else normalNumbering'>
-              <h4>{{ course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</h4>
-            </ng-container>
-            <ng-template #normalNumbering>
-              <h4>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</h4>
-            </ng-template>
-            <section class="d-flex justify-content-center">
-              <div class="col-lg-12 pb-3">
-                <app-e-learning-topic-objectives [topicNumberStyleName]='course?.topicNumberStyleName'
-                  [learningOutcomes]='subTopic.expected_learning_outcomes'>
-                </app-e-learning-topic-objectives>
-
-                <app-e-learning-topic-materials [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
                 <div>
-                  <button (click)='openModalNewContent(templateNewContent, subTopic.id)' class="btn btn-primary btn-sm"
-                    type="button">
+                  <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
+                          type="button">
                     <span class="icon-plus-circled"></span>
-                    New Content</button>
+                    New Content
+                  </button>
                 </div>
-              </div>
+              </section>
+              <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
+                <ng-container
+                  *ngIf='v.course?.topicNumberStyleName === topic?.topic_number_style_name; else normalNumbering'>
+                  <h4>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</h4>
+                </ng-container>
+                <ng-template #normalNumbering>
+                  <h4>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</h4>
+                </ng-template>
+                <section class="d-flex justify-content-center">
+                  <div class="col-lg-12 pb-3">
+                    <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                                                     [learningOutcomes]='subTopic.expected_learning_outcomes'>
+                    </app-e-learning-topic-objectives>
+
+                    <app-e-learning-topic-materials
+                      [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
+                    <div>
+                      <button (click)='openModalNewContent(templateNewContent, subTopic.id)'
+                              class="btn btn-primary btn-sm"
+                              type="button">
+                        <span class="icon-plus-circled"></span>
+                        New Content
+                      </button>
+                    </div>
+                  </div>
+                </section>
+              </section>
             </section>
           </section>
         </section>
+      </fieldset>
+      <section class="alert alert-danger d-flex justify-content-around mt-4">
+        Action in this Section is irriversable, Be Careful!
+        <button (click)='openModal({id: -1, component: template})' class="btn btn-danger btn-sm">Delete this Course</button>
       </section>
-    </section>
-  </section>
-  <section class="alert alert-danger d-flex justify-content-around mt-4">
-    Action in this Section is irriversable, Be Careful!
-    <button (click)='openModal(template)' class="btn btn-danger btn-sm">Delete this Course</button>
+    </ng-container>
+    <ng-template #template>
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title pull-left">Delete Course Confirmation</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+      </div>
+      <div class="modal-body bg-dark">
+        <p class="text-danger">You are about to delete course, Please enter course name to confirm deletion</p>
+        <input aria-label="Course Name" type="text" class="form-control" [(ngModel)]='courseNameConfirmation'>
+      </div>
+      <div class="modal-footer bg-dark">
+        <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != v.course?.name || deletingCourse'
+                class="btn btn-danger">
+          <span *ngIf='!deletingCourse'>Delete this course</span>
+          <span *ngIf='deletingCourse'>Deleting...</span>
+          <i *ngIf='!deletingCourse' class='icon-trash'></i>
+          <i *ngIf='deletingCourse' class='icon-spin3 animate-spin'></i>
+        </button>
+      </div>
+    </ng-template>
+
+    <ng-template #templateNewContent>
+      <div class="modal-header bg-dark">
+        <h4 class="modal-title pull-left">New Content Upload</h4>
+        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+          <span aria-hidden="true">&times;</span>
+
+        </button>
+      </div>
+      <div class="modal-body bg-dark d-flex flex-wrap">
+        <section class="col-lg-5 mb-3">
+          <fieldset>
+            <legend>Type of Content</legend>
+            <form>
+              <div class="custom-control custom-radio pb-1 pt-1">
+                <input [(ngModel)]='contentType' value="new-content" name='contentType' type="radio"
+                       class="custom-control-input" id='contentType1'>
+                <label class="custom-control-label" for='contentType1'>
+                  New Content Upload
+                </label>
+              </div>
+              <div class="custom-control custom-radio pb-1 pt-1">
+                <input [(ngModel)]='contentType' value="learning-outcome" name='contentType' type="radio"
+                       class="custom-control-input" id='contentType2'>
+                <label class="custom-control-label" for='contentType2'>
+                  Learning Outcome
+                </label>
+              </div>
+            </form>
+
+          </fieldset>
+        </section>
+        <section [ngSwitch]='contentType' class="col-lg-7"
+                 style="border-left: rgba(131, 223, 223, 0.452) 2px solid; margin-left: -2px">
+          <ng-container *ngSwitchCase='"new-content"'>
+            <h5>New Content Upload</h5>
+            <form id='newContentUploadForm' [formGroup]='newContentUploadForm' (submit)='saveNewContent()'>
+              <div class="mt-1">
+                <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
+                           [triggerValidation]='triggerValidationAction$ | async' label='Content description'
+                           id="contentDescription"
+                           placeholder="Enter Content Description" formControlName="description">
+                </app-input>
+              </div>
+              <div class="custom-file mt-2">
+                <input type="file" class="custom-file-input" id='newContentUploadInput' formControlName='content'>
+                <label for="newContentUploadInput" class="custom-file-label">Upload File</label>
+              </div>
+            </form>
+          </ng-container>
+
+          <ng-container *ngSwitchCase='"learning-outcome"'>
+            <h5>New Learning Outcome</h5>
+            <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
+              <div class="mt-1">
+                <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
+                           [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome'
+                           id="newLearningOutcomeDescription" placeholder="Enter Learning Outcome"
+                           formControlName="description">
+                </app-input>
+              </div>
+            </form>
+          </ng-container>
+        </section>
+      </div>
+      <div class="modal-footer bg-dark">
+        <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
+                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
+          <span *ngIf='!savingNewContent'>Save Content</span>
+          <span *ngIf='savingNewContent'>Saving...</span>
+          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
+          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+        </button>
+        <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
+                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
+          <span *ngIf='!savingNewContent'>Save Learning Content</span>
+          <span *ngIf='savingNewContent'>Saving...</span>
+          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
+          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+        </button>
+      </div>
+    </ng-template>
   </section>
 </ng-container>
 <ng-template #loading>
   <h1>Edit Course</h1>
   <app-loading-bubble></app-loading-bubble>
-</ng-template>
-<ng-template #template>
-  <div class="modal-header bg-dark">
-    <h4 class="modal-title pull-left">Delete Course Confirmation</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-
-    </button>
-  </div>
-  <div class="modal-body bg-dark">
-    <p class="text-danger">You are about to delete course, Please enter course name to confirm deletion</p>
-    <input aria-label="Course Name" type="text" class="form-control" [(ngModel)]='courseNameConfirmation'>
-  </div>
-  <div class="modal-footer bg-dark">
-    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
-    <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != course?.name || deletingCourse'
-      class="btn btn-danger">
-      <span *ngIf='!deletingCourse'>Delete this course</span>
-      <span *ngIf='deletingCourse'>Deleting...</span>
-      <i *ngIf='!deletingCourse' class='icon-trash'></i>
-      <i *ngIf='deletingCourse' class='icon-spin3 animate-spin'></i>
-    </button>
-  </div>
-</ng-template>
-
-<ng-template #templateNewContent>
-  <div class="modal-header bg-dark">
-    <h4 class="modal-title pull-left">New Content Upload</h4>
-    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-      <span aria-hidden="true">&times;</span>
-
-    </button>
-  </div>
-  <div class="modal-body bg-dark d-flex flex-wrap">
-    <section class="col-lg-5 mb-3">
-      <fieldset>
-        <legend>Type of Content</legend>
-        <form>
-          <div class="custom-control custom-radio pb-1 pt-1">
-            <input [(ngModel)]='contentType' value="new-content" name='contentType' type="radio"
-              class="custom-control-input" id='contentType1'>
-            <label class="custom-control-label" for='contentType1'>
-              New Content Upload
-            </label>
-          </div>
-          <div class="custom-control custom-radio pb-1 pt-1">
-            <input [(ngModel)]='contentType' value="learning-outcome" name='contentType' type="radio"
-              class="custom-control-input" id='contentType2'>
-            <label class="custom-control-label" for='contentType2'>
-              Learning Outcome
-            </label>
-          </div>
-        </form>
-
-      </fieldset>
-    </section>
-    <section [ngSwitch]='contentType' class="col-lg-7"
-      style="border-left: rgba(131, 223, 223, 0.452) 2px solid; margin-left: -2px">
-      <ng-container *ngSwitchCase='"new-content"'>
-        <h5>New Content Upload</h5>
-        <form id='newContentUploadForm' [formGroup]='newContentUploadForm' (submit)='saveNewContent()'>
-          <div class="mt-1">
-            <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-              [triggerValidation]='triggerNewContentValidation' label='Content description' id="contentDescription"
-              placeholder="Enter Content Description" formControlName="description">
-            </app-input>
-          </div>
-          <div class="custom-file mt-2">
-            <input type="file" class="custom-file-input" id='newContentUploadInput' formControlName='content'>
-            <label for="newContentUploadInput" class="custom-file-label">Upload File</label>
-          </div>
-        </form>
-      </ng-container>
-
-      <ng-container *ngSwitchCase='"learning-outcome"'>
-        <h5>New Learning Outcome</h5>
-        <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
-          <div class="mt-1">
-            <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-              [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome'
-              id="newLearningOutcomeDescription" placeholder="Enter Learning Outcome" formControlName="description">
-            </app-input>
-          </div>
-        </form>
-      </ng-container>
-    </section>
-  </div>
-  <div class="modal-footer bg-dark">
-    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
-    <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
-      [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
-      <span *ngIf='!savingNewContent'>Save Content</span>
-      <span *ngIf='savingNewContent'>Saving...</span>
-      <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-      <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
-    </button>
-    <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
-      [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
-      <span *ngIf='!savingNewContent'>Save Learning Content</span>
-      <span *ngIf='savingNewContent'>Saving...</span>
-      <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-      <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
-    </button>
-  </div>
 </ng-template>

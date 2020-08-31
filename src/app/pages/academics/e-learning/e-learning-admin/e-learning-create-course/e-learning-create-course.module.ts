@@ -11,6 +11,7 @@ import {ModalModule} from 'ngx-bootstrap/modal';
 import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {AppStarLabelRequiredModule} from '../../../../../components/label-star-required/app-star-label-required';
 import {SortableModule} from 'ngx-bootstrap/sortable';
+import {ELearningTopicObjectivesModule} from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
 
 
 @NgModule({
@@ -26,7 +27,11 @@ import {SortableModule} from 'ngx-bootstrap/sortable';
     ModalModule.forRoot(),
     AppValidateSubmitButtonsModule,
     AppStarLabelRequiredModule,
-    SortableModule.forRoot()
+    SortableModule.forRoot(),
+    ELearningTopicObjectivesModule
+  ],
+  exports: [
+    ELearningCreateCourseComponent
   ]
 })
 export class ELearningCreateCourseModule {
