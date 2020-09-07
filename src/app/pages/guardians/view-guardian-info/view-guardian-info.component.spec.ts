@@ -7,6 +7,7 @@ import { StoreModule, Store } from '@ngrx/store';
 import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {StarRequiredComponent} from '../../../components/label-star-required/label-star-required.component';
 
 describe('ViewGuardianInfoComponent', () => {
   let component: ViewGuardianInfoComponent;
@@ -23,6 +24,7 @@ describe('ViewGuardianInfoComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StarRequiredComponent,
         AppLoadingBubbleModule
       ],
       declarations: [ViewGuardianInfoComponent],

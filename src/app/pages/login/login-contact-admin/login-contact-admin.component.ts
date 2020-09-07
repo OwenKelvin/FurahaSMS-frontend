@@ -1,8 +1,8 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
+import {Component, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {AppFormService} from 'src/app/services/AppForm.service';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+
 @Component({
   selector: 'app-login-contact-admin',
   templateUrl: './login-contact-admin.component.html',
@@ -13,11 +13,13 @@ export class LoginContactAdminComponent implements OnInit {
   errors: {
     email: string | null;
   };
+
   constructor(
     private fb: FormBuilder,
     private appFormService: AppFormService,
     private authService: AuthenticationService
-  ) {}
+  ) {
+  }
 
   ngOnInit() {
     this.errors = {
@@ -27,6 +29,7 @@ export class LoginContactAdminComponent implements OnInit {
       email: ['', [Validators.required, Validators.email]]
     });
   }
+
   get email(): FormControl {
     return this.loginContactAdminForm.get('email') as FormControl;
   }

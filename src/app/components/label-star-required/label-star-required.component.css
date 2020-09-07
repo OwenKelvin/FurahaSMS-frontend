@@ -6,3 +6,10 @@ section {
 span {
   color: yellowgreen;
 }
+.required {
+  font-size: 0.5em;
+  position: absolute;
+  left: 0;
+  top: 5px;
+  color: greenyellow;
+}

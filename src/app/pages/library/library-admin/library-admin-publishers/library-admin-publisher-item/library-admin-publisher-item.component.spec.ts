@@ -5,6 +5,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { RouterTestingModule } from '@angular/router/testing';
+import {libraryFeatureKey, reducers} from '../../../store/reducers';
 
 describe('LibraryAdminPublisherItemComponent', () => {
   let component: LibraryAdminPublisherItemComponent;
@@ -21,6 +22,7 @@ describe('LibraryAdminPublisherItemComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(libraryFeatureKey, reducers),
         RouterTestingModule
       ],
       declarations: [LibraryAdminPublisherItemComponent],

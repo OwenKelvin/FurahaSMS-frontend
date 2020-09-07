@@ -10,6 +10,9 @@ import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppStarLabelRequiredModule} from '../../../../../components/label-star-required/app-star-label-required';
+import {SortableModule} from 'ngx-bootstrap/sortable';
 
 describe('ELearningCreateCourseComponent', () => {
   let component: ELearningCreateCourseComponent;
@@ -32,7 +35,10 @@ describe('ELearningCreateCourseComponent', () => {
           }
         }),
         HttpClientTestingModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        RouterTestingModule,
+        AppStarLabelRequiredModule,
+        SortableModule.forRoot()
       ],
       declarations: [ELearningCreateCourseComponent],
       providers: [reducerProvider]

@@ -1,20 +1,23 @@
 import { Component, OnInit } from '@angular/core';
 import { RolesAndPermissionsService } from '../../services/roles-and-permissions.service';
 import { ActivatedRoute } from '@angular/router';
-import { map, mergeMap, takeWhile, tap } from 'rxjs/operators';
-import { Observable, forkJoin } from 'rxjs';
+import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 
 @Component({
   selector: 'app-roles-permission-edit',
   templateUrl: './roles-permission-edit.component.html',
   styleUrls: ['./roles-permission-edit.component.css']
 })
-export class RolesPermissionEditComponent implements OnInit {
-  role$: Observable<any>;
+export class RolesPermissionEditComponent  extends subscribedContainerMixin() implements OnInit {
   role: any;
-  isLoading: boolean;
-  componentIsActive: boolean;
+  role$: Observable<any> = this.route.paramMap.pipe(
+    map(params => Number(params.get('id'))),
+    tap(id => this.roleId = id),
+    mergeMap(id => this.rolesPermissionService.getAllPermissionsStatusForRole(id)));
+  isLoading = true;
   permissionsForm: FormGroup;
   isSubmitting: boolean;
   roleId: number;
@@ -22,17 +25,11 @@ export class RolesPermissionEditComponent implements OnInit {
     private rolesPermissionService: RolesAndPermissionsService,
     private route: ActivatedRoute,
     private fb: FormBuilder
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-
-    this.componentIsActive = true;
-    this.isLoading = true;
-    this.role$ = this.route.paramMap
-      .pipe(map(params => Number(params.get('id'))))
-      .pipe(tap(id => this.roleId = id))
-      .pipe(mergeMap(id => this.rolesPermissionService.getAllPermissionsStatusForRole(id)))
-      .pipe(takeWhile(() => this.componentIsActive))
     this.role$.subscribe(res => {
       this.isLoading = false;
       this.role = res;
@@ -63,7 +60,7 @@ export class RolesPermissionEditComponent implements OnInit {
       .map(control => control.value)
       .forEach(({ name, hasPermission}) => {
         this.rolesPermissionService.updatePermissionForRoleWithId(this.roleId, { name, hasPermission })
-          .pipe(takeWhile(() => this.componentIsActive))
+          .pipe(takeUntil(this.destroyed$))
           .subscribe(() => {
             this.isSubmitting = false;
           }, () => this.isSubmitting = false)

@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AccountsAdminComponent } from './accounts-admin.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { myProfileFeatureKey, reducer } from '../../my-profile/store/reducers/my-profile.reducer';
+import {AccountsAdminComponent} from './accounts-admin.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reducers';
+import {myProfileFeatureKey, reducer} from '../../my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 
 describe('AccountsAdminComponent', () => {
   let component: AccountsAdminComponent;
@@ -23,12 +24,13 @@ describe('AccountsAdminComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [AccountsAdminComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

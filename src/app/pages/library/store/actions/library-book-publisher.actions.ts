@@ -1,4 +1,4 @@
-import { createAction, props } from '@ngrx/store';
+import {createAction, props} from '@ngrx/store';
 
 export const loadLibraryBookPublishers = createAction(
   '[Library Book Publishers] Load Publishers'
@@ -17,7 +17,7 @@ export const loadLibraryBookPublishersFailure = createAction(
 
 export const loadLibraryBookPublisher = createAction(
   '[Library Book Publisher] Load Publisher',
-  props<{ data: {id: number}; }>()
+  props<{ data: { id: number }; }>()
 );
 
 export const loadLibraryBookPublisherSuccess = createAction(

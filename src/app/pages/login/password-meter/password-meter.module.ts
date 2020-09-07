@@ -1,7 +1,6 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
-import { PasswordMeterComponent } from './password-meter.component';
-
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
+import {PasswordMeterComponent} from './password-meter.component';
 
 
 @NgModule({
@@ -11,4 +10,5 @@ import { PasswordMeterComponent } from './password-meter.component';
     CommonModule
   ]
 })
-export class PasswordMeterModule { }
+export class PasswordMeterModule {
+}

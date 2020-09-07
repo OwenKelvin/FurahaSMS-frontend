@@ -1,12 +1,13 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SupportStaffAdmissionComponent } from './support-staff-admission.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { SelectComponent } from '../../../../components/select/select.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {SupportStaffAdmissionComponent} from './support-staff-admission.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {SelectComponent} from '../../../../components/select/select.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {admissionsFeatureKey, reducers} from '../../store/reducers';
 
 describe('SupportStaffAdmissionComponent', () => {
   let component: SupportStaffAdmissionComponent;
@@ -23,6 +24,7 @@ describe('SupportStaffAdmissionComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(admissionsFeatureKey, reducers),
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,

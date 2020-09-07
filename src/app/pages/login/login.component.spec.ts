@@ -1,14 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginComponent } from './login.component';
-import { InputComponent } from '../../components/input/input.component';
-import { FullWithCenterComponent } from '../../components/full-with-center/full-with-center.component';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { By } from '@angular/platform-browser';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { ErrorModule } from 'src/app/components/error/error.module';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {LoginComponent} from './login.component';
+import {InputComponent} from '../../components/input/input.component';
+import {FullWithCenterComponent} from '../../components/full-with-center/full-with-center.component';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
+import {By} from '@angular/platform-browser';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {ErrorModule} from 'src/app/components/error/error.module';
+import {AppStarLabelRequiredModule} from '../../components/label-star-required/app-star-label-required';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -28,7 +29,8 @@ describe('LoginComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        ErrorModule
+        ErrorModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [LoginComponent, FullWithCenterComponent, InputComponent],
       providers: [reducerProvider]

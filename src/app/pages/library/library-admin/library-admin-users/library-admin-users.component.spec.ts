@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LibraryAdminUsersComponent } from './library-admin-users.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {LibraryAdminUsersComponent} from './library-admin-users.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
 
 
 describe('LibraryAdminUsersComponent', () => {
@@ -15,13 +16,15 @@ describe('LibraryAdminUsersComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers),
         AppLinksModule,
         RouterTestingModule,
         StoreModule.forFeature(myProfileFeatureKey, reducer)

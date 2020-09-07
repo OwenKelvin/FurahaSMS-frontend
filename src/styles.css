@@ -7,12 +7,19 @@
 
 label {
   margin-bottom: 0.1rem;
+  margin-top: 0.5em
 }
-
 .ng-select .ng-select-container  {
   min-height: 38px;
 }
 
+.list-item-border {
+  border-left: 5px solid rgba(173,216,230,.5);
+  padding-bottom: 0.6rem !important;
+  padding-top: 0.2rem !important;
+  margin-top: 0.2em !important;
+  margin-bottom: 0.2em !important;
+}
 .ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
 
   /*height: 100%;*/
@@ -109,7 +116,7 @@ h2 {
   /* margin-left: 10px; */
   line-height: 1.2rem;
   font-weight: 500;
-  border-left: 6px solid lightblue;
+  border-left: 6px solid #add8e6;
 }
 h3 {
   font-size: 1.1rem;
@@ -368,4 +375,17 @@ a.disabled {
   pointer-events: none;
   opacity: 0.5;
   cursor: not-allowed !important;
+}
+
+.sortable-item {
+  padding: 0.6rem 0.6rem;
+  margin-bottom: 0.2rem;
+  line-height: 1.4em;
+  cursor: grab;
+  border-radius: 4px;
+  border: 1px solid #adadad;
+}
+.sortable-item-active {
+  background-color: rgba(173,255,47,0.3);
+
 }

@@ -1,9 +1,9 @@
-import { LibraryBookAuthorEffects } from './library-book-authors.effects';
-import { LibraryBookPublisherEffects } from './library-book-publishers.effects';
-import { LibraryBookClassificationEffects } from './library-book-classifications.effects';
+import {LibraryBookAuthorEffects} from './library-book-authors.effects';
+import {LibraryBookPublisherEffects} from './library-book-publishers.effects';
+import {LibraryBookClassificationEffects} from './library-book-classifications.effects';
 
-export { LibraryBookAuthorEffects };
+export {LibraryBookAuthorEffects};
 
-export { LibraryBookPublisherEffects };
+export {LibraryBookPublisherEffects};
 
-export { LibraryBookClassificationEffects };
+export {LibraryBookClassificationEffects};

@@ -1,7 +1,7 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { LibraryAuthorService } from './library-author.service';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {LibraryAuthorService} from './library-author.service';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('LibraryAuthorService', () => {
   beforeEach(() => TestBed.configureTestingModule({

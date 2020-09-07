@@ -1,0 +1,5 @@
+<div class="alert alert-danger m-1" *ngIf="errors.length > 0 && validated">
+  <div class="icon-attention-circled" *ngFor="let error of errors">
+    {{ getErrorMessage(error) }}
+  </div>
+</div>

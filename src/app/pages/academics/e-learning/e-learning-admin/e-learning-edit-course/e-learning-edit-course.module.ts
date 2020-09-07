@@ -9,6 +9,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ELearningTopicObjectivesModule } from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
+import {ELearningCreateCourseModule} from '../e-learning-create-course/e-learning-create-course.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/
     ReactiveFormsModule,
     AppInputModule,
     ELearningTopicObjectivesModule,
-    ELearningTopicMaterialsModule
+    ELearningTopicMaterialsModule,
+    ELearningCreateCourseModule
   ]
 })
 export class ELearningEditCourseModule { }

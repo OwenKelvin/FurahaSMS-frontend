@@ -1,18 +1,18 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PasswordManagementComponent } from './password-management.component';
-import { UserPasswordChangeModule } from '../user-password-change/user-password-change.module';
-import { UserPasswordResetModule } from '../user-password-reset/user-password-reset.module';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LoadMyProfileModule } from '../../my-profile/load-my-profile.module';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
-import { EffectsModule } from '@ngrx/effects';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { MyProfileService } from '../../my-profile/services/my-profile.service';
+import {PasswordManagementComponent} from './password-management.component';
+import {UserPasswordChangeModule} from '../user-password-change/user-password-change.module';
+import {UserPasswordResetModule} from '../user-password-reset/user-password-reset.module';
+import {RouterTestingModule} from '@angular/router/testing';
+import {LoadMyProfileModule} from '../../my-profile/load-my-profile.module';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {EffectsModule} from '@ngrx/effects';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {MyProfileService} from '../../my-profile/services/my-profile.service';
 
 describe('PasswordManagementComponent', () => {
   let component: PasswordManagementComponent;
@@ -46,7 +46,7 @@ describe('PasswordManagementComponent', () => {
               snapshot: {},
               parent: {
                 snapshot: {},
-                paramMap: of({ get: () => 1 })
+                paramMap: of({get: () => 1})
               }
             }
           }
@@ -54,7 +54,7 @@ describe('PasswordManagementComponent', () => {
         {
           provide: MyProfileService,
           useValue: {
-            loadMyProfile$: of({ id: 1 })
+            loadMyProfile$: of({id: 1})
           }
         }
       ],

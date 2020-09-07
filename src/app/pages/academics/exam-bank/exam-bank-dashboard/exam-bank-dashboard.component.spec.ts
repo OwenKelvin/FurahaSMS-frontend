@@ -1,11 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ExamBankDashboardComponent } from './exam-bank-dashboard.component';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { StoreModule } from '@ngrx/store';
-import { RouterTestingModule } from '@angular/router/testing';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {ExamBankDashboardComponent} from './exam-bank-dashboard.component';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {StoreModule} from '@ngrx/store';
+import {RouterTestingModule} from '@angular/router/testing';
+import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
 
 describe('ExamBankDashboardComponent', () => {
   let component: ExamBankDashboardComponent;
@@ -23,12 +24,13 @@ describe('ExamBankDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [ExamBankDashboardComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

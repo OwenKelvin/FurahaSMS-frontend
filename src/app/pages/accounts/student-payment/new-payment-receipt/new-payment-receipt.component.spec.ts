@@ -8,6 +8,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {FormErrorsModule} from '../../../../shared/form-errors/form-errors.module';
 
 describe('NewPaymentReceiptComponent', () => {
   let component: NewPaymentReceiptComponent;
@@ -29,6 +30,7 @@ describe('NewPaymentReceiptComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        FormErrorsModule,
         AppInputModule,
         AppValidateSubmitButtonsModule
       ],

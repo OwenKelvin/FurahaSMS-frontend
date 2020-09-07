@@ -19,11 +19,9 @@ import * as fromStudentProfile from './store/reducers/student-profile.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { StudentProfileEffects } from './store/effects/student-profile.effects';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
-import { StudentDashboardComponent } from './student-dashboard/student-dashboard.component';
-import {StudentDashboardModule} from "./student-dashboard/student-dashboard.module";
+import {StudentDashboardModule} from './student-dashboard/student-dashboard.module';
 import { EditStudentAcademicsComponent } from './edit-student-academics/edit-student-academics.component';
-import {AppCheckboxModule} from "../../shared/checkbox/checkbox.module";
-
+import {AppCheckboxModule} from '../../shared/checkbox/checkbox.module';
 
 @NgModule({
   declarations: [
@@ -50,8 +48,7 @@ import {AppCheckboxModule} from "../../shared/checkbox/checkbox.module";
     AppUserProfileModule,
     AppValidateSubmitButtonsModule,
     StudentDashboardModule,
-    AppCheckboxModule
-
+    AppCheckboxModule,
   ]
 })
 export class StudentsModule { }

@@ -1,16 +1,14 @@
 <h1>Time Table</h1>
-<div class="d-flex flex-wrap">
+<div class="d-flex flex-wrap card p-2">
   <div class="col-lg-12 p-0">
     <app-links [links$]='links$'></app-links>
   </div>
-  <div class="col-lg-4 mt-3">
-    <h2>Academic Years</h2>
-    <ul class="list-group bg-dark">
-      <li *ngFor='let academicYear of academicYears$ | async' class="list-group-item bg-dark p-0">
-        <a class="btn-block p-3" [routerLink]='["academic-years", academicYear.id]'>{{ academicYear.name }}</a>
+  <fieldset class="col-lg-12 mt-3 card pb-2">
+    <legend><h2>Academic Years</h2></legend>
+    <ul class="d-flex flex-wrap m-0 p-0">
+      <li *ngFor='let academicYear of academicYears$ | async' class="list-group-item col-12 col-sm-6 col-md-6 col-lg-4 p-1">
+        <a class="btn-block p-3 bg-dark" [routerLink]='["academic-years", academicYear.id]'>{{ academicYear.name }}</a>
       </li>
     </ul>
-  </div>
+  </fieldset>
 </div>
-
-

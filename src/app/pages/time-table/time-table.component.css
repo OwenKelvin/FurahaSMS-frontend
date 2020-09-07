@@ -1,0 +1,16 @@
+.list-group-item {
+  position: relative;
+  display: block;
+  padding: 0;
+  background: none;
+  border: none;
+}
+
+.list-group-item a {
+  border: 2px solid rgba(0, 0, 0, 0.3);
+}
+
+.list-group-item a:hover {
+  border: 2px solid rgba(154,205,50, 0.5);
+  text-decoration: none !important;
+}

@@ -1,14 +1,13 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, OnDestroy, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as fromStore from '../../../../store/reducers';
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-import { LibraryAuthorService } from '../../services/library-author.service';
-import { Observable, pipe } from 'rxjs';
-import { LibraryBookService } from '../../services/library-book.service';
-import { LibraryPublisherService } from '../../services/library-publisher.service';
-import { takeWhile, tap } from 'rxjs/operators';
-import { Actions, ofType } from '@ngrx/effects';
-import { loadLibraryBooksSuccess } from '../../store/actions/library-book.actions';
+import {FormBuilder, FormControl, FormGroup} from '@angular/forms';
+import {LibraryAuthorService} from '../../services/library-author.service';
+import {Observable} from 'rxjs';
+import {LibraryBookService} from '../../services/library-book.service';
+import {LibraryPublisherService} from '../../services/library-publisher.service';
+import {takeWhile} from 'rxjs/operators';
+import {loadLibraryBooksSuccess} from '../../store/actions/library-book.actions';
 
 @Component({
   selector: 'app-library-search-catalogue',
@@ -31,16 +30,18 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
     private authorsService: LibraryAuthorService,
     private booksService: LibraryBookService,
     private publisherservice: LibraryPublisherService,
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.componentIsActive = true;
     this.bookSearched = false;
     this.clearForm();
     this.authors$ = this.authorsService.filter(this.author.value);
-    this.titles$ = this.booksService.filter({ title: this.title.value });
+    this.titles$ = this.booksService.filter({title: this.title.value});
     this.publishers$ = this.publisherservice.filter(this.publisher.value);
   }
+
   clearForm() {
     this.searchParamsForm = this.fb.group({
       title: [''],
@@ -48,15 +49,19 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
       publisher: [''],
     });
   }
+
   get author(): FormControl {
     return this.searchParamsForm.get('author') as FormControl;
   }
+
   get publisher(): FormControl {
     return this.searchParamsForm.get('publisher') as FormControl;
   }
+
   get title(): FormControl {
     return this.searchParamsForm.get('title') as FormControl;
   }
+
   submitSearchParamsForm() {
     this.isSubmitting = true;
     this.books$ = this.booksService.filter(this.searchParamsForm.value);
@@ -65,7 +70,7 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
       .subscribe({
         next: books => {
           this.books = books;
-          this.store.dispatch(loadLibraryBooksSuccess({ data: books }));
+          this.store.dispatch(loadLibraryBooksSuccess({data: books}));
         },
         complete: () => {
           this.bookSearched = true;
@@ -73,6 +78,7 @@ export class LibrarySearchCatalogueComponent implements OnInit, OnDestroy {
         }
       });
   }
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }

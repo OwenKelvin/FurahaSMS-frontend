@@ -1,6 +1,7 @@
 h1 {
   font-size: 1.5rem;
 }
+
 /* @media (min-width: 992px) {
   .card {
   	min-width: 500px !important;
@@ -14,12 +15,13 @@ h1 {
 } */
 @media (max-width: 400px) {
   .container {
-    padding:0 !important;
-    margin:0 !important;
+    padding: 0 !important;
+    margin: 0 !important;
     background-color: red !important;
   }
+
   .card, .card-heading, .card-body {
-  	padding: 10px;
+    padding: 10px;
     margin: 1em;
     min-width: 200px;
   }

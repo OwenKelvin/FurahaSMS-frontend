@@ -1,7 +1,8 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 import * as LibraryBookAuthorActions from '../actions/library-book-author.actions';
 
 export const libraryBookAuthorsFeatureKey = 'libraryBookAuthors';
+
 export interface State {
   id?: number;
   name: string;
@@ -16,7 +17,6 @@ const libraryBookReducer = createReducer(
   on(LibraryBookAuthorActions.loadBookAuthors, state => state),
   on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (_state, action) => action.data),
   on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (state, _action) => state),
-
 );
 
 export function reducer(state: State[] | undefined, action: Action) {

@@ -2,6 +2,7 @@ import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ValidateSubmitButtonsComponent } from './validate-submit-buttons.component';
 import { FormGroup } from '@angular/forms';
+import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
 
 describe('ValidateSubmitButtonsComponent', () => {
   let component: ValidateSubmitButtonsComponent;
@@ -9,6 +10,7 @@ describe('ValidateSubmitButtonsComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
+      imports: [FormErrorsModule],
       declarations: [ ValidateSubmitButtonsComponent ]
     })
     .compileComponents();

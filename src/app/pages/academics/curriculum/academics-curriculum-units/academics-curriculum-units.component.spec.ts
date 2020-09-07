@@ -1,14 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { AcademicsCurriculumUnitsComponent } from './academics-curriculum-units.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { ViewItemsComponent } from '../../../../components/view-items/view-items.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ChipsComponent } from '../../../../components/chips/chips.component';
-import { LoadingBubbleComponent } from '../../../../components/loading-bubble/loading-bubble.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { ErrorComponent } from '../../../../components/error/error.component';
+import {AcademicsCurriculumUnitsComponent} from './academics-curriculum-units.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {ViewItemsComponent} from '../../../../components/view-items/view-items.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ChipsComponent} from '../../../../components/chips/chips.component';
+import {LoadingBubbleComponent} from '../../../../components/loading-bubble/loading-bubble.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {ErrorComponent} from '../../../../components/error/error.component';
+import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
 
 describe('AcademicsCurriculumUnitsComponent', () => {
   let component: AcademicsCurriculumUnitsComponent;
@@ -25,6 +26,7 @@ describe('AcademicsCurriculumUnitsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers),
         RouterTestingModule,
         HttpClientTestingModule
       ],

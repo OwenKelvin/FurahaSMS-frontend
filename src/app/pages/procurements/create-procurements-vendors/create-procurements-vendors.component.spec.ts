@@ -1,16 +1,17 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateProcurementsVendorsComponent } from './create-procurements-vendors.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
-import { InputComponent } from '../../../components/input/input.component';
-import { TelInputComponent } from '../../../components/tel-input/tel-input.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { NgSelectModule } from '@ng-select/ng-select';
+import {CreateProcurementsVendorsComponent} from './create-procurements-vendors.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading-bubble.component';
+import {InputComponent} from '../../../components/input/input.component';
+import {TelInputComponent} from '../../../components/tel-input/tel-input.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('CreateProcurementsVendorsComponent', () => {
   let component: CreateProcurementsVendorsComponent;
@@ -32,7 +33,8 @@ describe('CreateProcurementsVendorsComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         TabsModule.forRoot(),
-        NgSelectModule
+        NgSelectModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [
         CreateProcurementsVendorsComponent,

@@ -5,29 +5,31 @@ h1 {
 a {
   text-decoration: underline;
 }
+
 @media (min-width: 477px) {
   .card {
-  	min-width: 478x;
+    min-width: 478x;
   }
 }
 
 @media (min-width: 768px) {
   .card {
-  	min-width: 500px;
+    min-width: 500px;
   }
 }
 
 @media (min-width: 992px) {
   .card {
-  	min-width: 480px;
+    min-width: 480px;
   }
 }
 
 @media (max-width: 400px) {
   .card {
-  	width: 95%;
+    width: 95%;
   }
 }
+
 .card-footer {
   font-size: 80%;
 }

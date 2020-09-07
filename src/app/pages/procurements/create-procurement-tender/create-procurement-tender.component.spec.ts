@@ -9,6 +9,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
 import { InputComponent } from '../../../components/input/input.component';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('CreateProcurementTenderComponent', () => {
   let component: CreateProcurementTenderComponent;
@@ -17,7 +18,8 @@ describe('CreateProcurementTenderComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
@@ -26,6 +28,7 @@ describe('CreateProcurementTenderComponent', () => {
         }),
         HttpClientTestingModule,
         RouterTestingModule,
+        AppStarLabelRequiredModule,
         FormsModule, ReactiveFormsModule
       ],
       declarations: [

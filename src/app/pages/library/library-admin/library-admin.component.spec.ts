@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { LibraryAdminComponent } from './library-admin.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {LibraryAdminComponent} from './library-admin.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 
 describe('LibraryAdminComponent', () => {
   let component: LibraryAdminComponent;
@@ -24,7 +25,8 @@ describe('LibraryAdminComponent', () => {
         }),
         RouterTestingModule,
         AppLinksModule,
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers),
       ],
       declarations: [LibraryAdminComponent],
       providers: [reducerProvider]

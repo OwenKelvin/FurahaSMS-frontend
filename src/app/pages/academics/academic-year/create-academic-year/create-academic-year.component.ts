@@ -1,70 +1,47 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { AcademicYearService } from 'src/app/pages/academics/services/academic-year.service';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
-import { MessageInterface } from 'src/app/interfaces/message.interface';
-import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
-import { takeWhile } from 'rxjs/operators';
+import {ChangeDetectionStrategy, Component} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../store/reducers';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {AcademicYearService} from 'src/app/pages/academics/services/academic-year.service';
+import {Router} from '@angular/router';
+import {takeUntil} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
+import {formMixin} from '../../../../shared/mixins/form.mixin';
 
 @Component({
   selector: 'app-create-academic-year',
   templateUrl: './create-academic-year.component.html',
-  styleUrls: ['./create-academic-year.component.css']
+  styleUrls: ['./create-academic-year.component.css'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class CreateAcademicYearComponent implements OnInit, OnDestroy {
-  academicYearForm: FormGroup;
-  triggerValidation: boolean;
-  isSubmitting: boolean;
-  showError: boolean;
-  errorMessage$: Observable<MessageInterface>;
-  componentIsActive: boolean;
+export class CreateAcademicYearComponent extends subscribedContainerMixin(formMixin()) {
+  academicYearForm: FormGroup = this.fb.group({
+    name: ['', [Validators.required]],
+    startDate: ['', [Validators.required]],
+    endDate: ['', [Validators.required]],
+  });
+
   constructor(
     private store: Store<AppState>,
     private fb: FormBuilder,
     private academicYear: AcademicYearService,
     private router: Router
-  ) { }
-
-  ngOnInit() {
-    this.componentIsActive = true;
-    this.academicYearForm = this.fb.group({
-      name: ['', [Validators.required]],
-      startDate: ['', [Validators.required]],
-      endDate: ['', [Validators.required]],
-    });
+  ) {
+    super();
   }
+
   submitAcademicYearForm() {
     if (this.academicYearForm.valid) {
-      this.isSubmitting = true;
+      this.submitInProgressSubject$.next(true)
       this.academicYear.save(this.academicYearForm.value)
-        .pipe(takeWhile(() => this.componentIsActive))
-        .subscribe(item => {
-        this.store.dispatch(loadToastShowsSuccess({
-          showMessage: true,
-          toastBody: 'Successfully Created Academic Year',
-          toastHeader: 'Success',
-          toastTime: 'Just Now'
-        }));
-        this.router.navigate(['/academics/academic-year/', item.id]);
-      }, error => {
-        this.store.dispatch(loadErrorMessagesSuccess({
-          show: true,
-          body: error.help,
-          title: error.message,
-          status: error.status
-        }));
-        this.showError = true;
-        this.isSubmitting = false;
-      });
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe({
+          next: item => this.router.navigate(['/academics/academic-year/', item.id]).then(),
+          error: () => this.submitInProgressSubject$.next(false)
+        });
     } else {
+      this.triggerValidationSubject$.next(true);
     }
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 
 }

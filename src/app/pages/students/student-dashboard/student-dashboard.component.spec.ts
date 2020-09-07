@@ -3,6 +3,8 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {StudentDashboardComponent} from './student-dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {SortableModule} from 'ngx-bootstrap/sortable';
 
 describe('StudentDashboardComponent', () => {
   let component: StudentDashboardComponent;
@@ -13,7 +15,9 @@ describe('StudentDashboardComponent', () => {
       imports: [
         FormsModule,
         ReactiveFormsModule,
-        NgSelectModule
+        NgSelectModule,
+        HttpClientTestingModule,
+        SortableModule
       ],
       declarations: [StudentDashboardComponent]
     })

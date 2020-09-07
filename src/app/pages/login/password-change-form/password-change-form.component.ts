@@ -1,15 +1,15 @@
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { FormGroup, Validators, FormControl, FormBuilder } from '@angular/forms';
-import { BehaviorSubject, Observable, combineLatest } from 'rxjs';
-import { map, tap } from 'rxjs/operators';
-import { AuthenticationService } from 'src/app/services/authentication.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Store } from '@ngrx/store';
-import { loadErrorMessagesFailure } from 'src/app/store/actions/error-message.actions';
+import {Component, OnDestroy} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
+import {map, tap} from 'rxjs/operators';
+import {AuthenticationService} from 'src/app/services/authentication.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Store} from '@ngrx/store';
+import {loadErrorMessagesFailure} from 'src/app/store/actions/error-message.actions';
 
 const checkPasswords = (group: FormGroup) => {
   const matchedPasswords = group.get('newPassword')?.value === group.get('newPasswordConfirmation')?.value;
-  return matchedPasswords ? null : { passwordMismatch: true };
+  return matchedPasswords ? null : {passwordMismatch: true};
 };
 
 @Component({
@@ -17,7 +17,7 @@ const checkPasswords = (group: FormGroup) => {
   templateUrl: './password-change-form.component.html',
   styleUrls: ['./password-change-form.component.css']
 })
-export class PasswordChangeFormComponent implements OnDestroy  {
+export class PasswordChangeFormComponent implements OnDestroy {
 
   constructor(
     private fb: FormBuilder,
@@ -25,7 +25,9 @@ export class PasswordChangeFormComponent implements OnDestroy  {
     private route: ActivatedRoute,
     private router: Router,
     private store: Store
-  ) { }
+  ) {
+  }
+
   get showPasswordMismatch() {
     return this.passwordChangeForm.hasError('passwordMismatch') &&
       this.passwordChangeForm.get('newPassword')?.touched &&
@@ -40,7 +42,7 @@ export class PasswordChangeFormComponent implements OnDestroy  {
     oldPassword: [''],
     newPassword: ['', [Validators.required]],
     newPasswordConfirmation: ['', [Validators.required]]
-  }, { validators: [checkPasswords] });
+  }, {validators: [checkPasswords]});
 
   isSubmittingSubject$: BehaviorSubject<boolean> = new BehaviorSubject(false);
   isSubmittingActions$: Observable<boolean> = this.isSubmittingSubject$.asObservable();
@@ -53,7 +55,6 @@ export class PasswordChangeFormComponent implements OnDestroy  {
       showField ? c.setValidators([Validators.required]) : c.setValidators([]);
     })
   );
-
 
 
   submitPasswordChangeForm() {

@@ -1,12 +1,12 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { PasswordChangeFormComponent } from './password-change-form.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import {PasswordChangeFormComponent} from './password-change-form.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppInputModule} from 'src/app/components/input/app-input.module';
+import {ReactiveFormsModule} from '@angular/forms';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 
 describe('PasswordChangeFormComponent', () => {
   let component: PasswordChangeFormComponent;
@@ -28,9 +28,9 @@ describe('PasswordChangeFormComponent', () => {
         })
       ],
       providers: [reducerProvider],
-      declarations: [ PasswordChangeFormComponent ]
+      declarations: [PasswordChangeFormComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

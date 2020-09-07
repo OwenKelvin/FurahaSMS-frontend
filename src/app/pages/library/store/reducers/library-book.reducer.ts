@@ -1,4 +1,4 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 import * as LibraryBookActions from '../actions/library-book.actions';
 
 export const libraryBookFeatureKey = 'libraryBooks';
@@ -27,10 +27,10 @@ const libraryBookReducer = createReducer(
     });
 
     return {
-      ...state, ...data}
+      ...state, ...data
+    }
   }),
   on(LibraryBookActions.loadLibraryBooksFailure, (state, _action) => state),
-
 );
 
 export function reducer(state: State | undefined, action: Action) {

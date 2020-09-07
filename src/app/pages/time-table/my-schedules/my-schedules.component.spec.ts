@@ -1,6 +1,8 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { MySchedulesComponent } from './my-schedules.component';
+import {MySchedulesComponent} from './my-schedules.component';
+import {StoreModule} from '@ngrx/store';
+import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 
 describe('MySchedulesComponent', () => {
   let component: MySchedulesComponent;
@@ -8,9 +10,10 @@ describe('MySchedulesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MySchedulesComponent ]
+      imports: [StoreModule.forFeature(appFeatureKey, reducers)],
+      declarations: [MySchedulesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

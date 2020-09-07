@@ -1,147 +1,210 @@
 <h1>E-Learning Course Maintenance</h1>
-<section *ngIf='!editorInitialized'>
-  <app-loading-bubble></app-loading-bubble>
-</section>
-<form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
-  [class.sr-only]='!editorInitialized'>
-  <section class="col-lg-6">
-    <app-input [triggerValidation]='triggerValidation' label='Course Name' placeholder='Enter Course Name' id='name'
-      formControlName='name'></app-input>
+<div class="card p-2" *ngIf="v$ | async as v">
+  <section *ngIf='(editorInitializedAction$ | async) === false'>
+    <app-loading-bubble></app-loading-bubble>
   </section>
-  <section class="col-lg-6">
-    <section class="form-group d-flex">
-      <label class="col-lg-3" for="academicYear">
-        <span class='icon-star required'></span>
-        Academic Year</label>
-      <div class="col-lg-9">
-        <select id="academicYear" class="form-control" formControlName='academicYear'>
-          <option *ngFor='let academicYear of academicYears$ | async' [value]="academicYear.id">{{ academicYear.name }}
-          </option>
-        </select>
+  <form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
+        [class.sr-only]='(editorInitializedAction$ | async) === false'>
+    <div class="col-12 mt-2 pt-1">
+      <app-label-star-required></app-label-star-required>
+    </div>
+    <fieldset class="card p-2 pt-0">
+      <legend class="mb-0"><h2 class="m-0">General Info</h2></legend>
+      <div class="d-flex flex-wrap justify-content-between">
+        <section class="col-lg-4 col-sm-6">
+          <label class="col-12 control-label" for="academicYear">
+            <app-star-required></app-star-required>
+            Academic Year</label>
+
+          <select id="academicYear" class="form-control" formControlName='academicYear'>
+            <option *ngFor='let academicYear of v.academicYears'
+                    [value]="academicYear.id">{{ academicYear.name }}
+            </option>
+          </select>
+        </section>
+        <section class="col-lg-4 col-sm-6">
+          <label class="col-12 control-label" for="classLevel">
+            <app-star-required></app-star-required>
+            Class Level</label>
+          <select id="classLevel" class="form-control" formControlName='classLevel'>
+            <option *ngFor='let classLevel of v.classLevels'
+                    [value]="classLevel.id">{{ classLevel.name }}</option>
+          </select>
+        </section>
+
+        <section class="col-lg-4 col-sm-6">
+          <label class="col-12 control-label" for="unit">
+            <app-star-required></app-star-required>
+            Unit/Subject</label>
+          <select id="unit" class="form-control" formControlName='unit'>
+            <option *ngFor='let unit of units$ | async' [value]="unit.id">{{ unit.name }}</option>
+          </select>
+        </section>
+        <section class="col-lg-4 col-sm-6">
+          <app-input [triggerValidation]='triggerValidationAction$ | async' label='Course Name'
+                     placeholder='Enter Course Name' id='name'
+                     formControlName='name'></app-input>
+        </section>
+        <section class="col-lg-12">
+          <label for="description">Course Description</label>
+          <editor (onInit)='initializeEditor()' id='description' formControlName='description'
+                  [init]="tinyMCEConfig"></editor>
+        </section>
       </div>
-    </section>
-  </section>
-  <section class="col-lg-6">
-    <section class="form-group d-flex">
-      <label class="col-lg-3" for="classLevel">
-        <span class='icon-star required'></span>
-        Class Level</label>
-      <div class="col-lg-9">
-        <select id="classLevel" class="form-control" formControlName='classLevel'>
-          <option *ngFor='let classLevel of classLevels$ | async' [value]="classLevel.id">{{ classLevel.name }}</option>
-        </select>
-      </div>
-    </section>
-  </section>
-  <section class="col-lg-6">
-    <section class="form-group d-flex">
-      <label class="col-lg-3" for="unit">
-        <span class='icon-star required'></span>
-        Unit/Subject</label>
-      <div class="col-lg-9">
-        <select id="unit" class="form-control" formControlName='unit'>
-          <option *ngFor='let unit of units$ | async' [value]="unit.id">{{ unit.name }}</option>
-        </select>
-      </div>
-    </section>
-  </section>
-  <section class="col-lg-12">
-    <label for="description">Course Description</label>
-    <editor (onInit)='editorInitialized = true' id='description' *ngIf='editorInit' formControlName='description'
-      [init]="editorInit"></editor>
-
-  </section>
-  <section class="col-lg-12 d-flex flex-wrap mt-3">
-    <label class="col-lg-4" for="level1NumberingStyle">
-      Level 1 Topic Numbering Style
-    </label>
-    <section class="col-lg-4">
-      <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text" class='form-control'
-        id="level1NumberingStyle" list="numbering-list">
-
-    </section>
-    <section class="col-lg-3">
-      <button (click)='openModal(template)' type="button" class="btn btn-sm btn-primary"><span
-          class="icon-plus-circled"></span>Add Topic</button>
-    </section>
-  </section>
-  <section class="col-lg-12">
-    <fieldset class="mt-3">
-      <legend>Topics</legend>
 
 
-      <section>
-        <section>
-          <ol *ngIf='topicsControl.controls.length > 0; else noTopics'>
-            <li *ngFor='let topic of topicsControl.controls'>{{ topic.value.description }}</li>
-          </ol>
-          <ng-template #noTopics>
-            <div class="alert alert-info">
-              No Topics Added yet
+    </fieldset>
+    <fieldset class="card p-2 pt-0 d-flex flex-wrap mt-2">
+      <legend><h2>Topics Info</h2></legend>
+      <section class="col-lg-4">
+        <label class="col-12" for="level1NumberingStyle">
+          <app-star-required></app-star-required>
+          Level 1 Topic Numbering Style
+        </label>
+        <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text" class='form-control'
+               id="level1NumberingStyle" list="numbering-list">
+      </section>
+      <section class="col-lg-12">
+        <fieldset class="mt-3">
+          <legend>Topics</legend>
+          <section>
+            <button (click)='openModal({ component: template, id: -1 })' type="button" class="btn btn-sm btn-primary mt-2 mb-2"><span
+              class="icon-plus-circled"></span>Add Topic
+            </button>
+            <section>
+              <ng-template #itemTemplate let-item="item.initData" let-index="index">
+                <span class="chapter-title">{{ newCourseForm.get('numbering')?.value}} {{ index + 1 }}
+                  : {{ item.description }}</span>
+                <button type="button" (click)='openModal({component:template, id:index})' class="btn btn-primary btn-sm float-right mr-2" aria-label="Edit Topic"><span
+                  class="icon-edit-1"></span></button>
+                <fieldset class="card p-2 pl-0" style="background: initial">
+                  <legend>Subtopics</legend>
+
+                  <ol class="ml-0 pl-0">
+                    <ng-container *ngFor="let itemSubtopic of item.subTopics;">
+                      <li class="sortable-item"
+                          [style.--number-prefix]="'\''+ item.numbering" *ngIf="!!itemSubtopic">
+                        {{ itemSubtopic?.description }}
+                      </li>
+                    </ng-container>
+                  </ol>
+
+                  <div>
+                  </div>
+                </fieldset>
+              </ng-template>
+              <bs-sortable
+                [(ngModel)]="topics"
+                [itemTemplate]="itemTemplate"
+                fieldName="description"
+                [ngModelOptions]="{standalone: true}"
+                itemClass="sortable-item"
+                itemActiveClass="sortable-item-active"
+                placeholderItem="No Topics Added Yet"
+                placeholderClass="alert alert-info"
+                wrapperClass="sortable-wrapper"
+                (onChange)="updateTopics()"
+              ></bs-sortable>
+            </section>
+          </section>
+          <ng-template #template>
+            <div class="modal-header bg-dark">
+              <h4 class="modal-title pull-left">New Level 1 Topic</h4>
+              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+                <span aria-hidden="true">&times;</span>
+
+              </button>
+            </div>
+            <div class="modal-body bg-dark">
+              <form [formGroup]='newTopicForm' (submit)='addNewTopic()'>
+                <section class="d-flex flex-wrap">
+                  <div class="col-12 mt-2">
+                    <app-label-star-required></app-label-star-required>
+                  </div>
+                  <section class="col-lg-12">
+                    <app-input id='newTopicName' placeholder="Topic Description" formControlName="name"
+                               label="Topic Description"
+                               [triggerValidation]='triggerValidationAction$ | async'></app-input>
+                  </section>
+
+                  <section class="col-lg-5">
+                    <label class="col-12" for="numberingStyle">
+                      <app-star-required></app-star-required>
+                      Sub Topic Numbering Style</label>
+                    <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text"
+                           class='form-control' id="numberingStyle" list="numbering-list">
+
+                  </section>
+                  <section class="col-lg-12">
+                    <fieldset class="card p-2 mt-3" formArrayName='subTopics'>
+                      <legend>
+                        <h2>Sub Topics</h2>
+                      </legend>
+
+                      <section class="d-flex flex-wrap mt-2">
+                        <div class="col-12 mb-2">
+                          <button [disabled]='newTopicSubTopics.invalid' type="button" (click)='addSubTopic()'
+                                  class="btn btn-sm btn-primary"><span class="icon-plus-circled"></span>Add Subtopic
+                          </button>
+                        </div>
+
+
+                        <section class="col-12">
+                          <ng-template #subTopicTemplate let-item="item.initData" let-index="index">
+                            <div class="input-group">
+                              <div class="input-group-prepend">
+                                <span class="input-group-text">
+                                  {{ newTopicForm.get('numbering')?.value }} {{ index + 1 }}:
+                                </span>
+                              </div>
+                              <input *ngIf="subTopics[index]" (keyup)="updateSubTopics()" [attr.aria-label]='"Enter Subtopic description"' (blur)="updateSubTopicContent()" [ngModelOptions]="{standalone: true}"
+                                     class="form-control" [(ngModel)]="subTopics[index].description">
+                              <div class="input-group-append">
+                                <button type="button" [attr.aria-label]='"delete subtopic " + (index + 1)' (click)='deleteSubTopic(index)' class="btn btn-xs btn-danger"><span class="icon-cancel-circled-outline"></span>
+                                </button>
+                              </div>
+                            </div>
+                          </ng-template>
+                          <bs-sortable
+                            [(ngModel)]="subTopics"
+                            [itemTemplate]="subTopicTemplate"
+                            [ngModelOptions]="{standalone: true}"
+                            itemClass="sortable-item"
+                            itemActiveClass="sortable-item-active"
+                            placeholderItem="No Topics Added Yet"
+                            placeholderClass="alert alert-info"
+                            wrapperClass="sortable-wrapper"
+                            (ngModelChange)="updateSubTopics()"
+                          ></bs-sortable>
+                        </section>
+                      </section>
+                    </fieldset>
+                  </section>
+                </section>
+                <section class="d-flex justify-content-end mt-2 ml-4">
+                  <button (click)='modalRef.hide()' class="btn btn-secondary mr-4" type="button">Cancel</button>
+                  <button [disabled]='newTopicForm.invalid' class="btn btn-success">Save Topic</button>
+                </section>
+              </form>
             </div>
           </ng-template>
-        </section>
+        </fieldset>
       </section>
-      <ng-template #template>
-        <div class="modal-header bg-dark">
-          <h4 class="modal-title pull-left">New Level 1 Topic</h4>
-          <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
-            <span aria-hidden="true">&times;</span>
-
-          </button>
-        </div>
-        <div class="modal-body bg-dark">
-          <form [formGroup]='newTopicForm' (submit)='addNewTopic()'>
-            <section class="d-flex flex-wrap pl-4">
-
-              <section class="col-lg-12 mt-3">
-                <app-input id='newTopicName' placeholder="Topic Description" formControlName="name"
-                  label="Topic Description" [triggerValidation]='triggerValidation'></app-input>
-              </section>
-              <section class="col-lg-12 d-flex flex-wrap">
-                <section class="col-lg-3">
-                  <label for="numberingStyle"><span class='icon-star required'></span>Sub Topic Numbering Style</label>
-                </section>
-                <section class="col-lg-4">
-                  <input formControlName='numbering' placeholder="Eg Topic, Chapter, etc" type="text"
-                    class='form-control' id="numberingStyle" list="numbering-list">
-                </section>
-              </section>
-              <section class="col-lg-12">
-                <fieldset class="mt-3" formArrayName='subTopics'>
-                  <legend class="d-flex justify-content-between">
-                    Sub Topics 
-                    <button [disabled]='newTopicSubTopics.invalid' type="button" (click)='addSubTopic()' class="btn btn-sm btn-primary"><span class="icon-plus-circled"></span>Add Subtopic</button>
-                  </legend>
-                  <section class="mt-2 d-flex" *ngFor='let subTopic of newTopicSubTopics.controls; let i = index'>
-                    <div class="col-lg-9">
-                      <input aria-label="Sub Topic Description" [formControlName]='i' type="text" class="form-control">
-                    </div>
-                    <div>
-                      <button (click)='deleteSubTopic(i)' type="button" aria-label="delete subtopic" class="btn btn-sm btn-danger"><span class="icon-trash"></span></button>
-                    </div>
-                  </section>
-                </fieldset>
-              </section>
-            </section>
-            <section class="d-flex justify-content-end">
-              <button (click)='modalRef.hide()' class="btn btn-sm btn-secondary mr-4" type="button">Cancel</button>
-              <button [disabled]='newTopicForm.invalid' class="btn btn-sm btn-success">Save</button>
-            </section>
-          </form>
-        </div>
-      </ng-template>
     </fieldset>
-  </section>
-  <section class="col-lg-12">
-    <app-validate-submit-buttons [isSubmitting]='isSubmitting'
-      (validationButtonClicked)='triggerValidation = !triggerValidation' [formItem]='newCourseForm'>
-      <span>Create Course</span>
-    </app-validate-submit-buttons>
-  </section>
-</form>
+    <section class="col-lg-12">
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+                                   (validationButtonClicked)='triggerValidationSubject$.next(true)'
+                                   [formItem]='newCourseForm'>
+        <span>Create Course</span>
+      </app-validate-submit-buttons>
+    </section>
+  </form>
 
-<datalist id='numbering-list'>
-  <option *ngFor='let numberingStyle of numberingStyles$ | async' [value]='numberingStyle.name'>
-  </option>
-</datalist>
+  <datalist id='numbering-list'>
+    <option *ngFor='let numberingStyle of numberingStyles$ | async' [value]='numberingStyle.name'>
+    </option>
+  </datalist>
+
+</div>
+
+

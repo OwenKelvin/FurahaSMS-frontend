@@ -15,8 +15,8 @@
 	position: absolute;
 }
 .arrow-up {
-  width: 0; 
-  height: 0; 
+  width: 0;
+  height: 0;
   border-left: 6px solid transparent;
   border-right: 6px solid transparent;
   border-bottom: 6px solid red;
@@ -25,20 +25,14 @@
   margin-left: 20px;
 }
 
-.required {
-	font-size: 0.5em;
-	position: absolute;
-	left: -10px;
-	color: greenyellow;
-}
 .required-inVisible {
 	display: none;
 }
 input ~ section .show-password {
 	color: rgba(0, 0, 0, 0.2);
 }
-input:focus ~ section .show-password, 
-input ~ section .show-password:hover, 
+input:focus ~ section .show-password,
+input ~ section .show-password:hover,
 section .show-password:focus {
 	color: rgba(0, 0, 0, 1) !important;
 }

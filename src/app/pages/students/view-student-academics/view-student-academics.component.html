@@ -22,7 +22,11 @@
         </div>
         <div class="d-flex flex-wrap align-items-center ml-4">
           <h5 class="m-3">Stream</h5>
-          {{  classLevel.stream_name }}({{  classLevel.stream_abbreviation}})
+          {{  classLevel.stream_name }}
+          <span *ngIf="classLevel.stream_abbreviation; else streamNotSpecified" >({{ classLevel.stream_abbreviation }})</span>
+          <ng-template #streamNotSpecified>
+            <span class="text-warning">Not Specified</span>
+          </ng-template>
         </div>
         <div class="d-flex flex-wrap align-items-center ml-4">
           <h5 class="m-3">Units</h5>

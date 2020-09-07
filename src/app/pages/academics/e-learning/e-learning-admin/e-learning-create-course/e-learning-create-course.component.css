@@ -1,6 +1,19 @@
-.required {
-	font-size: 0.5em;
-	position: absolute;
-	left: 5px; top: 5px;
-	color: greenyellow;
+.chapter-title {
+  font-size: 2rem;
+  font-weight: bold;
+  margin-bottom: 1rem;
+}
+
+ol {
+  counter-reset: item;
+  list-style-type: none;
+}
+
+ol li {
+  --number-prefix: 'Chapter ';
+}
+
+ol li:before {
+  content: var(--number-prefix) counter(item, decimal) '. ';
+  counter-increment: item;
 }

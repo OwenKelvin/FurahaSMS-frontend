@@ -1,6 +1,6 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { AppState } from '../../../../store/reducers';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AppState} from '../../../../store/reducers';
 
 @Component({
   selector: 'app-library-my-account',
@@ -9,7 +9,8 @@ import { AppState } from '../../../../store/reducers';
 })
 export class LibraryMyAccountComponent implements OnInit {
 
-  constructor(private store: Store<AppState>) { }
+  constructor(private store: Store<AppState>) {
+  }
 
   ngOnInit() {
   }

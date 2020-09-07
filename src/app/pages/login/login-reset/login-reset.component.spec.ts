@@ -1,14 +1,15 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { LoginResetComponent } from './login-reset.component';
-import { InputComponent } from '../../../components/input/input.component';
-import { FullWithCenterComponent } from '../../../components/full-with-center/full-with-center.component';
-import { FormsModule, ReactiveFormsModule, FormControl } from '@angular/forms';
-import { By } from '@angular/platform-browser';
-import { RouterTestingModule } from '@angular/router/testing';
-import { ErrorModule } from 'src/app/components/error/error.module';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {LoginResetComponent} from './login-reset.component';
+import {InputComponent} from '../../../components/input/input.component';
+import {FullWithCenterComponent} from '../../../components/full-with-center/full-with-center.component';
+import {FormControl, FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {By} from '@angular/platform-browser';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ErrorModule} from 'src/app/components/error/error.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('LoginResetComponent', () => {
   let component: LoginResetComponent;
@@ -29,13 +30,14 @@ describe('LoginResetComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        AppStarLabelRequiredModule
       ],
       declarations: [LoginResetComponent, FullWithCenterComponent, InputComponent],
       providers: [
         reducerProvider
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

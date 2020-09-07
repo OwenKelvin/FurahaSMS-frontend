@@ -1,9 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { SidebarComponent } from './sidebar.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
+import {SidebarComponent} from './sidebar.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {myProfileFeatureKey, reducer} from '../../pages/my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 describe('SidebarComponent', () => {
   let component: SidebarComponent;
@@ -12,13 +14,17 @@ describe('SidebarComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule ],
+        }),
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers),
+        RouterTestingModule],
       declarations: [SidebarComponent],
       providers: [reducerProvider]
     });

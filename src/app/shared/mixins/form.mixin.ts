@@ -1,8 +1,11 @@
-import { Constructor } from './constructor.mixin';
-import { BehaviorSubject } from 'rxjs';
+import {Constructor} from './constructor.mixin';
+import {BehaviorSubject} from 'rxjs';
+import {FormGroup} from '@angular/forms';
 
-export const formMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
+export const formMixin = <T extends Constructor>(BaseClass: T = class {
+} as T) =>
   class extends BaseClass {
+    itemForm: FormGroup
     triggerValidationSubject$ = new BehaviorSubject<boolean>(false);
     triggerValidationAction$ = this.triggerValidationSubject$.asObservable();
     submitInProgressSubject$ = new BehaviorSubject<boolean>(false);

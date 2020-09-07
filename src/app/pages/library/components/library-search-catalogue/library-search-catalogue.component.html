@@ -3,21 +3,21 @@
 <section class="card p-2">
   <h2>Search Catalogue</h2>
   <form (submit)='submitSearchParamsForm()' [formGroup]='searchParamsForm'
-    class="d-flex justify-content-start align-items-end flex-wrap mb-1">
+        class="d-flex justify-content-start align-items-end flex-wrap mb-1">
     <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
       <label class="control-label" for="title">Title</label>
       <input formControlName='title' [typeahead]="titles$ | async" typeaheadOptionField="title"
-        placeholder="Enter Title" class="form-control" [adaptivePosition]="true">
+             placeholder="Enter Title" class="form-control" [adaptivePosition]="true">
     </section>
     <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
       <label class="control-label" for="author">Author</label>
       <input formControlName='author' [typeahead]="authors$ | async" typeaheadOptionField="name"
-        placeholder="Enter Author" class="form-control" [adaptivePosition]="true">
+             placeholder="Enter Author" class="form-control" [adaptivePosition]="true">
     </section>
     <section class="col-lg-3 col-md-6 col-sm-6 mb-3">
       <label class="control-label" for="author">Publisher</label>
       <input formControlName='publisher' [typeahead]="publishers$ | async" typeaheadOptionField="name"
-        placeholder="Enter Publisher" class="form-control" [adaptivePosition]="true">
+             placeholder="Enter Publisher" class="form-control" [adaptivePosition]="true">
     </section>
     <section class="col-lg-3 mb-3 d-flex justify-content-around">
 
@@ -26,7 +26,7 @@
         <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
         <i *ngIf='!isSubmitting' class='icon-search'></i>
       </button>
-      <button [disabled]='!searchParamsForm.dirty'  class="btn btn-secondary" type="button" (click)='clearForm()'>
+      <button [disabled]='!searchParamsForm.dirty' class="btn btn-secondary" type="button" (click)='clearForm()'>
         Clear
         <i class='icon-cancel'></i>
       </button>
@@ -42,42 +42,42 @@
   </div>
   <table class="table table-dark mt-2" *ngIf='searchParamsForm.dirty && bookSearched'>
     <thead>
-      <tr>
-        <th>Book Title</th>
-        <th>Category</th>
-        <th>Publisher</th>
-        <th>Actions</th>
-      </tr>
+    <tr>
+      <th>Book Title</th>
+      <th>Category</th>
+      <th>Publisher</th>
+      <th>Actions</th>
+    </tr>
     </thead>
     <tbody>
-      <tr *ngFor='let book of books'>
-        <td>{{ book.title }}</td>
-        <td>
-          <ul>
-            <li *ngFor='let publisher of book.publishers'>
-              {{ publisher }}
-            </li>
-          </ul>
-        </td>
-        <td>
-          <ul>
-            <li *ngFor='let cat of book.category'>
-              {{ cat }}
-            </li>
-          </ul>
-        </td>
-        <td>{{ book.book_items.length }}</td>
-        <td>
-          <a [routerLink]='["/library", "books", book.id]' class="btn btn-sm btn-primary"> <span
-              class='icon-eye'></span>
-            <span class="sr-only">View Book</span></a>
-        </td>
-      </tr>
-      <tr *ngIf='books?.length < 1'>
-        <td class="m-1 pb-0" colspan="7">
-          <div class="alert alert-info"><span class="icon-info-circled"></span>No Book Items Found!</div>
-        </td>
-      </tr>
+    <tr *ngFor='let book of books'>
+      <td>{{ book.title }}</td>
+      <td>
+        <ul>
+          <li *ngFor='let publisher of book.publishers'>
+            {{ publisher }}
+          </li>
+        </ul>
+      </td>
+      <td>
+        <ul>
+          <li *ngFor='let cat of book.category'>
+            {{ cat }}
+          </li>
+        </ul>
+      </td>
+      <td>{{ book.book_items.length }}</td>
+      <td>
+        <a [routerLink]='["/library", "books", book.id]' class="btn btn-sm btn-primary"> <span
+          class='icon-eye'></span>
+          <span class="sr-only">View Book</span></a>
+      </td>
+    </tr>
+    <tr *ngIf='books?.length < 1'>
+      <td class="m-1 pb-0" colspan="7">
+        <div class="alert alert-info"><span class="icon-info-circled"></span>No Book Items Found!</div>
+      </td>
+    </tr>
     </tbody>
   </table>
 </section>

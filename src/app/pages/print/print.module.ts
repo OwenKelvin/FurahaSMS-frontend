@@ -1,7 +1,7 @@
-import { NgModule } from '@angular/core';
-import { CommonModule } from '@angular/common';
+import {NgModule} from '@angular/core';
+import {CommonModule} from '@angular/common';
 
-import { PrintRoutingModule } from './print-routing.module';
+import {PrintRoutingModule} from './print-routing.module';
 
 
 @NgModule({
@@ -11,4 +11,5 @@ import { PrintRoutingModule } from './print-routing.module';
     PrintRoutingModule
   ]
 })
-export class PrintModule { }
+export class PrintModule {
+}

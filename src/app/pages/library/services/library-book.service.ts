@@ -1,14 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { stringify } from 'querystring';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
+import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class LibraryBookService {
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
   all$: Observable<any> = this.http.get(`api/library-books`);
 
   save(data: any): Observable<any> {
@@ -19,6 +21,7 @@ export class LibraryBookService {
     };
     return this.http.post('api/library-books', subData);
   }
+
   getBookWithId(id: number): Observable<any> {
     return this.http.get(`api/library-books/${id}`);
   }

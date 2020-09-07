@@ -1,11 +1,12 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AdmissionsComponent } from './admissions.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, reducerProvider } from '../../store/reducers';
-import { AppLinksModule } from 'src/app/shared/links/links.module';
-import { REDUCER_TOKEN, metaReducers } from 'src/app/store/reducers';
-import { myProfileFeatureKey, reducer } from '../my-profile/store/reducers/my-profile.reducer';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AdmissionsComponent} from './admissions.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, reducerProvider} from '../../store/reducers';
+import {AppLinksModule} from 'src/app/shared/links/links.module';
+import {REDUCER_TOKEN, metaReducers} from 'src/app/store/reducers';
+import {myProfileFeatureKey, reducer} from '../my-profile/store/reducers/my-profile.reducer';
+import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 
 describe('AdmissionsComponent', () => {
   let component: AdmissionsComponent;
@@ -24,7 +25,8 @@ describe('AdmissionsComponent', () => {
         }),
         RouterTestingModule,
         AppLinksModule,
-        StoreModule.forFeature(myProfileFeatureKey, reducer)
+        StoreModule.forFeature(myProfileFeatureKey, reducer),
+        StoreModule.forFeature(appFeatureKey, reducers)
       ],
       declarations: [AdmissionsComponent],
       providers: [reducerProvider]

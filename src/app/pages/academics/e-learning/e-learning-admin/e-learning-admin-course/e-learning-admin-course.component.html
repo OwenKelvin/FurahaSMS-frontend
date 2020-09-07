@@ -1,1 +1,3 @@
-<router-outlet></router-outlet>
+<div *ngIf="loadCourses$ | async">
+  <router-outlet></router-outlet>
+</div>
