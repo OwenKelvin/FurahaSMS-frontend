@@ -54,7 +54,8 @@ export class ELearningService {
   }
 
   saveCourse(value: any): Observable<any> {
-    return this.http.post('api/e-learning/courses', {
+    const url = 'api/e-learning/courses';
+    const data = {
       unit_id: value.unit,
       name: value.name,
       class_level_id: value.unit,
@@ -62,13 +63,19 @@ export class ELearningService {
       description: value.description,
       numbering: value.numbering,
       topics: value.topics
-        .map(({description, numberLabel, subTopics}: any) => ({
+        .map(({description, numbering, subTopics, id}: any) => ({
+          id,
           description,
-          number_label: numberLabel,
+          number_label: numbering,
           sub_topics: subTopics
         }))
 
-    });
+    };
+    if (value.id >= 0) {
+      return this.http.post(`${url}/${value.id}`, {...data, _method: 'PATCH'});
+    } else {
+      return this.http.post(url, data);
+    }
   }
 
   getCourses({limit}: { limit: number; }): Observable<ICourse[]> {

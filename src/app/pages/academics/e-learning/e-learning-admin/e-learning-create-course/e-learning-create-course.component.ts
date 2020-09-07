@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {Observable, of} from 'rxjs';
+import {combineLatest, Observable} from 'rxjs';
 import {ClassLevelService} from 'src/app/services/class-level.service';
 import {UnitsService} from 'src/app/services/units.service';
 import {AcademicYearService} from '../../../services/academic-year.service';
@@ -26,7 +26,7 @@ export class ELearningCreateCourseComponent
   units$: Observable<any[]> = this.unitsService.getAll();
   academicYears$: Observable<any[]> = this.academicYearService.all$;
   newCourseForm: FormGroup = this.fb.group({
-    id: [0],
+    id: [-1],
     name: ['', Validators.required],
     unit: [null, Validators.required],
     classLevel: [null, Validators.required],
@@ -36,8 +36,10 @@ export class ELearningCreateCourseComponent
     numbering: ['', Validators.required],
   });
   newTopicForm: FormGroup = this.fb.group({
-    numbering: ['TT', Validators.required],
-    name: ['TT', Validators.required],
+    id: [-1],
+    editItemIndex: [-1],
+    numbering: ['', Validators.required],
+    name: ['', Validators.required],
     subTopics: this.fb.array([this.fb.control('', [Validators.required])])
   });
   modalRef: BsModalRef;
@@ -50,24 +52,28 @@ export class ELearningCreateCourseComponent
     map(params => Number(params.get('id')))
   );
   course$ = this.courseId$.pipe(
-    mergeMap(id => id > 0 ? this.store.pipe(select(selectAcademicsCourse(id))) : of(null)),
+    filter(id => id > 0),
+    mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
     tap(course => {
       if (course && course?.id && course?.id > 0) {
-        course?.topics?.forEach(item => {
-          this.newTopicForm.patchValue({
-            name: item.description,
-            numbering: item.topic_number_style_name,
-            // subTopics: [item.sub_topics.map(({description}: any) => description)]
-            // subTopics: item.sub_topics.map(({description}: any) => description)
+        while (this.topicsControl.length) {
+          this.topicsControl.removeAt(0);
+        }
+        course.topics?.forEach((item, index) => {
+          this.topicsControl.push(this.fb.group({
+            id: [item.id],
+            description: [item.description, [Validators.required]],
+            numbering: [item.topic_number_style_name, [Validators.required]],
+            subTopics: this.fb.array([])
+          }));
+          item.sub_topics.forEach((subItem: any) => {
+            (this.topicsControl.controls[index].get('subTopics') as FormArray).push(
+              this.fb.group({
+                id: [subItem.id],
+                description: [subItem.description],
+              })
+            )
           });
-          this.addNewTopicCommit();
-          while (this.subTopicsControl.length) {
-            this.subTopicsControl.removeAt(0);
-          }
-          item.sub_topics.forEach(() => {
-            this.addSubTopic()
-          });
-          this.subTopicsControl.setValue(item.sub_topics.map(({description}: any) => description))
         })
         this.newCourseForm.patchValue({
           id: course.id,
@@ -82,6 +88,10 @@ export class ELearningCreateCourseComponent
     }),
     map(() => true)
   );
+
+  v$ = combineLatest([this.course$, this.academicYears$, this.units$, this.classLevels$]).pipe(
+    map(([course, academicYears, units, classLevels]) => ({course, academicYears, units, classLevels}))
+  )
 
   constructor(
     modalService: BsModalService,
@@ -125,7 +135,7 @@ export class ELearningCreateCourseComponent
   resetNewTopicForm() {
     this.newTopicForm.reset();
     this.subTopicsControl.reset();
-    this.subTopics = [''];
+    this.subTopics = [{id: -1, description: ''}];
     while (this.subTopicsControl.length > 1) {
       this.subTopicsControl.removeAt(0);
     }
@@ -139,11 +149,19 @@ export class ELearningCreateCourseComponent
         this.subTopicsControl.removeAt(0);
       }
       this.newTopicForm.patchValue({
-        numbering: patchValue.numberLabel,
+        id: patchValue.id,
+        editItemIndex: id,
+        numbering: patchValue.numbering,
         name: patchValue.description,
       });
       (patchValue.subTopics as any[]).forEach(item => {
-        this.subTopicsControl.push(this.fb.control(item, [Validators.required]))
+        if (item) {
+          this.subTopicsControl.push(this.fb.group({
+            editItemIndex: [-1],
+            id: [item.id],
+            description: [item.description, [Validators.required]]
+          }))
+        }
       })
       this.subTopics = [...this.subTopicsControl.value];
     }
@@ -155,7 +173,7 @@ export class ELearningCreateCourseComponent
     if (this.newCourseForm.valid) {
       this.eLearningService.saveCourse(this.newCourseForm.value)
         .subscribe({
-          next: (res) => this.router.navigate(['academics', 'e-learning', 'courses', res.data.id]).then(),
+          next: (res) => this.router.navigate(['academics', 'e-learning', 'courses', res.data?.id]).then(),
           error: () => this.submitInProgressSubject$.next(false),
         });
     } else {
@@ -163,6 +181,10 @@ export class ELearningCreateCourseComponent
       this.triggerValidationSubject$.next(true)
     }
 
+  }
+
+  get idTopicControl() {
+    return this.newTopicForm.get('id') as FormControl;
   }
 
   get nameControl() {
@@ -174,11 +196,35 @@ export class ELearningCreateCourseComponent
   }
 
   addNewTopicCommit() {
-    this.topicsControl.push(this.fb.group({
-      description: [this.nameControl.value, [Validators.required]],
-      numberLabel: [this.numberingControl.value],
-      subTopics: [this.newTopicSubTopics.value],
-    }))
+    const editedItemIndex = this.newTopicForm.get('editItemIndex')?.value;
+    if (editedItemIndex !== -1 && editedItemIndex !== null) {
+
+      const valueLength = this.newTopicSubTopics.value.length;
+      while (this.topicsControl.controls[editedItemIndex].get('subTopics')?.value.length > valueLength) {
+        (this.topicsControl.controls[editedItemIndex].get('subTopics') as FormArray).removeAt(0);
+      }
+      while (this.topicsControl.controls[editedItemIndex].get('subTopics')?.value.length < valueLength) {
+        (this.topicsControl.controls[editedItemIndex].get('subTopics') as FormArray).push(
+          this.fb.group({
+            id: [-1],
+            description: ['', [Validators.required]],
+          })
+        );
+      }
+      this.topicsControl.controls[editedItemIndex].patchValue({
+        id: this.idTopicControl.value,
+        description: this.nameControl.value,
+        numbering: this.numberingControl.value,
+        subTopics: this.newTopicSubTopics.value,
+      })
+    } else {
+      this.topicsControl.push(this.fb.group({
+        id: [this.idTopicControl.value],
+        description: [this.nameControl.value, [Validators.required]],
+        numbering: [this.numberingControl.value],
+        subTopics: [this.newTopicSubTopics.value],
+      }))
+    }
     this.topicsControl.updateValueAndValidity();
     this.newCourseForm.updateValueAndValidity();
   }
@@ -197,8 +243,11 @@ export class ELearningCreateCourseComponent
   }
 
   addSubTopic() {
-    this.newTopicSubTopics.push(this.fb.control('', [Validators.required]));
-    this.subTopics = [...this.subTopics, '']
+    this.newTopicSubTopics.push(this.fb.group({
+      id: [-1],
+      description: ['', [Validators.required]],
+    }));
+    this.subTopics = [...this.subTopics, {id: -1, description: ''}]
   }
 
   deleteSubTopic(i: number) {
@@ -213,6 +262,7 @@ export class ELearningCreateCourseComponent
 
   updateTopics() {
     this.topicsControl.setValue([...this.topics]);
+    this.topicsControl.updateValueAndValidity();
   }
 
   updateSubTopicContent() {

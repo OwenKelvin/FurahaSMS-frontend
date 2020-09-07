@@ -1,9 +1,8 @@
 <h1>E-Learning Course Maintenance</h1>
-<div class="card p-2" *ngIf="course$ | async">
+<div class="card p-2" *ngIf="v$ | async as v">
   <section *ngIf='(editorInitializedAction$ | async) === false'>
     <app-loading-bubble></app-loading-bubble>
   </section>
-  <pre class="text-warning">{{ newCourseForm.value | json }}</pre>
   <form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
         [class.sr-only]='(editorInitializedAction$ | async) === false'>
     <div class="col-12 mt-2 pt-1">
@@ -18,7 +17,7 @@
             Academic Year</label>
 
           <select id="academicYear" class="form-control" formControlName='academicYear'>
-            <option *ngFor='let academicYear of academicYears$ | async'
+            <option *ngFor='let academicYear of v.academicYears'
                     [value]="academicYear.id">{{ academicYear.name }}
             </option>
           </select>
@@ -28,7 +27,7 @@
             <app-star-required></app-star-required>
             Class Level</label>
           <select id="classLevel" class="form-control" formControlName='classLevel'>
-            <option *ngFor='let classLevel of classLevels$ | async'
+            <option *ngFor='let classLevel of v.classLevels'
                     [value]="classLevel.id">{{ classLevel.name }}</option>
           </select>
         </section>
@@ -82,8 +81,12 @@
                   <legend>Subtopics</legend>
 
                   <ol class="ml-0 pl-0">
-                    <li *ngFor="let itemSubtopic of item.subTopics;" class="sortable-item"
-                        [style.--number-prefix]="'\''+ item.numberLabel">{{ itemSubtopic }}</li>
+                    <ng-container *ngFor="let itemSubtopic of item.subTopics;">
+                      <li class="sortable-item"
+                          [style.--number-prefix]="'\''+ item.numbering" *ngIf="!!itemSubtopic">
+                        {{ itemSubtopic?.description }}
+                      </li>
+                    </ng-container>
                   </ol>
 
                   <div>
@@ -154,8 +157,8 @@
                                   {{ newTopicForm.get('numbering')?.value }} {{ index + 1 }}:
                                 </span>
                               </div>
-                              <input (keyup)="updateSubTopics()" [attr.aria-label]='"Enter Subtopic description"' (blur)="updateSubTopicContent()" [ngModelOptions]="{standalone: true}"
-                                     class="form-control" [(ngModel)]="subTopics[index]">
+                              <input *ngIf="subTopics[index]" (keyup)="updateSubTopics()" [attr.aria-label]='"Enter Subtopic description"' (blur)="updateSubTopicContent()" [ngModelOptions]="{standalone: true}"
+                                     class="form-control" [(ngModel)]="subTopics[index].description">
                               <div class="input-group-append">
                                 <button type="button" [attr.aria-label]='"delete subtopic " + (index + 1)' (click)='deleteSubTopic(index)' class="btn btn-xs btn-danger"><span class="icon-cancel-circled-outline"></span>
                                 </button>
@@ -203,3 +206,5 @@
   </datalist>
 
 </div>
+
+
