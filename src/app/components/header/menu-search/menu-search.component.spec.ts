@@ -6,6 +6,9 @@ import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/st
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {RouterTestingModule} from '@angular/router/testing';
 import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
+import {myProfileFeatureKey} from '../../../pages/my-profile/store/reducers/my-profile.reducer';
+import {LinkService} from '../../../services/link.service';
+import {of} from 'rxjs';
 
 describe('MenuSearchComponent', () => {
   let component: MenuSearchComponent;
@@ -23,11 +26,20 @@ describe('MenuSearchComponent', () => {
           }
         }),
         StoreModule.forFeature(appFeatureKey, reducers),
+        StoreModule.forFeature(myProfileFeatureKey, reducers),
         ReactiveFormsModule,
         FormsModule,
         RouterTestingModule],
       declarations: [MenuSearchComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: LinkService,
+          useValue: {
+            allLinks: of([])
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();

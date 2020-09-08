@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {EditUnitCategoryComponent} from './edit-unit-category.component';
 import {Store, StoreModule} from '@ngrx/store';
-import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {CreateUnitCategoriesComponent} from '../create-unit-categories/create-unit-categories.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -11,6 +11,8 @@ import {AppInputModule} from 'src/app/components/input/app-input.module';
 import {EditorModule} from '@tinymce/tinymce-angular';
 import {ErrorModule} from '../../../../components/error/error.module';
 import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
+import {CreateUnitComponent} from '../create-unit/create-unit.component';
 
 describe('EditUnitCategoryComponent', () => {
   let component: EditUnitCategoryComponent;
@@ -34,9 +36,12 @@ describe('EditUnitCategoryComponent', () => {
         RouterTestingModule,
         AppInputModule,
         EditorModule,
-        ErrorModule
+        ErrorModule,
+        AppLoadingBubbleModule,
       ],
-      declarations: [EditUnitCategoryComponent, CreateUnitCategoriesComponent],
+      declarations: [
+        CreateUnitComponent,
+        EditUnitCategoryComponent, CreateUnitCategoriesComponent],
       providers: [reducerProvider]
     });
 

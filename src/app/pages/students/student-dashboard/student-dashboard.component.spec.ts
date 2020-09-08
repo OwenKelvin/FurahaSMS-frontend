@@ -5,6 +5,11 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {SortableModule} from 'ngx-bootstrap/sortable';
+import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
+import {AppPrintModule} from '../../../shared/print/print.module';
+import {RouterTestingModule} from '@angular/router/testing';
 
 describe('StudentDashboardComponent', () => {
   let component: StudentDashboardComponent;
@@ -17,9 +22,20 @@ describe('StudentDashboardComponent', () => {
         ReactiveFormsModule,
         NgSelectModule,
         HttpClientTestingModule,
-        SortableModule
+        SortableModule,
+        FormErrorsModule,
+        AppPrintModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        RouterTestingModule
       ],
-      declarations: [StudentDashboardComponent]
+      declarations: [StudentDashboardComponent],
+      providers: [reducerProvider]
     })
       .compileComponents();
   }));

@@ -2,7 +2,7 @@ import {ComponentFixture, TestBed} from '@angular/core/testing';
 
 import {MyProcurementsRequestComponent} from './my-procurements-request.component';
 import {Store, StoreModule} from '@ngrx/store';
-import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {ViewItemsComponent} from '../../../components/view-items/view-items.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ErrorComponent} from '../../../components/error/error.component';
@@ -26,7 +26,8 @@ describe('MyProcurementsRequestComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, HttpClientTestingModule],
+        }),
+        RouterTestingModule, HttpClientTestingModule],
       declarations: [
         MyProcurementsRequestComponent,
         ViewItemsComponent,
@@ -39,7 +40,7 @@ describe('MyProcurementsRequestComponent', () => {
         {
           provide: ProcurementService,
           useValue: {
-            all$: of([]),
+            allMyRequest$: of([]),
             deleteProcurementRequest: of([])
           }
         }

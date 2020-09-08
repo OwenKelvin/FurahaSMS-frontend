@@ -13,6 +13,7 @@ import { SelectComponent } from '../../../../components/select/select.component'
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
 
 describe('CreateClassLevelComponent', () => {
   let component: CreateClassLevelComponent;
@@ -35,7 +36,8 @@ describe('CreateClassLevelComponent', () => {
         ReactiveFormsModule,
         EditorModule,
         AppValidateSubmitButtonsModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [
         CreateClassLevelComponent,

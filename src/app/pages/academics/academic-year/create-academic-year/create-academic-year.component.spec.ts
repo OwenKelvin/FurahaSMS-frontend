@@ -11,6 +11,7 @@ import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {FormErrorsModule} from '../../../../shared/form-errors/form-errors.module';
 
 describe('CreateAcademicYearComponent', () => {
   let component: CreateAcademicYearComponent;
@@ -35,7 +36,8 @@ describe('CreateAcademicYearComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         ErrorModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        FormErrorsModule
       ],
       declarations: [CreateAcademicYearComponent],
       providers: [reducerProvider]

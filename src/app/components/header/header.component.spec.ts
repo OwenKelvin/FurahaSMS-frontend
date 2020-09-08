@@ -14,6 +14,7 @@ import { CollapseModule } from 'ngx-bootstrap/collapse';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import {appFeatureKey, reducers} from '../../store/reducers/app.reducer';
 import {myProfileFeatureKey, reducer} from '../../pages/my-profile/store/reducers/my-profile.reducer';
+import {LogoutButtonComponent} from './logout-button/logout-button.component';
 
 describe('HeaderComponent', () => {
   let component: HeaderComponent;
@@ -46,7 +47,7 @@ describe('HeaderComponent', () => {
         UserButtonComponent,
         BreadcrumbComponent,
         HeaderCollapseComponent,
-
+        LogoutButtonComponent
       ],
       providers: [reducerProvider]
     });

@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {combineLatest, Observable} from 'rxjs';
+import {combineLatest, Observable, of} from 'rxjs';
 import {ClassLevelService} from 'src/app/services/class-level.service';
 import {UnitsService} from 'src/app/services/units.service';
 import {AcademicYearService} from '../../../services/academic-year.service';
@@ -52,8 +52,8 @@ export class ELearningCreateCourseComponent
     map(params => Number(params.get('id')))
   );
   course$ = this.courseId$.pipe(
-    filter(id => id > 0),
-    mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
+    // filter(id => id > 0),
+    mergeMap(id => id > 0 ? this.store.pipe(select(selectAcademicsCourse(id))): of(null)),
     tap(course => {
       if (course && course?.id && course?.id > 0) {
         while (this.topicsControl.length) {
@@ -272,5 +272,15 @@ export class ELearningCreateCourseComponent
   updateSubTopics() {
     this.subTopicsControl.setValue([...this.subTopics]);
     this.subTopicsControl.updateValueAndValidity();
+  }
+
+  deleteTopic(index: number) {
+    const deletionConfirmed = confirm('Are you sure you wish to delete ');
+    if (deletionConfirmed) {
+      this.topicsControl.controls.splice(index, 1);
+      this.topics.splice(index, 1);
+      this.topics = [...this.topics];
+      this.topicsControl.updateValueAndValidity();
+    }
   }
 }

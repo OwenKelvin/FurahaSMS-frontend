@@ -37,7 +37,7 @@
             <app-star-required></app-star-required>
             Unit/Subject</label>
           <select id="unit" class="form-control" formControlName='unit'>
-            <option *ngFor='let unit of units$ | async' [value]="unit.id">{{ unit.name }}</option>
+            <option *ngFor='let unit of v.units' [value]="unit.id">{{ unit.name }}</option>
           </select>
         </section>
         <section class="col-lg-4 col-sm-6">
@@ -75,8 +75,10 @@
               <ng-template #itemTemplate let-item="item.initData" let-index="index">
                 <span class="chapter-title">{{ newCourseForm.get('numbering')?.value}} {{ index + 1 }}
                   : {{ item.description }}</span>
+                <button type="button" (click)='deleteTopic(index)' class="btn btn-danger btn-sm float-right mr-2"><span class="icon-trash"></span></button>
                 <button type="button" (click)='openModal({component:template, id:index})' class="btn btn-primary btn-sm float-right mr-2" aria-label="Edit Topic"><span
                   class="icon-edit-1"></span></button>
+
                 <fieldset class="card p-2 pl-0" style="background: initial">
                   <legend>Subtopics</legend>
 
@@ -195,7 +197,8 @@
       <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
                                    (validationButtonClicked)='triggerValidationSubject$.next(true)'
                                    [formItem]='newCourseForm'>
-        <span>Create Course</span>
+        <span *ngIf="!v.course">Create Course</span>
+        <span *ngIf="v.course">Update Course</span>
       </app-validate-submit-buttons>
     </section>
   </form>

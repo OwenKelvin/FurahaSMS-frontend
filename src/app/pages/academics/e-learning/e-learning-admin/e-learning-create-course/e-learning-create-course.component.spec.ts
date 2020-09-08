@@ -13,6 +13,9 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppStarLabelRequiredModule} from '../../../../../components/label-star-required/app-star-label-required';
 import {SortableModule} from 'ngx-bootstrap/sortable';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {academicsFeatureKey, reducers} from '../../../store/reducers';
 
 describe('ELearningCreateCourseComponent', () => {
   let component: ELearningCreateCourseComponent;
@@ -34,6 +37,7 @@ describe('ELearningCreateCourseComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(academicsFeatureKey, reducers),
         HttpClientTestingModule,
         AppValidateSubmitButtonsModule,
         RouterTestingModule,
@@ -41,7 +45,17 @@ describe('ELearningCreateCourseComponent', () => {
         SortableModule.forRoot()
       ],
       declarations: [ELearningCreateCourseComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 1})
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
   }));
