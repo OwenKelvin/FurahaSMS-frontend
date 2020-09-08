@@ -11,6 +11,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SelectComponent } from '../../../components/select/select.component';
 import { ValidateSubmitButtonsComponent } from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('EditProcurementRequestComponent', () => {
   let component: EditProcurementRequestComponent;
@@ -30,7 +32,9 @@ describe('EditProcurementRequestComponent', () => {
         RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        FormErrorsModule,
+        AppStarLabelRequiredModule
       ],
       declarations: [
         EditProcurementRequestComponent,

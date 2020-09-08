@@ -11,6 +11,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading-bubble.component';
 import {ValidateSubmitButtonsComponent} from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
 import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
+import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
 
 describe('ProcurementsRequestComponent', () => {
   let component: ProcurementsRequestComponent;
@@ -19,7 +20,9 @@ describe('ProcurementsRequestComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        AppStarLabelRequiredModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
         metaReducers,
         runtimeChecks: {
           strictStateImmutability: true,

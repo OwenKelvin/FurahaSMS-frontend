@@ -3,6 +3,7 @@ import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 import {MySchedulesComponent} from './my-schedules.component';
 import {StoreModule} from '@ngrx/store';
 import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
 
 describe('MySchedulesComponent', () => {
   let component: MySchedulesComponent;
@@ -10,8 +11,20 @@ describe('MySchedulesComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      imports: [StoreModule.forFeature(appFeatureKey, reducers)],
-      declarations: [MySchedulesComponent]
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        StoreModule.forFeature(appFeatureKey, reducers),
+      ],
+      declarations: [MySchedulesComponent],
+      providers : [
+        reducerProvider
+      ]
     })
       .compileComponents();
   }));

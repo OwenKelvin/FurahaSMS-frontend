@@ -7,6 +7,7 @@ import { LoadingBubbleComponent } from '../../../components/loading-bubble/loadi
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 
 describe('ViewStudentInfoComponent', () => {
   let component: ViewStudentInfoComponent;
@@ -24,6 +25,7 @@ describe('ViewStudentInfoComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(appFeatureKey, reducers),
         AppUserProfileModule,
         HttpClientTestingModule
       ],

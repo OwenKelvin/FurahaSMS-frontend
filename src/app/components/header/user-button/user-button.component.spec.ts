@@ -6,6 +6,7 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import {myProfileFeatureKey, reducer} from '../../../pages/my-profile/store/reducers/my-profile.reducer';
+import {LogoutButtonComponent} from '../logout-button/logout-button.component';
 
 describe('UserButtonComponent', () => {
   let component: UserButtonComponent;
@@ -25,7 +26,7 @@ describe('UserButtonComponent', () => {
         StoreModule.forFeature(myProfileFeatureKey, reducer),
         HttpClientTestingModule,
         RouterTestingModule],
-      declarations: [UserButtonComponent],
+      declarations: [UserButtonComponent, LogoutButtonComponent],
       providers: [reducerProvider]
     });
 

@@ -7,6 +7,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {AppLinksModule} from 'src/app/shared/links/links.module';
 import {myProfileFeatureKey, reducer} from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
+import {CreateUnitComponent} from '../../academics/curriculum/create-unit/create-unit.component';
 
 describe('LibraryAdminComponent', () => {
   let component: LibraryAdminComponent;
@@ -28,7 +29,10 @@ describe('LibraryAdminComponent', () => {
         StoreModule.forFeature(myProfileFeatureKey, reducer),
         StoreModule.forFeature(appFeatureKey, reducers),
       ],
-      declarations: [LibraryAdminComponent],
+      declarations: [
+        LibraryAdminComponent,
+        CreateUnitComponent
+      ],
       providers: [reducerProvider]
     });
 

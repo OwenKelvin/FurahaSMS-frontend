@@ -1,7 +1,5 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { FormErrorsComponent } from './form-errors.component';
-import {of} from 'rxjs';
 import {FormGroup} from '@angular/forms';
 
 describe('FormErrorsComponent', () => {
@@ -18,11 +16,11 @@ describe('FormErrorsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormErrorsComponent);
     component = fixture.componentInstance;
+    component.form = new FormGroup({})
     fixture.detectChanges();
   });
 
   it('should create', () => {
-    component.form = new FormGroup({})
     expect(component).toBeTruthy();
   });
 });

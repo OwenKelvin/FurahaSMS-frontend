@@ -7,6 +7,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppCheckboxModule} from '../../../shared/checkbox/checkbox.module';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
+import {studentProfileFeatureKey, reducer} from '../store/reducers/student-profile.reducer';
 
 describe('EditStudentAcademicsComponent', () => {
   let component: EditStudentAcademicsComponent;
@@ -27,6 +28,7 @@ describe('EditStudentAcademicsComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(studentProfileFeatureKey, reducer)
       ],
       declarations: [EditStudentAcademicsComponent],
       providers: [reducerProvider]
