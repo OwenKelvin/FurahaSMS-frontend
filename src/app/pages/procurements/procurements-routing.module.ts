@@ -1,22 +1,20 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ProcurementsComponent } from './procurements.component';
-import { ProcurementsRequestComponent } from './procurements-request/procurements-request.component';
-import { MyProcurementsRequestComponent } from './my-procurements-request/my-procurements-request.component';
-import { ViewProcurementRequestComponent } from './view-procurement-request/view-procurement-request.component';
-import { EditProcurementRequestComponent } from './edit-procurement-request/edit-procurement-request.component';
-import { ApproveProcurementRequestComponent } from './approve-procurement-request/approve-procurement-request.component';
-import { ProcurementsVendorsComponent } from './procurements-vendors/procurements-vendors.component';
-import { CreateProcurementsVendorsComponent } from './create-procurements-vendors/create-procurements-vendors.component';
-import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
-import { ViewProcurementsVendorComponent } from './view-procurements-vendor/view-procurements-vendor.component';
-import {
-  ViewProcurementsApprovedRequestsComponent
-} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
-import { CreateProcurementTenderComponent } from './create-procurement-tender/create-procurement-tender.component';
-import { ProcurementTendersBidsComponent } from './procurement-tenders-bids/procurement-tenders-bids.component';
-import { ViewProcurementTendersBidsComponent } from './view-procurement-tenders-bids/view-procurement-tenders-bids.component';
-import { ViewProcurementTendersAwardedComponent } from './view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ProcurementsComponent} from './procurements.component';
+import {ProcurementsRequestComponent} from './procurements-request/procurements-request.component';
+import {MyProcurementsRequestComponent} from './my-procurements-request/my-procurements-request.component';
+import {ViewProcurementRequestComponent} from './view-procurement-request/view-procurement-request.component';
+import {EditProcurementRequestComponent} from './edit-procurement-request/edit-procurement-request.component';
+import {ApproveProcurementRequestComponent} from './approve-procurement-request/approve-procurement-request.component';
+import {ProcurementsVendorsComponent} from './procurements-vendors/procurements-vendors.component';
+import {CreateProcurementsVendorsComponent} from './create-procurements-vendors/create-procurements-vendors.component';
+import {CanDeactivateGuard} from 'src/app/guards/can-deactivate.guard';
+import {ViewProcurementsVendorComponent} from './view-procurements-vendor/view-procurements-vendor.component';
+import {ViewProcurementsApprovedRequestsComponent} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
+import {CreateProcurementTenderComponent} from './create-procurement-tender/create-procurement-tender.component';
+import {ProcurementTendersBidsComponent} from './procurement-tenders-bids/procurement-tenders-bids.component';
+import {ViewProcurementTendersBidsComponent} from './view-procurement-tenders-bids/view-procurement-tenders-bids.component';
+import {ViewProcurementTendersAwardedComponent} from './view-procurement-tenders-awarded/view-procurement-tenders-awarded.component';
 
 
 const routes: Routes = [
@@ -38,11 +36,26 @@ const routes: Routes = [
   },
   {
     path: 'my-requests',
-    pathMatch: 'full',
-    component: MyProcurementsRequestComponent,
     data: {
       breadcrumb: 'My Requests'
     },
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        component: MyProcurementsRequestComponent,
+        data: {
+          breadcrumb: null
+        },
+      },
+      {
+        path: 'create',
+        component: ProcurementsRequestComponent,
+        data: {
+          breadcrumb: null
+        },
+      }
+    ]
   },
   {
     path: 'tender',
@@ -165,4 +178,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ProcurementsRoutingModule { }
+export class ProcurementsRoutingModule {
+}

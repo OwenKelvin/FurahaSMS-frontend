@@ -1,41 +1,42 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as fromStore from '../../../store/reducers';
-import { FormBuilder, FormGroup, Validators, FormArray, FormControl } from '@angular/forms';
-import { ProcurementService } from 'src/app/services/procurement.service';
-import { Observable, Subscriber } from 'rxjs';
-import { TabsetComponent } from 'ngx-bootstrap/tabs';
-import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
-import { Router } from '@angular/router';
-import { takeWhile } from 'rxjs/operators';
+import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {ProcurementService} from 'src/app/services/procurement.service';
+import {Observable, Subscriber} from 'rxjs';
+import {TabsetComponent} from 'ngx-bootstrap/tabs';
+import {CanComponentDeactivate} from 'src/app/guards/can-deactivate.guard';
+import {Router} from '@angular/router';
+import {takeUntil} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
+import {formMixin} from '../../../shared/mixins/form.mixin';
 
 @Component({
   selector: 'app-create-procurements-vendors',
   templateUrl: './create-procurements-vendors.component.html',
   styleUrls: ['./create-procurements-vendors.component.css']
 })
-export class CreateProcurementsVendorsComponent implements OnInit, CanComponentDeactivate, OnDestroy {
+export class CreateProcurementsVendorsComponent extends subscribedContainerMixin(formMixin())
+  implements OnInit, CanComponentDeactivate {
   procurementVendorForm: FormGroup;
   sub: Subscriber<any>[];
   itemCategories$: Observable<any>;
-  triggerValidation: boolean;
-  isSubmitting: boolean;
-  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
   formSubmitted: boolean;
-  componentIsActive: boolean;
+
   constructor(
     private store: Store<fromStore.AppState>,
     private fb: FormBuilder,
     private procurementService: ProcurementService,
     private router: Router
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.componentIsActive = true;
-    this.isSubmitting = false;
     this.sub = [];
-    this.itemCategories$ = this.procurementService.getItemCaterories();
+    this.itemCategories$ = this.procurementService.getItemCategories();
     this.procurementVendorForm = this.fb.group({
       name: ['', [Validators.required]],
       address: ['', [Validators.required]],
@@ -47,14 +48,17 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       }),
     });
   }
+
   addPhone() {
     this.phonesContactInfo.push(this.newEmailField);
 
   }
+
   addEmail() {
     this.emailsContactInfo.push(this.newEmailField);
 
   }
+
   deleteEmail(i: number) {
     const confirmedDeleteEmail = confirm(`Do you wish to delete email ${i + 1}`);
     if (confirmedDeleteEmail) {
@@ -63,6 +67,7 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
     }
 
   }
+
   deletePhone(i: number) {
 
     const confirmedDeletePhone = confirm(`Do you wish to delete phone ${i + 1}`);
@@ -71,46 +76,56 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       this.phonesContactInfo.updateValueAndValidity();
     }
   }
+
   controlAsFormGroup(formGroupName: string): FormGroup {
     return this.procurementVendorForm.get(formGroupName) as FormGroup;
   }
+
   get emailsContactInfo(): FormArray {
     return this.controlAsFormGroup('contactInfo').get('emails') as FormArray;
   }
+
   get phonesContactInfo(): FormArray {
     return this.controlAsFormGroup('contactInfo').get('phones') as FormArray;
   }
+
   get newEmailField() {
     return this.fb.group({
       value: ['', [Validators.email, Validators.required]],
       name: ['']
     });
   }
+
   get newPhoneField() {
     return this.fb.group({
       value: ['', [Validators.required]],
       name: ['']
     });
   }
+
   submitProcurementVendorForm() {
-    this.isSubmitting = true;
+    this.submitInProgressSubject$.next(true);
     this.procurementService.createNewVendor(this.procurementVendorForm.value)
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(() => {
-      this.isSubmitting = false;
-      this.formSubmitted = true;
-      this.router.navigate(['/procurements/vendors']);
-    }, () => {
-        this.isSubmitting = false;
-    });
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: () => {
+          this.submitInProgressSubject$.next(false);
+          this.formSubmitted = true;
+          this.router.navigate(['/procurements/vendors']).then();
+        },
+        error: () => this.submitInProgressSubject$.next(false)
+      })
   }
+
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
   }
+
   validateForm() {
-    this.triggerValidation = !this.triggerValidation,
+    this.triggerValidationSubject$.next(true)
       this.markTabsWithError = true;
   }
+
   get generalInfoHasError() {
     if (this.controlAsFormGroup('name').errors) {
       return true;
@@ -126,12 +141,14 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
     }
     return false;
   }
+
   get contactInfoHasError() {
     if (this.controlAsFormGroup('contactInfo').invalid) {
       return true;
     }
     return false;
   }
+
   onCheckboxChange(e: any) {
     const checkArray: FormArray = this.procurementVendorForm.get('procurementItemsCategory') as FormArray;
 
@@ -148,13 +165,11 @@ export class CreateProcurementsVendorsComponent implements OnInit, CanComponentD
       });
     }
   }
+
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {
     if (this.procurementVendorForm.dirty && !this.formSubmitted) {
       return confirm('Your changes are unsaved!! Do you like to exit');
     }
     return true;
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

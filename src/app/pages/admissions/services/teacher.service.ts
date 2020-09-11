@@ -1,16 +1,19 @@
 import { Injectable } from '@angular/core';
 import { Observable, throwError } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
-import { map, catchError, shareReplay } from 'rxjs/operators';
+import {map, catchError, shareReplay, tap} from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
+import {selectTeacher} from '../../teachers/store/selectors/teacher-profile.selectors';
+import {loadTeacherProfiles} from '../../teachers/store/actions/teacher-profile.actions';
 
 @Injectable({
   providedIn: 'root'
 })
 export class TeacherService {
   url = 'api/teachers';
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient, private store: Store) { }
 
-  store(data: any): Observable<any> {
+  saveTeacher(data: any): Observable<any> {
     const submitDate = {
       ...data,
       date_of_birth: data.dateOfBirth,
@@ -32,6 +35,11 @@ export class TeacherService {
         })
       );
   }
+  loadTeacherProfile$ = (id: number) => this.store.pipe(
+    select(selectTeacher(id)),
+    tap(y => console.log({ y })),
+    tap(profile => !profile ? this.store.dispatch(loadTeacherProfiles({data: {id}})) : null)
+  )
   transformTeacher = (user: any) => ({
     ...user,
     firstName: user.first_name,

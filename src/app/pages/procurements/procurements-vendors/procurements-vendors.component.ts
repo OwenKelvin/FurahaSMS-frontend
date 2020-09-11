@@ -18,7 +18,7 @@ export class ProcurementsVendorsComponent implements OnInit {
 
     this.itemService = {
       ...this.procurementService,
-      all$: this.procurementService.getVendors,
+      all$: this.procurementService.getVendors(),
       deleteItem: this.procurementService.deleteVendor,
     };
   }

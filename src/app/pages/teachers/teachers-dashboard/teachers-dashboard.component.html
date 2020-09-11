@@ -1,4 +1,40 @@
 <h1>Teachers</h1>
-<section class="card">
-  
+<section class="card p-2">
+  <div class="d-flex flex-wrap">
+    <a [routerLink]='["/admissions","staff","teachers", "create"]'
+       type="button" class="btn btn-sm btn-primary"><span class="icon-plus-circled ml-auto"></span>
+      New Teacher Admissions
+    </a>
+    <fieldset class="col-12 card p-2 pt-0 mt-2">
+      <legend><h2>Active Teachers List</h2></legend>
+      <table class="table table-dark">
+        <thead>
+        <tr>
+          <th>#Id</th>
+          <th>Email</th>
+          <th>Name</th>
+          <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <ng-container *ngIf="teachers$ | async as teachers else loading">
+          <tr *ngFor="let teacher of teachers">
+            <td>{{ teacher.id}}</td>
+            <td>{{ teacher.email }}</td>
+            <td>{{ teacher.firstName }} {{ teacher.lastName }}</td>
+            <td>
+              <button [routerLink]='["/teachers", teacher.id]' class="btn btn-primary btn-sm" type="button" aria-label="View Teacher"><span class="icon-eye"></span></button>
+            </td>
+          </tr>
+        </ng-container>
+        <ng-template #loading>
+          <tr>
+            <td><app-loading-bubble></app-loading-bubble></td>
+          </tr>
+        </ng-template>
+        </tbody>
+      </table>
+    </fieldset>
+  </div>
+
 </section>

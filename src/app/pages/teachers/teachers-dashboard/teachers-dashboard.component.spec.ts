@@ -1,6 +1,9 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TeachersDashboardComponent } from './teachers-dashboard.component';
+import {TeachersDashboardComponent} from './teachers-dashboard.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AppLoadingBubbleModule} from '../../../modules/app-loading-bubble';
 
 describe('TeachersDashboardComponent', () => {
   let component: TeachersDashboardComponent;
@@ -8,9 +11,14 @@ describe('TeachersDashboardComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ TeachersDashboardComponent ]
+      imports: [
+        RouterTestingModule,
+        HttpClientTestingModule,
+        AppLoadingBubbleModule
+      ],
+      declarations: [TeachersDashboardComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

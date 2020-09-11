@@ -141,7 +141,7 @@ export class SelectComponent
       case 'procurement:items-categories':
         this.setParams({ label: 'Item Category' });
         this.categories$ = this.procurementService
-          .getItemCaterories();
+          .getItemCategories();
         break;
       case 'academic-years:active':
         this.setParams({ label: 'Academic Year' });

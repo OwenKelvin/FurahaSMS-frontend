@@ -1,9 +1,9 @@
-import { NgModule } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ViewTeacherComponent } from './view-teacher/view-teacher.component';
-import { TeachersDashboardComponent } from './teachers-dashboard/teachers-dashboard.component';
-import { ViewTeacherInfoComponent } from './view-teacher-info/view-teacher-info.component';
-import { ViewTeacherSubjectsComponent } from './view-teacher-subjects/view-teacher-subjects.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ViewTeacherComponent} from './view-teacher/view-teacher.component';
+import {TeachersDashboardComponent} from './teachers-dashboard/teachers-dashboard.component';
+import {ViewTeacherInfoComponent} from './view-teacher-info/view-teacher-info.component';
+import {ViewTeacherSubjectsComponent} from './view-teacher-subjects/view-teacher-subjects.component';
 
 
 const routes: Routes = [
@@ -14,6 +14,14 @@ const routes: Routes = [
     data: {
       breadcrumb: null
     }
+  },
+  {
+    path: ':id/subjects/manage',
+    loadChildren: () => import('./manage-teacher-subject/manage-teacher-subject.module')
+      .then(m => m.ManageTeacherSubjectModule),
+    data: {
+      breadcrumb: 'Subjects'
+    },
   },
   {
     path: ':id',
@@ -36,6 +44,7 @@ const routes: Routes = [
       },
       {
         path: 'subjects',
+        pathMatch: 'full',
         component: ViewTeacherSubjectsComponent,
         data: {
           breadcrumb: 'Subjects'
@@ -49,4 +58,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class TeachersRoutingModule { }
+export class TeachersRoutingModule {
+}

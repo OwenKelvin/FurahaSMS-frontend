@@ -13,7 +13,7 @@
               [class.text-success]='!generalInfoHasError && markTabsWithError'></span>
           </ng-template>
           <section class='col-lg-6 mt-3'>
-            <app-input [triggerValidation]='triggerValidation' label='Name' id='name' placeholder='Enter Vendor Name'
+            <app-input [triggerValidation]='triggerValidationAction$ | async' label='Name' id='name' placeholder='Enter Vendor Name'
               formControlName='name'></app-input>
           </section>
           <section class='col-lg-12 mt-3'>
@@ -71,13 +71,13 @@
                   class="d-flex justify-content-between flex-wrap">
                   <section class="col-lg-5 col-md-10 col-sm-10">
                     <app-input labelClass='col-lg-12 col-sm-12' inputClass='col-lg-12' [id]='"email" + i'
-                      formControlName='value' [triggerValidation]='triggerValidation' label='Email'
+                      formControlName='value' [triggerValidation]='triggerValidationAction$ | async' label='Email'
                       [placeholder]='"Enter Email " + (i + 1)' type='email'>
                     </app-input>
                   </section>
                   <section class="col-lg-5 col-md-10 col-sm-10">
                     <app-input labelClass='col-lg-12 col-sm-12' inputClass='col-lg-12' [id]='"email-name-" + i'
-                      formControlName='name' [triggerValidation]='triggerValidation' label='Name'
+                      formControlName='name' [triggerValidation]='triggerValidationAction$ | async' label='Name'
                       [placeholder]='"Enter name for email " + (i + 1)'>
                     </app-input>
                   </section>
@@ -100,13 +100,13 @@
                   class="d-flex justify-content-between flex-wrap">
                   <section class="col-lg-5 col-md-10 col-sm-10">
                     <app-tel-input labelClass='col-lg-12' inputClass='col-lg-12 col-md-12 col-sm-12' [id]='"tel" + i'
-                      formControlName='value' [triggerValidation]='triggerValidation' label='Phone'
+                      formControlName='value' [triggerValidation]='triggerValidationAction$ | async' label='Phone'
                       [placeholder]='"Enter Phone " + (i + 1)' type='tel'>
                     </app-tel-input>
                   </section>
                   <section class="col-lg-5 col-md-10 col-sm-10">
                     <app-input labelClass='col-lg-12 col-sm-12' inputClass='col-lg-12' [id]='"phone-name-" + i'
-                      formControlName='name' [triggerValidation]='triggerValidation' label='Name'
+                      formControlName='name' [triggerValidation]='triggerValidationAction$ | async' label='Name'
                       [placeholder]='"Enter name for phone " + (i + 1)'>
                     </app-input>
                   </section>
@@ -180,9 +180,9 @@
               <button *ngIf='!procurementVendorForm.valid' (click)='validateForm()' type='button'
                 class='btn btn-secondary'>Validate</button>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <button class='btn btn-success' [disabled]='!procurementVendorForm.valid || isSubmitting'>
-                Save Details<i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i><i
-                  *ngIf='procurementVendorForm.valid && !isSubmitting' class='icon-ok'></i>
+              <button class='btn btn-success' [disabled]='!procurementVendorForm.valid || submitInProgressAction$ | async'>
+                Save Details<i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i><i
+                  *ngIf='procurementVendorForm.valid && ((submitInProgressAction$ | async) === false)' class='icon-ok'></i>
               </button>
             </section>
           </section>

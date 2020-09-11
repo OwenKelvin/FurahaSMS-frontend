@@ -1,1 +1,7 @@
-<p>view-teacher-subjects works!</p>
+<div class="mt-2" *ngIf="teacherId$ | async as teacherId">
+  <button [routerLink]="['/teachers',teacherId,'subjects', 'manage']" class="btn btn-primary btn-sm"><span
+    class="icon-edit"></span>
+    Manage Assigned Subjects
+  </button>
+</div>
+<p>{{ subjects$ | async | json }}</p>
