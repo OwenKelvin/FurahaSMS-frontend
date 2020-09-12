@@ -22,7 +22,7 @@
       <div class="d-flex flex-wrap justify-content-between" formArrayName="units">
         <div class="col-lg-3 p-1" *ngFor="let unit of units?.controls; let i = index">
           <div class="card" [formGroupName]="i">
-            <div class="card-header bg-secondary">{{ unit.value.name }}</div>
+            <div class="card-header bg-dark">{{ unit.value.name }}</div>
             <div class="card-body" formArrayName="levels">
               <ng-container *ngFor="let unitLevel of unit.value.levels; let j = index" [formGroupName]="j">
                 <app-checkbox formControlName="teaches" [label]="unitLevel.name"></app-checkbox>

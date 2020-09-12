@@ -1,11 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ViewStudentGuardiansComponent } from './view-student-guardians.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { RouterTestingModule } from '@angular/router/testing';
-import { LoadingBubbleComponent } from '../../../components/loading-bubble/loading-bubble.component';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {ViewStudentGuardiansComponent} from './view-student-guardians.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {RouterTestingModule} from '@angular/router/testing';
+import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading-bubble.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ViewStudentGuardiansComponent', () => {
   let component: ViewStudentGuardiansComponent;
@@ -14,13 +14,15 @@ describe('ViewStudentGuardiansComponent', () => {
 
   beforeEach(async () => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
+      imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        }), RouterTestingModule, HttpClientTestingModule ],
+        }),
+        RouterTestingModule, HttpClientTestingModule],
       declarations: [ViewStudentGuardiansComponent, LoadingBubbleComponent],
       providers: [reducerProvider]
     });

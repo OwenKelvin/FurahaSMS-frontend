@@ -11,7 +11,7 @@ export class TeacherSubjectService {
   getSubjects(teacherId: number) {
     return this.http.get<any[]>(`api/teachers/${teacherId}/subjects`)
   }
-  saveSubjects(teacherId: number, data: any[]) {
+  saveSubjects(teacherId: number, data: any) {
     return this.http.post(`api/teachers/${teacherId}/subjects`, data)
   }
 }

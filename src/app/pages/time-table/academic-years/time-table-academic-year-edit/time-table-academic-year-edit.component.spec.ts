@@ -10,6 +10,8 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../store/reducers';
 
 describe('TimeTableAcademicYearEditComponent', () => {
   let component: TimeTableAcademicYearEditComponent;
@@ -18,6 +20,13 @@ describe('TimeTableAcademicYearEditComponent', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
         HttpClientTestingModule,
         AccordionModule.forRoot(),
         ModalModule.forRoot(),
@@ -29,6 +38,7 @@ describe('TimeTableAcademicYearEditComponent', () => {
       ],
       declarations: [TimeTableAcademicYearEditComponent],
       providers: [
+        reducerProvider,
         {
           provide: ActivatedRoute,
           useValue: {

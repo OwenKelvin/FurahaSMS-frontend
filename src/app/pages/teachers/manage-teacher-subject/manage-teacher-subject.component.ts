@@ -1,6 +1,6 @@
 import {ChangeDetectionStrategy, Component} from '@angular/core';
 import {map, mergeMap, tap} from 'rxjs/operators';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {TeacherSubjectService} from '../services/teacher-subject.service';
 import {TeacherService} from '../../admissions/services/teacher.service';
 import {UnitsService} from '../../../services/units.service';
@@ -28,13 +28,13 @@ export class ManageTeacherSubjectComponent extends formMixin() {
   teacher$ = this.teacherId$?.pipe(
     mergeMap(id => this.teacherService.loadTeacherProfile$(id))
   ) as Observable<any>
-  subjects$: Observable<any[]> = this.teacherId$?.pipe(
+  teaches$: Observable<any[]> = this.teacherId$?.pipe(
     mergeMap(id => this.teacherSubjectService.getSubjects(id))
   ) as Observable<any[]>
   allUnits$: Observable<any[]> = this.unitsService.all$;
   allUnitLevels$: Observable<any[]> = this.unitLevelService.getAll();
-  v$ = combineLatest([this.teacher$, this.allUnits$, this.allUnitLevels$]).pipe(
-    tap(([, units, unitLevels]) => units
+  v$ = combineLatest([this.teacher$, this.allUnits$, this.allUnitLevels$, this.teaches$]).pipe(
+    tap(([, units, unitLevels, teaches]) => units
       .sort(({name: a}, {name: b}) => a.charCodeAt(0) - b.charCodeAt(0)).forEach(unit => {
         const levels = this.fb.array([]);
         unitLevels.filter(({unit_id: unitId}) => unitId === unit.id)
@@ -44,7 +44,7 @@ export class ManageTeacherSubjectComponent extends formMixin() {
               id: [unitLevel.id],
               level: [unitLevel.level],
               name: [unitLevel.name],
-              teaches: [false] // TODO-me check me out
+              teaches: [teaches.map(({id}: any) => id).includes(unitLevel.id)]
             }))
           });
         (this.subjectsForm.get('units') as FormArray).push(this.fb.group({
@@ -62,7 +62,8 @@ export class ManageTeacherSubjectComponent extends formMixin() {
     private teacherSubjectService: TeacherSubjectService,
     private unitsService: UnitsService,
     private unitLevelService: UnitLevelService,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private router: Router
   ) {
     super();
   }
@@ -72,18 +73,23 @@ export class ManageTeacherSubjectComponent extends formMixin() {
   }
 
   subjectsFormSubmit() {
+    let teacherId: number;
     this.submitInProgressSubject$.next(true)
     this.teacherId$?.pipe(
+      tap(id => teacherId = id),
       mergeMap(id => this.teacherSubjectService.saveSubjects(
         id,
-        this.subjectsForm.value
+        {
+          units: this.subjectsForm.get('units')?.value.map(({levels}: any) => levels)
+            .flat().filter(({teaches}: any) => teaches)
+            .map(({id: itemId}: any) => itemId)
+        }
         )
       )
     ).subscribe({
-      next: (res) => {
-        console.log(res)
-        this.submitInProgressSubject$.next(false)
-      }, error: () => this.submitInProgressSubject$.next(false)
+      next: () => this.router.navigate(['teachers', teacherId, 'subjects'])
+        .then(() => this.submitInProgressSubject$.next(false)),
+      error: () => this.submitInProgressSubject$.next(false)
     })
   }
 }

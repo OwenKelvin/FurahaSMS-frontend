@@ -180,7 +180,7 @@
               <button *ngIf='!procurementVendorForm.valid' (click)='validateForm()' type='button'
                 class='btn btn-secondary'>Validate</button>
               &nbsp;&nbsp;&nbsp;&nbsp;
-              <button class='btn btn-success' [disabled]='!procurementVendorForm.valid || submitInProgressAction$ | async'>
+              <button class='btn btn-success' [disabled]='!procurementVendorForm.valid || (submitInProgressAction$ | async)'>
                 Save Details<i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i><i
                   *ngIf='procurementVendorForm.valid && ((submitInProgressAction$ | async) === false)' class='icon-ok'></i>
               </button>

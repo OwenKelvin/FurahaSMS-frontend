@@ -37,7 +37,6 @@ export class TeacherService {
   }
   loadTeacherProfile$ = (id: number) => this.store.pipe(
     select(selectTeacher(id)),
-    tap(y => console.log({ y })),
     tap(profile => !profile ? this.store.dispatch(loadTeacherProfiles({data: {id}})) : null)
   )
   transformTeacher = (user: any) => ({
