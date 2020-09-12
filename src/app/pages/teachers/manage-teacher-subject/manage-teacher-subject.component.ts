@@ -34,23 +34,25 @@ export class ManageTeacherSubjectComponent extends formMixin() {
   allUnits$: Observable<any[]> = this.unitsService.all$;
   allUnitLevels$: Observable<any[]> = this.unitLevelService.getAll();
   v$ = combineLatest([this.teacher$, this.allUnits$, this.allUnitLevels$]).pipe(
-    tap(([, units, unitLevels]) => units.forEach(unit => {
-      const levels = this.fb.array([]);
-      unitLevels.filter(({unit_id: unitId}) => unitId === unit.id)
-        .forEach(unitLevel => {
-          levels.push(this.fb.group({
-            id: [unitLevel.id],
-            level: [unitLevel.level],
-            name: [unitLevel.name],
-            teaches: [false] // TODO-me check me out
-          }))
-        });
-      (this.subjectsForm.get('units') as FormArray).push(this.fb.group({
-        id: [unit.id],
-        name: [unit.abbreviation],
-        levels
-      }))
-    })),
+    tap(([, units, unitLevels]) => units
+      .sort(({name: a}, {name: b}) => a.charCodeAt(0) - b.charCodeAt(0)).forEach(unit => {
+        const levels = this.fb.array([]);
+        unitLevels.filter(({unit_id: unitId}) => unitId === unit.id)
+          .sort(({level: a}, {level: b}) => a - b)
+          .forEach(unitLevel => {
+            levels.push(this.fb.group({
+              id: [unitLevel.id],
+              level: [unitLevel.level],
+              name: [unitLevel.name],
+              teaches: [false] // TODO-me check me out
+            }))
+          });
+        (this.subjectsForm.get('units') as FormArray).push(this.fb.group({
+          id: [unit.id],
+          name: [unit.abbreviation],
+          levels
+        }))
+      })),
     map(([teacher]) => ({teacher}))
   )
 
@@ -71,5 +73,17 @@ export class ManageTeacherSubjectComponent extends formMixin() {
 
   subjectsFormSubmit() {
     this.submitInProgressSubject$.next(true)
+    this.teacherId$?.pipe(
+      mergeMap(id => this.teacherSubjectService.saveSubjects(
+        id,
+        this.subjectsForm.value
+        )
+      )
+    ).subscribe({
+      next: (res) => {
+        console.log(res)
+        this.submitInProgressSubject$.next(false)
+      }, error: () => this.submitInProgressSubject$.next(false)
+    })
   }
 }
