@@ -38,7 +38,7 @@ describe('ProcurementsVendorsComponent', () => {
         {
           provide: ProcurementService,
           useValue: {
-            getVendors: of([]),
+            getVendors: () => of([]),
             deleteVendor: of([])
           }
         }

@@ -4,6 +4,7 @@ import * as fromStore from '../../../store/reducers';
 import {ProcurementService} from 'src/app/services/procurement.service';
 import {takeUntil} from 'rxjs/operators';
 import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
+import {BehaviorSubject} from 'rxjs';
 
 @Component({
   selector: 'app-approve-procurement-request',
@@ -16,6 +17,8 @@ export class ApproveProcurementRequestComponent extends subscribedContainerMixin
   isOpen = [false];
   isApproving: boolean[] = [false];
   isRejecting: boolean[] = [false];
+  isApprovingSubject$ = new BehaviorSubject([false])
+  isRejectingSubject$ = new BehaviorSubject([false])
 
   constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) {
     super();

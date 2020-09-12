@@ -1,15 +1,15 @@
-import { Component, OnInit } from '@angular/core';
+import {Component} from '@angular/core';
+import {TeacherService} from '../../admissions/services/teacher.service';
 
 @Component({
   selector: 'app-teachers-dashboard',
   templateUrl: './teachers-dashboard.component.html',
   styleUrls: ['./teachers-dashboard.component.css']
 })
-export class TeachersDashboardComponent implements OnInit {
+export class TeachersDashboardComponent {
 
-  constructor() { }
+  teachers$ = this.teachersService.getActiveTeachers()
 
-  ngOnInit() {
+  constructor(private teachersService: TeacherService) {
   }
-
 }

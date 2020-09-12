@@ -119,11 +119,11 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
 
   }
   createTeacher() {
-    this.teacherService.store(this.newTeacherForm.value)
+    this.teacherService.saveTeacher(this.newTeacherForm.value)
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(res => {
         this.isSubmitting = false;
-        this.router.navigate(['/teachers', res.data.id, 'info']);
+        this.router.navigate(['/teachers', res.data.id, 'info']).then();
       }, () => {
         this.isSubmitting = false;
       });

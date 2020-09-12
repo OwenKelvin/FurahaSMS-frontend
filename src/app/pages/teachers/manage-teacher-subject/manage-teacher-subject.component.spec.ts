@@ -1,22 +1,20 @@
 import {async, ComponentFixture, TestBed} from '@angular/core/testing';
 
-import {TeachersDashboardComponent} from './teachers-dashboard.component';
+import {ManageTeacherSubjectComponent} from './manage-teacher-subject.component';
 import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
-import {AppLoadingBubbleModule} from '../../../modules/app-loading-bubble';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ActivatedRoute} from '@angular/router';
 
-describe('TeachersDashboardComponent', () => {
-  let component: TeachersDashboardComponent;
-  let fixture: ComponentFixture<TeachersDashboardComponent>;
+describe('ManageTeacherSubjectComponent', () => {
+  let component: ManageTeacherSubjectComponent;
+  let fixture: ComponentFixture<ManageTeacherSubjectComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
-        RouterTestingModule,
-        HttpClientTestingModule,
-        AppLoadingBubbleModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
@@ -24,15 +22,26 @@ describe('TeachersDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        RouterTestingModule, HttpClientTestingModule,
+        ReactiveFormsModule,
+        FormsModule
       ],
-      declarations: [TeachersDashboardComponent],
-      providers: [reducerProvider]
+      declarations: [ManageTeacherSubjectComponent],
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+
+          }
+        }
+      ],
     })
       .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(TeachersDashboardComponent);
+    fixture = TestBed.createComponent(ManageTeacherSubjectComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

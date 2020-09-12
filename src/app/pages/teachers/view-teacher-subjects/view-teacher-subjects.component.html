@@ -1,1 +1,26 @@
-<p>view-teacher-subjects works!</p>
+<div class="mt-2" *ngIf="teacherId$ | async as teacherId">
+  <button [routerLink]="['/teachers',teacherId,'subjects', 'manage']" class="btn btn-primary btn-sm"><span
+    class="icon-edit"></span>
+    Manage Assigned Subjects
+  </button>
+</div>
+<div *ngIf="teacherUnits$ | async as teacherUnits; else loading">
+  <div class="d-flex flex-wrap justify-content-start">
+    <div class="col-lg-4 p-1" *ngFor="let unit of teacherUnits;">
+      <ul class="card list-group p-0 m-0">
+        <li class="bg-dark list-group-item pl-0 ml-0"><strong class="card-header">{{ unit.name }}({{unit.abbr}})</strong>
+          <ul class="card-body list-group p-0">
+            <li class="list-group-item bg-dark mb-1" *ngFor="let unitLevel of unit.levels">
+              <span class="icon-check"></span> {{ unitLevel.name }}
+            </li>
+          </ul>
+        </li>
+
+      </ul>
+    </div>
+  </div>
+</div>
+
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

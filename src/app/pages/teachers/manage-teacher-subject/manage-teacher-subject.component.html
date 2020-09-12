@@ -1,0 +1,42 @@
+<h1>Manage Teacher Subjects</h1>
+<section class="card p-2" *ngIf="v$ | async as v">
+  <table class="table table-dark">
+    <thead>
+    <tr>
+      <th>Name</th>
+      <th>Email</th>
+      <th>Phone</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{ v.teacher.name }}</td>
+      <td>{{ v.teacher.email }}</td>
+      <td>{{ v.teacher.phone }}</td>
+    </tr>
+    </tbody>
+  </table>
+  <fieldset class="card p-2">
+    <legend><h2>Subject List</h2></legend>
+    <form [formGroup]="subjectsForm" (submit)="subjectsFormSubmit()">
+      <div class="d-flex flex-wrap justify-content-between" formArrayName="units">
+        <div class="col-lg-3 p-1" *ngFor="let unit of units?.controls; let i = index">
+          <div class="card" [formGroupName]="i">
+            <div class="card-header bg-dark">{{ unit.value.name }}</div>
+            <div class="card-body" formArrayName="levels">
+              <ng-container *ngFor="let unitLevel of unit.value.levels; let j = index" [formGroupName]="j">
+                <app-checkbox formControlName="teaches" [label]="unitLevel.name"></app-checkbox>
+              </ng-container>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+                                     (validationButtonClicked)='triggerValidationSubject$.next(true)'
+                                     [formItem]='subjectsForm'>
+        </app-validate-submit-buttons>
+      </div>
+    </form>
+  </fieldset>
+</section>
