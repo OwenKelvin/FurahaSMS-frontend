@@ -1,36 +1,48 @@
-import { Component, OnInit, OnDestroy, Input } from '@angular/core';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { TeacherService } from '../../services/teacher.service';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
-import { debounceTime, takeWhile, mergeMap, filter, tap } from 'rxjs/operators';
-import { UsersService } from 'src/app/services/users.service';
-import { Router } from '@angular/router';
-import { GenderService } from 'src/app/services/gender.service';
-import { ReligionService } from 'src/app/services/religion.service';
-import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
-import { Observable } from 'rxjs';
-import { selectStaffType } from '../../store/selectors/staff-type.selectors';
-import { SupportStaffService } from 'src/app/pages/support-staffs/services/support-staff.service';
-import { EmailValidatorDirective } from 'src/app/shared/validators/email.validator';
+import {Component, Input, OnInit} from '@angular/core';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TeacherService} from '../../services/teacher.service';
+import {select, Store} from '@ngrx/store';
+import {AppState} from 'src/app/store/reducers';
+import {debounceTime, filter, mergeMap, takeUntil} from 'rxjs/operators';
+import {UsersService} from 'src/app/services/users.service';
+import {Router} from '@angular/router';
+import {GenderService} from 'src/app/services/gender.service';
+import {ReligionService} from 'src/app/services/religion.service';
+import {selectGenders, selectReligions} from 'src/app/store/selectors/app.selectors';
+import {Observable} from 'rxjs';
+import {selectStaffType} from '../../store/selectors/staff-type.selectors';
+import {SupportStaffService} from 'src/app/pages/support-staffs/services/support-staff.service';
+import {EmailValidatorDirective} from 'src/app/shared/validators/email.validator';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
+import {formMixin} from '../../../../shared/mixins/form.mixin';
 
 @Component({
   selector: 'app-create-teacher',
   templateUrl: './create-teacher.component.html',
   styleUrls: ['./create-teacher.component.css']
 })
-export class CreateTeacherComponent implements OnInit, OnDestroy {
+export class CreateTeacherComponent extends subscribedContainerMixin(formMixin()) implements OnInit {
   @Input() supportStaff: number;
-  newTeacherForm: FormGroup;
-  isSubmitting = false;
-  triggerValidation: boolean;
-  componentIsActive = true;
+  newTeacherForm: FormGroup = this.fb.group({
+    email: ['', Validators.required],
+    firstName: ['', Validators.required],
+    lastName: ['', Validators.required],
+    dateOfBirth: ['', Validators.required],
+    middleName: [''],
+    otherNames: [''],
+    religion: [''],
+    gender: [''],
+    phone: [''],
+    namePrefix: ['']
+  });
   confirmData: boolean;
   usersData: any;
   confirmedData: boolean;
   genders$: Observable<any[]> = this.store.pipe(select(selectGenders));
   religions$: Observable<any[]> = this.store.pipe(select(selectReligions));
-  staffType$ : Observable<any>
+  staffType$: Observable<any> = this.store.pipe(
+    select(selectStaffType(this.supportStaff))
+  )
 
   constructor(
     private users: UsersService,
@@ -40,51 +52,49 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     private supportStaffService: SupportStaffService,
     private genderService: GenderService,
     private religionService: ReligionService,
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
-    this.supportStaffService.loadAllStaffTypes$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
-    this.genderService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
-    this.religionService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
-    this.resetForm();
+    this.supportStaffService.loadAllStaffTypes$.pipe(takeUntil(this.destroyed$)).subscribe();
+    this.genderService.loadAll$.pipe(takeUntil(this.destroyed$)).subscribe();
+    this.religionService.loadAll$.pipe(takeUntil(this.destroyed$)).subscribe();
     this.subscribeToEmailChecking();
-    this.staffType$ = this.store.pipe(
-      select(selectStaffType(this.supportStaff))
-    )
   }
 
   resetForm() {
-    this.newTeacherForm = this.fb.group({
-      email: ['', Validators.required],
-      firstName: ['', Validators.required],
-      lastName: ['', Validators.required],
-      dateOfBirth: ['', Validators.required],
-      middleName: [''],
-      otherNames: [''],
-      religion: [''],
-      gender: [''],
-      phone: [''],
-      namePrefix: ['']
+    this.newTeacherForm.patchValue({
+      email: '',
+      firstName: '',
+      lastName: '',
+      dateOfBirth: '',
+      middleName: '',
+      otherNames: '',
+      religion: '',
+      gender: '',
+      phone: '',
+      namePrefix: ''
     });
   }
+
   subscribeToEmailChecking(): void {
     this.email.valueChanges
       .pipe(debounceTime(1000),
         filter(() => !(new EmailValidatorDirective()).validate(this.email)),
         mergeMap((event) => this.users.findIfEmailExists(event)),
-        takeWhile(() => this.componentIsActive))
+        takeUntil(this.destroyed$))
       .subscribe(data => {
-        this.confirmData = false;
-        if (data) {
-          this.confirmData = true;
-        }
+        this.confirmData = !!data;
         this.usersData = data;
         this.confirmedData = true;
       });
   }
+
   get email(): FormControl {
     return this.newTeacherForm.get('email') as FormControl;
   }
+
   updateFieldsForEmail() {
     const data = {
       firstName: this.usersData.first_name,
@@ -103,14 +113,16 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     this.confirmData = false;
     this.confirmedData = true;
   }
+
   clearEmail() {
     this.usersData = null;
     this.confirmData = false;
     this.confirmedData = false;
     this.resetForm();
   }
+
   submitNewTeacherForm() {
-    this.isSubmitting = true;
+    this.submitInProgressSubject$.next(true);
     if (this.supportStaff && this.supportStaff !== 0) {
       this.createSupportStaff();
     } else {
@@ -118,25 +130,26 @@ export class CreateTeacherComponent implements OnInit, OnDestroy {
     }
 
   }
+
   createTeacher() {
     this.teacherService.saveTeacher(this.newTeacherForm.value)
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-        this.isSubmitting = false;
-        this.router.navigate(['/teachers', res.data.id, 'info']).then();
-      }, () => {
-        this.isSubmitting = false;
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (res) => this.router.navigate(['/teachers', res.data.id, 'info']).then(
+          () => this.submitInProgressSubject$.next(false)
+        )
+        , error: () => this.submitInProgressSubject$.next(false)
       });
   }
+
   createSupportStaff() {
-    this.supportStaffService.save({ ...this.newTeacherForm.value, staff_type: this.supportStaff })
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-        this.isSubmitting = false;
-        this.router.navigate(['/support-staffs', res.data.id, 'info']);
-      }, () => this.isSubmitting = false);
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
+    this.supportStaffService.save({...this.newTeacherForm.value, staff_type: this.supportStaff})
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: res => this.router.navigate(['/support-staffs', res.data.id, 'info']).then(
+          () => this.submitInProgressSubject$.next(false)
+        )
+        , error: () => this.submitInProgressSubject$.next(false)
+      });
   }
 }

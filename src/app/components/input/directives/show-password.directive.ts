@@ -12,7 +12,7 @@ export class ShowPasswordDirective {
   constructor(elementRef: ElementRef) {
     this.element = elementRef.nativeElement;
   }
-
+  // @HostListener('touchstart:{passive:true}') onTouchStart() {  // NOT TESTED
   @HostListener('touchstart') onTouchStart() {
     this.toggleType.emit('text');
   }

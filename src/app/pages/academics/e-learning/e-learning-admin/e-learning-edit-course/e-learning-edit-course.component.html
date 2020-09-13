@@ -8,9 +8,7 @@
         </button>
       </div>
       <fieldset class="card p-2 mt-2 mb-2">
-        <legend>
-          <h2>General Info</h2>
-        </legend>
+        <legend>General Info</legend>
         <table class="table table-dark">
           <tbody>
           <tr>
@@ -29,7 +27,7 @@
         </table>
       </fieldset>
       <fieldset class="card p-2">
-        <legend><h2>Contents</h2></legend>
+        <legend>Contents</legend>
         <section class="d-flex flex-wrap justify-content-center">
           <div class="col-12 alert alert-info" *ngIf="!v.course?.topics || v.course?.topics?.length < 1">
             <span class="icon-info-circled"></span> No course contents were found!
