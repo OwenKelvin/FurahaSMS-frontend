@@ -47,7 +47,8 @@ import { UnitsService } from 'src/app/services/units.service';
 export class SelectComponent
   implements OnInit, ControlValueAccessor, OnChanges {
   disabled: boolean;
-  label: string;
+  @Input() label: string;
+  @Input() placeholder: string;
   formControl: FormControl;
   hint: string;
   categories$: Observable<any>;

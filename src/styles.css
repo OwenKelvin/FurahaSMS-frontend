@@ -102,7 +102,7 @@ html, body {
   overflow: auto;
 }
 
-h1, h2, h3, h4, h5 {
+h1, h2, h3, h4, h5, legend {
   font-size: 1.3rem;
   line-height: 1.3rem;
   margin-top: 2px;
@@ -111,7 +111,7 @@ h1, h2, h3, h4, h5 {
   font-weight: 500;
   color: aqua;
 }
-h2 {
+h2, legend {
   font-size: 1.2rem;
   /* margin-left: 10px; */
   line-height: 1.2rem;
@@ -140,8 +140,8 @@ h5 {
   border-left: 14px solid lightblue;
 }
 legend {
-  font-size: 1.0rem;
-  font-weight: bold;
+  font-size: 1.3rem;
+  margin-bottom: 0;
 }
 .full-height {
   height: 100%;

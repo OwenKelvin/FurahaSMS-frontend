@@ -57,4 +57,7 @@ export class UsersService {
     headers.append('Content-Type', 'application/pdf');
     return this.http.get(`api/users/profile-picture/${userId}`, { headers, responseType: 'blob' });
   }
+
+  resetPasswordForUserWithId = ({ id, resetPassword }: { id: number, resetPassword: string; }) =>
+    this.http.post(`api/users/${id}/password-reset`, {reset_password: resetPassword})
 }

@@ -17,7 +17,7 @@
     </tbody>
   </table>
   <fieldset class="card p-2">
-    <legend><h2>Subject List</h2></legend>
+    <legend>Subject List</legend>
     <form [formGroup]="subjectsForm" (submit)="subjectsFormSubmit()">
       <div class="d-flex flex-wrap justify-content-between" formArrayName="units">
         <div class="col-lg-3 p-1" *ngFor="let unit of units?.controls; let i = index">

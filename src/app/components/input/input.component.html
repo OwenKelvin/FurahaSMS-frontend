@@ -21,7 +21,7 @@
 	      [id]='[id]'
 	      [type]='fieldType'
 				[placeholder]='placeholder'>
-				<section class='input-group-append' *ngIf='type === "password"'>
+				<section class='input-group-append' *ngIf='type === "password"' >
 					<button
 						appShowPassword
 						(toggleType)='fieldType = $event' type="button" class='show-password'>
