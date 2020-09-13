@@ -1,22 +1,22 @@
-<div class="d-flex pl-3 pr-3 flex-wrap">
+<div class="d-flex flex-wrap">
 
-  <label class="control-label col-lg-4" [for]="id">
+  <label class="control-label pl-3" [attr.for]="id">
     <span class='icon-star required' [class.required-inVisible]='!isRequired'></span>
     {{ label }}
   </label>
 
-  <select 
+  <select
     [formControl]="formControl"
     (blur)="validateField()"
     (change)="validateField()"
     [class.is-invalid]='fieldError'
-    class="form-control  col-lg-8"
+    class="form-control"
     [id]="id">
     <option selected value="">Choose...</option>
     <option *ngFor="let category of categories$ | async" [value]="category.id">
       {{ category?.name }}
     </option>
-    <option disabled='true' *ngIf='(categories$ | async) === null'>Loading...</option>
+    <option disabled='disabled' *ngIf='(categories$ | async) === null'>Loading...</option>
   </select>
   <section *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;">
     <div class="arrow-up"></div>

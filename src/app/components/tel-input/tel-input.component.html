@@ -1,9 +1,9 @@
 <section [formGroup]='phoneNumberGroup' class='form-group p-0 m-0' style="position: relative;" [id]='id + "-container"'>
   <section class='d-flex flex-wrap'>
-    <label [class]='"col-md-4 col-lg-4 control-label " + labelClass' [for]='id'>
+    <label [class]='"control-label " + labelClass' [for]='id'>
       <span class='icon-star required' [class.required-inVisible]='!isRequired'></span>{{ label }}
     </label>
-    <section [class]='inputClass ? inputClass + " input-group" : "col-md-8 col-lg-8 " + inputClass + " input-group p-0"'>
+    <section [class]='inputClass ? inputClass + " input-group" : " " + inputClass + " input-group p-0"'>
       <section *ngIf='prependIcon' class='input-group-prepend' [class.is-invalid]='fieldError'>
         <span class='input-group-text' [id]='"inputGroupPrepend" + id'><i [class]='prependIcon'></i></span>
       </section>
@@ -20,7 +20,7 @@
             </ng-option>
           </ng-select>
         </div>
-        <input [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName='phone_number'
+        <input aria-label="Phone Number" [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName='phone_number'
           (keyup)='updateFieldValidation()' class="form-control" [class.is-invalid]='fieldError' (blur)='validateField()' [id]='[id]'
           type='tel' [placeholder]='placeholder'>
 

@@ -64,6 +64,11 @@ const routes: Routes = [
       {
         path: 'academics',
         component: ViewStudentAcademicsComponent
+      },
+      {
+        path: 'password-management',
+        loadChildren: () => import('./../login/password-management/password-management.module')
+          .then(m => m.PasswordManagementModule)
       }
     ]
   }
