@@ -6,9 +6,13 @@
 </div>
 <div *ngIf="teacherUnits$ | async as teacherUnits; else loading">
   <div class="d-flex flex-wrap justify-content-start">
+    <div class="col-12 alert alert-info mt-2 ml-0 mr-0" *ngIf="teacherUnits.length < 1">
+      No Subjects assigned to the teacher
+    </div>
     <div class="col-lg-4 p-1" *ngFor="let unit of teacherUnits;">
       <ul class="card list-group p-0 m-0">
-        <li class="bg-dark list-group-item pl-0 ml-0"><strong class="card-header">{{ unit.name }}({{unit.abbr}})</strong>
+        <li class="bg-dark list-group-item pl-0 ml-0"><strong class="card-header">{{ unit.name }}({{unit.abbr}}
+          )</strong>
           <ul class="card-body list-group p-0">
             <li class="list-group-item bg-dark mb-1" *ngFor="let unitLevel of unit.levels">
               <span class="icon-check"></span> {{ unitLevel.name }}

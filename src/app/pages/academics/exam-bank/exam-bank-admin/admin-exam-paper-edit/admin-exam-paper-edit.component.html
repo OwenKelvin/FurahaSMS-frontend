@@ -32,7 +32,7 @@
         </div>
         <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
           <fieldset *ngIf='editDialogForm.get("multipleChoices")?.value'>
-            <legend>Number of Correct Answes</legend>
+            <legend>Number of Correct Answers</legend>
             <div class="d-flex">
               <div class="form-check col-lg-5">
                 <input [value]="0" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
@@ -127,16 +127,16 @@
         </ul>
       </fieldset>
       <section class="d-flex justify-content-between">
-        
+
         <button [disabled]='editDialogForm.invalid' (click)='saveQuestion()' type="button"
           class="btn btn-success btn-sm mb-2 mt-2">
           Save <span *ngIf='editDialogForm.valid' class="icon-ok"></span></button>
-          
+
           <button *ngIf='editDialogForm.invalid' (click)='validated = true' type="button"
             class="btn btn-secondary btn-sm mb-2 mt-2">Validate</button>
         <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
       </section>
-      
+
     </form>
   </div>
 </ng-template>
@@ -166,14 +166,14 @@
         (click)='activeQuestion = i' [attr.aria-label]='"Go to question" +  (i + 1)'>{{ i + 1}}</button>
     </section>
     <ng-container *ngFor='let question of questions; let i = index'>
-      <app-question-view 
+      <app-question-view
         (deleteQuestion)='deleteQuestion($event)'
         (reorderQuestions)='reorderQuestions($event)'
         (edit)='handleQuestionEdit(template, $event)'
         [editMode]='true'
-        [activeQuestion]='activeQuestion' 
+        [activeQuestion]='activeQuestion'
         [question]='question'
-        [i]='i' 
+        [i]='i'
         [questionsLength]='questions.length'
         (activeQuestionChange)='activeQuestion = activeQuestion + $event'
         >

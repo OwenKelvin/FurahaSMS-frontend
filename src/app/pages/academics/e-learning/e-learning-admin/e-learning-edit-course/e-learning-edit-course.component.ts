@@ -134,7 +134,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
       this.studyMaterialsService.uploadDocument(pdfFile)
         .pipe(
           map(({data: uploadRes}: any) => uploadRes.id),
-          mergeMap((docId: number) => this.studyMaterialsService.saveStudyaterialInfo({docId, data})),
+          mergeMap((docId: number) => this.studyMaterialsService.saveStudyMaterialInfo({docId, data})),
           map(({data: studyMatRes}: any) => studyMatRes.id),
           mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
               studyMaterialId,
