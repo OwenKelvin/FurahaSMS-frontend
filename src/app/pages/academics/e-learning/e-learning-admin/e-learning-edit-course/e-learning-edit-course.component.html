@@ -36,7 +36,7 @@
             <legend class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</legend>
             <section class="d-flex flex-wrap justify-content-center">
               <section class="col-lg-12 p-2 mb-2">
-                <app-e-learning-topic-objectives [courseId]="v.course.id" [topicId]="topic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                  [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
                 <app-e-learning-topic-materials
@@ -60,7 +60,7 @@
                 </ng-template>
                 <section class="d-flex justify-content-center">
                   <div class="col-lg-12 pb-3">
-                    <app-e-learning-topic-objectives [courseId]="v.course.id" [topicId]="subTopic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                    <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                      [learningOutcomes]='subTopic.expected_learning_outcomes'>
                     </app-e-learning-topic-objectives>
 

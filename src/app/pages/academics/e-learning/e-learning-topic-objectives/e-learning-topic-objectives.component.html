@@ -6,7 +6,7 @@
         *ngFor='let learningOutcome of learningOutcomes; let i = index'>
       <span> <i class='icon-lightbulb'></i>
         {{ learningOutcome.description }}</span>
-      <span>
+      <span *ngIf="edit">
         <button (click)="editLearningOutcome({id:i, component: editLearningOutcomeModal})"
                 class="btn btn-primary btn-sm mr-2"><i class="icon-edit"></i></button>
         <button (click)="deleteLearningOutcome(i)" class="btn btn-danger btn-sm"><i class="icon-trash-2"></i></button>

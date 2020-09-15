@@ -1,7 +1,7 @@
 import * as fromCourses from './courses.actions';
 
-describe('loadCoursess', () => {
+describe('loadCourses', () => {
   it('should return an action', () => {
-    expect(fromCourses.loadCourses({ data: { id: 0 } }).type).toBe('[Courses] Load Coursess');
+    expect(fromCourses.loadCourses({ data: { id: 0 } }).type).toBe('[Courses] Load Courses');
   });
 });

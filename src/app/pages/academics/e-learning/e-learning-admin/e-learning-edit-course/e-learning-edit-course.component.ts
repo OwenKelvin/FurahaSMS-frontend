@@ -85,25 +85,26 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
         units: [course.unitId],
         classLevels: [course.classLevelId],
       };
-
-      this.studyMaterialsService.uploadDocument(pdfFile)
-        .pipe(
-          map(({data: uploadRes}: any) => uploadRes.id),
-          mergeMap((docId: number) => this.studyMaterialsService.saveStudyMaterialInfo({docId, data})),
-          map(({data: studyMatRes}: any) => studyMatRes.id),
-          mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
-              studyMaterialId,
-              data: {
-                eLearningTopicId: this.newContentUploadForm.get('topicId')?.value
-              }
-            })
-          ),
-          takeUntil(this.destroyed$)
-        )
-        .subscribe(() => {
+      combineLatest([
+        this.courseId$,
+        this.studyMaterialsService.uploadDocument(pdfFile)
+          .pipe(
+            map(({data: uploadRes}: any) => uploadRes.id),
+            mergeMap((docId: number) => this.studyMaterialsService.saveStudyMaterialInfo({docId, data})),
+            map(({data: studyMatRes}: any) => studyMatRes.id),
+            mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
+                studyMaterialId,
+                data: {
+                  eLearningTopicId: this.newContentUploadForm.get('topicId')?.value
+                }
+              })
+            ),
+          )]).pipe(takeUntil(this.destroyed$))
+        .subscribe(([courseId]) => {
           // this.getCourses();
           this.savingNewContent = false;
-          this.modalRef.hide();
+          this.closeModal();
+          this.store.dispatch(loadCourses({data: {id: courseId}}))
         }, () => this.savingNewContent = false);
     } else {
       alert('Form is Incomplete');

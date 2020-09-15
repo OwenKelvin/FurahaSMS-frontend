@@ -18,6 +18,7 @@ import {ELearningDeleteLearningOutcomeComponent} from '../e-learning-admin/e-lea
 export class ELearningTopicObjectivesComponent extends subscribedContainerMixin(modalMixin(formMixin())) {
 
   @Input() courseId: number;
+  @Input() edit: boolean;
   @Input() topicId: number;
   @Input() topicNumberStyleName: string;
   @Input() learningOutcomes: any[];

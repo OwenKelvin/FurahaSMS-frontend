@@ -1,6 +1,11 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { ELearningDeleteLearningOutcomeComponent } from './e-learning-delete-learning-outcome.component';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../../store/reducers';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {FormsModule} from '@angular/forms';
 
 describe('ELearningDeleteLearningOutcomeComponent', () => {
   let component: ELearningDeleteLearningOutcomeComponent;
@@ -8,7 +13,20 @@ describe('ELearningDeleteLearningOutcomeComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ ELearningDeleteLearningOutcomeComponent ]
+      imports: [
+        ModalModule.forRoot(),
+        HttpClientTestingModule,
+        FormsModule,
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+      ],
+      declarations: [ ELearningDeleteLearningOutcomeComponent ],
+      providers: [reducerProvider]
     })
     .compileComponents();
   }));
