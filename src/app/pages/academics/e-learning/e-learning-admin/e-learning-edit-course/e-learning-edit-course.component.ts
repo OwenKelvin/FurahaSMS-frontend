@@ -1,4 +1,4 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map, mergeMap, takeUntil} from 'rxjs/operators';
@@ -12,13 +12,14 @@ import {StudyMaterialsService} from '../../../study-materials/services/study-mat
 import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
 import {modalMixin} from '../../../../../shared/mixins/modal.mixin';
 import {formMixin} from '../../../../../shared/mixins/form.mixin';
+import {loadCourses} from '../../../store/actions/courses.actions';
 
 @Component({
   selector: 'app-e-learning-edit-course',
   templateUrl: './e-learning-edit-course.component.html',
   styleUrls: ['./e-learning-edit-course.component.css']
 })
-export class ELearningEditCourseComponent extends subscribedContainerMixin(modalMixin(formMixin())) implements OnInit {
+export class ELearningEditCourseComponent extends subscribedContainerMixin(modalMixin(formMixin())) {
   newContentUploadForm: FormGroup = this.fb.group({
     description: ['', [Validators.required]],
     content: [null, [Validators.required]],
@@ -41,7 +42,6 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     description: ['', [Validators.required]],
     topicId: [null, []]
   });
-  triggerLearningOutcomeValidation: boolean;
 
   constructor(
     private store: Store,
@@ -55,67 +55,23 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     super(modalService, store);
   }
 
-  ngOnInit(): void {
-    // this.getCourses();
-    // this.resetNewContentForm();
-  }
-
-  // getCourses() {
-  //   this.course$ = (this.route.parent as ActivatedRoute).paramMap
-  //     .pipe(
-  //       map(params => Number(params.get('id'))),
-  //       mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
-  //       tap((res) => this.course = res));
-  // }
-
-  resetNewContentForm() { // topicId?: number
-
-    // this.newContentUploadForm = this.fb.group({
-    //   description: ['', [Validators.required]],
-    //   content: [null, [Validators.required]],
-    //   topicId: [topicId, []]
-    // });
-    // this.newLearningOutcomeForm = this.fb.group({
-    //   description: ['', [Validators.required]],
-    //   topicId: [topicId, []]
-    // });
-  }
-
-  // openModal(template: TemplateRef<any>) {
-  //   this.courseNameConfirmation = '';
-  //   this.modalRef = this.modalService.show(template);
-  //   this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
-  // }
-
   openModalNewContent(template: TemplateRef<any>, topicId: number) {
-    this.newContentUploadForm.get('topicId')?.patchValue(topicId)
-    this.newLearningOutcomeForm.get('topicId')?.patchValue(topicId)
-    super.openModal({id: topicId, component: template})
-    // this.resetNewContentForm(topicId);
-    // this.modalRef = this.modalService.show(template);
-    // this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
+    this.triggerValidationSubject$.next(false);
+    this.newContentUploadForm.get('topicId')?.patchValue(topicId);
+    this.newLearningOutcomeForm.get('topicId')?.patchValue(topicId);
+    super.openModal({id: topicId, component: template});
   }
 
   deleteCourse() {
     this.deletingCourse = true;
-    // const course: any = this.course ? this.course : {};
-    // const course: any = {};
     this.courseId$.pipe(
       mergeMap(id => this.eLearningService.deleteCourseWithId(id))
-      )
+    )
       .subscribe({
-        next: () => {
-          this.modalRef.hide();
-          this.router.navigate(['academics/', 'e-learning', 'admin']).then();
-        }
+        next: () => this.router.navigate(['academics/', 'e-learning', 'admin']).then(
+          () => this.modalRef.hide()
+        )
       });
-    // this.eLearningService.deleteCourseWithId(course.id)
-    //   .subscribe({
-    //     next: () => {
-    //       this.modalRef.hide();
-    //       this.router.navigate(['academics/', 'e-learning', 'admin']).then();
-    //     }
-    //   });
   }
 
   saveNewContent() {
@@ -124,7 +80,6 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     if (this.newContentUploadForm.valid) {
       this.savingNewContent = true;
       const course: any = {};
-      // const course: any = this.course ? this.course : {};
       const data = {
         title: this.newContentUploadForm.get('description')?.value,
         units: [course.unitId],
@@ -143,7 +98,8 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
               }
             })
           ),
-          takeUntil(this.destroyed$))
+          takeUntil(this.destroyed$)
+        )
         .subscribe(() => {
           // this.getCourses();
           this.savingNewContent = false;
@@ -158,16 +114,24 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
   saveLearningOutcome() {
     if (this.newLearningOutcomeForm.valid) {
       this.savingNewContent = true;
-      this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)
-        .subscribe(() => {
-          // this.getCourses();
+      combineLatest([
+        this.courseId$,
+        this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)])
+        .pipe(
+          map(([courseId, {data: learningOutcome}]) =>
+            ({courseId, topicId: Number(this.newLearningOutcomeForm.value.topicId), learningOutcome})
+          )
+        )
+        .subscribe(({courseId}) => {
+          // this.store.dispatch(createLearningOutcomeAction({data: {courseId, topicId, learningOutcome}}));
+          this.store.dispatch(loadCourses({data: {id: courseId}}))
           this.savingNewContent = false;
           this.modalRef.hide();
         }, () => this.savingNewContent = false);
 
     } else {
       alert('Form is Incomplete');
-      this.triggerLearningOutcomeValidation = true;
+      this.triggerValidationSubject$.next(true)
     }
   }
 

@@ -3,12 +3,26 @@ import {Observable} from 'rxjs';
 import {ICourse} from '../interfaces/course.interface';
 import {HttpClient} from '@angular/common/http';
 import {map} from 'rxjs/operators';
-import {stringify} from 'querystring';
+import {UrlParamsStringifyService} from '../../../../shared/url-params-stringify/services/url-params-stringify.service';
+
+interface IParams {
+  topicId: number;
+  learningOutcomeId: number;
+  description?: number
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ELearningService {
+  updateCourseTopicsLearningOutcome({topicId, description, learningOutcomeId}: IParams): Observable<any> {
+    const postData = {
+      description,
+      _method: 'PATCH'
+    };
+    return this.http.post(`api/e-learning/course-content/topics/${topicId}/learning-outcomes/${learningOutcomeId}`, postData);
+  }
+
   saveCourseTopicsLearningOutcome(value: any): Observable<any> {
     const {topicId} = value;
     const postData = {
@@ -29,7 +43,7 @@ export class ELearningService {
     return this.http.delete(`api/e-learning/courses/${id}`);
   }
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private urlParam: UrlParamsStringifyService) {
   }
 
   getCourseWithId(id: number): Observable<ICourse> {
@@ -79,7 +93,7 @@ export class ELearningService {
   }
 
   getCourses({limit}: { limit: number; }): Observable<ICourse[]> {
-    const queryStringParams = stringify({limit});
+    const queryStringParams = this.urlParam.stringify({limit});
     return this.http.get(`api/e-learning/courses?${queryStringParams}`)
       .pipe(map((res: any[]) => {
         const data: ICourse[] = res.map((item: any) => ({
@@ -94,4 +108,8 @@ export class ELearningService {
         return data;
       }));
   }
+
+  deleteCourseTopicsLearningOutcome = ({topicId, learningOutcomeId}: IParams) =>
+    this.http.delete(`api/e-learning/course-content/topics/${topicId}/learning-outcomes/${learningOutcomeId}`);
+
 }

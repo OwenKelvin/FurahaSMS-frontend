@@ -20,10 +20,11 @@
 
       <table class="table table-dark table-bordered">
         <thead>
-          <th>Day of Week</th>
-          <th>Stream</th>
-          <th *ngFor='let timing of classLevel.timings'>{{ timing }}</th>
-
+          <tr>
+            <th>Day of Week</th>
+            <th>Stream</th>
+            <th *ngFor='let timing of classLevel.timings'>{{ timing }}</th>
+          </tr>
         </thead>
         <tbody>
           <ng-container *ngFor='let dayOfWeek of classLevel.weekDays'>
@@ -112,7 +113,7 @@
 
   </div>
   <div class="modal-footer bg-dark">
-    <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+    <button type="button" (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
     <button (click)='saveLesson()' class="btn btn-success">
       <span>Save Content</span>
       <i class='icon-ok-1'></i>
