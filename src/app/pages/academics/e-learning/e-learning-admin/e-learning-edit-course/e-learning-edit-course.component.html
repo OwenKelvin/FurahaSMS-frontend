@@ -39,7 +39,7 @@
                 <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                  [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
-                <app-e-learning-topic-materials
+                <app-e-learning-topic-materials [edit]="true"
                   [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
 
                 <div>
@@ -64,7 +64,7 @@
                                                      [learningOutcomes]='subTopic.expected_learning_outcomes'>
                     </app-e-learning-topic-objectives>
 
-                    <app-e-learning-topic-materials
+                    <app-e-learning-topic-materials  [edit]="true"
                       [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
                     <div>
                       <button (click)='openModalNewContent(templateNewContent, subTopic.id)'
