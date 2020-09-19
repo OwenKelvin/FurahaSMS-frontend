@@ -23,7 +23,7 @@ cache:
 install:
   - npm install --registry https://registry.npmjs.org
   - npm i coveralls --registry https://registry.npmjs.org
-  
+
 before_install:
   - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
   - chmod +x ./cc-test-reporter
@@ -32,7 +32,8 @@ before_install:
 script:
   - npm run test -- --watch=false --no-progress --browsers=ChromeHeadlessNoSandbox --code-coverage
   - npm run lint
-  
+
 after_success:
-  - cat ./coverage/**/lcov.info | coveralls
-  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT  
+  # - cat ./coverage/**/lcov.info | coveralls
+  - cat ./coverage/lcov.info | coveralls
+  - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT
