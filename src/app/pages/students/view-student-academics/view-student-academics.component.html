@@ -1,9 +1,12 @@
-<section *ngIf='academicYearSubjects$ | async as academicYearSubjects; else loading'>
-  <button *ngIf="editMode$ | async" [routerLink]='["/students", studentId,"academics", "create"]' type="button"
+<section *ngIf='v$ | async as v; else loading'>
+  <button *ngIf="editMode$ | async" [routerLink]='["/students", v.studentId,"academics", "create"]' type="button"
           class="btn btn-sm btn-primary mt-2 mb-1">
     <span class="icon-plus-circled">Add To Academic Year</span>
   </button>
-  <section *ngFor='let academicYearSubject of academicYearSubjects' class="card mt-1 p-2">
+  <section class="alert alert-info mt-3" *ngIf="v.academicYearSubjects.length < 1">
+    <span class="icon-info-circled">No Academic Allocations Found!</span>
+  </section>
+  <section *ngFor='let academicYearSubject of v.academicYearSubjects' class="card mt-1 p-2">
     <h3>{{ academicYearSubject.academicYearName }}</h3>
 
 
@@ -12,7 +15,7 @@
         <div class="card-header d-flex justify-content-between align-items-end  ml-1">
           <h4 class="">{{ classLevel.class_level_name }}</h4>
           <button *ngIf="editMode$ | async"
-                  [routerLink]='["/students", studentId,"academics", academicYearSubject.academicYearId, "edit", { classLevelId: classLevel.class_level_id }]'
+                  [routerLink]='["/students", v.studentId,"academics", academicYearSubject.academicYearId, "edit", { classLevelId: classLevel.class_level_id }]'
                   type="button"
                   class="btn btn-sm btn-primary mt-2 mb-1"
                   aria-label="Edit Academic Year Allocation"

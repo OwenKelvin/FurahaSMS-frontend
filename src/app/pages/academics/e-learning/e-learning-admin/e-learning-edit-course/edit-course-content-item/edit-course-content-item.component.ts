@@ -10,7 +10,7 @@ import {loadCourses} from '../../../../store/actions/courses.actions';
 
 interface IStudyMaterialContent {
   study_material: {
-    title: number;
+    title: string;
     study_material_doc: {
       name: string,
       type: string,
