@@ -1,10 +1,10 @@
 <h1>E Learning Admin</h1>
-<ng-container *ngIf='contentLoaded; else contentLoading'>
+<ng-container *ngIf='filteredCourses$ | async as filteredCourses; else contentLoading'>
   <section class="d-flex justify-content-around align-items-center">
 
     <section class="col-lg-8">
       <label for="search">Search Courses</label>
-      <input [(ngModel)]='filterString' type="search" id='search' class='form-control'>
+      <input (keyup)="filterStringSubject$.next($event.target.value)" type="search" id='search' class='form-control'>
     </section>
     <button class="btn btn-primary" [routerLink]='["create-course"]'><span class="icon-plus-circled"></span>New
       Course</button>

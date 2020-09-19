@@ -1,3 +1,10 @@
 a:hover {
   text-decoration: none;
 }
+.btn-danger:hover ~ a {
+  color: #db7d6d;
+}
+
+.btn-primary:hover ~ a {
+  color: #6d84db;
+}

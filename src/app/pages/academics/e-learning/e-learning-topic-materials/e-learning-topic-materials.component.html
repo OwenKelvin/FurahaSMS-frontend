@@ -1,24 +1,40 @@
 <section *ngIf='learningContents && learningContents.length > 0' class='card p-2 m-2'>
-  <div *ngIf="edit">
-    <button aria-label="delete content" class="float-right btn btn-danger btn-sm"> <span class="icon-trash"></span></button>
-    <button aria-label="delete content" class="float-right btn btn-primary btn-sm mr-2"> <span class="icon-edit"></span></button>
-  </div>
-  <a
-    *ngFor='let learningContent of learningContents'
-    [routerLink]='["..","study-materials", learningContent.study_material_id]'
-    class="d-flex flex-wrap p-2">
-    <div class="col-lg-12">
-      <span [style.color]='learningContent.study_material.study_material_doc.type | fileExtention:"color"'
-        [class]='learningContent.study_material.study_material_doc.type | fileExtention:"icon"'></span>
-      <strong>{{ learningContent.study_material.title }}</strong>
-    </div>
-    <div class="col-lg-12 d-flex flex-wrap justify-content-between pb-2" style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'>
-      <small class="col-lg-4"><span class="sr-only">File</span> Name: {{ learningContent.study_material.study_material_doc.name }}</small>
-      <small class="col-lg-2"><span class="sr-only">File</span>Size: {{ learningContent.study_material.study_material_doc.size | filesize }}</small>
-      <!-- <small >Created <span class="sr-only">On</span>: {{ learningContent.study_material.study_material_doc.created_at }}</small> -->
-      <small class="col-lg-3"><span class="sr-only">Last</span> Updated: {{ learningContent.study_material.study_material_doc.updated_at }}</small>
-      <small class="col-lg-2"><span class="sr-only">File</span> Extention: {{ learningContent.study_material.study_material_doc.type }}</small>
-    </div>
 
-  </a>
+  <div *ngFor='let learningContent of learningContents; let i = index' style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'
+       class="mb-3">
+
+    <button (click)="deleteItem(i)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-danger btn-sm">
+      <span class="icon-trash"></span>
+    </button>
+    <button (click)="editItem(i)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-primary btn-sm mr-2">
+      <span class="icon-edit"></span>
+    </button>
+
+    <a
+      [routerLink]='["..","study-materials", learningContent.study_material_id]'
+      class="d-flex flex-wrap p-0">
+      <div class="col-lg-12">
+      <span [style.color]='learningContent.study_material.study_material_doc.type | fileExtention:"color"'
+            [class]='learningContent.study_material.study_material_doc.type | fileExtention:"icon"'></span>
+        <strong>{{ learningContent.study_material.title }}</strong>
+
+      </div>
+      <div class="col-lg-12 d-flex flex-wrap justify-content-between pb-2"
+      >
+        <small class="col-lg-4"><span class="sr-only">File</span>
+          Name: {{ learningContent.study_material.study_material_doc.name }}</small>
+        <small class="col-lg-2"><span
+          class="sr-only">File</span>Size: {{ learningContent.study_material.study_material_doc.size | filesize }}
+        </small>
+        <!-- <small >Created <span class="sr-only">On</span>: {{ learningContent.study_material.study_material_doc.created_at }}</small> -->
+        <small class="col-lg-3"><span class="sr-only">Last</span>
+          Updated: {{ learningContent.study_material.study_material_doc.updated_at }}</small>
+        <small class="col-lg-2"><span class="sr-only">File</span>
+          Extention: {{ learningContent.study_material.study_material_doc.type }}</small>
+      </div>
+
+    </a>
+
+  </div>
+
 </section>

@@ -112,7 +112,7 @@
           <ng-template #template>
             <div class="modal-header bg-dark">
               <h4 class="modal-title pull-left">New Level 1 Topic</h4>
-              <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+              <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
                 <span aria-hidden="true">&times;</span>
 
               </button>
@@ -182,7 +182,7 @@
                   </section>
                 </section>
                 <section class="d-flex justify-content-end mt-2 ml-4">
-                  <button type="button" (click)='modalRef.hide()' class="btn btn-secondary mr-4">Cancel</button>
+                  <button type="button" (click)='closeModal()' class="btn btn-secondary mr-4">Cancel</button>
                   <button [disabled]='newTopicForm.invalid' class="btn btn-success">Save Topic</button>
                 </section>
               </form>

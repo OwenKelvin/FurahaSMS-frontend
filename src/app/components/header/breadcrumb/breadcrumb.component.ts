@@ -40,7 +40,7 @@ export class BreadcrumbComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
+    // this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
     this.navigationEventStart.subscribe();
     this.navigationEventEnd.subscribe();
 
@@ -86,7 +86,7 @@ export class BreadcrumbComponent implements OnInit {
     this.location.back();
   }
   goFullScreen() {
-    (document.querySelector('#main') as HTMLElement).requestFullscreen();
+    (document.querySelector('#main') as HTMLElement).requestFullscreen().then();
   }
 
 }

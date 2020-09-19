@@ -7,8 +7,11 @@ import {UrlParamsStringifyService} from '../../../../shared/url-params-stringify
 
 interface IParams {
   topicId: number;
-  learningOutcomeId: number;
-  description?: number
+  learningOutcomeId?: number;
+  description?: number;
+  contentId?: number;
+  data?: any;
+  studyMaterialId?: number
 }
 
 @Injectable({
@@ -112,4 +115,15 @@ export class ELearningService {
   deleteCourseTopicsLearningOutcome = ({topicId, learningOutcomeId}: IParams) =>
     this.http.delete(`api/e-learning/course-content/topics/${topicId}/learning-outcomes/${learningOutcomeId}`);
 
+  deleteCourseContent = ({topicId, studyMaterialId, contentId}: IParams) =>
+    this.http.delete(
+      `api/e-learning/course-content/${contentId}?e_learning_topic_id=${topicId}&study_material_id=${studyMaterialId}`);
+
+  updateCourseContent = ({topicId, data}: IParams) =>
+    this.http.post(`api/e-learning/course-content`, {
+      _method: 'POST',
+      e_learning_topic_id: topicId,
+      study_material_id: topicId,
+      ...data
+    });
 }

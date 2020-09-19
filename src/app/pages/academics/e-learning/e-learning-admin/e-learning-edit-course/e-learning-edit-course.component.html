@@ -39,8 +39,8 @@
                 <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                  [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
-                <app-e-learning-topic-materials [edit]="true"
-                  [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
+                <app-e-learning-topic-materials [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
 
                 <div>
                   <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
@@ -64,7 +64,7 @@
                                                      [learningOutcomes]='subTopic.expected_learning_outcomes'>
                     </app-e-learning-topic-objectives>
 
-                    <app-e-learning-topic-materials  [edit]="true"
+                    <app-e-learning-topic-materials  [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
                       [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
                     <div>
                       <button (click)='openModalNewContent(templateNewContent, subTopic.id)'
@@ -89,7 +89,7 @@
     <ng-template #template>
       <div class="modal-header bg-dark">
         <h4 class="modal-title pull-left">Delete Course Confirmation</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
 
         </button>
@@ -99,7 +99,7 @@
         <input aria-label="Course Name" type="text" class="form-control" [(ngModel)]='courseNameConfirmation'>
       </div>
       <div class="modal-footer bg-dark">
-        <button type="button" (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != v.course?.name || deletingCourse'
                 class="btn btn-danger">
           <span *ngIf='!deletingCourse'>Delete this course</span>
@@ -113,9 +113,8 @@
     <ng-template #templateNewContent>
       <div class="modal-header bg-dark">
         <h4 class="modal-title pull-left">New Content Upload</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
-
         </button>
       </div>
       <div class="modal-body bg-dark d-flex flex-wrap">
@@ -175,7 +174,7 @@
         </section>
       </div>
       <div class="modal-footer bg-dark">
-        <button type="button" (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
                 [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
           <span *ngIf='!savingNewContent'>Save Content</span>
