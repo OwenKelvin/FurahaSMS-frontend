@@ -1,16 +1,40 @@
-<form formGroup="itemForm">
-<div class="modal-header bg-dark">
-  <h4 class="modal-title pull-left">Edit Course Item</h4>
-  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
-    <span aria-hidden="true">&times;</span>
+<form [formGroup]="itemForm" (submit)="itemFormSubmit()">
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">Edit Course Item</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
 
-  </button>
-</div>
-<div class="modal-body bg-dark">
+    </button>
+  </div>
+  <div class="modal-body bg-dark">
+    <table class="table table-dark">
+      <thead>
+      <tr>
+        <th>Name of Document</th>
+        <th>File Type</th>
+        <th>Size</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr>
+        <td>{{ learningContent.study_material?.study_material_doc?.name }}</td>
+        <td>
+          <span [class]="learningContent.study_material?.study_material_doc?.type | fileExtention"></span>
+          {{ learningContent.study_material?.study_material_doc?.type }}
+        </td>
+        <td>{{ learningContent.study_material?.study_material_doc?.size | filesize }}</td>
+      </tr>
+      </tbody>
+    </table>
+    <app-input [triggerValidation]="triggerValidationAction$ | async" formControlName="title" label="Document Title"
+               placeholder="Please Enter Title"></app-input>
 
-</div>
-<div class="modal-footer bg-dark">
-  <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
-  <app-validate-submit-buttons [formItem]=""></app-validate-submit-buttons>
-</div>
+  </div>
+  <div class="modal-footer bg-dark">
+    <div class="col-12 d-flex justify-content-between align-items-start">
+      <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
+      <app-validate-submit-buttons [isSubmitting]="submitInProgressAction$ | async" (validationButtonClicked)="triggerValidationSubject$.next(true)"
+                                   [formItem]="itemForm"></app-validate-submit-buttons>
+    </div>
+  </div>
 </form>

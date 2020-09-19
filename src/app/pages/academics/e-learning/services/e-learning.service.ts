@@ -119,11 +119,11 @@ export class ELearningService {
     this.http.delete(
       `api/e-learning/course-content/${contentId}?e_learning_topic_id=${topicId}&study_material_id=${studyMaterialId}`);
 
-  updateCourseContent = ({topicId, data}: IParams) =>
-    this.http.post(`api/e-learning/course-content`, {
-      _method: 'POST',
+  updateCourseContent = ({contentId, topicId,studyMaterialId, data}: IParams) =>
+    this.http.post(`api/e-learning/course-content/${contentId}`, {
+      _method: 'PATCH',
       e_learning_topic_id: topicId,
-      study_material_id: topicId,
+      study_material_id: studyMaterialId,
       ...data
     });
 }

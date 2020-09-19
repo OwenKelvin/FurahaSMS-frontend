@@ -7,7 +7,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppFilesizeModule} from 'src/app/shared/filesize/filesize.module';
-import {FileExtentionModule} from 'src/app/shared/file-extention/file-extention.module';
+import {FileExtensionModule} from 'src/app/shared/file-extention/file-extension.module';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {academicsFeatureKey, reducers} from '../../../store/reducers';
@@ -31,7 +31,7 @@ describe('ELearningCourseStudyMaterialComponent', () => {
         }),
         StoreModule.forFeature(academicsFeatureKey, reducers),
         AppFilesizeModule,
-        FileExtentionModule
+        FileExtensionModule
       ],
       declarations: [ELearningCourseStudyMaterialComponent],
       providers: [

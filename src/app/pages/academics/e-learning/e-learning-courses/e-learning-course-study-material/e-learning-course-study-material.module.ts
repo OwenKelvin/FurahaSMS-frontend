@@ -6,7 +6,7 @@ import { ELearningCourseStudyMaterialComponent } from './e-learning-course-study
 import { RouterModule } from '@angular/router';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
-import { FileExtentionModule } from 'src/app/shared/file-extention/file-extention.module';
+import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
 
 
 @NgModule({
@@ -17,7 +17,7 @@ import { FileExtentionModule } from 'src/app/shared/file-extention/file-extentio
     RouterModule,
     AppLoadingBubbleModule,
     AppFilesizeModule,
-    FileExtentionModule
+    FileExtensionModule
   ]
 })
 export class ELearningCourseStudyMaterialModule { }

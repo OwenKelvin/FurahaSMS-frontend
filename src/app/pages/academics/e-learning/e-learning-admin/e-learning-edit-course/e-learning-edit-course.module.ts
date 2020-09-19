@@ -13,6 +13,8 @@ import {ELearningCreateCourseModule} from '../e-learning-create-course/e-learnin
 import {EditCourseContentItemComponent} from './edit-course-content-item/edit-course-content-item.component';
 import {DeleteCourseContentItemComponent} from './delete-course-content-item/delete-course-content-item.component';
 import {AppValidateSubmitButtonsModule} from '../../../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import {AppFilesizeModule} from '../../../../../shared/filesize/filesize.module';
+import {FileExtensionModule} from '../../../../../shared/file-extention/file-extension.module';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import {AppValidateSubmitButtonsModule} from '../../../../../components/validate
     ELearningTopicObjectivesModule,
     ELearningTopicMaterialsModule,
     ELearningCreateCourseModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    AppFilesizeModule,
+    FileExtensionModule
   ]
 })
 export class ELearningEditCourseModule {
