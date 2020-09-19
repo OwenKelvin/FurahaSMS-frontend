@@ -7,6 +7,8 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {teacherProfileFeatureKey, reducer} from '../store/reducers/teacher-profile.reducer';
 
 describe('ManageTeacherSubjectComponent', () => {
   let component: ManageTeacherSubjectComponent;
@@ -22,6 +24,7 @@ describe('ManageTeacherSubjectComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        StoreModule.forFeature(teacherProfileFeatureKey, reducer),
         RouterTestingModule, HttpClientTestingModule,
         ReactiveFormsModule,
         FormsModule
@@ -32,7 +35,7 @@ describe('ManageTeacherSubjectComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-
+            parent: {paramMap: of({get: () => 1})}
           }
         }
       ],

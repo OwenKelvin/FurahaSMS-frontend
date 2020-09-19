@@ -1,27 +1,22 @@
-import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 
 @Component({
   selector: 'app-chips',
   templateUrl: './chips.component.html',
   styleUrls: ['./chips.component.css']
 })
-export class ChipsComponent implements OnInit {
+export class ChipsComponent {
   @Input() labelOnly: boolean;
   @Input() successLabel: string;
   @Input() failureLabel: string;
-  @Output() remove: EventEmitter<any>;
+  @Output() remove: EventEmitter<any> = new EventEmitter();
   @Input() value: boolean;
-  constructor() { }
 
-  ngOnInit() {
-  }
   get labelValue() {
     // TODO-me change label for success and failure
-    if (this.value) {
-      return 'Active';
-    }
-    return 'Inactive';
+    return (this.value) ? 'Active' : 'Inactive';
   }
+
   removeItem() {
     this.remove.emit(true);
   }
