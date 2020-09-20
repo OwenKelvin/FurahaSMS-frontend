@@ -7,7 +7,7 @@ export const loadAcademicYearPlans = createAction(
 
 export const loadAcademicYearPlansSuccess = createAction(
   '[AcademicYearPlan] Load AcademicYearPlans Success',
-  props<{ data: any }>()
+  props<{ academicYearId: any, data: any }>()
 );
 
 export const loadAcademicYearPlansFailure = createAction(

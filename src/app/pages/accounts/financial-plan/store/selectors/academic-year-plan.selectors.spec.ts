@@ -5,18 +5,22 @@ describe('AcademicYearPlan Selectors', () => {
   it('should select the feature state', () => {
     const result = selectAcademicYearPlanState({
       [fromAcademicYearPlan.academicYearPlanFeatureKey]: {
+        0: {
+          academicYear: {
+            id: 0
+          },
+          financialYearPlan: {}
+        }
+      }
+    });
+
+    expect(result).toEqual({
+      0: {
         academicYear: {
           id: 0
         },
         financialYearPlan: {}
       }
-    });
-
-    expect(result).toEqual({
-      academicYear: {
-        id: 0
-      },
-      financialYearPlan: {}
     });
   });
 });

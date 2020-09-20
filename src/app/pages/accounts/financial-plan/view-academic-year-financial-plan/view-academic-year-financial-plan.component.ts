@@ -1,8 +1,10 @@
 import {Component} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {AppState} from 'src/app/store/reducers';
-import {selectAcademicYearPlanState} from '../store/selectors/academic-year-plan.selectors';
+import {selectPlanForAcademicYearWithId} from '../store/selectors/academic-year-plan.selectors';
 import {Observable} from 'rxjs';
+import {map, mergeMap, tap} from 'rxjs/operators';
+import {ActivatedRoute} from '@angular/router';
 
 @Component({
   selector: 'app-view-academic-year-financial-plan',
@@ -10,8 +12,13 @@ import {Observable} from 'rxjs';
   styleUrls: ['./view-academic-year-financial-plan.component.css']
 })
 export class ViewAcademicYearFinancialPlanComponent {
-  academicYearPlan$: Observable<any> = this.store.pipe(select(selectAcademicYearPlanState));
-  constructor(private store: Store<AppState>) {
+  academicYearPlanId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
+    map(params => Number(params.get('id'))),
+  )
+  academicYearPlan$: Observable<any> = this.academicYearPlanId$.pipe(
+    mergeMap(id => this.store.pipe(select(selectPlanForAcademicYearWithId(id))))
+  );
+  constructor(private store: Store<AppState>, private route: ActivatedRoute) {
   }
 
 }

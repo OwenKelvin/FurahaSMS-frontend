@@ -1,17 +1,20 @@
-<section *ngIf='academicYearPlan$ | async as academicYearPlan'>
+<section *ngIf='academicYearPlan$ | async as academicYearPlan; else loading'>
   <h1>
-    Financial Plan <span class='icon-right-dir'></span> Academic Year
-    <span *ngIf='academicYearPlan.academicYear.id !== 0' class="icon-right-dir"></span>
-    <span *ngIf='academicYearPlan.academicYear.id !== 0'>{{ academicYearPlan.academicYear.name }}</span>
+    Financial Plan <span class='icon-right-dir'></span> Academic Year <span class="icon-right-dir"></span>
+    <span>{{ academicYearPlan.academicYear.name }}</span>
   </h1>
-  <app-loading-bubble *ngIf='academicYearPlan.academicYear.id === 0; else contents'></app-loading-bubble>
 
-  <ng-template #contents>
+  <div class="card p-2">
     <section class="d-flex justify-content-end">
       <a [routerLink]='["/accounts", "financial-plan", "academic-year", academicYearPlan.academicYear.id, "edit"]'
-        class='btn btn-primary btn-sm'>
+         class='btn btn-primary btn-sm'>
         Edit <span class="icon-edit"></span>
       </a>
     </section>
-  </ng-template>
+    {{ academicYearPlan.financialYearPlan | json }}
+  </div>
 </section>
+<ng-template #loading>
+  <h1>Financial Plan <span class='icon-right-dir'></span> Academic Year</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

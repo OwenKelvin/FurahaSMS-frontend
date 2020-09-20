@@ -6,6 +6,9 @@ import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { academicYearPlanFeatureKey, reducer } from '../store/reducers/academic-year-plan.reducer';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ViewAcademicYearFinancialPlanComponent', () => {
   let component: ViewAcademicYearFinancialPlanComponent;
@@ -23,10 +26,21 @@ describe('ViewAcademicYearFinancialPlanComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(academicYearPlanFeatureKey, reducer)
+        StoreModule.forFeature(academicYearPlanFeatureKey, reducer),
+        HttpClientTestingModule
       ],
       declarations: [ViewAcademicYearFinancialPlanComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 0 })
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
   }));

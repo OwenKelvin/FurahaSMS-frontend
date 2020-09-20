@@ -1,35 +1,43 @@
-import { Action, createReducer, on } from '@ngrx/store';
+import {Action, createReducer, on} from '@ngrx/store';
 import * as AcademicYearPlanActions from '../actions/academic-year-plan.actions';
 
 export const academicYearPlanFeatureKey = 'academicYearPlan';
 
 export interface State {
-  academicYear: {
-    id: number,
-    name?: string,
-    startDate?: string,
-    endDate?: string;
-  };
-  financialYearPlan: object;
+  [id: number]: {
+    academicYear: {
+      id: number,
+      name?: string,
+      startDate?: string,
+      endDate?: string;
+    };
+    financialYearPlan: object;
+  }
 }
 
 export const initialState: State = {
-  academicYear: {
-    id: 0
-  },
-  financialYearPlan: {}
+  0: {
+    academicYear: {
+      id: 0
+    },
+    financialYearPlan: {}
+  }
 };
 
 const academicYearPlanReducer = createReducer(
   initialState,
 
   on(AcademicYearPlanActions.loadAcademicYearPlans, (state, payload) => {
-    const { name, id, start_date: startDate, end_date: endDate } = payload;
-    return { ...state, academicYear: { id, name, startDate, endDate}};
+    const {name, id, start_date: startDate, end_date: endDate} = payload;
+    return {...state, [id]: {academicYear: {id, name, startDate, endDate}, financialYearPlan: {}}};
   }),
-  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, _action) => state),
+  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => {
+    return {
+      ...state,
+      [action.academicYearId]: { ...state?.[action.academicYearId], financialYearPlan: action.data }
+    };
+  }),
   on(AcademicYearPlanActions.loadAcademicYearPlansFailure, (state, _action) => state),
-
 );
 
 export function reducer(state: State | undefined, action: Action) {

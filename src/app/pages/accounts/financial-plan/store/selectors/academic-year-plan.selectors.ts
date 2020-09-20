@@ -5,8 +5,8 @@ export const selectAcademicYearPlanState = createFeatureSelector<fromAcademicYea
   fromAcademicYearPlan.academicYearPlanFeatureKey
 );
 
-export const selectAcademicYearPlanId = createSelector(
+export const selectPlanForAcademicYearWithId = (id: number) => createSelector(
   selectAcademicYearPlanState,
-  academicYear => academicYear.academicYear.id
-);
+  academicYear => academicYear?.[id]
+)
 
