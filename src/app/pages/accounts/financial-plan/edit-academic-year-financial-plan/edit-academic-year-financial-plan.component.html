@@ -8,7 +8,7 @@
 
 </section>
 <ng-template #contents>
-  <form [formGroup]='feePlanForm' (submit)='submitfeePlanForm()'
+  <form [formGroup]='feePlanForm' (submit)='submitFeePlanForm()'
     *ngIf='classLevels$ | async as classLevels; else loadingTuitionSection'>
     <tabset role="tablist" #staticTabs>
       <tab role="tab">
@@ -17,7 +17,7 @@
           <app-tab-error-state [hasError]='tuitionFees.invalid' [marked]='markTabsWithError'></app-tab-error-state>
         </ng-template>
         <section class="pt-2">
-          <accordion [closeOthers]=[true] formArrayName='tuitionFee' [ngClass]='["d-flex", "flex-wrap"]'>
+          <accordion [closeOthers]='true' formArrayName='tuitionFee' [ngClass]='["d-flex", "flex-wrap"]'>
             <accordion-group *ngFor='let classLevel of classLevels; let i = index' [(isOpen)]="isOpen[i]"
               [ngClass]='["mt-2", "order-" + classLevel.id , "col-lg-12", "pl-0", "pr-0"]'
               [class.active-group]="isOpen[i]" [formGroupName]='i'>
@@ -63,7 +63,7 @@
         <section>
           <section class='col-lg12'>
             <section class="pt-2">
-              <accordion [closeOthers]=[true] formArrayName='otherFees' class="d-flex flex-wrap">
+              <accordion [closeOthers]='true' formArrayName='otherFees' class="d-flex flex-wrap">
 
                 <accordion-group *ngFor='let classLevel of otherFees.controls; let i = index'
                   [ngClass]='["mt-2", "order-" + classLevel.value.classLevelId, "col-lg-12", "pl-0", "pr-0"]'
@@ -157,7 +157,7 @@
                     <span>{{ totalTuitionFee(i) | currency: localCurrency }}</span>
                     <span></span>
                   </td>
-                  
+
                 </tr>
                 <tr>
                   <td class="d-flex justify-content-between">
@@ -167,9 +167,9 @@
                   </td></tr>
                 <tr>
                   <td class="d-flex justify-content-between">
-                    <span>TOTAL FEES:</span> 
+                    <span>TOTAL FEES:</span>
                     <span>{{ (+totalClassLevelCost(i) + totalTuitionFee(i)) | currency: localCurrency }}</span>
-                    
+
                   </td></tr>
               </ng-container>
 
@@ -180,7 +180,7 @@
               <button type="button" class="btn btn-secondary" (click)="selectTab(1)">Previous</button>
             </section>
           </section>
-          <app-validate-submit-buttons [isSubmitting]='isSubmitting' (validationButtonClicked)='validateForm()'
+          <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async' (validationButtonClicked)='validateForm()'
             [formItem]='feePlanForm'>
           </app-validate-submit-buttons>
         </section>

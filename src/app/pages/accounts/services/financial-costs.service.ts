@@ -20,7 +20,7 @@ export class FinancialCostsService {
   }
 
   save(financialCosts: any[]) {
-    const url = '${this.url}';
+    const url = `${this.url}`;
     return this.http.post(url, financialCosts);
   }
 }

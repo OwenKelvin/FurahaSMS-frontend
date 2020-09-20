@@ -11,7 +11,6 @@ import {
   EditAcademicYearFinancialPlanComponent
 } from './edit-academic-year-financial-plan/edit-academic-year-financial-plan.component';
 
-
 const routes: Routes = [
   {
     path: '',

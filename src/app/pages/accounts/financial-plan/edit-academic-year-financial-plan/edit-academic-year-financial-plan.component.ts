@@ -1,23 +1,23 @@
-import { Component, OnInit, ViewChild, OnDestroy, ChangeDetectorRef } from '@angular/core';
-import { Observable, forkJoin } from 'rxjs';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
-import {
-  selectAcademicYearPlanState, selectAcademicYearPlanId
-} from '../store/selectors/academic-year-plan.selectors';
-import { ClassLevelService } from 'src/app/services/class-level.service';
-import { mergeMap, map, tap, takeWhile } from 'rxjs/operators';
-import { FormBuilder, FormGroup, FormArray } from '@angular/forms';
-import { TabsetComponent } from 'ngx-bootstrap/tabs/public_api';
-import { FinancialPlanService } from '../../services/financial-plan.service';
-import { FinancialCostsService } from '../../services/financial-costs.service';
+import {Component, OnInit, ViewChild} from '@angular/core';
+import {forkJoin, Observable} from 'rxjs';
+import {select, Store} from '@ngrx/store';
+import {AppState} from 'src/app/store/reducers';
+import {selectAcademicYearPlanId, selectAcademicYearPlanState} from '../store/selectors/academic-year-plan.selectors';
+import {ClassLevelService} from 'src/app/services/class-level.service';
+import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import {FormArray, FormBuilder, FormGroup} from '@angular/forms';
+import {TabsetComponent} from 'ngx-bootstrap/tabs/public_api';
+import {FinancialPlanService} from '../../services/financial-plan.service';
+import {FinancialCostsService} from '../../services/financial-costs.service';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
+import {formMixin} from '../../../../shared/mixins/form.mixin';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
   templateUrl: './edit-academic-year-financial-plan.component.html',
   styleUrls: ['./edit-academic-year-financial-plan.component.css']
 })
-export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy {
+export class EditAcademicYearFinancialPlanComponent extends subscribedContainerMixin(formMixin()) implements OnInit {
 
   otherCostsValue: any[];
   isOpen = [false];
@@ -25,59 +25,58 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
   isOpenMeals = [false];
   isOpenTours = [false];
   isOpenBuildAndConst = [false];
-  isOpenLibrary = [false];
-  academicYearPlan$: Observable<any>;
+  // isOpenLibrary = [false];
   classLevels$: Observable<any>;
   classLevels: any;
-  academicYearPlanId$: Observable<number>;
-  feePlanForm: FormGroup;
+  academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
+  academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
+  feePlanForm: FormGroup = this.fb.group({
+    tuitionFee: this.fb.array([]),
+    otherFees: this.fb.array([]),
+  });
   triggerValidation: boolean;
-  isSubmitting: boolean;
-  @ViewChild('staticTabs', { static: false }) staticTabs: TabsetComponent;
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
-  componentIsActive: boolean;
   plans: any;
-  otherCosts$: Observable<any[]>;
+
+  otherCosts$: Observable<any[]> = this.financialCostService.all$;
   otherCosts: any[];
+
   constructor(
     private store: Store<AppState>,
     private classLevelService: ClassLevelService,
     private fb: FormBuilder,
     private financialPlanService: FinancialPlanService,
-    private financialCostService: FinancialCostsService  ) { }
+    private financialCostService: FinancialCostsService) {
+    super();
+  }
+
   triggerChange() {
     this.otherFees.setValue(this.otherFees.value);
     this.otherFees.updateValueAndValidity();
   }
+
   ngOnInit() {
-    this.componentIsActive = true;
-    this.feePlanForm = this.fb.group({
-      tuitionFee: this.fb.array([]),
-      otherFees: this.fb.array([]),
-    });
-    this.academicYearPlan$ = this.store.pipe(select(selectAcademicYearPlanState));
-    this.academicYearPlanId$ = this.store.pipe(select(selectAcademicYearPlanId));
-    this.otherCosts$ = this.financialCostService.all$;
     this.otherCosts$
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(res => this.otherCosts = res);
     this.classLevels$ = this.academicYearPlanId$
       .pipe(
         mergeMap(academicYearId => {
           return forkJoin([
-            this.classLevelService.getAll({ includeUnits: 1, includeLevels: 1, academicYearId }),
+            this.classLevelService.getAll({includeUnits: 1, includeLevels: 1, academicYearId}),
             this.financialPlanService.getForAcademicYear(academicYearId)
           ]);
 
         })
       )
       .pipe(map(([classLevel, financialPlan]) => {
-        const activeClassLevels: any[] = financialPlan.tuitionFee
-          .map(({ classLevelId }: { classLevelId: number; }) => classLevelId)
+        const activeClassLevels: any[] = classLevel
+          .map(({id}: { id: number; }) => id)
         this.plans = financialPlan;
         return [
-          ...(classLevel.filter(({ id: classLevelId }: { id: number; }) => activeClassLevels.includes(classLevelId)))
-            .map(i => ({ ...i, unitLevels: i.unit_levels, unit_levels: undefined }))
+          ...(classLevel.filter(({id: classLevelId}: { id: number; }) => activeClassLevels.includes(classLevelId)))
+            .map(i => ({...i, unitLevels: i.unit_levels, unit_levels: undefined}))
         ];
       }))
       .pipe(
@@ -203,35 +202,37 @@ export class EditAcademicYearFinancialPlanComponent implements OnInit, OnDestroy
 
 
   }
+
   get libraryFees(): FormArray {
     return this.feePlanForm.get('libraryFee') as FormArray;
   }
+
   validateForm() {
     this.triggerValidation = !this.triggerValidation;
   }
-  submitfeePlanForm() {
+
+  submitFeePlanForm() {
     if (this.feePlanForm.valid) {
-      this.isSubmitting = true;
+      this.submitInProgressSubject$.next(true)
 
       this.academicYearPlanId$
         .pipe(
           mergeMap(
             id => this.financialPlanService
-              .submit({ academicYearId: id, data: this.feePlanForm.value }))
-      )
-        .pipe(takeWhile(() => this.componentIsActive))
+              .submit({academicYearId: id, data: this.feePlanForm.value}))
+        )
+        .pipe(takeUntil(this.destroyed$))
         .subscribe(() => {
-          this.isSubmitting = false;
-        }, () => this.isSubmitting = false);
+          this.submitInProgressSubject$.next(false)
+        }, () => this.submitInProgressSubject$.next(false));
     }
 
   }
+
   selectTab(tabId: number) {
     this.staticTabs.tabs[tabId].active = true;
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
+
   get transportHasError(): boolean {
     return false;
   }

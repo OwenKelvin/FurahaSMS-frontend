@@ -1,8 +1,16 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router, ActivatedRoute, NavigationEnd, Params, PRIMARY_OUTLET, NavigationStart, NavigationCancel } from '@angular/router';
-import { filter, tap } from 'rxjs/operators';
-import { Location } from '@angular/common';
-import { BehaviorSubject } from 'rxjs';
+import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
+import {
+  ActivatedRoute,
+  NavigationCancel,
+  NavigationEnd,
+  NavigationStart,
+  Params,
+  PRIMARY_OUTLET,
+  Router
+} from '@angular/router';
+import {filter, tap} from 'rxjs/operators';
+import {Location} from '@angular/common';
+import {BehaviorSubject, combineLatest} from 'rxjs';
 
 interface BreadcrumbInterface {
   label: string;
@@ -17,46 +25,46 @@ interface BreadcrumbInterface {
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class BreadcrumbComponent implements OnInit {
-
-  public breadcrumbs: BreadcrumbInterface[];
+  public breadcrumbs: BreadcrumbInterface[] = [];
   showSpinnerSubject$ = new BehaviorSubject<boolean>(false);
   showSpinnerAction$ = this.showSpinnerSubject$.asObservable();
-  navigationEvent = this.router.events;
-  navigationEventEnd = this.navigationEvent.pipe(
+  navigationEvent$ = this.router.events;
+  navigationEventEnd$ = this.navigationEvent$.pipe(
     filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel),
-    tap(() => this.showSpinnerSubject$.next(false)),
-    tap(() => { this.breadcrumbs = this.getBreadcrumbs(this.activatedRoute.root); })
+    tap(() => {
+      this.showSpinnerSubject$.next(false)
+      this.breadcrumbs = this.getBreadcrumbs(this.activatedRoute.root);
+    })
   );
-  navigationEventStart = this.navigationEvent.pipe(
+  navigationEventStart$ = this.navigationEvent$.pipe(
     filter(event => event instanceof NavigationStart),
     tap(() => this.showSpinnerSubject$.next(true)),
   )
+  v$ = combineLatest([
+      this.navigationEventStart$,
+      this.navigationEventEnd$,
+    ]
+  )
+
   constructor(
     private activatedRoute: ActivatedRoute,
     private router: Router,
     private location: Location
   ) {
-    this.breadcrumbs = [];
   }
 
   ngOnInit() {
-    // this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
-    this.navigationEventStart.subscribe();
-    this.navigationEventEnd.subscribe();
-
+    this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
   }
 
   private getBreadcrumbs(
     route: ActivatedRoute, url: string = '',
     breadcrumbs: BreadcrumbInterface[] = []): BreadcrumbInterface[] {
     const ROUTE_DATA_BREADCRUMB = 'breadcrumb';
-
     const children: ActivatedRoute[] = route.children;
-
     if (children.length === 0) {
       return breadcrumbs;
     }
-
     for (const child of children) {
       if (child.outlet !== PRIMARY_OUTLET) {
         continue;
@@ -82,11 +90,10 @@ export class BreadcrumbComponent implements OnInit {
     }
     return [];
   }
-  backClicked() {
-    this.location.back();
-  }
-  goFullScreen() {
+
+  backClicked = () => this.location.back();
+
+  goFullScreen = () =>
     (document.querySelector('#main') as HTMLElement).requestFullscreen().then();
-  }
 
 }

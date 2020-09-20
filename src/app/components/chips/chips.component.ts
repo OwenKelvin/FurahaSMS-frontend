@@ -17,6 +17,41 @@ export class ChipsComponent {
     return (this.value) ? 'Active' : 'Inactive';
   }
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   removeItem() {
     this.remove.emit(true);
   }
