@@ -3,7 +3,7 @@ import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
 import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
 import {FinancialCostsService} from '../../services/financial-costs.service';
 import {Observable} from 'rxjs';
-import {map, takeUntil} from 'rxjs/operators';
+import {map, takeUntil, tap} from 'rxjs/operators';
 import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 
 @Component({
@@ -32,23 +32,15 @@ export class FinancialCostsMaintenanceComponent extends subscribedContainerMixin
 
   ngOnInit() {
     this.resetEditForm();
-    this.financialCosts$ = this.financialCostsService.all$
-      .pipe(
-        map(item => (
-          item.map(({id, name, costItems}: any) => ({
-            id,
-            name,
-            costItems: costItems.map(({id: costId, name: costName}: any) => ({id: costId, name: costName}))
-          }))
-        ))
-      );
-    this.financialCosts$
-      .pipe(takeUntil(this.destroyed$))
-      .subscribe(financialCosts => {
-        this.financialCosts = financialCosts;
-
-        this.isLoading = false;
-      });
+    this.financialCosts$ = this.financialCostsService.all$.pipe(
+      tap(res => console.log({res})),
+      map(item => (
+        item.map(({id, name, cost_items:costItems}: any) => ({
+          id, name, costItems: costItems.map(({id: costId, name: costName}: any) => ({id: costId, name: costName}))
+        }))
+      )),
+      tap((financialCosts) => this.financialCosts = financialCosts)
+    );
   }
 
   resetEditForm() {
