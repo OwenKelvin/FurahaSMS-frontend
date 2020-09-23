@@ -64,7 +64,7 @@
                 <td [attr.rowspan]="cost.costItems.length" *ngIf="j === 0">{{ cost.name }}</td>
                 <td>{{ cost.costItems[j].name }}</td>
                 <td *ngFor="let sem of cost.costItems[j].semesters">{{ sem.amount }}</td>
-                <td class="text-right pr-2 pr-md-3 pr-lg-4 ">{{ cost.costItems[j].total }}</td>
+                <td class="text-right pr-2 pr-md-3 pr-lg-4 ">{{ cost.costItems[j].total | currency: ' ' }}</td>
               </tr>
             </ng-container>
           </ng-container>
@@ -74,7 +74,7 @@
               <strong>{{ classLevel.semTotals[sem.id] | currency: ' '}}</strong>
             </td>
             <td class="text-right pr-2 pr-md-3 pr-lg-4 ">
-              <strong>{{ classLevel.total }}</strong>
+              <strong>{{ classLevel.total | currency: ' ' }}</strong>
             </td>
           </tr>
           </tbody>

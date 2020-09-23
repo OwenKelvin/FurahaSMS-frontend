@@ -12,6 +12,7 @@ import {FinancialCostsService} from '../../services/financial-costs.service';
 import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 import {formMixin} from '../../../../shared/mixins/form.mixin';
 import {ActivatedRoute, Router} from '@angular/router';
+import {loadAcademicYearPlans} from '../store/actions/academic-year-plan.actions';
 
 @Component({
   selector: 'app-edit-academic-year-financial-plan',
@@ -110,7 +111,8 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
       );
     });
     if (this.plans.tuitionFee?.length > 0) {
-      this.tuitionFees.setValue(this.plans.tuitionFee);
+      console.log('=>>', this.plans.tuitionFee)
+      this.tuitionFees.patchValue(this.plans.tuitionFee);
     }
     if (this.plans.otherFees?.length > 0) {
       this.plans.otherFees.forEach((fee: any) => {
@@ -174,14 +176,18 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
 
   submitFeePlanForm() {
     if (this.feePlanForm.valid) {
+      let academicYearId: number;
       this.submitInProgressSubject$.next(true)
-
       this.academicYearPlanId$.pipe(
+        tap(id => academicYearId = id),
         mergeMap(id => this.financialPlanService.submit({academicYearId: id, data: this.feePlanForm.value})),
         takeUntil(this.destroyed$)
       ).subscribe({
         next: () => this.router.navigate(['../view'], {relativeTo: this.route}).then(
-          () => this.submitInProgressSubject$.next(false)
+          () => {
+            this.submitInProgressSubject$.next(false);
+            this.store.dispatch(loadAcademicYearPlans({id: academicYearId}))
+          }
         ),
         error: () => this.submitInProgressSubject$.next(false),
       });

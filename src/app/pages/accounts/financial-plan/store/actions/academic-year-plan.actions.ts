@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadAcademicYearPlans = createAction(
   '[AcademicYearPlan] Load AcademicYearPlans',
-  props<{ id: number; name: string; start_date: string; end_date: string }>()
+  props<{ id: number; name?: string; start_date?: string; end_date?: string }>()
 );
 
 export const loadAcademicYearPlansSuccess = createAction(
