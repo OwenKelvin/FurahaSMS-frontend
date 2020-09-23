@@ -1,36 +1,50 @@
-import { Component, OnInit, AfterViewInit, ViewChild, ElementRef } from '@angular/core';
-import { Store, select } from '@ngrx/store';
+import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
+import {select, Store} from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { LibraryPublisherService } from 'src/app/pages/library/services/library-publisher.service';
-import { Router, ActivatedRoute } from '@angular/router';
-import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions';
-import { map, mergeMap, takeWhile, tap, filter } from 'rxjs/operators';
-import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
-import { Observable } from 'rxjs';
-import { selectLibraryBookPublisher } from '../../../store/selectors/library.selectors';
-import { CanvasService } from 'src/app/services/canvas.service';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {LibraryPublisherService} from 'src/app/pages/library/services/library-publisher.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import {selectLibraryBookPublisher} from '../../../store/selectors/library.selectors';
+import {CanvasService} from 'src/app/services/canvas.service';
+import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
+import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
+import {combineLatest} from 'rxjs';
 
 @Component({
   selector: 'app-create-publisher',
   templateUrl: './create-publisher.component.html',
   styleUrls: ['./create-publisher.component.css']
 })
-export class CreatePublisherComponent implements OnInit, AfterViewInit {
-
-  isLoading: boolean;
-  isSubmitting: boolean;
-  triggerValidation: boolean;
-  newBookPublisherForm: FormGroup;
+export class CreatePublisherComponent extends subscribedContainerMixin(formWithEditorMixin()) implements AfterViewInit {
+  newBookPublisherForm: FormGroup = this.fb.group({
+    id: [0, []],
+    name: ['', [Validators.required]],
+    biography: ['']
+  });
   editPage: boolean;
-  componentIsActive: boolean;
   profPicLoading: false;
-  editorInit$: Observable<any>;
-  editorInit: any;
-  editorInitialized: boolean;
   photoFile: File;
   profPicId: any;
   @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef
+  publisherId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
+    map(params => Number(params.get('id'))),
+    tap(id => this.libraryPublisherService.loadItem(id)),
+  )
+  publisher$ = this.publisherId$.pipe(
+    mergeMap(id => this.store.pipe(select(selectLibraryBookPublisher(id)))),
+    filter(publisher => publisher),
+    tap(publisher => this.profPicId = publisher.profile_pic_id),
+    tap(publisher => this.newBookPublisherForm.setValue({
+      id: publisher.id,
+      name: publisher.name,
+      biography: publisher.biography
+    }))
+  )
+  v$ = combineLatest([this.editorInitializedAction$, this.publisher$]).pipe(
+    map((editorInitialized, publisher) => ({editorInitialized, publisher}))
+  )
+
   constructor(
     private libraryPublisher: LibraryPublisherService,
     private store: Store<fromStore.AppState>,
@@ -39,40 +53,13 @@ export class CreatePublisherComponent implements OnInit, AfterViewInit {
     private route: ActivatedRoute,
     private libraryPublisherService: LibraryPublisherService,
     private canvasService: CanvasService
-  ) { }
-
-  ngOnInit() {
-    this.componentIsActive = true;
-    this.editorInit$ = this.store.pipe(select(selectTinyMceConfig));
-    this.editorInit$
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(conf => { this.editorInit = conf; });
-    this.resetForm();
-
-    this.route.parent?.paramMap
-      .pipe(
-        map(params => Number(params.get('id'))),
-        tap(id => this.libraryPublisherService.loadItem(id)),
-        mergeMap(id => this.store.pipe(select(selectLibraryBookPublisher(id)))),
-        filter(publisher => publisher),
-        tap(publisher => {
-          this.profPicId = publisher.profile_pic_id
-        })
-      )
-      .subscribe({
-        next: (publisher: any) => {
-          this.newBookPublisherForm.setValue({
-            id: publisher.id,
-            name: publisher.name,
-            biography: publisher.biography
-          });
-        },
-        complete: () => this.isLoading = false
-      });
+  ) {
+    super();
   }
+
   ngAfterViewInit() {
-    this.canvasService.getProfilePicture({ fileId: this.profPicId })
-      .pipe(takeWhile(() => this.componentIsActive))
+    this.canvasService.getProfilePicture({fileId: this.profPicId})
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
         (this.profilePicImgTag.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
       })
@@ -85,16 +72,8 @@ export class CreatePublisherComponent implements OnInit, AfterViewInit {
     $canvas.src = URL.createObjectURL(this.photoFile);
   }
 
-  resetForm() {
-    this.newBookPublisherForm = this.fb.group({
-      id: [0, []],
-      name: ['', [Validators.required]],
-      biography: ['']
-    });
-  }
-
   submitNewBookPublisherForm() {
-    this.isSubmitting = true;
+    this.submitInProgressSubject$.next(true)
 
     if (this.newBookPublisherForm.invalid) {
       alert('Form is not fully filled');
@@ -103,11 +82,8 @@ export class CreatePublisherComponent implements OnInit, AfterViewInit {
 
     return this.libraryPublisher.save(this.newBookPublisherForm.value, this.photoFile)
       .subscribe({
-        next: res => {
-          this.isSubmitting = false;
-          this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']);
-        },
-        complete: () => this.isSubmitting = false
+        next: res => this.router.navigate(['library', 'admin', 'publishers', res.data.id, 'view']).then(),
+        error: () => this.submitInProgressSubject$.next(false)
       });
   }
 
