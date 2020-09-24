@@ -9,6 +9,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {EditorModule} from '@tinymce/tinymce-angular';
 
 describe('CreateAuthorComponent', () => {
   let component: CreateAuthorComponent;
@@ -18,6 +19,7 @@ describe('CreateAuthorComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
+        EditorModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

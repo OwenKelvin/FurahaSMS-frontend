@@ -35,7 +35,7 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
     mergeMap(id => this.store.pipe(select(selectLibraryBookPublisher(id)))),
     filter(publisher => publisher),
     tap(publisher => this.profPicId = publisher.profile_pic_id),
-    tap(publisher => this.newBookPublisherForm.setValue({
+    tap(publisher => this.newBookPublisherForm.patchValue({
       id: publisher.id,
       name: publisher.name,
       biography: publisher.biography

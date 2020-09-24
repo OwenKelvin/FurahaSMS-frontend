@@ -1,16 +1,18 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { EditPublisherComponent } from './edit-publisher.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { CreatePublisherComponent } from '../create-publisher/create-publisher.component';
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {EditPublisherComponent} from './edit-publisher.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppInputModule} from 'src/app/components/input/app-input.module';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {CreatePublisherComponent} from '../create-publisher/create-publisher.component';
+import {EditorModule} from '@tinymce/tinymce-angular';
+import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
 
 describe('EditPublisherComponent', () => {
   let component: EditPublisherComponent;
@@ -35,9 +37,19 @@ describe('EditPublisherComponent', () => {
         AppLoadingBubbleModule,
         EditorModule,
         AppValidateSubmitButtonsModule
-       ],
+      ],
       declarations: [EditPublisherComponent, CreatePublisherComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 1})
+            }
+          }
+        }
+      ]
     });
 
     await TestBed.compileComponents();

@@ -17,6 +17,7 @@ import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 import { myProfileFeatureKey, reducer } from 'src/app/pages/my-profile/store/reducers/my-profile.reducer';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {AppStarLabelRequiredModule} from '../../../../../components/label-star-required/app-star-label-required';
+import {NgSelectModule} from '@ng-select/ng-select';
 
 describe('AddBookComponent', () => {
   let component: AddBookComponent;
@@ -26,6 +27,7 @@ describe('AddBookComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
+        NgSelectModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {
