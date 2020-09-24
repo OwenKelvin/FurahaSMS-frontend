@@ -27,8 +27,15 @@ export const selectLibraryBookPublisher = (id: number) => createSelector(
   }
 );
 
+// export const selectLibraryBookClassifications = createSelector(
+//   selectLibraryState,
+//   library => library ? library.libraryBookClassifications : null
+// );
+
 export const selectLibraryBookClassifications = createSelector(
   selectLibraryState,
-  library => library ? library.libraryBookClassifications : null
+  library => {
+    console.log({library})
+    return library ? library.libraryBookClassifications : null
+  }
 );
-
