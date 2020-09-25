@@ -118,7 +118,7 @@
         </button>
       </div>
       <div class="modal-body bg-dark d-flex flex-wrap">
-        <section class="col-lg-5 mb-3">
+        <section class="col-lg-4 mb-3">
           <fieldset>
             <legend>Type of Content</legend>
             <form>
@@ -136,11 +136,17 @@
                   Learning Outcome
                 </label>
               </div>
+              <div class="custom-control custom-radio pb-1 pt-1">
+                <input [(ngModel)]='contentType' value="online-assessment" name='contentType' type="radio"
+                       class="custom-control-input" id='contentType3'>
+                <label class="custom-control-label" for='contentType3'>
+                  Online Assessment
+                </label>
+              </div>
             </form>
-
           </fieldset>
         </section>
-        <section [ngSwitch]='contentType' class="col-lg-7"
+        <section [ngSwitch]='contentType' class="col-lg-8"
                  style="border-left: rgba(131, 223, 223, 0.452) 2px solid; margin-left: -2px">
           <ng-container *ngSwitchCase='"new-content"'>
             <h5>New Content Upload</h5>
@@ -171,21 +177,31 @@
               </div>
             </form>
           </ng-container>
+          <ng-container *ngSwitchCase='"online-assessment"'>
+            <app-manage-online-assessment (valid)="activeForm($event)"></app-manage-online-assessment>
+          </ng-container>
         </section>
       </div>
       <div class="modal-footer bg-dark">
         <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
-                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
+                [disabled]='activeForm().invalid || savingNewContent' class="btn btn-success">
           <span *ngIf='!savingNewContent'>Save Content</span>
           <span *ngIf='savingNewContent'>Saving...</span>
           <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
           <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
-                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
+                [disabled]='activeForm().invalid || savingNewContent' class="btn btn-success">
           <span *ngIf='!savingNewContent'>Save Learning Content</span>
           <span *ngIf='savingNewContent'>Saving...</span>
+          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
+          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+        </button>
+        <button *ngIf='activeFormName === "onlineAssessmentForm"' [attr.form]='"onlineAssessmentForm"'
+                [disabled]='(formInvalid$ | async) || savingNewContent' class="btn btn-success">
+          <span *ngIf='!savingNewContent'>Create Assessment</span>
+          <span *ngIf='savingNewContent'>Creating...</span>
           <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
           <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
         </button>

@@ -15,10 +15,11 @@ import {DeleteCourseContentItemComponent} from './delete-course-content-item/del
 import {AppValidateSubmitButtonsModule} from '../../../../../components/validate-submit-buttons/validate-submit-buttons.module';
 import {AppFilesizeModule} from '../../../../../shared/filesize/filesize.module';
 import {FileExtensionModule} from '../../../../../shared/file-extention/file-extension.module';
+import { ManageOnlineAssessmentComponent } from './manage-online-assessment/manage-online-assessment.component';
 
 
 @NgModule({
-  declarations: [ELearningEditCourseComponent, EditCourseContentItemComponent, DeleteCourseContentItemComponent],
+  declarations: [ELearningEditCourseComponent, EditCourseContentItemComponent, DeleteCourseContentItemComponent, ManageOnlineAssessmentComponent],
   imports: [
     CommonModule,
     ELearningEditCourseRoutingModule,

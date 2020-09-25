@@ -4,7 +4,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {map, mergeMap, takeUntil} from 'rxjs/operators';
 import {selectAcademicsCourse} from '../../../store/selectors/courses.selectors';
 import {ICourse} from '../../interfaces/course.interface';
-import {combineLatest, Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ELearningService} from '../../services/e-learning.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -25,7 +25,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     content: [null, [Validators.required]],
     topicId: [null, []]
   });
-
+  formInvalid$ = new BehaviorSubject<boolean>(true);
   courseId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id'))))
   course$: Observable<ICourse | null> = this.courseId$.pipe(
@@ -139,15 +139,23 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
   get activeFormName(): string {
     switch (this.contentType) {
       case 'learning-outcome':
-
         return 'newLearningOutcomeForm';
+
+      case 'online-assessment':
+        return 'onlineAssessmentForm';
 
       default:
         return 'newContentUploadForm';
     }
   }
 
-  get activeForm(): FormGroup {
+
+
+  activeForm(activeFormVal: FormGroup | null = null): FormGroup {
+    if (activeFormVal) {
+      this.formInvalid$.next(activeFormVal.invalid)
+      return activeFormVal;
+    }
     switch (this.contentType) {
       case 'learning-outcome':
         return this.newLearningOutcomeForm;
