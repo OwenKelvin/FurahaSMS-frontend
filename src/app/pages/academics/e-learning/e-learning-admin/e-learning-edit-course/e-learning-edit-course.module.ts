@@ -16,10 +16,16 @@ import {AppValidateSubmitButtonsModule} from '../../../../../components/validate
 import {AppFilesizeModule} from '../../../../../shared/filesize/filesize.module';
 import {FileExtensionModule} from '../../../../../shared/file-extention/file-extension.module';
 import { ManageOnlineAssessmentComponent } from './manage-online-assessment/manage-online-assessment.component';
+import {DurationPickerModule} from 'ngx-duration-picker';
 
 
 @NgModule({
-  declarations: [ELearningEditCourseComponent, EditCourseContentItemComponent, DeleteCourseContentItemComponent, ManageOnlineAssessmentComponent],
+  declarations: [
+    ELearningEditCourseComponent,
+    EditCourseContentItemComponent,
+    DeleteCourseContentItemComponent,
+    ManageOnlineAssessmentComponent
+  ],
   imports: [
     CommonModule,
     ELearningEditCourseRoutingModule,
@@ -33,7 +39,8 @@ import { ManageOnlineAssessmentComponent } from './manage-online-assessment/mana
     ELearningCreateCourseModule,
     AppValidateSubmitButtonsModule,
     AppFilesizeModule,
-    FileExtensionModule
+    FileExtensionModule,
+    DurationPickerModule
   ]
 })
 export class ELearningEditCourseModule {

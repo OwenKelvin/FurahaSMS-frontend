@@ -178,32 +178,35 @@
             </form>
           </ng-container>
           <ng-container *ngSwitchCase='"online-assessment"'>
-            <app-manage-online-assessment (valid)="activeForm($event)"></app-manage-online-assessment>
+            <app-manage-online-assessment
+              [topicId]="config.initialState.id"
+              (submitChange)="this.submitInProgressSubject$.next(true)"
+              (valid)="activeForm($event)"></app-manage-online-assessment>
           </ng-container>
         </section>
       </div>
       <div class="modal-footer bg-dark">
         <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
-                [disabled]='activeForm().invalid || savingNewContent' class="btn btn-success">
-          <span *ngIf='!savingNewContent'>Save Content</span>
-          <span *ngIf='savingNewContent'>Saving...</span>
-          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Content</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
-                [disabled]='activeForm().invalid || savingNewContent' class="btn btn-success">
-          <span *ngIf='!savingNewContent'>Save Learning Content</span>
-          <span *ngIf='savingNewContent'>Saving...</span>
-          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Learning Content</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "onlineAssessmentForm"' [attr.form]='"onlineAssessmentForm"'
-                [disabled]='(formInvalid$ | async) || savingNewContent' class="btn btn-success">
-          <span *ngIf='!savingNewContent'>Create Assessment</span>
-          <span *ngIf='savingNewContent'>Creating...</span>
-          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+                [disabled]='(formInvalid$ | async) || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Create Assessment</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Creating...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
         </button>
       </div>
     </ng-template>

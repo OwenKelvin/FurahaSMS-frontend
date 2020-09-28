@@ -1,6 +1,6 @@
 <div>
   <h2>Online Assessment</h2>
-  <form (submit)="submitFormItem()" id="onlineAssessmentForm" class="d-flex flex-wrap" [formGroup]="itemForm">
+  <form *ngIf="(formChanged$ | async) === null || true" (submit)="submitFormItem()" id="onlineAssessmentForm" class="d-flex flex-wrap" [formGroup]="itemForm">
     <div class="col-12 p-0">
       <app-input formControlName="title" label="Assessment Description" placeholder="Enter Description"></app-input>
     </div>
@@ -8,7 +8,12 @@
       <app-input type="datetime-local" formControlName="availableDateTime" label="Availability Date and Time" placeholder="Enter Date and Time"></app-input>
     </div>
     <div class="col-12 col-lg-5 p-0 pl-lg-1">
-      <app-input type="time" formControlName="period" label="Assessment Period" placeholder="Enter Period"></app-input>
+      <fieldset class="card p-2">
+        <legend>Period</legend>
+        <ngx-duration-picker
+          formControlName="period"
+          [options]="{ customOutputFormat: 'H', showMonths: false, showSeconds: false, showYears: false, showWeeks: false }"></ngx-duration-picker>
+      </fieldset>
     </div>
     <div class="col-12 col-lg-7 p-0">
       <app-input type="datetime-local" formControlName="closedDateTime" label="Closure Date and Time" placeholder="Enter Date and Time"></app-input>

@@ -36,7 +36,6 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
   );
   courseNameConfirmation: string;
   deletingCourse: boolean;
-  savingNewContent: boolean;
   contentType = 'new-content';
   newLearningOutcomeForm: FormGroup = this.fb.group({
     description: ['', [Validators.required]],
@@ -78,7 +77,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     const $pdf: any = document.querySelector('#newContentUploadInput');
     const pdfFile = (($pdf as HTMLInputElement).files as FileList)[0];
     if (this.newContentUploadForm.valid) {
-      this.savingNewContent = true;
+      this.submitInProgressSubject$.next(true);
       const course: any = {};
       const data = {
         title: this.newContentUploadForm.get('description')?.value,
@@ -102,10 +101,10 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
           )]).pipe(takeUntil(this.destroyed$))
         .subscribe(([courseId]) => {
           // this.getCourses();
-          this.savingNewContent = false;
+          this.submitInProgressSubject$.next(false)
           this.closeModal();
           this.store.dispatch(loadCourses({data: {id: courseId}}))
-        }, () => this.savingNewContent = false);
+        }, () => this.submitInProgressSubject$.next(false))
     } else {
       alert('Form is Incomplete');
       this.triggerValidationSubject$.next(true)
@@ -114,7 +113,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
 
   saveLearningOutcome() {
     if (this.newLearningOutcomeForm.valid) {
-      this.savingNewContent = true;
+      this.submitInProgressSubject$.next(true);
       combineLatest([
         this.courseId$,
         this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)])
@@ -126,9 +125,9 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
         .subscribe(({courseId}) => {
           // this.store.dispatch(createLearningOutcomeAction({data: {courseId, topicId, learningOutcome}}));
           this.store.dispatch(loadCourses({data: {id: courseId}}))
-          this.savingNewContent = false;
+          this.submitInProgressSubject$.next(false);
           this.modalRef.hide();
-        }, () => this.savingNewContent = false);
+        }, () => this.submitInProgressSubject$.next(false));
 
     } else {
       alert('Form is Incomplete');
