@@ -179,8 +179,8 @@
           </ng-container>
           <ng-container *ngSwitchCase='"online-assessment"'>
             <app-manage-online-assessment
-              [topicId]="config.initialState.id"
-              (submitChange)="this.submitInProgressSubject$.next(true)"
+              [topicId]="modalTopicId"
+              (submitChange)="this.submitInProgressSubject$.next($event)"
               (valid)="activeForm($event)"></app-manage-online-assessment>
           </ng-container>
         </section>

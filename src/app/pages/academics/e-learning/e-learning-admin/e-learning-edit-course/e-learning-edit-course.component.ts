@@ -41,7 +41,9 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     description: ['', [Validators.required]],
     topicId: [null, []]
   });
-
+  get modalTopicId() {
+    return (this.config.initialState as any).id
+  }
   constructor(
     private store: Store,
     modalService: BsModalService,
@@ -63,9 +65,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
 
   deleteCourse() {
     this.deletingCourse = true;
-    this.courseId$.pipe(
-      mergeMap(id => this.eLearningService.deleteCourseWithId(id))
-    )
+    this.courseId$.pipe(mergeMap(id => this.eLearningService.deleteCourseWithId(id)))
       .subscribe({
         next: () => this.router.navigate(['academics/', 'e-learning', 'admin']).then(
           () => this.modalRef.hide()

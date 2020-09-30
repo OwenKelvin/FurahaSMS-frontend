@@ -12,8 +12,10 @@ export class OnlineAssessmentService {
   }
 
   save = ({topicId, data, assessmentId}: any) => this.http.post(this.urlWithId(topicId, assessmentId), {
-    ...data,
+    available_at: data.availableDateTime,
+    closing_at: data.closedDateTime,
+    period: data.period,
+    name: data.name,
     _method: data.id > 0 ? 'PATCH' : 'POST'
   })
-
 }

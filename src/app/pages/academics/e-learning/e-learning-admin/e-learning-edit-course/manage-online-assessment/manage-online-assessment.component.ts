@@ -16,7 +16,7 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
   @Input() assessmentId: number;
   _submitted = new Subject();
   itemForm = this.fb.group({
-    title: ['', Validators.required],
+    name: ['', Validators.required],
     availableDateTime: ['', [Validators.required]],
     closedDateTime: ['', [Validators.required]],
     period: ['', [Validators.required]],
@@ -28,6 +28,12 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
 
   v$ = combineLatest([this.formChanged$])
   @Input() submitted: Observable<any>
+
+  set(val: Observable<any>) {
+    this._submitted.next()
+    return val
+  }
+
   @Output() valid = new EventEmitter();
   @Output() submitChange = new EventEmitter();
 
@@ -36,11 +42,6 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
     data: this.itemForm.value,
     assessmentId: this.assessmentId
   })
-
-  set(val: Observable<any>) {
-    this._submitted.next()
-    return val
-  }
 
   constructor(private fb: FormBuilder, private onlineAssessmentService: OnlineAssessmentService) {
     super();
