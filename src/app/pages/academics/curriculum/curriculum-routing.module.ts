@@ -32,6 +32,14 @@ const routes: Routes = [
     },
   },
   {
+    path: 'class-level-units',
+    loadChildren: () => import('./class-level-unit-level-allocation/class-level-unit-level-allocation.module')
+      .then(m => m.ClassLevelUnitLevelAllocationModule),
+    data: {
+      breadcrumb: 'Class Level - Unit Level Allocations'
+    },
+  },
+  {
     path: '',
     pathMatch: 'full',
     component: AcademicsCurriculumComponent,

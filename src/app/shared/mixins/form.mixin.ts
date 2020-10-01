@@ -1,6 +1,6 @@
 import {Constructor} from './constructor.mixin';
 import {BehaviorSubject, Subject} from 'rxjs';
-import {FormGroup} from '@angular/forms';
+import {FormArray, FormGroup} from '@angular/forms';
 
 export const formMixin = <T extends Constructor>(BaseClass: T = class {
 } as T) =>
@@ -14,4 +14,10 @@ export const formMixin = <T extends Constructor>(BaseClass: T = class {
     editFormAction$ = this.editFormSubject$.asObservable();
     submitSubject$ = new Subject();
     submitAction$ = this.submitSubject$.asObservable();
+
+    clearFormArray(formArrayControl: FormArray) {
+      while (formArrayControl.length) {
+        formArrayControl.removeAt(0)
+      }
+    }
   };

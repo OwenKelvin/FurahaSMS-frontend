@@ -94,6 +94,15 @@ label {
 .ng-select.ng-select-opened>.ng-select-container .ng-arrow-wrapper {
   margin-right: 5px;
 }
+.ng-option.ng-option-selected {
+  font-weight: bolder !important;
+  margin-left: 5px;
+}
+.ng-option.ng-option-selected:before {
+  content: "\e86d  " !important;
+  white-space: pre;
+  font-family: "fontello", sans-serif;
+}
 
 html, body {
   background: rgb(49, 49, 49);
