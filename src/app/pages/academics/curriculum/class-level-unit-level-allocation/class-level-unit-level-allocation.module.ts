@@ -6,6 +6,7 @@ import {ClassLevelUnitLevelAllocationComponent} from './class-level-unit-level-a
 import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {ReactiveFormsModule} from '@angular/forms';
+import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {ReactiveFormsModule} from '@angular/forms';
     ClassLevelUnitLevelAllocationRoutingModule,
     AppLoadingBubbleModule,
     NgSelectModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    AppValidateSubmitButtonsModule
   ]
 })
 export class ClassLevelUnitLevelAllocationModule {

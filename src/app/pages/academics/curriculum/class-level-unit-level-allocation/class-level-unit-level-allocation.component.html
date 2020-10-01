@@ -1,8 +1,11 @@
 <h1>Class Level - Unit Allocation</h1>
-{{ classLevelsWithUnits$ | async | json }}
+<!--{{ classLevelsWithUnits$ | async | json }}-->
 <ng-container *ngIf="v$ | async as v; else loading">
 <!--  {{ v | json }}-->
-  <form [formGroup]="itemForm">
+  <form [formGroup]="itemForm" (submit)="submitForm()">
+    <div>
+      <app-validate-submit-buttons [formItem]="itemForm" [isSubmitting]="submitInProgressAction$ | async"><span>Save Allocations</span></app-validate-submit-buttons>
+    </div>
     <table class="table table-dark" formArrayName="allocations">
       <thead>
       <tr class="d-flex flex-wrap">

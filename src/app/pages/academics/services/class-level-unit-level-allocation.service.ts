@@ -1,5 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +9,12 @@ export class ClassLevelUnitLevelAllocationService {
 
   constructor(private http: HttpClient) {
   }
-  url = 'api/class-levels?units=1';
-  getAll = () => this.http.get(this.url);
+
+  url = 'api/curriculum/class-levels/unit-levels';
+  getAll = () => this.http.get<any[]>(this.url).pipe(
+    map(items => items.map(({id, name, taught_units: taughtUnits}: any) =>
+      ({id, name, taughtUnits: taughtUnits.map(({ id: idVal }: any) => idVal)})))
+  );
+  save = (data: any) => this.http.post(this.url, data);
 }
 
