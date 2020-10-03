@@ -16,9 +16,6 @@ import {ManageClassLevelUnitLevelAllocationModule} from '../manage-class-level-u
     CommonModule,
     ClassLevelUnitLevelAllocationRoutingModule,
     AppLoadingBubbleModule,
-    NgSelectModule,
-    ReactiveFormsModule,
-    AppValidateSubmitButtonsModule,
     ManageClassLevelUnitLevelAllocationModule
   ]
 })

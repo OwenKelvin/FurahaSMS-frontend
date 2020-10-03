@@ -15,6 +15,10 @@ export class ClassLevelUnitLevelAllocationService {
     map(items => items.map(({id, name, taught_units: taughtUnits}: any) =>
       ({id, name, taughtUnits: taughtUnits.map(({ id: idVal }: any) => idVal)})))
   );
+  getAllWithUnitLevels= () => this.http.get<any[]>(this.url).pipe(
+    map(items => items.map(({id, name, taught_units: taughtUnits}: any) =>
+      ({id, name, taughtUnits})))
+  );
   save = (data: any) => this.http.post(this.url, data);
 }
 

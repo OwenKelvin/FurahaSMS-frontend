@@ -45,6 +45,11 @@
                      placeholder='Enter Course Name' id='name'
                      formControlName='name'></app-input>
         </section>
+        <section class="col-lg-4 col-sm-6">
+          <app-star-required></app-star-required>
+          <label for="unitLevel">Unit Level</label>
+          <ng-select id="unitLevel" [items]="unitLevels$ | async" bindValue="id" bindLabel="name"></ng-select>
+        </section>
         <section class="col-lg-12">
           <label for="description">Course Description</label>
           <editor (onInit)='initializeEditor()' id='description' formControlName='description'

@@ -2,7 +2,7 @@
 <!--{{ classLevelsWithUnits$ | async | json }}-->
 <ng-container *ngIf="v$ | async as v; else loading">
   <a [routerLink]="['../edit']" class="btn btn-primary" ><span class="icon-edit"></span>Edit Unit Allocations</a>
-  <table class="table table-dark" formArrayName="allocations">
+  <table class="table table-dark">
     <thead>
     <tr class="d-flex flex-wrap">
       <th class="col-lg-4"> Class Level</th>
