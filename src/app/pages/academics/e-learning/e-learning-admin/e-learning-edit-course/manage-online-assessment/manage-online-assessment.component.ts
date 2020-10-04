@@ -5,15 +5,20 @@ import {formMixin} from '../../../../../../shared/mixins/form.mixin';
 import {takeUntil, tap} from 'rxjs/operators';
 import {subscribedContainerMixin} from '../../../../../../shared/mixins/subscribed-container.mixin';
 import {OnlineAssessmentService} from '../../../services/online-assessment.service';
+import {modalMixin} from '../../../../../../shared/mixins/modal.mixin';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {Store} from '@ngrx/store';
 
 @Component({
   selector: 'app-manage-online-assessment',
   templateUrl: './manage-online-assessment.component.html',
   styleUrls: ['./manage-online-assessment.component.css']
 })
-export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(formMixin()) {
+export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(formMixin(modalMixin())) {
   @Input() topicId: number;
   @Input() assessmentId: number;
+  @Output() valid = new EventEmitter();
+  @Output() submitChange = new EventEmitter();
   _submitted = new Subject();
   itemForm = this.fb.group({
     name: ['', Validators.required],
@@ -34,8 +39,6 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
     return val
   }
 
-  @Output() valid = new EventEmitter();
-  @Output() submitChange = new EventEmitter();
 
   submission = () => this.onlineAssessmentService.save({
     topicId: this.topicId,
@@ -43,13 +46,18 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
     assessmentId: this.assessmentId
   })
 
-  constructor(private fb: FormBuilder, private onlineAssessmentService: OnlineAssessmentService) {
-    super();
+  constructor(
+    modalService: BsModalService,
+    store: Store,
+    private fb: FormBuilder,
+    private onlineAssessmentService: OnlineAssessmentService) {
+    super(modalService, store);
   }
 
   submitFormItem() {
     this.submitChange.emit(true)
     this.submission().pipe(takeUntil(this.destroyed$)).subscribe({
+      next: () => this.closeModal(),
       error: () => this.submitChange.emit(false)
     })
   }

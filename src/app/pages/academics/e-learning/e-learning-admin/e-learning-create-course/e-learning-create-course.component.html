@@ -10,7 +10,7 @@
     </div>
     <fieldset class="card p-2 pt-0">
       <legend class="mb-0">General Info</legend>
-      <div class="d-flex flex-wrap justify-content-between">
+      <div class="d-flex flex-wrap justify-content-start">
         <section class="col-lg-4 col-sm-6">
           <label class="col-12 control-label" for="academicYear">
             <app-star-required></app-star-required>
@@ -46,9 +46,10 @@
                      formControlName='name'></app-input>
         </section>
         <section class="col-lg-4 col-sm-6">
-          <app-star-required></app-star-required>
-          <label for="unitLevel">Unit Level</label>
-          <ng-select id="unitLevel" [items]="unitLevels$ | async" bindValue="id" bindLabel="name"></ng-select>
+          <label class="col-12" for="unitLevel">
+            <app-star-required></app-star-required>
+            Unit Level</label>
+          <ng-select formControlName="unitLevel" id="unitLevel" [items]="unitLevels$ | async" bindValue="id" bindLabel="name"></ng-select>
         </section>
         <section class="col-lg-12">
           <label for="description">Course Description</label>
@@ -73,15 +74,18 @@
         <fieldset class="mt-3">
           <legend>Topics</legend>
           <section>
-            <button (click)='openModal({ component: template, id: -1 })' type="button" class="btn btn-sm btn-primary mt-2 mb-2"><span
+            <button (click)='openModal({ component: template, id: -1 })' type="button"
+                    class="btn btn-sm btn-primary mt-2 mb-2"><span
               class="icon-plus-circled"></span>Add Topic
             </button>
             <section>
               <ng-template #itemTemplate let-item="item.initData" let-index="index">
                 <span class="chapter-title">{{ newCourseForm.get('numbering')?.value}} {{ index + 1 }}
                   : {{ item.description }}</span>
-                <button type="button" (click)='deleteTopic(index)' class="btn btn-danger btn-sm float-right mr-2"><span class="icon-trash"></span></button>
-                <button type="button" (click)='openModal({component:template, id:index})' class="btn btn-primary btn-sm float-right mr-2" aria-label="Edit Topic"><span
+                <button type="button" (click)='deleteTopic(index)' class="btn btn-danger btn-sm float-right mr-2"><span
+                  class="icon-trash"></span></button>
+                <button type="button" (click)='openModal({component:template, id:index})'
+                        class="btn btn-primary btn-sm float-right mr-2" aria-label="Edit Topic"><span
                   class="icon-edit-1"></span></button>
 
                 <fieldset class="card p-2 pl-0" style="background: initial">
@@ -162,10 +166,14 @@
                                   {{ newTopicForm.get('numbering')?.value }} {{ index + 1 }}:
                                 </span>
                               </div>
-                              <input *ngIf="subTopics[index]" (keyup)="updateSubTopics()" [attr.aria-label]='"Enter Subtopic description"' (blur)="updateSubTopicContent()" [ngModelOptions]="{standalone: true}"
+                              <input *ngIf="subTopics[index]" (keyup)="updateSubTopics()"
+                                     [attr.aria-label]='"Enter Subtopic description"' (blur)="updateSubTopicContent()"
+                                     [ngModelOptions]="{standalone: true}"
                                      class="form-control" [(ngModel)]="subTopics[index].description">
                               <div class="input-group-append">
-                                <button type="button" [attr.aria-label]='"delete subtopic " + (index + 1)' (click)='deleteSubTopic(index)' class="btn btn-xs btn-danger"><span class="icon-cancel-circled-outline"></span>
+                                <button type="button" [attr.aria-label]='"delete subtopic " + (index + 1)'
+                                        (click)='deleteSubTopic(index)' class="btn btn-xs btn-danger"><span
+                                  class="icon-cancel-circled-outline"></span>
                                 </button>
                               </div>
                             </div>
@@ -191,7 +199,8 @@
                   <button [disabled]='newTopicForm.invalid' class="btn btn-success">Save Topic</button>
                 </section>
               </form>
-            </div>F
+            </div>
+            F
           </ng-template>
         </fieldset>
       </section>

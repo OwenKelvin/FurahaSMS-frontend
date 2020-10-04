@@ -49,25 +49,26 @@ export class ELearningService {
   constructor(private http: HttpClient, private urlParam: UrlParamsStringifyService) {
   }
 
+  mapToICourse = (res: any): ICourse => ({
+    name: res.name,
+    description: res.description,
+    classLevelId: res.class_level_id,
+    unitLevelId: res.unit_level_id,
+    classLevelName: res.class_level_name,
+    classLevelAbbreviation: res.class_level_abbreviation,
+    id: res.id,
+    unitName: res.unit_name,
+    unitId: res.unit_id,
+    unitAbbreviation: res.unit_abbreviation,
+    academicYearId: res.academic_year_id,
+    academicYearName: res.academic_year_name,
+    topicNumberStyleName: res.topic_number_style_name,
+    topics: res.topics
+  })
+
   getCourseWithId(id: number): Observable<ICourse> {
     return this.http.get(`api/e-learning/courses/${id}`)
-      .pipe(map((res: any) => {
-        return {
-          name: res.name,
-          description: res.description,
-          classLevelId: res.class_level_id,
-          classLevelName: res.class_level_name,
-          classLevelAbbreviation: res.class_level_abbreviation,
-          id: res.id,
-          unitName: res.unit_name,
-          unitId: res.unit_id,
-          unitAbbreviation: res.unit_abbreviation,
-          academicYearId: res.academic_year_id,
-          academicYearName: res.academic_year_name,
-          topicNumberStyleName: res.topic_number_style_name,
-          topics: res.topics
-        };
-      }));
+      .pipe(map(this.mapToICourse));
   }
 
   saveCourse(value: any): Observable<any> {
@@ -76,6 +77,7 @@ export class ELearningService {
       unit_id: value.unit,
       name: value.name,
       class_level_id: value.unit,
+      unit_level_id: value.unitLevel,
       academic_year_id: value.academicYear,
       description: value.description,
       numbering: value.numbering,
@@ -119,7 +121,7 @@ export class ELearningService {
     this.http.delete(
       `api/e-learning/course-content/${contentId}?e_learning_topic_id=${topicId}&study_material_id=${studyMaterialId}`);
 
-  updateCourseContent = ({contentId, topicId,studyMaterialId, data}: IParams) =>
+  updateCourseContent = ({contentId, topicId, studyMaterialId, data}: IParams) =>
     this.http.post(`api/e-learning/course-content/${contentId}`, {
       _method: 'PATCH',
       e_learning_topic_id: topicId,

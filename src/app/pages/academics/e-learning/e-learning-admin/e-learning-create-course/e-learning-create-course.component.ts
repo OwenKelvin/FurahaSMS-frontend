@@ -30,6 +30,7 @@ export class ELearningCreateCourseComponent
     name: ['', Validators.required],
     unit: [null, Validators.required],
     classLevel: [null, Validators.required],
+    unitLevel: [null, Validators.required],
     academicYear: [null, Validators.required],
     description: [''],
     topics: this.fb.array([]),
@@ -80,6 +81,7 @@ export class ELearningCreateCourseComponent
           name: course.name,
           unit: course.unitId,
           classLevel: course.classLevelId,
+          unitLevel: course.unitLevelId,
           academicYear: course.academicYearId,
           description: course.description,
           numbering: course.topicNumberStyleName,
@@ -93,12 +95,16 @@ export class ELearningCreateCourseComponent
   unitChangedSubject$ = new BehaviorSubject<null | number>(null);
   unitChangedAction$ = this.unitChangedSubject$.asObservable()
 
+  get unitLevelControl(): FormControl {
+    return this.newCourseForm.get('unitLevel') as FormControl
+  }
+
   get classLevelControl(): FormGroup {
     return (this.newCourseForm.get('classLevel') as FormGroup)
   }
 
-  get unitControl(): FormGroup {
-    return (this.newCourseForm.get('unit') as FormGroup)
+  get unitControl(): FormControl {
+    return (this.newCourseForm.get('unit') as FormControl)
   }
 
   unitLevels$ = combineLatest([this.unitChangedAction$, this.classLevelChangedAction$, this.classLevels$]).pipe(
@@ -108,7 +114,14 @@ export class ELearningCreateCourseComponent
         .map(({taughtUnits}) => taughtUnits)
         .flat()
         .filter(({unit_id: id}) => id === unit))
-    )
+    ),
+    tap((unitLevels) => {
+      if (unitLevels.length === 1) {
+        this.unitLevelControl.setValue(unitLevels[0].id)
+      } else {
+        this.unitLevelControl.setValue(null)
+      }
+    })
   )
 
   v$ = combineLatest([this.course$, this.academicYears$, this.units$, this.classLevels$]).pipe(
