@@ -17,6 +17,7 @@ import {AppFilesizeModule} from '../../../../../shared/filesize/filesize.module'
 import {FileExtensionModule} from '../../../../../shared/file-extention/file-extension.module';
 import { ManageOnlineAssessmentComponent } from './manage-online-assessment/manage-online-assessment.component';
 import {DurationPickerModule} from 'ngx-duration-picker';
+import {TopicOnlineAssessmentListModule} from '../../topic-online-assessment-list/topic-online-assessment-list.module';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import {DurationPickerModule} from 'ngx-duration-picker';
     AppValidateSubmitButtonsModule,
     AppFilesizeModule,
     FileExtensionModule,
-    DurationPickerModule
+    DurationPickerModule,
+    TopicOnlineAssessmentListModule
   ]
 })
 export class ELearningEditCourseModule {

@@ -36,12 +36,16 @@
             <legend class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</legend>
             <section class="d-flex flex-wrap justify-content-center">
               <section class="col-lg-12 p-2 mb-2">
-                <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                 [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                  [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
                 <app-e-learning-topic-materials [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
                                                 [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
 
+
+                <app-topic-online-assessment-list [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                  [assessments]="topic.online_assessments"></app-topic-online-assessment-list>
                 <div>
                   <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
                           type="button">
@@ -53,19 +57,24 @@
               <fieldset class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
                 <ng-container
                   *ngIf='v.course?.topicNumberStyleName === topic?.topic_number_style_name; else normalNumbering'>
-                  <legend>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</legend>
+                  <legend>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}
+                    . {{ subTopic.description }}</legend>
                 </ng-container>
                 <ng-template #normalNumbering>
                   <legend>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</legend>
                 </ng-template>
                 <section class="d-flex justify-content-center">
                   <div class="col-lg-12 pb-3">
-                    <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id" [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                    <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
+                                                     [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                      [learningOutcomes]='subTopic.expected_learning_outcomes'>
                     </app-e-learning-topic-objectives>
 
-                    <app-e-learning-topic-materials  [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
-                      [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
+                    <app-e-learning-topic-materials [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
+                                                    [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
+                    <div>
+                      {{ subTopic.online_assessments }}
+                    </div>
                     <div>
                       <button (click)='openModalNewContent(templateNewContent, subTopic.id)'
                               class="btn btn-primary btn-sm"
@@ -83,7 +92,8 @@
       </fieldset>
       <section class="alert alert-danger d-flex justify-content-around mt-4">
         Action in this Section is irreversible, Be Careful!
-        <button (click)='openModal({id: -1, component: template})' class="btn btn-danger btn-sm">Delete this Course</button>
+        <button (click)='openModal({id: -1, component: template})' class="btn btn-danger btn-sm">Delete this Course
+        </button>
       </section>
     </ng-container>
     <ng-template #template>

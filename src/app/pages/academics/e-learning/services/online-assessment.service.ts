@@ -18,4 +18,6 @@ export class OnlineAssessmentService {
     name: data.name,
     _method: data.id > 0 ? 'PATCH' : 'POST'
   })
+
+  deleteAssessmentWithId = ({topicId, assessmentId}: any) => this.http.delete(this.urlWithId(topicId, assessmentId));
 }

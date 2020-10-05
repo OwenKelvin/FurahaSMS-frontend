@@ -3,7 +3,7 @@ export const environment = {
   API_URL: 'http://localhost:1234',
   passportClient: {
     grantType: 'password',
-    clientSecret: '51Ldl6237BvR2HYFhVFafrss9nMeNqQVHj0E0Pao',
+    clientSecret: 'gw1ZD3crdMBCpnxYPFe5MTMSaW8QQ1MIu6cgUYap',
     clientId: '2'
   }
 };
