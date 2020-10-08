@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TopicOnlineAssessmentListComponent } from './topic-online-assessment-list.component';
 import {RouterModule} from '@angular/router';
 import {DurationModule} from '../../../../shared/duration/duration.module';
+import {FormsModule} from '@angular/forms';
 
 
 
@@ -14,7 +15,8 @@ import {DurationModule} from '../../../../shared/duration/duration.module';
   imports: [
     CommonModule,
     RouterModule,
-    DurationModule
+    DurationModule,
+    FormsModule
   ]
 })
 export class TopicOnlineAssessmentListModule { }

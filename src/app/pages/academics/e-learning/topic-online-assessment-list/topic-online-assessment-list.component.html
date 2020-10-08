@@ -1,7 +1,7 @@
 <section *ngIf='assessments && assessments.length > 0' class='card mt-1 p-2'>
   <div *ngFor='let assessment of assessments; let i = index' style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'
        class="mb-3">
-    <button (click)="deleteItem(i)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-danger btn-sm">
+    <button (click)="deleteItem(assessment.id)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-danger btn-sm">
       <span class="icon-trash"></span>
     </button>
     <button (click)="editItem(assessment.exam_paper_id)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-primary btn-sm mr-2">
@@ -31,20 +31,20 @@
     </button>
   </div>
   <div class="modal-body bg-dark">
-    <p class="text-danger">You are about to delete Assessment"</p>
+    <p class="text-danger">You are about to delete Assessment" <span class="info">" {{ editedItem.exam_paper_name}}"</span></p>
 
-<!--    <p>Please Enter #{{ learningContent.id }} to confirm action</p>-->
-<!--    <input placeholder="eg #1234" aria-label="Course Name" type="text" class="form-control" [(ngModel)]='contentId'>-->
+    <p>Please Enter #{{ editedItem.id }} to confirm action</p>
+    <input placeholder="eg #1234" aria-label="Course Name" type="text" class="form-control" [(ngModel)]='contentId'>
   </div>
   <div class="modal-footer bg-dark">
     <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
-<!--    <button (click)='deleteCourseContentItem()' [disabled]='(contentId !=  "#" + learningContent.id) || (submitInProgressAction$ | async)'-->
-<!--            class="btn btn-danger">-->
-<!--      <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Content from Course</span>-->
-<!--      <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>-->
-<!--      <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>-->
-<!--      <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>-->
-<!--    </button>-->
+    <button (click)='deleteAssessmentItem()' [disabled]='(contentId !=  "#" + editedItem.id) || (submitInProgressAction$ | async)'
+            class="btn btn-danger">
+      <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Assessment</span>
+      <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>
+      <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>
+      <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+    </button>
   </div>
 
 </ng-template>
