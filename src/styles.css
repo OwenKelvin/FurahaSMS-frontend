@@ -5,7 +5,7 @@
 @import './vendor/daneden/animate.css';
 @import '~flag-icon-css/css/flag-icon.css';
 
-label {
+.control-label {
   margin-bottom: 0.1rem;
   margin-top: 0.5em
 }

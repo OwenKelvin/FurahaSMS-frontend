@@ -8,6 +8,8 @@ import {OnlineAssessmentService} from '../../../services/online-assessment.servi
 import {modalMixin} from '../../../../../../shared/mixins/modal.mixin';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {Store} from '@ngrx/store';
+import {loadCourses} from '../../../../store/actions/courses.actions';
+import {AppState} from '../../../../../../store/reducers';
 
 @Component({
   selector: 'app-manage-online-assessment',
@@ -16,9 +18,11 @@ import {Store} from '@ngrx/store';
 })
 export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(formMixin(modalMixin())) {
   @Input() topicId: number;
+  @Input() courseId: number;
   @Input() assessmentId: number;
   @Output() valid = new EventEmitter();
   @Output() submitChange = new EventEmitter();
+  store: Store<AppState>;
   _submitted = new Subject();
   itemForm = this.fb.group({
     name: ['', Validators.required],
@@ -48,16 +52,20 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
 
   constructor(
     modalService: BsModalService,
-    store: Store,
+    store: Store<AppState>,
     private fb: FormBuilder,
     private onlineAssessmentService: OnlineAssessmentService) {
     super(modalService, store);
+    this.store = store
   }
 
   submitFormItem() {
     this.submitChange.emit(true)
     this.submission().pipe(takeUntil(this.destroyed$)).subscribe({
-      next: () => this.closeModal(),
+      next: () => {
+        this.closeModal();
+        this.store.dispatch(loadCourses({ data: { id: this.courseId }}))
+      },
       error: () => this.submitChange.emit(false)
     })
   }

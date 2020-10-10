@@ -1,25 +1,28 @@
-import { Component, OnInit, TemplateRef, OnDestroy } from '@angular/core';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
-import { Observable } from 'rxjs';
-import { selectExamPaperItemState } from '../../store/selectors/exam-paper.selectors';
-import { BsModalRef, BsModalService } from 'ngx-bootstrap/modal';
-import { FormBuilder, FormGroup, FormArray, Validators } from '@angular/forms';
-import { takeWhile, map, mergeMap, tap } from 'rxjs/operators';
-import { CanDeactivateGuard } from 'src/app/guards/can-deactivate.guard';
-import { selectTinyMceConfig } from 'src/app/store/selectors/tinyMCE-config.selector';
-import { ExamPaperQuestionsService } from '../../services/exam-paper-questions.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { loadExamPapers } from '../../store/actions/exam-paper.actions';
-import { answersMatchValidator } from '../../validators/answers-match.validator';
-import { IExamPaperQuestion } from '../../interfaces/exam-paper-question.interface';
+import {Component, OnDestroy, OnInit, TemplateRef} from '@angular/core';
+import {select, Store} from '@ngrx/store';
+import {AppState} from 'src/app/store/reducers';
+import {Observable} from 'rxjs';
+import {selectExamPaperItemState} from '../../store/selectors/exam-paper.selectors';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {FormArray, FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {map, mergeMap, takeWhile, tap} from 'rxjs/operators';
+import {CanDeactivateGuard} from 'src/app/guards/can-deactivate.guard';
+import {selectTinyMceConfig} from 'src/app/store/selectors/tinyMCE-config.selector';
+import {ExamPaperQuestionsService} from '../../services/exam-paper-questions.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {loadExamPapers} from '../../store/actions/exam-paper.actions';
+import {answersMatchValidator} from '../../validators/answers-match.validator';
+import {IExamPaperQuestion} from '../../interfaces/exam-paper-question.interface';
+import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
+import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
 
 @Component({
   selector: 'app-admin-exam-paper-edit',
   templateUrl: './admin-exam-paper-edit.component.html',
   styleUrls: ['./admin-exam-paper-edit.component.css']
 })
-export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeactivateGuard {
+export class AdminExamPaperEditComponent extends subscribedContainerMixin(formWithEditorMixin())
+  implements OnInit, OnDestroy, CanDeactivateGuard {
   examPaper$: Observable<any>;
   activeQuestion = 0;
   Queries: IExamPaperQuestion[];
@@ -27,13 +30,12 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
   dialog: any = {
     title: 'Add Item',
     type: 'new',
-    value: {
-    }
+    value: {}
   };
   editDialogForm: FormGroup;
   componentIsActive = true;
   submitted = true;
-  editorInit$: Observable<any> = this.store.pipe(select(selectTinyMceConfig));;
+  editorInit$: Observable<any> = this.store.pipe(select(selectTinyMceConfig));
   questionId$: Observable<any>;
   editorInit: any;
   tagInput = '';
@@ -47,12 +49,18 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     private examPaperQuestionsService: ExamPaperQuestionsService,
     private router: Router,
     private route: ActivatedRoute
-  ) { }
+  ) {
+    super();
+  }
+
   editorInitialized = false;
+
   ngOnInit() {
     this.editorInit$
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(conf => { this.editorInit = conf; });
+      .subscribe(conf => {
+        this.editorInit = conf;
+      });
 
     this.questionId$ =
       (this.route.parent as ActivatedRoute).paramMap.pipe(map(params => params.get('id')));
@@ -60,19 +68,23 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       .pipe(takeWhile(() => this.componentIsActive),
         mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))),
         tap(res => {
-        if (res) {
-          this.Queries = res.questions.map((item: any) => ({
-            id: item.id,
-            correctAnswerDescription: item.correct_answer_description,
-            multipleAnswers: item.multiple_answers,
-            multipleChoices: item.multiple_choices,
-            points: item.points,
-            description: item.description,
-            tags: item.tags_value,
-            answers: item.answers_value.map(({ id, description, is_correct: isCorrect }: any) => ({ id, description, isCorrect }))
-          }));
-        }
-      }));
+          if (res) {
+            this.Queries = res.questions.map((item: any) => ({
+              id: item.id,
+              correctAnswerDescription: item.correct_answer_description,
+              multipleAnswers: item.multiple_answers,
+              multipleChoices: item.multiple_choices,
+              points: item.points,
+              description: item.description,
+              tags: item.tags_value,
+              answers: item.answers_value.map(({id, description, is_correct: isCorrect}: any) => ({
+                id,
+                description,
+                isCorrect
+              }))
+            }));
+          }
+        }));
 
     this.resetForm();
     this.multipleChoices.valueChanges
@@ -86,6 +98,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
         this.editDialogForm.updateValueAndValidity();
       });
   }
+
   resetForm(question?: any) {
     const answers = (question && question.answers) ? question.answers : [];
     const tags = (question && question.tags) ? question.tags : [];
@@ -101,16 +114,18 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
     });
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
-    this.editDialogForm.patchValue({ ...question });
+    this.editDialogForm.patchValue({...question});
   }
+
   handleQuestionEdit(template: TemplateRef<any>, $event: any) {
     this.openModal(template, $event.action, $event.i);
   }
+
   openModal(template: TemplateRef<any>, action: string, i: number) {
     this.validated = false;
     this.submitted = false;
     if (document.fullscreenElement !== null) {
-      document.exitFullscreen();
+      document.exitFullscreen().then();
     }
     switch (action) {
 
@@ -130,10 +145,10 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
         break;
       case 'edit':
         this.dialog.title = `Edit Question ${i + 1}`;
-        this.dialog.value = { ...this.Queries[i] };
+        this.dialog.value = {...this.Queries[i]};
         this.dialog.type = 'edit';
         this.dialog.index = i;
-        this.resetForm({ ...this.Queries[i] });
+        this.resetForm({...this.Queries[i]});
 
         break;
     }
@@ -145,17 +160,20 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
 
     this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
   }
+
   get questions() {
     return this.Queries;
   }
+
   reorderQuestions(data: { move: 'up' | 'down', index: number; }) {
-    const { index, move } = data;
+    const {index, move} = data;
     const tmp = this.Queries[index];
     const swapIndex = move === 'up' ? (index - 1) : (index + 1);
     this.Queries[index] = this.Queries[swapIndex];
     this.Queries[swapIndex] = tmp;
     this.activeQuestion = swapIndex;
   }
+
   saveQuestion() {
     this.editDialogForm.setValidators(answersMatchValidator);
     this.editDialogForm.updateValueAndValidity();
@@ -163,7 +181,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       this.validated = true;
     } else {
       if (this.dialog.type === 'edit') {
-        this.Queries[this.dialog.index] = { ...this.editDialogForm.value };
+        this.Queries[this.dialog.index] = {...this.editDialogForm.value};
       } else {
         this.Queries.splice(this.dialog.index, 0, this.editDialogForm.value);
         this.activeQuestion = this.dialog.index;
@@ -171,23 +189,29 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       this.modalRef.hide();
     }
   }
+
   deleteQuestion(index: number) {
     this.Queries.splice(index, 1);
     this.activeQuestion = (this.Queries.length === this.activeQuestion) ? (this.activeQuestion - 1) : this.activeQuestion;
 
   }
+
   get tags(): FormArray {
     return this.editDialogForm.get('tags') as FormArray;
   }
+
   get answers(): FormArray {
     return this.editDialogForm.get('answers') as FormArray;
   }
+
   get multipleChoices(): FormGroup {
     return this.editDialogForm.get('multipleChoices') as FormGroup;
   }
+
   get multipleAnswers(): FormGroup {
     return this.editDialogForm.get('multipleAnswers') as FormGroup;
   }
+
   addAnswers() {
     this.answers.push(this.fb.group({
       id: [null],
@@ -195,11 +219,13 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       description: ['', [Validators.required]],
     }));
   }
+
   addTag(tag: string) {
     this.tags.push(this.fb.control(tag));
     this.tagInput = '';
     this.tags.updateValueAndValidity();
   }
+
   deleteTag(j: number) {
     const deletionConfirmed = confirm(`Are You sure you wish to delete tag ${this.tags.value[j]} ?`);
     if (deletionConfirmed) {
@@ -207,6 +233,7 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       this.tags.updateValueAndValidity();
     }
   }
+
   deleteAnswer(i: number) {
     const deletionConfirmed = confirm(`Are You sure you wish to delete answer`);
     if (deletionConfirmed) {
@@ -214,30 +241,33 @@ export class AdminExamPaperEditComponent implements OnInit, OnDestroy, CanDeacti
       this.answers.updateValueAndValidity();
     }
   }
+
   saveExamQuestions() {
     this.isSubmitting = true;
     const data = this.Queries;
     this.questionId$
       .pipe(
-        mergeMap(examPaperId => this.examPaperQuestionsService.store({ examPaperId, data })),
+        mergeMap(examPaperId => this.examPaperQuestionsService.store({examPaperId, data})),
         takeWhile(() => this.componentIsActive))
       .subscribe(() => {
         this.submitted = true;
         this.isSubmitting = false;
         this.questionId$
-          .pipe(tap((id) => this.store.dispatch(loadExamPapers({ id }))))
+          .pipe(tap((id) => this.store.dispatch(loadExamPapers({id}))))
           .pipe(takeWhile(() => this.componentIsActive))
           .subscribe(examPaperId => {
-            this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']);
+            this.router.navigate(['academics', 'exam-bank', 'admin', 'exams', examPaperId, 'view']).then();
           });
 
       }, () => {
         this.isSubmitting = false;
       });
   }
+
   canDeactivate() {
     return this.submitted || confirm('Your Changes will be lost, continue ? ');
   }
+
   ngOnDestroy() {
     this.componentIsActive = false;
   }

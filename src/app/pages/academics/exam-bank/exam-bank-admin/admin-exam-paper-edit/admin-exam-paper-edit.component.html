@@ -13,7 +13,7 @@
     <form [formGroup]='editDialogForm' [class.sr-only]='!editorInitialized'>
       <label for="description" class="control-label">Question description</label>
 
-      <editor (onInit)='editorInitialized = true' formControlName='description' [init]="editorInit"></editor>
+      <editor id="description" (onInit)='editorInitialized = true' formControlName='description' [init]="editorInit"></editor>
       <textarea class="form-control" *ngIf='!editorInitialized' formControlName='description'></textarea>
       <section class="d-flex justify-content-between flex-wrap align-items-center">
         <div class="col-lg-3 col-md-4 col-sm-6 mt-2">

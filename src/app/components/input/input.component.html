@@ -1,6 +1,6 @@
 <section class='form-group mb-4' style="position: relative;">
   <section class='d-flex flex-wrap m-0 p-0 align-items-center'>
-  	<label [class]='"col-12 control-label " + labelClass' [for]='id'>
+  	<label [class]='"col-12 control-label " + labelClass' [attr.for]='id'>
       <app-star-required></app-star-required>{{ label }}
 		</label>
 	  <section [class]='inputClass ? inputClass + " input-group" + " m-0 p-0": "col-12 " + inputClass + " input-group" + " m-0 p-0"'>
@@ -18,7 +18,7 @@
 				[class.is-invalid]='fieldError'
 				[class.is-valid]='formControl.valid && formControl.touched'
 	      (blur)='validateField()'
-	      [id]='[id]'
+	      [id]='id'
 	      [type]='fieldType'
 				[placeholder]='placeholder'>
 				<section class='input-group-append' *ngIf='type === "password"' >

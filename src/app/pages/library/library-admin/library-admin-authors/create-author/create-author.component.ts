@@ -7,7 +7,7 @@ import {LibraryAuthorService} from 'src/app/pages/library/services/library-autho
 import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
 import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
-import {from, Subject} from 'rxjs';
+import {from} from 'rxjs';
 
 @Component({
   selector: 'app-create-author',
