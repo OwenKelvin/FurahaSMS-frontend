@@ -108,6 +108,7 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
       id: null,
       description: '',
       multipleChoices: 1,
+      multipleAnswers: 0,
       correctAnswerDescription: '',
       points: 2
     });
