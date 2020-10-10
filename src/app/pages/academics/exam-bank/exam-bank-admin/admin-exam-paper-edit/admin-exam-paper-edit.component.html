@@ -7,137 +7,138 @@
     </button>
   </div>
   <div class="modal-body bg-dark">
-    <section *ngIf='!editorInitialized'>
+    <div *ngIf="(editorInitializedAction$ | async) === false">
       <app-loading-bubble></app-loading-bubble>
-    </section>
-    <form [formGroup]='editDialogForm' [class.sr-only]='!editorInitialized'>
-      <label for="description" class="control-label">Question description</label>
+    </div>
+    <div [class.sr-only]='(editorInitializedAction$ | async) === false'>
+      <form [formGroup]='editDialogForm'>
+        <label for="description" class="control-label">Question description</label>
 
-      <editor id="description" (onInit)='editorInitialized = true' formControlName='description' [init]="editorInit"></editor>
-      <textarea class="form-control" *ngIf='!editorInitialized' formControlName='description'></textarea>
-      <section class="d-flex justify-content-between flex-wrap align-items-center">
-        <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
-          <label class="control-label" for='points'>
-            Question Points
-          </label>
-          <input min="0.25" step="0.25" max="40" type="number" formControlName='points' class="form-control"
-            id='points'>
-        </div>
+        <editor id="description" (onInit)='initializeEditor()' formControlName='description' [init]="tinyMCEConfig"></editor>
+        <section class="d-flex justify-content-between flex-wrap align-items-center">
+          <div class="col-lg-3 col-md-4 col-sm-6 mt-2">
+            <label class="control-label" for='points'>
+              Question Points
+            </label>
+            <input min="0.25" step="0.25" max="40" type="number" formControlName='points' class="form-control"
+                   id='points'>
+          </div>
 
-        <div class="form-check col-lg-3 col-md-4 col-sm-6  mt-4">
-          <input formControlName='multipleChoices' class="form-check-input" type="checkbox" id='multiple-choice'>
-          <label class="form-check-label " for='multiple-choice'>
-            Has Choices
-          </label>
-        </div>
-        <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
-          <fieldset *ngIf='editDialogForm.get("multipleChoices")?.value'>
-            <legend>Number of Correct Answers</legend>
-            <div class="d-flex">
-              <div class="form-check col-lg-5">
-                <input [value]="0" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
-                  type="radio" id='correct-answer-single'>
-                <label class="form-check-label" for='correct-answer-single'>
-                  Single
-                </label>
+          <div class="form-check col-lg-3 col-md-4 col-sm-6  mt-4">
+            <input formControlName='multipleChoices' class="form-check-input" type="checkbox" id='multiple-choice'>
+            <label class="form-check-label " for='multiple-choice'>
+              Has Choices
+            </label>
+          </div>
+          <div class="col-lg-6 col-md-12 col-sm-12 mt-2">
+            <fieldset *ngIf='editDialogForm.get("multipleChoices")?.value'>
+              <legend>Number of Correct Answers</legend>
+              <div class="d-flex">
+                <div class="form-check col-lg-5">
+                  <input [value]="0" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
+                         type="radio" id='correct-answer-single'>
+                  <label class="form-check-label" for='correct-answer-single'>
+                    Single
+                  </label>
+                </div>
+                <div class="form-check col-lg-5">
+                  <input [value]="1" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
+                         type="radio" id='correct-answer-multiple'>
+                  <label class="form-check-label" for='correct-answer-multiple'>
+
+                    Multiple
+                  </label>
+                </div>
               </div>
-              <div class="form-check col-lg-5">
-                <input [value]="1" formControlName='multipleAnswers' name='multipleAnswers' class="form-check-input"
-                  type="radio" id='correct-answer-multiple'>
-                <label class="form-check-label" for='correct-answer-multiple'>
 
-                  Multiple
-                </label>
-              </div>
-            </div>
-
-          </fieldset>
-        </div>
-      </section>
-      <fieldset formArrayName='answers'>
-        <legend>Question Answers</legend>
-        <button (click)='addAnswers()' class="btn btn-sm btn-primary ml-3 mb-1"><span
-            class="icon-plus-circled"></span>Add
-          Answer</button>
-        <section class="d-flex flex-wrap mt-2" *ngFor='let control of answers.controls; let i = index'
-          [formGroupName]='i'>
-          <section class="col-lg-8">
-            <label [attr.for]='"description" + i' class="control-label">Answer description</label>
-            <textarea [id]='"description" + i' formControlName='description' class="form-control"
-              type="text"></textarea>
-          </section>
-          <section class="col-lg-3 mt-3 d-flex align-items-center flex-wrap justify-content-between">
-            <div class="form-check">
-              <label [attr.for]='"isCorrect" + i'>Correct Answer
-
-              </label>
-              <input class="ml-2" formControlName='isCorrect' title="Mark answer as correct" type="checkbox"
-                [id]='"isCorrect" + i'>
-
-            </div>
-
-          </section>
-          <section class="col-lg-1  d-flex align-items-center">
-            <button type="button" (click)='deleteAnswer(i)' class="btn btn-danger btn-sm icon-trash"> <span
-                class="sr-only">Delete</span></button>
-          </section>
+            </fieldset>
+          </div>
         </section>
-      </fieldset>
-      <section class="mt-3">
-        <label for="correctAnswerDescription">Correct Answer Description</label>
-        <editor id='correctAnswerDescription' *ngIf='editorInit' formControlName='correctAnswerDescription'
-          [init]="editorInit"></editor>
+        <fieldset formArrayName='answers'>
+          <legend>Question Answers</legend>
+          <button (click)='addAnswers()' class="btn btn-sm btn-primary ml-3 mb-1"><span
+            class="icon-plus-circled"></span>Add
+            Answer</button>
+          <section class="d-flex flex-wrap mt-2" *ngFor='let control of answers.controls; let i = index'
+                   [formGroupName]='i'>
+            <section class="col-lg-8">
+              <label [attr.for]='"description" + i' class="control-label">Answer description</label>
+              <textarea [id]='"description" + i' formControlName='description' class="form-control"
+                        type="text"></textarea>
+            </section>
+            <section class="col-lg-3 mt-3 d-flex align-items-center flex-wrap justify-content-between">
+              <div class="form-check">
+                <label [attr.for]='"isCorrect" + i'>Correct Answer
 
-      </section>
-      <fieldset class="col-lg-12 tags">
-        <legend>Tags</legend>
-        <div class="d-flex justify-content-between flex-wrap">
-          <div class="col-lg-4 ">
-            <div class="input-group">
-              <input [ngModelOptions]="{standalone: true}" [(ngModel)]='tagInput' data-list type="text"
-                class="form-control" aria-label="Add Tag">
-              <div class="input-group-append">
-                <button [disabled]='tagInput === ""' class="btn btn-primary input-group-button"
-                  (click)='addTag(tagInput)'>Add</button>
+                </label>
+                <input class="ml-2" formControlName='isCorrect' title="Mark answer as correct" type="checkbox"
+                       [id]='"isCorrect" + i'>
+
               </div>
+
+            </section>
+            <section class="col-lg-1  d-flex align-items-center">
+              <button type="button" (click)='deleteAnswer(i)' class="btn btn-danger btn-sm icon-trash"> <span
+                class="sr-only">Delete</span></button>
+            </section>
+          </section>
+        </fieldset>
+        <section class="mt-3">
+          <label for="correctAnswerDescription">Correct Answer Description</label>
+          <editor id="correctAnswerDescription" (onInit)='initializeEditor()' formControlName='correctAnswerDescription' [init]="tinyMCEConfig"></editor>
+
+        </section>
+        <fieldset class="col-lg-12 tags">
+          <legend>Tags</legend>
+          <div class="d-flex justify-content-between flex-wrap">
+            <div class="col-lg-4 ">
+              <div class="input-group">
+                <input [ngModelOptions]="{standalone: true}" [(ngModel)]='tagInput' data-list type="text"
+                       class="form-control" aria-label="Add Tag">
+                <div class="input-group-append">
+                  <button [disabled]='tagInput === ""' class="btn btn-primary input-group-button"
+                          (click)='addTag(tagInput)'>Add</button>
+                </div>
+              </div>
+
             </div>
-
-          </div>
-          <div class="col-lg-8">
+            <div class="col-lg-8">
             <span *ngFor='let tag of tags.value; let j = index'
-              class="badge badge-secondary p-2 mr-2 mb-2">{{ tag }}<span aria-label="Delete tag" (click)='deleteTag(j)'
-                class="icon-cancel close p-0 m-0 pl-1"></span></span>
+                  class="badge badge-secondary p-2 mr-2 mb-2">{{ tag }}<span aria-label="Delete tag" (click)='deleteTag(j)'
+                                                                             class="icon-cancel close p-0 m-0 pl-1"></span></span>
 
+            </div>
           </div>
-        </div>
 
-      </fieldset>
-      <fieldset *ngIf='editDialogForm.invalid && editDialogForm.dirty && validated' aria-live="polite" aria-atomic="true">
-        <legend>Errors Found on the Form</legend>
-        <ul>
-          <li *ngIf='editDialogForm.errors?.answersMismatch' class="text-danger">
-            {{ editDialogForm?.errors?.answersMismatch }}
-          </li>
-          <li *ngIf='editDialogForm.get("description")?.errors' class="text-danger">
-            Question is required
-          </li>
-          <li *ngIf='editDialogForm.get("points")?.errors' class="text-danger">
-            Points Field is required
-          </li>
-        </ul>
-      </fieldset>
-      <section class="d-flex justify-content-between">
+        </fieldset>
+        <fieldset *ngIf='editDialogForm.invalid && editDialogForm.dirty && validated' aria-live="polite" aria-atomic="true">
+          <legend>Errors Found on the Form</legend>
+          <ul>
+            <li *ngIf='editDialogForm.errors?.answersMismatch' class="text-danger">
+              {{ editDialogForm?.errors?.answersMismatch }}
+            </li>
+            <li *ngIf='editDialogForm.get("description")?.errors' class="text-danger">
+              Question is required
+            </li>
+            <li *ngIf='editDialogForm.get("points")?.errors' class="text-danger">
+              Points Field is required
+            </li>
+          </ul>
+        </fieldset>
+        <section class="d-flex justify-content-between">
 
-        <button [disabled]='editDialogForm.invalid' (click)='saveQuestion()' type="button"
-          class="btn btn-success btn-sm mb-2 mt-2">
-          Save <span *ngIf='editDialogForm.valid' class="icon-ok"></span></button>
+          <button [disabled]='editDialogForm.invalid' (click)='saveQuestion()' type="button"
+                  class="btn btn-success btn-sm mb-2 mt-2">
+            Save <span *ngIf='editDialogForm.valid' class="icon-ok"></span></button>
 
           <button *ngIf='editDialogForm.invalid' (click)='validated = true' type="button"
-            class="btn btn-secondary btn-sm mb-2 mt-2">Validate</button>
-        <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
-      </section>
+                  class="btn btn-secondary btn-sm mb-2 mt-2">Validate</button>
+          <button (click)="modalRef.hide()" type="button" class="btn btn-secondary btn-sm mb-2 mt-2">Cancel</button>
+        </section>
 
-    </form>
+      </form>
+    </div>
+
   </div>
 </ng-template>
 <section *ngIf='examPaper$ | async as examPaper; else loading'>
@@ -157,7 +158,7 @@
       <section class="alert alert-info">
         <span class="icon-info"></span>No Questions Added Yet
       </section>
-      <button (click)='openModal(template, "add-before", 0)' type='button' class="btn btn-primary btn-sm btn-xs"><span
+      <button (click)='openTemplateModal(template, "add-before", 0)' type='button' class="btn btn-primary btn-sm btn-xs"><span
           class="icon-plus-circled"></span>Add Question</button>
     </section>
     <section class='d-flex flex-wrap'>
@@ -182,8 +183,8 @@
   </fieldset>
   <button [disabled]='questions.length === 0 || submitted' (click)='saveExamQuestions()' type="button"
     class="btn btn-sm btn-success mt-3"> Save Changes
-    <i *ngIf='isSubmitting' class='icon-spin3 animate-spin'></i>
-    <i *ngIf='!isSubmitting' class='icon-ok-1'></i>
+    <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+    <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
 
 
   </button>
