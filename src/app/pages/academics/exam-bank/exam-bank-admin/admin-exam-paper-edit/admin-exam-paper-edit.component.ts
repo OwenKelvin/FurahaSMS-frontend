@@ -26,7 +26,16 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   examPaper$: Observable<any>;
   activeQuestion = 0;
   Queries: IExamPaperQuestion[];
-  editDialogForm: FormGroup;
+  editDialogForm: FormGroup = this.fb.group({
+    id: [],
+    description: ['', Validators.required],
+    multipleChoices: [1],
+    multipleAnswers: [0, [Validators.required]],
+    answers: this.fb.array([]),
+    correctAnswerDescription: [''],
+    points: [2, [Validators.required]],
+    tags: this.fb.array([])
+  });
   submitted = true;
   questionId$: Observable<any>;
   tagInput = '';
@@ -89,15 +98,18 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   resetForm(question?: any) {
     const answers = (question && question.answers) ? question.answers : [];
     const tags = (question && question.tags) ? question.tags : [];
-    this.editDialogForm = this.fb.group({
-      id: [],
-      description: ['', Validators.required],
-      multipleChoices: [1],
-      multipleAnswers: [0, [Validators.required]],
-      answers: this.fb.array([]),
-      correctAnswerDescription: [''],
-      points: [2, [Validators.required]],
-      tags: this.fb.array([])
+    while (this.answers.length) {
+      this.answers.removeAt(0);
+    }
+    while (this.tags.length) {
+      this.answers.removeAt(0);
+    }
+    this.editDialogForm.patchValue({
+      id: null,
+      description: '',
+      multipleChoices: 1,
+      correctAnswerDescription: '',
+      points: 2
     });
     [...answers].forEach(() => this.addAnswers());
     [...tags].forEach(tag => this.addTag(tag));
