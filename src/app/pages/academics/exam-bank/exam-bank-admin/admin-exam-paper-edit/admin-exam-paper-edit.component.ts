@@ -102,7 +102,7 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
       this.answers.removeAt(0);
     }
     while (this.tags.length) {
-      this.answers.removeAt(0);
+      this.tags.removeAt(0);
     }
     this.editDialogForm.patchValue({
       id: null,
