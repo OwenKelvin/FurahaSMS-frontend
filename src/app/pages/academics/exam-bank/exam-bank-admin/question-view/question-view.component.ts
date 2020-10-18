@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'app-question-view',
@@ -16,22 +16,29 @@ export class QuestionViewComponent implements OnInit {
   @Output() activeQuestionChange = new EventEmitter();
   @Output() deleteQuestion = new EventEmitter();
   @Output() reorderQuestions = new EventEmitter();
-  constructor() { }
+
+  constructor() {
+  }
 
   ngOnInit() {
   }
+
   editRequest(action: string, i: number) {
-    this.edit.emit({ action, i });
+    this.edit.emit({action, i});
   }
+
   activeQuestionPrevious() {
     this.activeQuestionChange.emit(-1);
   }
+
   activeQuestionNext() {
     this.activeQuestionChange.emit(1);
   }
+
   deleteQuestionRequest(i: number) {
     this.deleteQuestion.emit(i);
   }
+
   reorderQuestionsRequest(value: any) {
     this.reorderQuestions.emit(value);
   }

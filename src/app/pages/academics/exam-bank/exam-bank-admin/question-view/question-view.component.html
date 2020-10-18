@@ -17,7 +17,7 @@
   </section>
   <section class="card-body mb-0 choices">
     <section class="pb-2 border-bottom">
-      <div [appMath]> {{question.description}}</div>
+      <div [appMath]="{latex: question.description }"></div>
       <section>
         <span *ngFor='let tag of question.tags; let j = index'
           class="badge badge-secondary p-1 mr-2 mb-2 pl-2 pr-2">{{ tag }}</span>

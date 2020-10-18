@@ -2,6 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MathDirective} from './math.directive';
 import {MathService} from './math.service';
+console.log('<span class="math-tex">\\\(','\\\)</span>')
 
 @NgModule({
   declarations: [MathDirective],
@@ -11,12 +12,10 @@ import {MathService} from './math.service';
   exports: [MathDirective]
 })
 export class MathModule {
-  constructor() {
+  constructor(private _mathService: MathService) {
     // see https://docs.mathjax.org/en/latest/advanced/dynamic.html
     const script = document.createElement('script') as HTMLScriptElement;
     script.type = 'text/javascript';
-    // script.src = '/mathjax/es5/tex-chtml.js?config=TeX-MML-AM_CHTML';
-    // script.src = '/mathjax/es5/tex-mml-chtml.js?config=TeX-MML-AM_CHTML';
     script.src = 'https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/MathJax.js?config=TeX-MML-AM_CHTML';
     script.async = true;
 
@@ -28,7 +27,7 @@ export class MathModule {
     config.text = `
     MathJax.Hub.Config({
         skipStartupTypeset: true,
-        tex2jax: { inlineMath: [["$", "$"]],displayMath:[["$$", "$$"]] }
+        tex2jax: { inlineMath: [["$", "$"], ['<span class="math-tex">','<\/span>']],displayMath:[["$$", "$$"]] }
       });
       MathJax.Hub.Register.StartupHook('End', () => {
         window.hubReady.next();

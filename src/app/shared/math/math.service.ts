@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {Observable, Observer, ReplaySubject} from 'rxjs';
 
 export interface MathContent {
@@ -30,12 +30,16 @@ export class MathService {
   render(element: HTMLElement, math?: MathContent): void {
     if (math) {
       if (math.latex) {
-        element.innerText = math.latex;
+        element.innerText = this.removeTrailingBrackets(math.latex);
       } else {
-        element.innerHTML = math.mathml ? math.mathml : '';
+        element.innerHTML = this.removeTrailingBrackets(math.mathml ? math.mathml : '');
       }
     }
 
     MathJax.Hub.Queue(['Typeset', MathJax.Hub, element]);
+  }
+
+  removeTrailingBrackets(value: string): string {
+    return value.replace('>\\\(', '>').replace('\\\)<', '<');
   }
 }

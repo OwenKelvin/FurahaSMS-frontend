@@ -19,7 +19,7 @@ export const formWithEditorMixin = () =>
       external_plugins: { mathjax: '/tinymce/plugins/tinymce-mathjax/plugin.min.js'},
       mathjax: {
         lib: '/mathjax/es5/tex-mml-chtml.js',
-        symbols: {start: '\\(', end: '\\)'},
+        symbols: {start: '\\\(', end: '\\\)'},
         className: 'math-tex',
         configUrl: '/tinymce/plugins/tinymce-mathjax/plugin.min.js'
       },
