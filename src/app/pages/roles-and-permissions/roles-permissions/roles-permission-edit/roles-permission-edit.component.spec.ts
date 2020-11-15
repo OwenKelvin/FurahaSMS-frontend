@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { RolesPermissionEditComponent } from './roles-permission-edit.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -14,7 +14,7 @@ describe('RolesPermissionEditComponent', () => {
   let component: RolesPermissionEditComponent;
   let fixture: ComponentFixture<RolesPermissionEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { HeaderCollapseComponent } from './header-collapse.component';
 import { MenuSearchComponent } from '../menu-search/menu-search.component';
@@ -15,7 +15,7 @@ describe('HeaderCollapseComponent', () => {
   let component: HeaderCollapseComponent;
   let fixture: ComponentFixture<HeaderCollapseComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

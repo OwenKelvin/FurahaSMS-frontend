@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { ViewGuardianInfoComponent } from './view-guardian-info.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -13,7 +13,7 @@ describe('ViewGuardianInfoComponent', () => {
   let component: ViewGuardianInfoComponent;
   let fixture: ComponentFixture<ViewGuardianInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

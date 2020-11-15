@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {RolesAndPermissionsComponent} from './roles-and-permissions.component';
 import {AppLinksModule} from 'src/app/shared/links/links.module';
@@ -12,7 +12,7 @@ describe('RolesAndPermissionsComponent', () => {
   let component: RolesAndPermissionsComponent;
   let fixture: ComponentFixture<RolesAndPermissionsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AppLinksModule,

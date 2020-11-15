@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ViewLibraryBookComponent} from './view-library-book.component';
 import {LibraryModule} from '../../library.module';
@@ -12,7 +12,7 @@ describe('ViewLibraryBookComponent', () => {
   let component: ViewLibraryBookComponent;
   let fixture: ComponentFixture<ViewLibraryBookComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         LibraryModule,

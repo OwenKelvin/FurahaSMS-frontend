@@ -1,6 +1,11 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { TopicOnlineAssessmentListComponent } from './topic-online-assessment-list.component';
+import {TopicOnlineAssessmentListComponent} from './topic-online-assessment-list.component';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {RouterTestingModule} from '@angular/router/testing';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../store/reducers';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('TopicOnlineAssessmentListComponent', () => {
   let component: TopicOnlineAssessmentListComponent;
@@ -8,9 +13,22 @@ describe('TopicOnlineAssessmentListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ TopicOnlineAssessmentListComponent ]
+      imports: [
+        RouterTestingModule,
+        ModalModule.forRoot(),
+        StoreModule.forRoot(REDUCER_TOKEN, {
+          metaReducers,
+          runtimeChecks: {
+            strictStateImmutability: true,
+            strictActionImmutability: true,
+          }
+        }),
+        HttpClientTestingModule
+      ],
+      declarations: [TopicOnlineAssessmentListComponent],
+      providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoginContactAdminComponent} from './login-contact-admin.component';
 import {InputComponent} from '../../../components/input/input.component';
@@ -11,7 +11,7 @@ describe('LoginContactAdminComponent', () => {
   let component: LoginContactAdminComponent;
   let fixture: ComponentFixture<LoginContactAdminComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

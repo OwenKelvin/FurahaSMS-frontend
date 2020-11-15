@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ExamBankDashboardComponent} from './exam-bank-dashboard.component';
 import {AppLinksModule} from 'src/app/shared/links/links.module';
@@ -12,7 +12,7 @@ describe('ExamBankDashboardComponent', () => {
   let component: ExamBankDashboardComponent;
   let fixture: ComponentFixture<ExamBankDashboardComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

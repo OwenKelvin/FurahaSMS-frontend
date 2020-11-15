@@ -1,6 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ClassLevelUnitLevelAllocationComponent } from './class-level-unit-level-allocation.component';
+import {ClassLevelUnitLevelAllocationComponent} from './class-level-unit-level-allocation.component';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
 
 describe('ClassLevelUnitLevelAllocationComponent', () => {
   let component: ClassLevelUnitLevelAllocationComponent;
@@ -8,9 +11,10 @@ describe('ClassLevelUnitLevelAllocationComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [ ClassLevelUnitLevelAllocationComponent ]
+      imports: [HttpClientTestingModule, RouterTestingModule, AppLoadingBubbleModule],
+      declarations: [ClassLevelUnitLevelAllocationComponent]
     })
-    .compileComponents();
+      .compileComponents();
   });
 
   beforeEach(() => {

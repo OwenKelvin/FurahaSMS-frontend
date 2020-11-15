@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { AdminExamPaperComponent } from './admin-exam-paper.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -9,7 +9,7 @@ describe('AdminExamPaperComponent', () => {
   let component: AdminExamPaperComponent;
   let fixture: ComponentFixture<AdminExamPaperComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [RouterTestingModule, StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,

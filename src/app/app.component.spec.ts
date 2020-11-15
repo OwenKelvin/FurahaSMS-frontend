@@ -1,4 +1,4 @@
-import { TestBed, async } from '@angular/core/testing';
+import {TestBed, async, waitForAsync} from '@angular/core/testing';
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppComponent } from './app.component';
 import { ToastComponent } from './components/toast/toast.component';
@@ -8,7 +8,7 @@ import { NetworkLoadingModule } from './shared/network-loading';
 import { ErrorModule } from './components/error/error.module';
 
 describe('AppComponent', () => {
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

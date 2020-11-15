@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { FinancialPlanComponent } from './financial-plan.component';
 import { SelectAcademicYearComponent } from 'src/app/shared/select-academic-year/select-academic-year.component';
@@ -12,7 +12,7 @@ describe('FinancialPlanComponent', () => {
   let component: FinancialPlanComponent;
   let fixture: ComponentFixture<FinancialPlanComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

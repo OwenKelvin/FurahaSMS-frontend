@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {EditAcademicYearFinancialPlanComponent} from './edit-academic-year-financial-plan.component';
 import {TabErrorStateModule} from 'src/app/modules/app-tab-error.module';
@@ -19,7 +19,7 @@ describe('EditAcademicYearFinancialPlanComponent', () => {
   let component: EditAcademicYearFinancialPlanComponent;
   let fixture: ComponentFixture<EditAcademicYearFinancialPlanComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TabErrorStateModule,

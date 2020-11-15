@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { ExamBankArchivesComponent } from './exam-bank-archives.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -9,7 +9,7 @@ describe('ExamBankArchivesComponent', () => {
   let component: ExamBankArchivesComponent;
   let fixture: ComponentFixture<ExamBankArchivesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [AppLoadingBubbleModule, HttpClientTestingModule, RouterTestingModule],
       declarations: [ ExamBankArchivesComponent ]

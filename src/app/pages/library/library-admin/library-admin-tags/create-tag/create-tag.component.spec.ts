@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { CreateTagComponent } from './create-tag.component';
 import { StoreModule } from '@ngrx/store';
@@ -13,7 +13,7 @@ describe('CreateTagComponent', () => {
   let component: CreateTagComponent;
   let fixture: ComponentFixture<CreateTagComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

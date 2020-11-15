@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { TabErrorStateComponent } from './tab-error-state.component';
 
@@ -6,7 +6,7 @@ describe('TabErrorStateComponent', () => {
   let component: TabErrorStateComponent;
   let fixture: ComponentFixture<TabErrorStateComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ TabErrorStateComponent ]
     })

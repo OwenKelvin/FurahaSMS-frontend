@@ -1,26 +1,26 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ToastComponent } from './toast.component';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {ToastComponent} from './toast.component';
+import {StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
   let fixture: ComponentFixture<ToastComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot(REDUCER_TOKEN, {
-          metaReducers,
-          runtimeChecks: {
-            strictStateImmutability: true,
-            strictActionImmutability: true,
-          }
-        })],
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        }
+      })],
       declarations: [ToastComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

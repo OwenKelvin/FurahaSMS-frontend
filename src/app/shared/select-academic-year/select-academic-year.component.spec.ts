@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {SelectAcademicYearComponent} from './select-academic-year.component';
 import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
@@ -12,7 +12,7 @@ describe('SelectAcademicYearComponent', () => {
   let component: SelectAcademicYearComponent;
   let fixture: ComponentFixture<SelectAcademicYearComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AppLoadingBubbleModule,

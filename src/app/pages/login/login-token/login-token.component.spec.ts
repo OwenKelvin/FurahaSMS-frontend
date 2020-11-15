@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {LoginTokenComponent} from './login-token.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -14,7 +14,7 @@ describe('LoginTokenComponent', () => {
   let component: LoginTokenComponent;
   let fixture: ComponentFixture<LoginTokenComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

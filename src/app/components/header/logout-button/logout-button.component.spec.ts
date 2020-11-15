@@ -1,14 +1,14 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { LogoutButtonComponent } from './logout-button.component';
-import { StoreModule, Store } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import {LogoutButtonComponent} from './logout-button.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 
 describe('LogoutButtonComponent', () => {
   let component: LogoutButtonComponent;
   let fixture: ComponentFixture<LogoutButtonComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [LogoutButtonComponent],
       imports: [
@@ -23,7 +23,10 @@ describe('LogoutButtonComponent', () => {
       providers: [
         {
           provide: Store,
-          useValue: { dispatch: () => {} }
+          useValue: {
+            dispatch: () => {
+            }
+          }
         },
         reducerProvider,
       ],

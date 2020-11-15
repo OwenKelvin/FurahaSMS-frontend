@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {UserPasswordChangeComponent} from './user-password-change.component';
 import {PasswordChangeFormModule} from '../password-change-form/password-change-form.module';
@@ -12,7 +12,7 @@ describe('UserPasswordChangeComponent', () => {
   let component: UserPasswordChangeComponent;
   let fixture: ComponentFixture<UserPasswordChangeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         PasswordChangeFormModule,

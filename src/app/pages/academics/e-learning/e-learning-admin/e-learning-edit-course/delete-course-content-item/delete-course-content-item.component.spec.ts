@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { DeleteCourseContentItemComponent } from './delete-course-content-item.component';
 import {StoreModule} from '@ngrx/store';
@@ -12,7 +12,7 @@ describe('DeleteCourseContentItemComponent', () => {
   let component: DeleteCourseContentItemComponent;
   let fixture: ComponentFixture<DeleteCourseContentItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

@@ -36,7 +36,7 @@ export class MathService {
       }
     }
 
-    MathJax.Hub.Queue(['Typeset', MathJax.Hub, element]);
+    MathJax?.Hub?.Queue(['Typeset', MathJax?.Hub, element]);
   }
 
   removeTrailingBrackets(value: string): string {

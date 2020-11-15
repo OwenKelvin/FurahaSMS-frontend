@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ManageTeacherSubjectComponent} from './manage-teacher-subject.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -14,7 +14,7 @@ describe('ManageTeacherSubjectComponent', () => {
   let component: ManageTeacherSubjectComponent;
   let fixture: ComponentFixture<ManageTeacherSubjectComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

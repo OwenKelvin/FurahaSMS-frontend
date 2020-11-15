@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {MySchedulesComponent} from './my-schedules.component';
 import {StoreModule} from '@ngrx/store';
@@ -9,7 +9,7 @@ describe('MySchedulesComponent', () => {
   let component: MySchedulesComponent;
   let fixture: ComponentFixture<MySchedulesComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

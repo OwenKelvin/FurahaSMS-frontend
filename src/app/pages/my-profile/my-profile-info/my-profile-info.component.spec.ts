@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { MyProfileInfoComponent } from './my-profile-info.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -10,7 +10,7 @@ describe('MyProfileInfoComponent', () => {
   let component: MyProfileInfoComponent;
   let fixture: ComponentFixture<MyProfileInfoComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AppLoadingBubbleModule,

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {CreateAcademicYearTimeTableComponent} from './create-academic-year-time-table.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -15,7 +15,7 @@ describe('CreateAcademicYearTimeTableComponent', () => {
   let component: CreateAcademicYearTimeTableComponent;
   let fixture: ComponentFixture<CreateAcademicYearTimeTableComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ModalModule.forRoot(),
