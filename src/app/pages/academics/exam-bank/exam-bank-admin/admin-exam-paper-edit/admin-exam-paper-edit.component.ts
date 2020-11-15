@@ -266,7 +266,7 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   }
 
   canDeactivate() {
-    return this.submitted || confirm('Your Changes will be lost, continue ? ');
+    return !this.submitted ? confirm('Your Changes will be lost, continue ? ') : true;
   }
 
 }

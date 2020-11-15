@@ -41,6 +41,8 @@
 
             <app-e-learning-topic-materials [learningContents]='topic.learning_content_materials'>
             </app-e-learning-topic-materials>
+
+            <app-topic-online-assessment-list [assessments]="topic.online_assessments"></app-topic-online-assessment-list>
           </section>
           <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
             <ng-container

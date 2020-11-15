@@ -11,6 +11,7 @@ import {ELearningCourseViewComponent} from './e-learning-course-view/e-learning-
 import {ELearningTopicMaterialsModule} from '../e-learning-topic-materials/e-learning-topic-materials.module';
 import {ELearningTopicObjectivesModule} from '../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import {ModalModule} from 'ngx-bootstrap/modal';
+import {TopicOnlineAssessmentListModule} from '../topic-online-assessment-list/topic-online-assessment-list.module';
 
 @NgModule({
   declarations: [
@@ -27,7 +28,8 @@ import {ModalModule} from 'ngx-bootstrap/modal';
     FormsModule,
     ELearningTopicMaterialsModule,
     ELearningTopicObjectivesModule,
-    ModalModule.forRoot()
+    ModalModule.forRoot(),
+    TopicOnlineAssessmentListModule
   ]
 })
 export class ELearningCoursesModule {

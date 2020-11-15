@@ -1,8 +1,8 @@
-import { NgModule, Component } from '@angular/core';
-import { Routes, RouterModule } from '@angular/router';
-import { ELearningCoursesComponent } from './e-learning-courses.component';
-import { ELearningCourseItemComponent } from './e-learning-course-item/e-learning-course-item.component';
-import { ELearningCourseViewComponent } from './e-learning-course-view/e-learning-course-view.component';
+import {NgModule} from '@angular/core';
+import {RouterModule, Routes} from '@angular/router';
+import {ELearningCoursesComponent} from './e-learning-courses.component';
+import {ELearningCourseItemComponent} from './e-learning-course-item/e-learning-course-item.component';
+import {ELearningCourseViewComponent} from './e-learning-course-view/e-learning-course-view.component';
 
 
 const routes: Routes = [
@@ -46,9 +46,13 @@ const routes: Routes = [
             },
             loadChildren:
               () => import('./../e-learning-courses/e-learning-course-study-material/e-learning-course-study-material.module')
-                 .then(m => m.ELearningCourseStudyMaterialModule)
+                .then(m => m.ELearningCourseStudyMaterialModule)
           }
         ]
+      },
+      {
+        path: 'assessments',
+        loadChildren: () => import('./online-assessment/online-assessment.module').then(m => m.OnlineAssessmentModule)
       }
     ]
   }
@@ -58,4 +62,5 @@ const routes: Routes = [
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class ELearningCoursesRoutingModule { }
+export class ELearningCoursesRoutingModule {
+}

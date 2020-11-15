@@ -1,0 +1,17 @@
+<h1>Online Assessment</h1>
+<div class="card p-2">
+  <div class="d-flex flex-wrap align-items-center"  *ngIf=" assessment$ | async as  assessment; else loading">
+    <div class="col-lg-8">
+      <div class="mt-3 mb-3 assessment-name">{{ assessment.examPaperName }}</div>
+      <div>Exam Length: {{ assessment.period | duration }}</div>
+      <div> Available From : {{ assessment.availableAt }}</div>
+      <div>Available To : {{ assessment.closingAt }}</div>
+    </div>
+    <div class="col-lg-4">
+      <a class="btn btn-primary btn-lg" (click)="takeTest()">Take The Assessment</a>
+    </div>
+  </div>
+  <ng-template #loading>
+    <app-loading-bubble></app-loading-bubble>
+  </ng-template>
+</div>

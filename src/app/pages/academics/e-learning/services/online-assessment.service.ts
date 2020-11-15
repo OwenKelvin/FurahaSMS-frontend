@@ -20,4 +20,6 @@ export class OnlineAssessmentService {
   })
 
   deleteAssessmentWithId = ({topicId, assessmentId}: any) => this.http.delete(this.urlWithId(topicId, assessmentId));
+
+  getAssessmentWithId = (assessmentId: number) => this.http.get<{[key: string]: any }>(this.urlWithId(0, assessmentId))
 }
