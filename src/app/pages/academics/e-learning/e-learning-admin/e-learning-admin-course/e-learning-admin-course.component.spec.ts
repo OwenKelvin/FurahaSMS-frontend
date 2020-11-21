@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ELearningAdminCourseComponent } from './e-learning-admin-course.component';
 import { RouterTestingModule } from '@angular/router/testing';

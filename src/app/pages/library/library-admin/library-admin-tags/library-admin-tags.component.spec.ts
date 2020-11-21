@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LibraryAdminTagsComponent } from './library-admin-tags.component';
 import { StoreModule } from '@ngrx/store';

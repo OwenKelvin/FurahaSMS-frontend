@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ExamBankDashboardComponent} from './exam-bank-dashboard.component';
 import {AppLinksModule} from 'src/app/shared/links/links.module';

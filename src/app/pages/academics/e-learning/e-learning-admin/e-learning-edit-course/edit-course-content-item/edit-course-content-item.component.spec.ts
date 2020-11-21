@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {EditCourseContentItemComponent} from './edit-course-content-item.component';
 import {AppInputModule} from '../../../../../../components/input/app-input.module';

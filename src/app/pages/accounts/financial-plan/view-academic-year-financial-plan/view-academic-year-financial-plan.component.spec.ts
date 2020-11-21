@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ViewAcademicYearFinancialPlanComponent } from './view-academic-year-financial-plan.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';

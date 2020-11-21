@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { RolesPermissionEditComponent } from './roles-permission-edit.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

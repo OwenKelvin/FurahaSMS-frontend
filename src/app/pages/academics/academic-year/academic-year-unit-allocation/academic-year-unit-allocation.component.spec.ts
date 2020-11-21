@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation.component';
 import { AcademicsModule } from '../../academics.module';

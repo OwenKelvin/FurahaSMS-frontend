@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ELearningTopicObjectivesComponent} from './e-learning-topic-objectives.component';
 import {StoreModule} from '@ngrx/store';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TelInputComponent} from './tel-input.component';
 import {FormsModule, ReactiveFormsModule, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl} from '@angular/forms';

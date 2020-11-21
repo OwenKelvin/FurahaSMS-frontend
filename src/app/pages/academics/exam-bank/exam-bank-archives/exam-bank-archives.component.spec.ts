@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ExamBankArchivesComponent } from './exam-bank-archives.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';

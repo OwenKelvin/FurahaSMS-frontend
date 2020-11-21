@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {MyProfileComponent} from './my-profile.component';
 import {AppUserProfileModule} from 'src/app/components/user-profile/user-profile.module';

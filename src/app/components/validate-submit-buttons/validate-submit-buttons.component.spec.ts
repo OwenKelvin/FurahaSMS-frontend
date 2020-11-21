@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ValidateSubmitButtonsComponent } from './validate-submit-buttons.component';
 import { FormGroup } from '@angular/forms';

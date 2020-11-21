@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateStudyMaterialComponent } from './create-study-material.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';

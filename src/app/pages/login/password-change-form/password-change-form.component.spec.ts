@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {PasswordChangeFormComponent} from './password-change-form.component';
 import {RouterTestingModule} from '@angular/router/testing';

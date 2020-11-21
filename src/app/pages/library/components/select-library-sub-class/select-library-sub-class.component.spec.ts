@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { SelectLibrarySubClassComponent } from './select-library-sub-class.component';
 import { StoreModule } from '@ngrx/store';

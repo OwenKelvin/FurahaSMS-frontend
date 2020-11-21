@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FinancialPlanComponent } from './financial-plan.component';
 import { SelectAcademicYearComponent } from 'src/app/shared/select-academic-year/select-academic-year.component';

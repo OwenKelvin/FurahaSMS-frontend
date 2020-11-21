@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TimeTableTimingsComponent } from './time-table-timings.component';
 import { ModalModule } from 'ngx-bootstrap/modal';

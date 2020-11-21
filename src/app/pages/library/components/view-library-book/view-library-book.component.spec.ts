@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ViewLibraryBookComponent} from './view-library-book.component';
 import {LibraryModule} from '../../library.module';

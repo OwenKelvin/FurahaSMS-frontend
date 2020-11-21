@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {LoginPasswordChangeComponent} from './login-password-change.component';
 import {ErrorModule} from 'src/app/components/error/error.module';

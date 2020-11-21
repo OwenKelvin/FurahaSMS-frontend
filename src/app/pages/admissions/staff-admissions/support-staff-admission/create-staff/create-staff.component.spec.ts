@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateStaffComponent } from './create-staff.component';
 import { StoreModule, Store } from '@ngrx/store';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { NewPaymentReceiptComponent } from './new-payment-receipt.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

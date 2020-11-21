@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AdminExamPaperEditComponent } from './admin-exam-paper-edit.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

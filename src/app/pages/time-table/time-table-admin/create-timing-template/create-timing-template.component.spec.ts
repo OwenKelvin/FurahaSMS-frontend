@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateTimingTemplateComponent } from './create-timing-template.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';

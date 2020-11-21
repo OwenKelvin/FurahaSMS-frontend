@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AcademicYearsComponent } from './academic-years.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';

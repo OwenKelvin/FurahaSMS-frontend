@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateSemesterComponent } from './create-semester.component';
 import { ErrorModule } from 'src/app/components/error/error.module';

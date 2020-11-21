@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateExamComponent } from './create-exam.component';
 import { AppInputModule } from 'src/app/components/input/app-input.module';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {CreateAcademicYearTimeTableComponent} from './create-academic-year-time-table.component';
 import {ModalModule} from 'ngx-bootstrap/modal';

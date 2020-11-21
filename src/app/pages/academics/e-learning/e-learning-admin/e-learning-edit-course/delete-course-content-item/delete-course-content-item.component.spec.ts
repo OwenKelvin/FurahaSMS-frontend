@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { DeleteCourseContentItemComponent } from './delete-course-content-item.component';
 import {StoreModule} from '@ngrx/store';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ViewGuardianInfoComponent } from './view-guardian-info.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';

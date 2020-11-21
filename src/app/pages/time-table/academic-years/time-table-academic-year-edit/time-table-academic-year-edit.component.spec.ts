@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TimeTableAcademicYearEditComponent} from './time-table-academic-year-edit.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LibraryAdminPublisherItemComponent } from './library-admin-publisher-item.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';

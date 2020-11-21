@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { HeaderCollapseComponent } from './header-collapse.component';
 import { MenuSearchComponent } from '../menu-search/menu-search.component';

@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TimeTableAdminComponent } from './time-table-admin.component';
 import { TimeTableTimingsComponent } from './time-table-timings/time-table-timings.component';
