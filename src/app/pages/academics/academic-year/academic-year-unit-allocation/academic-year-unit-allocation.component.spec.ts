@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AcademicYearUnitAllocationComponent } from './academic-year-unit-allocation.component';
 import { AcademicsModule } from '../../academics.module';
@@ -14,7 +14,7 @@ describe('AcademicYearUnitAllocationComponent', () => {
   let component: AcademicYearUnitAllocationComponent;
   let fixture: ComponentFixture<AcademicYearUnitAllocationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

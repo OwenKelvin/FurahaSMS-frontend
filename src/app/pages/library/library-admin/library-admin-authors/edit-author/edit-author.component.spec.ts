@@ -10,6 +10,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {EditorModule} from '@tinymce/tinymce-angular';
 
 describe('EditAuthorComponent', () => {
   let component: EditAuthorComponent;
@@ -19,6 +20,7 @@ describe('EditAuthorComponent', () => {
   beforeEach(async () => {
     TestBed.configureTestingModule({
       imports: [
+        EditorModule,
         StoreModule.forRoot(REDUCER_TOKEN, {
           metaReducers,
           runtimeChecks: {

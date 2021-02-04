@@ -4,6 +4,7 @@ import { dashboardLinks } from '../data-files/dashboard-links.data-file'
 import { accountsLinks } from '../data-files/accounts-links.data-file'
 import { examBankLinks } from '../data-files/exam-bank.data-file';
 import { procurementLinks } from '../data-files/procurement.data-file';
+import { academicCurriculumLinks } from '../data-files/academic-curriculum.data-file';
 
 
 export const permissionsFeatureKey = 'permissions';
@@ -58,36 +59,7 @@ export const initialState: State = {
     }
   ],
 
-  academicCurriculum: [
-    {
-      name: 'Subject Categories', icon: 'icon-docs', link: 'academics/curriculum/unit-categories',
-      permissions: ['access curriculum management', 'view subject curriculum', 'edit subject curriculum',
-        'create subject curriculum'
-      ]
-    },
-    {
-      name: 'Subject Units', icon: 'icon-docs', link: 'academics/curriculum/units',
-      permissions: ['access curriculum management', 'view subject curriculum', 'edit subject curriculum',
-        'create subject curriculum'
-      ]
-    },
-    {
-      name: 'Class Level Categories', icon: 'icon-docs', link: 'academics/curriculum/class-level-categories',
-      permissions: ['access curriculum management', 'view subject curriculum', 'edit subject curriculum',
-        'create subject curriculum'
-      ]
-    },
-    {
-      name: 'Class Levels', icon: 'icon-docs', link: 'academics/curriculum/class-levels',
-      permissions: ['access curriculum management', 'view subject curriculum', 'edit subject curriculum',
-        'create subject curriculum']
-    },
-    {
-      name: 'Semester/ Terms', icon: 'icon-docs', link: 'academics/curriculum/semesters',
-      permissions: ['access curriculum management', 'view subject curriculum', 'edit subject curriculum',
-        'create subject curriculum']
-    },
-  ],
+  academicCurriculum: academicCurriculumLinks,
 
   library: [
     {

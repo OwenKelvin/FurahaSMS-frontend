@@ -97,7 +97,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
     this.isSubmitting = true;
     this.studyMaterialService.uploadDocument(this.pdfFile)
       .pipe(map(({ data }) => data))
-      .pipe(mergeMap(({ id: docId }) => this.studyMaterialService.saveStudyaterialInfo({ docId, data: this.studyMaterialForm.value })))
+      .pipe(mergeMap(({ id: docId }) => this.studyMaterialService.saveStudyMaterialInfo({ docId, data: this.studyMaterialForm.value })))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(() => {
         this.isSubmitting = false;

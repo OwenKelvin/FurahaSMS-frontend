@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LibraryAdminTagsComponent } from './library-admin-tags.component';
 import { StoreModule } from '@ngrx/store';
@@ -13,7 +13,7 @@ describe('LibraryAdminTagsComponent', () => {
   let component: LibraryAdminTagsComponent;
   let fixture: ComponentFixture<LibraryAdminTagsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

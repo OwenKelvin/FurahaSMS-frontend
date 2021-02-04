@@ -1,6 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {Observable} from 'rxjs';
+import {tap} from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -10,7 +11,9 @@ export class LibraryBookClassificationService {
   constructor(private http: HttpClient) {
   }
 
-  all$: Observable<any> = this.http.get('/api/library-books/classifications');
+  all$: Observable<any> = this.http.get('/api/library-books/classifications').pipe(
+    tap(res => console.log('==========>', {res}))
+  )
 
   save(data: any): Observable<any> {
     if (data.id === 0) {

@@ -1,0 +1,27 @@
+<h1>Class Level - Unit Allocation</h1>
+<!--{{ classLevelsWithUnits$ | async | json }}-->
+<ng-container *ngIf="v$ | async as v; else loading">
+  <a [routerLink]="['../edit']" class="btn btn-primary" ><span class="icon-edit"></span>Edit Unit Allocations</a>
+  <table class="table table-dark">
+    <thead>
+    <tr class="d-flex flex-wrap">
+      <th class="col-lg-4"> Class Level</th>
+      <th class="col-lg-8">Unit Levels</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr *ngFor="let classLevel of v.classLevels; let i = index" class="d-flex flex-wrap">
+      <td class="col-lg-4">{{ classLevel.name }}</td>
+      <td class="col-lg-8">
+        <div class="d-flex flex-wrap">
+          <span *ngFor="let unitLevel of classLevel.taughtUnits" class="badge badge-secondary p-2 m-2 pt-3 pb-3">{{ unitLevel.name }}</span>
+        </div>
+      </td>
+    </tr>
+    </tbody>
+  </table>
+
+</ng-container>
+<ng-template #loading>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

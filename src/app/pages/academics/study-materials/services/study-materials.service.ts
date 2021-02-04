@@ -1,29 +1,32 @@
-import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { stringify } from 'querystring';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient, HttpHeaders} from '@angular/common/http';
+import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
 })
 export class StudyMaterialsService {
   downloadDocumentWithFilePath(filePath: any) {
-    const queryStringParams = stringify({ file_path: filePath });
+    const queryStringParams = stringify({file_path: filePath});
     const headers = new HttpHeaders();
+    headers.append('Accept', 'application/octet-stream');
+    headers.append('Content-Type', 'application/octet-stream');
 
-    headers.append('Accept', 'application/pdf');
-    headers.append('Content-Type', 'application/pdf',);
-
-    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, { headers, responseType: 'blob' })
+    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, {headers, responseType: 'blob'})
   }
+
   getMaterialWithId(id: number): any {
     return this.http.get(`api/study-materials/${id}`);
   }
-  getAll({ active }: {active: any}): any {
+
+  getAll({active}: { active: any }): any {
     return this.http.get(`api/study-materials?active=${active}`);
   }
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+  }
+
   uploadDocument(file: File): Observable<any> {
 
     const myFormData = new FormData();
@@ -36,8 +39,9 @@ export class StudyMaterialsService {
       headers
     });
   }
-  saveStudyaterialInfo({ docId, data }: { docId: number, data: any }): Observable<any> {
-    const { title, units, classLevels } = data;
+
+  saveStudyMaterialInfo({docId, data}: { docId: number, data: any }): Observable<any> {
+    const {title, units, classLevels} = data;
     return this.http.post('api/study-materials', {
       title, units, classLevels, docId
     });

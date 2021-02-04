@@ -17,7 +17,7 @@
   </section>
   <section class="card-body mb-0 choices">
     <section aria-label="Question:" class="pb-2 border-bottom" tabindex="0">
-      <p [innerHtml]='question.description'></p>
+      <p [appMath]='{latex : question.description }'></p>
     </section>
     <fieldset class="bg-dark mt-1" tabindex="0">
       <legend>Choices</legend>
@@ -26,10 +26,10 @@
       <span *ngIf='question.multipleAnswers  && question.multipleChoices'>[Question can have multiple answers]</span>
       <ul class="list-group " *ngIf='question.multipleChoices || question.validated'>
         <ng-container *ngIf='question.validated; else notValidated'>
-          <li 
-            [class.correct-answer]="(!!answer.isCorrect === answer.selected) && (!!answer.isCorrect)" 
-            [class.incorrect-answer]="(!answer.isCorrect === answer.selected) && (!answer.isCorrect)" 
-            *ngFor='let answer of question.answers; let k = index' 
+          <li
+            [class.correct-answer]="(!!answer.isCorrect === answer.selected) && (!!answer.isCorrect)"
+            [class.incorrect-answer]="(!answer.isCorrect === answer.selected) && (!answer.isCorrect)"
+            *ngFor='let answer of question.answers; let k = index'
             class="list-group-item list-group-flush bg-dark mt-1">
             <span [class.text-success]='answer.isCorrect'
               [class.icon-check-empty]='!answer.isCorrect && !answer.selected' [class.icon-check]="answer.isCorrect || answer.selected"
@@ -50,12 +50,12 @@
         </ng-template>
 
       </ul>
-      
+
     </fieldset>
-    <button 
+    <button
       [disabled]='answerSelected(question.answers) && question.multipleChoices'
-      (click)='question.validated = true' 
-      *ngIf='!question.validated' 
+      (click)='question.validated = true'
+      *ngIf='!question.validated'
       class="btn btn-success btn-sm"> Check </button>
     <section *ngIf='question.validated' [attr.aria-labelledby]='"explanation" + i' tabindex="0">
       <strong [id]='"explanation" + i'>Explanation: </strong><span

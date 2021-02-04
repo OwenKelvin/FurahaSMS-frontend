@@ -13,19 +13,19 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf='feeStatement$ | async as statement; else loading'>
+          <ng-container *ngIf='v$ | async as v; else loading'>
             <tr>
               <td></td>
               <td></td>
               <td class="aquamarine" *ngFor='let sem of semesters'><strong>{{ sem.semesterName }}</strong></td>
               <td class="aquamarine"><strong>KES</strong></td>
               <td class="aquamarine"><strong>KES</strong></td>
-            
+
             </tr>
 
             <ng-container *ngFor='let academicYear of academicYears'>
               <tr>
-              
+
                 <td class="aquamarine" colspan="2">{{ academicYear.academicYearName }}, {{ academicYear.classLevelName }}</td>
                 <td *ngFor='let sem of semesters'>
                   {{ getOtherCostTotal(academicYear.academicYearId, academicYear.classLevelId,null,sem.semesterId) + getCostValue(academicYear.academicYearId, academicYear.classLevelId, sem.semesterId) | currency: ' ' }}
@@ -37,12 +37,12 @@
               </tr>
             </ng-container>
             <tr>
-            
+
               <td colspan="6"><strong>TOTAL FEES</strong></td>
               <td>
                 <strong>{{ totalCost | currency: ' ' }}</strong>
               </td>
-            
+
             </tr>
             <tr>
               <td colspan="7"></td>
@@ -55,9 +55,9 @@
               <td [attr.colspan]='semesters?.length - 2'></td>
               <td class="aquamarine"><strong>KES</strong></td>
               <td class="aquamarine"><strong>KES</strong></td>
-            
+
             </tr>
-            <tr *ngFor='let payment of statement.payments'>
+            <tr *ngFor='let payment of v.statement?.payments'>
               <td>
                 {{ payment.id}}
               </td>
@@ -90,7 +90,7 @@
             <tr>
               <td colspan="7"></td>
             </tr>
-            
+
           </ng-container>
           <ng-template #loading>
             <tr>

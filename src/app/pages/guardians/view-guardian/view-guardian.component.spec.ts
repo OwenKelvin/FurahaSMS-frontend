@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {ViewGuardianComponent} from './view-guardian.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -13,7 +13,7 @@ describe('ViewGuardianComponent', () => {
   let component: ViewGuardianComponent;
   let fixture: ComponentFixture<ViewGuardianComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

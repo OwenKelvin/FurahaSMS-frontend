@@ -13,14 +13,14 @@ export class LibraryBookClassificationEffects {
   constructor(private actions$: Actions, private bookClassificationService: LibraryBookClassificationService) {
   }
 
-  loadibraryBookClassifications$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadLibraryBookClassifications$ = createEffect(() =>
+    this.actions$.pipe(
       ofType(LibraryBookClassificationActions.loadBookClassifications),
-      concatMap(() => {
-        return this.bookClassificationService.all$.pipe(
+      concatMap(() =>
+        this.bookClassificationService.all$.pipe(
           map(data => LibraryBookClassificationActions.loadBookClassificationsSuccess({data})),
-          catchError(error => of(LibraryBookClassificationActions.loadBookClassificationsFailure({error}))));
-      })
-    );
-  });
+          catchError(error => of(LibraryBookClassificationActions.loadBookClassificationsFailure({error}))))
+      )
+    )
+  );
 }

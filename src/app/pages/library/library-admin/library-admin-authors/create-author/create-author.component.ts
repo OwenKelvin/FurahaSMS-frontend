@@ -1,25 +1,40 @@
-
-import { Component, OnInit, OnDestroy } from '@angular/core';
-import { Store } from '@ngrx/store';
+import {Component} from '@angular/core';
+import {Store} from '@ngrx/store';
 import * as fromStore from '../../../../../store/reducers';
-import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
-import { Router, ActivatedRoute } from '@angular/router';
-import { LibraryAuthorService } from 'src/app/pages/library/services/library-author.service';
-import { takeWhile } from 'rxjs/operators';
+import {FormBuilder, FormGroup, Validators} from '@angular/forms';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LibraryAuthorService} from 'src/app/pages/library/services/library-author.service';
+import {map, mergeMap, takeUntil, tap} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
+import {formWithEditorMixin} from '../../../../../shared/mixins/form-with-editor.mixin';
+import {from} from 'rxjs';
 
 @Component({
   selector: 'app-create-author',
   templateUrl: './create-author.component.html',
   styleUrls: ['./create-author.component.css']
 })
-export class CreateAuthorComponent implements OnInit, OnDestroy {
+export class CreateAuthorComponent extends subscribedContainerMixin(formWithEditorMixin()) {
 
-  isLoading: boolean;
-  isSubmitting: boolean;
-  triggerValidation: boolean;
-  newBookAuthorForm: FormGroup;
-  editPage: boolean;
-  componentIsActive: boolean;
+  newBookAuthorForm: FormGroup = this.fb.group({
+    id: [0, []],
+    name: ['', [Validators.required]],
+    biography: ['']
+  });
+  authorId$ = this.route.paramMap.pipe(
+    map(params => Number(params.get('id')))
+  )
+
+  editPage$ = this.authorId$.pipe(map(id => id > 0))
+  author$ = this.authorId$.pipe(
+    mergeMap(id => id > 0 ? this.libraryAuthorService.getAuthorWithId(id) : from([{id: 0, name: '', biography: ''}])),
+    tap((res: any) => this.newBookAuthorForm.patchValue({
+      id: res.id,
+      name: res.name,
+      biography: res.biography
+    }))
+  )
+
   constructor(
     private libraryAuthor: LibraryAuthorService,
     private store: Store<fromStore.AppState>,
@@ -27,46 +42,18 @@ export class CreateAuthorComponent implements OnInit, OnDestroy {
     private router: Router,
     private route: ActivatedRoute,
     private libraryAuthorService: LibraryAuthorService,
-  ) { }
-
-  ngOnInit() {
-    this.componentIsActive = true;
-    this.newBookAuthorForm = this.fb.group({
-      id: [0, []],
-      name: ['', [Validators.required]],
-      biography: ['']
-    });
-    this.route.paramMap
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(params => {
-      const id = Number(params.get('id'));
-      if (id > 0) {
-        this.editPage = true;
-        this.isLoading = true;
-        this.libraryAuthorService.getAuthorWithId(id)
-          .pipe(takeWhile(() => this.componentIsActive))
-          .subscribe(author => {
-          const authorConverted = author as { name: string, id: string, biography: string; };
-          (this.newBookAuthorForm.get('id') as FormControl).setValue(authorConverted.id);
-          (this.newBookAuthorForm.get('name') as FormControl).setValue(authorConverted.name);
-          this.isLoading = false;
-        });
-      }
-    });
+  ) {
+    super();
   }
 
   submitNewBookAuthorForm() {
-    this.isSubmitting = true;
+    this.submitInProgressSubject$.next(true);
     this.libraryAuthor.save(this.newBookAuthorForm.value)
-      .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(res => {
-      this.isSubmitting = false;
-      this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']);
-    }, () => {
-      this.isSubmitting = false;
-    });
+      .pipe(takeUntil(this.destroyed$))
+      .subscribe({
+        next: (res) => this.router.navigate(['library', 'admin', 'authors', res.data.id, 'view']),
+        error: () => this.submitInProgressSubject$.next(false)
+      });
   }
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
+
 }

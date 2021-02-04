@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { TimeTableAdminComponent } from './time-table-admin.component';
 import { TimeTableTimingsComponent } from './time-table-timings/time-table-timings.component';
@@ -13,7 +13,7 @@ describe('TimeTableAdminComponent', () => {
   let component: TimeTableAdminComponent;
   let fixture: ComponentFixture<TimeTableAdminComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TabsModule.forRoot(),

@@ -3,7 +3,6 @@ import { CommonModule } from '@angular/common';
 import { FileExtentionPipe } from './file-extention.pipe';
 
 
-
 @NgModule({
   declarations: [FileExtentionPipe],
   exports: [FileExtentionPipe],
@@ -11,4 +10,4 @@ import { FileExtentionPipe } from './file-extention.pipe';
     CommonModule
   ]
 })
-export class FileExtentionModule { }
+export class FileExtensionModule { }

@@ -1,0 +1,23 @@
+<div class="modal-header bg-dark">
+  <h4 class="modal-title pull-left">Delete Content Confirmation</h4>
+  <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+    <span aria-hidden="true">&times;</span>
+
+  </button>
+</div>
+<div class="modal-body bg-dark">
+  <p class="text-danger">You are about to delete Content <span class="text-primary">"{{ learningContent.study_material.title }}"</span></p>
+
+  <p>Please Enter #{{ learningContent.id }} to confirm action</p>
+  <input placeholder="eg #1234" aria-label="Course Name" type="text" class="form-control" [(ngModel)]='contentId'>
+</div>
+<div class="modal-footer bg-dark">
+  <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
+  <button (click)='deleteCourseContentItem()' [disabled]='(contentId !=  "#" + learningContent.id) || (submitInProgressAction$ | async)'
+          class="btn btn-danger">
+    <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Content from Course</span>
+    <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>
+    <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>
+    <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+  </button>
+</div>

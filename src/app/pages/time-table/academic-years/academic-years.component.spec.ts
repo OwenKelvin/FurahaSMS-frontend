@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AcademicYearsComponent } from './academic-years.component';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
@@ -7,7 +7,7 @@ describe('AcademicYearsComponent', () => {
   let component: AcademicYearsComponent;
   let fixture: ComponentFixture<AcademicYearsComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AccordionModule.forRoot()

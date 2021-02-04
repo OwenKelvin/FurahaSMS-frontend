@@ -1,4 +1,5 @@
 export interface ICourse {
+  unitLevelId?: number;
   id?: number;
   name: string;
   description?: string;

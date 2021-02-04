@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { BarcodeComponent } from './barcode.component';
 import { AppBarcodeModule } from './barcode.module';
@@ -7,7 +7,7 @@ describe('BarcodeComponent', () => {
   let component: BarcodeComponent;
   let fixture: ComponentFixture<BarcodeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         AppBarcodeModule

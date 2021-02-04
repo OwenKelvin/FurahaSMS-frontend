@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateStudyMaterialComponent } from './create-study-material.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ describe('CreateStudyMaterialComponent', () => {
   let component: CreateStudyMaterialComponent;
   let fixture: ComponentFixture<CreateStudyMaterialComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         ReactiveFormsModule,

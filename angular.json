@@ -48,6 +48,16 @@
                 "glob": "**/*",
                 "input": "node_modules/tinymce/icons",
                 "output": "/tinymce/icons/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/@dimakorotkov/tinymce-mathjax",
+                "output": "/tinymce/plugins/tinymce-mathjax/"
+              },
+              {
+                "glob": "**/*",
+                "input": "node_modules/mathjax",
+                "output": "mathjax"
               }
             ],
             "styles": [

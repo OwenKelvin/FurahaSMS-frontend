@@ -1,11 +1,9 @@
-import { Injectable } from '@angular/core';
-import { Actions, createEffect, ofType, Effect } from '@ngrx/effects';
+import {Injectable} from '@angular/core';
+import {Actions, createEffect, ofType} from '@ngrx/effects';
 import * as fromCourses from '../actions/courses.actions';
-import { concatMap, map, catchError, tap } from 'rxjs/operators';
-import { of } from 'rxjs';
-import { ELearningService } from '../../e-learning/services/e-learning.service';
-import { Store } from '@ngrx/store';
-
+import {catchError, concatMap, map} from 'rxjs/operators';
+import {of} from 'rxjs';
+import {ELearningService} from '../../e-learning/services/e-learning.service';
 
 
 @Injectable()
@@ -13,23 +11,20 @@ export class CoursesEffects {
 
   constructor(
     private actions$: Actions,
-    private eLerningService: ELearningService,
-    private store: Store
+    private eLearningService: ELearningService,
   ) {
 
   }
 
-
   loadCourses$ = createEffect(() => {
     return this.actions$
       .pipe(ofType(fromCourses.loadCourses),
-        concatMap((action) => {
-          return this.eLerningService.getCourseWithId(action.data.id)
-
-            .pipe(map(data => fromCourses.loadCoursesSuccess({ data }),
-              catchError(error => of(fromCourses.loadCoursesFailure({ error }))))
+        concatMap((action) =>
+          this.eLearningService.getCourseWithId(action.data.id)
+            .pipe(map(data => fromCourses.loadCoursesSuccess({data}),
+              catchError(error => of(fromCourses.loadCoursesFailure({error}))))
             )
-        })
+        )
       );
   });
-};
+}

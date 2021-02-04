@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FinancialCostsMaintenanceComponent } from './financial-costs-maintenance.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -13,7 +13,7 @@ describe('FinancialCostsMaintenanceComponent', () => {
   let component: FinancialCostsMaintenanceComponent;
   let fixture: ComponentFixture<FinancialCostsMaintenanceComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,

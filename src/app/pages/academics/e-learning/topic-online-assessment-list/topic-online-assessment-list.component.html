@@ -1,0 +1,51 @@
+<section *ngIf='assessments && assessments.length > 0' class='card mt-1 p-2'>
+  <div *ngFor='let assessment of assessments; let i = index' style='border-bottom: rgba(227, 241, 105, 0.226) 2px solid'
+       class="mb-3">
+    <button (click)="deleteItem(assessment.id)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-danger btn-sm">
+      <span class="icon-trash"></span>
+    </button>
+    <button (click)="editItem(assessment.exam_paper_id)" *ngIf="edit" type="button" aria-label="delete content" class="float-right btn btn-primary btn-sm mr-2">
+      <span class="icon-edit"></span>
+    </button>
+    <a
+      [routerLink]='["..","assessments", assessment.id]'
+      class="d-flex flex-wrap p-0">
+
+      <div class="col-lg-12 d-flex flex-wrap justify-content-between pb-2"
+      >
+        <span><i class="icon-college"></i>{{ assessment.exam_paper_name }}</span>
+        <small>Available: {{ assessment.available_at | date: 'MMM dd, y h:mm a' }} - {{ assessment.closing_at | date: 'MMM dd, y h:mm a' }}</small>
+        <small>Period: {{ assessment.period | duration  }}</small>
+
+      </div>
+    </a>
+  </div>
+</section>
+
+<ng-template #deleteConfirmationDialogue>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">Delete Content Confirmation</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <div class="modal-body bg-dark">
+    <p class="text-danger">You are about to delete Assessment" <span class="info">" {{ editedItem.exam_paper_name}}"</span></p>
+
+    <p>Please Enter #{{ editedItem.id }} to confirm action</p>
+    <input placeholder="eg #1234" aria-label="Course Name" type="text" class="form-control" [(ngModel)]='contentId'>
+  </div>
+  <div class="modal-footer bg-dark">
+    <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
+    <button (click)='deleteAssessmentItem()' [disabled]='(contentId !=  "#" + editedItem.id) || (submitInProgressAction$ | async)'
+            class="btn btn-danger">
+      <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Assessment</span>
+      <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>
+      <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>
+      <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+    </button>
+  </div>
+
+</ng-template>
+

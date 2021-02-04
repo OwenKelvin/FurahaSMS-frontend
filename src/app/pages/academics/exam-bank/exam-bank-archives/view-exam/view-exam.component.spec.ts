@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ViewExamComponent } from './view-exam.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -10,7 +10,7 @@ describe('ViewExamComponent', () => {
   let component: ViewExamComponent;
   let fixture: ComponentFixture<ViewExamComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

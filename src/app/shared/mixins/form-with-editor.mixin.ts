@@ -16,8 +16,16 @@ export const formWithEditorMixin = () =>
         'searchreplace fullscreen',
         'insertdatetime media table paste code help wordcount'
       ],
+      external_plugins: { mathjax: '/tinymce/plugins/tinymce-mathjax/plugin.min.js'},
+      mathjax: {
+        lib: '/mathjax/es5/tex-mml-chtml.js',
+        symbols: {start: '\\\(', end: '\\\)'},
+        className: 'math-tex',
+        configUrl: '/tinymce/plugins/tinymce-mathjax/plugin.min.js'
+      },
       toolbar:
-        'undo redo | formatselect | bold italic backcolor | image | \
+        'mathjax | \
+        undo redo | formatselect | bold italic backcolor | image | \
                        alignleft aligncenter alignright alignjustify | \
                        bullist numlist outdent indent | removeformat | help'
     };

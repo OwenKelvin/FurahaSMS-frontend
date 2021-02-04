@@ -1,17 +1,96 @@
-<section *ngIf='academicYearPlan$ | async as academicYearPlan'>
+<section *ngIf='v$ | async as v; else loading'>
   <h1>
-    Financial Plan <span class='icon-right-dir'></span> Academic Year
-    <span *ngIf='academicYearPlan.academicYear.id !== 0' class="icon-right-dir"></span>
-    <span *ngIf='academicYearPlan.academicYear.id !== 0'>{{ academicYearPlan.academicYear.name }}</span>
+    Financial Plan <span class='icon-right-dir'></span> Academic Year <span class="icon-right-dir"></span>
+    <span>{{ v.academicYear?.name }}</span>
   </h1>
-  <app-loading-bubble *ngIf='academicYearPlan.academicYear.id === 0; else contents'></app-loading-bubble>
 
-  <ng-template #contents>
+  <div class="card p-2">
     <section class="d-flex justify-content-end">
-      <a [routerLink]='["/accounts", "financial-plan", "academic-year", academicYearPlan.academicYear.id, "edit"]'
-        class='btn btn-primary btn-sm'>
+      <a [routerLink]='["/accounts", "financial-plan", "academic-year", v.academicYear?.id, "edit"]'
+         class='btn btn-primary btn-sm'>
         Edit <span class="icon-edit"></span>
       </a>
     </section>
-  </ng-template>
+    <div class="mb-4" *ngFor="let classLevel of v.financialPlan">
+      <h2>{{classLevel.name}}</h2>
+      <fieldset class="card p-2">
+        <legend>Tuition Fee</legend>
+
+        <table class="table table-dark">
+          <thead>
+          <tr>
+            <th>Name</th>
+            <th *ngFor="let sem of v.semesters">
+              {{ sem.name }}
+            </th>
+            <th class="text-right pr-2 pr-md-3 pr-lg-4 ">TOTAL</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let unit of classLevel.unitLevels">
+            <td>
+              <pre class="text-light"> {{ unit.unitName }}</pre>
+            </td>
+            <td *ngFor="let sem of unit.semesters">{{ sem.amount | currency:' ' }}</td>
+            <td class="text-right pr-2 pr-md-3 pr-lg-4 "><strong>{{ unit.total | currency:' ' }}</strong></td>
+          </tr>
+          <tr>
+            <td><strong>TOTAL</strong></td>
+            <td *ngFor="let sem of v.semesters">
+              <strong>{{ classLevel.tuitionSemTotals[sem.id] | currency: ' '}}</strong>
+            </td>
+            <td class="text-right pr-2 pr-md-3 pr-lg-4 "><strong>{{classLevel.tuitionTotals}}</strong></td>
+          </tr>
+          </tbody>
+        </table>
+      </fieldset>
+      <fieldset class="card p-2">
+        <legend>Other Fees</legend>
+        <table class="table table-dark">
+          <thead>
+          <tr>
+            <th>Cost Name</th>
+            <th>Cost Item</th>
+            <th *ngFor="let sem of v.semesters">
+              {{ sem.name }}
+            </th>
+            <th class="text-right pr-2 pr-md-3 pr-lg-4 ">TOTAL</th>
+          </tr>
+          </thead>
+          <tbody>
+          <ng-container *ngFor="let cost of classLevel.financialCosts; let i = index">
+            <ng-container *ngFor="let costItem of cost.costItems; let j = index">
+              <tr>
+                <td [attr.rowspan]="cost.costItems.length" *ngIf="j === 0">{{ cost.name }}</td>
+                <td>{{ cost.costItems[j].name }}</td>
+                <td *ngFor="let sem of cost.costItems[j].semesters">{{ sem.amount }}</td>
+                <td class="text-right pr-2 pr-md-3 pr-lg-4 ">{{ cost.costItems[j].total | currency: ' ' }}</td>
+              </tr>
+            </ng-container>
+          </ng-container>
+          <tr>
+            <td colspan="2"><strong>TOTAL</strong></td>
+            <td *ngFor="let sem of v.semesters">
+              <strong>{{ classLevel.semTotals[sem.id] | currency: ' '}}</strong>
+            </td>
+            <td class="text-right pr-2 pr-md-3 pr-lg-4 ">
+              <strong>{{ classLevel.total | currency: ' ' }}</strong>
+            </td>
+          </tr>
+          </tbody>
+        </table>
+      </fieldset>
+      <div class="card mt-1">
+        <div class="d-flex justify-content-around">
+          <small class="display-4">{{ classLevel.name | titlecase}} Total Fees</small>
+          <small class="display-4">{{ classLevel.totals | currency: 'KES ' }}</small>
+        </div>
+      </div>
+
+    </div>
+  </div>
 </section>
+<ng-template #loading>
+  <h1>Financial Plan <span class='icon-right-dir'></span> Academic Year</h1>
+  <app-loading-bubble></app-loading-bubble>
+</ng-template>

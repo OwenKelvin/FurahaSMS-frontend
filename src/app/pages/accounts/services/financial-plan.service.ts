@@ -1,27 +1,18 @@
-import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {Observable} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 
 @Injectable({
   providedIn: 'root'
 })
 export class FinancialPlanService {
+  url = (academicYearId: number) => `api/accounts/academic-year/${academicYearId}/financial-plan`;
 
-  constructor(
-    private http: HttpClient
-  ) { }
-  submit(input: { academicYearId: number, data: any }): Observable<any> {
-    const { academicYearId, data } = input;
-    const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
-    return this.http.post(url, data) as any;
+  constructor(private http: HttpClient) {
   }
 
-  getForAcademicYear(academicYearId: number): Observable<any> {
-    const url = `api/accounts/academic-year/${academicYearId}/financial-plan`;
-    return this.http.get(url)
-      .pipe(map(res => {
-        return res;
-      }));
-  }
+  submit = ({academicYearId, data}: { academicYearId: number, data: any }): Observable<any> =>
+    this.http.post<any>(this.url(academicYearId), data);
+  getForAcademicYear = (academicYearId: number): Observable<any> =>
+    this.http.get<any>(this.url(academicYearId));
 }

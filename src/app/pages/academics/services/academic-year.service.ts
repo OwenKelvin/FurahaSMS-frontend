@@ -1,24 +1,26 @@
-import { Injectable } from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {map} from 'rxjs/operators';
+import {Observable} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class AcademicYearService {
   url = 'api/academic-years';
-  all$ = this.http.get<any> (this.url)
-  constructor(private http: HttpClient) { }
+  all$ = this.http.get<any>(this.url)
+  urlWithId = (id: number) => `${this.url}/${id}`;
 
+  constructor(private http: HttpClient) {
+  }
 
   saveUnitLevels(academicYearId: number, data: any): Observable<any> {
     const url = `api/academic-years/${academicYearId}/unit-levels`;
     return this.http.post(url, data);
   }
 
-  getFilter(data: { active: boolean } = { active: false }) {
-    const { active } = data;
+  getFilter(data: { active: boolean } = {active: false}) {
+    const {active} = data;
     let url = 'api/academic-years/?';
     if (active) {
       url += 'active=1';
@@ -29,9 +31,10 @@ export class AcademicYearService {
       })
     );
   }
+
   get(data: { id: number; classLevels?: 1 }) {
 
-    const { id, classLevels } = data;
+    const {id, classLevels} = data;
     let url = `api/academic-years/${id}/?`;
     if (classLevels === 1) {
       url += 'class_levels=1';
@@ -43,9 +46,11 @@ export class AcademicYearService {
       })
     );
   }
-  getAcademicYearWithId({id} : {id: number}): Observable<any> {
-    return this.get({ id });
+
+  getAcademicYearWithId({id}: { id: number }): Observable<any> {
+    return this.get({id});
   }
+
   save(data: any) {
     let url = `api/academic-years`;
     if (data.id) {
@@ -75,6 +80,7 @@ export class AcademicYearService {
         );
     }
   }
+
   delete(id: number): Observable<any> {
     const url = `api/academic-years/${id}`;
     return this.http.delete<any>(url).pipe(
@@ -82,5 +88,8 @@ export class AcademicYearService {
         return res;
       })
     );
+  }
+  getSemestersForAcademicYearWithId(id: number) {
+    return this.http.get<any[]>(`${this.urlWithId(id)}/semesters`)
   }
 }

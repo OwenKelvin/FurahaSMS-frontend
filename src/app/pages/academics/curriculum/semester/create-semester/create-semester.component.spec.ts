@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { CreateSemesterComponent } from './create-semester.component';
 import { ErrorModule } from 'src/app/components/error/error.module';
@@ -12,7 +12,7 @@ describe('CreateSemesterComponent', () => {
   let component: CreateSemesterComponent;
   let fixture: ComponentFixture<CreateSemesterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,

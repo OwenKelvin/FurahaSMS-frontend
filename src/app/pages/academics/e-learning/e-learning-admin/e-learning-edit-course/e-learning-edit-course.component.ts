@@ -1,10 +1,10 @@
-import {Component, OnInit, TemplateRef} from '@angular/core';
+import {Component, TemplateRef} from '@angular/core';
 import {select, Store} from '@ngrx/store';
 import {ActivatedRoute, Router} from '@angular/router';
 import {map, mergeMap, takeUntil} from 'rxjs/operators';
 import {selectAcademicsCourse} from '../../../store/selectors/courses.selectors';
 import {ICourse} from '../../interfaces/course.interface';
-import {combineLatest, Observable} from 'rxjs';
+import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
 import {BsModalService} from 'ngx-bootstrap/modal';
 import {ELearningService} from '../../services/e-learning.service';
 import {FormBuilder, FormGroup, Validators} from '@angular/forms';
@@ -12,19 +12,20 @@ import {StudyMaterialsService} from '../../../study-materials/services/study-mat
 import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-container.mixin';
 import {modalMixin} from '../../../../../shared/mixins/modal.mixin';
 import {formMixin} from '../../../../../shared/mixins/form.mixin';
+import {loadCourses} from '../../../store/actions/courses.actions';
 
 @Component({
   selector: 'app-e-learning-edit-course',
   templateUrl: './e-learning-edit-course.component.html',
   styleUrls: ['./e-learning-edit-course.component.css']
 })
-export class ELearningEditCourseComponent extends subscribedContainerMixin(modalMixin(formMixin())) implements OnInit {
+export class ELearningEditCourseComponent extends subscribedContainerMixin(modalMixin(formMixin())) {
   newContentUploadForm: FormGroup = this.fb.group({
     description: ['', [Validators.required]],
     content: [null, [Validators.required]],
     topicId: [null, []]
   });
-
+  formInvalid$ = new BehaviorSubject<boolean>(true);
   courseId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id'))))
   course$: Observable<ICourse | null> = this.courseId$.pipe(
@@ -35,14 +36,14 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
   );
   courseNameConfirmation: string;
   deletingCourse: boolean;
-  savingNewContent: boolean;
   contentType = 'new-content';
   newLearningOutcomeForm: FormGroup = this.fb.group({
     description: ['', [Validators.required]],
     topicId: [null, []]
   });
-  triggerLearningOutcomeValidation: boolean;
-
+  get modalTopicId() {
+    return (this.config.initialState as any).id
+  }
   constructor(
     private store: Store,
     modalService: BsModalService,
@@ -55,100 +56,55 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     super(modalService, store);
   }
 
-  ngOnInit(): void {
-    // this.getCourses();
-    // this.resetNewContentForm();
-  }
-
-  // getCourses() {
-  //   this.course$ = (this.route.parent as ActivatedRoute).paramMap
-  //     .pipe(
-  //       map(params => Number(params.get('id'))),
-  //       mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
-  //       tap((res) => this.course = res));
-  // }
-
-  resetNewContentForm() { // topicId?: number
-
-    // this.newContentUploadForm = this.fb.group({
-    //   description: ['', [Validators.required]],
-    //   content: [null, [Validators.required]],
-    //   topicId: [topicId, []]
-    // });
-    // this.newLearningOutcomeForm = this.fb.group({
-    //   description: ['', [Validators.required]],
-    //   topicId: [topicId, []]
-    // });
-  }
-
-  // openModal(template: TemplateRef<any>) {
-  //   this.courseNameConfirmation = '';
-  //   this.modalRef = this.modalService.show(template);
-  //   this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
-  // }
-
   openModalNewContent(template: TemplateRef<any>, topicId: number) {
-    this.newContentUploadForm.get('topicId')?.patchValue(topicId)
-    this.newLearningOutcomeForm.get('topicId')?.patchValue(topicId)
-    super.openModal({id: topicId, component: template})
-    // this.resetNewContentForm(topicId);
-    // this.modalRef = this.modalService.show(template);
-    // this.modalRef.setClass('modal-lg bg-dark text-light modal-container ');
+    this.triggerValidationSubject$.next(false);
+    this.newContentUploadForm.get('topicId')?.patchValue(topicId);
+    this.newLearningOutcomeForm.get('topicId')?.patchValue(topicId);
+    super.openModal({id: topicId, component: template});
   }
 
   deleteCourse() {
     this.deletingCourse = true;
-    // const course: any = this.course ? this.course : {};
-    // const course: any = {};
-    this.courseId$.pipe(
-      mergeMap(id => this.eLearningService.deleteCourseWithId(id))
-      )
+    this.courseId$.pipe(mergeMap(id => this.eLearningService.deleteCourseWithId(id)))
       .subscribe({
-        next: () => {
-          this.modalRef.hide();
-          this.router.navigate(['academics/', 'e-learning', 'admin']).then();
-        }
+        next: () => this.router.navigate(['academics/', 'e-learning', 'admin']).then(
+          () => this.modalRef.hide()
+        )
       });
-    // this.eLearningService.deleteCourseWithId(course.id)
-    //   .subscribe({
-    //     next: () => {
-    //       this.modalRef.hide();
-    //       this.router.navigate(['academics/', 'e-learning', 'admin']).then();
-    //     }
-    //   });
   }
 
   saveNewContent() {
     const $pdf: any = document.querySelector('#newContentUploadInput');
     const pdfFile = (($pdf as HTMLInputElement).files as FileList)[0];
     if (this.newContentUploadForm.valid) {
-      this.savingNewContent = true;
+      this.submitInProgressSubject$.next(true);
       const course: any = {};
-      // const course: any = this.course ? this.course : {};
       const data = {
         title: this.newContentUploadForm.get('description')?.value,
         units: [course.unitId],
         classLevels: [course.classLevelId],
       };
-
-      this.studyMaterialsService.uploadDocument(pdfFile)
-        .pipe(
-          map(({data: uploadRes}: any) => uploadRes.id),
-          mergeMap((docId: number) => this.studyMaterialsService.saveStudyaterialInfo({docId, data})),
-          map(({data: studyMatRes}: any) => studyMatRes.id),
-          mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
-              studyMaterialId,
-              data: {
-                eLearningTopicId: this.newContentUploadForm.get('topicId')?.value
-              }
-            })
-          ),
-          takeUntil(this.destroyed$))
-        .subscribe(() => {
+      combineLatest([
+        this.courseId$,
+        this.studyMaterialsService.uploadDocument(pdfFile)
+          .pipe(
+            map(({data: uploadRes}: any) => uploadRes.id),
+            mergeMap((docId: number) => this.studyMaterialsService.saveStudyMaterialInfo({docId, data})),
+            map(({data: studyMatRes}: any) => studyMatRes.id),
+            mergeMap((studyMaterialId: any) => this.eLearningService.saveCourseContent({
+                studyMaterialId,
+                data: {
+                  eLearningTopicId: this.newContentUploadForm.get('topicId')?.value
+                }
+              })
+            ),
+          )]).pipe(takeUntil(this.destroyed$))
+        .subscribe(([courseId]) => {
           // this.getCourses();
-          this.savingNewContent = false;
-          this.modalRef.hide();
-        }, () => this.savingNewContent = false);
+          this.submitInProgressSubject$.next(false)
+          this.closeModal();
+          this.store.dispatch(loadCourses({data: {id: courseId}}))
+        }, () => this.submitInProgressSubject$.next(false))
     } else {
       alert('Form is Incomplete');
       this.triggerValidationSubject$.next(true)
@@ -157,32 +113,48 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
 
   saveLearningOutcome() {
     if (this.newLearningOutcomeForm.valid) {
-      this.savingNewContent = true;
-      this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)
-        .subscribe(() => {
-          // this.getCourses();
-          this.savingNewContent = false;
+      this.submitInProgressSubject$.next(true);
+      combineLatest([
+        this.courseId$,
+        this.eLearningService.saveCourseTopicsLearningOutcome(this.newLearningOutcomeForm.value)])
+        .pipe(
+          map(([courseId, {data: learningOutcome}]) =>
+            ({courseId, topicId: Number(this.newLearningOutcomeForm.value.topicId), learningOutcome})
+          )
+        )
+        .subscribe(({courseId}) => {
+          // this.store.dispatch(createLearningOutcomeAction({data: {courseId, topicId, learningOutcome}}));
+          this.store.dispatch(loadCourses({data: {id: courseId}}))
+          this.submitInProgressSubject$.next(false);
           this.modalRef.hide();
-        }, () => this.savingNewContent = false);
+        }, () => this.submitInProgressSubject$.next(false));
 
     } else {
       alert('Form is Incomplete');
-      this.triggerLearningOutcomeValidation = true;
+      this.triggerValidationSubject$.next(true)
     }
   }
 
   get activeFormName(): string {
     switch (this.contentType) {
       case 'learning-outcome':
-
         return 'newLearningOutcomeForm';
+
+      case 'online-assessment':
+        return 'onlineAssessmentForm';
 
       default:
         return 'newContentUploadForm';
     }
   }
 
-  get activeForm(): FormGroup {
+
+
+  activeForm(activeFormVal: FormGroup | null = null): FormGroup {
+    if (activeFormVal) {
+      this.formInvalid$.next(activeFormVal.invalid)
+      return activeFormVal;
+    }
     switch (this.contentType) {
       case 'learning-outcome':
         return this.newLearningOutcomeForm;

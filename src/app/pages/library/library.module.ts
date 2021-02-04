@@ -42,8 +42,6 @@ import { LibraryBookEffects } from './store/effects/library-book.effects';
       LibraryBookEffects
     ]),
     TypeaheadModule.forRoot(),
-
-
   ]
 })
 export class LibraryModule { }

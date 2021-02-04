@@ -5,7 +5,7 @@
 @import './vendor/daneden/animate.css';
 @import '~flag-icon-css/css/flag-icon.css';
 
-label {
+.control-label {
   margin-bottom: 0.1rem;
   margin-top: 0.5em
 }
@@ -22,7 +22,8 @@ label {
 }
 .ng-select-container, .ng-value-container, .ng-input, .ng-value .ng-value-container {
 
-  /*height: 100%;*/
+  min-height: calc(1.5em + 2px);
+  padding: 2px !important;
   margin: 0;
 }
 .ng-select .ng-select-container {
@@ -50,7 +51,7 @@ label {
   margin-left: 4px;
 }
 .ng-select.ng-select-multiple .ng-select-container .ng-value-container .ng-value {
-  min-height: 30px;
+  min-height: 38px !important;
 }
 .ng-dropdown-panel {
   min-width: 150px !important;
@@ -92,6 +93,15 @@ label {
 }
 .ng-select.ng-select-opened>.ng-select-container .ng-arrow-wrapper {
   margin-right: 5px;
+}
+.ng-option.ng-option-selected {
+  font-weight: bolder !important;
+  margin-left: 5px;
+}
+.ng-option.ng-option-selected:before {
+  content: "\e86d  " !important;
+  white-space: pre;
+  font-family: "fontello", sans-serif;
 }
 
 html, body {

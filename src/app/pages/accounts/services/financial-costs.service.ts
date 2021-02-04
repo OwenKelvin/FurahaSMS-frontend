@@ -12,7 +12,7 @@ export class FinancialCostsService {
   ) { }
   url = 'api/accounts/financial-costs';
 
-  all$: Observable<any> = this.http.get(this.url);
+  all$: Observable<any> = this.http.get<any[]>(this.url);
 
   destroy(id: any): Observable<any> {
     const url = `${this.url}/${id}`;
@@ -20,7 +20,7 @@ export class FinancialCostsService {
   }
 
   save(financialCosts: any[]) {
-    const url = '${this.url}';
+    const url = `${this.url}`;
     return this.http.post(url, financialCosts);
   }
 }

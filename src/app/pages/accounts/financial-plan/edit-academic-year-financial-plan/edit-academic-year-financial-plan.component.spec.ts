@@ -1,23 +1,25 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
-import { EditAcademicYearFinancialPlanComponent } from './edit-academic-year-financial-plan.component';
-import { TabErrorStateModule } from 'src/app/modules/app-tab-error.module';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { TabsModule } from 'ngx-bootstrap/tabs';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AccordionModule } from 'ngx-bootstrap/accordion';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { reducer } from '../store/reducers/academic-year-plan.reducer';
+import {EditAcademicYearFinancialPlanComponent} from './edit-academic-year-financial-plan.component';
+import {TabErrorStateModule} from 'src/app/modules/app-tab-error.module';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {TabsModule} from 'ngx-bootstrap/tabs';
+import {RouterTestingModule} from '@angular/router/testing';
+import {StoreModule} from '@ngrx/store';
+import {AppInputModule} from 'src/app/components/input/app-input.module';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AccordionModule} from 'ngx-bootstrap/accordion';
+import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {reducer} from '../store/reducers/academic-year-plan.reducer';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
 
 describe('EditAcademicYearFinancialPlanComponent', () => {
   let component: EditAcademicYearFinancialPlanComponent;
   let fixture: ComponentFixture<EditAcademicYearFinancialPlanComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         TabErrorStateModule,
@@ -39,9 +41,18 @@ describe('EditAcademicYearFinancialPlanComponent', () => {
         AccordionModule.forRoot()
       ],
       declarations: [EditAcademicYearFinancialPlanComponent],
-      providers: [reducerProvider]
+      providers: [reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 1})
+            }
+          }
+        }
+      ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

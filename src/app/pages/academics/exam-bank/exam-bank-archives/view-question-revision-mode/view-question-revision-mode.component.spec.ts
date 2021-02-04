@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ViewQuestionRevisionModeComponent } from './view-question-revision-mode.component';
 import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
@@ -11,7 +11,7 @@ describe('ViewQuestionRevisionModeComponent', () => {
   let component: ViewQuestionRevisionModeComponent;
   let fixture: ComponentFixture<ViewQuestionRevisionModeComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         Number2AlphabetModule,

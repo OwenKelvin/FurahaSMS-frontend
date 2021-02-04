@@ -22,7 +22,7 @@ import {formMixin} from '../../../../shared/mixins/form.mixin';
   styleUrls: ['./create-teacher.component.css']
 })
 export class CreateTeacherComponent extends subscribedContainerMixin(formMixin()) implements OnInit {
-  @Input() supportStaff: number;
+  @Input() supportStaff = 0;
   newTeacherForm: FormGroup = this.fb.group({
     email: ['', Validators.required],
     firstName: ['', Validators.required],

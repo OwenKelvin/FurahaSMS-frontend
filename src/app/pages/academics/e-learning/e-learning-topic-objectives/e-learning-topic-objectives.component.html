@@ -1,10 +1,43 @@
-<fieldset *ngIf='learningOutcomes && learningOutcomes.length > 0'>
+<fieldset class="card p-2" *ngIf='learningOutcomes && learningOutcomes.length > 0'>
   <legend>Learning Outcomes</legend>
   By End of this {{ topicNumberStyleName | lowercase }} you should be able to;
-  <ul class="list-group">
-    <li class="list-group-item  bg-dark" *ngFor='let learningOutcome of learningOutcomes'>
-      <span class='icon-lightbulb'></span>
-      {{ learningOutcome.description }}
+  <ul class="list-group mr-0">
+    <li class="list-group-item bg-dark d-flex justify-content-between pr-0"
+        *ngFor='let learningOutcome of learningOutcomes; let i = index'>
+      <span> <i class='icon-lightbulb'></i>
+        {{ learningOutcome.description }}</span>
+      <span *ngIf="edit">
+        <button (click)="editLearningOutcome({id:i, component: editLearningOutcomeModal})"
+                class="btn btn-primary btn-sm mr-2"><i class="icon-edit"></i></button>
+        <button (click)="deleteLearningOutcome(i)" class="btn btn-danger btn-sm"><i class="icon-trash-2"></i></button>
+      </span>
     </li>
   </ul>
 </fieldset>
+<ng-template #editLearningOutcomeModal>
+  <div class="modal-header bg-dark">
+    <h4 class="modal-title pull-left">Learning Outcome Edit Form</h4>
+    <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+      <span aria-hidden="true">&times;</span>
+
+    </button>
+  </div>
+  <form [formGroup]="itemForm" id="itemForm" (submit)="saveLearningOutcome()">
+    <div class="modal-body bg-dark d-flex flex-wrap">
+      <section class="col-lg-5 mb-3">
+
+        <app-input id="description" label="Description" formControlName="description"
+                   placeholder="Enter Description"></app-input>
+      </section>
+
+    </div>
+    <div class="modal-footer bg-dark">
+      <div class="col-12 d-flex align-items-center justify-content-between">
+        <button type="button" (click)='modalRef.hide()' class="btn btn-secondary mt-2">Cancel</button>
+        <app-validate-submit-buttons
+          (validationButtonClicked)="triggerValidationSubject$.next(true)"
+          [formItem]="itemForm" [isSubmitting]="submitInProgressAction$ | async"></app-validate-submit-buttons>
+      </div>
+    </div>
+  </form>
+</ng-template>

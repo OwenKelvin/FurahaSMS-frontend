@@ -3,7 +3,7 @@
   <section class="card p-2">
     <ng-container>
       <div class="d-flex justify-content-start">
-        <button type="button" [routerLink]="['/academics', 'e-learning', 'admin', 'courses', 4, 'edit']"
+        <button type="button" [routerLink]="['/academics', 'e-learning', 'admin', 'courses', v.courseId, 'edit']"
                 class="btn btn-primary"><span class="icon-edit"></span>Edit Course Details
         </button>
       </div>
@@ -32,17 +32,21 @@
           <div class="col-12 alert alert-info" *ngIf="!v.course?.topics || v.course?.topics?.length < 1">
             <span class="icon-info-circled"></span> No course contents were found!
           </div>
-          <section class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of v.course?.topics; let i = index'>
-            <h3 class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</h3>
+          <fieldset class="col-lg-12 mt-2 mb-3 p-2 card" *ngFor='let topic of v.course?.topics; let i = index'>
+            <legend class="mt-2">{{ v.course?.topicNumberStyleName }} {{ i + 1 }}. {{ topic.description }}</legend>
             <section class="d-flex flex-wrap justify-content-center">
               <section class="col-lg-12 p-2 mb-2">
-                <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                 [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                  [learningOutcomes]='topic.expected_learning_outcomes'></app-e-learning-topic-objectives>
 
-                <app-e-learning-topic-materials
-                  [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
+                <app-e-learning-topic-materials [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                [learningContents]='topic.learning_content_materials'></app-e-learning-topic-materials>
 
-                <div>
+
+                <app-topic-online-assessment-list [edit]="true" [courseId]="v.course.id" [topicId]="topic.id"
+                                                  [assessments]="topic.online_assessments"></app-topic-online-assessment-list>
+                <div class="mt-2">
                   <button (click)='openModalNewContent(templateNewContent, topic.id)' class="btn btn-primary btn-sm"
                           type="button">
                     <span class="icon-plus-circled"></span>
@@ -50,23 +54,28 @@
                   </button>
                 </div>
               </section>
-              <section class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
+              <fieldset class="col-lg-12 p-2 mb-2 card" *ngFor='let subTopic of topic.sub_topics; let j = index'>
                 <ng-container
                   *ngIf='v.course?.topicNumberStyleName === topic?.topic_number_style_name; else normalNumbering'>
-                  <h4>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}. {{ subTopic.description }}</h4>
+                  <legend>{{ v.course?.topicNumberStyleName }} {{ i + 1 }}.{{ j + 1 }}
+                    . {{ subTopic.description }}</legend>
                 </ng-container>
                 <ng-template #normalNumbering>
-                  <h4>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</h4>
+                  <legend>{{ topic.topic_number_style_name }} {{ j + 1 }}. {{ subTopic.description }}</legend>
                 </ng-template>
                 <section class="d-flex justify-content-center">
                   <div class="col-lg-12 pb-3">
-                    <app-e-learning-topic-objectives [topicNumberStyleName]='v.course?.topicNumberStyleName'
+                    <app-e-learning-topic-objectives [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
+                                                     [topicNumberStyleName]='v.course?.topicNumberStyleName'
                                                      [learningOutcomes]='subTopic.expected_learning_outcomes'>
                     </app-e-learning-topic-objectives>
 
-                    <app-e-learning-topic-materials
-                      [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
+                    <app-e-learning-topic-materials [edit]="true" [courseId]="v.course.id" [topicId]="subTopic.id"
+                                                    [learningContents]='subTopic.learning_content_materials'></app-e-learning-topic-materials>
                     <div>
+                      {{ subTopic.online_assessments }}
+                    </div>
+                    <div class="mt-2">
                       <button (click)='openModalNewContent(templateNewContent, subTopic.id)'
                               class="btn btn-primary btn-sm"
                               type="button">
@@ -76,20 +85,21 @@
                     </div>
                   </div>
                 </section>
-              </section>
+              </fieldset>
             </section>
-          </section>
+          </fieldset>
         </section>
       </fieldset>
       <section class="alert alert-danger d-flex justify-content-around mt-4">
-        Action in this Section is irriversable, Be Careful!
-        <button (click)='openModal({id: -1, component: template})' class="btn btn-danger btn-sm">Delete this Course</button>
+        Action in this Section is irreversible, Be Careful!
+        <button (click)='openModal({id: -1, component: template})' class="btn btn-danger btn-sm">Delete this Course
+        </button>
       </section>
     </ng-container>
     <ng-template #template>
       <div class="modal-header bg-dark">
         <h4 class="modal-title pull-left">Delete Course Confirmation</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
 
         </button>
@@ -99,7 +109,7 @@
         <input aria-label="Course Name" type="text" class="form-control" [(ngModel)]='courseNameConfirmation'>
       </div>
       <div class="modal-footer bg-dark">
-        <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button (click)='deleteCourse()' [disabled]='courseNameConfirmation != v.course?.name || deletingCourse'
                 class="btn btn-danger">
           <span *ngIf='!deletingCourse'>Delete this course</span>
@@ -113,13 +123,12 @@
     <ng-template #templateNewContent>
       <div class="modal-header bg-dark">
         <h4 class="modal-title pull-left">New Content Upload</h4>
-        <button type="button" class="close pull-right" aria-label="Close" (click)="modalRef.hide()">
+        <button type="button" class="close pull-right" aria-label="Close" (click)="closeModal()">
           <span aria-hidden="true">&times;</span>
-
         </button>
       </div>
       <div class="modal-body bg-dark d-flex flex-wrap">
-        <section class="col-lg-5 mb-3">
+        <section class="col-lg-4 mb-3">
           <fieldset>
             <legend>Type of Content</legend>
             <form>
@@ -137,11 +146,17 @@
                   Learning Outcome
                 </label>
               </div>
+              <div class="custom-control custom-radio pb-1 pt-1">
+                <input [(ngModel)]='contentType' value="online-assessment" name='contentType' type="radio"
+                       class="custom-control-input" id='contentType3'>
+                <label class="custom-control-label" for='contentType3'>
+                  Online Assessment
+                </label>
+              </div>
             </form>
-
           </fieldset>
         </section>
-        <section [ngSwitch]='contentType' class="col-lg-7"
+        <section [ngSwitch]='contentType' class="col-lg-8"
                  style="border-left: rgba(131, 223, 223, 0.452) 2px solid; margin-left: -2px">
           <ng-container *ngSwitchCase='"new-content"'>
             <h5>New Content Upload</h5>
@@ -165,30 +180,44 @@
             <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
               <div class="mt-1">
                 <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-                           [triggerValidation]='triggerLearningOutcomeValidation' label='Learning Outcome'
+                           [triggerValidation]='triggerValidationAction$ | async' label='Learning Outcome'
                            id="newLearningOutcomeDescription" placeholder="Enter Learning Outcome"
                            formControlName="description">
                 </app-input>
               </div>
             </form>
           </ng-container>
+          <ng-container *ngSwitchCase='"online-assessment"'>
+            <app-manage-online-assessment
+              [courseId]="v.course.id"
+              [topicId]="modalTopicId"
+              (submitChange)="this.submitInProgressSubject$.next($event)"
+              (valid)="activeForm($event)"></app-manage-online-assessment>
+          </ng-container>
         </section>
       </div>
       <div class="modal-footer bg-dark">
-        <button (click)='modalRef.hide()' class="btn btn-secondary">Cancel</button>
+        <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
-                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
-          <span *ngIf='!savingNewContent'>Save Content</span>
-          <span *ngIf='savingNewContent'>Saving...</span>
-          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Content</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
-                [disabled]='activeForm.invalid || savingNewContent' class="btn btn-success">
-          <span *ngIf='!savingNewContent'>Save Learning Content</span>
-          <span *ngIf='savingNewContent'>Saving...</span>
-          <i *ngIf='!savingNewContent' class='icon-ok-1'></i>
-          <i *ngIf='savingNewContent' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Learning Content</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+        </button>
+        <button *ngIf='activeFormName === "onlineAssessmentForm"' [attr.form]='"onlineAssessmentForm"'
+                [disabled]='(formInvalid$ | async) || (submitInProgressAction$ | async)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | async) === false'>Create Assessment</span>
+          <span *ngIf='(submitInProgressAction$ | async)'>Creating...</span>
+          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
         </button>
       </div>
     </ng-template>

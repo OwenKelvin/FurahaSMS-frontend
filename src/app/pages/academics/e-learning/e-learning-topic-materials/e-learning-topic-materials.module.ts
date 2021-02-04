@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ELearningTopicMaterialsComponent } from './e-learning-topic-materials.component';
 import { RouterModule } from '@angular/router';
 import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
-import { FileExtentionModule } from 'src/app/shared/file-extention/file-extention.module';
+import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
 
 
 
@@ -14,7 +14,7 @@ import { FileExtentionModule } from 'src/app/shared/file-extention/file-extentio
     CommonModule,
     RouterModule,
     AppFilesizeModule,
-    FileExtentionModule
+    FileExtensionModule
   ]
 })
 export class ELearningTopicMaterialsModule { }

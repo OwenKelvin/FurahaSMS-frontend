@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ViewAcademicYearFinancialPlanComponent } from './view-academic-year-financial-plan.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
@@ -6,12 +6,15 @@ import { StoreModule } from '@ngrx/store';
 import { RouterTestingModule } from '@angular/router/testing';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { academicYearPlanFeatureKey, reducer } from '../store/reducers/academic-year-plan.reducer';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('ViewAcademicYearFinancialPlanComponent', () => {
   let component: ViewAcademicYearFinancialPlanComponent;
   let fixture: ComponentFixture<ViewAcademicYearFinancialPlanComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
@@ -23,10 +26,21 @@ describe('ViewAcademicYearFinancialPlanComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(academicYearPlanFeatureKey, reducer)
+        StoreModule.forFeature(academicYearPlanFeatureKey, reducer),
+        HttpClientTestingModule
       ],
       declarations: [ViewAcademicYearFinancialPlanComponent],
-      providers: [reducerProvider]
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 0 })
+            }
+          }
+        }
+      ]
     })
     .compileComponents();
   }));

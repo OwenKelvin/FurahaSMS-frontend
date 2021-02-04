@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {TimeTableAcademicYearEditComponent} from './time-table-academic-year-edit.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -17,7 +17,7 @@ describe('TimeTableAcademicYearEditComponent', () => {
   let component: TimeTableAcademicYearEditComponent;
   let fixture: ComponentFixture<TimeTableAcademicYearEditComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

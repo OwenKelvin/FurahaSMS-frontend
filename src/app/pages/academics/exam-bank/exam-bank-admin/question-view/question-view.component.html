@@ -17,7 +17,7 @@
   </section>
   <section class="card-body mb-0 choices">
     <section class="pb-2 border-bottom">
-      <p [innerHtml]='question.description'></p>
+      <div [appMath]="{latex: question.description }"></div>
       <section>
         <span *ngFor='let tag of question.tags; let j = index'
           class="badge badge-secondary p-1 mr-2 mb-2 pl-2 pr-2">{{ tag }}</span>
@@ -58,7 +58,7 @@
         class="btn btn-sm btn-danger ml-2"><span class="icon-trash-1"></span> Delete</button>
     </section>
     <section>
-  
+
       <button [disabled]='activeQuestion === 0' (click)='reorderQuestionsRequest({ move: "up", index: i})' type="button"
         class="btn btn-sm btn-secondary ml-2">
         <span class="icon-up"></span>

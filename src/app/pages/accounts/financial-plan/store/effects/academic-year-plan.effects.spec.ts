@@ -3,6 +3,7 @@ import { provideMockActions } from '@ngrx/effects/testing';
 import { Observable, of } from 'rxjs';
 
 import { AcademicYearPlanEffects } from './academic-year-plan.effects';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
 
 describe('AcademicYearPlanEffects', () => {
   const actions$: Observable<any> = of('Load');
@@ -10,6 +11,9 @@ describe('AcademicYearPlanEffects', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule
+      ],
       providers: [
         AcademicYearPlanEffects,
         provideMockActions(() => actions$)

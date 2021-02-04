@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { FullWithCenterComponent } from './full-with-center.component';
 
@@ -6,7 +6,7 @@ describe('FullWithCenterComponent', () => {
   let component: FullWithCenterComponent;
   let fixture: ComponentFixture<FullWithCenterComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ FullWithCenterComponent ]
     })

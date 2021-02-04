@@ -34,7 +34,7 @@ export class ViewStudyMaterialComponent extends subscribedContainerMixin() imple
   }
 
   ngOnInit() {
-    alert('got you');
+    // alert('got you');
     (window as any).pdfWorkerSrc = '/pdf.worker.js';
     this.studyMaterial$.pipe(
       tap(studyMaterial => {

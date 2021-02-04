@@ -1,4 +1,4 @@
-import {async, ComponentFixture, TestBed} from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import {SelectLibraryClassComponent} from './select-library-class.component';
 import {StoreModule} from '@ngrx/store';
@@ -12,7 +12,7 @@ describe('SelectLibraryClassComponent', () => {
   let component: SelectLibraryClassComponent;
   let fixture: ComponentFixture<SelectLibraryClassComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {

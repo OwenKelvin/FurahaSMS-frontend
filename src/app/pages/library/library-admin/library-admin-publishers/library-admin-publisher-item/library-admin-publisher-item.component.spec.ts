@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { LibraryAdminPublisherItemComponent } from './library-admin-publisher-item.component';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -11,7 +11,7 @@ describe('LibraryAdminPublisherItemComponent', () => {
   let component: LibraryAdminPublisherItemComponent;
   let fixture: ComponentFixture<LibraryAdminPublisherItemComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

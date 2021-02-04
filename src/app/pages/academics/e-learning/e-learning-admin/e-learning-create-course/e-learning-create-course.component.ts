@@ -1,7 +1,6 @@
 import {ChangeDetectionStrategy, Component, OnInit} from '@angular/core';
 import {FormArray, FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
-import {combineLatest, Observable, of} from 'rxjs';
-import {ClassLevelService} from 'src/app/services/class-level.service';
+import {BehaviorSubject, combineLatest, Observable, of} from 'rxjs';
 import {UnitsService} from 'src/app/services/units.service';
 import {AcademicYearService} from '../../../services/academic-year.service';
 import {ELearningService} from '../../services/e-learning.service';
@@ -14,6 +13,7 @@ import {filter, map, mergeMap, takeUntil, tap} from 'rxjs/operators';
 import {modalMixin} from '../../../../../shared/mixins/modal.mixin';
 import {ActivatedRoute, Router} from '@angular/router';
 import {selectAcademicsCourse} from '../../../store/selectors/courses.selectors';
+import {ClassLevelUnitLevelAllocationService} from '../../../services/class-level-unit-level-allocation.service';
 
 @Component({
   selector: 'app-e-learning-create-course',
@@ -30,6 +30,7 @@ export class ELearningCreateCourseComponent
     name: ['', Validators.required],
     unit: [null, Validators.required],
     classLevel: [null, Validators.required],
+    unitLevel: [null, Validators.required],
     academicYear: [null, Validators.required],
     description: [''],
     topics: this.fb.array([]),
@@ -44,7 +45,7 @@ export class ELearningCreateCourseComponent
   });
   modalRef: BsModalRef;
   numberingStyles$: Observable<any[]> = this.topicNumberingService.all$;
-  classLevels$: Observable<any[]> = this.classLevelService.getAll();
+  classLevels$: Observable<any[]> = this.classLevelService.getAllWithUnitLevels();
   topics: any[] = [];
   subTopics: any[] = [];
 
@@ -53,7 +54,7 @@ export class ELearningCreateCourseComponent
   );
   course$ = this.courseId$.pipe(
     // filter(id => id > 0),
-    mergeMap(id => id > 0 ? this.store.pipe(select(selectAcademicsCourse(id))): of(null)),
+    mergeMap(id => id > 0 ? this.store.pipe(select(selectAcademicsCourse(id))) : of(null)),
     tap(course => {
       if (course && course?.id && course?.id > 0) {
         while (this.topicsControl.length) {
@@ -80,6 +81,7 @@ export class ELearningCreateCourseComponent
           name: course.name,
           unit: course.unitId,
           classLevel: course.classLevelId,
+          unitLevel: course.unitLevelId,
           academicYear: course.academicYearId,
           description: course.description,
           numbering: course.topicNumberStyleName,
@@ -88,6 +90,39 @@ export class ELearningCreateCourseComponent
     }),
     map(() => true)
   );
+  classLevelChangedSubject$ = new BehaviorSubject<null | number>(null);
+  classLevelChangedAction$ = this.classLevelChangedSubject$.asObservable();
+  unitChangedSubject$ = new BehaviorSubject<null | number>(null);
+  unitChangedAction$ = this.unitChangedSubject$.asObservable()
+
+  get unitLevelControl(): FormControl {
+    return this.newCourseForm.get('unitLevel') as FormControl
+  }
+
+  get classLevelControl(): FormGroup {
+    return (this.newCourseForm.get('classLevel') as FormGroup)
+  }
+
+  get unitControl(): FormControl {
+    return (this.newCourseForm.get('unit') as FormControl)
+  }
+
+  unitLevels$ = combineLatest([this.unitChangedAction$, this.classLevelChangedAction$, this.classLevels$]).pipe(
+    map(([unit, classLevel, classLevels]) =>
+      (classLevels
+        .filter(({id}) => id === classLevel)
+        .map(({taughtUnits}) => taughtUnits)
+        .flat()
+        .filter(({unit_id: id}) => id === unit))
+    ),
+    tap((unitLevels) => {
+      if (unitLevels.length === 1) {
+        this.unitLevelControl.setValue(unitLevels[0].id)
+      } else {
+        this.unitLevelControl.setValue(null)
+      }
+    })
+  )
 
   v$ = combineLatest([this.course$, this.academicYears$, this.units$, this.classLevels$]).pipe(
     map(([course, academicYears, units, classLevels]) => ({course, academicYears, units, classLevels}))
@@ -96,7 +131,7 @@ export class ELearningCreateCourseComponent
   constructor(
     modalService: BsModalService,
     private fb: FormBuilder,
-    private classLevelService: ClassLevelService,
+    private classLevelService: ClassLevelUnitLevelAllocationService,
     private unitsService: UnitsService,
     private academicYearService: AcademicYearService,
     private eLearningService: ELearningService,
@@ -118,6 +153,14 @@ export class ELearningCreateCourseComponent
 
   ngOnInit(): void {
     this.resetNewTopicForm();
+    this.classLevelControl?.valueChanges.pipe(
+      tap((id) => this.classLevelChangedSubject$.next(Number(id))),
+      takeUntil(this.destroyed$)
+    ).subscribe()
+    this.unitControl?.valueChanges.pipe(
+      tap((id) => this.unitChangedSubject$.next(Number(id))),
+      takeUntil(this.destroyed$)
+    ).subscribe()
     this.topicsControl.valueChanges.pipe(
       filter(val => JSON.stringify(val) !== JSON.stringify(this.topics)),
       tap(val => this.topics = [...val]),

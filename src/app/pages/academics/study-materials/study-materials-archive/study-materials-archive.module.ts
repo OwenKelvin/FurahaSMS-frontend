@@ -6,7 +6,7 @@ import { StudyMaterialsArchiveComponent } from './study-materials-archive.compon
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
 import { ELearningTopicMaterialsModule } from '../../e-learning/e-learning-topic-materials/e-learning-topic-materials.module';
-import { FileExtentionModule } from 'src/app/shared/file-extention/file-extention.module';
+import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
 import { FormsModule } from '@angular/forms';
 
 
@@ -18,7 +18,7 @@ import { FormsModule } from '@angular/forms';
     AppLoadingBubbleModule,
     AppFilesizeModule,
     ELearningTopicMaterialsModule,
-    FileExtentionModule,
+    FileExtensionModule,
     FormsModule
   ]
 })

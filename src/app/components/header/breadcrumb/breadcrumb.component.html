@@ -1,7 +1,7 @@
 <nav aria-label="breadcrumb">
   <ol class="breadcrumb bg-dark" *ngIf='breadcrumbs.length; else dashboard'>
     <li class="breadcrumb-item">
-      <button aria-label="Navigate to previous page" (click)='backClicked()' class='btn btn-sm btn-info'><span
+      <button *ngIf="v$ | async" aria-label="Navigate to previous page" (click)='backClicked()' class='btn btn-sm btn-info'><span
           class='icon-left-big'></span>Back</button>
     </li>
     <li class="breadcrumb-item">
