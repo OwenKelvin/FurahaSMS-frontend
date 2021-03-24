@@ -1,7 +1,7 @@
 {
   "engines": {
-    "node": "12.6.0",
-    "npm": "6.11.3"
+    "node": "14.15.4",
+    "npm": "7.7.0"
   },
   "name": "furaha-app",
   "version": "0.0.0",
