@@ -2,7 +2,7 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MathDirective} from './math.directive';
 import {MathService} from './math.service';
-console.log('<span class="math-tex">\\\(','\\\)</span>')
+console.log('<span class="math-tex">\\\(','\\\)</span>');
 
 @NgModule({
   declarations: [MathDirective],

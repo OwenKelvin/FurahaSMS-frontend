@@ -52,7 +52,7 @@ export class AcademicYearSubjectUnitsComponent implements OnInit, OnDestroy {
           this.fb.group({
             id: item.id,
             // Problem is Here
-            unitLevels: [item.unit_levels.map(({id} : {id: number}) => id)],
+            unitLevels: [item.unit_levels.map(({id}: {id: number}) => id)],
             name: [item.name]
           })
         );

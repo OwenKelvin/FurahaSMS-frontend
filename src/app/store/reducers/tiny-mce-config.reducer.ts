@@ -37,6 +37,4 @@ const tinyMCEConfigReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return tinyMCEConfigReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => tinyMCEConfigReducer(state, action);

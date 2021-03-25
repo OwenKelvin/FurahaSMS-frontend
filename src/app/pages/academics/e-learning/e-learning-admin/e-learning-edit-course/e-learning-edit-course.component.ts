@@ -27,7 +27,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
   });
   formInvalid$ = new BehaviorSubject<boolean>(true);
   courseId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
-    map(params => Number(params.get('id'))))
+    map(params => Number(params.get('id'))));
   course$: Observable<ICourse | null> = this.courseId$.pipe(
     mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
   );
@@ -42,7 +42,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
     topicId: [null, []]
   });
   get modalTopicId() {
-    return (this.config.initialState as any).id
+    return (this.config.initialState as any).id;
   }
   constructor(
     private store: Store,
@@ -101,13 +101,13 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
           )]).pipe(takeUntil(this.destroyed$))
         .subscribe(([courseId]) => {
           // this.getCourses();
-          this.submitInProgressSubject$.next(false)
+          this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.store.dispatch(loadCourses({data: {id: courseId}}))
-        }, () => this.submitInProgressSubject$.next(false))
+          this.store.dispatch(loadCourses({data: {id: courseId}}));
+        }, () => this.submitInProgressSubject$.next(false));
     } else {
       alert('Form is Incomplete');
-      this.triggerValidationSubject$.next(true)
+      this.triggerValidationSubject$.next(true);
     }
   }
 
@@ -124,14 +124,14 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
         )
         .subscribe(({courseId}) => {
           // this.store.dispatch(createLearningOutcomeAction({data: {courseId, topicId, learningOutcome}}));
-          this.store.dispatch(loadCourses({data: {id: courseId}}))
+          this.store.dispatch(loadCourses({data: {id: courseId}}));
           this.submitInProgressSubject$.next(false);
           this.modalRef.hide();
         }, () => this.submitInProgressSubject$.next(false));
 
     } else {
       alert('Form is Incomplete');
-      this.triggerValidationSubject$.next(true)
+      this.triggerValidationSubject$.next(true);
     }
   }
 
@@ -152,7 +152,7 @@ export class ELearningEditCourseComponent extends subscribedContainerMixin(modal
 
   activeForm(activeFormVal: FormGroup | null = null): FormGroup {
     if (activeFormVal) {
-      this.formInvalid$.next(activeFormVal.invalid)
+      this.formInvalid$.next(activeFormVal.invalid);
       return activeFormVal;
     }
     switch (this.contentType) {

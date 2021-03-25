@@ -25,13 +25,9 @@ const myProfileReducer = createReducer(
   initialState,
 
   on(MyProfileActions.loadMyProfiles, state => state),
-  on(MyProfileActions.loadMyProfilesSuccess, (state, action) => {
-    return {...state, ...action.data};
-  }),
+  on(MyProfileActions.loadMyProfilesSuccess, (state, action) => ({...state, ...action.data})),
   on(MyProfileActions.loadMyProfilesFailure, (state, _action) => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return myProfileReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => myProfileReducer(state, action);

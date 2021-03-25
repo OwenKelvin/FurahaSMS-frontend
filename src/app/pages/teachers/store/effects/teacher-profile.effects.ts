@@ -13,15 +13,13 @@ export class TeacherProfileEffects {
   constructor(private actions$: Actions, private teacherService: TeacherService) {
   }
 
-  loadTeacherProfiles$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadTeacherProfiles$ = createEffect(() => this.actions$.pipe(
       ofType(TeacherProfileActions.loadTeacherProfiles),
       concatMap((action) =>
         this.teacherService.getTeacherById(action.data.id).pipe(
           map(data => TeacherProfileActions.loadTeacherProfilesSuccess({data})),
           catchError(error => of(TeacherProfileActions.loadTeacherProfilesFailure({error}))))
       )
-    );
-  });
+    ));
 
 }

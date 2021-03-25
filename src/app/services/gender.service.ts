@@ -17,7 +17,7 @@ export class GenderService {
   loadAll$: Observable<fromGenders.State> = this.store.pipe(select(selectGenders))
     .pipe(tap(gender => !(gender[0] && gender[0].id) ? this.store.dispatch(loadGenders()) : ''));
 
-  all$: Observable<any> = this.http.get<any>(`${this.url}/all`)
+  all$: Observable<any> = this.http.get<any>(`${this.url}/all`);
 
   getGender = (id: number | string) => this.store.pipe(select(selectGender(id)));
 

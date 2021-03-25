@@ -53,7 +53,6 @@ import { ErrorModule } from './components/error/error.module';
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
     NetworkLoadingModule,
     ErrorModule
-
   ],
   providers: [
     { provide: 'API_URL', useValue: environment.API_URL },

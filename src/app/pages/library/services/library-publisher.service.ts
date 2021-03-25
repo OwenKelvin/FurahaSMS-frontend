@@ -18,18 +18,16 @@ export class LibraryPublisherService {
     select(selectLibraryBookPublishers),
     filter((a: any) => Object.keys(a)?.length < 2),
     tap(() => this.store.dispatch(loadLibraryBookPublishers())),
-  )
+  );
 
 
   all$: Observable<any> = this.http.get('api/library-books/publishers/all');
 
-  loadItem = (id: number): Observable<any> => {
-    return this.store.pipe(
+  loadItem = (id: number): Observable<any> => this.store.pipe(
       select(selectLibraryBookPublisher(id)),
       filter((a: any) => !a),
       map(() => this.store.dispatch(loadLibraryBookPublisher({data: {id}})))
-    )
-  };
+    );
 
   save(data: any, file?: File): Observable<any> {
     const myFormData = new FormData();

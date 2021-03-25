@@ -7,7 +7,7 @@ export interface State {
   [id: number]: {
     id?: number;
     name?: string;
-  }
+  };
 }
 
 export const initialState: State = {
@@ -29,6 +29,4 @@ const staffTypeReducer = createReducer(
   on(StaffTypsActions.loadStaffTypesFailure, (state, _action) => state),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return staffTypeReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => staffTypeReducer(state, action);

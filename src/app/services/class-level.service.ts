@@ -13,7 +13,7 @@ export class ClassLevelService extends crudMixin() {
   constructor(public _http: HttpClient) { super(_http); }
 
   url = `api/curriculum/class-levels`;
-  deleteItem = this.delete
+  deleteItem = this.delete;
 
   // all$ = this.http.get<any[]>(this.url);
 
@@ -37,12 +37,12 @@ export class ClassLevelService extends crudMixin() {
   }
   get({ id }: {id: number}) {
     const url = `api/curriculum/class-levels/${id}`;
-    return this.http.get<any>(url)
+    return this.http.get<any>(url);
   }
   getItemById(id: number): Observable<any> {
     return super.getItemById(id).pipe(
       map(res => ({ ...res, classLevelCategory: res.class_level_category_id })),
-    )
+    );
   }
   submit(data: ClassLevelInterface) {
     let url = `api/curriculum/class-levels`;
@@ -58,11 +58,11 @@ export class ClassLevelService extends crudMixin() {
         .post<any>(url, {
           ...data,
           class_level_category_id: data.classLevelCategory
-        })
+        });
     }
   }
   delete(id: number): Observable<any> {
     const url = `api/curriculum/class-levels/${id}`;
-    return this.http.delete<any>(url)
+    return this.http.delete<any>(url);
   }
 }

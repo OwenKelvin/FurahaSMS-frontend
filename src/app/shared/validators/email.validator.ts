@@ -9,7 +9,7 @@ export class EmailValidatorDirective implements Validator {
   validate(control: AbstractControl): ValidationErrors | null {
     const validEmailPattern = /^[a-zA-Z]+([\.-]?[a-zA-Z0-9]+)*@[a-zA-Z]+([\.-]?[a-zA-Z]+)*(\.[a-zA-Z]{2,3})+$/;
     if (!validEmailPattern.test(control.value)) {
-      return { email: 'Field must contain a valid email address'}
+      return { email: 'Field must contain a valid email address'};
     }
     return null;
   }

@@ -5,13 +5,13 @@ export const teacherProfileFeatureKey = 'teacherProfile';
 
 export interface State {
   [key: number]: {
-    firstName: string,
-    lasttName: string,
-    middletName: string,
-    dateOfBirth: string,
-    email?: string,
-    phone?: string,
-    id?: number,
+    firstName: string;
+    lasttName: string;
+    middletName: string;
+    dateOfBirth: string;
+    email?: string;
+    phone?: string;
+    id?: number;
   };
 }
 
@@ -30,19 +30,15 @@ const teacherProfileReducer = createReducer(
   initialState,
 
   on(TeacherProfileActions.loadTeacherProfiles, (state, payload) => ({ ...state, [(payload as any).id]: payload })),
-  on(TeacherProfileActions.loadTeacherProfilesSuccess, (state, action) => {
-    return {
+  on(TeacherProfileActions.loadTeacherProfilesSuccess, (state, action) => ({
       ...state,
       [action.data.id]: {
         ...state[action.data.id],
         ...action.data
       }
-    };
-  }),
+    })),
   on(TeacherProfileActions.loadTeacherProfilesFailure, (state, _action) => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return teacherProfileReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => teacherProfileReducer(state, action);

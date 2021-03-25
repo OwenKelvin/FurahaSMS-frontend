@@ -13,19 +13,12 @@ export const initialState: MenuStateInterface = {
 
 const menuToggleReducer = createReducer(
   initialState,
-  on(showMenu, state => {
-    return {
+  on(showMenu, state => ({
       ...state, showMenu : true
-    };
-
-  }),
-  on(hideMenu, state => {
-    return {
+    })),
+  on(hideMenu, state => ({
       ...state, showMenu : false
-    };
-  })
+    }))
 );
 
-export function reducer(state: MenuStateInterface | undefined, action: Action) {
-  return menuToggleReducer(state, action);
-}
+export const reducer = (state: MenuStateInterface | undefined, action: Action) => menuToggleReducer(state, action);

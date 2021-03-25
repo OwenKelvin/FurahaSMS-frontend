@@ -9,8 +9,7 @@ import * as LibraryBookActions from '../actions/library-book.actions';
 @Injectable()
 export class LibraryBookEffects {
 
-  loadLibraryBooks$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadLibraryBooks$ = createEffect(() => this.actions$.pipe(
       ofType(LibraryBookActions.loadLibraryBooks),
       concatMap(() =>
         /** An EMPTY observable only emits completion. Replace with your own observable API request */
@@ -18,8 +17,7 @@ export class LibraryBookEffects {
           map(data => LibraryBookActions.loadLibraryBooksSuccess({data})),
           catchError(error => of(LibraryBookActions.loadLibraryBooksFailure({error}))))
       )
-    );
-  });
+    ));
 
 
   constructor(private actions$: Actions) {

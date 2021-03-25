@@ -5,10 +5,8 @@ import { studentFeeStatementFeatureKey } from '../reducers/student-fee-statement
 export const selectStudentsFeeStatements = createSelector(
   selectAccountState,
   accounts => accounts || []
-)
+);
 export const selectStudentFeeStatement = (id: number) => createSelector(
   selectStudentsFeeStatements,
-  accounts => {
-    return accounts ? accounts[studentFeeStatementFeatureKey][id] : {}
-  }
-)
+  accounts => accounts ? accounts[studentFeeStatementFeatureKey][id] : {}
+);

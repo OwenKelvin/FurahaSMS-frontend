@@ -4,8 +4,7 @@ import { filter, takeWhile, map } from 'rxjs/operators';
 @Component({
   selector: 'app-skip-link',
   styleUrls: ['./skip-link.component.css'],
-  template: `
-    <a [href]="skipLinkPath" class="skip-main">Skip to main content</a>
+  template: `<a [href]="skipLinkPath" class="skip-main">Skip to main content</a>
   `
 })
 export class SkipLinkComponent implements OnInit, OnDestroy {

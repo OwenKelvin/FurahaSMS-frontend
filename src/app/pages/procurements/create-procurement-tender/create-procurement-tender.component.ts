@@ -34,7 +34,7 @@ export class CreateProcurementTenderComponent implements OnInit, OnDestroy {
     this.componentIsActive = true;
     this.procurementItem$ = this.route.paramMap
       .pipe(map(params => Number(params.get('id'))))
-      .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)))
+      .pipe(mergeMap(id => this.procurementService.getProcurementRequestWithId(id)));
     // this.route.paramMap.subscribe(params => {
     //   this.procurementItem$ = this.procurementService.getProcurementRequestWithId(Number(params.get('id')));
     // });

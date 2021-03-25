@@ -62,12 +62,12 @@ export class TimeTableAcademicYearViewComponent {
     this.timings$
   ]).pipe(
     map(([timetableRawLessons, teachers, units, _rooms, classLevels, streams, weekDays, timings]) => timetableRawLessons.map(item => {
-      const teacher = teachers.find(({id}) => id === item.teacherId)
-      const unit = units.find(({id}) => id === item.subjectId)
-      const weekDay = weekDays.find(({id}) => id === item.dayOfWeekId)
-      const stream = streams.find(({id}) => id === item.streamId)
-      const timing = timings.find(({id}) => id === item.timeId)
-      const classLevel = classLevels.find(({id}) => id === item.classLevelId)
+      const teacher = teachers.find(({id}) => id === item.teacherId);
+      const unit = units.find(({id}) => id === item.subjectId);
+      const weekDay = weekDays.find(({id}) => id === item.dayOfWeekId);
+      const stream = streams.find(({id}) => id === item.streamId);
+      const timing = timings.find(({id}) => id === item.timeId);
+      const classLevel = classLevels.find(({id}) => id === item.classLevelId);
       return {
         ...item,
         teacherName: teacher.firstName + ' ' + teacher.lastName,

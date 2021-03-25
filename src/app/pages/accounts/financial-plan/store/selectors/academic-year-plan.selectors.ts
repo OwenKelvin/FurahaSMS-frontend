@@ -8,5 +8,5 @@ export const selectAcademicYearPlanState = createFeatureSelector<fromAcademicYea
 export const selectPlanForAcademicYearWithId = (id: number) => createSelector(
   selectAcademicYearPlanState,
   academicYear => academicYear?.[id]
-)
+);
 

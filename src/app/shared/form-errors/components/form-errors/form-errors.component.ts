@@ -51,9 +51,7 @@ export class FormErrorsComponent implements OnInit {
     });
 
     // This removes duplicates
-    this.errors = this.errors.filter((error, index, self) => self.findIndex(t => {
-      return t.controlName === error.controlName && t.errorName === error.errorName;
-    }) === index);
+    this.errors = this.errors.filter((error, index, self) => self.findIndex(t => t.controlName === error.controlName && t.errorName === error.errorName) === index);
     return this.errors;
   }
 

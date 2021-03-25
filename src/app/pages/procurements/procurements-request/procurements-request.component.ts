@@ -54,20 +54,20 @@ export class ProcurementsRequestComponent extends subscribedContainerMixin(formM
   }
 
   submitProcurementRequestForm() {
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     if (this.procurementRequestForm.valid) {
       this.procurementService.saveProcurementRequest(this.procurementRequestForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe(res => {
-          this.submitInProgressSubject$.next(false)
+          this.submitInProgressSubject$.next(false);
           this.formSubmitted = true;
           this.router.navigate(['/procurements', 'requests', res.data.id, 'view']).then();
         }, () => {
           this.formSubmitted = true;
-          this.submitInProgressSubject$.next(false)
+          this.submitInProgressSubject$.next(false);
         });
     } else {
-      this.triggerValidationSubject$.next(true)
+      this.triggerValidationSubject$.next(true);
     }
   }
 }

@@ -17,8 +17,8 @@ export class ApproveProcurementRequestComponent extends subscribedContainerMixin
   isOpen = [false];
   isApproving: boolean[] = [false];
   isRejecting: boolean[] = [false];
-  isApprovingSubject$ = new BehaviorSubject([false])
-  isRejectingSubject$ = new BehaviorSubject([false])
+  isApprovingSubject$ = new BehaviorSubject([false]);
+  isRejectingSubject$ = new BehaviorSubject([false]);
 
   constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) {
     super();

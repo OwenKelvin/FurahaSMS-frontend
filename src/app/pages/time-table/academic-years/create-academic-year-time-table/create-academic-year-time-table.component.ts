@@ -38,7 +38,7 @@ export class CreateAcademicYearTimeTableComponent extends formMixin(modalMixin()
         next: (res: any) => {
           this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.router.navigate([ 'time-table','academic-years', this.id, 'timetables', res.data.id]).then()
+          this.router.navigate([ 'time-table','academic-years', this.id, 'timetables', res.data.id]).then();
         },
         error: () => this.submitInProgressSubject$.next(false)
       });

@@ -7,7 +7,7 @@ import {catchError, map, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StudentAcademicsService {
-  getAcademicsFor({studentId, academicYearId, classLevelId}: { studentId: number, academicYearId: number, classLevelId: number }) {
+  getAcademicsFor({studentId, academicYearId, classLevelId}: { studentId: number; academicYearId: number; classLevelId: number }) {
     const url = `api/students/${studentId}/academics/${academicYearId}/?class_level_id=${classLevelId}`;
     return this.http.get<any[]>(url).pipe(
       map(res => res.map(item => ({
@@ -33,23 +33,23 @@ export class StudentAcademicsService {
 
   saveSubjectAllocation({studentId, data}: any): Observable<any> {
     const params = {
-      academic_year_id: data.academicYear,
-      unit_levels: data.unitLevels,
-      stream_id: data.stream,
-      class_level_id: data.classLevel
-    }
+      ['academic_year_id']: data.academicYear,
+      ['unit_levels']: data.unitLevels,
+      ['stream_id']: data.stream,
+      ['class_level_id']: data.classLevel
+    };
     const url = `api/students/${studentId}/academics`;
-    return this.http.post(url, params)
+    return this.http.post(url, params);
   }
 
   saveAcademicsFor(data: any) {
     const url = `api/students/${data.studentId}/academics/${data.academicYearId}`;
     return this.http.post(url, {...data, _method: 'PATCH'}).pipe(
       catchError(res => {
-        console.log(res)
-        return throwError(res)
+        console.log(res);
+        return throwError(res);
       }),
       tap(res => console.log(res))
-    )
+    );
   }
 }

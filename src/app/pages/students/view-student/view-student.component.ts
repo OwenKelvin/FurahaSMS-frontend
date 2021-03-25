@@ -27,11 +27,11 @@ export class ViewStudentComponent implements OnInit {
       .pipe(map(params => Number(params.get('id'))),
         tap(id => this.store.dispatch(loadStudentProfiles({ data: { id } }))),
         tap(id => this.studentId = id),
-        mergeMap(id => this.store.pipe(select(selectStudent(id)))))
+        mergeMap(id => this.store.pipe(select(selectStudent(id)))));
 
   }
-  changeProfile(event: { fieldName: string, fieldNewValue: string; } | Event) {
-    const eventTemp = event as { fieldName: string, fieldNewValue: string; };
+  changeProfile(event: { fieldName: string; fieldNewValue: string } | Event) {
+    const eventTemp = event as { fieldName: string; fieldNewValue: string };
     if (eventTemp.fieldName) {
       this.store.dispatch(loadStudentProfilesSuccess(
         { data: { id: this.studentId, [eventTemp.fieldName]: eventTemp.fieldNewValue } }));

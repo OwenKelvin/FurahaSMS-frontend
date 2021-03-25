@@ -42,7 +42,7 @@ export class CreateTeacherComponent extends subscribedContainerMixin(formMixin()
   religions$: Observable<any[]> = this.store.pipe(select(selectReligions));
   staffType$: Observable<any> = this.store.pipe(
     select(selectStaffType(this.supportStaff))
-  )
+  );
 
   constructor(
     private users: UsersService,

@@ -8,11 +8,10 @@ import {Observable} from 'rxjs';
 })
 export class AcademicYearService {
   url = 'api/academic-years';
-  all$ = this.http.get<any>(this.url)
-  urlWithId = (id: number) => `${this.url}/${id}`;
-
+  all$ = this.http.get<any>(this.url);
   constructor(private http: HttpClient) {
   }
+  urlWithId = (id: number) => `${this.url}/${id}`;
 
   saveUnitLevels(academicYearId: number, data: any): Observable<any> {
     const url = `api/academic-years/${academicYearId}/unit-levels`;
@@ -26,9 +25,7 @@ export class AcademicYearService {
       url += 'active=1';
     }
     return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
 
@@ -41,9 +38,7 @@ export class AcademicYearService {
     }
 
     return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
 
@@ -58,25 +53,21 @@ export class AcademicYearService {
       return this.http
         .patch<any>(url, {
           ...data,
-          start_date: data.startDate,
-          end_date: data.endDate
+          ['start_date']: data.startDate,
+          ['end_date']: data.endDate
         })
         .pipe(
-          map(res => {
-            return res;
-          })
+          map(res => res)
         );
     } else {
       return this.http
         .post<any>(url, {
           ...data,
-          start_date: data.startDate,
-          end_date: data.endDate
+          ['start_date']: data.startDate,
+          ['end_date']: data.endDate
         })
         .pipe(
-          map(res => {
-            return res;
-          })
+          map(res => res)
         );
     }
   }
@@ -84,12 +75,10 @@ export class AcademicYearService {
   delete(id: number): Observable<any> {
     const url = `api/academic-years/${id}`;
     return this.http.delete<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
   getSemestersForAcademicYearWithId(id: number) {
-    return this.http.get<any[]>(`${this.urlWithId(id)}/semesters`)
+    return this.http.get<any[]>(`${this.urlWithId(id)}/semesters`);
   }
 }

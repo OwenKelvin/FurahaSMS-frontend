@@ -10,12 +10,12 @@ export interface IUserProfileAction {
   dateOfBirth?: string;
   genderName?: string;
   religionName?: string;
-  studentId?: string | number
+  studentId?: string | number;
 }
 
 export const loadStudentProfiles = createAction(
   '[StudentProfile] Load StudentProfiles',
-  props<{ data: {id: number}; }>()
+  props<{ data: {id: number} }>()
 );
 
 export const loadStudentProfilesSuccess = createAction(

@@ -15,9 +15,7 @@ export const selectGenders = createSelector(
 
 export const selectGender = (id: number | string) => createSelector(
   selectGenders,
-  genders => {
-    return genders.find(({ id: itemId }) => +id === +itemId)
-  }
+  genders => genders.find(({ id: itemId }) => +id === +itemId)
 );
 
 export const selectReligions = createSelector(
@@ -27,9 +25,7 @@ export const selectReligions = createSelector(
 
 export const selectReligion = (id: number | string) => createSelector(
   selectReligions,
-  religion => {
-    return religion.find(({ id: itemId }) => +id === +itemId);
-  }
+  religion => religion.find(({ id: itemId }) => +id === +itemId)
 );
 export const selectEditModeOnState = createSelector(
   selectAppState,

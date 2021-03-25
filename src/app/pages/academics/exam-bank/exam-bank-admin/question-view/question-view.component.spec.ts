@@ -10,7 +10,7 @@ describe('QuestionViewComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [Number2AlphabetModule, MathModule],
+      imports: [Number2AlphabetModule, MathModule ],
       declarations: [QuestionViewComponent]
     })
       .compileComponents();

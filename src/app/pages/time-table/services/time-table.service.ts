@@ -13,7 +13,7 @@ export class TimeTableService {
   daysOfTheWeek$: Observable<any[]> = this.http.get<any[]>(`api/time-table/week-days`).pipe(
     shareReplay()
   );
-  saveLessonsFor({ academicYearId, timeTableId, data }: { academicYearId: number, timeTableId: number; data: any; }) {
+  saveLessonsFor({ academicYearId, timeTableId, data }: { academicYearId: number; timeTableId: number; data: any }) {
     return this.http.post(`api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`, data);
   }
   createForAcademicYear(id: number, data: any): any {
@@ -38,12 +38,12 @@ export class TimeTableService {
     }, {});
   }
 
-  getTimetableWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+  getTimetableWith({ academicYearId, timeTableId }: { academicYearId: number; timeTableId: number }) {
     const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}`;
     return this.http.get<any[]>(url);
   }
 
-  getTimetableTimingsWith({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+  getTimetableTimingsWith({ academicYearId, timeTableId }: { academicYearId: number; timeTableId: number }) {
 
     const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/timings`;
     return this.http.get<any[]>(url).pipe(
@@ -51,7 +51,7 @@ export class TimeTableService {
     );
   }
 
-  getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number, timeTableId: number; }) {
+  getLessonsFor({ academicYearId, timeTableId }: { academicYearId: number; timeTableId: number }) {
     const url = `api/academic-year/${academicYearId}/time-tables/${timeTableId}/lessons`;
     return this.http.get<any[]>(url).pipe(
       map(res => res.map(

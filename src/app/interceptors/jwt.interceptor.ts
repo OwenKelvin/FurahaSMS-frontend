@@ -21,14 +21,14 @@ export class JwtInterceptor implements HttpInterceptor {
             request = request.clone({
                 setHeaders: {
                     // 'Content-Type': 'application/json',
-                    Authorization: `Bearer ${currentUser.access_token}`
+                    ['Authorization']: `Bearer ${currentUser.access_token}`
                 }
             });
         } else {
             if (authToken) {
                 request = request.clone({
                     setHeaders: {
-                        Authorization: authToken
+                        ['Authorization']: authToken
                     }
                 });
             }

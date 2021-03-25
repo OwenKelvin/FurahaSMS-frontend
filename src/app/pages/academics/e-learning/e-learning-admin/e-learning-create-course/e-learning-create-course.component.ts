@@ -73,9 +73,9 @@ export class ELearningCreateCourseComponent
                 id: [subItem.id],
                 description: [subItem.description],
               })
-            )
+            );
           });
-        })
+        });
         this.newCourseForm.patchValue({
           id: course.id,
           name: course.name,
@@ -85,7 +85,7 @@ export class ELearningCreateCourseComponent
           academicYear: course.academicYearId,
           description: course.description,
           numbering: course.topicNumberStyleName,
-        })
+        });
       }
     }),
     map(() => true)
@@ -93,18 +93,18 @@ export class ELearningCreateCourseComponent
   classLevelChangedSubject$ = new BehaviorSubject<null | number>(null);
   classLevelChangedAction$ = this.classLevelChangedSubject$.asObservable();
   unitChangedSubject$ = new BehaviorSubject<null | number>(null);
-  unitChangedAction$ = this.unitChangedSubject$.asObservable()
+  unitChangedAction$ = this.unitChangedSubject$.asObservable();
 
   get unitLevelControl(): FormControl {
-    return this.newCourseForm.get('unitLevel') as FormControl
+    return this.newCourseForm.get('unitLevel') as FormControl;
   }
 
   get classLevelControl(): FormGroup {
-    return (this.newCourseForm.get('classLevel') as FormGroup)
+    return (this.newCourseForm.get('classLevel') as FormGroup);
   }
 
   get unitControl(): FormControl {
-    return (this.newCourseForm.get('unit') as FormControl)
+    return (this.newCourseForm.get('unit') as FormControl);
   }
 
   unitLevels$ = combineLatest([this.unitChangedAction$, this.classLevelChangedAction$, this.classLevels$]).pipe(
@@ -117,16 +117,16 @@ export class ELearningCreateCourseComponent
     ),
     tap((unitLevels) => {
       if (unitLevels.length === 1) {
-        this.unitLevelControl.setValue(unitLevels[0].id)
+        this.unitLevelControl.setValue(unitLevels[0].id);
       } else {
-        this.unitLevelControl.setValue(null)
+        this.unitLevelControl.setValue(null);
       }
     })
-  )
+  );
 
   v$ = combineLatest([this.course$, this.academicYears$, this.units$, this.classLevels$]).pipe(
     map(([course, academicYears, units, classLevels]) => ({course, academicYears, units, classLevels}))
-  )
+  );
 
   constructor(
     modalService: BsModalService,
@@ -156,23 +156,23 @@ export class ELearningCreateCourseComponent
     this.classLevelControl?.valueChanges.pipe(
       tap((id) => this.classLevelChangedSubject$.next(Number(id))),
       takeUntil(this.destroyed$)
-    ).subscribe()
+    ).subscribe();
     this.unitControl?.valueChanges.pipe(
       tap((id) => this.unitChangedSubject$.next(Number(id))),
       takeUntil(this.destroyed$)
-    ).subscribe()
+    ).subscribe();
     this.topicsControl.valueChanges.pipe(
       filter(val => JSON.stringify(val) !== JSON.stringify(this.topics)),
       tap(val => this.topics = [...val]),
       takeUntil(this.destroyed$)
-    ).subscribe()
+    ).subscribe();
 
     this.subTopicsControl.valueChanges.pipe(
       filter(val => JSON.stringify(val) !== JSON.stringify(this.subTopics)),
       filter(val => val.length === this.subTopics.length),
       tap(val => this.subTopics = [...val]),
       takeUntil(this.destroyed$)
-    ).subscribe()
+    ).subscribe();
   }
 
   resetNewTopicForm() {
@@ -203,9 +203,9 @@ export class ELearningCreateCourseComponent
             editItemIndex: [-1],
             id: [item.id],
             description: [item.description, [Validators.required]]
-          }))
+          }));
         }
-      })
+      });
       this.subTopics = [...this.subTopicsControl.value];
     }
     super.openModal({id, component});
@@ -220,8 +220,8 @@ export class ELearningCreateCourseComponent
           error: () => this.submitInProgressSubject$.next(false),
         });
     } else {
-      this.submitInProgressSubject$.next(false)
-      this.triggerValidationSubject$.next(true)
+      this.submitInProgressSubject$.next(false);
+      this.triggerValidationSubject$.next(true);
     }
 
   }
@@ -259,14 +259,14 @@ export class ELearningCreateCourseComponent
         description: this.nameControl.value,
         numbering: this.numberingControl.value,
         subTopics: this.newTopicSubTopics.value,
-      })
+      });
     } else {
       this.topicsControl.push(this.fb.group({
         id: [this.idTopicControl.value],
         description: [this.nameControl.value, [Validators.required]],
         numbering: [this.numberingControl.value],
         subTopics: [this.newTopicSubTopics.value],
-      }))
+      }));
     }
     this.topicsControl.updateValueAndValidity();
     this.newCourseForm.updateValueAndValidity();
@@ -290,7 +290,7 @@ export class ELearningCreateCourseComponent
       id: [-1],
       description: ['', [Validators.required]],
     }));
-    this.subTopics = [...this.subTopics, {id: -1, description: ''}]
+    this.subTopics = [...this.subTopics, {id: -1, description: ''}];
   }
 
   deleteSubTopic(i: number) {

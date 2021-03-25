@@ -56,5 +56,5 @@ describe('GuestGuard', () => {
         canActivate: guestGuard.canActivate
       };
       expect(canActivate.canActivate(next, state)).toBeFalsy();
-    }))
+    }));
 });

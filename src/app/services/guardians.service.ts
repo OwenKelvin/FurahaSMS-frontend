@@ -32,13 +32,9 @@ export class GuardiansService {
 
     if (data.id) {
       url = `${url}/${data.id}`;
-      return this.http.patch<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.patch<any>(url, submitData).pipe(map(user => user));
     } else {
-      return this.http.post<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.post<any>(url, submitData).pipe(map(user => user));
     }
   }
   getForStudent(userId: number): Observable<any[]> {
@@ -46,9 +42,7 @@ export class GuardiansService {
       return of([]);
     }
     const url = 'api/students/' + userId + '/guardians';
-    return this.http.get<any>(url).pipe(map(user => {
-      return user;
-    }));
+    return this.http.get<any>(url).pipe(map(user => user));
 
   }
   getGuardianWithId(userId: number | string): Observable<any> {

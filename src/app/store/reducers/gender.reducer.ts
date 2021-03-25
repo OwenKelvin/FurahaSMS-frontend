@@ -18,13 +18,9 @@ const genderReducer = createReducer(
   initialState,
 
   on(GenderActions.loadGenders, state => state),
-  on(GenderActions.loadGendersSuccess, (state, action) => {
-    return { ...state, ...action.data };
-  }),
+  on(GenderActions.loadGendersSuccess, (state, action) => ({ ...state, ...action.data })),
   on(GenderActions.loadGendersFailure, (state, _action) => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return genderReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => genderReducer(state, action);

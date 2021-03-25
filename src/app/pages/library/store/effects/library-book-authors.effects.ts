@@ -13,15 +13,10 @@ export class LibraryBookAuthorEffects {
   constructor(private actions$: Actions, private bookAuthorService: LibraryAuthorService) {
   }
 
-  loadibraryBookAuthors$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadibraryBookAuthors$ = createEffect(() => this.actions$.pipe(
       ofType(LibraryBookAuthorActions.loadBookAuthors),
-      concatMap(() => {
-        return this.bookAuthorService.all$.pipe(
+      concatMap(() => this.bookAuthorService.all$.pipe(
           map(data => LibraryBookAuthorActions.loadBookAuthorsSuccess({data})),
-          catchError(error => of(LibraryBookAuthorActions.loadBookAuthorsFailure({error}))));
-
-      })
-    );
-  });
+          catchError(error => of(LibraryBookAuthorActions.loadBookAuthorsFailure({error})))))
+    ));
 }

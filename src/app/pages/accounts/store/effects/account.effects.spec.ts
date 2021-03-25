@@ -10,7 +10,7 @@ describe('AccountEffects', () => {
   let effects: AccountEffects;
 
   beforeEach(() => {
-    actions$ = of(createAction('[Test Action]'))
+    actions$ = of(createAction('[Test Action]'));
     TestBed.configureTestingModule({
       providers: [
         AccountEffects,

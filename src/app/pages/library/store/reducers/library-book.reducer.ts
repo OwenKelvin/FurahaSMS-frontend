@@ -5,9 +5,9 @@ export const libraryBookFeatureKey = 'libraryBooks';
 
 export interface State {
   [id: number]: {
-    id?: number,
-    name?: string
-  }
+    id?: number;
+    name?: string;
+  };
 }
 
 export const initialState: State = {
@@ -23,16 +23,14 @@ const libraryBookReducer = createReducer(
   on(LibraryBookActions.loadLibraryBooksSuccess, (state, action) => {
     const data: any = {};
     action.data.forEach(element => {
-      data[element.id] = element
+      data[element.id] = element;
     });
 
     return {
       ...state, ...data
-    }
+    };
   }),
   on(LibraryBookActions.loadLibraryBooksFailure, (state, _action) => state),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return libraryBookReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => libraryBookReducer(state, action);

@@ -14,20 +14,12 @@ export const initialState: IDialogShow = {
 
 const dialogReducer = createReducer(
   initialState,
-  on(closeDialog, (state) => {
-    return {
+  on(closeDialog, (state) => ({
       ...state, show: true,
-    };
-
-  }),
-  on(showDialog, (state) => {
-    return {
+    })),
+  on(showDialog, (state) => ({
       ...state, show: false,
-    };
-
-  }),
+    })),
 );
 
-export function reducer(state: IDialogShow | undefined, action: Action) {
-  return dialogReducer(state, action);
-}
+export const reducer = (state: IDialogShow | undefined, action: Action) => dialogReducer(state, action);

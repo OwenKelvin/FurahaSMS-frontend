@@ -27,14 +27,14 @@ export class StudentFeePaymentService {
     return this.http.get(url);
   }
 
-  save({studentId, data}: { studentId: number, data: any; }): Observable<any> {
+  save({studentId, data}: { studentId: number; data: any }): Observable<any> {
     const submitData = {
       amount: data.paymentAmount.replace(/,/g, ''), // TODO-me Convert this to match locale
-      transaction_date: data.paymentDate,
+      ['transaction_date']: data.paymentDate,
       ref: data.paymentRef,
-      payment_method_id: data.paymentType
+      ['payment_method_id']: data.paymentType
     };
-    return this.http.post(`api/accounts/students/${studentId}/fee-payment-receipt`, submitData)
+    return this.http.post(`api/accounts/students/${studentId}/fee-payment-receipt`, submitData);
   }
 
   getFeeItemsDetails(item: any) {
@@ -118,12 +118,10 @@ export class StudentFeePaymentService {
     financialCostItemId: number
   ): number {
 
-    return otherFeesCosts.filter(val => {
-      return +val.classLevelId === +classLevelId &&
+    return otherFeesCosts.filter(val => +val.classLevelId === +classLevelId &&
         +val.semesterId === +semesterId &&
         +val.academicYearId === +academicYearId &&
-        +val.financialCostItemId === +financialCostItemId;
-    }).reduce((a, b) => a + b.amount, 0);
+        +val.financialCostItemId === +financialCostItemId).reduce((a, b) => a + b.amount, 0);
   }
 
   getOtherCostTotal(
@@ -134,24 +132,18 @@ export class StudentFeePaymentService {
     semesterId?: number | null
   ): number {
     if (typeof semesterId !== 'undefined') {
-      return otherFeesCosts.filter(val => {
-        return val.classLevelId === classLevelId &&
+      return otherFeesCosts.filter(val => val.classLevelId === classLevelId &&
           val.academicYearId === academicYearId &&
-          val.semesterId === semesterId;
-      }).reduce((a, b) => a + b.amount, 0);
+          val.semesterId === semesterId).reduce((a, b) => a + b.amount, 0);
     }
     if (typeof financialCostItemId === 'undefined') {
-      return otherFeesCosts.filter(val => {
-        return val.classLevelId === classLevelId &&
-          val.academicYearId === academicYearId;
-      }).reduce((a, b) => a + b.amount, 0);
+      return otherFeesCosts.filter(val => val.classLevelId === classLevelId &&
+          val.academicYearId === academicYearId).reduce((a, b) => a + b.amount, 0);
     }
 
-    return otherFeesCosts.filter(val => {
-      return val.classLevelId === classLevelId &&
+    return otherFeesCosts.filter(val => val.classLevelId === classLevelId &&
         val.financialCostItemId === financialCostItemId &&
-        val.academicYearId === academicYearId;
-    }).reduce((a, b) => a + b.amount, 0);
+        val.academicYearId === academicYearId).reduce((a, b) => a + b.amount, 0);
   }
 
 }

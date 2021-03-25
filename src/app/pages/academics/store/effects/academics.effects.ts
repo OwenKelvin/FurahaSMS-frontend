@@ -10,8 +10,7 @@ import * as AcademicsActions from '../actions/academics.actions';
 @Injectable()
 export class AcademicsEffects {
 
-  loadAcademics$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadAcademics$ = createEffect(() => this.actions$.pipe(
 
       ofType(AcademicsActions.loadAcademics),
       concatMap(() =>
@@ -20,8 +19,7 @@ export class AcademicsEffects {
           map(data => AcademicsActions.loadAcademicsSuccess({ data })),
           catchError(error => of(AcademicsActions.loadAcademicsFailure({ error }))))
       )
-    );
-  });
+    ));
 
 
 

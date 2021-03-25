@@ -13,7 +13,7 @@ import { selectSupportStaffWithId } from '../../store/selectors/support-staff.se
   styleUrls: ['./view-support-staff-info.component.css']
 })
 export class ViewSupportStaffInfoComponent implements OnInit {
-  supportStaffProfile$: Observable<any> | undefined
+  supportStaffProfile$: Observable<any> | undefined;
 
   constructor(
     private route: ActivatedRoute,

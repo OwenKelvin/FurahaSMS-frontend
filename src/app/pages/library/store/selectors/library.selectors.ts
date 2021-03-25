@@ -13,18 +13,13 @@ export const selectLibraryBookAuthors = createSelector(
 
 export const selectLibraryBookPublishers = createSelector(
   selectLibraryState,
-  library => {
-
-    return Object.values(library[fromLibraryBookPublisher.libraryPublisherFeatureKey])
+  library => Object.values(library[fromLibraryBookPublisher.libraryPublisherFeatureKey])
       .filter((item: any) => item.id !== 0)
-  }
 );
 
 export const selectLibraryBookPublisher = (id: number) => createSelector(
   selectLibraryState,
-  publisher => {
-    return publisher ? publisher[fromLibraryBookPublisher.libraryPublisherFeatureKey][id] : {}
-  }
+  publisher => publisher ? publisher[fromLibraryBookPublisher.libraryPublisherFeatureKey][id] : {}
 );
 
 // export const selectLibraryBookClassifications = createSelector(
@@ -35,7 +30,7 @@ export const selectLibraryBookPublisher = (id: number) => createSelector(
 export const selectLibraryBookClassifications = createSelector(
   selectLibraryState,
   library => {
-    console.log({library})
-    return library ? library.libraryBookClassifications : null
+    console.log({library});
+    return library ? library.libraryBookClassifications : null;
   }
 );

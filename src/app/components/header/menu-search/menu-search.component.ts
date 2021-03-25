@@ -44,7 +44,7 @@ export class MenuSearchComponent implements OnInit, OnDestroy {
       tap(() => this.searchSubmittedSubject$.next(false)),
       tap(() => this.search.setValue('')),
       takeWhile(() => this.componentIsActive)
-    ).subscribe()
+    ).subscribe();
   }
   get search(): FormControl {
     return this.searchForm.get('search') as FormControl;

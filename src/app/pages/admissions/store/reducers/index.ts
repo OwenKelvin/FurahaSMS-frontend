@@ -5,7 +5,7 @@ import * as fromStaffType from './staff-type.reducer';
 export const admissionsFeatureKey = 'admissions';
 
 export interface State {
-  [fromStaffType.staffTypeFeatureKey]: fromStaffType.State
+  [fromStaffType.staffTypeFeatureKey]: fromStaffType.State;
 }
 
 export const initialState: State = {

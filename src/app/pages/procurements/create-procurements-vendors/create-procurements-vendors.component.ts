@@ -114,7 +114,7 @@ export class CreateProcurementsVendorsComponent extends subscribedContainerMixin
           this.router.navigate(['/procurements/vendors']).then();
         },
         error: () => this.submitInProgressSubject$.next(false)
-      })
+      });
   }
 
   selectTab(tabId: number) {
@@ -122,7 +122,7 @@ export class CreateProcurementsVendorsComponent extends subscribedContainerMixin
   }
 
   validateForm() {
-    this.triggerValidationSubject$.next(true)
+    this.triggerValidationSubject$.next(true);
       this.markTabsWithError = true;
   }
 

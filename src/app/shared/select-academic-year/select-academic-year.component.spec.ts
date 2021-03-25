@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {SelectAcademicYearComponent} from './select-academic-year.component';
 import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';

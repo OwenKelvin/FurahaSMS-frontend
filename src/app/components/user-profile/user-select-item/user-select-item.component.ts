@@ -1,43 +1,44 @@
-import { Component, OnInit, Input, OnDestroy, Output, EventEmitter, ViewChild, ElementRef } from '@angular/core';
-import { Observable } from 'rxjs';
-import { selectEditModeOnState } from 'src/app/store/selectors/app.selectors';
-import { Store, select } from '@ngrx/store';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { UsersService } from 'src/app/services/users.service';
-import { takeWhile } from 'rxjs/operators';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
+import {Observable} from 'rxjs';
+import {selectEditModeOnState} from 'src/app/store/selectors/app.selectors';
+import {select, Store} from '@ngrx/store';
+import {FormBuilder, FormGroup} from '@angular/forms';
+import {UsersService} from 'src/app/services/users.service';
+import {takeUntil} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
 
 @Component({
   selector: 'app-user-select-item',
   templateUrl: './user-select-item.component.html',
   styleUrls: ['./user-select-item.component.css']
 })
-export class UserSelectItemComponent implements OnInit, OnDestroy {
+export class UserSelectItemComponent extends subscribedContainerMixin() implements OnInit {
 
   @Input() label: string;
   @Input() value: number;
   @Input() userId: number;
   @Input() valueName: string;
-  @Output() valueChanged: EventEmitter<{id: number, name: string}> = new EventEmitter();
-  editMode$: Observable<boolean> | undefined;
+  @Output() valueChanged: EventEmitter<{ id: number; name: string }> = new EventEmitter();
   @Input() items: Observable<any[]>;
+  @ViewChild('selectInput') selectInput: ElementRef;
+  editMode$: Observable<boolean> | undefined = this.store.pipe(select(selectEditModeOnState));
   editable = false;
   editHovered = false;
-  itemForm: FormGroup;
+  itemForm: FormGroup = this.fb.group({
+    fieldName: ['']
+  });
   isSubmitting: boolean;
-  componentIsActive: boolean;
-  @ViewChild('selectInput') selectInput: ElementRef;
+
   constructor(
     private store: Store,
     private fb: FormBuilder,
     private usersService: UsersService
-  ) { }
+  ) {
+    super();
+  }
 
-  ngOnInit(): void {
-    this.componentIsActive = true;
-    this.itemForm = this.fb.group({
-      fieldName: [this.value]
-    })
-    this.editMode$ = this.store.pipe(select(selectEditModeOnState));
+  ngOnInit() {
+    this.itemForm.get('fieldName')?.setValue(this.value);
   }
 
   submitFormItem() {
@@ -50,7 +51,7 @@ export class UserSelectItemComponent implements OnInit, OnDestroy {
         fieldNewValue,
         userId: this.userId
       })
-        .pipe(takeWhile(() => this.componentIsActive))
+        .pipe(takeUntil(this.destroyed$))
         .subscribe(() => {
           this.valueChanged.emit({
             id: (this.selectInput.nativeElement as HTMLSelectElement).selectedIndex,
@@ -63,9 +64,6 @@ export class UserSelectItemComponent implements OnInit, OnDestroy {
       alert('Form not filled correctly');
     }
 
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 
 }

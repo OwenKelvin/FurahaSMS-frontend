@@ -18,5 +18,5 @@ export const loadCoursesFailure = createAction(
 
 export const createLearningOutcomeAction = createAction(
   '[Courses] Create Learning Outcome',
-  props<{ data: { courseId: number, topicId: number, learningOutcome: any } }>()
+  props<{ data: { courseId: number; topicId: number; learningOutcome: any } }>()
 );

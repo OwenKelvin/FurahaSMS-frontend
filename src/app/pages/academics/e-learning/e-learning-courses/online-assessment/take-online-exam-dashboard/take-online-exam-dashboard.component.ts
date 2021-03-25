@@ -11,11 +11,11 @@ import {map, mergeMap, tap} from 'rxjs/operators';
 export class TakeOnlineExamDashboardComponent {
   assessmentId$ = this.route.paramMap.pipe(
     map(params => Number(params.get('id')))
-  )
+  );
   courseId$ = this.route.paramMap.pipe(
     tap(res => console.log(res)),
     map(params => Number(params.get('id')))
-  )
+  );
   assessment$ = this.assessmentId$.pipe(
     mergeMap((assessmentId) => this.onlineAssessment.getAssessmentWithId(assessmentId)),
     map(assessment => ({
@@ -26,17 +26,17 @@ export class TakeOnlineExamDashboardComponent {
       unitLevelName: assessment.unit_level_name,
       examPaperName: assessment.exam_paper_name
     }))
-  )
+  );
 
   constructor(
-    private Route: ActivatedRoute,
+    private route: ActivatedRoute,
     private router: Router,
-    private onlineAssessment: OnlineAssessmentService, private route: ActivatedRoute) {
+    private onlineAssessment: OnlineAssessmentService) {
   }
 
   takeTest() {
     if (confirm('Are you sure you wish to begin test? ')) {
-      this.router.navigate(['take'], {relativeTo: this.Route}).then()
+      this.router.navigate(['take'], {relativeTo: this.route}).then();
     }
   }
 }

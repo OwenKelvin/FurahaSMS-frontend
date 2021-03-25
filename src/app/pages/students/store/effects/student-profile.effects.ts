@@ -16,17 +16,12 @@ export class StudentProfileEffects {
     private studentService: StudentService
   ) { }
 
-  loadStudentProfiles$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadStudentProfiles$ = createEffect(() => this.actions$.pipe(
 
       ofType(StudentProfileActions.loadStudentProfiles),
-      concatMap((payload) => {
-
-        return this.studentService.getStudentById(payload.data.id).pipe(
+      concatMap((payload) => this.studentService.getStudentById(payload.data.id).pipe(
           map(data => StudentProfileActions.loadStudentProfilesSuccess({ data })),
-          catchError(error => of(StudentProfileActions.loadStudentProfilesFailure({ error }))));
-      })
-    );
-  });
+          catchError(error => of(StudentProfileActions.loadStudentProfilesFailure({ error })))))
+    ));
 
 }

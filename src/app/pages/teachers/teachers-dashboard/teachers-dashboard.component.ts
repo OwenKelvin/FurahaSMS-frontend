@@ -8,7 +8,7 @@ import {TeacherService} from '../../admissions/services/teacher.service';
 })
 export class TeachersDashboardComponent {
 
-  teachers$ = this.teachersService.getActiveTeachers()
+  teachers$ = this.teachersService.getActiveTeachers();
 
   constructor(private teachersService: TeacherService) {
   }

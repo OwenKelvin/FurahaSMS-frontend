@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadTeacherProfiles = createAction(
   '[TeacherProfile] Load TeacherProfiles',
-  props<{ data: any; }>()
+  props<{ data: any }>()
 );
 
 export const loadTeacherProfilesSuccess = createAction(

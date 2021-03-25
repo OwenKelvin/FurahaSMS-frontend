@@ -10,16 +10,14 @@ import { of } from 'rxjs';
 @Injectable()
 export class GenderEffects {
 
-  loadGenders$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadGenders$ = createEffect(() => this.actions$.pipe(
       ofType(loadGenders),
       concatMap(() =>
         this.genderService.all$.pipe(
           map(data => loadGendersSuccess({ data })),
           catchError((error) => of(loadGendersFailure({error}))))
       )
-    );
-  });
+    ));
 
 
   constructor(private actions$: Actions, private genderService: GenderService) {}

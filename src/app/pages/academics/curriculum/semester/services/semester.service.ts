@@ -11,6 +11,6 @@ export class SemesterService extends crudMixin() {
 
   constructor(_http: HttpClient) {
     super(_http);
-    this.http = _http
+    this.http = _http;
   }
 }

@@ -1,10 +1,10 @@
-import { Component, forwardRef, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
-import { InputComponent } from '../input/input.component';
-import { FormGroup, FormBuilder, NG_VALUE_ACCESSOR, NG_VALIDATORS, FormControl, Validator  } from '@angular/forms';
-import { AppFormService } from 'src/app/services/AppForm.service';
-import { PhoneNumbersService } from 'src/app/services/phone-numbers.service';
-import { Observable } from 'rxjs';
-import { takeWhile } from 'rxjs/operators';
+import {AfterViewInit, Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
+import {InputComponent} from '../input/input.component';
+import {FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator} from '@angular/forms';
+import {AppFormService} from 'src/app/services/AppForm.service';
+import {PhoneNumbersService} from 'src/app/services/phone-numbers.service';
+import {Observable, Subject} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-tel-input',
@@ -26,10 +26,11 @@ import { takeWhile } from 'rxjs/operators';
 export class TelInputComponent extends InputComponent implements OnInit, Validator, AfterViewInit, OnDestroy {
   countries$: Observable<any>;
   selectedPhoneCode: number | string;
-  selectedPhone: { country: any, code: any; };
+  selectedPhone: { country: any; code: any };
   allowedPhoneCountries: any;
   phoneNumberGroup: FormGroup;
-  componentIsActive: any;
+  destroyed$ = new Subject();
+
   constructor(
     appFormService: AppFormService,
     private phoneNumbers: PhoneNumbersService,
@@ -39,49 +40,54 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
   }
 
   ngOnInit() {
-    this.componentIsActive = true;
     this.phoneNumbers.getAllowedCountries()
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(data => {
-      this.allowedPhoneCountries = data;
-    });
+        this.allowedPhoneCountries = data;
+      });
     this.countries$ = this.phoneNumbers.getAllCountryCodes();
     this.phoneNumberGroup = this.fb.group({
       code: [],
-      phone_number: []
+      phoneNumber: []
     });
 
     this.countryCode.setValue(this.localeCountryCode);
 
     this.phoneNumberGroup.valueChanges
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(value => {
-      if (this.onChanges) {
-        this.onChanges('+' + value.code + (value.phone_number ? value.phone_number : ''));
-      }
-    });
+        if (this.onChanges) {
+          this.onChanges('+' + value.code + (value.phoneNumber ? value.phoneNumber : ''));
+        }
+      });
   }
+
   ngAfterViewInit() {
-    const queryStrimg = '#' + this.id + '-container .ng-input [role=combobox]';
-    (document.querySelector(queryStrimg) as HTMLInputElement).setAttribute('aria-label', 'Select country code');
+    const queryString = '#' + this.id + '-container .ng-input [role=combobox]';
+    (document.querySelector(queryString) as HTMLInputElement).setAttribute('aria-label', 'Select country code');
   }
+
   get localeCountryCode() {
     // TODO-me set country code as per user locale
     return 254;
   }
+
   validatePhone(phone: string | null | undefined): void {
     if (!this.phoneNumbers.isValidPhoneNumber(phone)) {
       this.formControl.markAsDirty();
       this.fieldError = 'The Phone Number Entered is Invalid';
-      this.formControl.setErrors({ invalid: 'Phone Number is invalid' });
+      this.formControl.setErrors({invalid: 'Phone Number is invalid'});
     }
   }
+
   get countryCode(): FormControl {
     return this.phoneNumberGroup.get('code') as FormControl;
   }
+
   get phoneNumber(): FormControl {
-    return this.phoneNumberGroup.get('phone_number') as FormControl;
+    return this.phoneNumberGroup.get('phoneNumber') as FormControl;
   }
+
   writeValue(value: any): void {
     if (value !== undefined && value !== '') {
       const splitValues = this.phoneNumbers.splitNumberFromCountryCode(value);
@@ -91,11 +97,13 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
       this.countryCode.setValue(this.localeCountryCode);
     }
   }
+
   validateField() {
     super.validateField();
     const value = this.phoneNumberGroup.value;
     this.validatePhone(this.phoneNumberString);
   }
+
   validate(c: FormControl) {
     if (!c.hasError('required') && c.value !== '') {
       return null;
@@ -115,11 +123,13 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
       },
     };
   }
+
   get phoneNumberString(): string {
     const value = this.phoneNumberGroup.value;
-    return '+' + value.code + value.phone_number;
+    return '+' + value.code + value.phoneNumber;
   }
+
   ngOnDestroy() {
-    this.componentIsActive = false;
+    this.destroyed$.next();
   }
 }

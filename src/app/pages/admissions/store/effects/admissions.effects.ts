@@ -14,8 +14,7 @@ export class AdmissionsEffects {
     private supportStaffService: SupportStaffService
   ) { }
 
-  loadAdmissionss$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadAdmissionss$ = createEffect(() => this.actions$.pipe(
 
       ofType(AdmissionsActions.loadAdmissionss),
       concatMap(() =>
@@ -24,10 +23,8 @@ export class AdmissionsEffects {
           map(data => AdmissionsActions.loadAdmissionssSuccess({ data })),
           catchError(error => of(AdmissionsActions.loadAdmissionssFailure({ error }))))
       )
-    );
-  });
-  loadStaffTypes$ = createEffect(() => {
-    return this.actions$.pipe(
+    ));
+  loadStaffTypes$ = createEffect(() => this.actions$.pipe(
 
       ofType(StaffTypeActions.loadStaffTypes),
       concatMap(() =>
@@ -35,6 +32,5 @@ export class AdmissionsEffects {
           map(data => StaffTypeActions.loadStaffTypesSuccess({ data })),
           catchError(error => of(StaffTypeActions.loadStaffTypesFailure({ error }))))
       )
-    );
-  });
+    ));
 }

@@ -30,15 +30,13 @@ export class TeacherService {
     return this.http.get<any>(`${this.url}/${id}`)
       .pipe(
         map(this.transformTeacher),
-        catchError(error => {
-          return throwError(error);
-        })
+        catchError(error => throwError(error))
       );
   }
   loadTeacherProfile$ = (id: number) => this.store.pipe(
     select(selectTeacher(id)),
     tap(profile => !profile ? this.store.dispatch(loadTeacherProfiles({data: {id}})) : null)
-  )
+  );
   transformTeacher = (user: any) => ({
     ...user,
     firstName: user.first_name,
@@ -54,9 +52,7 @@ export class TeacherService {
     return this.http.get<any[]>(`${this.url}/?active=1`)
       .pipe(
         map(users => users.map(this.transformTeacher)),
-        catchError(error => {
-          return throwError(error);
-        }),
+        catchError(error => throwError(error)),
         shareReplay()
       );
   }

@@ -5,7 +5,7 @@ import { IUserProfile } from 'src/app/interfaces/user-profile.interface';
 export const studentProfileFeatureKey = 'studentProfiles';
 
 export interface State {
-  [id: number]: IUserProfile
+  [id: number]: IUserProfile;
 }
 
 export const initialState: State = {
@@ -20,13 +20,9 @@ const studentProfileReducer = createReducer(
   initialState,
 
   on(StudentProfileActions.loadStudentProfiles, state => state),
-  on(StudentProfileActions.loadStudentProfilesSuccess, (state, action) => {
-    return { ...state, [action.data.id]: { ...state[action.data.id], ...action.data}}
-  }),
+  on(StudentProfileActions.loadStudentProfilesSuccess, (state, action) => ({ ...state, [action.data.id]: { ...state[action.data.id], ...action.data}})),
   on(StudentProfileActions.loadStudentProfilesFailure, (state, _action) => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return studentProfileReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => studentProfileReducer(state, action);

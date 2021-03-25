@@ -2,7 +2,7 @@ import { createAction, props } from '@ngrx/store';
 
 export const loadGuardianProfiles = createAction(
   '[GuardianProfile] Load GuardianProfiles',
-  props<{ data: any; }>()
+  props<{ data: any }>()
 );
 
 export const loadGuardianProfilesSuccess = createAction(

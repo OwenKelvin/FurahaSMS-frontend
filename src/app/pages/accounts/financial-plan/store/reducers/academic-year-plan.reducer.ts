@@ -6,13 +6,13 @@ export const academicYearPlanFeatureKey = 'academicYearPlan';
 export interface State {
   [id: number]: {
     academicYear: {
-      id: number,
-      name?: string,
-      startDate?: string,
+      id: number;
+      name?: string;
+      startDate?: string;
       endDate?: string;
     };
     financialYearPlan: object;
-  }
+  };
 }
 
 export const initialState: State = {
@@ -34,15 +34,11 @@ const academicYearPlanReducer = createReducer(
     }
     return state;
   }),
-  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => {
-    return {
+  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => ({
       ...state,
       [action.academicYearId]: {...state?.[action.academicYearId], financialYearPlan: action.data}
-    };
-  }),
+    })),
   on(AcademicYearPlanActions.loadAcademicYearPlansFailure, (state, _action) => state),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return academicYearPlanReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => academicYearPlanReducer(state, action);

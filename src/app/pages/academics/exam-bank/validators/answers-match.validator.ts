@@ -1,6 +1,6 @@
 import { FormGroup } from '@angular/forms';
 
-export const answersMatchValidator = (group: FormGroup): { answersMismatch: any; } | null => {
+export const answersMatchValidator = (group: FormGroup): { answersMismatch: any } | null => {
   const multipleAnswers = group.get('multipleAnswers')?.value;
   const multipleChoices = group.get('multipleChoices')?.value;
   const answers = group.get('answers')?.value as any[];

@@ -1,11 +1,12 @@
-import {Component, OnDestroy} from '@angular/core';
+import {Component} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {BehaviorSubject, combineLatest, Observable} from 'rxjs';
-import {map, tap} from 'rxjs/operators';
+import {map, takeUntil, tap} from 'rxjs/operators';
 import {AuthenticationService} from 'src/app/services/authentication.service';
 import {ActivatedRoute, Router} from '@angular/router';
 import {Store} from '@ngrx/store';
 import {loadErrorMessagesFailure} from 'src/app/store/actions/error-message.actions';
+import {subscribedContainerMixin} from '../../../shared/mixins/subscribed-container.mixin';
 
 const checkPasswords = (group: FormGroup) => {
   const matchedPasswords = group.get('newPassword')?.value === group.get('newPasswordConfirmation')?.value;
@@ -17,26 +18,7 @@ const checkPasswords = (group: FormGroup) => {
   templateUrl: './password-change-form.component.html',
   styleUrls: ['./password-change-form.component.css']
 })
-export class PasswordChangeFormComponent implements OnDestroy {
-
-  constructor(
-    private fb: FormBuilder,
-    private authService: AuthenticationService,
-    private route: ActivatedRoute,
-    private router: Router,
-    private store: Store
-  ) {
-  }
-
-  get showPasswordMismatch() {
-    return this.passwordChangeForm.hasError('passwordMismatch') &&
-      this.passwordChangeForm.get('newPassword')?.touched &&
-      this.passwordChangeForm.get('newPassword')?.dirty &&
-      this.passwordChangeForm.get('newPasswordConfirmation')?.touched &&
-      this.passwordChangeForm.get('newPasswordConfirmation')?.dirty;
-  }
-
-  componentIsActive = true;
+export class PasswordChangeFormComponent extends subscribedContainerMixin() {
   passwordChangeForm: FormGroup = this.fb.group({
     token: [''],
     oldPassword: [''],
@@ -52,10 +34,31 @@ export class PasswordChangeFormComponent implements OnDestroy {
     map((token) => !token),
     tap((showField) => {
       const c: FormControl = this.passwordChangeForm.get('oldPassword') as FormControl;
-      showField ? c.setValidators([Validators.required]) : c.setValidators([]);
+      if (showField) {
+        c.setValidators([Validators.required]);
+      } else {
+        c.setValidators([]);
+      }
     })
   );
 
+  constructor(
+    private fb: FormBuilder,
+    private authService: AuthenticationService,
+    private route: ActivatedRoute,
+    private router: Router,
+    private store: Store
+  ) {
+    super();
+  }
+
+  get showPasswordMismatch() {
+    return this.passwordChangeForm.hasError('passwordMismatch') &&
+      this.passwordChangeForm.get('newPassword')?.touched &&
+      this.passwordChangeForm.get('newPassword')?.dirty &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.touched &&
+      this.passwordChangeForm.get('newPasswordConfirmation')?.dirty;
+  }
 
   submitPasswordChangeForm() {
 
@@ -65,7 +68,7 @@ export class PasswordChangeFormComponent implements OnDestroy {
       combineLatest([
         this.route.queryParams.pipe(map(params => params.returnUrl)),
         this.authService.changePassword(this.passwordChangeForm.value)
-      ]).subscribe({
+      ]).pipe(takeUntil(this.destroyed$)).subscribe({
         next: this.passwordChangeSuccess,
         error: () => this.isSubmittingSubject$.next(false)
       });
@@ -78,11 +81,6 @@ export class PasswordChangeFormComponent implements OnDestroy {
     returnUrl = returnUrl || '/dashboard';
     this.isSubmittingSubject$.next(false);
     this.store.dispatch(loadErrorMessagesFailure());
-    this.router.navigate([returnUrl]);
+    this.router.navigate([returnUrl]).then();
   };
-
-  ngOnDestroy() {
-    this.componentIsActive = false;
-  }
-
 }

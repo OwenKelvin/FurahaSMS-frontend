@@ -44,11 +44,11 @@ export class CreateTagComponent implements OnInit, OnDestroy {
       .pipe(mergeMap(id => this.libraryTagService.getTagWithId(id)))
       .pipe(takeWhile(() => this.componentIsActive))
       .subscribe(tag => {
-        const tagConverted = tag as { name: string, id: string, biography: string; };
+        const tagConverted = tag as { name: string; id: string; biography: string };
         (this.newBookTagForm.get('id') as FormControl).setValue(tagConverted.id);
         (this.newBookTagForm.get('name') as FormControl).setValue(tagConverted.name);
         this.isLoading = false;
-      })
+      });
     // this.route.paramMap.subscribe(params => {
     //   const id = Number(params.get('id'));
     //   if (id > 0) {

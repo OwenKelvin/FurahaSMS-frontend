@@ -8,7 +8,9 @@ import {ELearningService} from '../services/e-learning.service';
 import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 import {takeUntil} from 'rxjs/operators';
 import {loadCourses} from '../../store/actions/courses.actions';
-import {ELearningDeleteLearningOutcomeComponent} from '../e-learning-admin/e-learning-delete-learning-outcome/e-learning-delete-learning-outcome.component';
+import {
+  ELearningDeleteLearningOutcomeComponent
+} from '../e-learning-admin/e-learning-delete-learning-outcome/e-learning-delete-learning-outcome.component';
 
 @Component({
   selector: 'app-e-learning-topic-objectives',
@@ -25,19 +27,19 @@ export class ELearningTopicObjectivesComponent extends subscribedContainerMixin(
   itemForm: FormGroup = this.fb.group({
     id: [null, [Validators.required]],
     description: ['', [Validators.required]]
-  })
-  store: any
+  });
+  store: any;
 
   constructor(modalService: BsModalService, store: Store, private fb: FormBuilder, private eLearningService: ELearningService) {
     super(modalService, store);
     this.store = store;
   }
 
-  editLearningOutcome({id, component}: { id: number, component: TemplateRef<any> }) {
+  editLearningOutcome({id, component}: { id: number; component: TemplateRef<any> }) {
     this.itemForm.patchValue({
       id: this.learningOutcomes[id].id,
       description: this.learningOutcomes[id].description,
-    })
+    });
     this.openModal({id, component});
   }
 
@@ -52,10 +54,10 @@ export class ELearningTopicObjectivesComponent extends subscribedContainerMixin(
         next: () => {
           this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.store.dispatch(loadCourses({data: {id: this.courseId}}))
+          this.store.dispatch(loadCourses({data: {id: this.courseId}}));
         },
         error: () => this.submitInProgressSubject$.next(false)
-      })
+      });
   }
 
   deleteLearningOutcome(i: number) {

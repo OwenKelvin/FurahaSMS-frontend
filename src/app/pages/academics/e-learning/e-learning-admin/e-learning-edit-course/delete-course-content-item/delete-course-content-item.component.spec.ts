@@ -37,8 +37,8 @@ describe('DeleteCourseContentItemComponent', () => {
     fixture = TestBed.createComponent(DeleteCourseContentItemComponent);
     component = fixture.componentInstance;
     component.learningContent = {
-      study_material: {}
-    }
+      ['study_material']: {}
+    };
     fixture.detectChanges();
   });
 

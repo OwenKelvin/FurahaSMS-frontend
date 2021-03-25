@@ -17,16 +17,14 @@ export class ELearningCoursesComponent extends subscribedContainerMixin() implem
     .pipe(takeUntil(this.destroyed$));
   filterString = '';
   isCollapsed: boolean[]= [false];
-  filterSubject$ = new BehaviorSubject('')
-  filterAction$ = this.filterSubject$.asObservable()
+  filterSubject$ = new BehaviorSubject('');
+  filterAction$ = this.filterSubject$.asObservable();
   filteredCourses$: Observable<ICourse[]> = combineLatest([
     this.courses$, this.filterAction$ ]).pipe(
-      map(([courses, filterString]) => courses.filter(course => {
-        return (course.name && course.name.includes(filterString)) ||
+      map(([courses, filterString]) => courses.filter(course => (course.name && course.name.includes(filterString)) ||
           (course.classLevelName && course.classLevelName.includes(filterString)) ||
           (course.academicYearName && course.academicYearName.includes(filterString)) ||
-          (course.unitName && course.unitName.includes(filterString));
-      }))
+          (course.unitName && course.unitName.includes(filterString))))
   );
 
   constructor(private eLearningService: ELearningService) {
@@ -56,6 +54,6 @@ export class ELearningCoursesComponent extends subscribedContainerMixin() implem
       [x[key]]: (acc[x[key] as any] || []).concat(x)
     }), {});
 
-    return Object.entries(grouped)
+    return Object.entries(grouped);
   }
 }
