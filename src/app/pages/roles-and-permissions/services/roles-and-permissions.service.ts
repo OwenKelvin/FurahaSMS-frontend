@@ -11,7 +11,7 @@ export class RolesAndPermissionsService {
 
   constructor(private http: HttpClient) { }
 
-  updatePermissionForRoleWithId(roleId: number, data: { name: any; hasPermission: any; }) {
+  updatePermissionForRoleWithId(roleId: number, data: { name: any; hasPermission: any }) {
     return this.http.patch(`api/permissions-and-roles/roles/${roleId}`, data);
   }
   getAllPermissionsStatusForRole(id: number): any {

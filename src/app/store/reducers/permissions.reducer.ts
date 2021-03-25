@@ -1,7 +1,7 @@
 import { createReducer } from '@ngrx/store';
 import { LinkInterface } from 'src/app/interfaces/link.interface';
-import { dashboardLinks } from '../data-files/dashboard-links.data-file'
-import { accountsLinks } from '../data-files/accounts-links.data-file'
+import { dashboardLinks } from '../data-files/dashboard-links.data-file';
+import { accountsLinks } from '../data-files/accounts-links.data-file';
 import { examBankLinks } from '../data-files/exam-bank.data-file';
 import { procurementLinks } from '../data-files/procurement.data-file';
 import { academicCurriculumLinks } from '../data-files/academic-curriculum.data-file';

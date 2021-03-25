@@ -12,7 +12,7 @@ export interface LibraryState {
   libraryBookAuthors: fromLibraryBookAuthor.State[];
   [fromLibraryBookPublisher.libraryPublisherFeatureKey]: fromLibraryBookPublisher.State;
   libraryBookClassifications: fromLibraryBookClassification.State[];
-  [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.State
+  [fromLibraryBooks.libraryBookFeatureKey]: fromLibraryBooks.State;
 }
 
 export interface State extends fromRoot.AppState {

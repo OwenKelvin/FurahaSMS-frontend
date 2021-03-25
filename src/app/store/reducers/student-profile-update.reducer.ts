@@ -23,16 +23,11 @@ export const initialState: StudentProfileStateInterface = {
   studentId: 0
 };
 
-const StudentProfileUpdateReducer = createReducer(
+const studentProfileUpdateReducer = createReducer(
   initialState,
-  on(loadStudentProfileUpdatesSuccess, (state, payload) => {
-    return {
+  on(loadStudentProfileUpdatesSuccess, (state, payload) => ({
       ...state, ...payload.data
-    };
-
-  }),
+    })),
 );
 
-export function reducer(state: StudentProfileStateInterface | undefined, action: Action) {
-  return StudentProfileUpdateReducer(state, action);
-}
+export const reducer = (state: StudentProfileStateInterface | undefined, action: Action) => studentProfileUpdateReducer(state, action);

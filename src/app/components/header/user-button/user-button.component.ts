@@ -1,7 +1,7 @@
-import { Component, ChangeDetectionStrategy, ViewChild, ElementRef, HostListener, OnInit } from '@angular/core';
-import { MyProfileService } from 'src/app/pages/my-profile/services/my-profile.service';
-import { timer, Observable, BehaviorSubject, combineLatest } from 'rxjs';
-import { takeWhile, tap, finalize } from 'rxjs/operators';
+import {ChangeDetectionStrategy, Component, ElementRef, HostListener, ViewChild} from '@angular/core';
+import {MyProfileService} from 'src/app/pages/my-profile/services/my-profile.service';
+import {BehaviorSubject, combineLatest, Observable, timer} from 'rxjs';
+import {finalize, takeWhile, tap} from 'rxjs/operators';
 
 
 @Component({
@@ -11,28 +11,34 @@ import { takeWhile, tap, finalize } from 'rxjs/operators';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserButtonComponent {
-  constructor(
-    private eRef: ElementRef,
-    private myProfileService: MyProfileService
-  ) { }
+
   @ViewChild('dropdown') dropDownMenu: ElementRef;
   isCollapsed = false;
   isCollapsedSubject$ = new BehaviorSubject<boolean>(false);
   isCollapsedAction$ = this.isCollapsedSubject$.asObservable();
 
   user$ = this.myProfileService.loadMyProfile$;
+  constructor(
+    private eRef: ElementRef,
+    private myProfileService: MyProfileService
+  ) {
+  }
+
   @HostListener('document:click', ['$event'])
   clicked(event: any) {
     if (this.isCollapsed && !this.eRef.nativeElement.contains(event.target)) {
       this.toggleMenu();
     }
   }
+
   menuAnimator: () =>
     Observable<number> = () => timer(100, 10);
 
   toggleMenu() {
     const dropDownElement = this.dropDownMenu.nativeElement as HTMLDivElement;
-    if (!this.isCollapsed) { dropDownElement.style.opacity = '0'; }
+    if (!this.isCollapsed) {
+      dropDownElement.style.opacity = '0';
+    }
     this.isCollapsedSubject$.next(!this.isCollapsed);
     combineLatest([
       this.isCollapsedAction$,

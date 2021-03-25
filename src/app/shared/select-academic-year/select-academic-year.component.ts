@@ -18,7 +18,7 @@ export class SelectAcademicYearComponent {
   routesLinks = (): (string | number)[] => this.routes
       .map(item => item === ':id' ? (this.selectedAcademicYear ? this.selectedAcademicYear : '') : item);
   goToAcademicYear() {
-    if(!this.selectedAcademicYear) return false
-    return this.router.navigate(this.routesLinks()).then()
+    if(!this.selectedAcademicYear) {return false;}
+    return this.router.navigate(this.routesLinks()).then();
   }
 }

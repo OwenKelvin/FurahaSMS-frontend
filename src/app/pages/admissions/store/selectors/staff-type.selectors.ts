@@ -16,7 +16,5 @@ export const selectStaffTypes = createSelector(
 
 export const selectStaffType = (id: number) => createSelector(
   selectStaffTypesState,
-  staffType => {
-    return staffType ? staffType[id] : null
-  }
+  staffType => staffType ? staffType[id] : null
 );

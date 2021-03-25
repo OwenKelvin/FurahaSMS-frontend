@@ -42,7 +42,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
     this.units$ = this.unitService.getAll();
     this.units$
       .pipe(takeWhile(() => this.componentIsActive))
-      .subscribe(units => this.units = units)
+      .subscribe(units => this.units = units);
     this.classLevels$ = this.classLevelService.getAll();
     this.classLevels$
       .pipe(takeWhile(() => this.componentIsActive))
@@ -55,7 +55,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
       pdfFile: [null, [Validators.required]],
       units: this.fb.array([], Validators.required),
       classLevels: this.fb.array([], Validators.required)
-    })
+    });
   }
   onFileSelected() {
     const $pdf: any = document.querySelector('#pdfFile');
@@ -105,7 +105,7 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
   }
 
   get unitsControl(): FormArray {
-    return this.studyMaterialForm.get('units') as FormArray
+    return this.studyMaterialForm.get('units') as FormArray;
   }
   get classLevelsControl(): FormArray {
     return this.studyMaterialForm.get('classLevels') as FormArray;
@@ -116,11 +116,11 @@ export class CreateStudyMaterialComponent implements OnInit, OnDestroy {
       const filterdUnits = this.units
         .filter((_unit, i) => this.formUnits[i])
         .map(({ id }) => id);
-      this.unitsControl.controls.splice(0, this.unitsControl.controls.length)
-      filterdUnits.forEach(_ => this.unitsControl.push(this.fb.control('')))
+      this.unitsControl.controls.splice(0, this.unitsControl.controls.length);
+      filterdUnits.forEach(_ => this.unitsControl.push(this.fb.control('')));
       this.unitsControl.setValue(filterdUnits);
       this.unitsControl.updateValueAndValidity();
-    }, 0)
+    }, 0);
 
   }
   updateClassLevels() {

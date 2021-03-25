@@ -23,7 +23,7 @@ export class ELearningCourseStudyMaterialComponent {
         .parent as ActivatedRoute)
       .parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id')))
-  )
+  );
 
   course$: Observable<ICourse | null> = this.docId$.pipe(
     mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
@@ -41,7 +41,7 @@ export class ELearningCourseStudyMaterialComponent {
     }),
   );
 
-  v$ = combineLatest([this.course$, this.studyMaterial$])
+  v$ = combineLatest([this.course$, this.studyMaterial$]);
 
   constructor(
     private route: ActivatedRoute,

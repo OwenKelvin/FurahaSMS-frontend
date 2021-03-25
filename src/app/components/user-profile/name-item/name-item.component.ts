@@ -42,7 +42,7 @@ export class NameItemComponent extends formMixin() implements OnInit {
 
   submitFormItem() {
     if (this.itemForm.valid) {
-      this.submitInProgressSubject$.next(true)
+      this.submitInProgressSubject$.next(true);
       const fieldNewValue = this.itemForm.get('name')?.value;
       this.usersService.update({
         fieldName: this.label.replace(' ', ''),

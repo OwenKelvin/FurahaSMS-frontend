@@ -26,7 +26,7 @@ export class SupportStaffService {
   loadStaffWithId$ = (id: number) => this.store.pipe(
     select(selectSupportStaffWithId(id)),
     tap((profile) => profile ? profile : this.store.dispatch(loadSupportStaffById({ data: { id }})))
-  )
+  );
 
   constructor(private store: Store, private http: HttpClient) { }
 
@@ -42,9 +42,7 @@ export class SupportStaffService {
           dateOfBirth: user.date_of_birth,
           teacherId: user.teacher_id
         })),
-        catchError(error => {
-          return throwError(error);
-        })
+        catchError(error => throwError(error))
       );
   }
   save(data: any): Observable<any> {

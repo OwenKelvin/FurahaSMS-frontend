@@ -19,7 +19,7 @@ export class MyProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.store.dispatch(loadMyProfiles());
-    this.profile$ = this.store.pipe(select(selectMyProfileState))
+    this.profile$ = this.store.pipe(select(selectMyProfileState));
   }
 
 }

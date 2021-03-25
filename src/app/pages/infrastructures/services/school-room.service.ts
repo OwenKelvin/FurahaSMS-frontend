@@ -12,5 +12,5 @@ export class SchoolRoomService {
   constructor(private http: HttpClient) {
   }
 
-  allAvailableClassRooms$ = this.http.get<any[]>(this.url).pipe(shareReplay())
+  allAvailableClassRooms$ = this.http.get<any[]>(this.url).pipe(shareReplay());
 }

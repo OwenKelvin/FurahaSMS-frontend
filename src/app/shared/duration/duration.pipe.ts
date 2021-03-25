@@ -11,7 +11,7 @@ export class DurationPipe implements PipeTransform {
     const units = ['sign', 'year', 'month', 'week', 'day', 'hour', 'minute', 'second'];
     return units.map((unit, i) =>
       ([matches[i + 1 ], unit])).map(([match, unit]) =>
-      ([match, Number(match) === 1 ? unit : unit + 's'])).filter(([item], i) => item && i > 0).flat().join(' ')
+      ([match, Number(match) === 1 ? unit : unit + 's'])).filter(([item], i) => item && i > 0).flat().join(' ');
   }
 
 }

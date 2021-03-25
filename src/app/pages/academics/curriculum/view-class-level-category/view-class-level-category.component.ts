@@ -11,7 +11,7 @@ import { Store, select } from '@ngrx/store';
 })
 export class ViewClassLevelCategoryComponent {
 
-  iCanEditClassLevel$ = this.store.pipe(select(selectICan('update class level')))
+  iCanEditClassLevel$ = this.store.pipe(select(selectICan('update class level')));
 
   classLevelCategory$ = this.route.paramMap.pipe(
     map(params => Number(params.get('id'))),

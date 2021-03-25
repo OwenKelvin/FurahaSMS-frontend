@@ -20,7 +20,7 @@ export class StudentPaymentStatementComponent {
   paymentReceipts: any[];
   studentId$ = this.route.paramMap.pipe(
     map(params => Number(params.get('id'))));
-  loadStudentFee$ = this.studentId$.pipe(mergeMap(id => this.studentFeePaymentService.loadStudentFee$(id)))
+  loadStudentFee$ = this.studentId$.pipe(mergeMap(id => this.studentFeePaymentService.loadStudentFee$(id)));
   feeStatement$ = this.studentId$.pipe(
     mergeMap((id) => this.store.select(selectStudentFeeStatement(id))),
     tap(item => {
@@ -35,10 +35,10 @@ export class StudentPaymentStatementComponent {
       this.otherFeesCosts = otherFeesCosts;
       this.otherFees = otherFees as any[];
     })
-  )
+  );
 
   v$ = combineLatest([this.loadStudentFee$, this.feeStatement$])
-    .pipe(map(([, statement]) => ({statement})))
+    .pipe(map(([, statement]) => ({statement})));
 
   constructor(
     private studentFeePaymentService: StudentFeePaymentService,

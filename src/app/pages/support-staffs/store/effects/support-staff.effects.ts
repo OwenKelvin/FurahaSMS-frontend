@@ -11,25 +11,21 @@ export class SupportStaffEffects {
     private actions$: Actions,
     private staffService: SupportStaffService
   ) { }
-  loadSupportStaffType$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadSupportStaffType$ = createEffect(() => this.actions$.pipe(
       ofType(SupportStaffActions.loadSupportStaffs),
       concatMap(() =>
         this.staffService.staffTypes().pipe(
           map(data => SupportStaffActions.loadSupportStaffsSuccess({ data })),
           catchError(error => of(SupportStaffActions.loadSupportStaffsFailure({ error }))))
       )
-    );
-  });
+    ));
 
-  loadStaffById$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadStaffById$ = createEffect(() => this.actions$.pipe(
       ofType(SupportStaffActions.loadSupportStaffById),
       concatMap((action) =>
         this.staffService.getSupportStaffById(action.data.id).pipe(
           map(data => SupportStaffActions.loadSupportStaffByIdSuccess({ data })),
           catchError(error => of(SupportStaffActions.loadSupportStaffByIdFailure({ error }))))
       )
-    );
-  });
+    ));
 }

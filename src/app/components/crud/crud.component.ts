@@ -18,7 +18,7 @@ export class CrudComponent extends formWithEditorMixin() implements OnInit {
   @Input() transforms: TransformInterface[];
   @Input() idIndex: number;
 
-  controls: {name: string, validators: any[]}[] = [
+  controls: {name: string; validators: any[]}[] = [
     { name: 'name', validators: [Validators.required]},
     { name: 'abbreviation', validators: [Validators.required]},
     { name: 'active', validators: []},
@@ -45,7 +45,7 @@ export class CrudComponent extends formWithEditorMixin() implements OnInit {
         });
       }
     })
-  )
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -58,7 +58,7 @@ export class CrudComponent extends formWithEditorMixin() implements OnInit {
       if (this.fields.includes(item.name)) {
         this.itemForm.setControl(item.name, this.fb.control('', item.validators));
       }
-    })
+    });
     if (this.parent) {
       this.itemForm.setControl('parentCategory', this.fb.control(null, [Validators.required]));
     }
@@ -77,13 +77,13 @@ export class CrudComponent extends formWithEditorMixin() implements OnInit {
   submitForm() {
 
     if (this.itemForm.valid) {
-      this.submitInProgressSubject$.next(true)
+      this.submitInProgressSubject$.next(true);
       this.itemService
         .submit(this.submitData)
         .subscribe({
           next: (res: any) => this.router.navigate(['../', res.id, 'view']),
           error: () => this.submitInProgressSubject$.next(false)
-        })
+        });
     } else {
       this.itemForm.markAllAsTouched();
       this.triggerValidationSubject$.next(true);

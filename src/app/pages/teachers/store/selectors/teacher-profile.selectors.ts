@@ -7,7 +7,5 @@ export const selectTeacherProfileState = createFeatureSelector<fromTeacherProfil
 
 export const selectTeacher = (id: number) => createSelector(
   selectTeacherProfileState,
-  state => {
-    return state ? state[id] : { id: 0, firstName: '', lastName: '' };
-  }
+  state => state ? state[id] : { id: 0, firstName: '', lastName: '' }
 );

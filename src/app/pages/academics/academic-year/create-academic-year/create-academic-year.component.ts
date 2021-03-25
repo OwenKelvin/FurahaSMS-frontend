@@ -32,7 +32,7 @@ export class CreateAcademicYearComponent extends subscribedContainerMixin(formMi
 
   submitAcademicYearForm() {
     if (this.academicYearForm.valid) {
-      this.submitInProgressSubject$.next(true)
+      this.submitInProgressSubject$.next(true);
       this.academicYear.save(this.academicYearForm.value)
         .pipe(takeUntil(this.destroyed$))
         .subscribe({

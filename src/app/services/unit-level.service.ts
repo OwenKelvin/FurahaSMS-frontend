@@ -12,12 +12,10 @@ export class UnitLevelService {
   delete(id: number): Observable<any> {
     const url = `api/curriculum/unit-levels/${id}`;
     return this.http.delete<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
-  getFilter(data: { academicYearId: number | null, classLevelId?: number }): Observable<any> {
+  getFilter(data: { academicYearId: number | null; classLevelId?: number }): Observable<any> {
     const params = {
       academic_year_id : data?.academicYearId,
       class_level_id: data?.classLevelId
@@ -33,11 +31,7 @@ export class UnitLevelService {
     }
     return this.http.get<any>(url).pipe(
       map(
-        res => {
-          return res.map((item: any) => {
-            return { ...item };
-          });
-        },
+        res => res.map((item: any) => ({ ...item })),
         () => {
           // Error Has been captured by interceptor
         }

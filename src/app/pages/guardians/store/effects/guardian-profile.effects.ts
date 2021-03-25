@@ -10,8 +10,7 @@ import * as GuardianProfileActions from '../actions/guardian-profile.actions';
 @Injectable()
 export class GuardianProfileEffects {
 
-  loadGuardianProfiles$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadGuardianProfiles$ = createEffect(() => this.actions$.pipe(
 
       ofType(GuardianProfileActions.loadGuardianProfiles),
       concatMap(() =>
@@ -20,8 +19,7 @@ export class GuardianProfileEffects {
           map(data => GuardianProfileActions.loadGuardianProfilesSuccess({ data })),
           catchError(error => of(GuardianProfileActions.loadGuardianProfilesFailure({ error }))))
       )
-    );
-  });
+    ));
 
 
 

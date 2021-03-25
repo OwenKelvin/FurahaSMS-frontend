@@ -20,11 +20,11 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
     };
     modalRef: BsModalRef;
     private modalServiceInjected: BsModalService;
-    private storeInjected: Store<any>
+    private storeInjected: Store<any>;
     constructor(...args: any[]) {
       super(...args);
-      this.modalServiceInjected = args[0]
-      this.storeInjected = args[1]
+      this.modalServiceInjected = args[0];
+      this.storeInjected = args[1];
     }
 
     openModal({ id, component, params }: { id: number; component: any; params?:  any}) {
@@ -44,7 +44,7 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
       this.storeInjected.dispatch(closeModals());
     }
     ngOnDestroy() {
-      this.destroyed$.next()
-      console.log('destroyer ')
+      this.destroyed$.next();
+      console.log('destroyer ');
     }
   };

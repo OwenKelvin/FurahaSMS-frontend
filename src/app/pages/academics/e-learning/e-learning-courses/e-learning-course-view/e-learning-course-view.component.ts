@@ -19,12 +19,12 @@ export class ELearningCourseViewComponent {
     mergeMap(id => this.store.pipe(select(selectAcademicsCourse(id)))),
   );
 
-  editPermission$ = this.store.pipe(select(selectICan('upload curriculum content')))
+  editPermission$ = this.store.pipe(select(selectICan('upload curriculum content')));
 
   v$ = combineLatest([this.courseId$, this.course$, this.editPermission$]).pipe(
     map(([courseId, course, editPermission]) =>
       ({courseId, course, editPermission}))
-  )
+  );
 
   constructor(
     private store: Store,

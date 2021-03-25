@@ -13,8 +13,8 @@ export interface State {
   [fromGenders.genderFeatureKey]: fromGenders.State;
   [fromReligions.religionFeatureKey]: fromReligions.State;
   [fromEditMode.editModeFeatureKey]: fromEditMode.State;
-  [fromPermissions.permissionsFeatureKey]: fromPermissions.State,
-  [fromModals.modalFeatureKey]: fromModals.State
+  [fromPermissions.permissionsFeatureKey]: fromPermissions.State;
+  [fromModals.modalFeatureKey]: fromModals.State;
 }
 
 export const initialState: State = {
@@ -31,7 +31,7 @@ export const reducers: ActionReducerMap<State> = {
   [fromEditMode.editModeFeatureKey]: fromEditMode.reducer,
   [fromPermissions.permissionsFeatureKey]: fromPermissions.reducer,
   [fromModals.modalFeatureKey]: fromModals.reducer
-}
+};
 
 export const APP_REDUCER_TOKEN = new InjectionToken<ActionReducerMap<State>>('App Reducers');
 export const appReducerProvider = { provide: APP_REDUCER_TOKEN, useValue: reducers };

@@ -34,8 +34,8 @@ export class ViewStudentInfoComponent extends subscribedContainerMixin() impleme
   ngOnInit() {
     this.genderService.loadAll$.pipe(takeUntil(this.destroyed$)).subscribe();
     this.religionService.loadAll$.pipe(takeUntil(this.destroyed$)).subscribe();
-    this.genders$ = this.store.pipe(select(selectGenders))
-    this.religions$ = this.store.pipe(select(selectReligions))
+    this.genders$ = this.store.pipe(select(selectGenders));
+    this.religions$ = this.store.pipe(select(selectReligions));
     this.student$ = this.route.parent?.paramMap
       .pipe(
         map(params => Number(params.get('id'))),
@@ -50,10 +50,10 @@ export class ViewStudentInfoComponent extends subscribedContainerMixin() impleme
         id: this.studentId,
         [fieldName]: $event,
       }
-    }))
+    }));
   }
 
-  updateSelectValue(fieldName: string, $event: { id: number, name: string }) {
+  updateSelectValue(fieldName: string, $event: { id: number; name: string }) {
 
     this.store.dispatch(loadStudentProfilesSuccess({
       data: {
@@ -61,7 +61,7 @@ export class ViewStudentInfoComponent extends subscribedContainerMixin() impleme
         [fieldName + '_id']: $event.id,
         [fieldName + '_name']: $event.name,
       }
-    }))
+    }));
 
   }
 }

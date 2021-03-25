@@ -19,38 +19,20 @@ export class ManageClassLevelUnitLevelAllocationComponent extends subscribedCont
   unitLevels$ = this.unitLevelsService.getAll();
   classLevelsWithUnits$ = this.loadData$.pipe(
     mergeMap(() => this.classLevelUnitLevelService.getAll())
-  )
+  );
 
   itemForm: FormGroup = this.fb.group({
     allocations: this.fb.array([])
-  })
+  });
   v$ = combineLatest([this.unitLevels$, this.classLevelsWithUnits$]).pipe(
     tap(([, classLevels]) => {
-      this.clearFormArray(this.allocations)
+      this.clearFormArray(this.allocations);
       classLevels.forEach(({id, name, taughtUnits}: any) => this.allocations.push(this.fb.group({
         id, name, unitLevels: [taughtUnits]
-      })))
+      })));
     }),
     map(([unitLevels, classLevels]) => ({unitLevels, classLevels})),
-  )
-
-  get allocations(): FormArray {
-    return this.itemForm.get('allocations') as FormArray
-  }
-
-  submitForm() {
-    this.submitInProgressSubject$.next(true);
-    this.classLevelUnitLevelService.save(this.allocations.value).pipe(
-      takeUntil(this.destroyed$)
-    ).subscribe({
-      next: () => {
-        this.submitInProgressSubject$.next(false);
-        this.loadData$.next(null);
-        this.router.navigate(['../view'], {relativeTo: this.route }).then()
-      },
-      error: () => this.submitInProgressSubject$.next(false)
-    })
-  }
+  );
 
   constructor(
     private fb: FormBuilder,
@@ -62,4 +44,21 @@ export class ManageClassLevelUnitLevelAllocationComponent extends subscribedCont
     super();
   }
 
+  get allocations(): FormArray {
+    return this.itemForm.get('allocations') as FormArray;
+  }
+
+  submitForm() {
+    this.submitInProgressSubject$.next(true);
+    this.classLevelUnitLevelService.save(this.allocations.value).pipe(
+      takeUntil(this.destroyed$)
+    ).subscribe({
+      next: () => {
+        this.submitInProgressSubject$.next(false);
+        this.loadData$.next(null);
+        this.router.navigate(['../view'], {relativeTo: this.route}).then();
+      },
+      error: () => this.submitInProgressSubject$.next(false)
+    });
+  }
 }

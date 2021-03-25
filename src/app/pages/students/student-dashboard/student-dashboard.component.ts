@@ -42,7 +42,7 @@ export class StudentDashboardComponent extends formMixin() {
       catchError(() => of([])),
       tap(res => this.studentsSubject$.next(res)),
       tap(() => this.submitInProgressSubject$.next(false))
-    ).subscribe()
+    ).subscribe();
   }
 
 }

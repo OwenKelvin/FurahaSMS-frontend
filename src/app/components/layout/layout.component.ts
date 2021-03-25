@@ -1,10 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
-import { selectShowMenu } from './../../store/selectors/menu-toggle.selector';
-import { AppState } from './../../store/reducers';
-import { Observable } from 'rxjs';
-import { routerTransition } from './route.animation';
-import { RouterOutlet } from '@angular/router';
+import {Component, OnInit} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {selectShowMenu} from '../../store/selectors/menu-toggle.selector';
+import {AppState} from '../../store/reducers';
+import {Observable} from 'rxjs';
+import {routerTransition} from './route.animation';
+import {RouterOutlet} from '@angular/router';
 
 @Component({
   selector: 'app-layout',
@@ -14,12 +14,13 @@ import { RouterOutlet } from '@angular/router';
 })
 export class LayoutComponent implements OnInit {
   isMenuOpen$: Observable<boolean>;
-
   routerActivated = false;
-  closeFullScreenMode = (): void => {
-    document.exitFullscreen();
+  constructor(private store: Store<AppState>) {
   }
-  constructor(private store: Store<AppState>) { }
+
+  closeFullScreenMode = (): void => {
+    document.exitFullscreen().then();
+  };
 
   ngOnInit() {
     this.isMenuOpen$ = this.store.select(selectShowMenu);
@@ -29,7 +30,7 @@ export class LayoutComponent implements OnInit {
     if (outlet.isActivated) {
       return outlet?.component;
     }
-    return null
+    return null;
   }
 
 }

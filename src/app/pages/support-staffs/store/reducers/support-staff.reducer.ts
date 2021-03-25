@@ -4,10 +4,10 @@ import * as SupportStaffActions from '../actions/support-staff.actions';
 export const supportStaffFeatureKey = 'supportStaffs';
 
 export interface State {
-  supportStaffTypes?: any[],
+  supportStaffTypes?: any[];
   staffs?: {
-    [id: number]: any
-  }
+    [id: number]: any;
+  };
 }
 
 export const initialState: State = {
@@ -23,13 +23,11 @@ const supportStaffReducer = createReducer(
 
   on(SupportStaffActions.loadSupportStaffById, state => state),
   on(SupportStaffActions.loadSupportStaffByIdSuccess, (state, action) => {
-    const newStaffs = {...state.staffs, [action.data.id]: action.data }
+    const newStaffs = {...state.staffs, [action.data.id]: action.data };
     return { ...state, staffs: newStaffs };
   }),
   on(SupportStaffActions.loadSupportStaffByIdFailure, state => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return supportStaffReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => supportStaffReducer(state, action);

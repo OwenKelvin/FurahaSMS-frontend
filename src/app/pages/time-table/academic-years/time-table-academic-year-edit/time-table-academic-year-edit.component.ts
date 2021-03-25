@@ -19,19 +19,7 @@ import {ClassStreamService} from 'src/app/pages/academics/services/class-stream.
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TimeTableAcademicYearEditComponent {
-  constructor(
-    private academicYearService: AcademicYearService,
-    private timeTableService: TimeTableService,
-    private route: ActivatedRoute,
-    private modalService: BsModalService,
-    private fb: FormBuilder,
-    private teacherService: TeacherService,
-    private unitsService: UnitsService,
-    private schoolRoomService: SchoolRoomService,
-    private classLevelsService: ClassLevelService,
-    private streamsService: ClassStreamService
-  ) {
-  }
+
 
   academicYearId$: Observable<number> = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id')))
@@ -81,8 +69,7 @@ export class TimeTableAcademicYearEditComponent {
     this.streams$,
     this.weekDays$
   ]).pipe(
-    map(([timings, classLevels, editedTimeTable, teachers, units, rooms, streams, weekDays]: any[]) => {
-      return editedTimeTable.map((item: any) => {
+    map(([timings, classLevels, editedTimeTable, teachers, units, rooms, streams, weekDays]: any[]) => editedTimeTable.map((item: any) => {
 
         const classLevel = classLevels.find(({abbreviation, id}: any) => abbreviation === item.classLevelName || id === item.classLevelId);
         const teacher = teachers.find(({id}: any) => id === item.teacherId);
@@ -109,8 +96,7 @@ export class TimeTableAcademicYearEditComponent {
           timeValue: `${timing.start} - ${timing.end}`,
           subjectId: item.unit_id,
         };
-      });
-    })
+      }))
   );
 
   timeTableForm$: Observable<any[]> = combineLatest([
@@ -121,9 +107,7 @@ export class TimeTableAcademicYearEditComponent {
     this.timings$
 
   ]).pipe(
-    map(([timetableLessons, classLevels, weekDays, streams, timings]) => {
-      return classLevels.map(classLevel => {
-        return {
+    map(([timetableLessons, classLevels, weekDays, streams, timings]) => classLevels.map(classLevel => ({
           id: classLevel.id,
           name: `${classLevel.abbreviation}`,
           weekDays: weekDays.map(({abbreviation}) => abbreviation),
@@ -134,19 +118,15 @@ export class TimeTableAcademicYearEditComponent {
             ({classLevelId}) => classLevelId === classLevel.id
           ))
 
-        };
-      });
-    })
+        })))
   );
 
   editItemDetails$ = combineLatest([this.editedTimetable$, this.editItem$]).pipe(
     map(([timetable, editItem]: [any[], any]) => {
-      const filteredItems = timetable.filter(item => {
-        return item.classLevelName === editItem.classLevelName &&
+      const filteredItems = timetable.filter(item => item.classLevelName === editItem.classLevelName &&
           item.dayOfWeekName === editItem.dayOfWeekName &&
           item.streamName === editItem.streamName &&
-          item.timeValue === editItem.timeValue;
-      });
+          item.timeValue === editItem.timeValue);
       if (filteredItems.length > 0) {
         return filteredItems[0];
       }
@@ -165,6 +145,19 @@ export class TimeTableAcademicYearEditComponent {
     roomId: [null],
     subjectId: [null],
   });
+  constructor(
+    private academicYearService: AcademicYearService,
+    private timeTableService: TimeTableService,
+    private route: ActivatedRoute,
+    private modalService: BsModalService,
+    private fb: FormBuilder,
+    private teacherService: TeacherService,
+    private unitsService: UnitsService,
+    private schoolRoomService: SchoolRoomService,
+    private classLevelsService: ClassLevelService,
+    private streamsService: ClassStreamService
+  ) {
+  }
 
   editLesson({template, classLevelName, stream: streamName, timing: timeValue, dayOfWeekName, lesson}: any) {
     const lessonValues = lesson?.[streamName]?.[timeValue];
@@ -189,18 +182,16 @@ export class TimeTableAcademicYearEditComponent {
   saveLesson() {
     const editItem = this.editItem$.value;
     const timeTableItems = this.editedTimetableSubject$.value;
-    const filteredItems = timeTableItems.filter(item => {
-      return item.classLevelName === editItem.classLevelName &&
+    const filteredItems = timeTableItems.filter(item => item.classLevelName === editItem.classLevelName &&
         item.dayOfWeekName === editItem.dayOfWeekName &&
         item.streamName === editItem.streamName &&
-        item.timeValue === editItem.timeValue;
-    });
+        item.timeValue === editItem.timeValue);
     if (filteredItems.length > 0) {
       timeTableItems[timeTableItems.indexOf(filteredItems[0])] = {
         ...timeTableItems[timeTableItems.indexOf(filteredItems[0])],
         ...this.editLessonForm.value
       };
-      this.editedTimetableSubject$.next(timeTableItems)
+      this.editedTimetableSubject$.next(timeTableItems);
 
     } else {
       this.editedTimetableSubject$.next([
@@ -224,7 +215,7 @@ export class TimeTableAcademicYearEditComponent {
     ]).pipe(
       mergeMap(([editedTimetable, params]) =>
         this.timeTableService.saveLessonsFor({...params, data: editedTimetable})),
-    ).subscribe()
+    ).subscribe();
   }
 
 }

@@ -34,7 +34,7 @@ export class ViewAcademicYearComponent implements OnInit, OnDestroy {
           id
         }));
       }))
-      .pipe(mergeMap(id => this.academicYearService.get({ id, classLevels: 1 })))
+      .pipe(mergeMap(id => this.academicYearService.get({ id, classLevels: 1 })));
 
     // const activatedRoute: ActivatedRoute = this.router.routerState.root.firstChild.firstChild.firstChild;
     // if (activatedRoute.firstChild.children.length === 0) {

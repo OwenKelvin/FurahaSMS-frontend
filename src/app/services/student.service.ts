@@ -13,7 +13,7 @@ import {UrlParamsStringifyService} from '../shared/url-params-stringify/services
 export class StudentService {
   url = 'api/students';
 
-  getStudents(data: { stream: number[], academicYear: number, classLevel: number[] }) {
+  getStudents(data: { stream: number[]; academicYear: number; classLevel: number[] }) {
 
     const url = `${this.url}?${this.urlParamsStringifyService.stringify({...data, last: 30})}`;
     return this.http.get<any[]>(url).pipe(
@@ -26,7 +26,7 @@ export class StudentService {
         classLevelName: item.class_level_name,
         name: `${item.first_name} ${item.last_name}`
       })))
-    )
+    );
   }
 
   constructor(
@@ -39,7 +39,7 @@ export class StudentService {
   loadStudentProfile$ = (id: number) => this.store.pipe(
     select(selectStudent(id)),
     tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({data: {id}})) : null)
-  )
+  );
 
   createNewStudent(newStudentData: any): Observable<any> {
 
@@ -63,13 +63,9 @@ export class StudentService {
 
     if (idNumber) {
       url = `${url}/${data.id}`;
-      return this.http.patch<any>(url, {...submitData}).pipe(map(user => {
-        return user;
-      }));
+      return this.http.patch<any>(url, {...submitData}).pipe(map(user => user));
     } else {
-      return this.http.post<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.post<any>(url, submitData).pipe(map(user => user));
     }
   }
 
@@ -86,9 +82,7 @@ export class StudentService {
           dateOfBirth: user.date_of_birth,
           studentId: user.student_id
         })),
-        catchError(error => {
-          return throwError(error);
-        })
+        catchError(error => throwError(error))
       );
   }
 
@@ -96,12 +90,8 @@ export class StudentService {
     const url = `api/student/id-number?q=${idNumber}`;
     return this.http.get<any>(url)
       .pipe(
-        map(user => {
-          return user;
-        }),
-        catchError(error => {
-          return throwError(error);
-        })
+        map(user => user),
+        catchError(error => throwError(error))
       );
   }
 

@@ -19,18 +19,18 @@ export class ManageTeacherSubjectComponent extends formMixin() {
 
   subjectsForm: FormGroup = this.fb.group({
     units: this.fb.array([])
-  })
+  });
 
   teacherId$ = this.route.parent?.paramMap.pipe(
     map(params => Number(params.get('id')))
-  )
+  );
 
   teacher$ = this.teacherId$?.pipe(
     mergeMap(id => this.teacherService.loadTeacherProfile$(id))
-  ) as Observable<any>
+  ) as Observable<any>;
   teaches$: Observable<any[]> = this.teacherId$?.pipe(
     mergeMap(id => this.teacherSubjectService.getSubjects(id))
-  ) as Observable<any[]>
+  ) as Observable<any[]>;
   allUnits$: Observable<any[]> = this.unitsService.all$;
   allUnitLevels$: Observable<any[]> = this.unitLevelService.getAll();
   v$ = combineLatest([this.teacher$, this.allUnits$, this.allUnitLevels$, this.teaches$]).pipe(
@@ -45,16 +45,16 @@ export class ManageTeacherSubjectComponent extends formMixin() {
               level: [unitLevel.level],
               name: [unitLevel.name],
               teaches: [teaches.map(({id}: any) => id).includes(unitLevel.id)]
-            }))
+            }));
           });
         (this.subjectsForm.get('units') as FormArray).push(this.fb.group({
           id: [unit.id],
           name: [unit.abbreviation],
           levels
-        }))
+        }));
       })),
     map(([teacher]) => ({teacher}))
-  )
+  );
 
   constructor(
     private route: ActivatedRoute,
@@ -69,12 +69,12 @@ export class ManageTeacherSubjectComponent extends formMixin() {
   }
 
   get units(): FormArray {
-    return this.subjectsForm.get('units') as FormArray
+    return this.subjectsForm.get('units') as FormArray;
   }
 
   subjectsFormSubmit() {
     let teacherId: number;
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     this.teacherId$?.pipe(
       tap(id => teacherId = id),
       mergeMap(id => this.teacherSubjectService.saveSubjects(
@@ -90,6 +90,6 @@ export class ManageTeacherSubjectComponent extends formMixin() {
       next: () => this.router.navigate(['teachers', teacherId, 'subjects'])
         .then(() => this.submitInProgressSubject$.next(false)),
       error: () => this.submitInProgressSubject$.next(false)
-    })
+    });
   }
 }

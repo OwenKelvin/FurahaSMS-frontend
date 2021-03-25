@@ -13,7 +13,7 @@ export class LibraryBookClassificationService {
 
   all$: Observable<any> = this.http.get('/api/library-books/classifications').pipe(
     tap(res => console.log('==========>', {res}))
-  )
+  );
 
   save(data: any): Observable<any> {
     if (data.id === 0) {

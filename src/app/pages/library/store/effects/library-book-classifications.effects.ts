@@ -9,10 +9,6 @@ import {LibraryBookClassificationService} from '../../services/library-book-clas
 
 @Injectable()
 export class LibraryBookClassificationEffects {
-
-  constructor(private actions$: Actions, private bookClassificationService: LibraryBookClassificationService) {
-  }
-
   loadLibraryBookClassifications$ = createEffect(() =>
     this.actions$.pipe(
       ofType(LibraryBookClassificationActions.loadBookClassifications),
@@ -23,4 +19,6 @@ export class LibraryBookClassificationEffects {
       )
     )
   );
+  constructor(private actions$: Actions, private bookClassificationService: LibraryBookClassificationService) {
+  }
 }

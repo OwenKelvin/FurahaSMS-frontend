@@ -34,7 +34,7 @@ export class CreateUnitCategoriesComponent extends formWithEditorMixin() impleme
     this.paramId$.pipe(
       filter(id => id < 1),
       tap(() => this.addSubject())
-    ).subscribe()
+    ).subscribe();
 
     this.paramId$.pipe(
       filter(id => id > 0),
@@ -42,11 +42,11 @@ export class CreateUnitCategoriesComponent extends formWithEditorMixin() impleme
       tap(() => this.editFormSubject$.next(true)),
       tap((res) => this.generateForm(res)),
       tap(({ units }) => units?.forEach((item, index) => {
-        this.addSubject()
-        const { id, name, abbreviation: abbr, description, unit_category_id: unitCategory, active} = item
-        this.units.controls[index].setValue({ id, name, abbr, description, unitCategory, active })
+        this.addSubject();
+        const { id, name, abbreviation: abbr, description, unit_category_id: unitCategory, active} = item;
+        this.units.controls[index].setValue({ id, name, abbr, description, unitCategory, active });
       }))
-    ).subscribe()
+    ).subscribe();
 
   }
   generateForm({ id = null, active = true, name = '', description = '' }: UnitCategoryInterface = {

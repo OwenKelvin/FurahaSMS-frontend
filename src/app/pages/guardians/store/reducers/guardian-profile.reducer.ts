@@ -5,13 +5,13 @@ export const guardianProfileFeatureKey = 'guardianProfile';
 
 export interface State {
   [key: number]: {
-    firstName: string,
-    lasttName: string,
-    middletName: string,
-    dateOfBirth: string,
-    email?: string,
-    phone?: string,
-    id?: number,
+    firstName: string;
+    lasttName: string;
+    middletName: string;
+    dateOfBirth: string;
+    email?: string;
+    phone?: string;
+    id?: number;
   };
 }
 
@@ -34,6 +34,4 @@ const guardianProfileReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return guardianProfileReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => guardianProfileReducer(state, action);

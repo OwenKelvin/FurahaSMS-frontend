@@ -1,5 +1,5 @@
-import { Action, createReducer, on } from '@ngrx/store';
-import { loadErrorMessagesSuccess, loadErrorMessagesFailure } from '../actions/error-message.actions';
+import {Action, createReducer, on} from '@ngrx/store';
+import {loadErrorMessagesFailure, loadErrorMessagesSuccess} from '../actions/error-message.actions';
 
 
 export const errorMessageFeatureKey = 'errorMessage';
@@ -20,19 +20,14 @@ export const initialState: ErrorMessageStateInterface = {
 
 const errorMessageReducer = createReducer(
   initialState,
-  on(loadErrorMessagesSuccess, (state, payload) => {
-    return {
-      ...state, ...payload
-    };
-
-  }),
-  on(loadErrorMessagesFailure, state => {
-    return {
-      ...state, ...initialState
-    };
-  })
+  on(loadErrorMessagesSuccess, (state, payload) => ({
+    ...state, ...payload
+  })),
+  on(loadErrorMessagesFailure, state => ({
+    ...state, ...initialState
+  }))
 );
 
-export function reducer(state: ErrorMessageStateInterface | undefined, action: Action) {
-  return errorMessageReducer(state, action);
-}
+export const reducer = (state: ErrorMessageStateInterface | undefined, action: Action) =>
+  errorMessageReducer(state, action);
+

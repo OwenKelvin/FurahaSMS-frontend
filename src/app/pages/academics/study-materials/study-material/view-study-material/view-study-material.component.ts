@@ -42,7 +42,7 @@ export class ViewStudyMaterialComponent extends subscribedContainerMixin() imple
           .pipe(takeUntil(this.destroyed$))
           .subscribe(res => {
             this.pdfSrc = window.URL.createObjectURL(res);
-          })
+          });
       }))
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
@@ -73,11 +73,11 @@ export class ViewStudyMaterialComponent extends subscribedContainerMixin() imple
   }
 
   zoomIn() {
-    this.zoom = Math.max(0, this.zoom - 0.1)
+    this.zoom = Math.max(0, this.zoom - 0.1);
   }
 
   zoomOut() {
-    this.zoom = Math.min(4, this.zoom + 0.1)
+    this.zoom = Math.min(4, this.zoom + 0.1);
   }
 
   goFullScreen() {

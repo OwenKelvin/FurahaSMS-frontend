@@ -15,17 +15,17 @@ import {AcademicYearService} from '../../../academics/services/academic-year.ser
 export class ViewAcademicYearFinancialPlanComponent {
   academicYearPlanId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id'))),
-  )
+  );
   academicYearPlan$: Observable<any> = this.academicYearPlanId$.pipe(
     mergeMap(id => this.store.pipe(select(selectPlanForAcademicYearWithId(id))))
   );
 
   semesters$ = this.academicYearPlanId$.pipe(
     mergeMap(id => this.academicYearService.getSemestersForAcademicYearWithId(id))
-  )
+  );
   academicYear$ = this.academicYearPlan$.pipe(
     map((plan) => plan?.academicYear)
-  )
+  );
   formattedPlan$: Observable<any[]> = this.academicYearPlan$.pipe(
     map((plan) => (plan ? plan.financialYearPlan : {})),
     map(({tuitionFee, otherFees}) =>
@@ -41,7 +41,7 @@ export class ViewAcademicYearFinancialPlanComponent {
 
   v$ = combineLatest([this.academicYear$, this.formattedPlan$, this.semesters$]).pipe(
     map(([academicYear, financialPlan, semesters]) => ({academicYear, financialPlan, semesters}))
-  )
+  );
 
   constructor(
     private store: Store<AppState>,

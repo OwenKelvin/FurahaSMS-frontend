@@ -38,7 +38,7 @@ export class LibraryAdminPublishersComponent implements OnInit, OnDestroy {
     };
   }
   removePublisher(id: number) {
-    this.store.dispatch(removeLibraryBookPublisher({data: {id}}))
+    this.store.dispatch(removeLibraryBookPublisher({data: {id}}));
   }
   ngOnDestroy() {
     this.componentIsActive = false;

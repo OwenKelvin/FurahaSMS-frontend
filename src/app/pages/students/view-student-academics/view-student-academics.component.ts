@@ -14,14 +14,14 @@ import {select, Store} from '@ngrx/store';
 })
 export class ViewStudentAcademicsComponent {
   studentId$: Observable<number> = (this.route.parent as ActivatedRoute).paramMap
-    .pipe(map(params => Number(params.get('id'))))
+    .pipe(map(params => Number(params.get('id'))));
   academicYearSubjects$: Observable<any> = this.studentId$.pipe(
     mergeMap(studentId => this.studentAcademicsService.getForStudentWithId(studentId))
-  )
+  );
   editMode$: Observable<boolean> = this.store.pipe(select(selectEditModeOnState));
   v$ = combineLatest([this.editMode$, this.studentId$, this.academicYearSubjects$]).pipe(
     map(([editMode, studentId, academicYearSubjects]) => ({editMode, studentId, academicYearSubjects}))
-  )
+  );
 
   constructor(
     private route: ActivatedRoute,

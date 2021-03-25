@@ -17,13 +17,9 @@ const religionReducer = createReducer(
   initialState,
 
   on(ReligionActions.loadReligions, state => state),
-  on(ReligionActions.loadReligionsSuccess, (state, action) => {
-    return { ...state, ...action.data };
-  }),
+  on(ReligionActions.loadReligionsSuccess, (state, action) => ({ ...state, ...action.data })),
   on(ReligionActions.loadReligionsFailure, (state, _action) => state),
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return religionReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => religionReducer(state, action);

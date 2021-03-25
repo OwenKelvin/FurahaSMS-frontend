@@ -14,7 +14,7 @@ export class ClassLevelUnitLevelAllocationComponent {
   unitLevels$ = this.unitLevelsService.getAll();
   classLevelsWithUnits$ = this.loadData$.pipe(
     mergeMap(() => this.classLevelUnitLevelService.getAll())
-  )
+  );
   v$ = combineLatest([this.unitLevels$, this.classLevelsWithUnits$]).pipe(
     map(([unitLevels, classLevels]) => ({
       unitLevels,
@@ -22,7 +22,7 @@ export class ClassLevelUnitLevelAllocationComponent {
         ({ ...classLevel, taughtUnits: classLevel.taughtUnits.map( (i: number) =>
             unitLevels.find(({id}: { id: number }) => id === i))}))
     })),
-  )
+  );
 
   constructor(
     private unitLevelsService: UnitLevelService,

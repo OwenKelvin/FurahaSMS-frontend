@@ -16,7 +16,7 @@ describe('FormErrorsComponent', () => {
   beforeEach(() => {
     fixture = TestBed.createComponent(FormErrorsComponent);
     component = fixture.componentInstance;
-    component.form = new FormGroup({})
+    component.form = new FormGroup({});
     fixture.detectChanges();
   });
 

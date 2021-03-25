@@ -26,7 +26,7 @@ export class ExamBankAdminComponent implements OnInit, OnDestroy {
     this.deleting = [false];
     this.examPapers$ = this.examPaperService.getByFilter({ self: true });
   }
-  deleteItem(data: { index: number, id: number, name: string }) {
+  deleteItem(data: { index: number; id: number; name: string }) {
     const { index, id, name } = data;
     const deletionConfirmed = confirm(`Are you sure you wish to delete exam paper "${name}" ?`);
     if (deletionConfirmed) {

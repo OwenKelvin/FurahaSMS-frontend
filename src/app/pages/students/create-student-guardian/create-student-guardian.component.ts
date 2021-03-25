@@ -76,8 +76,8 @@ export class CreateStudentGuardianComponent extends subscribedContainerMixin(for
             this.usersData[i] = data;
             this.confirmedData[i] = true;
           }
-        })
-      })
+        });
+      });
   }
 
   removeGuardian(i: number): void {
@@ -163,7 +163,7 @@ export class CreateStudentGuardianComponent extends subscribedContainerMixin(for
           });
       });
     } else {
-      this.triggerValidationSubject$.next(true)
+      this.triggerValidationSubject$.next(true);
     }
   }
 }

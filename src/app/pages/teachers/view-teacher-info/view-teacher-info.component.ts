@@ -34,11 +34,11 @@ export class ViewTeacherInfoComponent implements OnInit {
     this.genderService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.religionService.loadAll$.pipe(takeWhile(() => this.componentIsActive)).subscribe();
     this.genders$ = this.store.pipe(select(selectGenders));
-    this.religions$ = this.store.pipe(select(selectReligions))
+    this.religions$ = this.store.pipe(select(selectReligions));
     this.teacherProfile$ = this.route.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(tap(id => this.teacherId = id))
-      .pipe(mergeMap((id) => this.store.pipe(select(selectTeacher(id)))))
+      .pipe(mergeMap((id) => this.store.pipe(select(selectTeacher(id)))));
   }
   changeProfile(fieldName: string, $event: string | number) {
     this.store.dispatch(loadTeacherProfilesSuccess({
@@ -48,7 +48,7 @@ export class ViewTeacherInfoComponent implements OnInit {
       }
     }));
   }
-  updateSelectValue(fieldName: string, $event: { id: number, name: string; }) {
+  updateSelectValue(fieldName: string, $event: { id: number; name: string }) {
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {
         id: this.teacherId,

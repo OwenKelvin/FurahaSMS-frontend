@@ -31,7 +31,7 @@ export class ViewGuardianComponent implements OnInit, OnDestroy {
       .subscribe(profile => this.store.dispatch(loadGuardianProfiles(profile)));
   }
   changeProfile($event: any) {
-    console.log($event, 'Method Not Implemented')
+    console.log($event, 'Method Not Implemented');
   }
   ngOnDestroy() {
     this.componentIsActive = true;

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { PhoneNumberUtil, shortnumbermetadata } from 'google-libphonenumber'
+import { PhoneNumberUtil, shortnumbermetadata } from 'google-libphonenumber';
 
 @Injectable({
   providedIn: 'root'
@@ -16,9 +16,7 @@ export class PhoneNumbersService {
   getAllowedCountries(): Observable<any> {
     const url = 'api/phones/allowed-countries';
     return this.http.get<any>(url)
-      .pipe(map(data => {
-        return data;
-      },
+      .pipe(map(data => data,
         () => {
           // Error Has been captured by interceptor
         }
@@ -52,7 +50,7 @@ export class PhoneNumbersService {
     }
 
   }
-  splitNumberFromCountryCode(phoneNumber: string): { code: string, phone: string } {
+  splitNumberFromCountryCode(phoneNumber: string): { code: string; phone: string } {
     const phoneUtil = PhoneNumberUtil.getInstance();
     try {
       const splitValues = phoneUtil.parse(/^\+(\w+\-?\s?)+/.test(phoneNumber.trim()) ? phoneNumber : '+' + phoneNumber).values_;

@@ -33,20 +33,20 @@ export class RolesPermissionEditComponent  extends subscribedContainerMixin() im
     this.role$.subscribe(res => {
       this.isLoading = false;
       this.role = res;
-      this.updatePermissionsForm()
-    })
+      this.updatePermissionsForm();
+    });
   }
   updatePermissionsForm() {
     this.permissionsForm = this.fb.group({
       permissions: this.fb.array([])
-    })
+    });
 
     this.role.permissionStatus.forEach(({ id, hasPermission, name }: any) => {
       this.formPermissions.push(this.fb.group({
         id: [id, [Validators.required]],
         name: [name],
         hasPermission: [hasPermission]
-      }))
+      }));
     });
   }
   get formPermissions() {
@@ -63,8 +63,8 @@ export class RolesPermissionEditComponent  extends subscribedContainerMixin() im
           .pipe(takeUntil(this.destroyed$))
           .subscribe(() => {
             this.isSubmitting = false;
-          }, () => this.isSubmitting = false)
-      })
+          }, () => this.isSubmitting = false);
+      });
   }
 
 }

@@ -8,7 +8,7 @@ export interface State {
     id?: number;
     name: string;
     description?: string;
-  }
+  };
 }
 
 export const initialState: State = {
@@ -26,16 +26,14 @@ const libraryPublisherReducer = createReducer(
   on(LibraryBookPublisherActions.loadLibraryBookPublishersSuccess, (state, action) => {
     const data: any = {};
     action.data.forEach(item => {
-      data[item.id] = item
-    })
-    return {...state, ...data}
+      data[item.id] = item;
+    });
+    return {...state, ...data};
   }),
   on(LibraryBookPublisherActions.loadLibraryBookPublishersFailure, (state, _action) => state),
 
   on(LibraryBookPublisherActions.loadLibraryBookPublisher, state => state),
-  on(LibraryBookPublisherActions.loadLibraryBookPublisherSuccess, (state, action) => {
-    return {...state, [action.data.id]: {...action.data}}
-  }),
+  on(LibraryBookPublisherActions.loadLibraryBookPublisherSuccess, (state, action) => ({...state, [action.data.id]: {...action.data}})),
   on(LibraryBookPublisherActions.loadLibraryBookPublisherFailure, (state, _action) => state),
 
 
@@ -46,6 +44,4 @@ const libraryPublisherReducer = createReducer(
   }),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return libraryPublisherReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => libraryPublisherReducer(state, action);

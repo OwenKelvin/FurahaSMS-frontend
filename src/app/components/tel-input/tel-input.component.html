@@ -20,7 +20,7 @@
             </ng-option>
           </ng-select>
         </div>
-        <input aria-label="Phone Number" [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName='phone_number'
+        <input aria-label="Phone Number" [autocomplete]='autocomplete' [autofocus]='autofocus' formControlName='phoneNumber'
           (keyup)='updateFieldValidation()' class="form-control" [class.is-invalid]='fieldError' (blur)='validateField()' [id]='[id]'
           type='tel' [placeholder]='placeholder'>
 

@@ -7,13 +7,15 @@ import {stringify} from 'querystring';
   providedIn: 'root'
 })
 export class StudyMaterialsService {
+  constructor(private http: HttpClient) {
+  }
   downloadDocumentWithFilePath(filePath: any) {
-    const queryStringParams = stringify({file_path: filePath});
+    const queryStringParams = stringify({['file_path']: filePath});
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/octet-stream');
     headers.append('Content-Type', 'application/octet-stream');
 
-    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, {headers, responseType: 'blob'})
+    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, {headers, responseType: 'blob'});
   }
 
   getMaterialWithId(id: number): any {
@@ -22,9 +24,6 @@ export class StudyMaterialsService {
 
   getAll({active}: { active: any }): any {
     return this.http.get(`api/study-materials?active=${active}`);
-  }
-
-  constructor(private http: HttpClient) {
   }
 
   uploadDocument(file: File): Observable<any> {
@@ -40,7 +39,7 @@ export class StudyMaterialsService {
     });
   }
 
-  saveStudyMaterialInfo({docId, data}: { docId: number, data: any }): Observable<any> {
+  saveStudyMaterialInfo({docId, data}: { docId: number; data: any }): Observable<any> {
     const {title, units, classLevels} = data;
     return this.http.post('api/study-materials', {
       title, units, classLevels, docId

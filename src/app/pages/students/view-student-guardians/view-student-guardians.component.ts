@@ -27,6 +27,6 @@ export class ViewStudentGuardiansComponent implements OnInit {
     this.guardians$ = this.route.parent?.parent?.paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(tap(studentId => this.studentId = studentId))
-      .pipe(mergeMap(studentId => this.guardianService.getForStudent(Number(studentId))))
+      .pipe(mergeMap(studentId => this.guardianService.getForStudent(Number(studentId))));
   }
 }

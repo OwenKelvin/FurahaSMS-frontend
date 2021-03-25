@@ -17,7 +17,7 @@ export class UsersService {
   }
 
   update(
-    { userId, fieldName, fieldNewValue }: { userId: number, fieldName: string, fieldNewValue: string; }
+    { userId, fieldName, fieldNewValue }: { userId: number; fieldName: string; fieldNewValue: string }
   ): Observable<any> {
     const data: any = {
       [fieldName]: fieldNewValue
@@ -35,7 +35,7 @@ export class UsersService {
     });
   }
 
-  uploadPhoto({ file }: { file: File; }): Observable<any> {
+  uploadPhoto({ file }: { file: File }): Observable<any> {
 
     const myFormData = new FormData();
     const headers = new HttpHeaders();
@@ -46,18 +46,18 @@ export class UsersService {
     return this.http.post('api/users/profile-picture', myFormData, { headers });
   }
 
-  saveProfilePicture({ userId, profilePicId }: { userId: number, profilePicId: number; }): Observable<any> {
+  saveProfilePicture({ userId, profilePicId }: { userId: number; profilePicId: number }): Observable<any> {
     const data: any = { profile_pic_id: profilePicId };
     return this.http.patch(`api/users/${userId}`, data);
   }
 
-  getProfilePicture({ userId }: { userId: number; }) {
+  getProfilePicture({ userId }: { userId: number }) {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/pdf');
     headers.append('Content-Type', 'application/pdf');
     return this.http.get(`api/users/profile-picture/${userId}`, { headers, responseType: 'blob' });
   }
 
-  resetPasswordForUserWithId = ({ id, resetPassword }: { id: number, resetPassword: string; }) =>
-    this.http.post(`api/users/${id}/password-reset`, {reset_password: resetPassword})
+  resetPasswordForUserWithId = ({ id, resetPassword }: { id: number; resetPassword: string }) =>
+    this.http.post(`api/users/${id}/password-reset`, {reset_password: resetPassword});
 }

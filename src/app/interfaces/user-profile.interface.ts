@@ -10,6 +10,6 @@ export interface IUserProfile {
   genderName?: string;
   religionName?: string;
   studentId?: number;
-  permissions?: string[],
-  roles?: string[]
+  permissions?: string[];
+  roles?: string[];
 }

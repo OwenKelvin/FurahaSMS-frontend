@@ -20,6 +20,47 @@ import {loadAcademicYearPlans} from '../store/actions/academic-year-plan.actions
   styleUrls: ['./edit-academic-year-financial-plan.component.css']
 })
 export class EditAcademicYearFinancialPlanComponent extends subscribedContainerMixin(formMixin()) {
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
+  otherCostsValue: any[];
+  isOpen = [false];
+  isOpenTransport = [false];
+  isOpenMeals = [false];
+  isOpenTours = [false];
+  isOpenBuildAndConst = [false];
+  academicYearPlanId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
+    map(params => Number(params.get('id')))
+  );
+  academicYearPlan$ = this.academicYearPlanId$.pipe(
+    mergeMap(id => this.store.pipe(select(selectPlanForAcademicYearWithId(id)))),
+  );
+  feePlanForm: FormGroup = this.fb.group({
+    tuitionFee: this.fb.array([]),
+    otherFees: this.fb.array([]),
+  });
+
+  markTabsWithError: boolean;
+  plans: any;
+  otherCosts$: Observable<any[]> = this.financialCostService.all$;
+  allClassLevels$ = this.academicYearPlanId$.pipe(
+    mergeMap((academicYearId) => this.classLevelService.getAll({includeUnits: 1, includeLevels: 1, academicYearId}),)
+  );
+  classLevels$ = combineLatest([this.allClassLevels$, this.academicYearPlan$]).pipe(
+    map(([allClassLevels, {financialYearPlan}]) => ([allClassLevels, financialYearPlan as any[]])),
+    map(([classLevel, financialPlan]) => {
+      const activeClassLevels: any[] = classLevel
+        .map(({id}: { id: number }) => id);
+      this.plans = financialPlan;
+      return [
+        ...(classLevel.filter(({id: classLevelId}: { id: number }) => activeClassLevels.includes(classLevelId)))
+          .map(i => ({...i, unitLevels: i.unit_levels, unit_levels: undefined}))
+      ];
+    }),
+    tap(this.setFees.bind(this))
+  );
+  v$ = combineLatest([this.otherCosts$, this.academicYearPlan$, this.classLevels$]).pipe(
+    map(([otherCosts, academicYearPlan, classLevels]) =>
+      ({otherCosts, academicYearPlan, classLevels}))
+  );
   constructor(
     private store: Store<AppState>,
     private classLevelService: ClassLevelService,
@@ -53,50 +94,9 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
     return false;
   }
 
-  otherCostsValue: any[];
-  isOpen = [false];
-  isOpenTransport = [false];
-  isOpenMeals = [false];
-  isOpenTours = [false];
-  isOpenBuildAndConst = [false];
-  academicYearPlanId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
-    map(params => Number(params.get('id')))
-  )
-  academicYearPlan$ = this.academicYearPlanId$.pipe(
-    mergeMap(id => this.store.pipe(select(selectPlanForAcademicYearWithId(id)))),
-  );
-  feePlanForm: FormGroup = this.fb.group({
-    tuitionFee: this.fb.array([]),
-    otherFees: this.fb.array([]),
-  });
-  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
-  markTabsWithError: boolean;
-  plans: any;
-  otherCosts$: Observable<any[]> = this.financialCostService.all$;
-  allClassLevels$ = this.academicYearPlanId$.pipe(
-    mergeMap((academicYearId) => this.classLevelService.getAll({includeUnits: 1, includeLevels: 1, academicYearId}),)
-  )
-  classLevels$ = combineLatest([this.allClassLevels$, this.academicYearPlan$]).pipe(
-    map(([allClassLevels, {financialYearPlan}]) => ([allClassLevels, financialYearPlan as any[]])),
-    map(([classLevel, financialPlan]) => {
-      const activeClassLevels: any[] = classLevel
-        .map(({id}: { id: number; }) => id)
-      this.plans = financialPlan;
-      return [
-        ...(classLevel.filter(({id: classLevelId}: { id: number; }) => activeClassLevels.includes(classLevelId)))
-          .map(i => ({...i, unitLevels: i.unit_levels, unit_levels: undefined}))
-      ];
-    }),
-    tap(this.setFees.bind(this))
-  )
-  v$ = combineLatest([this.otherCosts$, this.academicYearPlan$, this.classLevels$]).pipe(
-    map(([otherCosts, academicYearPlan, classLevels]) =>
-      ({otherCosts, academicYearPlan, classLevels}))
-  );
-
   setFees(item: any[]) {
     while (this.tuitionFees?.length) {
-      this.tuitionFees.removeAt(0)
+      this.tuitionFees.removeAt(0);
     }
     item.forEach((i: any) => {
       const unitLevels = this.fb.array([]);
@@ -111,7 +111,7 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
       );
     });
     if (this.plans.tuitionFee?.length > 0) {
-      console.log('=>>', this.plans.tuitionFee)
+      console.log('=>>', this.plans.tuitionFee);
       this.tuitionFees.patchValue(this.plans.tuitionFee);
     }
     if (this.plans.otherFees?.length > 0) {
@@ -165,10 +165,7 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
       return this.otherFees.controls[i].value.financialCosts[j]
         .costItems.flat()
         .map((item: any) => item.semesters).flat()
-        .map((item: any) => {
-          return (item.id === k ? item.amount : 0);
-
-        }).flat()
+        .map((item: any) => (item.id === k ? item.amount : 0)).flat()
         .reduce((a: any, b: any) => +a + +b, 0);
     }
 
@@ -177,7 +174,7 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
   submitFeePlanForm() {
     if (this.feePlanForm.valid) {
       let academicYearId: number;
-      this.submitInProgressSubject$.next(true)
+      this.submitInProgressSubject$.next(true);
       this.academicYearPlanId$.pipe(
         tap(id => academicYearId = id),
         mergeMap(id => this.financialPlanService.submit({academicYearId: id, data: this.feePlanForm.value})),
@@ -186,7 +183,7 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
         next: () => this.router.navigate(['../view'], {relativeTo: this.route}).then(
           () => {
             this.submitInProgressSubject$.next(false);
-            this.store.dispatch(loadAcademicYearPlans({id: academicYearId}))
+            this.store.dispatch(loadAcademicYearPlans({id: academicYearId}));
           }
         ),
         error: () => this.submitInProgressSubject$.next(false),

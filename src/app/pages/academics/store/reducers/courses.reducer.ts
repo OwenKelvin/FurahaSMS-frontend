@@ -23,12 +23,10 @@ export const initialState: State = {
 const coursesReducer = createReducer(
   initialState,
   on(loadCourses, state => state),
-  on(loadCoursesSuccess, (state, action) => {
-    return {
+  on(loadCoursesSuccess, (state, action) => ({
       ...state,
       [Number(action.data.id)]: action.data
-    }
-  }),
+    })),
   on(loadCoursesFailure, (state, _action) => state),
   on(createLearningOutcomeAction, (state, action) => {
 
@@ -42,15 +40,13 @@ const coursesReducer = createReducer(
           if (subTopic.id === topicId) {
             newState[courseId].topics?.[index].sub_topics?.[subIndex].expected_learning_outcomes.push(learningOutcome);
           }
-        })
+        });
       }
-    })
+    });
     return {
       ...newState
-    }
+    };
   })
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return coursesReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => coursesReducer(state, action);

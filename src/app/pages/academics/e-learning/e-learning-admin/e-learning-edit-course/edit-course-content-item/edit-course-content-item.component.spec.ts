@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {EditCourseContentItemComponent} from './edit-course-content-item.component';
 import {AppInputModule} from '../../../../../../components/input/app-input.module';
@@ -46,8 +46,8 @@ describe('EditCourseContentItemComponent', () => {
     fixture = TestBed.createComponent(EditCourseContentItemComponent);
     component = fixture.componentInstance;
     component.learningContent = {
-      study_material: { title: 'Doc Title', study_material_doc: {name: 'Name', type: 'pdf', size: 100}}
-    }
+      ['study_material']: {title: 'Doc Title', ['study_material_doc']: {name: 'Name', type: 'pdf', size: 100}}
+    };
     fixture.detectChanges();
   });
 

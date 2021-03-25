@@ -11,13 +11,15 @@ interface IParams {
   description?: number;
   contentId?: number;
   data?: any;
-  studyMaterialId?: number
+  studyMaterialId?: number;
 }
 
 @Injectable({
   providedIn: 'root'
 })
 export class ELearningService {
+  constructor(private http: HttpClient, private urlParam: UrlParamsStringifyService) {
+  }
   updateCourseTopicsLearningOutcome({topicId, description, learningOutcomeId}: IParams): Observable<any> {
     const postData = {
       description,
@@ -34,19 +36,16 @@ export class ELearningService {
     return this.http.post(`api/e-learning/course-content/topics/${topicId}/learning-outcomes`, postData);
   }
 
-  saveCourseContent({studyMaterialId, data}: { studyMaterialId: number; data: { eLearningTopicId: number }; }): Observable<any> {
+  saveCourseContent({studyMaterialId, data}: { studyMaterialId: number; data: { eLearningTopicId: number } }): Observable<any> {
     const postData = {
-      study_material_id: studyMaterialId,
-      e_learning_topic_id: data.eLearningTopicId
+      ['study_material_id']: studyMaterialId,
+      ['e_learning_topic_id']: data.eLearningTopicId
     };
     return this.http.post('api/e-learning/course-content', postData);
   }
 
   deleteCourseWithId(id: number): Observable<any> {
     return this.http.delete(`api/e-learning/courses/${id}`);
-  }
-
-  constructor(private http: HttpClient, private urlParam: UrlParamsStringifyService) {
   }
 
   mapToICourse = (res: any): ICourse => ({
@@ -64,7 +63,7 @@ export class ELearningService {
     academicYearName: res.academic_year_name,
     topicNumberStyleName: res.topic_number_style_name,
     topics: res.topics
-  })
+  });
 
   getCourseWithId(id: number): Observable<ICourse> {
     return this.http.get(`api/e-learning/courses/${id}`)
@@ -74,19 +73,19 @@ export class ELearningService {
   saveCourse(value: any): Observable<any> {
     const url = 'api/e-learning/courses';
     const data = {
-      unit_id: value.unit,
+      ['unit_id']: value.unit,
       name: value.name,
-      class_level_id: value.unit,
-      unit_level_id: value.unitLevel,
-      academic_year_id: value.academicYear,
+      ['class_level_id']: value.unit,
+      ['unit_level_id']: value.unitLevel,
+      ['academic_year_id']: value.academicYear,
       description: value.description,
       numbering: value.numbering,
       topics: value.topics
         .map(({description, numbering, subTopics, id}: any) => ({
           id,
           description,
-          number_label: numbering,
-          sub_topics: subTopics
+          ['number_label']: numbering,
+          ['sub_topics']: subTopics
         }))
 
     };
@@ -97,7 +96,7 @@ export class ELearningService {
     }
   }
 
-  getCourses({limit}: { limit: number; }): Observable<ICourse[]> {
+  getCourses({limit}: { limit: number }): Observable<ICourse[]> {
     const queryStringParams = this.urlParam.stringify({limit});
     return this.http.get(`api/e-learning/courses?${queryStringParams}`)
       .pipe(map((res: any[]) => {
@@ -109,7 +108,7 @@ export class ELearningService {
           unitName: item.unit_name,
           unitAbbreviation: item.unit_abbreviation,
           academicYearName: item.academic_year_name
-        }))
+        }));
         return data;
       }));
   }
@@ -124,8 +123,8 @@ export class ELearningService {
   updateCourseContent = ({contentId, topicId, studyMaterialId, data}: IParams) =>
     this.http.post(`api/e-learning/course-content/${contentId}`, {
       _method: 'PATCH',
-      e_learning_topic_id: topicId,
-      study_material_id: studyMaterialId,
+      ['e_learning_topic_id']: topicId,
+      ['study_material_id']: studyMaterialId,
       ...data
     });
 }

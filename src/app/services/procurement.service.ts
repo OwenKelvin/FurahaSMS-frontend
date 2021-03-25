@@ -32,7 +32,7 @@ export class ProcurementService {
     return this.http.patch(`api/procurements/requests/${data.id}`, submitData);
   }
 
-  approveRequest(data: { procurement_request_id: number, approve: boolean; }): Observable<any> {
+  approveRequest(data: { procurement_request_id: number; approve: boolean }): Observable<any> {
     return this.http.post('api/procurements/requests/pending-approval', data);
   }
 
@@ -41,18 +41,18 @@ export class ProcurementService {
   }
 
   getProcurementRequestWithId(id: number): Observable<any> {
-    return this.http.get<any>(`api/procurements/requests/${id}`).pipe(map(this.mapRequest))
+    return this.http.get<any>(`api/procurements/requests/${id}`).pipe(map(this.mapRequest));
   }
 
   mapRequest = (res: any) => ({
     ...res,
     user: res.requesting_user
-  })
+  });
 
   getRequestsPendingApproval(): Observable<any[]> {
     return this.http.get<any[]>(`api/procurements/requests/pending-approval`).pipe(
       map(res => res.map(this.mapRequest))
-    )
+    );
   }
 
   deleteVendor(id: number): Observable<any> {
@@ -87,7 +87,7 @@ export class ProcurementService {
     return this.http.get('api/procurements/tenders/?tendered=1');
   }
 
-  createBid({tenderId, data}: { tenderId: number, data: any }) {
+  createBid({tenderId, data}: { tenderId: number; data: any }) {
     return this.http.post(`api/procurements/tenders/${tenderId}/bids`, {
       ...data,
       unit_description: data.unitDescription,

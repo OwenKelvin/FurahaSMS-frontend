@@ -19,19 +19,12 @@ export const initialState: ToastStateInterface = {
 
 const toastReducer = createReducer(
   initialState,
-  on(loadToastShowsSuccess, (state, payload) => {
-    return {
+  on(loadToastShowsSuccess, (state, payload) => ({
       ...state, ...payload
-    };
-
-  }),
-  on(loadToastShowsFailure, (state) => {
-    return {
+    })),
+  on(loadToastShowsFailure, (state) => ({
       ...state, showMessage : false
-    };
-  })
+    }))
 );
 
-export function reducer(state: ToastStateInterface | undefined, action: Action) {
-  return toastReducer(state, action);
-}
+export const reducer = (state: ToastStateInterface | undefined, action: Action) => toastReducer(state, action);

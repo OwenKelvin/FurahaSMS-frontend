@@ -11,7 +11,8 @@ import { loadToastShowsSuccess } from 'src/app/store/actions/toast-show.actions'
 import { VIEW_UNIT_CURRICULUM } from 'src/app/helpers/links.helpers';
 import { AppState } from 'src/app/store/reducers';
 import { loadErrorMessagesSuccess } from 'src/app/store/actions/error-message.actions';
-import { takeWhile } from 'rxjs/operators';
+import {takeUntil, takeWhile} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 
 export default interface IUnitForm {
   id?: number;
@@ -26,10 +27,7 @@ export default interface IUnitForm {
   templateUrl: './create-unit.component.html',
   styleUrls: ['./create-unit.component.css']
 })
-export class CreateUnitComponent implements OnInit, OnDestroy {
-  unitCategories: UnitCategoryInterface[];
-  unitCategorySelected: any;
-  formId: any;
+export class CreateUnitComponent extends subscribedContainerMixin() implements OnInit {
   @Input() category: number;
   @Input() idIndex: number;
   @Input() submitButton = true;
@@ -37,32 +35,30 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
   @Input() hasCategories = true;
   @Output() valueChange: EventEmitter<any> = new EventEmitter();
   @Input() hideSubmit: boolean;
+  unitCategories: UnitCategoryInterface[];
+  unitCategorySelected: any;
+  formId: any;
   triggerValidation: boolean;
   isSubmitting: boolean;
-  componentIsActive = true;
+  unitForm = this.fb.group({
+    id: [null, []],
+    name: ['', [Validators.required]],
+    abbr: ['', [Validators.required]],
+    description: [''],
+    active: [true],
+    unitCategory: [null, Validators.required]
+  });
+  newForm = true;
   constructor(
-
     private fb: FormBuilder,
     private store: Store<AppState>,
     private router: Router,
     private unitService: UnitsService
-  ) { }
-
-  unitForm: FormGroup;
-  newForm: boolean;
+  ) { super(); }
 
   ngOnInit() {
-    this.newForm = true;
-    this.unitForm = this.fb.group({
-      id: [null, []],
-      name: ['', [Validators.required]],
-      abbr: ['', [Validators.required]],
-      description: [''],
-      active: [true],
-      unitCategory: [null, Validators.required]
-    });
     this.unitForm.valueChanges
-      .pipe(takeWhile(() => this.componentIsActive))
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
       this.valueChange.emit(this.unitForm);
     });
@@ -72,9 +68,9 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
     if (this.unitForm.valid) {
       this.isSubmitting = true;
       this.unitService.submit(this.unitForm.value)
-        .pipe(takeWhile(() => this.componentIsActive))
+        .pipe(takeUntil(this.destroyed$))
         .subscribe(success => {
-        this.router.navigate([VIEW_UNIT_CURRICULUM(success.id)]);
+        this.router.navigate([VIEW_UNIT_CURRICULUM(success.id)]).then();
         this.isSubmitting = false;
         this.store.dispatch(loadToastShowsSuccess({
           showMessage: true,
@@ -96,8 +92,5 @@ export class CreateUnitComponent implements OnInit, OnDestroy {
       this.unitForm.markAllAsTouched();
       this.triggerValidation = true;
     }
-  }
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

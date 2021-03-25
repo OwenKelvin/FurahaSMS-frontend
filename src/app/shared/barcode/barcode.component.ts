@@ -30,7 +30,7 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
     private modalService: BsModalService,
   ) { }
   writeValue(obj: any): void {
-    this.attempt = obj
+    this.attempt = obj;
   }
   registerOnChange(fn: any): void {
     this.onChanges = fn;
@@ -103,9 +103,7 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
       if (result) {
         if (result.boxes) {
           drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute('width'), 10), parseInt(drawingCanvas.getAttribute('height'), 10));
-          result.boxes.filter((box: any) => {
-            return box !== result.box;
-          }).forEach((box: any) => {
+          result.boxes.filter((box: any) => box !== result.box).forEach((box: any) => {
             Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: 'green', lineWidth: 2 });
           });
         }
@@ -123,12 +121,12 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
 
       const c = new FormControl();
       c.setValue(result.codeResult.code);
-      this.attempt = result.codeResult.code
+      this.attempt = result.codeResult.code;
       if (!validateISBN(c)) {
         this.onChanges(this.attempt);
         this.valueChange.emit(this.attempt);
           Quagga.stop(),
-          this.modalRef.hide()
+          this.modalRef.hide();
 
       }
     });
@@ -145,8 +143,8 @@ export class BarcodeComponent implements OnInit, ControlValueAccessor {
   }
 
   closeModal() {
-    this.modalRef.hide()
-    Quagga.stop()
+    this.modalRef.hide();
+    Quagga.stop();
   }
 
 }

@@ -12,6 +12,10 @@ import {loadCourses} from '../../../store/actions/courses.actions';
   styleUrls: ['./e-learning-delete-learning-outcome.component.css']
 })
 export class ELearningDeleteLearningOutcomeComponent extends formMixin(modalMixin()) {
+  @Input() id: number;
+  @Input() topicId: number;
+  @Input() courseId: number;
+  @Input() description: string;
   store: Store;
   learningOutcomeIdConfirmation = '';
 
@@ -20,21 +24,16 @@ export class ELearningDeleteLearningOutcomeComponent extends formMixin(modalMixi
     this.store = store;
   }
 
-  @Input() id: number;
-  @Input() topicId: number;
-  @Input() courseId: number;
-  @Input() description: string;
-
   deleteLearningOutcome() {
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     this.eLearningService.deleteCourseTopicsLearningOutcome({topicId: this.topicId, learningOutcomeId: this.id})
       .subscribe({
         next: () => {
           this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.store.dispatch(loadCourses({ data: { id: this.courseId }}))
+          this.store.dispatch(loadCourses({ data: { id: this.courseId }}));
         },
         error: () => this.submitInProgressSubject$.next(false)
-      })
+      });
   }
 }

@@ -6,16 +6,16 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ClassLevelUnitLevelAllocationService {
+  url = 'api/curriculum/class-levels/unit-levels';
 
   constructor(private http: HttpClient) {
   }
 
-  url = 'api/curriculum/class-levels/unit-levels';
   getAll = () => this.http.get<any[]>(this.url).pipe(
     map(items => items.map(({id, name, taught_units: taughtUnits}: any) =>
-      ({id, name, taughtUnits: taughtUnits.map(({ id: idVal }: any) => idVal)})))
+      ({id, name, taughtUnits: taughtUnits.map(({id: idVal}: any) => idVal)})))
   );
-  getAllWithUnitLevels= () => this.http.get<any[]>(this.url).pipe(
+  getAllWithUnitLevels = () => this.http.get<any[]>(this.url).pipe(
     map(items => items.map(({id, name, taught_units: taughtUnits}: any) =>
       ({id, name, taughtUnits})))
   );
