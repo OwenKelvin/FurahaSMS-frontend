@@ -1,26 +1,20 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as GuardianProfileActions from '../actions/guardian-profile.actions';
+import {IUserProfile} from "../../../../interfaces/user-profile.interface";
 
 export const guardianProfileFeatureKey = 'guardianProfile';
 
 export interface State {
-  [key: number]: {
-    firstName: string;
-    lasttName: string;
-    middletName: string;
-    dateOfBirth: string;
-    email?: string;
-    phone?: string;
-    id?: number;
-  };
+  [key: number]: IUserProfile
 }
 
 export const initialState: State = {
 
   0: {
+    id: 0,
     firstName: '',
-    lasttName: '',
-    middletName: '',
+    lastName: '',
+    middleName: '',
     dateOfBirth: ''
   }
 };
@@ -28,8 +22,11 @@ export const initialState: State = {
 const guardianProfileReducer = createReducer(
   initialState,
 
-  on(GuardianProfileActions.loadGuardianProfiles, (state, payload) => ({ ...state, [(payload as any).id]: payload })),
-  on(GuardianProfileActions.loadGuardianProfilesSuccess, (state, _action) => state),
+  on(GuardianProfileActions.loadGuardianProfiles, (state, ) => state),
+  on(GuardianProfileActions.loadGuardianProfilesSuccess, (state, payload) => ({
+    ...state,
+    [payload.data.id]: payload.data
+  })),
   on(GuardianProfileActions.loadGuardianProfilesFailure, (state, _action) => state),
 
 );

@@ -12,7 +12,7 @@ export interface State {
   };
 }
 
-export const initialState: State[] = [{}];
+export const initialState: State = {};
 
 const genderReducer = createReducer(
   initialState,

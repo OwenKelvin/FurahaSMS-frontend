@@ -1,6 +1,6 @@
 import {AfterViewInit, Component, forwardRef, OnDestroy, OnInit} from '@angular/core';
 import {InputComponent} from '../input/input.component';
-import {FormBuilder, FormControl, FormGroup, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator} from '@angular/forms';
+import {FormBuilder, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR, Validator} from '@angular/forms';
 import {AppFormService} from 'src/app/services/AppForm.service';
 import {PhoneNumbersService} from 'src/app/services/phone-numbers.service';
 import {Observable, Subject} from 'rxjs';
@@ -28,7 +28,10 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
   selectedPhoneCode: number | string;
   selectedPhone: { country: any; code: any };
   allowedPhoneCountries: any;
-  phoneNumberGroup: FormGroup;
+  phoneNumberGroup = this.fb.group({
+    code: [''],
+    phoneNumber: ['']
+  });
   destroyed$ = new Subject();
 
   constructor(
@@ -46,10 +49,6 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
         this.allowedPhoneCountries = data;
       });
     this.countries$ = this.phoneNumbers.getAllCountryCodes();
-    this.phoneNumberGroup = this.fb.group({
-      code: [],
-      phoneNumber: []
-    });
 
     this.countryCode.setValue(this.localeCountryCode);
 
@@ -64,7 +63,10 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
 
   ngAfterViewInit() {
     const queryString = '#' + this.id + '-container .ng-input [role=combobox]';
-    (document.querySelector(queryString) as HTMLInputElement).setAttribute('aria-label', 'Select country code');
+    const element = document.querySelector(queryString);
+    if (element) {
+      element.setAttribute('aria-label', 'Select country code');
+    }
   }
 
   get localeCountryCode() {
@@ -90,10 +92,11 @@ export class TelInputComponent extends InputComponent implements OnInit, Validat
 
   writeValue(value: any): void {
     if (value !== undefined && value !== '') {
-      const splitValues = this.phoneNumbers.splitNumberFromCountryCode(value);
-      this.countryCode.setValue(splitValues.code);
-      this.phoneNumber.setValue(splitValues.phone);
+      const {code, phone} = this.phoneNumbers.splitNumberFromCountryCode(value);
+      this.countryCode.setValue(code);
+      this.phoneNumber.setValue(phone);
     } else {
+      console.log({countryCode: this.countryCode})
       this.countryCode.setValue(this.localeCountryCode);
     }
   }

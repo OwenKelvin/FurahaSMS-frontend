@@ -11,7 +11,7 @@ export interface State {
     abbreviation?: string;
   };
 }
-export const initialState: State[] = [{}];
+export const initialState: State = {};
 
 const religionReducer = createReducer(
   initialState,

@@ -13,7 +13,7 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
   class extends BaseClass implements OnDestroy{
     destroyed$ = new Subject<void>();
     config: ModalOptions = {
-      initialState: { id: 0 },
+      initialState: { id: 0 } as Partial<object>,
       backdrop: true,
       ignoreBackdropClick: true,
       animated: true,
@@ -45,6 +45,5 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
     }
     ngOnDestroy() {
       this.destroyed$.next();
-      console.log('destroyer ');
     }
   };
