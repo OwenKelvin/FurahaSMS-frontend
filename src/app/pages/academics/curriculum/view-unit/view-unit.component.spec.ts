@@ -1,20 +1,21 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ViewUnitComponent } from './view-unit.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AcademicsModule } from '../../academics.module';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { EffectsModule } from '@ngrx/effects';
+import {ViewUnitComponent} from './view-unit.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AcademicsModule} from '../../academics.module';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {EffectsModule} from '@ngrx/effects';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewUnitComponent', () => {
   let component: ViewUnitComponent;
   let fixture: ComponentFixture<ViewUnitComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -28,14 +29,15 @@ describe('ViewUnitComponent', () => {
         AcademicsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
       declarations: [ViewUnitComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewUnitComponent);

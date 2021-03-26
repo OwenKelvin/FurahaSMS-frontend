@@ -1,18 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { StudentsRecentlyCreatedComponent } from './students-recently-created.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import {StudentsRecentlyCreatedComponent} from './students-recently-created.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('StudentRecentlyCreatedComponent', () => {
   let component: StudentsRecentlyCreatedComponent;
   let fixture: ComponentFixture<StudentsRecentlyCreatedComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -24,14 +25,15 @@ describe('StudentRecentlyCreatedComponent', () => {
         }),
         HttpClientTestingModule,
         RouterTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
       declarations: [StudentsRecentlyCreatedComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StudentsRecentlyCreatedComponent);

@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {FulfillOrRejectTenderFormComponent} from './fulfill-or-reject-tender-form.component';
 import {Store, StoreModule} from '@ngrx/store';
@@ -10,13 +10,14 @@ import {InputComponent} from '../../../components/input/input.component';
 import {ErrorComponent} from '../../../components/error/error.component';
 import {ValidateSubmitButtonsComponent} from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
 import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('FulfillOrRejectTenderFormComponent', () => {
   let component: FulfillOrRejectTenderFormComponent;
   let fixture: ComponentFixture<FulfillOrRejectTenderFormComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [StoreModule.forRoot(REDUCER_TOKEN, {
         metaReducers,
@@ -27,7 +28,8 @@ describe('FulfillOrRejectTenderFormComponent', () => {
       }), HttpClientTestingModule, RouterTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        FormErrorsModule
+        FormErrorsModule,
+        ReactiveComponentModule
       ],
       declarations: [
         FulfillOrRejectTenderFormComponent,
@@ -37,8 +39,8 @@ describe('FulfillOrRejectTenderFormComponent', () => {
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(FulfillOrRejectTenderFormComponent);

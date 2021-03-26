@@ -9,6 +9,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {DurationModule} from '../../../../../../shared/duration/duration.module';
 import {AppInputModule} from '../../../../../../components/input/app-input.module';
 import {DurationPickerModule} from 'ngx-duration-picker';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ManageOnlineAssessmentComponent', () => {
   let component: ManageOnlineAssessmentComponent;
@@ -30,7 +31,9 @@ describe('ManageOnlineAssessmentComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        ModalModule.forRoot()],
+        ModalModule.forRoot(),
+        ReactiveComponentModule
+      ],
       declarations: [ManageOnlineAssessmentComponent],
       providers: [reducerProvider]
     })

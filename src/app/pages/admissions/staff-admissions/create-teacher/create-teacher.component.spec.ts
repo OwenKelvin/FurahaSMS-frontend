@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {CreateTeacherComponent} from './create-teacher.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -11,6 +11,7 @@ import {AppTelInputModule} from 'src/app/modules/app-tel-input.module';
 import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {appFeatureKey, reducers as appReducers} from '../../../../store/reducers/app.reducer';
 import {admissionsFeatureKey, reducers} from '../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateTeacherComponent', () => {
   let component: CreateTeacherComponent;
@@ -34,7 +35,8 @@ describe('CreateTeacherComponent', () => {
           }
         }),
         StoreModule.forFeature(appFeatureKey, appReducers),
-        StoreModule.forFeature(admissionsFeatureKey, reducers)
+        StoreModule.forFeature(admissionsFeatureKey, reducers),
+        ReactiveComponentModule
       ],
       declarations: [CreateTeacherComponent],
       providers: [reducerProvider]

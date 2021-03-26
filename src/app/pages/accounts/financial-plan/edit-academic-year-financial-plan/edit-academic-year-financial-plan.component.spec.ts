@@ -14,6 +14,7 @@ import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reduce
 import {reducer} from '../store/reducers/academic-year-plan.reducer';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('EditAcademicYearFinancialPlanComponent', () => {
   let component: EditAcademicYearFinancialPlanComponent;
@@ -38,7 +39,8 @@ describe('EditAcademicYearFinancialPlanComponent', () => {
         AppInputModule,
         AppLoadingBubbleModule,
         HttpClientTestingModule,
-        AccordionModule.forRoot()
+        AccordionModule.forRoot(),
+        ReactiveComponentModule
       ],
       declarations: [EditAcademicYearFinancialPlanComponent],
       providers: [reducerProvider,

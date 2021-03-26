@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TimeTableAcademicYearViewComponent} from './time-table-academic-year-view.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -10,6 +10,7 @@ import {BrowserAnimationsModule} from '@angular/platform-browser/animations';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {FormErrorsModule} from '../../../../shared/form-errors/form-errors.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('TimeTableAcademicYearViewComponent', () => {
   let component: TimeTableAcademicYearViewComponent;
@@ -29,7 +30,8 @@ describe('TimeTableAcademicYearViewComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        FormErrorsModule
+        FormErrorsModule,
+        ReactiveComponentModule
       ],
       declarations: [TimeTableAcademicYearViewComponent],
       providers: [

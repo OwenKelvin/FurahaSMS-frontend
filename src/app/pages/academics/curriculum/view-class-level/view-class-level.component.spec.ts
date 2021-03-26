@@ -9,6 +9,7 @@ import { ViewComponent } from 'src/app/components/view/view.component';
 import { ChipsComponent } from 'src/app/components/chips/chips.component';
 import { DescriptionComponent } from 'src/app/components/description/description.component';
 import { RouterTestingModule } from '@angular/router/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewClassLevelComponent', () => {
   let component: ViewClassLevelComponent;
@@ -27,7 +28,8 @@ describe('ViewClassLevelComponent', () => {
         }),
         HttpClientTestingModule,
         AppLoadingBubbleModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [
         ViewClassLevelComponent,

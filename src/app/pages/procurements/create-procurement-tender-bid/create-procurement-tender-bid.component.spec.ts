@@ -8,6 +8,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {InputComponent} from '../../../components/input/input.component';
 import {SelectComponent} from '../../../components/select/select.component';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateProcurementTenderBidComponent', () => {
   let component: CreateProcurementTenderBidComponent;
@@ -25,7 +26,8 @@ describe('CreateProcurementTenderBidComponent', () => {
           }
         }),
         AppStarLabelRequiredModule,
-        FormsModule, ReactiveFormsModule, HttpClientTestingModule
+        FormsModule, ReactiveFormsModule, HttpClientTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [CreateProcurementTenderBidComponent, InputComponent, SelectComponent],
       providers: [reducerProvider]

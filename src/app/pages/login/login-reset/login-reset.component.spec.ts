@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoginResetComponent} from './login-reset.component';
 import {InputComponent} from '../../../components/input/input.component';
@@ -10,6 +10,7 @@ import {ErrorModule} from 'src/app/components/error/error.module';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('LoginResetComponent', () => {
   let component: LoginResetComponent;
@@ -30,7 +31,8 @@ describe('LoginResetComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [LoginResetComponent, FullWithCenterComponent, InputComponent],
       providers: [

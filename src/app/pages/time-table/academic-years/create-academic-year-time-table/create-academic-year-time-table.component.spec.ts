@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {CreateAcademicYearTimeTableComponent} from './create-academic-year-time-table.component';
 import {ModalModule} from 'ngx-bootstrap/modal';
@@ -10,6 +10,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppInputModule} from '../../../../components/input/app-input.module';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateAcademicYearTimeTableComponent', () => {
   let component: CreateAcademicYearTimeTableComponent;
@@ -32,7 +33,8 @@ describe('CreateAcademicYearTimeTableComponent', () => {
         AppInputModule,
         HttpClientTestingModule,
         NgSelectModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        ReactiveComponentModule
       ],
       declarations: [CreateAcademicYearTimeTableComponent],
       providers: [reducerProvider]

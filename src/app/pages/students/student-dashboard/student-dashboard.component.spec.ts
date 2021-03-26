@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {StudentDashboardComponent} from './student-dashboard.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -10,6 +10,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
 import {AppPrintModule} from '../../../shared/print/print.module';
 import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('StudentDashboardComponent', () => {
   let component: StudentDashboardComponent;
@@ -32,7 +33,8 @@ describe('StudentDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [StudentDashboardComponent],
       providers: [reducerProvider]

@@ -13,6 +13,7 @@ import {EditorModule} from '@tinymce/tinymce-angular';
 import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('EditPublisherComponent', () => {
   let component: EditPublisherComponent;
@@ -36,7 +37,8 @@ describe('EditPublisherComponent', () => {
         AppInputModule,
         AppLoadingBubbleModule,
         EditorModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        ReactiveComponentModule
       ],
       declarations: [EditPublisherComponent, CreatePublisherComponent],
       providers: [

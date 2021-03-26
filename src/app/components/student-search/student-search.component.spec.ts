@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { StudentSearchComponent } from './student-search.component';
 import { Store, StoreModule } from '@ngrx/store';
@@ -7,13 +7,14 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { AppInputModule } from '../input/app-input.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('StudentSearchComponent', () => {
   let component: StudentSearchComponent;
   let fixture: ComponentFixture<StudentSearchComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,
@@ -27,14 +28,15 @@ describe('StudentSearchComponent', () => {
           }
         }),
         TypeaheadModule.forRoot(),
-        AppInputModule
+        AppInputModule,
+        ReactiveComponentModule
       ],
       declarations: [StudentSearchComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+     TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(StudentSearchComponent);

@@ -16,6 +16,7 @@ import {SortableModule} from 'ngx-bootstrap/sortable';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {academicsFeatureKey, reducers} from '../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningCreateCourseComponent', () => {
   let component: ELearningCreateCourseComponent;
@@ -42,7 +43,8 @@ describe('ELearningCreateCourseComponent', () => {
         AppValidateSubmitButtonsModule,
         RouterTestingModule,
         AppStarLabelRequiredModule,
-        SortableModule.forRoot()
+        SortableModule.forRoot(),
+        ReactiveComponentModule
       ],
       declarations: [ELearningCreateCourseComponent],
       providers: [

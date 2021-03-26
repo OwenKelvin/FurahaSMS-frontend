@@ -1,14 +1,14 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Store, select } from '@ngrx/store';
-import { AppState } from 'src/app/store/reducers';
-import { selectTeacher } from '../store/selectors/teacher-profile.selectors';
-import { map, mergeMap, takeWhile, tap } from 'rxjs/operators';
-import { Observable } from 'rxjs';
-import { GenderService } from 'src/app/services/gender.service';
-import { ReligionService } from 'src/app/services/religion.service';
-import { selectGenders, selectReligions } from 'src/app/store/selectors/app.selectors';
-import { loadTeacherProfilesSuccess } from '../store/actions/teacher-profile.actions';
+import {Component, OnInit} from '@angular/core';
+import {ActivatedRoute} from '@angular/router';
+import {Store, select} from '@ngrx/store';
+import {AppState} from 'src/app/store/reducers';
+import {selectTeacher} from '../store/selectors/teacher-profile.selectors';
+import {map, mergeMap, takeWhile, tap} from 'rxjs/operators';
+import {Observable} from 'rxjs';
+import {GenderService} from 'src/app/services/gender.service';
+import {ReligionService} from 'src/app/services/religion.service';
+import {selectGenders, selectReligions} from 'src/app/store/selectors/app.selectors';
+import {loadTeacherProfilesSuccess} from '../store/actions/teacher-profile.actions';
 
 @Component({
   selector: 'app-view-teacher-info',
@@ -21,13 +21,14 @@ export class ViewTeacherInfoComponent implements OnInit {
   genders$: Observable<any[]>;
   religions$: Observable<any[]>;
   teacherId: number;
+
   constructor(
     private route: ActivatedRoute,
     private store: Store<AppState>,
     private genderService: GenderService,
     private religionService: ReligionService
-
-  ) { }
+  ) {
+  }
 
   ngOnInit() {
     this.componentIsActive = true;
@@ -40,6 +41,7 @@ export class ViewTeacherInfoComponent implements OnInit {
       .pipe(tap(id => this.teacherId = id))
       .pipe(mergeMap((id) => this.store.pipe(select(selectTeacher(id)))));
   }
+
   changeProfile(fieldName: string, $event: string | number) {
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {
@@ -48,6 +50,7 @@ export class ViewTeacherInfoComponent implements OnInit {
       }
     }));
   }
+
   updateSelectValue(fieldName: string, $event: { id: number; name: string }) {
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {

@@ -8,6 +8,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {admissionsFeatureKey, reducers} from '../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('SupportStaffAdmissionComponent', () => {
   let component: SupportStaffAdmissionComponent;
@@ -28,7 +29,8 @@ describe('SupportStaffAdmissionComponent', () => {
         FormsModule,
         ReactiveFormsModule,
         HttpClientTestingModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [SupportStaffAdmissionComponent, SelectComponent],
       providers: [reducerProvider]

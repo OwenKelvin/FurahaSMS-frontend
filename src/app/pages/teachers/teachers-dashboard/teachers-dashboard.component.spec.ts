@@ -6,6 +6,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {AppLoadingBubbleModule} from '../../../modules/app-loading-bubble';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('TeachersDashboardComponent', () => {
   let component: TeachersDashboardComponent;
@@ -24,6 +25,7 @@ describe('TeachersDashboardComponent', () => {
             strictActionImmutability: true,
           }
         }),
+        ReactiveComponentModule
       ],
       declarations: [TeachersDashboardComponent],
       providers: [reducerProvider]

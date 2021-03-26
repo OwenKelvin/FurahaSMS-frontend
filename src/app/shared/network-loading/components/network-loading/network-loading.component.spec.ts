@@ -1,6 +1,7 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { NetworkLoadingComponent } from './network-loading.component';
+import {NetworkLoadingComponent} from './network-loading.component';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('NetworkLoadingComponent', () => {
   let component: NetworkLoadingComponent;
@@ -8,9 +9,12 @@ describe('NetworkLoadingComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      declarations: [ NetworkLoadingComponent ]
+      imports: [
+        ReactiveComponentModule
+      ],
+      declarations: [NetworkLoadingComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

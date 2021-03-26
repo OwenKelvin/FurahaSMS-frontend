@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {EditStudentAcademicsComponent} from './edit-student-academics.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -8,6 +8,7 @@ import {AppCheckboxModule} from '../../../shared/checkbox/checkbox.module';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../store/reducers';
 import {studentProfileFeatureKey, reducer} from '../store/reducers/student-profile.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('EditStudentAcademicsComponent', () => {
   let component: EditStudentAcademicsComponent;
@@ -28,7 +29,8 @@ describe('EditStudentAcademicsComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(studentProfileFeatureKey, reducer)
+        StoreModule.forFeature(studentProfileFeatureKey, reducer),
+        ReactiveComponentModule
       ],
       declarations: [EditStudentAcademicsComponent],
       providers: [reducerProvider]

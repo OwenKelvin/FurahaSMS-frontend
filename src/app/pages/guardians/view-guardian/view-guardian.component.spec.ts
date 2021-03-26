@@ -8,6 +8,7 @@ import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
 import {StoreModule} from '@ngrx/store';
 import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
 import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewGuardianComponent', () => {
   let component: ViewGuardianComponent;
@@ -27,7 +28,8 @@ describe('ViewGuardianComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        StoreModule.forFeature(appFeatureKey, reducers)
+        StoreModule.forFeature(appFeatureKey, reducers),
+        ReactiveComponentModule
 
       ],
       declarations: [ViewGuardianComponent],

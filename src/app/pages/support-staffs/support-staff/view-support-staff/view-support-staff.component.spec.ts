@@ -9,6 +9,7 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { supportStaffFeatureKey, reducer } from '../../store/reducers/support-staff.reducer';
 import {CreateUnitComponent} from '../../../academics/curriculum/create-unit/create-unit.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewSupportStaffComponent', () => {
   let component: ViewSupportStaffComponent;
@@ -29,7 +30,8 @@ describe('ViewSupportStaffComponent', () => {
         HttpClientTestingModule,
         AppLoadingBubbleModule,
         FormsModule,
-        ReactiveFormsModule
+        ReactiveFormsModule,
+        ReactiveComponentModule
       ],
       declarations: [ViewSupportStaffComponent, CreateUnitComponent],
       providers: [reducerProvider],

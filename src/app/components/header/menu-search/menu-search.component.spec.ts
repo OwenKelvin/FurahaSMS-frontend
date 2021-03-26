@@ -9,6 +9,7 @@ import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
 import {myProfileFeatureKey} from '../../../pages/my-profile/store/reducers/my-profile.reducer';
 import {LinkService} from '../../../services/link.service';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('MenuSearchComponent', () => {
   let component: MenuSearchComponent;
@@ -29,7 +30,9 @@ describe('MenuSearchComponent', () => {
         StoreModule.forFeature(myProfileFeatureKey, reducers),
         ReactiveFormsModule,
         FormsModule,
-        RouterTestingModule],
+        RouterTestingModule,
+        ReactiveComponentModule
+      ],
       declarations: [MenuSearchComponent],
       providers: [
         reducerProvider,

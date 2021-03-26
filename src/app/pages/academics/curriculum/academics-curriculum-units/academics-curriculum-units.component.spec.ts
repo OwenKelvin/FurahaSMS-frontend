@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {AcademicsCurriculumUnitsComponent} from './academics-curriculum-units.component';
 import {Store, StoreModule} from '@ngrx/store';
@@ -10,13 +10,14 @@ import {LoadingBubbleComponent} from '../../../../components/loading-bubble/load
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ErrorComponent} from '../../../../components/error/error.component';
 import {appFeatureKey, reducers} from '../../../../store/reducers/app.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('AcademicsCurriculumUnitsComponent', () => {
   let component: AcademicsCurriculumUnitsComponent;
   let fixture: ComponentFixture<AcademicsCurriculumUnitsComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -28,7 +29,8 @@ describe('AcademicsCurriculumUnitsComponent', () => {
         }),
         StoreModule.forFeature(appFeatureKey, reducers),
         RouterTestingModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [
         AcademicsCurriculumUnitsComponent,
@@ -40,8 +42,8 @@ describe('AcademicsCurriculumUnitsComponent', () => {
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AcademicsCurriculumUnitsComponent);

@@ -1,20 +1,21 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { AdminExamPaperEditComponent } from './admin-exam-paper-edit.component';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { StoreModule } from '@ngrx/store';
-import { ModalModule } from 'ngx-bootstrap/modal';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { EditorModule } from '@tinymce/tinymce-angular';
-import { NgSelectModule } from '@ng-select/ng-select';
-import { QuestionViewComponent } from '../question-view/question-view.component';
-import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
-import { of } from 'rxjs';
-import { ActivatedRoute } from '@angular/router';
-import { reducer } from '../../store/reducers/exam-paper.reducer';
+import {AdminExamPaperEditComponent} from './admin-exam-paper-edit.component';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {StoreModule} from '@ngrx/store';
+import {ModalModule} from 'ngx-bootstrap/modal';
+import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {EditorModule} from '@tinymce/tinymce-angular';
+import {NgSelectModule} from '@ng-select/ng-select';
+import {QuestionViewComponent} from '../question-view/question-view.component';
+import {Number2AlphabetModule} from 'src/app/shared/number-2-alphabet/number-2-alphabet.module';
+import {of} from 'rxjs';
+import {ActivatedRoute} from '@angular/router';
+import {reducer} from '../../store/reducers/exam-paper.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('AdminExamPaperEditComponent', () => {
   let component: AdminExamPaperEditComponent;
@@ -39,18 +40,19 @@ describe('AdminExamPaperEditComponent', () => {
         ModalModule.forRoot(),
         EditorModule,
         NgSelectModule,
-        Number2AlphabetModule
+        Number2AlphabetModule,
+        ReactiveComponentModule
       ],
       declarations: [AdminExamPaperEditComponent, QuestionViewComponent],
       providers: [
         reducerProvider,
         {
           provide: ActivatedRoute,
-          useValue: { parent: { paramMap: of({get: () => 1 })}}
+          useValue: {parent: {paramMap: of({get: () => 1})}}
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

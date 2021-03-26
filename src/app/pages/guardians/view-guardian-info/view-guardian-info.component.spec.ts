@@ -1,13 +1,14 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {async, ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ViewGuardianInfoComponent } from './view-guardian-info.component';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule, Store } from '@ngrx/store';
-import { ActivatedRoute } from '@angular/router';
-import { of } from 'rxjs';
-import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {ViewGuardianInfoComponent} from './view-guardian-info.component';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {RouterTestingModule} from '@angular/router/testing';
+import {StoreModule, Store} from '@ngrx/store';
+import {ActivatedRoute} from '@angular/router';
+import {of} from 'rxjs';
+import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewGuardianInfoComponent', () => {
   let component: ViewGuardianInfoComponent;
@@ -25,22 +26,23 @@ describe('ViewGuardianInfoComponent', () => {
           }
         }),
         AppStarLabelRequiredModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
       declarations: [ViewGuardianInfoComponent],
       providers: [
         reducerProvider,
         {
           provide: ActivatedRoute,
-          useValue: { parent: { paramMap: of({ get: () => 1 })}}
+          useValue: {parent: {paramMap: of({get: () => 1})}}
         },
         {
           provide: Store,
-          useValue: { pipe: () => of([{id: 1 }]) }
+          useValue: {pipe: () => of([{id: 1}])}
         }
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

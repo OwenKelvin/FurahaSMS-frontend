@@ -11,6 +11,7 @@ import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ProcurementService} from 'src/app/services/procurement.service';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('MyProcurementsRequestComponent', () => {
   let component: MyProcurementsRequestComponent;
@@ -27,7 +28,9 @@ describe('MyProcurementsRequestComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        RouterTestingModule, HttpClientTestingModule],
+        RouterTestingModule, HttpClientTestingModule,
+        ReactiveComponentModule
+      ],
       declarations: [
         MyProcurementsRequestComponent,
         ViewItemsComponent,

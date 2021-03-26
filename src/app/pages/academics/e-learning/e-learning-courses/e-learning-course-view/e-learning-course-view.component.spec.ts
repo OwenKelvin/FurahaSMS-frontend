@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {  ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { ELearningCourseViewComponent } from './e-learning-course-view.component';
 import { ELearningTopicMaterialsModule } from '../../e-learning-topic-materials/e-learning-topic-materials.module';
@@ -11,6 +11,7 @@ import { of } from 'rxjs';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import {myProfileFeatureKey, reducer as profileReducer} from '../../../../my-profile/store/reducers/my-profile.reducer';
 import {academicsFeatureKey, reducers} from '../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningCourseViewComponent', () => {
   let component: ELearningCourseViewComponent;
@@ -31,7 +32,8 @@ describe('ELearningCourseViewComponent', () => {
         StoreModule.forFeature(academicsFeatureKey, reducers),
         StoreModule.forFeature(myProfileFeatureKey, profileReducer),
         RouterTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
       declarations: [ELearningCourseViewComponent],
       providers: [

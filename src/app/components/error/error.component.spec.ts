@@ -1,8 +1,9 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { ErrorComponent } from './error.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {ErrorComponent} from './error.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ErrorComponent', () => {
   let component: ErrorComponent;
@@ -18,7 +19,8 @@ describe('ErrorComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        ReactiveComponentModule
       ],
       declarations: [ErrorComponent],
       providers: [reducerProvider]

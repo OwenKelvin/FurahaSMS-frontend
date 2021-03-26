@@ -1,29 +1,32 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { NetworkErrorComponent } from './network-error.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
+import {NetworkErrorComponent} from './network-error.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('NetworkErrorComponent', () => {
   let component: NetworkErrorComponent;
   let fixture: ComponentFixture<NetworkErrorComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [ StoreModule.forRoot(REDUCER_TOKEN, {
-          metaReducers,
-          runtimeChecks: {
-            strictStateImmutability: true,
-            strictActionImmutability: true,
-          }
-        }) ],
+      imports: [StoreModule.forRoot(REDUCER_TOKEN, {
+        metaReducers,
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+        }
+      }),
+        ReactiveComponentModule
+      ],
       declarations: [NetworkErrorComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(NetworkErrorComponent);

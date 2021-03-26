@@ -11,6 +11,7 @@ import {AppValidateSubmitButtonsModule} from '../../../../../../components/valid
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FileExtensionModule} from '../../../../../../shared/file-extention/file-extension.module';
 import {AppFilesizeModule} from '../../../../../../shared/filesize/filesize.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('EditCourseContentItemComponent', () => {
   let component: EditCourseContentItemComponent;
@@ -34,7 +35,8 @@ describe('EditCourseContentItemComponent', () => {
           }
         }),
         StoreModule.forFeature(academicsFeatureKey, reducers),
-        ModalModule.forRoot()
+        ModalModule.forRoot(),
+        ReactiveComponentModule
       ],
       declarations: [EditCourseContentItemComponent],
       providers: [reducerProvider]
