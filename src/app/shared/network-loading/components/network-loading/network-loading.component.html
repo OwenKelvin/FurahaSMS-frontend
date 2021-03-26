@@ -1,4 +1,4 @@
-<section *ngIf='isLoading$ | async' class="d-flex justify-content-center">
+<section *ngIf='isLoading$ | ngrxPush' class="d-flex justify-content-center">
   <section class="alert alert-info pt-1 pb-1 mt-1">
     <i class='icon-spin3 animate-spin'></i> Loading...
   </section>

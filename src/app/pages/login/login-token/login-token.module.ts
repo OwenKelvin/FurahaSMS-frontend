@@ -6,6 +6,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppLayoutModule} from 'src/app/modules/app-layout.module';
 import {ErrorModule} from 'src/app/components/error/error.module';
 import {LoginTokenComponent} from './login-token.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {LoginTokenComponent} from './login-token.component';
     FormsModule,
     ReactiveFormsModule,
     AppLayoutModule,
-    ErrorModule
+    ErrorModule,
+    ReactiveComponentModule
 
   ]
 })

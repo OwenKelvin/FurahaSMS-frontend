@@ -1,4 +1,4 @@
-<ng-container *ngIf='(v$ | async) as v; else loading'>
+<ng-container *ngIf='(v$ | ngrxPush) as v; else loading'>
   <h1>View Course <span class="icon-right-dir"></span> {{ v.course?.name }}</h1>
   <section class="d-flex justify-content-between">
     <a [routerLink]="['/academics','e-learning','admin','courses', v.courseId,'edit']" type="button"

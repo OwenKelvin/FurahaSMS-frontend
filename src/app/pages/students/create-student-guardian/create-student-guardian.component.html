@@ -1,4 +1,4 @@
-<ng-container *ngIf=' student$ | async as student; else loading'>
+<ng-container *ngIf=' student$ | ngrxPush as student; else loading'>
   <h1>Student Guardian Creation <span class="icon-right-dir"></span>{{ student.firstName }} {{ student.lastName }}</h1>
   <section class="card p-2">
     <form [formGroup]="userIdentificationForm" (submit)='submitGuardianForm()'>
@@ -21,7 +21,7 @@
               <section class="d-flex justify-content-between flex-wrap">
                 <section class="col-lg-5">
 
-                  <app-input [triggerValidation]="triggerValidationAction$ | async" label='Email' id="{{ 'email' + i }}"
+                  <app-input [triggerValidation]="triggerValidationAction$ | ngrxPush" label='Email' id="{{ 'email' + i }}"
                              type="email"
                              placeholder="Please Enter Email" formControlName="email"></app-input>
                 </section>
@@ -49,13 +49,13 @@
               </legend>
               <section class='d-flex flex-wrap'>
                 <section class='col-lg-4 col-sm-6 col-xs-12'>
-                  <app-input [triggerValidation]='triggerValidationAction$ | async' placeholder='Enter First Name'
+                  <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' placeholder='Enter First Name'
                              [id]="'firstName' + i"
                              label='First Name' formControlName='firstName'>
                   </app-input>
                 </section>
                 <section class='col-lg-4 col-sm-6 col-xs-12'>
-                  <app-input [triggerValidation]='triggerValidationAction$ | async' placeholder='Enter Last Name'
+                  <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' placeholder='Enter Last Name'
                              [id]="'lastName' + i"
                              label='Last Name' formControlName='lastName'>
                   </app-input>
@@ -78,7 +78,7 @@
               </legend>
               <section class='d-flex flex-wrap'>
                 <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-                  <app-input [triggerValidation]="triggerValidationAction$ | async" id="{{ 'relation' + i }}"
+                  <app-input [triggerValidation]="triggerValidationAction$ | ngrxPush" id="{{ 'relation' + i }}"
                              type="text" label="Relation"
                              placeholder="Relationship To Student" formControlName="relation"></app-input>
                 </section>
@@ -88,7 +88,7 @@
                   </app-select>
                 </section>
                 <section class='col-lg-4 col-md-4 col-sm-6 col-xs-12'>
-                  <app-input [triggerValidation]="triggerValidationAction$ | async" label='Date of Birth'
+                  <app-input [triggerValidation]="triggerValidationAction$ | ngrxPush" label='Date of Birth'
                              [id]='"dateOfBirth" + i'
                              type='date' placeholder="Date Of Birth" formControlName="dateOfBirth"></app-input>
                 </section>
@@ -106,7 +106,7 @@
           </fieldset>
         </div>
         <section class='d-flex justify-content-end'>
-          <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+          <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                        (validationButtonClicked)='triggerValidationSubject$.next(true)'
                                        [formItem]='userIdentificationForm'>
             <span>Save Guardians</span>

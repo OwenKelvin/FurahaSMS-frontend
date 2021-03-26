@@ -1,5 +1,5 @@
 <section *ngIf='id'>
-  <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
+  <section *ngIf='(libraryBookClasses$ | ngrxPush) as libraryBookClasses; else item_loading'>
     <label *ngIf='libraryBookClasses.length > 0' [attr.for]='"library-book-category" + id'>Select Sub Category</label>
     <section>
       <section *ngIf='libraryBookClasses.length > 0; no_more_items'>

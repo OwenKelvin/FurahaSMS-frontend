@@ -1,5 +1,5 @@
 
-<section *ngIf='(item$ | async) as item; else loading_block'>
+<section *ngIf='(item$ | ngrxPush) as item; else loading_block'>
   <h1>{{ title }} : <small>{{ item.name }}</small></h1>
   <div class="card p-2">
     <h2 class="card-header mb-3">Status</h2>

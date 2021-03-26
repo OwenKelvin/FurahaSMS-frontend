@@ -7,6 +7,7 @@ import { AppChipsModule } from './app-chip.module';
 import { AppLoadingBubbleModule } from './app-loading-bubble';
 import { ViewComponent } from '../components/view/view.component';
 import { AppDescriptionModule } from './app-description.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppDescriptionModule } from './app-description.module';
     ErrorModule,
     AppChipsModule,
     AppLoadingBubbleModule,
-    AppDescriptionModule
+    AppDescriptionModule,
+    ReactiveComponentModule
 
   ]
 })

@@ -14,7 +14,7 @@
             <div role='option' value="">
               Code...
             </div>
-            <ng-option role='option' *ngFor="let country of countries$ | async" [value]="country.code">
+            <ng-option role='option' *ngFor="let country of countries$ | ngrxPush" [value]="country.code">
               <span class="flag-icon flag-icon-{{ country.country | lowercase}}"></span>
               {{ country.country }} (+{{ country.code }})
             </ng-option>

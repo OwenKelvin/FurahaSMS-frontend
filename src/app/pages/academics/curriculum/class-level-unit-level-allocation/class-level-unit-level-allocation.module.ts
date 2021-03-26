@@ -7,6 +7,7 @@ import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
 import {
   ManageClassLevelUnitLevelAllocationModule
 } from '../manage-class-level-unit-level-allocation/manage-class-level-unit-level-allocation.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {
     CommonModule,
     ClassLevelUnitLevelAllocationRoutingModule,
     AppLoadingBubbleModule,
-    ManageClassLevelUnitLevelAllocationModule
+    ManageClassLevelUnitLevelAllocationModule,
+    ReactiveComponentModule
   ]
 })
 export class ClassLevelUnitLevelAllocationModule {

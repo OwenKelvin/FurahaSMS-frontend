@@ -9,6 +9,7 @@ import { EffectsModule } from '@ngrx/effects';
 import { AdmissionsEffects } from './store/effects/admissions.effects';
 import { StoreModule } from '@ngrx/store';
 import * as fromAdmissions from './store/reducers';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -22,6 +23,7 @@ import * as fromAdmissions from './store/reducers';
     AppLinksModule,
     StoreModule.forFeature(fromAdmissions.admissionsFeatureKey, fromAdmissions.reducers),
     EffectsModule.forFeature([AdmissionsEffects]),
+    ReactiveComponentModule,
   ]
 })
 export class AdmissionsModule { }

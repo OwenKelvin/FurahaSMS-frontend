@@ -1,10 +1,10 @@
-<div class="mt-2" *ngIf="teacherId$ | async as teacherId">
+<div class="mt-2" *ngIf="teacherId$ | ngrxPush as teacherId">
   <button [routerLink]="['/teachers',teacherId,'subjects', 'manage']" class="btn btn-primary btn-sm"><span
     class="icon-edit"></span>
     Manage Assigned Subjects
   </button>
 </div>
-<div *ngIf="teacherUnits$ | async as teacherUnits; else loading">
+<div *ngIf="teacherUnits$ | ngrxPush as teacherUnits; else loading">
   <div class="d-flex flex-wrap justify-content-start">
     <div class="col-12 alert alert-info mt-2 ml-0 mr-0" *ngIf="teacherUnits.length < 1">
       No Subjects assigned to the teacher

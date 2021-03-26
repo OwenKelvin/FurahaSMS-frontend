@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CheckboxComponent } from './checkbox.component';
 import { FormsModule } from '@angular/forms';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -9,7 +10,8 @@ import { FormsModule } from '@angular/forms';
   declarations: [CheckboxComponent],
   imports: [
     CommonModule,
-    FormsModule
+    FormsModule,
+    ReactiveComponentModule
   ],
   exports: [CheckboxComponent]
 })

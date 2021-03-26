@@ -11,6 +11,7 @@ import { GuardianProfileEffects } from './store/effects/guardian-profile.effects
 import { AppUserProfileModule } from 'src/app/components/user-profile/user-profile.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ViewGuardianStudentsComponent } from './view-guardian-students/view-guardian-students.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { ViewGuardianStudentsComponent } from './view-guardian-students/view-gua
     StoreModule.forFeature(fromGuardianProfile.guardianProfileFeatureKey, fromGuardianProfile.reducer),
     EffectsModule.forFeature([GuardianProfileEffects]),
     AppUserProfileModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ]
 })
 export class GuardiansModule { }

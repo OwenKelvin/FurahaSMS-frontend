@@ -1,4 +1,4 @@
-<section *ngIf='v$ | async as v; else loading'>
+<section *ngIf='v$ | ngrxPush as v; else loading'>
   <h1>
     Financial Plan <span class='icon-right-dir'></span> Academic Year <span class="icon-right-dir"></span>
     <span>{{ v.academicYear?.name }}</span>

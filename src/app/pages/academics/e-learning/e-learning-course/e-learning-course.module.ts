@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ELearningCourseComponent } from './e-learning-course.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -10,7 +11,8 @@ import { RouterModule } from '@angular/router';
   exports: [ELearningCourseComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningCourseModule { }

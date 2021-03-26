@@ -9,6 +9,7 @@ import * as fromExamPaper from './store/reducers/exam-paper.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { ExamPaperEffects } from './store/effects/exam-paper.effects';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -21,7 +22,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     AppLinksModule,
     StoreModule.forFeature(fromExamPaper.examPaperFeatureKey, fromExamPaper.reducer),
     EffectsModule.forFeature([ExamPaperEffects]),
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ]
 })
 export class ExamBankModule { }

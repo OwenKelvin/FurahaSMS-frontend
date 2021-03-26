@@ -1,5 +1,5 @@
 
-<ng-container *ngIf='student$ | async as studentProfile; else loading'>
+<ng-container *ngIf='student$ | ngrxPush as studentProfile; else loading'>
   <app-user-profile
   (valueChanged)='changeProfile($event)'
   title='Student'

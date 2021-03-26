@@ -1,7 +1,7 @@
-<div *ngIf='showToast$ | async' class='toast' style='position: absolute; top: 0; right: 0;'>
+<div *ngIf='showToast$ | ngrxPush' class='toast' style='position: absolute; top: 0; right: 0;'>
   <div class='toast-header slideInDown slideOutUp'>
-    <strong class='mr-auto'>{{ toastHeader$ | async }}</strong>
-    <small>{{ toastTime$ | async }}</small>
+    <strong class='mr-auto'>{{ toastHeader$ | ngrxPush }}</strong>
+    <small>{{ toastTime$ | ngrxPush }}</small>
     <button
       (click)='hideToast()'
       type='button'
@@ -12,6 +12,6 @@
     </button>
   </div>
   <div class='toast-body'>
-    {{ toastBody$ | async }}
+    {{ toastBody$ | ngrxPush }}
   </div>
 </div>

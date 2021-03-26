@@ -6,6 +6,7 @@ import {DurationModule} from '../../../../../shared/duration/duration.module';
 import {RouterModule} from '@angular/router';
 import {AppLoadingBubbleModule} from '../../../../../modules/app-loading-bubble';
 import { TakeOnlineTestComponent } from './take-online-test/take-online-test.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -16,7 +17,8 @@ import { TakeOnlineTestComponent } from './take-online-test/take-online-test.com
     OnlineAssessmentRoutingModule,
     DurationModule,
     RouterModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ]
 })
 export class OnlineAssessmentModule { }

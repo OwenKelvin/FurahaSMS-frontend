@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppInputModule} from 'src/app/components/input/app-input.module';
 import {AppLayoutModule} from 'src/app/modules/app-layout.module';
 import {ErrorModule} from 'src/app/components/error/error.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {ErrorModule} from 'src/app/components/error/error.module';
     LoginRoutingModule,
     AppInputModule,
     AppLayoutModule,
-    ErrorModule
+    ErrorModule,
+    ReactiveComponentModule
 
   ],
   exports: []

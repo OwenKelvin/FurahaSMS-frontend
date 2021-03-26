@@ -9,6 +9,7 @@ import { CreateSemesterComponent } from './create-semester/create-semester.compo
 import { ViewSemesterComponent } from './view-semester/view-semester.component';
 import { EditSemesterComponent } from './edit-semester/edit-semester.component';
 import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -18,7 +19,8 @@ import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
     SemesterRoutingModule,
     AppViewItemsModule,
     ErrorModule,
-    AppCrudModule
+    AppCrudModule,
+    ReactiveComponentModule
   ]
 })
 export class SemesterModule { }

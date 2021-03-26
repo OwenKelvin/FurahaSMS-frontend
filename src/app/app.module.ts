@@ -23,6 +23,7 @@ import { ReligionEffects } from './store/effects/religion.effects';
 import { ResMessageInterceptor } from './interceptors/res-message.interceptor';
 import { NetworkLoadingInterceptor, NetworkLoadingModule } from './shared/network-loading';
 import { ErrorModule } from './components/error/error.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -52,7 +53,8 @@ import { ErrorModule } from './components/error/error.module';
     }),
     EffectsModule.forFeature([GenderEffects, ReligionEffects]),
     NetworkLoadingModule,
-    ErrorModule
+    ErrorModule,
+    ReactiveComponentModule
   ],
   providers: [
     { provide: 'apiUrl', useValue: environment.apiUrl },

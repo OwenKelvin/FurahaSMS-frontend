@@ -8,28 +8,28 @@
             class="col-12 d-flex justify-content-between flex-wrap">
         <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
           <label for="AcademicYear">Academic Year</label>
-          <ng-select id="academicYear" style="width: 100%;" [items]="academicYears$ | async" bindLabel="name"
+          <ng-select id="academicYear" style="width: 100%;" [items]="academicYears$ | ngrxPush" bindLabel="name"
                      bindValue="id" formControlName='academicYear'>
           </ng-select>
         </div>
         <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
           <label for="stream"> Select Stream</label>
-          <ng-select [multiple]="true" id='stream' [items]="streams$ | async" bindLabel="name"
+          <ng-select [multiple]="true" id='stream' [items]="streams$ | ngrxPush" bindLabel="name"
                      bindValue="id" formControlName='streams'>
           </ng-select>
         </div>
         <div class="mt-2 col-12 col-lg-4 col-md-6 col-sm-6">
           <label for="classLevel">Class Level</label>
           <ng-select [closeOnSelect]="false" [multiple]="true" style="width: 100%;" id='classLevel'
-                     [items]="classLevels$ | async" bindLabel="name"
+                     [items]="classLevels$ | ngrxPush" bindLabel="name"
                      bindValue="id" formControlName='classLevels'>
           </ng-select>
         </div>
         <div class="mt-2 col-12">
           <button class='btn btn-success' [disabled]='!studentFilterForm.dirty'>
             Get Students
-            <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
-            <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+            <i *ngIf='submitInProgressAction$ | ngrxPush' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-ok-1'></i>
           </button>
         </div>
       </form>
@@ -50,8 +50,8 @@
           </tr>
           </thead>
           <tbody>
-          <ng-container *ngIf="students$ | async as students">
-            <tr *ngFor="let student of students$ | async">
+          <ng-container *ngIf="students$ | ngrxPush as students">
+            <tr *ngFor="let student of students$ | ngrxPush">
               <td>#{{ student.id }}</td>
               <td>{{ student.name}}</td>
               <td>{{ student.genderAbbr}}</td>

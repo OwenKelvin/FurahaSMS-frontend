@@ -4,6 +4,7 @@ import {CommonModule} from '@angular/common';
 import {HomeRoutingModule} from './home-routing.module';
 import {HomeComponent} from 'src/app/pages/home/home.component';
 import {AppLayoutModule} from 'src/app/modules/app-layout.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import {AppLayoutModule} from 'src/app/modules/app-layout.module';
   imports: [
     CommonModule,
     HomeRoutingModule,
-    AppLayoutModule
+    AppLayoutModule,
+    ReactiveComponentModule
   ]
 })
 export class HomeModule {

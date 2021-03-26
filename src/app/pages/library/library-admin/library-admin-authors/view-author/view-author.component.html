@@ -1,5 +1,5 @@
 <h1>View Book Author</h1>
-<section *ngIf='(author$ | async) as author; else loading'>
+<section *ngIf='(author$ | ngrxPush) as author; else loading'>
   Name: <strong>{{ author.name }}</strong>
 </section>
 <ng-template #loading>

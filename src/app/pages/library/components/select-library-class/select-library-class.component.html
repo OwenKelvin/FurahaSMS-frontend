@@ -1,7 +1,7 @@
 <fieldset>
   <legend>Select Classification</legend>
   <section *ngIf='classification; else classificationNotSelected'>
-    <section *ngIf='(libraryBookClasses$ | async) as libraryBookClasses; else item_loading'>
+    <section *ngIf='(libraryBookClasses$ | ngrxPush) as libraryBookClasses; else item_loading'>
       <label for="bookClass">Select Class</label>
       <select [(ngModel)]='libraryBookClassValue' (ngModelChange)='handleChange($event)' id="bookCLass"
               class="form-control">

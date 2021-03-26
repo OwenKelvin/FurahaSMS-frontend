@@ -5,6 +5,7 @@ import {StudentDashboardComponent} from './student-dashboard.component';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {DashboardRoutingModule} from '../../dashboard/dashboard-routing.module';
 import {AppPrintModule} from '../../../shared/print/print.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -16,7 +17,8 @@ import {AppPrintModule} from '../../../shared/print/print.module';
     ReactiveFormsModule,
     NgSelectModule,
     DashboardRoutingModule,
-    AppPrintModule
+    AppPrintModule,
+    ReactiveComponentModule
   ]
 })
 export class StudentDashboardModule {

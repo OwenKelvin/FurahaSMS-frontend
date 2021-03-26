@@ -3,7 +3,7 @@
     <div *ngIf='editable' class="edit-field p-3 pt-0">
       <label [attr.for]='"editItem + label"'>{{ label | titlecase }}</label>
       <select #selectInput formControlName='fieldName' [id]='"editItem + label"' class="custom-select">
-        <ng-container *ngIf='items | async as itemsAsync'>
+        <ng-container *ngIf='items | ngrxPush as itemsAsync'>
           <option value="">Prefer not to specify</option>
           <option *ngFor='let item of itemsAsync' [value]="item.id"> {{ item.name }}</option>
         </ng-container>
@@ -24,7 +24,7 @@
         &nbsp;{{ valueName | titlecase }}
       </span>
       <button type="button" (click)='editable = true' (mouseout)='editHovered = false' (mouseover)='editHovered = true'
-        *ngIf='editMode$ | async' [attr.aria-label]='"Edit " + label' class="icon">
+        *ngIf='editMode$ | ngrxPush' [attr.aria-label]='"Edit " + label' class="icon">
         <span [class.icon-pencil-1]='!editHovered' [class.icon-edit]="editHovered"></span>
       </button>
     </span>

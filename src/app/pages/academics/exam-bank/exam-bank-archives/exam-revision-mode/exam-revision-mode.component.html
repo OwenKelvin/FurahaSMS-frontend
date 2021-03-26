@@ -1,4 +1,4 @@
-<section *ngIf='examPaper$ | async as examPaper; else loading'>
+<section *ngIf='examPaper$ | ngrxPush as examPaper; else loading'>
   <h1>Exam Revision <span class="icon-right-dir"></span> {{ examPaper.name }}</h1>
   <section class="d-flex justify-content-between">
     <button type="button" 

@@ -35,6 +35,7 @@ import { AppCrudModule } from 'src/app/components/crud/app-crud.module';
 import { NgSelectModule } from '@ng-select/ng-select';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -72,7 +73,8 @@ import { EditorModule } from '@tinymce/tinymce-angular';
     AppCrudModule,
     NgSelectModule,
     AppValidateSubmitButtonsModule,
-    EditorModule
+    EditorModule,
+    ReactiveComponentModule
   ]
 })
 export class CurriculumModule { }

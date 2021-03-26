@@ -13,11 +13,11 @@
 </div>
 <div class="modal-footer bg-dark">
   <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
-  <button (click)='deleteLearningOutcome()' [disabled]='(learningOutcomeIdConfirmation !=  "#" + id) || (submitInProgressAction$ | async)'
+  <button (click)='deleteLearningOutcome()' [disabled]='(learningOutcomeIdConfirmation !=  "#" + id) || (submitInProgressAction$ | ngrxPush)'
           class="btn btn-danger">
-    <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Learning Outcome</span>
-    <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>
-    <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>
-    <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+    <span *ngIf='(submitInProgressAction$ | ngrxPush) === false'>Delete this Learning Outcome</span>
+    <span *ngIf='submitInProgressAction$ | ngrxPush'>Deleting...</span>
+    <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-trash'></i>
+    <i *ngIf='submitInProgressAction$ | ngrxPush' class='icon-spin3 animate-spin'></i>
   </button>
 </div>

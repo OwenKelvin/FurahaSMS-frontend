@@ -1,4 +1,4 @@
-<h1> {{ (editFormAction$ | async) ? 'Update': 'Create'}} Class Level Category</h1>
+<h1> {{ (editFormAction$ | ngrxPush) ? 'Update': 'Create'}} Class Level Category</h1>
 <form class="card p-2" [formGroup]="classLevelCategoryForm" (submit)="submit()">
   <fieldset>
     <legend>General Details</legend>
@@ -16,11 +16,11 @@
       <section class="col-lg-12 col-md-12 col-sm-12">
         <section>
           <label for="description">Category Description</label>
-            <div [hidden]='(editorInitializedAction$ | async) === false'>
+            <div [hidden]='(editorInitializedAction$ | ngrxPush) === false'>
               <editor (onInit)='initializeEditor()' id='description' formControlName='description' [init]="tinyMCEConfig"></editor>
             </div>
             <div>
-               <app-loading-bubble *ngIf='(editorInitializedAction$ | async) === false'></app-loading-bubble>
+               <app-loading-bubble *ngIf='(editorInitializedAction$ | ngrxPush) === false'></app-loading-bubble>
             </div>
            
         </section>
@@ -30,10 +30,10 @@
   </fieldset>
   <section class='d-flex justify-content-end mt-2'>
     
-    <button [disabled]='!classLevelCategoryForm.valid || (submitInProgressAction$ | async)' class='btn btn-success' type='submit'>
-      {{ (editFormAction$ | async) ? 'Update': 'Create'}}
-      <i *ngIf='classLevelCategoryForm.valid && (submitInProgressAction$ | async) === false' class='icon-ok'></i>
-      <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+    <button [disabled]='!classLevelCategoryForm.valid || (submitInProgressAction$ | ngrxPush)' class='btn btn-success' type='submit'>
+      {{ (editFormAction$ | ngrxPush) ? 'Update': 'Create'}}
+      <i *ngIf='classLevelCategoryForm.valid && (submitInProgressAction$ | ngrxPush) === false' class='icon-ok'></i>
+      <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
     </button>
   </section>
 

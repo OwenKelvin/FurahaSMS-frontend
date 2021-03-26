@@ -22,6 +22,7 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
 import {StudentDashboardModule} from './student-dashboard/student-dashboard.module';
 import { EditStudentAcademicsComponent } from './edit-student-academics/edit-student-academics.component';
 import {AppCheckboxModule} from '../../shared/checkbox/checkbox.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -49,6 +50,7 @@ import {AppCheckboxModule} from '../../shared/checkbox/checkbox.module';
     AppValidateSubmitButtonsModule,
     StudentDashboardModule,
     AppCheckboxModule,
+    ReactiveComponentModule,
   ]
 })
 export class StudentsModule { }

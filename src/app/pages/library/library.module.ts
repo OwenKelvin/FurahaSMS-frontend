@@ -16,6 +16,7 @@ import * as fromLibraryEffects from './store/effects';
 import { ViewLibraryBookComponent } from './components/view-library-book/view-library-book.component';
 import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 import { LibraryBookEffects } from './store/effects/library-book.effects';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -42,6 +43,7 @@ import { LibraryBookEffects } from './store/effects/library-book.effects';
       LibraryBookEffects
     ]),
     TypeaheadModule.forRoot(),
+    ReactiveComponentModule,
   ]
 })
 export class LibraryModule { }

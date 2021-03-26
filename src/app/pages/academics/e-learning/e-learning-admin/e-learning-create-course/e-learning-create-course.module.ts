@@ -13,6 +13,7 @@ import {AppStarLabelRequiredModule} from '../../../../../components/label-star-r
 import {SortableModule} from 'ngx-bootstrap/sortable';
 import {ELearningTopicObjectivesModule} from '../../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -30,7 +31,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     AppStarLabelRequiredModule,
     SortableModule.forRoot(),
     ELearningTopicObjectivesModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveComponentModule
   ],
   exports: [
     ELearningCreateCourseComponent

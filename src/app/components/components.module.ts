@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ToastComponent } from './toast/toast.component';
 import { AppLayoutModule } from '../modules/app-layout.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -10,6 +11,7 @@ import { AppLayoutModule } from '../modules/app-layout.module';
   imports: [
     CommonModule,
     AppLayoutModule,
+    ReactiveComponentModule,
 
   ],
   exports: [

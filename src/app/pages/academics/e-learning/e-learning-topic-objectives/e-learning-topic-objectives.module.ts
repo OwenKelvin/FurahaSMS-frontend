@@ -4,6 +4,7 @@ import { ELearningTopicObjectivesComponent } from './e-learning-topic-objectives
 import {ReactiveFormsModule} from '@angular/forms';
 import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
 import {AppInputModule} from '../../../../components/input/app-input.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -14,7 +15,8 @@ import {AppInputModule} from '../../../../components/input/app-input.module';
     CommonModule,
     ReactiveFormsModule,
     AppValidateSubmitButtonsModule,
-    AppInputModule
+    AppInputModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningTopicObjectivesModule { }

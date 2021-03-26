@@ -1,4 +1,4 @@
-<section *ngIf='(errorBody$ | async) as errorBody'>
+<section *ngIf='(errorBody$ | ngrxPush) as errorBody'>
   
   <section *ngIf='errorBody.show'class="alert alert-danger alert-dismissible fade show">
     <button (click)='closeMessage()' type="button" class="close" data-dismiss="alert" aria-label="Close">

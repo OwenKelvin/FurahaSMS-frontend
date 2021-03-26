@@ -8,6 +8,7 @@ import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
 import {ELearningAdminCourseComponent} from './e-learning-admin-course/e-learning-admin-course.component';
 import {ELearningCourseModule} from '../e-learning-course/e-learning-course.module';
 import {ELearningDeleteLearningOutcomeComponent} from './e-learning-delete-learning-outcome/e-learning-delete-learning-outcome.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -20,7 +21,8 @@ import {ELearningDeleteLearningOutcomeComponent} from './e-learning-delete-learn
     ELearningAdminRoutingModule,
     FormsModule,
     AppLoadingBubbleModule,
-    ELearningCourseModule
+    ELearningCourseModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningAdminModule {

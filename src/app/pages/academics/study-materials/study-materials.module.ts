@@ -4,6 +4,7 @@ import { CommonModule } from '@angular/common';
 import { StudyMaterialsRoutingModule } from './study-materials-routing.module';
 import { StudyMaterialsComponent } from './study-materials.component';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -11,7 +12,8 @@ import { AppLinksModule } from 'src/app/shared/links/links.module';
   imports: [
     CommonModule,
     StudyMaterialsRoutingModule,
-    AppLinksModule
+    AppLinksModule,
+    ReactiveComponentModule
   ]
 })
 export class StudyMaterialsModule { }

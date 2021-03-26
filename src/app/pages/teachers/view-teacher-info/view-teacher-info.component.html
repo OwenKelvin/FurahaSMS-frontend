@@ -1,4 +1,4 @@
-<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(teacherProfile$ | async) as profile; else content_loading'>
+<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(teacherProfile$ | ngrxPush) as profile; else content_loading'>
   <section class='col-md-7 col-lg-5 col-sm-12 mb-3'>
     <app-name-item type='email' (valueChanged)='changeProfile("email", $event)' [userId]='profile.id'
       label='Email' [name]='profile.email'></app-name-item>

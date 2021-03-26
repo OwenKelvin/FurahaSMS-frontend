@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { LinksComponent } from './links.component';
 import { LinkComponent } from './link/link.component';
 import { RouterModule } from '@angular/router';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -10,7 +11,8 @@ import { RouterModule } from '@angular/router';
   declarations: [LinksComponent, LinkComponent],
   imports: [
     CommonModule,
-    RouterModule
+    RouterModule,
+    ReactiveComponentModule
   ],
   exports: [LinksComponent]
 })

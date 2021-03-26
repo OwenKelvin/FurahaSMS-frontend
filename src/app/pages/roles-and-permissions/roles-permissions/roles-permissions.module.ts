@@ -11,6 +11,7 @@ import { RolesPermissionEditComponent } from './roles-permission-edit/roles-perm
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -25,7 +26,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     RouterModule,
     AppCheckboxModule,
     AppInputModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class RolesPermissionsModule { }

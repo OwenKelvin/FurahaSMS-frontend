@@ -4,6 +4,7 @@ import { ELearningTopicMaterialsComponent } from './e-learning-topic-materials.c
 import { RouterModule } from '@angular/router';
 import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
 import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -14,7 +15,8 @@ import { FileExtensionModule } from 'src/app/shared/file-extention/file-extensio
     CommonModule,
     RouterModule,
     AppFilesizeModule,
-    FileExtensionModule
+    FileExtensionModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningTopicMaterialsModule { }

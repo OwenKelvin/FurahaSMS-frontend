@@ -17,7 +17,7 @@
         </tr>
         </thead>
         <tbody>
-        <ng-container *ngIf="teachers$ | async as teachers else loading">
+        <ng-container *ngIf="teachers$ | ngrxPush as teachers else loading">
           <tr *ngFor="let teacher of teachers">
             <td>{{ teacher.id}}</td>
             <td>{{ teacher.email }}</td>

@@ -1,6 +1,6 @@
 <h1>View Tender Bids</h1>
 
-<section *ngIf='procurementRequest$ | async as procurementRequest; else loading'>
+<section *ngIf='procurementRequest$ | ngrxPush as procurementRequest; else loading'>
   <h2>Procurement Request</h2>
   <app-procurement-item [item]='procurementRequest'></app-procurement-item>
   <h2>Tender Info</h2>

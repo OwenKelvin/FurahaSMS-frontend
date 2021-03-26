@@ -38,12 +38,12 @@
   </div>
   <div class="modal-footer bg-dark">
     <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
-    <button (click)='deleteAssessmentItem()' [disabled]='(contentId !=  "#" + editedItem.id) || (submitInProgressAction$ | async)'
+    <button (click)='deleteAssessmentItem()' [disabled]='(contentId !=  "#" + editedItem.id) || (submitInProgressAction$ | ngrxPush)'
             class="btn btn-danger">
-      <span *ngIf='(submitInProgressAction$ | async) === false'>Delete this Assessment</span>
-      <span *ngIf='submitInProgressAction$ | async'>Deleting...</span>
-      <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-trash'></i>
-      <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
+      <span *ngIf='(submitInProgressAction$ | ngrxPush) === false'>Delete this Assessment</span>
+      <span *ngIf='submitInProgressAction$ | ngrxPush'>Deleting...</span>
+      <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-trash'></i>
+      <i *ngIf='submitInProgressAction$ | ngrxPush' class='icon-spin3 animate-spin'></i>
     </button>
   </div>
 

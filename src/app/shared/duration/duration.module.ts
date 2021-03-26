@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { DurationPipe } from './duration.pipe';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -10,7 +11,8 @@ import { DurationPipe } from './duration.pipe';
     DurationPipe
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveComponentModule
   ]
 })
 export class DurationModule { }

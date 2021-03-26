@@ -1,4 +1,4 @@
-<ng-container *ngIf='v$ | async as v; else loading'>
+<ng-container *ngIf='v$ | ngrxPush as v; else loading'>
   <div class="card p-2">
     <h1>
       Financial Plan <span class='icon-right-dir'></span> Academic Year<span class="icon-right-dir"></span>
@@ -183,7 +183,7 @@
                 <button type="button" class="btn btn-secondary" (click)="selectTab(1)">Previous</button>
               </section>
             </section>
-            <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+            <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                          (validationButtonClicked)='triggerValidationSubject$.next(true)'
                                          [formItem]='feePlanForm'>
             </app-validate-submit-buttons>

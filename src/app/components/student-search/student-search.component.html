@@ -7,7 +7,7 @@
   <div class="col-lg-8 p-0">
     <div class="card p-2 ml-2">
   <h2>Selected Student Details</h2>
-  <div class="d-flex justify-content-between flex-wrap" *ngIf='selectedItemAction$ | async as selectedItem; else noSelectedStudent'>
+  <div class="d-flex justify-content-between flex-wrap" *ngIf='selectedItemAction$ | ngrxPush as selectedItem; else noSelectedStudent'>
     <div class="col-12 col-xl-6 mt-1">First Name: <strong>{{ selectedItem.firstName }}</strong></div>
     <div class="col-12 col-xl-6 mt-1">Last Name: <strong>{{ selectedItem.lastName }}</strong></div>
     <div class="col-12 col-xl-6 mt-1">Middle Name: <strong>{{ selectedItem.middleName }}</strong></div>

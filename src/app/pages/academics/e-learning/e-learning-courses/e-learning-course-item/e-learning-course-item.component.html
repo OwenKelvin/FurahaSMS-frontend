@@ -1,4 +1,4 @@
-<div *ngIf="loadCourses$ | async">
+<div *ngIf="loadCourses$ | ngrxPush">
   <router-outlet></router-outlet>
 </div>
 

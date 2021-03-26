@@ -6,16 +6,16 @@
   <h1><span *ngIf='idControl.value !== 0'>Edit </span>Procurement Request</h1>
   <form (submit)='submitProcurementRequestForm()' [formGroup]='procurementRequestForm' class='d-flex flex-wrap mt-3'>
     <section class='col-lg-6'>
-      <app-input [triggerValidation]='triggerValidationAction$ | async' id='name' label='name' placeholder='Enter Name'
+      <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' id='name' label='name' placeholder='Enter Name'
                  formControlName='name'></app-input>
     </section>
     <section class='col-lg-6'>
-      <app-select type='procurement:items-categories' [triggerValidation]='triggerValidationAction$ | async'
+      <app-select type='procurement:items-categories' [triggerValidation]='triggerValidationAction$ | ngrxPush'
                   id='category' label='name'
                   placeholder='Enter Name' formControlName='category'></app-select>
     </section>
     <section class='col-lg-6'>
-      <app-input [triggerValidation]='triggerValidationAction$ | async' id='quantity' label='Quantity'
+      <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' id='quantity' label='Quantity'
                  placeholder='Enter Quantity Description' formControlName='quantity'>
       </app-input>
     </section>
@@ -28,7 +28,7 @@
     <section class='col-lg-12'>
       <app-form-errors [form]="procurementRequestForm"></app-form-errors>
       <app-validate-submit-buttons
-        [isSubmitting]='submitInProgressAction$ | async'
+        [isSubmitting]='submitInProgressAction$ | ngrxPush'
         (validationButtonClicked)='triggerValidationSubject$.next(true)'
         [formItem]='procurementRequestForm'
       ></app-validate-submit-buttons>

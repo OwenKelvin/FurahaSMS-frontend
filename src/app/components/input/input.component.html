@@ -35,5 +35,5 @@
 				</section>
 		</section>
 	</section>
-	<app-password-meter *ngIf='showPasswordStrength' [passwordString]='passwordStringChangeAction$ | async'></app-password-meter>
+	<app-password-meter *ngIf='showPasswordStrength' [passwordString]='passwordStringChangeAction$ | ngrxPush'></app-password-meter>
 </section>

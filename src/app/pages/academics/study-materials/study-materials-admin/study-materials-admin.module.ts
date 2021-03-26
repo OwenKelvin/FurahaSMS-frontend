@@ -10,6 +10,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AddStudyMaterialsTitleModule } from './add-study-materials-title/add-study-materials-title.module';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [StudyMaterialsAdminComponent, CreateStudyMaterialComponent],
@@ -22,7 +23,8 @@ import { AppInputModule } from 'src/app/components/input/app-input.module';
     FormsModule,
     ReactiveFormsModule,
     AddStudyMaterialsTitleModule,
-    AppInputModule
+    AppInputModule,
+    ReactiveComponentModule
   ]
 })
 export class StudyMaterialsAdminModule { }

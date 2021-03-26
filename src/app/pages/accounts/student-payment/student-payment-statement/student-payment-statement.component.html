@@ -13,7 +13,7 @@
           </tr>
         </thead>
         <tbody>
-          <ng-container *ngIf='v$ | async as v; else loading'>
+          <ng-container *ngIf='v$ | ngrxPush as v; else loading'>
             <tr>
               <td></td>
               <td></td>

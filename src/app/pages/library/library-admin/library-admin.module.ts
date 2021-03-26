@@ -17,6 +17,7 @@ import { TabsModule } from 'ngx-bootstrap/tabs';
 import { AppSelectLibraryClassModule } from '../modules/select-library-class.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -40,7 +41,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     TabsModule.forRoot(),
     AppSelectLibraryClassModule,
     EditorModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class LibraryAdminModule { }

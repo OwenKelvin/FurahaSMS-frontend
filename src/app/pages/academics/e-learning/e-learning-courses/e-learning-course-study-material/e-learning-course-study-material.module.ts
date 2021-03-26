@@ -7,6 +7,7 @@ import { RouterModule } from '@angular/router';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
 import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { FileExtensionModule } from 'src/app/shared/file-extention/file-extensio
     RouterModule,
     AppLoadingBubbleModule,
     AppFilesizeModule,
-    FileExtensionModule
+    FileExtensionModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningCourseStudyMaterialModule { }

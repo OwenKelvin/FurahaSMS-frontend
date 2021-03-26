@@ -1,5 +1,5 @@
 <h1>View Book Publisher</h1>
-<section *ngIf='(publisher$ | async) as publisher; else loading'>
+<section *ngIf='(publisher$ | ngrxPush) as publisher; else loading'>
   <section class="card">
     <section class="d-flex flex-wrap justify-content-center align-items-center">
       <section class="col-lg-12 card-header">

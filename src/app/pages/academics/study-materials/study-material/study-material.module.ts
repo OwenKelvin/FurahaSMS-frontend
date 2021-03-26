@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { StudyMaterialRoutingModule } from './study-material-routing.module';
 import { ViewStudyMaterialModule } from './view-study-material/view-study-material.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -10,7 +11,8 @@ import { ViewStudyMaterialModule } from './view-study-material/view-study-materi
   imports: [
     CommonModule,
     StudyMaterialRoutingModule,
-    ViewStudyMaterialModule
+    ViewStudyMaterialModule,
+    ReactiveComponentModule
   ]
 })
 export class StudyMaterialModule { }

@@ -1,5 +1,5 @@
 <h1>View Book</h1>
-<section *ngIf='libraryBook$ | async as libraryBook'>
+<section *ngIf='libraryBook$ | ngrxPush as libraryBook'>
   Book Title: <strong>{{ libraryBook.title }}</strong>
 </section>
 

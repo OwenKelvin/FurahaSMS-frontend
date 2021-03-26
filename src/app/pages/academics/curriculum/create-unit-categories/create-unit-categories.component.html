@@ -1,11 +1,11 @@
-<h1>{{ (editFormAction$ | async) ? 'Update': 'Create'}} Unit/Subject Category</h1>
+<h1>{{ (editFormAction$ | ngrxPush) ? 'Update': 'Create'}} Unit/Subject Category</h1>
 <section class="card p-2">
   <form (submit)="submit()" [formGroup]="newUnitCategoryForm">
     <fieldset>
       <legend>General Details</legend>
       <section class="d-flex flex-wrap">
         <section class="col-lg-5 col-md-6 col-sm-12">
-          <app-input [triggerValidation]='triggerValidationAction$ | async' label='Name' id="name" placeholder="Name"
+          <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' label='Name' id="name" placeholder="Name"
             formControlName="name">
           </app-input>
         </section>
@@ -19,18 +19,18 @@
           <section>
             <label for="description">Subject Description</label>
 
-            <div [hidden]='(editorInitializedAction$ | async) === false'>
+            <div [hidden]='(editorInitializedAction$ | ngrxPush) === false'>
               <editor (onInit)='initializeEditor()' id='description' formControlName='description'
                 [init]="tinyMCEConfig"></editor>
             </div>
             <div>
-              <app-loading-bubble *ngIf='(editorInitializedAction$ | async) === false'></app-loading-bubble>
+              <app-loading-bubble *ngIf='(editorInitializedAction$ | ngrxPush) === false'></app-loading-bubble>
             </div>
           </section>
         </section>
       </section>
     </fieldset>
-    <fieldset *ngIf='(editFormAction$ | async) === false'>
+    <fieldset *ngIf='(editFormAction$ | ngrxPush) === false'>
       <legend>Subject Details</legend>
       <button (click)="addSubject()" type="button" class="btn btn-sm btn-primary">Add <span
           class="icon-plus-circled"></span></button>
@@ -53,9 +53,9 @@
     <app-error></app-error>
 
     <section class="mt-2">
-      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
         (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='newUnitCategoryForm'>
-        <span>{{ (editFormAction$ | async) ? 'Update': 'Create' }}</span>
+        <span>{{ (editFormAction$ | ngrxPush) ? 'Update': 'Create' }}</span>
       </app-validate-submit-buttons>
 
     </section>

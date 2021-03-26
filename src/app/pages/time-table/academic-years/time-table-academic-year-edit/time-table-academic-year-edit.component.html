@@ -1,12 +1,12 @@
-<h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | async }}</h1>
+<h1>Time Table For Academic Year <span class="icon-right-dir"></span>{{ academicYearName$ | ngrxPush }}</h1>
 <div class="d-flex flex-wrap justify-content-between">
   <a class="btn btn-info btn-sm" [routerLink]='["../"]'><span class="icon-eye"></span>View</a>
 
   <button (click)='saveChanges()' class="btn btn-success btn-sm">Save All Changes <span class="icon-floppy"></span></button>
 </div>
 
-<accordion *ngIf='timetableLessons$ | async ' [closeOthers]='true' [isAnimated]='true'>
-  <accordion-group class="mt-2" *ngFor='let classLevel of timeTableForm$ | async; let i = index' [(isOpen)]="isOpen[i]"
+<accordion *ngIf='timetableLessons$ | ngrxPush ' [closeOthers]='true' [isAnimated]='true'>
+  <accordion-group class="mt-2" *ngFor='let classLevel of timeTableForm$ | ngrxPush; let i = index' [(isOpen)]="isOpen[i]"
     [class.active-group]="isOpen[i]">
 
     <section accordion-heading class="d-flex justify-content-between">
@@ -82,7 +82,7 @@
 
     </button>
   </div>
-  <div class="modal-body bg-dark d-flex flex-wrap" *ngIf='editItemDetails$ | async as editItemDetails'>
+  <div class="modal-body bg-dark d-flex flex-wrap" *ngIf='editItemDetails$ | ngrxPush as editItemDetails'>
     <div class="col-lg-12 d-flex justify-content-between tt-edit-details pb-3 mb-3">
       <div>Class Level: {{ editItemDetails.classLevelName }}</div>
       <div>Stream: {{ editItemDetails.streamName }}</div>
@@ -93,19 +93,19 @@
 
       <div class="col-lg-5">
         <label for="teacherId">Select Subject</label>
-        <ng-select style="width: 100%;" id='subjectId' [items]="units$ | async" bindLabel="name"
+        <ng-select style="width: 100%;" id='subjectId' [items]="units$ | ngrxPush" bindLabel="name"
           bindValue="id" formControlName='subjectId'>
         </ng-select>
       </div>
       <div class="col-lg-5">
         <label for="teacherId">Select Teacher</label>
-        <ng-select style="width: 100%;" id='teacherId' [items]="teachers$ | async" bindLabel="name"
+        <ng-select style="width: 100%;" id='teacherId' [items]="teachers$ | ngrxPush" bindLabel="name"
           bindValue="id" formControlName='teacherId'>
         </ng-select>
       </div>
       <div class="col-lg-5">
         <label for="teacherId">Select Room</label>
-        <ng-select style="width: 100%;" id='roomId' [items]="rooms$ | async" bindLabel="abbreviation"
+        <ng-select style="width: 100%;" id='roomId' [items]="rooms$ | ngrxPush" bindLabel="abbreviation"
           bindValue="id" formControlName='roomId'>
         </ng-select>
       </div>

@@ -1,4 +1,4 @@
-<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(guardianProfile$ | async) as profile; else content_loading'>
+<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(guardianProfile$ | ngrxPush) as profile; else content_loading'>
   <section class='col-lg-4 col-md-5 col-sm-6'>
     <section class='d-flex flex-wrap'>
       <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Gender:</span>

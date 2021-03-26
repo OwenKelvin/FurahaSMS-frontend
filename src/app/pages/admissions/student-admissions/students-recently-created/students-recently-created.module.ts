@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { StudentsRecentlyCreatedComponent } from './students-recently-created.component';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterModule } from '@angular/router';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -11,7 +12,8 @@ import { RouterModule } from '@angular/router';
   imports: [
     CommonModule,
     AppLoadingBubbleModule,
-    RouterModule
+    RouterModule,
+    ReactiveComponentModule
   ],
   exports: [
     StudentsRecentlyCreatedComponent

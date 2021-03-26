@@ -1,5 +1,5 @@
 <h1>Create Tender</h1>
-<section *ngIf='procurementItem$ | async as procurementItem; else loading'>
+<section *ngIf='procurementItem$ | ngrxPush as procurementItem; else loading'>
   <app-procurement-item [item]='procurementItem'></app-procurement-item>
 </section>
 <ng-template #loading>

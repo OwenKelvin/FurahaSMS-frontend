@@ -1,7 +1,7 @@
 <h1>Student Academic Details Editing</h1>
 
 <section class="card mt-2 p-2">
-  <div *ngIf="v$ | async as v">
+  <div *ngIf="v$ | ngrxPush as v">
     <table class="table table-dark">
       <thead>
       <th>Student Name</th>
@@ -39,10 +39,10 @@
       </div>
       <div>
         <section class='d-flex justify-content-end mt-2'>
-          <button [disabled]='!unitLevelForm.valid || (submitInProgressAction$ | async)' class='btn btn-success' type='submit'>
+          <button [disabled]='!unitLevelForm.valid || (submitInProgressAction$ | ngrxPush)' class='btn btn-success' type='submit'>
             Save Changes
-            <i *ngIf='unitLevelForm.valid && (submitInProgressAction$ | async) === false' class='icon-ok'></i>
-            <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='unitLevelForm.valid && (submitInProgressAction$ | ngrxPush) === false' class='icon-ok'></i>
+            <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
           </button>
         </section>
       </div>

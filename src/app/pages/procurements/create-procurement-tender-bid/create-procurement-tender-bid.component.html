@@ -20,7 +20,7 @@
         placeholder='Enter Description' label='Description'>
       </app-input>
     </section>
-    <section  class="col-lg-12" *ngIf='(errorBody$ | async) as errorBody'>
+    <section  class="col-lg-12" *ngIf='(errorBody$ | ngrxPush) as errorBody'>
       <section *ngIf='errorBody.show' class="alert alert-danger alert-dismissible fade show">
         <p class='icon-attention'><strong>{{ errorBody.status + ': ' }}{{ errorBody.title }}</strong></p>
         <p>{{ errorBody.body }}</p>
