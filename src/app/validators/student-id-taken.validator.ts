@@ -14,7 +14,7 @@ export class IdNumberValidator {
         data => {
           if (data.id) {
             resolve({
-              id_taken: true
+              ['id_taken']: true
             });
           } else {
             resolve(null);

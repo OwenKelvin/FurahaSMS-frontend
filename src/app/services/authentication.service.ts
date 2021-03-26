@@ -18,7 +18,7 @@ export class AuthenticationService {
   localStorageUser = JSON.parse(String(localStorage.getItem('currentUser')));
   sessionStorageUser = JSON.parse(String(sessionStorage.getItem('currentUser')));
   isLoggedInSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-
+  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
   constructor(private http: HttpClient) {
     this.isLoggedInSubject.next(!!this.authorizationToken);
   }
@@ -67,14 +67,12 @@ export class AuthenticationService {
         })));
   }
 
-  revokeToken: Observable<any> = this.http.get('api/users/auth/logout');
-
   changePassword(data: any) {
     const submitData = {
       token: data.token,
-      old_password: data.oldPassword,
-      new_password: data.newPassword,
-      new_password_confirmation: data.newPasswordConfirmation,
+      ['old_password']: data.oldPassword,
+      ['new_password']: data.newPassword,
+      ['new_password_confirmation']: data.newPasswordConfirmation,
     };
     return this.http.post('api/password/reset', submitData);
   }
@@ -106,9 +104,9 @@ export class AuthenticationService {
   login(data: { username: string; password: string; rememberMe: boolean }): Observable<any> {
     const {username, password, rememberMe} = data;
     const loginData: OauthInterface = {
-      grant_type: PASSPORT_CLIENT.grantType,
-      client_id: PASSPORT_CLIENT.clientId,
-      client_secret: PASSPORT_CLIENT.clientSecret,
+      ['grant_type']: PASSPORT_CLIENT.grantType,
+      ['client_id']: PASSPORT_CLIENT.clientId,
+      ['client_secret']: PASSPORT_CLIENT.clientSecret,
       username,
       password,
       scope: '',

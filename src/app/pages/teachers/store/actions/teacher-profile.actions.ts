@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import {IUserProfile} from "../../../../interfaces/user-profile.interface";
+import {IUserProfile} from '../../../../interfaces/user-profile.interface';
 
 export const loadTeacherProfiles = createAction(
   '[TeacherProfile] Load TeacherProfiles',

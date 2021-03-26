@@ -21,12 +21,8 @@ import {loadAcademicYearPlans} from '../store/actions/academic-year-plan.actions
 })
 export class EditAcademicYearFinancialPlanComponent extends subscribedContainerMixin(formMixin()) {
   @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
-  otherCostsValue: any[];
   isOpen = [false];
   isOpenTransport = [false];
-  isOpenMeals = [false];
-  isOpenTours = [false];
-  isOpenBuildAndConst = [false];
   academicYearPlanId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id')))
   );
@@ -45,14 +41,14 @@ export class EditAcademicYearFinancialPlanComponent extends subscribedContainerM
     mergeMap((academicYearId) => this.classLevelService.getAll({includeUnits: 1, includeLevels: 1, academicYearId}),)
   );
   classLevels$ = combineLatest([this.allClassLevels$, this.academicYearPlan$]).pipe(
-    map(([allClassLevels, {financialYearPlan}]) => ([allClassLevels, financialYearPlan as any[]])),
+    map(([allClassLevels, {financialYearPlan}]) => ([allClassLevels, financialYearPlan])),
     map(([classLevel, financialPlan]) => {
       const activeClassLevels: any[] = classLevel
         .map(({id}: { id: number }) => id);
       this.plans = financialPlan;
       return [
         ...(classLevel.filter(({id: classLevelId}: { id: number }) => activeClassLevels.includes(classLevelId)))
-          .map(i => ({...i, unitLevels: i.unit_levels, unit_levels: undefined}))
+          .map(i => ({...i, unitLevels: i.unit_levels}))
       ];
     }),
     tap(this.setFees.bind(this))

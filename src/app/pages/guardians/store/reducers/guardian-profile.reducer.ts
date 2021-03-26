@@ -1,11 +1,11 @@
 import { Action, createReducer, on } from '@ngrx/store';
 import * as GuardianProfileActions from '../actions/guardian-profile.actions';
-import {IUserProfile} from "../../../../interfaces/user-profile.interface";
+import {IUserProfile} from '../../../../interfaces/user-profile.interface';
 
 export const guardianProfileFeatureKey = 'guardianProfile';
 
 export interface State {
-  [key: number]: IUserProfile
+  [key: number]: IUserProfile;
 }
 
 export const initialState: State = {

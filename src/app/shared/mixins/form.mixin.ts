@@ -2,9 +2,9 @@ import {Constructor} from './constructor.mixin';
 import {BehaviorSubject, Subject} from 'rxjs';
 import {FormArray, FormGroup} from '@angular/forms';
 
-export const formMixin = <T extends Constructor>(BaseClass: T = class {
+export const formMixin = <T extends Constructor>(baseClass: T = class {
 } as T) =>
-  class extends BaseClass {
+  class extends baseClass {
     itemForm: FormGroup;
     triggerValidationSubject$ = new BehaviorSubject<boolean>(false);
     triggerValidationAction$ = this.triggerValidationSubject$.asObservable();

@@ -7,13 +7,12 @@ import {tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class LibraryBookClassificationService {
-
-  constructor(private http: HttpClient) {
-  }
-
   all$: Observable<any> = this.http.get('/api/library-books/classifications').pipe(
     tap(res => console.log('==========>', {res}))
   );
+
+  constructor(private http: HttpClient) {
+  }
 
   save(data: any): Observable<any> {
     if (data.id === 0) {

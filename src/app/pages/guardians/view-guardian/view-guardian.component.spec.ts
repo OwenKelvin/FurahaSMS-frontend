@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ViewGuardianComponent} from './view-guardian.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';

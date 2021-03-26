@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 // import * as PouchDB from 'pouchdb';
-const PouchDB = require('pouchdb').default;
+const pouchDB = require('pouchdb').default;
 
 @Injectable({
   providedIn: 'root'
@@ -8,7 +8,7 @@ const PouchDB = require('pouchdb').default;
 export class DbService {
   db: any;
   constructor() {
-    this.db = new PouchDB('libraryClassifications');
+    this.db = new pouchDB('libraryClassifications');
   }
 
   get(data: any) {

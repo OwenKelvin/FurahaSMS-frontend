@@ -11,7 +11,7 @@ export interface State {
       startDate?: string;
       endDate?: string;
     };
-    financialYearPlan: object;
+    financialYearPlan: any[];
   };
 }
 
@@ -20,7 +20,7 @@ export const initialState: State = {
     academicYear: {
       id: 0
     },
-    financialYearPlan: {}
+    financialYearPlan: []
   }
 };
 
@@ -30,7 +30,7 @@ const academicYearPlanReducer = createReducer(
   on(AcademicYearPlanActions.loadAcademicYearPlans, (state, payload) => {
     const {name, id, start_date: startDate, end_date: endDate} = payload;
     if (name) {
-      return {...state, [id]: {academicYear: {id, name, startDate, endDate}, financialYearPlan: {}}};
+      return {...state, [id]: {academicYear: {id, name, startDate, endDate}, financialYearPlan: []}};
     }
     return state;
   }),

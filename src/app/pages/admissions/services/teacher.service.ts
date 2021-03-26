@@ -1,6 +1,6 @@
-import { Injectable } from '@angular/core';
-import { Observable, throwError } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import {Injectable} from '@angular/core';
+import {Observable, throwError} from 'rxjs';
+import {HttpClient} from '@angular/common/http';
 import {map, catchError, shareReplay, tap} from 'rxjs/operators';
 import {select, Store} from '@ngrx/store';
 import {selectTeacher} from '../../teachers/store/selectors/teacher-profile.selectors';
@@ -11,21 +11,24 @@ import {loadTeacherProfiles} from '../../teachers/store/actions/teacher-profile.
 })
 export class TeacherService {
   url = 'api/teachers';
-  constructor(private http: HttpClient, private store: Store) { }
+
+  constructor(private http: HttpClient, private store: Store) {
+  }
 
   saveTeacher(data: any): Observable<any> {
     const submitDate = {
       ...data,
-      date_of_birth: data.dateOfBirth,
-      first_name: data.firstName,
-      last_name: data.lastName,
-      middle_name: data.middleName,
-      other_names: data.otherNames,
-      gender_id: data.gender,
-      religion_id: data.religion,
+      ['date_of_birth']: data.dateOfBirth,
+      ['first_name']: data.firstName,
+      ['last_name']: data.lastName,
+      ['middle_name']: data.middleName,
+      ['other_names']: data.otherNames,
+      ['gender_id']: data.gender,
+      ['religion_id']: data.religion,
     };
     return this.http.post('api/admissions/teachers', submitDate);
   }
+
   getTeacherById(id: number) {
     return this.http.get<any>(`${this.url}/${id}`)
       .pipe(
@@ -33,6 +36,7 @@ export class TeacherService {
         catchError(error => throwError(error))
       );
   }
+
   loadTeacherProfile$ = (id: number) => this.store.pipe(
     select(selectTeacher(id)),
     tap(profile => !profile ? this.store.dispatch(loadTeacherProfiles({data: {id}})) : null)

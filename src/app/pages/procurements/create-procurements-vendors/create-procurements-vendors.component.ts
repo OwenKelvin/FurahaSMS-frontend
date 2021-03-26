@@ -18,10 +18,10 @@ import {formMixin} from '../../../shared/mixins/form.mixin';
 })
 export class CreateProcurementsVendorsComponent extends subscribedContainerMixin(formMixin())
   implements OnInit, CanComponentDeactivate {
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   procurementVendorForm: FormGroup;
   sub: Subscriber<any>[];
   itemCategories$: Observable<any>;
-  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
   formSubmitted: boolean;
 

@@ -9,11 +9,6 @@ import { loadMyProfiles } from '../store/actions/my-profile.actions';
   providedIn: 'root'
 })
 export class MyProfileService {
-
-  constructor(
-    private store: Store
-  ) { }
-
   loadMyProfile$: Observable<any> = this.store.pipe(
     select(selectMyProfileState),
     tap((profile) => {
@@ -26,4 +21,7 @@ export class MyProfileService {
   loadMyPermissions$ = this.store.pipe(
     select(selectMyPermissions)
   );
+  constructor(
+    private store: Store
+  ) { }
 }

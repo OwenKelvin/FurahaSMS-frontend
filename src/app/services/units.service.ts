@@ -36,9 +36,9 @@ export class UnitsService {
     let url = `api/curriculum/units`;
     if (data.id) {
       url += '/' + data.id;
-      return this.http.patch<any>(url, {...data, unit_category_id: data.unitCategory});
+      return this.http.patch<any>(url, {...data, ['unit_category_id']: data.unitCategory});
     } else {
-      return this.http.post<any>(url, {...data, unit_category_id: data.unitCategory});
+      return this.http.post<any>(url, {...data, ['unit_category_id']: data.unitCategory});
     }
   }
 

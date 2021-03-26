@@ -23,13 +23,13 @@ export class UsersService {
       [fieldName]: fieldNewValue
     };
     return this.http.patch(`api/users/${userId}`, {
-      first_name: data.FirstName,
-      last_name: data.LastName,
-      middle_name: data.MiddleName,
-      other_names: data.OtherNames,
-      gender_id: data.gender,
-      religion_id: data.religion,
-      date_of_birth: data.DateOfBirth,
+      ['first_name']: data.FirstName,
+      ['last_name']: data.LastName,
+      ['middle_name']: data.MiddleName,
+      ['other_names']: data.OtherNames,
+      ['gender_id']: data.gender,
+      ['religion_id']: data.religion,
+      ['date_of_birth']: data.DateOfBirth,
       email: data.Email,
       phone: data.Phone,
     });
@@ -47,7 +47,7 @@ export class UsersService {
   }
 
   saveProfilePicture({ userId, profilePicId }: { userId: number; profilePicId: number }): Observable<any> {
-    const data: any = { profile_pic_id: profilePicId };
+    const data: any = { ['profile_pic_id']: profilePicId };
     return this.http.patch(`api/users/${userId}`, data);
   }
 
@@ -59,5 +59,5 @@ export class UsersService {
   }
 
   resetPasswordForUserWithId = ({ id, resetPassword }: { id: number; resetPassword: string }) =>
-    this.http.post(`api/users/${id}/password-reset`, {reset_password: resetPassword});
+    this.http.post(`api/users/${id}/password-reset`, {['reset_password']: resetPassword});
 }

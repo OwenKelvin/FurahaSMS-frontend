@@ -9,11 +9,11 @@ import { selectModalOpenState } from 'src/app/store/selectors/modal.selectors';
 import {Subject} from 'rxjs';
 import {OnDestroy} from '@angular/core';
 
-export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
-  class extends BaseClass implements OnDestroy{
+export const modalMixin = <T extends Constructor>(baseClass: T = class { } as T) =>
+  class extends baseClass implements OnDestroy{
     destroyed$ = new Subject<void>();
     config: ModalOptions = {
-      initialState: { id: 0 } as Partial<object>,
+      initialState: { id: 0 } as Partial<Record<string, unknown>>,
       backdrop: true,
       ignoreBackdropClick: true,
       animated: true,

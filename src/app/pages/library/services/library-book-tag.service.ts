@@ -6,11 +6,10 @@ import {Observable} from 'rxjs';
   providedIn: 'root'
 })
 export class LibraryBookTagService {
+  all$: Observable<any> = this.http.get('/api/library-books/tags/all');
 
   constructor(private http: HttpClient) {
   }
-
-  all$: Observable<any> = this.http.get('/api/library-books/tags/all');
 
   save(data: any): Observable<any> {
     if (data.id === 0) {

@@ -17,6 +17,7 @@ import {combineLatest} from 'rxjs';
   styleUrls: ['./create-publisher.component.css']
 })
 export class CreatePublisherComponent extends subscribedContainerMixin(formWithEditorMixin()) implements AfterViewInit {
+  @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef;
   newBookPublisherForm: FormGroup = this.fb.group({
     id: [0, []],
     name: ['', [Validators.required]],
@@ -26,7 +27,6 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
   profPicLoading: false;
   photoFile: File;
   profPicId: any;
-  @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef;
   publisherId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id'))),
     tap(id => this.libraryPublisherService.loadItem(id)),

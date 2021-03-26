@@ -7,6 +7,7 @@ import {catchError, map, tap} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class StudentAcademicsService {
+  constructor(private http: HttpClient) {}
   getAcademicsFor({studentId, academicYearId, classLevelId}: { studentId: number; academicYearId: number; classLevelId: number }) {
     const url = `api/students/${studentId}/academics/${academicYearId}/?class_level_id=${classLevelId}`;
     return this.http.get<any[]>(url).pipe(
@@ -28,8 +29,6 @@ export class StudentAcademicsService {
       })))
     );
   }
-
-  constructor(private http: HttpClient) {}
 
   saveSubjectAllocation({studentId, data}: any): Observable<any> {
     const params = {

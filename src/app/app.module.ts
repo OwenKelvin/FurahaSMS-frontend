@@ -55,7 +55,7 @@ import { ErrorModule } from './components/error/error.module';
     ErrorModule
   ],
   providers: [
-    { provide: 'API_URL', useValue: environment.API_URL },
+    { provide: 'apiUrl', useValue: environment.apiUrl },
     { provide: HTTP_INTERCEPTORS, useClass: NetworkLoadingInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: CacheInterceptor, multi: true },

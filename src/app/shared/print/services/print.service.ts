@@ -172,7 +172,4 @@ export class PrintService {
       </html>`
     );
   }
-
-  constructor() {
-  }
 }

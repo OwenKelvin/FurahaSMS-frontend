@@ -22,6 +22,4 @@ const activePageReducer = createReducer(
     }))
 );
 
-export function reducer(state: ActivePageStateInterface | undefined, action: Action) {
-  return activePageReducer(state, action);
-}
+export const reducer = (state: ActivePageStateInterface | undefined, action: Action) => activePageReducer(state, action);

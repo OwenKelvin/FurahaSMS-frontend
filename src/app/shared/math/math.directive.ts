@@ -10,11 +10,11 @@ export class MathDirective extends subscribedContainerMixin() implements OnInit 
 
   @Input()
   private appMath: MathContent;
-  private readonly _el: HTMLElement;
+  private readonly elNativeElement: HTMLElement;
 
   constructor(private service: MathService, private el: ElementRef) {
     super();
-    this._el = el.nativeElement as HTMLElement;
+    this.elNativeElement = el.nativeElement as HTMLElement;
   }
 
   ngOnInit(): void {
@@ -22,7 +22,7 @@ export class MathDirective extends subscribedContainerMixin() implements OnInit 
       take(1),
       takeUntil(this.destroyed$)
     ).subscribe(_res => {
-      this.service.render(this._el, this.appMath);
+      this.service.render(this.elNativeElement, this.appMath);
     });
   }
 }

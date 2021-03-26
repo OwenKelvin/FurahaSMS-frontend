@@ -8,9 +8,9 @@ import {shareReplay} from 'rxjs/operators';
 export class SchoolRoomService {
 
   url = 'api/school-rooms';
+  allAvailableClassRooms$ = this.http.get<any[]>(this.url).pipe(shareReplay());
 
   constructor(private http: HttpClient) {
   }
 
-  allAvailableClassRooms$ = this.http.get<any[]>(this.url).pipe(shareReplay());
 }

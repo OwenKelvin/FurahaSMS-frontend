@@ -10,10 +10,6 @@ import {loadLibraryBookPublisher, loadLibraryBookPublishers} from '../store/acti
   providedIn: 'root'
 })
 export class LibraryPublisherService {
-
-  constructor(private http: HttpClient, private store: Store) {
-  }
-
   loadAll$: Observable<any> = this.store.pipe(
     select(selectLibraryBookPublishers),
     filter((a: any) => Object.keys(a)?.length < 2),
@@ -22,6 +18,8 @@ export class LibraryPublisherService {
 
 
   all$: Observable<any> = this.http.get('api/library-books/publishers/all');
+  constructor(private http: HttpClient, private store: Store) {
+  }
 
   loadItem = (id: number): Observable<any> => this.store.pipe(
       select(selectLibraryBookPublisher(id)),

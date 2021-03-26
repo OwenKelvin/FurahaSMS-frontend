@@ -5,21 +5,21 @@ export const tinyMCEConfigFeatureKey = 'tinyMCEConfig';
 export interface State {
   branding: boolean;
   height: number;
-  base_url: string;
-  paste_data_images: boolean;
+  ['base_url']: string;
+  ['paste_data_images']: boolean;
   menubar: boolean;
   plugins: string[];
   toolbar: string;
-  forced_root_block: string;
+  ['forced_root_block']: string;
 
 }
 
 export const initialState: State = {
-  forced_root_block: '',
+  ['forced_root_block']: '',
   branding: false,
   height: 150,
-  base_url: '/tinymce',
-  paste_data_images: true,
+  ['base_url']: '/tinymce',
+  ['paste_data_images']: true,
   menubar: false,
   plugins: [
     'advlist autolink lists link image charmap print preview anchor',
