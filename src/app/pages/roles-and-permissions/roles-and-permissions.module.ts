@@ -5,6 +5,7 @@ import { RolesAndPermissionsRoutingModule } from './roles-and-permissions-routin
 import { RolesAndPermissionsComponent } from './roles-and-permissions.component';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { ErrorModule } from 'src/app/components/error/error.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -12,7 +13,8 @@ import { ErrorModule } from 'src/app/components/error/error.module';
   imports: [
     CommonModule,
     RolesAndPermissionsRoutingModule,
-    AppLinksModule
+    AppLinksModule,
+    ReactiveComponentModule
   ]
 })
 export class RolesAndPermissionsModule { }

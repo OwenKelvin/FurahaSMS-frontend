@@ -18,6 +18,7 @@ import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2
 import { QuestionViewComponent } from './question-view/question-view.component';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {MathModule} from '../../../../shared/math/math.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -42,7 +43,8 @@ import {MathModule} from '../../../../shared/math/math.module';
     EditorModule,
     Number2AlphabetModule,
     AppValidateSubmitButtonsModule,
-    MathModule
+    MathModule,
+    ReactiveComponentModule
   ]
 })
 export class ExamBankAdminModule { }

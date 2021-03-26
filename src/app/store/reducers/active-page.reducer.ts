@@ -14,19 +14,12 @@ export const initialState: ActivePageStateInterface = {
 
 const activePageReducer = createReducer(
   initialState,
-  on(loadActivePagesSuccess, (state, payload) => {
-    return {
+  on(loadActivePagesSuccess, (state, payload) => ({
       ...state, id: payload.id
-    };
-
-  }),
-  on(loadActivePagesFailure, state => {
-    return {
+    })),
+  on(loadActivePagesFailure, state => ({
       ...state, ...initialState
-    };
-  })
+    }))
 );
 
-export function reducer(state: ActivePageStateInterface | undefined, action: Action) {
-  return activePageReducer(state, action);
-}
+export const reducer = (state: ActivePageStateInterface | undefined, action: Action) => activePageReducer(state, action);

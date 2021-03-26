@@ -75,7 +75,7 @@
           </label>
           <section class="col-xs-12 col-lg-7">
             <select formControlName='gender' id="genderField" class="custom-select">
-              <ng-container *ngIf='(genders$ | async) as genders'>
+              <ng-container *ngIf='(genders$ | ngrxPush) as genders'>
                 <ng-container *ngIf='genders[0]?.id; else genderLoading'>
                   <option value=''>Select Gender</option>
                   <ng-container *ngFor='let gender of genders'>
@@ -95,7 +95,7 @@
           </label>
           <section class="col-xs-12 col-lg-7">
             <select formControlName='religion' id="religionField" class="custom-select">
-              <ng-container *ngIf='(religions$ | async) as religions' )>
+              <ng-container *ngIf='(religions$ | ngrxPush) as religions' )>
                 <ng-container *ngIf='religions[0]?.id; else religionLoading'>
                   <option value=''>Select Religion</option>
                   <ng-container *ngFor='let religion of religions'>

@@ -7,6 +7,7 @@ import { AppInputModule } from '../input/app-input.module';
 import { AppValidateSubmitButtonsModule } from '../validate-submit-buttons/validate-submit-buttons.module';
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
     AppInputModule,
     AppValidateSubmitButtonsModule,
     EditorModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ]
 })
 export class AppCrudModule { }

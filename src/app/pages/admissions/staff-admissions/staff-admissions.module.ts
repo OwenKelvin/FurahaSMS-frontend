@@ -14,6 +14,7 @@ import { NgSelectModule } from '@ng-select/ng-select';
 import { CreateStaffComponent } from './support-staff-admission/create-staff/create-staff.component';
 import { AppTelInputModule } from 'src/app/modules/app-tel-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     AppInputModule,
     AppTelInputModule,
     NgSelectModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class StaffAdmissionsModule { }

@@ -7,10 +7,9 @@ import {HttpClient} from '@angular/common/http';
 })
 export class LibraryAuthorService {
 
+  all$: Observable<any> = this.http.get('api/library-books/authors/all');
   constructor(private http: HttpClient) {
   }
-
-  all$: Observable<any> = this.http.get('api/library-books/authors/all');
 
   save(data: any): Observable<any> {
     if (data.id === 0) {

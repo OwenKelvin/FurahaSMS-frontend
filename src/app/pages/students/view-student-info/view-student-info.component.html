@@ -1,4 +1,4 @@
-<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(student$ | async) as profile; else content_loading'>
+<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(student$ | ngrxPush) as profile; else content_loading'>
   <section class='col-lg-4 col-md-5 col-sm-12 mb-3'>
     <app-user-select-item (valueChanged)='updateSelectValue("gender", $event)' [valueName]='profile.gender_name'
       [value]='profile.gender_id' [label]='"gender"' [items]='genders$' [userId]='profile.id'></app-user-select-item>

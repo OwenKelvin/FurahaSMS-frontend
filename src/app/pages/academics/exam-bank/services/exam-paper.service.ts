@@ -8,6 +8,9 @@ import { stringify } from 'querystring';
   providedIn: 'root'
 })
 export class ExamPaperService {
+  constructor(
+    private http: HttpClient
+  ) { }
   getRecentExamPapers(): Observable<any> {
     return this.http.get('api/academics/exam-papers/?latest=20');
   }
@@ -17,10 +20,6 @@ export class ExamPaperService {
   deleteItem(id: number): Observable<any> {
     return this.http.delete(`api/academics/exam-papers/${id}`);
   }
-
-  constructor(
-    private http: HttpClient
-  ) { }
 
   save(data: any): Observable<any> {
     return this.http.post('api/academics/exam-papers', data);

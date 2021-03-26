@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/naming-convention */
 import { BehaviorSubject } from 'rxjs';
 import { formMixin } from './form.mixin';
 
@@ -29,7 +30,7 @@ export const formWithEditorMixin = () =>
                        alignleft aligncenter alignright alignjustify | \
                        bullist numlist outdent indent | removeformat | help'
     };
-    editorInitializedSubject$ = new BehaviorSubject<boolean>(false)
+    editorInitializedSubject$ = new BehaviorSubject<boolean>(false);
     editorInitializedAction$ = this.editorInitializedSubject$.asObservable();
 
     initializeEditor() {

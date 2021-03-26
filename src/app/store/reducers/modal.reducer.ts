@@ -5,7 +5,7 @@ import { closeModals, loadModals } from '../actions/modal.actions';
 export const modalFeatureKey = 'modal';
 
 export interface State {
-  open: boolean
+  open: boolean;
 }
 
 export const initialState: State = {

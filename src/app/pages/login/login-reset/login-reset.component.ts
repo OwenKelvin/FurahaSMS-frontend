@@ -27,7 +27,7 @@ export class LoginResetComponent extends subscribedContainerMixin(formMixin()) {
   }
 
   submitPasswordResetForm() {
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     if (this.passwordResetForm.valid) {
       this.authService.resetPassword(this.passwordResetForm.value)
         .pipe(takeUntil(this.destroyed$))

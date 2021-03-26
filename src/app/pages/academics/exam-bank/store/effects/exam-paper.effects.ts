@@ -11,17 +11,13 @@ import { ExamPaperService } from '../../services/exam-paper.service';
 @Injectable()
 export class ExamPaperEffects {
 
-  loadExamPapers$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadExamPapers$ = createEffect(() => this.actions$.pipe(
 
       ofType(ExamPaperActions.loadExamPapers),
-      concatMap((prop) => {
-        return this.examPaperServive.getExamPaperWithId(prop.id).pipe(
+      concatMap((prop) => this.examPaperServive.getExamPaperWithId(prop.id).pipe(
           map(data => ExamPaperActions.loadExamPapersSuccess({ data })),
-          catchError(error => of(ExamPaperActions.loadExamPapersFailure({ error }))));
-      })
-    );
-  });
+          catchError(error => of(ExamPaperActions.loadExamPapersFailure({ error })))))
+    ));
 
 
 

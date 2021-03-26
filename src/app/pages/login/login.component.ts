@@ -35,9 +35,7 @@ export class LoginComponent extends subscribedContainerMixin() implements OnDest
     this.inputSubmittedAction$,
     this.inputValid$
   ]).pipe(
-    map(([submitted, inputChange]) => {
-      return !submitted && inputChange;
-    }),
+    map(([submitted, inputChange]) => !submitted && inputChange),
   );
 
   constructor(

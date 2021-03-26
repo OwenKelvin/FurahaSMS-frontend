@@ -27,7 +27,7 @@ export class CreateStudentAcademicsComponent
   );
   student$ = this.studentId$.pipe(
     mergeMap(id => this.studentService.loadStudentProfile$(id))
-  )
+  );
   academicYears$: Observable<any> = this.academicYearService.all$;
   classLevels$: Observable<any> = this.classLevelService.getAll();
   streams$: Observable<any[]> = this.streamsService.all$;
@@ -76,7 +76,7 @@ export class CreateStudentAcademicsComponent
       while (this.unitLevels.length) {
         this.unitLevels.removeAt(0);
       }
-      res.map(({id}: { id: number; }) => id).forEach((val: any) => {
+      res.map(({id}: { id: number }) => id).forEach((val: any) => {
         this.unitLevels.push(new FormControl(val));
       });
       this.academicYearUnitLevels = res;
@@ -109,14 +109,14 @@ export class CreateStudentAcademicsComponent
 
   submitAllocationForm() {
 
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     const data = this.itemForm.value;
     this.studentId$
       .pipe(
         mergeMap(studentId => this.studentAcademicsService.saveSubjectAllocation({studentId, data})))
       .subscribe({
         next: () => {
-          this.submitInProgressSubject$.next(false)
+          this.submitInProgressSubject$.next(false);
           this.router.navigate(['students', (this.route.params as any).value.id, 'academics']).then();
         },
         error: () => this.submitInProgressSubject$.next(false)

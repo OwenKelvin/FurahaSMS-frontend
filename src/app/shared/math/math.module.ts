@@ -2,12 +2,14 @@ import {ModuleWithProviders, NgModule} from '@angular/core';
 import {CommonModule} from '@angular/common';
 import {MathDirective} from './math.directive';
 import {MathService} from './math.service';
-console.log('<span class="math-tex">\\\(','\\\)</span>')
+import { ReactiveComponentModule } from '@ngrx/component';
+console.log('<span class="math-tex">\\\(','\\\)</span>');
 
 @NgModule({
   declarations: [MathDirective],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveComponentModule
   ],
   exports: [MathDirective]
 })

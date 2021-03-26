@@ -28,14 +28,14 @@ import {subscribedContainerMixin} from '../../../../../shared/mixins/subscribed-
   styleUrls: ['./add-book.component.css']
 })
 export class AddBookComponent extends subscribedContainerMixin(formWithEditorMixin()) implements OnInit, CanComponentDeactivate, OnDestroy {
-
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   newBookForm: FormGroup = this.fb.group({
     bookTitle: ['', Validators.required],
     authors: [[], [Validators.required]],
     category: ['', [Validators.required]],
     publishers: [[], [Validators.required]],
     tags: [[], []],
-    ISBN: ['', [Validators.required, validateISBN]],
+    ['ISBN']: ['', [Validators.required, validateISBN]],
     classification: ['', Validators.required],
     publicationDate: [null],
     bookItems: this.fb.array([this.formBookItem])
@@ -43,8 +43,7 @@ export class AddBookComponent extends subscribedContainerMixin(formWithEditorMix
   bookAuthors$ = this.store.pipe(select(selectLibraryBookAuthors));
   bookPublishers$ = this.store.pipe(select(selectLibraryBookPublishers));
   bookTags$ = this.libraryBookTagService.all$;
-  bookClassifications$ = this.store.pipe(select(selectLibraryBookClassifications))
-  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
+  bookClassifications$ = this.store.pipe(select(selectLibraryBookClassifications));
   markTabsWithError: boolean;
   formSubmitted = false;
 
@@ -114,7 +113,7 @@ export class AddBookComponent extends subscribedContainerMixin(formWithEditorMix
   }
 
   submitNewBookForm() {
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     this.libraryBookService.save(this.newBookForm.value)
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
@@ -124,7 +123,7 @@ export class AddBookComponent extends subscribedContainerMixin(formWithEditorMix
           this.router.navigate(['/library', 'books', res.data.id, 'view']).then();
         },
         error: () => {
-          this.submitInProgressSubject$.next(false)
+          this.submitInProgressSubject$.next(false);
           this.formSubmitted = true;
         }
       });
@@ -135,7 +134,7 @@ export class AddBookComponent extends subscribedContainerMixin(formWithEditorMix
   }
 
   validateForm() {
-    this.triggerValidationSubject$.next(true)
+    this.triggerValidationSubject$.next(true);
     this.markTabsWithError = true;
   }
 
@@ -156,10 +155,10 @@ export class AddBookComponent extends subscribedContainerMixin(formWithEditorMix
   }
 
   updateISBN(value: any) {
-    this.newBookForm.get('ISBN')?.setValue(value)
+    this.newBookForm.get('ISBN')?.setValue(value);
     this.newBookForm.get('ISBN')?.updateValueAndValidity();
     this.newBookForm.updateValueAndValidity();
-    this.cdr.detectChanges()
+    this.cdr.detectChanges();
   }
 
   canDeactivate(): Observable<boolean> | Promise<boolean> | boolean {

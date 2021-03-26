@@ -1,4 +1,4 @@
-<ng-container *ngIf='profile$ | async as profile; else loading'>
+<ng-container *ngIf='profile$ | ngrxPush as profile; else loading'>
   <ng-container *ngIf='profile.id !== 0; else loading'>
     <app-user-profile title='My Profile' [profile]='profile' [linkBase]='["/my-profile"]' [links]='["info"]'
       [includeProfileId]='false'></app-user-profile>

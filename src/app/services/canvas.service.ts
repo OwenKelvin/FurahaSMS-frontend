@@ -11,7 +11,7 @@ export class CanvasService {
   ) { }
 
 
-  getProfilePicture({ fileId }: { fileId: number; }) {
+  getProfilePicture({ fileId }: { fileId: number }) {
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/pdf');
     headers.append('Content-Type', 'application/pdf');

@@ -33,6 +33,4 @@ const studentFeeStatementReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return studentFeeStatementReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => studentFeeStatementReducer(state, action);

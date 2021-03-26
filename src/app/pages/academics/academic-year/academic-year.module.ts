@@ -19,6 +19,7 @@ import {ErrorModule} from 'src/app/components/error/error.module';
 import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {AcademicYearTimeTablesComponent} from './academic-year-time-tables/academic-year-time-tables.component';
 import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -45,7 +46,8 @@ import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
     AppInputModule,
     ErrorModule,
     AppValidateSubmitButtonsModule,
-    FormErrorsModule
+    FormErrorsModule,
+    ReactiveComponentModule
   ]
 })
 export class AcademicYearModule {

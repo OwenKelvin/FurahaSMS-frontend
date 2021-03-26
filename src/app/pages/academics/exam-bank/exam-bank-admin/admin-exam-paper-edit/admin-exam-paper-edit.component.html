@@ -7,10 +7,10 @@
     </button>
   </div>
   <div class="modal-body bg-dark">
-    <div *ngIf="(editorInitializedAction$ | async) === false">
+    <div *ngIf="(editorInitializedAction$ | ngrxPush) === false">
       <app-loading-bubble></app-loading-bubble>
     </div>
-    <div [class.sr-only]='(editorInitializedAction$ | async) === false'>
+    <div [class.sr-only]='(editorInitializedAction$ | ngrxPush) === false'>
       <form [formGroup]='editDialogForm'>
         <label for="description" class="control-label">Question description</label>
 
@@ -141,7 +141,7 @@
 
   </div>
 </ng-template>
-<section *ngIf='examPaper$ | async as examPaper; else loading'>
+<section *ngIf='examPaper$ | ngrxPush as examPaper; else loading'>
   <section *ngIf='examPaper; else loading'>
     <h1>Edit Exam <span class="icon-right-dir"></span> {{ examPaper.name }} | {{ examPaper.unit_level_name }}</h1>
 
@@ -183,8 +183,8 @@
   </fieldset>
   <button [disabled]='questions.length === 0 || submitted' (click)='saveExamQuestions()' type="button"
     class="btn btn-sm btn-success mt-3"> Save Changes
-    <i *ngIf='submitInProgressAction$ | async' class='icon-spin3 animate-spin'></i>
-    <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
+    <i *ngIf='submitInProgressAction$ | ngrxPush' class='icon-spin3 animate-spin'></i>
+    <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-ok-1'></i>
 
 
   </button>

@@ -6,6 +6,7 @@ import { ManageTeacherSubjectComponent } from './manage-teacher-subject.componen
 import {ReactiveFormsModule} from '@angular/forms';
 import {AppCheckboxModule} from '../../../shared/checkbox/checkbox.module';
 import {AppValidateSubmitButtonsModule} from '../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {AppValidateSubmitButtonsModule} from '../../../components/validate-submi
     ManageTeacherSubjectRoutingModule,
     ReactiveFormsModule,
     AppCheckboxModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class ManageTeacherSubjectModule { }

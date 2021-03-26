@@ -23,12 +23,10 @@ export class ViewGuardianInfoComponent implements OnInit {
     this.guardianProfile$ = (this.route.parent as ActivatedRoute).paramMap
       .pipe(map(params => Number(params.get('id'))))
       .pipe(
-        mergeMap(id => {
-          return this.store.pipe(select(selectGuardianProfileState))
+        mergeMap(id => this.store.pipe(select(selectGuardianProfileState))
             .pipe(
               map(guardianProfile => guardianProfile[id])
-            );
-        })
+            ))
       );
   }
 

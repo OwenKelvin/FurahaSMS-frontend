@@ -1,5 +1,5 @@
 
-<app-form-errors [validated]="validatedAction$ | async" [form]="formItem">
+<app-form-errors [validated]="validatedAction$ | ngrxPush" [form]="formItem">
 </app-form-errors>
 
 <section class='d-flex justify-content-end mt-2'>

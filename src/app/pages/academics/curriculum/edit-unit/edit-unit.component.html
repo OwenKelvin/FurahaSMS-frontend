@@ -1,4 +1,4 @@
-<section  *ngIf='v$ | async as v; else loading'>
+<section  *ngIf='v$ | ngrxPush as v; else loading'>
   <h1>Edit Subject/ Units <span class="icon-right-dir"></span> {{ v.unit?.name }}</h1>
 
   <form class="card p-2" [formGroup]="unitForm" (submit)="submitUnitForm()">
@@ -6,22 +6,22 @@
       <tab role="tab">
         <ng-template tabHeading>
           General Info
-          <app-tab-error-state [hasError]='generalInfoHasErrorAction$ | async'
-            [marked]='markTabsWithErrorAction$ | async'></app-tab-error-state>
+          <app-tab-error-state [hasError]='generalInfoHasErrorAction$ | ngrxPush'
+            [marked]='markTabsWithErrorAction$ | ngrxPush'></app-tab-error-state>
         </ng-template>
         <section class="d-flex flex-wrap justify-content-start pt-3">
           <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-            <app-input [triggerValidation]='triggerValidationAction$ | async' labelClass='col-md-12 col-lg-5'
+            <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='Name' [id]='"name" + (idIndex !== undefined ? idIndex: "")'
               type="text" placeholder="Name" formControlName="name"></app-input>
           </section>
           <section class="col-lg-5 col-md-4 col-sm-6 col-xs-12">
-            <app-select [triggerValidation]='triggerValidationAction$ | async' id='unitCategory' type="unit-categories"
+            <app-select [triggerValidation]='triggerValidationAction$ | ngrxPush' id='unitCategory' type="unit-categories"
               formControlName="unitCategory">
             </app-select>
           </section>
           <section class="col-lg-5 col-md-6 col-sm-6 col-xs-12">
-            <app-input [triggerValidation]='triggerValidationAction$ | async' labelClass='col-md-12 col-lg-5'
+            <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' labelClass='col-md-12 col-lg-5'
               inputClass='col-md-12 col-lg-7' label='Subject/Unit abbreviation'
               [id]='"name-abbr" + (idIndex !== undefined ? idIndex: "")' type="text"
               placeholder="Subject/Unit Abbreviation" formControlName="abbr"></app-input>
@@ -37,11 +37,11 @@
           </section>
           <section class="col-lg-12 mt-2">
             <label class="control-label" for="description">Description</label>
-            <div [hidden]='(editorInitializedAction$ | async) === false'>
+            <div [hidden]='(editorInitializedAction$ | ngrxPush) === false'>
               <editor (onInit)='initializeEditor()' id='description' formControlName='description' [init]="tinyMCEConfig"></editor>
             </div>
             <div>
-              <app-loading-bubble *ngIf='(editorInitializedAction$ | async) === false'></app-loading-bubble>
+              <app-loading-bubble *ngIf='(editorInitializedAction$ | ngrxPush) === false'></app-loading-bubble>
             </div>
           </section>
         </section>
@@ -49,8 +49,8 @@
       <tab role="tab">
         <ng-template tabHeading>
           Unit Levels
-          <app-tab-error-state [hasError]='unitLevelsHasErrorAction$ | async'
-            [marked]='markTabsWithErrorAction$ | async'></app-tab-error-state>
+          <app-tab-error-state [hasError]='unitLevelsHasErrorAction$ | ngrxPush'
+            [marked]='markTabsWithErrorAction$ | ngrxPush'></app-tab-error-state>
         </ng-template>
         <section class="mt-3" formArrayName='unitLevels'>
           <button (click)='addUnitLevel()' type="button" class="btn btn-primary btn-sm mb-3"> <span
@@ -62,11 +62,11 @@
                     class="icon-trash"></span>Remove</button>
               </section>
               <section class="col-lg-6">
-                <app-input [id]='"name" + i' [triggerValidation]='triggerValidationAction$ | async'
+                <app-input [id]='"name" + i' [triggerValidation]='triggerValidationAction$ | ngrxPush'
                   placeholder='Enter Name' label='Level Name' formControlName='name'></app-input>
               </section>
               <section class="col-lg-4">
-                <app-input [id]='"level" + i' [triggerValidation]='triggerValidationAction$ | async'
+                <app-input [id]='"level" + i' [triggerValidation]='triggerValidationAction$ | ngrxPush'
                   placeholder='Enter Level' label='Level' formControlName='level' type='number'></app-input>
 
               </section>
@@ -91,7 +91,7 @@
     </tabset>
     <app-error></app-error>
     <section class="mt-3">
-      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
         (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='unitForm'>
         <span>Edit Subject/Unit</span>
       </app-validate-submit-buttons>

@@ -12,10 +12,10 @@
           </button>
 
           <button class='btn btn-success'
-                  [disabled]='!passwordResetForm.dirty || !passwordResetForm.valid || (submitInProgressAction$ | async)'>
+                  [disabled]='!passwordResetForm.dirty || !passwordResetForm.valid || (submitInProgressAction$ | ngrxPush)'>
             Submit
-            <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
-            <i *ngIf='(submitInProgressAction$ | async) === false && passwordResetForm.valid && passwordResetForm.dirty'
+            <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
+            <i *ngIf='(submitInProgressAction$ | ngrxPush) === false && passwordResetForm.valid && passwordResetForm.dirty'
                class='icon-ok-1'></i>
           </button>
         </section>

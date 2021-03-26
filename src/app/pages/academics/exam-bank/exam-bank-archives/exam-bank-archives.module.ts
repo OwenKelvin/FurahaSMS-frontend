@@ -12,6 +12,7 @@ import { Number2AlphabetModule } from 'src/app/shared/number-2-alphabet/number-2
 import { AppCheckboxModule } from 'src/app/shared/checkbox/checkbox.module';
 import { FormsModule } from '@angular/forms';
 import {MathModule} from '../../../../shared/math/math.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import {MathModule} from '../../../../shared/math/math.module';
     Number2AlphabetModule,
     AppCheckboxModule,
     FormsModule,
-    MathModule
+    MathModule,
+    ReactiveComponentModule
   ]
 })
 export class ExamBankArchivesModule { }

@@ -1,11 +1,11 @@
-import { Component, ChangeDetectionStrategy, OnInit } from '@angular/core';
-import { modalMixin } from 'src/app/shared/mixins/modal.mixin';
-import { formMixin } from 'src/app/shared/mixins/form.mixin';
-import { Store } from '@ngrx/store';
-import { BsModalService } from 'ngx-bootstrap/modal';
-import { FormBuilder, Validators, FormGroup, FormArray } from '@angular/forms';
-import { TimingTemplateService } from '../../services/timing-template.service';
-import { tap } from 'rxjs/operators';
+import {Component, ChangeDetectionStrategy, OnInit} from '@angular/core';
+import {modalMixin} from 'src/app/shared/mixins/modal.mixin';
+import {formMixin} from 'src/app/shared/mixins/form.mixin';
+import {Store} from '@ngrx/store';
+import {BsModalService} from 'ngx-bootstrap/modal';
+import {FormBuilder, Validators, FormGroup, FormArray} from '@angular/forms';
+import {TimingTemplateService} from '../../services/timing-template.service';
+import {tap} from 'rxjs/operators';
 
 
 @Component({
@@ -20,6 +20,12 @@ export class CreateTimingTemplateComponent extends formMixin(modalMixin()) imple
     description: ['', Validators.required],
     timings: this.fb.array([])
   });
+  constructor(
+    modal: BsModalService,
+    store: Store,
+    private fb: FormBuilder, private timingTemplateService: TimingTemplateService) {
+    super(modal, store);
+  }
 
   getInitialStateTiming(): FormGroup {
     return this.fb.group({
@@ -27,11 +33,6 @@ export class CreateTimingTemplateComponent extends formMixin(modalMixin()) imple
       end: ['', [Validators.required]]
     });
   }
-
-  constructor(
-    modal: BsModalService,
-    store: Store,
-    private fb: FormBuilder, private timingTemplateService: TimingTemplateService) { super(modal, store); }
 
   ngOnInit() {
     [0, 1, 2].forEach(() => this.addTiming());
@@ -45,9 +46,11 @@ export class CreateTimingTemplateComponent extends formMixin(modalMixin()) imple
     this.timings.controls.splice(i, 1);
     this.timings.updateValueAndValidity();
   }
+
   get timings(): FormArray {
     return this.timeTableTimingForm.get('timings') as FormArray;
   }
+
   saveTimings() {
     if (this.timeTableTimingForm.valid) {
       this.submitInProgressSubject$.next(true);

@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { SkipLinkComponent } from '../components/skip-link/skip-link.component';
 import { LoadMyProfileModule } from '../pages/my-profile/load-my-profile.module';
 import { HeaderModule } from '../components/header/header.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -38,7 +39,8 @@ import { HeaderModule } from '../components/header/header.module';
     FormsModule,
     ReactiveFormsModule,
     LoadMyProfileModule,
-    HeaderModule
+    HeaderModule,
+    ReactiveComponentModule
   ]
 })
 export class AppLayoutModule { }

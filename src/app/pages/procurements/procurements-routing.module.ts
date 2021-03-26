@@ -10,7 +10,9 @@ import {ProcurementsVendorsComponent} from './procurements-vendors/procurements-
 import {CreateProcurementsVendorsComponent} from './create-procurements-vendors/create-procurements-vendors.component';
 import {CanDeactivateGuard} from 'src/app/guards/can-deactivate.guard';
 import {ViewProcurementsVendorComponent} from './view-procurements-vendor/view-procurements-vendor.component';
-import {ViewProcurementsApprovedRequestsComponent} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
+import {
+  ViewProcurementsApprovedRequestsComponent
+} from './view-procurements-approved-requests/view-procurements-approved-requests.component';
 import {CreateProcurementTenderComponent} from './create-procurement-tender/create-procurement-tender.component';
 import {ProcurementTendersBidsComponent} from './procurement-tenders-bids/procurement-tenders-bids.component';
 import {ViewProcurementTendersBidsComponent} from './view-procurement-tenders-bids/view-procurement-tenders-bids.component';

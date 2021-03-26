@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'app-label-star-required',
@@ -6,17 +6,17 @@ import { Component } from '@angular/core';
   styleUrls: ['./label-star-required.component.css']
 })
 export class LabelStarRequiredComponent {
-  constructor() { }
+  constructor() {
+  }
 }
 
 @Component({
   selector: 'app-star-required',
-  template: `
-    <span class='icon-star required'></span>
-  `,
+  template: `<span class='icon-star required'></span>`,
   styleUrls: ['./label-star-required.component.css']
 })
 
 export class StarRequiredComponent {
-  constructor() { }
+  constructor() {
+  }
 }

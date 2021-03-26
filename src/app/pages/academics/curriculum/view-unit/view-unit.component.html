@@ -1,4 +1,4 @@
-<section *ngIf='unit$ | async as unit; else loading'>
+<section *ngIf='unit$ | ngrxPush as unit; else loading'>
   <h1>View Subject/ Units <span class="icon-right-dir"></span> {{ unit.name }} ({{ unit.abbreviation }})</h1>
   <div class="card p-2">
     <h2>Status</h2>

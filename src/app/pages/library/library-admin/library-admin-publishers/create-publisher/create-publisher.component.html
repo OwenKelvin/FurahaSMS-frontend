@@ -1,12 +1,12 @@
 <section>
   <h1>{{ editPage ? 'Edit' : 'Create' }} Book Publisher</h1>
-  <div class="card mt-2 p-2 pt-4" *ngIf="v$ | async as v; else loading">
+  <div class="card mt-2 p-2 pt-4" *ngIf="v$ | ngrxPush as v; else loading">
     <form [class.sr-only]='v.editorInitialized === false' (submit)='submitNewBookPublisherForm()'
           [formGroup]='newBookPublisherForm'>
       <div class="d-flex align-items-start flex-wrap justify-content-sm-center">
         <section class='col-lg-12 col-md-12 col-sm-8 mb-0'>
           <app-input labelClass='col-lg-2 col-md-3' inputClass='col-lg-3 col-md-6 col-sm-12' formControlName='name'
-                     [triggerValidation]='triggerValidationAction$ | async' id='name'
+                     [triggerValidation]='triggerValidationAction$ | ngrxPush' id='name'
                      placeholder='Enter Publishers Name'
                      label="Publisher's Name">
           </app-input>
@@ -32,7 +32,7 @@
       </div>
 
       <section class='col-lg-12 mt-2'>
-        <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+        <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                      (validationButtonClicked)='triggerValidationSubject$.next(true)'
                                      [formItem]='newBookPublisherForm'>
         </app-validate-submit-buttons>

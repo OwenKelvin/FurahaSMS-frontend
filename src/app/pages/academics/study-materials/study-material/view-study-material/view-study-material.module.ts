@@ -5,6 +5,7 @@ import { PdfViewerModule } from 'ng2-pdf-viewer';
 import { AddStudyMaterialsTitleModule } from '../../study-materials-admin/add-study-materials-title/add-study-materials-title.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { FormsModule } from '@angular/forms';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -15,7 +16,8 @@ import { FormsModule } from '@angular/forms';
     PdfViewerModule,
     AddStudyMaterialsTitleModule,
     AppLoadingBubbleModule,
-    FormsModule
+    FormsModule,
+    ReactiveComponentModule
   ],
   exports: [ViewStudyMaterialComponent]
 })

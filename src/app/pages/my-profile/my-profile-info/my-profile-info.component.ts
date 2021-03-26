@@ -15,7 +15,7 @@ export class MyProfileInfoComponent implements OnInit {
   constructor(private store: Store) { }
 
   ngOnInit(): void {
-    this.profile$ = this.store.pipe(select(selectMyProfileState))
+    this.profile$ = this.store.pipe(select(selectMyProfileState));
   }
 
 }

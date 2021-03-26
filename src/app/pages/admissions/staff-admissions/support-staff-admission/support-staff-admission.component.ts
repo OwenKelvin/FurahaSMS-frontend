@@ -34,10 +34,10 @@ export class SupportStaffAdmissionComponent implements OnInit {
       .subscribe();
     this.staffTypes$ = this.store.pipe(
       select(selectStaffTypes)
-    )
+    );
     this.staffTypeFrom = this.fb.group({
       staffTypeId: ['', [Validators.required]]
-    })
+    });
   }
 
   staffTypeFormSubmit() {

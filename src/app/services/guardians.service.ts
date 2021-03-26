@@ -13,15 +13,15 @@ export class GuardiansService {
     const submitData = {
       id: data.id,
       email: data.email,
-      first_name: data.firstName,
-      last_name: data.lastName,
-      middle_name: data.middleName,
-      other_names: data.otherNames,
-      date_of_birth: data.dateOfBirth,
-      student_school_id_number: data.idNumber,
-      birth_cert_number: data.birthCertNumber,
-      gender_id: data.gender,
-      religion_id: data.religion,
+      ['first_name']: data.firstName,
+      ['last_name']: data.lastName,
+      ['middle_name']: data.middleName,
+      ['other_names']: data.otherNames,
+      ['date_of_birth']: data.dateOfBirth,
+      ['student_school_id_number']: data.idNumber,
+      ['birth_cert_number']: data.birthCertNumber,
+      ['gender_id']: data.gender,
+      ['religion_id']: data.religion,
       phone: data.phone,
       // student_id: data.student_id,
       relation: data.relation
@@ -32,13 +32,9 @@ export class GuardiansService {
 
     if (data.id) {
       url = `${url}/${data.id}`;
-      return this.http.patch<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.patch<any>(url, submitData).pipe(map(user => user));
     } else {
-      return this.http.post<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.post<any>(url, submitData).pipe(map(user => user));
     }
   }
   getForStudent(userId: number): Observable<any[]> {
@@ -46,9 +42,7 @@ export class GuardiansService {
       return of([]);
     }
     const url = 'api/students/' + userId + '/guardians';
-    return this.http.get<any>(url).pipe(map(user => {
-      return user;
-    }));
+    return this.http.get<any>(url).pipe(map(user => user));
 
   }
   getGuardianWithId(userId: number | string): Observable<any> {

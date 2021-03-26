@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
-import { LinkInterface } from './../interfaces/link.interface';
-import { Observable, zip, combineLatest } from 'rxjs';
-import { map } from 'rxjs/operators';
-import { Store, select } from '@ngrx/store';
-import { selectMyPermissions, selectMyRoles } from '../pages/my-profile/store/selectors/my-profile.selectors';
+import {Injectable} from '@angular/core';
+import {LinkInterface} from './../interfaces/link.interface';
+import {combineLatest, Observable} from 'rxjs';
+import {map} from 'rxjs/operators';
+import {select, Store} from '@ngrx/store';
+import {selectMyPermissions, selectMyRoles} from '../pages/my-profile/store/selectors/my-profile.selectors';
 import * as fromLinks from '../store/selectors/permissions.selectors';
 
 
@@ -12,7 +12,6 @@ import * as fromLinks from '../store/selectors/permissions.selectors';
 })
 export class LinkService {
 
-  constructor(private store: Store) { }
   myPermissions$ = this.store.pipe(select(selectMyPermissions));
   myRoles$ = this.store.pipe(select(selectMyRoles));
 
@@ -20,7 +19,7 @@ export class LinkService {
   accountsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAccountsLinks));
   examBankLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectexamBankLinks));
   libraryAdminBooksLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectLibraryAdminBooksLinks));
-  academicsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAcademicsLinks))
+  academicsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAcademicsLinks));
   admissionsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAdmissionsLinks));
   studentAdmissionsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectStudentAdmissionsLinks));
   academicYearsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectAcademicYearsLinks));
@@ -35,6 +34,10 @@ export class LinkService {
   timeTableLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.selectTimeTableLinks));
   rolesAndPermissionsLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.rolesAndPermissionsLinks));
   allLinks: Observable<LinkInterface[]> = this.filerAllowed(this.store.select(fromLinks.allLinks));
+
+  constructor(private store: Store) {
+  }
+
   filerAllowed(links$: Observable<LinkInterface[]>): Observable<LinkInterface[]> {
     return combineLatest([this.myPermissions$, this.myRoles$, links$]).pipe(
       map(([myPermissions, myRoles, links]) =>
@@ -43,10 +46,11 @@ export class LinkService {
     );
 
   }
+
   academicYearLinks(id: any): Observable<LinkInterface[]> {
     return this.filerAllowed(this.store.select(fromLinks.selectAcademicYearsLinks)).pipe(
       map(res => res.map(item => ({...item, link: item.link?.replace(':id', id)})))
-    )
+    );
 
   }
 

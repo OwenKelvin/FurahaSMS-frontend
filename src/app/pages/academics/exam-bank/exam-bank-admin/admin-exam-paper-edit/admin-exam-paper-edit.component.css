@@ -13,8 +13,7 @@
   height: 1.6rem;;
 }
 .choices .bg-secondary,.choices .bg-dark {
-  background: none !important;
-  background-color: rgb(85, 85, 85, 0.3) !important;
+  background: rgba(85, 85, 85, 0.3) none !important;
 }
 .border-bottom {
   border-bottom: rgba(173, 216, 230, 0.1) solid !important;

@@ -17,16 +17,16 @@ export const loadSupportStaffsFailure = createAction(
 
 export const loadSupportStaffById = createAction(
   '[SupportStaff] Load SupportStaff By Id',
-  props<{ data: {id: number}; }>()
+  props<{ data: {id: number} }>()
 );
 
 export const loadSupportStaffByIdSuccess = createAction(
   '[SupportStaff] Load SupportStaff By Id Success',
-  props<{ data: any; }>()
+  props<{ data: any }>()
 );
 
 export const loadSupportStaffByIdFailure = createAction(
   '[SupportStaff] Load SupportStaff By Id Failure',
-  props<{ error: any; }>()
+  props<{ error: any }>()
 );
 

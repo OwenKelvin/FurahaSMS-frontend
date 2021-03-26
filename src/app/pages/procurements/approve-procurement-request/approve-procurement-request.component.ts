@@ -17,8 +17,8 @@ export class ApproveProcurementRequestComponent extends subscribedContainerMixin
   isOpen = [false];
   isApproving: boolean[] = [false];
   isRejecting: boolean[] = [false];
-  isApprovingSubject$ = new BehaviorSubject([false])
-  isRejectingSubject$ = new BehaviorSubject([false])
+  isApprovingSubject$ = new BehaviorSubject([false]);
+  isRejectingSubject$ = new BehaviorSubject([false]);
 
   constructor(private store: Store<fromStore.AppState>, private procurementService: ProcurementService) {
     super();
@@ -26,7 +26,7 @@ export class ApproveProcurementRequestComponent extends subscribedContainerMixin
 
   approve(procurementItemId: number, i: number) {
     this.isApproving[i] = true;
-    this.procurementService.approveRequest({procurement_request_id: procurementItemId, approve: true})
+    this.procurementService.approveRequest({['procurement_request_id']: procurementItemId, approve: true})
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.procurementItems$ = this.procurementService.getRequestsPendingApproval();
@@ -37,7 +37,7 @@ export class ApproveProcurementRequestComponent extends subscribedContainerMixin
 
   reject(procurementItemId: number, i: number) {
     this.isRejecting[i] = true;
-    this.procurementService.approveRequest({procurement_request_id: procurementItemId, approve: false})
+    this.procurementService.approveRequest({['procurement_request_id']: procurementItemId, approve: false})
       .pipe(takeUntil(this.destroyed$))
       .subscribe(() => {
         this.isRejecting[i] = false;

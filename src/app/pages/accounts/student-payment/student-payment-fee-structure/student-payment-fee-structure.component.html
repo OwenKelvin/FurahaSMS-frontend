@@ -9,7 +9,7 @@
   </thead>
   <tbody>
 
-    <ng-container *ngIf='statement$ | async as statement; else loading'>
+    <ng-container *ngIf='statement$ | ngrxPush as statement; else loading'>
 
       <ng-container *ngFor='let academicYear of academicYears'>
         <tr>

@@ -8,6 +8,7 @@ import { AppFilesizeModule } from 'src/app/shared/filesize/filesize.module';
 import { ELearningTopicMaterialsModule } from '../../e-learning/e-learning-topic-materials/e-learning-topic-materials.module';
 import { FileExtensionModule } from 'src/app/shared/file-extention/file-extension.module';
 import { FormsModule } from '@angular/forms';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { FormsModule } from '@angular/forms';
     AppFilesizeModule,
     ELearningTopicMaterialsModule,
     FileExtensionModule,
-    FormsModule
+    FormsModule,
+    ReactiveComponentModule
   ]
 })
 export class StudyMaterialsArchiveModule { }

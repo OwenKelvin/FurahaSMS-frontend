@@ -9,22 +9,22 @@ import { selectModalOpenState } from 'src/app/store/selectors/modal.selectors';
 import {Subject} from 'rxjs';
 import {OnDestroy} from '@angular/core';
 
-export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
-  class extends BaseClass implements OnDestroy{
+export const modalMixin = <T extends Constructor>(baseClass: T = class { } as T) =>
+  class extends baseClass implements OnDestroy{
     destroyed$ = new Subject<void>();
     config: ModalOptions = {
-      initialState: { id: 0 },
+      initialState: { id: 0 } as Partial<Record<string, unknown>>,
       backdrop: true,
       ignoreBackdropClick: true,
       animated: true,
     };
     modalRef: BsModalRef;
     private modalServiceInjected: BsModalService;
-    private storeInjected: Store<any>
+    private storeInjected: Store<any>;
     constructor(...args: any[]) {
       super(...args);
-      this.modalServiceInjected = args[0]
-      this.storeInjected = args[1]
+      this.modalServiceInjected = args[0];
+      this.storeInjected = args[1];
     }
 
     openModal({ id, component, params }: { id: number; component: any; params?:  any}) {
@@ -44,7 +44,6 @@ export const modalMixin = <T extends Constructor>(BaseClass: T = class { } as T)
       this.storeInjected.dispatch(closeModals());
     }
     ngOnDestroy() {
-      this.destroyed$.next()
-      console.log('destroyer ')
+      this.destroyed$.next();
     }
   };

@@ -6,6 +6,7 @@ import {ReactiveFormsModule} from '@angular/forms';
 import {RouterModule} from '@angular/router';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -17,7 +18,8 @@ import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
     ReactiveFormsModule,
     RouterModule,
     NgSelectModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ],
   exports: [ManageClassLevelUnitLevelAllocationComponent]
 })

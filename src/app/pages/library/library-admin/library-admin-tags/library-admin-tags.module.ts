@@ -8,6 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { LibraryAdminTagsRoutingModule } from './library-admin-tags-routing.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     FormsModule,
     ReactiveFormsModule,
     AppLinksModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class LibraryAdminTagsModule { }

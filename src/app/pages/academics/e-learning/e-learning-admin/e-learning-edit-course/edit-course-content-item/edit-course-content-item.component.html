@@ -26,14 +26,14 @@
       </tr>
       </tbody>
     </table>
-    <app-input [triggerValidation]="triggerValidationAction$ | async" formControlName="title" label="Document Title"
+    <app-input [triggerValidation]="triggerValidationAction$ | ngrxPush" formControlName="title" label="Document Title"
                placeholder="Please Enter Title"></app-input>
 
   </div>
   <div class="modal-footer bg-dark">
     <div class="col-12 d-flex justify-content-between align-items-start">
       <button (click)='closeModal()' class="btn btn-secondary" type="button">Cancel</button>
-      <app-validate-submit-buttons [isSubmitting]="submitInProgressAction$ | async" (validationButtonClicked)="triggerValidationSubject$.next(true)"
+      <app-validate-submit-buttons [isSubmitting]="submitInProgressAction$ | ngrxPush" (validationButtonClicked)="triggerValidationSubject$.next(true)"
                                    [formItem]="itemForm"></app-validate-submit-buttons>
     </div>
   </div>

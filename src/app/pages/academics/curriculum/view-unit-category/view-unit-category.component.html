@@ -1,5 +1,5 @@
 
-<section *ngIf='unitCategory$ | async as unitCategory; else loading'>
+<section *ngIf='unitCategory$ | ngrxPush as unitCategory; else loading'>
   <h1>View Unit Category <span class="icon-right-dir"></span> {{ unitCategory.name }}</h1>
   <div class="card p-2">
     <h2>Status</h2>

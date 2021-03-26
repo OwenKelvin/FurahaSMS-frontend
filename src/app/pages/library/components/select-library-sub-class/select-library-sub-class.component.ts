@@ -36,7 +36,7 @@ export class SelectLibrarySubClassComponent implements OnInit, OnChanges, OnDest
     this.componentIsActive = true;
   }
 
-  ngOnChanges(changes: { id: SimpleChange, classification: SimpleChange }) {
+  ngOnChanges(changes: { id: SimpleChange; classification: SimpleChange }) {
     let currentValue: any;
     if (changes) {
       if (changes.id) {

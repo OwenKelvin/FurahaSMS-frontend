@@ -12,6 +12,7 @@ import { LibraryAdminPublisherRoutingModule } from './library-admin-publisher-ro
 import { EditorModule } from '@tinymce/tinymce-angular';
 import { LibraryAdminPublisherItemComponent } from './library-admin-publisher-item/library-admin-publisher-item.component';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     ReactiveFormsModule,
     AppInputModule,
     EditorModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class LibraryAdminPublisherModule { }

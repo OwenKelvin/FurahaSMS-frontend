@@ -25,7 +25,7 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   implements OnInit, CanDeactivateGuard {
   examPaper$: Observable<any>;
   activeQuestion = 0;
-  Queries: IExamPaperQuestion[];
+  queries: IExamPaperQuestion[];
   editDialogForm: FormGroup = this.fb.group({
     id: [],
     description: ['', Validators.required],
@@ -40,7 +40,8 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   questionId$: Observable<any>;
   tagInput = '';
   validated = false;
-  dialog: { title: string, value: any, index: number, type: any } = {title: '', value: '', index: 0, type: null}
+  dialog: { title: string; value: any; index: number; type: any } = {title: '', value: '', index: 0, type: null};
+  editorInitialized = false;
   private store: Store<AppState>;
 
   constructor(
@@ -55,8 +56,6 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
     this.store = store;
   }
 
-  editorInitialized = false;
-
   ngOnInit() {
     this.questionId$ =
       (this.route.parent as ActivatedRoute).paramMap.pipe(map(params => params.get('id')));
@@ -65,7 +64,7 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
       mergeMap(id => this.store.pipe(select(selectExamPaperItemState(id)))),
       tap(res => {
         if (res) {
-          this.Queries = res.questions.map((item: any) => ({
+          this.queries = res.questions.map((item: any) => ({
             id: item.id,
             correctAnswerDescription: item.correct_answer_description,
             multipleAnswers: item.multiple_answers,
@@ -145,10 +144,10 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
         break;
       case 'edit':
         this.dialog.title = `Edit Question ${i + 1}`;
-        this.dialog.value = {...this.Queries[i]};
+        this.dialog.value = {...this.queries[i]};
         this.dialog.type = 'edit';
         this.dialog.index = i;
-        this.resetForm({...this.Queries[i]});
+        this.resetForm({...this.queries[i]});
 
         break;
     }
@@ -162,15 +161,15 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   }
 
   get questions() {
-    return this.Queries;
+    return this.queries;
   }
 
-  reorderQuestions(data: { move: 'up' | 'down', index: number; }) {
+  reorderQuestions(data: { move: 'up' | 'down'; index: number }) {
     const {index, move} = data;
-    const tmp = this.Queries[index];
+    const tmp = this.queries[index];
     const swapIndex = move === 'up' ? (index - 1) : (index + 1);
-    this.Queries[index] = this.Queries[swapIndex];
-    this.Queries[swapIndex] = tmp;
+    this.queries[index] = this.queries[swapIndex];
+    this.queries[swapIndex] = tmp;
     this.activeQuestion = swapIndex;
   }
 
@@ -181,9 +180,9 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
       this.validated = true;
     } else {
       if (this.dialog.type === 'edit') {
-        this.Queries[this.dialog.index] = {...this.editDialogForm.value};
+        this.queries[this.dialog.index] = {...this.editDialogForm.value};
       } else {
-        this.Queries.splice(this.dialog.index, 0, this.editDialogForm.value);
+        this.queries.splice(this.dialog.index, 0, this.editDialogForm.value);
         this.activeQuestion = this.dialog.index;
       }
       this.modalRef.hide();
@@ -191,8 +190,8 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   }
 
   deleteQuestion(index: number) {
-    this.Queries.splice(index, 1);
-    this.activeQuestion = (this.Queries.length === this.activeQuestion) ? (this.activeQuestion - 1) : this.activeQuestion;
+    this.queries.splice(index, 1);
+    this.activeQuestion = (this.queries.length === this.activeQuestion) ? (this.activeQuestion - 1) : this.activeQuestion;
 
   }
 
@@ -243,8 +242,8 @@ export class AdminExamPaperEditComponent extends subscribedContainerMixin(modalM
   }
 
   saveExamQuestions() {
-    this.submitInProgressSubject$.next(true)
-    const data = this.Queries;
+    this.submitInProgressSubject$.next(true);
+    const data = this.queries;
     this.questionId$.pipe(
       mergeMap(examPaperId => this.examPaperQuestionsService.store({examPaperId, data})),
       takeUntil(this.destroyed$)

@@ -23,7 +23,7 @@
 
         </section>
         <section class='col-lg-6 col-md-12'>
-          <app-input [triggerValidation]='triggerValidationAction$ | async' id="bookTitle" placeholder='Enter Book Title'
+          <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' id="bookTitle" placeholder='Enter Book Title'
             formControlName='bookTitle' label="Book Title">
 
           </app-input>
@@ -32,13 +32,13 @@
         <section class='col-lg-6 col-md-12 p-4'>
           <label for="authors">Authors</label>
           <ng-select [multiple]="true" id="authors" formControlName='authors'>
-            <ng-option *ngFor='let author of bookAuthors$ | async' [value]="author.id"> {{ author.name }}</ng-option>
+            <ng-option *ngFor='let author of bookAuthors$ | ngrxPush' [value]="author.id"> {{ author.name }}</ng-option>
           </ng-select>
         </section>
         <section class='col-lg-6 col-md-12 p-4'>
           <label for="publisher">Publishers</label>
           <ng-select formControlName='publishers' [multiple]="true" id="publisher">
-            <ng-option *ngFor='let publisher of bookPublishers$ | async' [value]="publisher.id"> {{ publisher.name }}
+            <ng-option *ngFor='let publisher of bookPublishers$ | ngrxPush' [value]="publisher.id"> {{ publisher.name }}
             </ng-option>
           </ng-select>
         </section>
@@ -65,7 +65,7 @@
         <section class='col-lg-6 col-md-12'>
           <label for="classification">Library Book Classification</label>
           <select formControlName='classification' class='form-control' id="classification">
-            <option *ngFor='let classification of bookClassifications$ | async' [value]="classification.id">
+            <option *ngFor='let classification of bookClassifications$ | ngrxPush' [value]="classification.id">
               {{ classification.name }}</option>
           </select>
         </section>
@@ -77,7 +77,7 @@
         <section class='col-lg-6 col-md-12'>
           <label for="tags">Library Book Tags</label>
           <select multiple formControlName='tags' class='form-control' id="tags">
-            <option *ngFor='let tag of bookTags$ | async' [value]="tag.id">
+            <option *ngFor='let tag of bookTags$ | ngrxPush' [value]="tag.id">
               {{ tag.name }}</option>
           </select>
         </section>
@@ -96,11 +96,11 @@
             class="icon-plus-circled"></span>Add Tag</button>
         <section class='d-flex' *ngFor='let item of formBookItems.controls; let i=index' [formGroupName]='i'>
           <section class="col-lg-4">
-            <app-input [triggerValidation]='triggerValidationAction$ | async' [id]='"bookRef" + i' placeholder='Enter Book Ref'
+            <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' [id]='"bookRef" + i' placeholder='Enter Book Ref'
               formControlName='ref' label="Book Ref"></app-input>
           </section>
           <section class="col-lg-4">
-            <app-input [triggerValidation]='triggerValidationAction$ | async' [id]='"procuredDate" + i'
+            <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' [id]='"procuredDate" + i'
               placeholder='Enter Procured Date' formControlName='dateProcured' label="Procured Date" type='date'>
             </app-input>
           </section>
@@ -123,7 +123,7 @@
     </tab>
   </tabset>
   <section class='col-lg-12 mt-3'>
-    <app-validate-submit-buttons [isSubmitting]='submitInProgressSubject$ | async' (validationButtonClicked)='validateForm()'
+    <app-validate-submit-buttons [isSubmitting]='submitInProgressSubject$ | ngrxPush' (validationButtonClicked)='validateForm()'
       [formItem]='newBookForm'>
     </app-validate-submit-buttons>
   </section>

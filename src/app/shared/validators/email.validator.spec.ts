@@ -9,5 +9,5 @@ describe('EmailValidatorDirective', () => {
   it('should have a function that invalidates incorrect emails', () => {
     const validator = new EmailValidatorDirective();
     expect(validator.validate(new FormControl('exampleInvalidEmail'))).toBeTruthy();
-  })
-})
+  });
+});

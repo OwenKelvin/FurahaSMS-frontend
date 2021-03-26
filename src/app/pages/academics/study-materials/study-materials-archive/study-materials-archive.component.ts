@@ -22,7 +22,7 @@ export class StudyMaterialsArchiveComponent implements OnInit {
   }
   get filteredStudyMaterials(): any[] {
     return this.studyMaterials
-      .filter(({ title }: { title: string; }) => title.includes(this.filterString) );
+      .filter(({ title }: { title: string }) => title.includes(this.filterString) );
   }
 
   getLink(id: number, type: string): (string | number)[] {

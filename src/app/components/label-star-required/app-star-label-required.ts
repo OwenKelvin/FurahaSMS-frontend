@@ -4,6 +4,7 @@ import {
   LabelStarRequiredComponent,
   StarRequiredComponent
 } from './label-star-required.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -18,6 +19,7 @@ import {
 
   imports: [
     CommonModule,
+    ReactiveComponentModule,
   ]
 })
 export class AppStarLabelRequiredModule { }

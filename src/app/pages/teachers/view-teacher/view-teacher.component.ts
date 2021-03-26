@@ -18,7 +18,7 @@ export class ViewTeacherComponent {
     map(params => Number(params.get('id'))),
     tap(id => this.teacherId = id),
     tap(id => this.store.dispatch(loadTeacherProfiles({data: {id}}))),
-    mergeMap(id => this.store.pipe(select(selectTeacher(id)))))
+    mergeMap(id => this.store.pipe(select(selectTeacher(id)))));
   teacherId: number;
 
   constructor(
@@ -27,13 +27,13 @@ export class ViewTeacherComponent {
     private store: Store<AppState>
   ) { }
 
-  changeProfile($event: { fieldName: string, fieldNewValue: string; }) {
+  changeProfile($event: { fieldName: string; fieldNewValue: string }) {
     this.store.dispatch(loadTeacherProfilesSuccess({
       data: {
         id: this.teacherId,
         [$event.fieldName]: $event.fieldNewValue
       }
-    }))
+    }));
   }
 
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf='(v$ | async) as v ; else loading'>
+<ng-container *ngIf='(v$ | ngrxPush) as v ; else loading'>
   <h1>Edit Course <span class="icon-right-dir"></span> {{ v.course?.name }}</h1>
   <section class="card p-2">
     <ng-container>
@@ -163,7 +163,7 @@
             <form id='newContentUploadForm' [formGroup]='newContentUploadForm' (submit)='saveNewContent()'>
               <div class="mt-1">
                 <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-                           [triggerValidation]='triggerValidationAction$ | async' label='Content description'
+                           [triggerValidation]='triggerValidationAction$ | ngrxPush' label='Content description'
                            id="contentDescription"
                            placeholder="Enter Content Description" formControlName="description">
                 </app-input>
@@ -180,7 +180,7 @@
             <form id='newLearningOutcomeForm' [formGroup]='newLearningOutcomeForm' (submit)='saveLearningOutcome()'>
               <div class="mt-1">
                 <app-input labelClass='col-lg-12 col-md-12 col-sm-12' inputClass='col-lg-12 col-md-12 col-sm-12'
-                           [triggerValidation]='triggerValidationAction$ | async' label='Learning Outcome'
+                           [triggerValidation]='triggerValidationAction$ | ngrxPush' label='Learning Outcome'
                            id="newLearningOutcomeDescription" placeholder="Enter Learning Outcome"
                            formControlName="description">
                 </app-input>
@@ -199,25 +199,25 @@
       <div class="modal-footer bg-dark">
         <button type="button" (click)='closeModal()' class="btn btn-secondary">Cancel</button>
         <button *ngIf='activeFormName === "newContentUploadForm"' form='newContentUploadForm'
-                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
-          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Content</span>
-          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
-          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
-          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | ngrxPush)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | ngrxPush) === false'>Save Content</span>
+          <span *ngIf='(submitInProgressAction$ | ngrxPush)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "newLearningOutcomeForm"' form='newLearningOutcomeForm'
-                [disabled]='activeForm().invalid || (submitInProgressAction$ | async)' class="btn btn-success">
-          <span *ngIf='(submitInProgressAction$ | async) === false'>Save Learning Content</span>
-          <span *ngIf='(submitInProgressAction$ | async)'>Saving...</span>
-          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
-          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+                [disabled]='activeForm().invalid || (submitInProgressAction$ | ngrxPush)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | ngrxPush) === false'>Save Learning Content</span>
+          <span *ngIf='(submitInProgressAction$ | ngrxPush)'>Saving...</span>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
         </button>
         <button *ngIf='activeFormName === "onlineAssessmentForm"' [attr.form]='"onlineAssessmentForm"'
-                [disabled]='(formInvalid$ | async) || (submitInProgressAction$ | async)' class="btn btn-success">
-          <span *ngIf='(submitInProgressAction$ | async) === false'>Create Assessment</span>
-          <span *ngIf='(submitInProgressAction$ | async)'>Creating...</span>
-          <i *ngIf='(submitInProgressAction$ | async) === false' class='icon-ok-1'></i>
-          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+                [disabled]='(formInvalid$ | ngrxPush) || (submitInProgressAction$ | ngrxPush)' class="btn btn-success">
+          <span *ngIf='(submitInProgressAction$ | ngrxPush) === false'>Create Assessment</span>
+          <span *ngIf='(submitInProgressAction$ | ngrxPush)'>Creating...</span>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush) === false' class='icon-ok-1'></i>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
         </button>
       </div>
     </ng-template>

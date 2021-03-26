@@ -76,8 +76,8 @@ export class CreateStudentGuardianComponent extends subscribedContainerMixin(for
             this.usersData[i] = data;
             this.confirmedData[i] = true;
           }
-        })
-      })
+        });
+      });
   }
 
   removeGuardian(i: number): void {
@@ -153,7 +153,7 @@ export class CreateStudentGuardianComponent extends subscribedContainerMixin(for
           .pipe(
             map(params => Number(params.get('id'))),
             tap(id => this.studentId = id),
-            mergeMap((id) => this.studentGuardian.submit({...item, student_id: id})),
+            mergeMap((id) => this.studentGuardian.submit({...item, ['student_id']: id})),
             takeUntil(this.destroyed$))
           .subscribe({
             next: () => this.router.navigate(['students', this.studentId, 'guardians']).then(
@@ -163,7 +163,7 @@ export class CreateStudentGuardianComponent extends subscribedContainerMixin(for
           });
       });
     } else {
-      this.triggerValidationSubject$.next(true)
+      this.triggerValidationSubject$.next(true);
     }
   }
 }

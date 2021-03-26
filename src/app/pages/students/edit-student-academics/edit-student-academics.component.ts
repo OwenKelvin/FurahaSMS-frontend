@@ -31,23 +31,23 @@ export class EditStudentAcademicsComponent extends formMixin() {
   studentStream$ = this.params$.pipe(
     mergeMap(params => this.studentService.getStreamFor(params)),
     tap(({id}) => {
-      this.unitLevelForm.get('stream')?.setValue(id)
+      this.unitLevelForm.get('stream')?.setValue(id);
     })
-  )
+  );
 
   classLevel$ = this.params$.pipe(
     map(({classLevelId}) => classLevelId),
     mergeMap(id => this.classLevelService.getItemById(id))
-  )
+  );
 
   academicYear$ = this.params$.pipe(
     map(({academicYearId}) => academicYearId),
     mergeMap(id => this.academicYearService.getAcademicYearWithId({id}))
-  )
+  );
 
   $academics: Observable<any[]> = this.params$.pipe(
     mergeMap(params => this.studentAcademicsService.getAcademicsFor(params))
-  )
+  );
   $unitLevels: Observable<any[]> = this.params$.pipe(
     mergeMap(({academicYearId, classLevelId}) => this.unitLevelService.getFilter({academicYearId, classLevelId})),
     map(items => (items as any[]).map(item => ({
@@ -56,17 +56,17 @@ export class EditStudentAcademicsComponent extends formMixin() {
       unitLevelId: item.unit_level_id,
       unitLevelName: item.unit_level_name
     })))
-  )
+  );
 
   student$ = this.params$.pipe(
     map(({studentId}) => studentId),
     mergeMap(id => this.studentService.loadStudentProfile$(id))
-  )
+  );
 
   v$ = combineLatest([this.$academics, this.$unitLevels, this.academicYear$, this.classLevel$,
     this.student$, this.streams$, this.studentStream$]).pipe(
     tap(([academics, unitLevels]) => {
-      const unitLevelIds = academics.map(({unitLevelId: id}: any) => id)
+      const unitLevelIds = academics.map(({unitLevelId: id}: any) => id);
       this.unitLevels.reset();
       while (this.unitLevels.length) {
         this.unitLevels.removeAt(0);
@@ -79,14 +79,14 @@ export class EditStudentAcademicsComponent extends formMixin() {
             name: [item.unitLevelName],
             value: [unitLevelIds.includes(item.unitLevelId)],
           })
-        )
-      })
+        );
+      });
       this.unitLevels.updateValueAndValidity();
       this.unitLevelForm.updateValueAndValidity();
     }),
     map(([, , academicYear, classLevel, student, streams]) =>
       ({academicYear, classLevel, student, streams}))
-  )
+  );
 
   unitLevelForm: FormGroup = this.fb.group({
     unitLevels: this.fb.array([]),
@@ -94,7 +94,7 @@ export class EditStudentAcademicsComponent extends formMixin() {
   });
 
   get unitLevels() {
-    return this.unitLevelForm.get('unitLevels') as FormArray
+    return this.unitLevelForm.get('unitLevels') as FormArray;
   }
 
   constructor(
@@ -120,9 +120,9 @@ export class EditStudentAcademicsComponent extends formMixin() {
     ).subscribe({
       next: () => {
         this.submitInProgressSubject$.next(false);
-        this.router.navigate(['/students', (this.route.params as any).value.studentId, 'academics']).then()
+        this.router.navigate(['/students', (this.route.params as any).value.studentId, 'academics']).then();
       },
       error: () => this.submitInProgressSubject$.next(false)
-    })
+    });
   }
 }

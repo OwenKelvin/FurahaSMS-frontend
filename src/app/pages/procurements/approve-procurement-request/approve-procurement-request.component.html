@@ -1,5 +1,5 @@
 <h1>Procurements - Pending Requests</h1>
-<section *ngIf='(procurementItems$ | async) as procurementItems; else loading'>
+<section *ngIf='(procurementItems$ | ngrxPush) as procurementItems; else loading'>
    <section *ngIf='procurementItems.length === 0' class="alert alert-info">No Pending Items!</section>
   
   <accordion [closeOthers]=[true]>

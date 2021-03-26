@@ -1,12 +1,13 @@
-import { TestBed } from '@angular/core/testing';
+import {TestBed} from '@angular/core/testing';
 
-import { MathService } from './math.service';
+import {MathService} from './math.service';
 
-const MathJax = {}
+// @ts-ignore
+// const MathJax = {};
 
 describe('MathService', () => {
   let service: MathService;
-
+  pyOn(global, 'MathJax').and.callThrough();
   beforeEach(() => {
     TestBed.configureTestingModule({});
     service = TestBed.inject(MathService);

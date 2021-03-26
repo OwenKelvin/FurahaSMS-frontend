@@ -13,7 +13,19 @@ import {UrlParamsStringifyService} from '../shared/url-params-stringify/services
 export class StudentService {
   url = 'api/students';
 
-  getStudents(data: { stream: number[], academicYear: number, classLevel: number[] }) {
+  constructor(
+    private http: HttpClient,
+    private store: Store,
+    private urlParamsStringifyService: UrlParamsStringifyService
+  ) {
+  }
+
+  loadStudentProfile$ = (id: number) => this.store.pipe(
+    select(selectStudent(id)),
+    tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({data: {id}})) : null)
+  );
+
+  getStudents(data: { stream: number[]; academicYear: number; classLevel: number[] }) {
 
     const url = `${this.url}?${this.urlParamsStringifyService.stringify({...data, last: 30})}`;
     return this.http.get<any[]>(url).pipe(
@@ -26,20 +38,8 @@ export class StudentService {
         classLevelName: item.class_level_name,
         name: `${item.first_name} ${item.last_name}`
       })))
-    )
+    );
   }
-
-  constructor(
-    private http: HttpClient,
-    private store: Store,
-    private urlParamsStringifyService: UrlParamsStringifyService
-  ) {
-  }
-
-  loadStudentProfile$ = (id: number) => this.store.pipe(
-    select(selectStudent(id)),
-    tap(profile => !profile ? this.store.dispatch(loadStudentProfiles({data: {id}})) : null)
-  )
 
   createNewStudent(newStudentData: any): Observable<any> {
 
@@ -48,28 +48,24 @@ export class StudentService {
 
   save(data: any, idNumber: any = null): Observable<any> {
     const submitData = {
-      first_name: data.firstName,
-      last_name: data.lastName,
-      middle_name: data.middleName,
-      other_names: data.otherNames,
-      date_of_birth: data.dateOfBirth,
-      student_school_id_number: data.idNumber,
-      birth_cert_number: data.birthCertNumber,
-      gender_id: data.gender,
-      religion_id: data.religion
+      ['first_name']: data.firstName,
+      ['last_name']: data.lastName,
+      ['middle_name']: data.middleName,
+      ['other_names']: data.otherNames,
+      ['date_of_birth']: data.dateOfBirth,
+      ['student_school_id_number']: data.idNumber,
+      ['birth_cert_number']: data.birthCertNumber,
+      ['gender_id']: data.gender,
+      ['religion_id']: data.religion
 
     };
     let url = `api/admissions/students/identification`;
 
     if (idNumber) {
       url = `${url}/${data.id}`;
-      return this.http.patch<any>(url, {...submitData}).pipe(map(user => {
-        return user;
-      }));
+      return this.http.patch<any>(url, {...submitData}).pipe(map(user => user));
     } else {
-      return this.http.post<any>(url, submitData).pipe(map(user => {
-        return user;
-      }));
+      return this.http.post<any>(url, submitData).pipe(map(user => user));
     }
   }
 
@@ -86,9 +82,7 @@ export class StudentService {
           dateOfBirth: user.date_of_birth,
           studentId: user.student_id
         })),
-        catchError(error => {
-          return throwError(error);
-        })
+        catchError(error => throwError(error))
       );
   }
 
@@ -96,12 +90,8 @@ export class StudentService {
     const url = `api/student/id-number?q=${idNumber}`;
     return this.http.get<any>(url)
       .pipe(
-        map(user => {
-          return user;
-        }),
-        catchError(error => {
-          return throwError(error);
-        })
+        map(user => user),
+        catchError(error => throwError(error))
       );
   }
 
@@ -130,12 +120,12 @@ export class StudentService {
 
   getStreamFor(params: { studentId: number; academicYearId: number; classLevelId: number }) {
     const data = {
-      academic_year_id: params.academicYearId,
-      class_level_id: params.classLevelId
+      ['academic_year_id']: params.academicYearId,
+      ['class_level_id']: params.classLevelId
     };
     const url = `api/students/${params.studentId}/streams?${this.urlParamsStringifyService.stringify(data)}`;
     return this.http.get<any>(url).pipe(
-      map(({id, name, abbreviation, associated_color: associatedColor}) =>
+      map(({id, name, abbreviation, ['associated_color']: associatedColor}) =>
         ({id, name, abbreviation, associatedColor}))
     );
   }

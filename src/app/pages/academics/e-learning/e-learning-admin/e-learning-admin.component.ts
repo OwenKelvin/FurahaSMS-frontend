@@ -22,7 +22,7 @@ export class ELearningAdminComponent {
           (course.unitName && course.unitName.includes(filterString)))
       )
     )
-  )
+  );
   constructor(
     private eLearningService: ELearningService
   ) {

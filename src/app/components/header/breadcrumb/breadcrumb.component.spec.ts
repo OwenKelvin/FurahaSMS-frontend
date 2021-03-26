@@ -33,7 +33,7 @@ describe('BreadcrumbComponent', () => {
         ]
       }
     }
-  }
+  };
 
   beforeEach(async () => {
     TestBed.configureTestingModule({

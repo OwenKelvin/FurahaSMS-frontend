@@ -12,6 +12,7 @@ import {ELearningTopicMaterialsModule} from '../e-learning-topic-materials/e-lea
 import {ELearningTopicObjectivesModule} from '../e-learning-topic-objectives/e-learning-topic-objectives.module';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {TopicOnlineAssessmentListModule} from '../topic-online-assessment-list/topic-online-assessment-list.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {TopicOnlineAssessmentListModule} from '../topic-online-assessment-list/t
     ELearningTopicMaterialsModule,
     ELearningTopicObjectivesModule,
     ModalModule.forRoot(),
-    TopicOnlineAssessmentListModule
+    TopicOnlineAssessmentListModule,
+    ReactiveComponentModule
   ]
 })
 export class ELearningCoursesModule {

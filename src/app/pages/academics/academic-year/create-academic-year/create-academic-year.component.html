@@ -12,7 +12,7 @@
             label="Academic Year Name"
             labelClass="col-sm-12 col-md-12 col-lg-12"
             inputClass="col-sm-12 col-md-12 col-lg-12"
-            [triggerValidation]='triggerValidationAction$ | async'
+            [triggerValidation]='triggerValidationAction$ | ngrxPush'
           ></app-input>
         </section>
         <section class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -24,7 +24,7 @@
             type="date"
             labelClass=""
             inputClass=""
-            [triggerValidation]='triggerValidationAction$ | async'
+            [triggerValidation]='triggerValidationAction$ | ngrxPush'
           ></app-input>
         </section>
         <section class="col-lg-4 col-md-6 col-sm-12 col-xs-12">
@@ -36,13 +36,13 @@
             type="date"
             labelClass=""
             inputClass=""
-            [triggerValidation]='triggerValidationAction$ | async'
+            [triggerValidation]='triggerValidationAction$ | ngrxPush'
           ></app-input>
         </section>
       </section>
     </fieldset>
     <app-form-errors [form]="academicYearForm"></app-form-errors>
-    <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+    <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                  (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='academicYearForm'>
     </app-validate-submit-buttons>
   </form>

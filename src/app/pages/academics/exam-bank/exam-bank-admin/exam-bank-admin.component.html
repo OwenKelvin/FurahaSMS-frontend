@@ -13,7 +13,7 @@
     </tr>
   </thead>
   <tbody>
-    <ng-container *ngIf='examPapers$ | async as examPapers; else loading'>
+    <ng-container *ngIf='examPapers$ | ngrxPush as examPapers; else loading'>
       <ng-container *ngIf='examPapers.length === 0'>
         <tr>
           <td class="p-2 pb-1" colspan="4">

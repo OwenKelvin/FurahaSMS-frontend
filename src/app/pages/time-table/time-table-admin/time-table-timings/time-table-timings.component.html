@@ -3,7 +3,7 @@
       class="icon-plus-circled"></span>Create New Template</button>
 
   <accordion [closeOthers]=[true] [isAnimated]='true'>
-    <accordion-group class="mt-2" *ngFor='let timing of timings$ | async; let i = index'
+    <accordion-group class="mt-2" *ngFor='let timing of timings$ | ngrxPush; let i = index'
       [(isOpen)]="isOpen[i]">
 
       <section class="active" accordion-heading class="d-flex justify-content-between">

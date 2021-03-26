@@ -23,9 +23,9 @@ export class CreateAuthorComponent extends subscribedContainerMixin(formWithEdit
   });
   authorId$ = this.route.paramMap.pipe(
     map(params => Number(params.get('id')))
-  )
+  );
 
-  editPage$ = this.authorId$.pipe(map(id => id > 0))
+  editPage$ = this.authorId$.pipe(map(id => id > 0));
   author$ = this.authorId$.pipe(
     mergeMap(id => id > 0 ? this.libraryAuthorService.getAuthorWithId(id) : from([{id: 0, name: '', biography: ''}])),
     tap((res: any) => this.newBookAuthorForm.patchValue({
@@ -33,7 +33,7 @@ export class CreateAuthorComponent extends subscribedContainerMixin(formWithEdit
       name: res.name,
       biography: res.biography
     }))
-  )
+  );
 
   constructor(
     private libraryAuthor: LibraryAuthorService,

@@ -9,8 +9,8 @@
         <button type="button" (click)='editable = false' class="btn btn-secondary mt-2">Cancel
         </button>
         <button [disabled]='itemForm.invalid || !itemForm.dirty' class="btn btn-success mt-2">
-          <i *ngIf='itemForm.valid && (submitInProgressAction$ | async) === false' class='icon-floppy'></i>
-          <i *ngIf='(submitInProgressAction$ | async)' class='icon-spin3 animate-spin'></i>
+          <i *ngIf='itemForm.valid && (submitInProgressAction$ | ngrxPush) === false' class='icon-floppy'></i>
+          <i *ngIf='(submitInProgressAction$ | ngrxPush)' class='icon-spin3 animate-spin'></i>
           <span class="icon-save"></span>Save </button>
       </div>
     </div>
@@ -19,7 +19,7 @@
 
       &nbsp; {{ name }}
       <button type="button" (click)='editable = true' (mouseout)='editHovered = false' (mouseover)='editHovered = true'
-        *ngIf='editMode$ | async' [attr.aria-label]='"Edit " + label +" Name"' class="icon">
+        *ngIf='editMode$ | ngrxPush' [attr.aria-label]='"Edit " + label +" Name"' class="icon">
         <span [class.icon-pencil-1]='!editHovered' [class.icon-edit]="editHovered"></span>
       </button>
 

@@ -42,7 +42,7 @@ export class CreateTeacherComponent extends subscribedContainerMixin(formMixin()
   religions$: Observable<any[]> = this.store.pipe(select(selectReligions));
   staffType$: Observable<any> = this.store.pipe(
     select(selectStaffType(this.supportStaff))
-  )
+  );
 
   constructor(
     private users: UsersService,
@@ -143,7 +143,7 @@ export class CreateTeacherComponent extends subscribedContainerMixin(formMixin()
   }
 
   createSupportStaff() {
-    this.supportStaffService.save({...this.newTeacherForm.value, staff_type: this.supportStaff})
+    this.supportStaffService.save({...this.newTeacherForm.value, ['staff_type']: this.supportStaff})
       .pipe(takeUntil(this.destroyed$))
       .subscribe({
         next: res => this.router.navigate(['/support-staffs', res.data.id, 'info']).then(

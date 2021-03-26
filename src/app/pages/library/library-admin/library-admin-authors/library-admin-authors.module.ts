@@ -14,6 +14,7 @@ import { LibraryAdminAuthorsComponent } from './library-admin-authors.component'
 import { AppViewItemsModule } from 'src/app/modules/app-view-items.module';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     AppLinksModule,
     AppViewItemsModule,
     AppLoadingBubbleModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class LibraryAdminAuthorsModule { }

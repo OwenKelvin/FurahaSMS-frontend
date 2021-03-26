@@ -1,7 +1,7 @@
 export interface IUserProfile {
   id: number;
-  lastName: string;
-  firstName: string;
+  lastName?: string;
+  firstName?: string;
   middleName?: string;
   otherNames?: string;
   phone?: string;
@@ -10,6 +10,6 @@ export interface IUserProfile {
   genderName?: string;
   religionName?: string;
   studentId?: number;
-  permissions?: string[],
-  roles?: string[]
+  permissions?: string[];
+  roles?: string[];
 }

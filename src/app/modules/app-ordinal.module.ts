@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { OrdinalPipe } from '../pipes/ordinal.pipe';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { OrdinalPipe } from '../pipes/ordinal.pipe';
 
   imports: [
     CommonModule,
+    ReactiveComponentModule,
   ]
 })
 export class AppOrdinalModule { }

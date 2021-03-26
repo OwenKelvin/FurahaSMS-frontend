@@ -1,28 +1,29 @@
 import {
   Component,
-  OnInit,
-  Input,
-  TemplateRef,
-  OnDestroy,
-  ViewChild,
   ElementRef,
+  EventEmitter,
+  Input,
+  OnDestroy,
+  OnInit,
   Output,
-  EventEmitter
+  TemplateRef,
+  ViewChild
 } from '@angular/core';
-import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
-import { UsersService } from 'src/app/services/users.service';
-import { takeWhile, mergeMap, map } from 'rxjs/operators';
-import { Store } from '@ngrx/store';
-import { loadEditModesSuccess, loadEditModesFailure } from 'src/app/store/actions/edit-mode.actions';
-import { CanvasService } from 'src/app/services/canvas.service';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {BsModalRef, BsModalService} from 'ngx-bootstrap/modal';
+import {UsersService} from 'src/app/services/users.service';
+import {map, mergeMap, takeUntil} from 'rxjs/operators';
+import {Store} from '@ngrx/store';
+import {loadEditModesFailure, loadEditModesSuccess} from 'src/app/store/actions/edit-mode.actions';
+import {CanvasService} from 'src/app/services/canvas.service';
+import {BehaviorSubject, Subject} from 'rxjs';
+import {subscribedContainerMixin} from '../../shared/mixins/subscribed-container.mixin';
 
 @Component({
   selector: 'app-user-profile',
   templateUrl: './user-profile.component.html',
   styleUrls: ['./user-profile.component.css'],
 })
-export class UserProfileComponent implements OnInit, OnDestroy {
+export class UserProfileComponent extends subscribedContainerMixin() implements OnInit, OnDestroy {
   @Input() title: string;
   @Input() profile: any;
   @Input() linkBase: any[];
@@ -37,50 +38,61 @@ export class UserProfileComponent implements OnInit, OnDestroy {
   modalRef: BsModalRef;
   savingProfPic: boolean;
   photoFile: File;
-  componentIsActive = true;
   profPicLoadingSubject$: Subject<boolean> = new BehaviorSubject(true);
   profPicLoadingAction$ = this.profPicLoadingSubject$.asObservable();
+
   constructor(
     private modalService: BsModalService,
     private usersService: UsersService,
     private store: Store,
     private canvasService: CanvasService
-  ) { }
+  ) {
+    super();
+  }
 
   ngOnInit() {
     this.getProfilePic();
   }
+
   editModeChangeHandler() {
-    this.editMode ? this.store.dispatch(loadEditModesSuccess()) : this.store.dispatch(loadEditModesFailure());
+    if (this.editMode) {
+      this.store.dispatch(loadEditModesSuccess());
+    } else {
+      this.store.dispatch(loadEditModesFailure());
+    }
   }
+
   getProfilePic() {
-    this.profPicLoadingSubject$.next(true)
-    this.usersService.getProfilePicture({ userId: this.profile.id })
-      .pipe(takeWhile(() => this.componentIsActive))
+    this.profPicLoadingSubject$.next(true);
+    this.usersService.getProfilePicture({userId: this.profile.id})
+      .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
         (this.profPic.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
-        this.profPicLoadingSubject$.next(false)
+        this.profPicLoadingSubject$.next(false);
       });
   }
+
   get fullName(): string {
     return this.profile.firstName + ' ' + this.profile.lastName
       + (this.profile.middleName ? (' ' + this.profile.middleName) : '')
       + (this.profile.otherNames ? (' ' + this.profile.otherNames) : '')
       + (this.profile.userId ? (' ' + this.profile.userId) : '');
   }
+
   fullLink(link: string) {
     if (this.includeProfileId) {
       return [...this.linkBase, this.profile.id, link];
     }
     return [...this.linkBase, link];
   }
+
   saveProfilePic() {
     this.savingProfPic = true;
-    this.usersService.uploadPhoto({ file: this.photoFile })
+    this.usersService.uploadPhoto({file: this.photoFile})
       .pipe(
         map((res: any) => res.data.id),
-        mergeMap((id: number) => this.usersService.saveProfilePicture({ userId: this.profile.id, profilePicId: id })),
-        takeWhile(() => this.componentIsActive)
+        mergeMap((id: number) => this.usersService.saveProfilePicture({userId: this.profile.id, profilePicId: id})),
+        takeUntil(this.destroyed$)
       )
       .subscribe({
         next: () => {
@@ -91,6 +103,7 @@ export class UserProfileComponent implements OnInit, OnDestroy {
         error: () => this.savingProfPic = false
       });
   }
+
   openModal(template: TemplateRef<any>) {
     this.modalRef = this.modalService.show(template);
     this.modalRef.setClass('modal-md bg-dark text-light modal-container ');
@@ -121,12 +134,9 @@ export class UserProfileComponent implements OnInit, OnDestroy {
 
 
   }
-  changeProfile(fieldName: string, $event: string) {
-    this.valueChanged.emit({ fieldName, fieldNewValue: $event });
-  }
 
-  ngOnDestroy() {
-    this.componentIsActive = false;
+  changeProfile(fieldName: string, $event: string) {
+    this.valueChanged.emit({fieldName, fieldNewValue: $event});
   }
 
 }

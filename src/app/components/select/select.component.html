@@ -13,10 +13,10 @@
     class="form-control"
     [id]="id">
     <option selected value="">Choose...</option>
-    <option *ngFor="let category of categories$ | async" [value]="category.id">
+    <option *ngFor="let category of categories$ | ngrxPush" [value]="category.id">
       {{ category?.name }}
     </option>
-    <option disabled='disabled' *ngIf='(categories$ | async) === null'>Loading...</option>
+    <option disabled='disabled' *ngIf='(categories$ | ngrxPush) === null'>Loading...</option>
   </select>
   <section *ngIf='fieldError' class="invalid-feedback-message" style="position: absolute;">
     <div class="arrow-up"></div>

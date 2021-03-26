@@ -43,6 +43,7 @@ describe('CreateTeacherComponent', () => {
   }));
 
   beforeEach(() => {
+    spyOn(document, 'querySelector').and.callThrough();
     fixture = TestBed.createComponent(CreateTeacherComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

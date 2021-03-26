@@ -4,7 +4,8 @@ import {Observable, of} from 'rxjs';
 
 import {DbService} from 'src/app/services/db.service';
 import {ControlValueAccessor, FormControl, NG_VALIDATORS, NG_VALUE_ACCESSOR} from '@angular/forms';
-import {takeWhile} from 'rxjs/operators';
+import {takeUntil, takeWhile} from 'rxjs/operators';
+import {subscribedContainerMixin} from '../../../../shared/mixins/subscribed-container.mixin';
 
 
 @Component({
@@ -24,28 +25,21 @@ import {takeWhile} from 'rxjs/operators';
     }
   ]
 })
-export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
-  componentIsActive: boolean;
-
-  constructor(
-    private libraryBookClassesService: LibraryBookClassesService,
-    private db: DbService
-  ) {
-  }
-
-  libraryBookClassValue: any;
+export class SelectLibraryClassComponent extends subscribedContainerMixin() implements OnChanges, ControlValueAccessor {
   @Input() classification: any;
+  libraryBookClassValue: any;
   libraryBookClasses$: Observable<any>;
 
   onChanges: ($value: any) => void;
   onTouched: () => void;
-
-  ngOnInit() {
-    this.componentIsActive = true;
-
+  constructor(
+    private libraryBookClassesService: LibraryBookClassesService,
+    private db: DbService
+  ) {
+    super();
   }
 
-  ngOnChanges(changes: { classification: SimpleChange; }) {
+  ngOnChanges(changes: { classification: SimpleChange }) {
     let currentValue: any;
     if (changes) {
       currentValue = changes.classification.currentValue;
@@ -58,7 +52,7 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
         this.libraryBookClasses$ = this.libraryBookClassesService
           .getClass({classification: currentValue, libraryClass: null});
         this.libraryBookClasses$
-          .pipe(takeWhile(() => this.componentIsActive))
+          .pipe(takeUntil(this.destroyed$))
           .subscribe(items => {
             const doc = {
               _id: currentValue,
@@ -96,9 +90,5 @@ export class SelectLibraryClassComponent implements OnInit, OnChanges, ControlVa
 
   handleChange($event: any) {
     this.onChanges($event);
-  }
-
-  ngOnDestroy() {
-    this.componentIsActive = false;
   }
 }

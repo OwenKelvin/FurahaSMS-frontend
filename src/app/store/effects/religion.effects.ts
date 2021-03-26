@@ -10,16 +10,14 @@ import { ReligionService } from 'src/app/services/religion.service';
 @Injectable()
 export class ReligionEffects {
 
-  loadReligions$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadReligions$ = createEffect(() => this.actions$.pipe(
       ofType(loadReligions),
       concatMap(() =>
         this.religionService.all$.pipe(
           map(data => loadReligionsSuccess({ data })),
           catchError((error) => of(loadReligionsFailure({ error }))))
       )
-    );
-  });
+    ));
 
 
   constructor(private actions$: Actions, private religionService: ReligionService) { }

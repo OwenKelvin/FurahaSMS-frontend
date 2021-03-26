@@ -4,8 +4,8 @@ import { HttpClient } from '@angular/common/http';
 import { map, shareReplay } from 'rxjs/operators';
 import { TransformInterface } from 'src/app/interfaces/transforms.interfaces';
 
-export const crudMixin = <T extends Constructor>(BaseClass: T = class { } as T) =>
-  class extends BaseClass {
+export const crudMixin = <T extends Constructor>(baseClass: T = class { } as T) =>
+  class extends baseClass {
     tranforms: TransformInterface[] = [];
     url = '';
     http: HttpClient;

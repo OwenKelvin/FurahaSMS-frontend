@@ -19,6 +19,4 @@ const editModeReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return editModeReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => editModeReducer(state, action);

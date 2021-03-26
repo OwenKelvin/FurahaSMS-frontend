@@ -14,7 +14,7 @@ export class ViewProcurementRequestComponent {
   procurementItem$ = this.route.paramMap.pipe(
     map(params => Number(params.get('id'))),
     mergeMap(id => this.procurementService.getProcurementRequestWithId(id))
-  )
+  );
 
   constructor(
     private route: ActivatedRoute,

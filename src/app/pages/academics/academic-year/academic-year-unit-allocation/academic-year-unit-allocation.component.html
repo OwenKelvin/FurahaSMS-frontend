@@ -1,6 +1,6 @@
 <h1>Academic Year Subject Allocations</h1>
 
-<form *ngIf='academicYears$ | async as academicYears; else loading'>
+<form *ngIf='academicYears$ | ngrxPush as academicYears; else loading'>
   <section class="d-flex">
     <section class="col-lg-3"><label for="academic-year">Select Academic Year</label></section>
     <section class="col-lg-4 d-flex">

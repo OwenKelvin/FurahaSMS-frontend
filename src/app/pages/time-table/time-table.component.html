@@ -6,7 +6,7 @@
   <fieldset class="col-lg-12 mt-3 card pb-2">
     <legend>Academic Years</legend>
     <ul class="d-flex flex-wrap m-0 p-0">
-      <li *ngFor='let academicYear of academicYears$ | async' class="list-group-item col-12 col-sm-6 col-md-6 col-lg-4 p-1">
+      <li *ngFor='let academicYear of academicYears$ | ngrxPush' class="list-group-item col-12 col-sm-6 col-md-6 col-lg-4 p-1">
         <a class="btn-block p-3 bg-dark" [routerLink]='["academic-years", academicYear.id]'>{{ academicYear.name }}</a>
       </li>
     </ul>

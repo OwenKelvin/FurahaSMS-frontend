@@ -17,6 +17,7 @@ import {combineLatest} from 'rxjs';
   styleUrls: ['./create-publisher.component.css']
 })
 export class CreatePublisherComponent extends subscribedContainerMixin(formWithEditorMixin()) implements AfterViewInit {
+  @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef;
   newBookPublisherForm: FormGroup = this.fb.group({
     id: [0, []],
     name: ['', [Validators.required]],
@@ -26,11 +27,10 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
   profPicLoading: false;
   photoFile: File;
   profPicId: any;
-  @ViewChild('profilePicImgTag') profilePicImgTag: ElementRef
   publisherId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id'))),
     tap(id => this.libraryPublisherService.loadItem(id)),
-  )
+  );
   publisher$ = this.publisherId$.pipe(
     mergeMap(id => this.store.pipe(select(selectLibraryBookPublisher(id)))),
     filter(publisher => publisher),
@@ -40,10 +40,10 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
       name: publisher.name,
       biography: publisher.biography
     }))
-  )
+  );
   v$ = combineLatest([this.editorInitializedAction$, this.publisher$]).pipe(
     map((editorInitialized, publisher) => ({editorInitialized, publisher}))
-  )
+  );
 
   constructor(
     private libraryPublisher: LibraryPublisherService,
@@ -62,7 +62,7 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
       .pipe(takeUntil(this.destroyed$))
       .subscribe(res => {
         (this.profilePicImgTag.nativeElement as HTMLImageElement).src = URL.createObjectURL(res);
-      })
+      });
   }
 
   onFileSelected() {
@@ -73,7 +73,7 @@ export class CreatePublisherComponent extends subscribedContainerMixin(formWithE
   }
 
   submitNewBookPublisherForm() {
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
 
     if (this.newBookPublisherForm.invalid) {
       alert('Form is not fully filled');

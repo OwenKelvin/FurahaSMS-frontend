@@ -11,21 +11,21 @@
     <div class="d-flex justify-content-center flex-wrap">
       <div class="col-lg-6">
 
-        <app-input [triggerValidation]='(triggerValidationAction$ | async)' labelClass='col-md-12 col-lg-12'
+        <app-input [triggerValidation]='(triggerValidationAction$ | ngrxPush)' labelClass='col-md-12 col-lg-12'
           inputClass='col-md-12 col-lg-12' label='Description' id='name' type="text" placeholder="Name"
           formControlName="description"></app-input>
       </div>
 
       <div class="col-lg-6">
         <label for="timing">Timing</label>
-        <ng-select id='timing' [items]="timingTypes$ | async" bindLabel="description" bindValue="id" formControlName='timing'>
+        <ng-select id='timing' [items]="timingTypes$ | ngrxPush" bindLabel="description" bindValue="id" formControlName='timing'>
 
         </ng-select>
       </div>
     </div>
   </div>
   <div class="modal-footer bg-dark d-flex justify-content-between">
-    <app-validate-submit-buttons [isSubmitting]='submitInProgressSubject$ | async'
+    <app-validate-submit-buttons [isSubmitting]='submitInProgressSubject$ | ngrxPush'
       (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='newTimeTableForm'>
       <span>Create TimeTable</span>
     </app-validate-submit-buttons>

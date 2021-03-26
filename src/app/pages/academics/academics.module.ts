@@ -9,6 +9,7 @@ import { CoursesEffects } from './store/effects/courses.effects';
 import { AcademicsEffects } from './store/effects/academics.effects';
 import * as fromAcademics from './store/reducers';
 import { StoreModule } from '@ngrx/store';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -21,6 +22,7 @@ import { StoreModule } from '@ngrx/store';
     AppLinksModule,
     StoreModule.forFeature(fromAcademics.academicsFeatureKey, fromAcademics.reducers),
     EffectsModule.forFeature([CoursesEffects, AcademicsEffects]),
+    ReactiveComponentModule,
 
   ]
 })

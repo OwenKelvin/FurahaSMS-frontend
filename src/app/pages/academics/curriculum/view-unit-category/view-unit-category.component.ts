@@ -28,7 +28,7 @@ export class ViewUnitCategoryComponent implements OnInit, OnDestroy {
 
   }
   ngOnDestroy() {
-    this.componentIsActive = false
+    this.componentIsActive = false;
   }
 
 }

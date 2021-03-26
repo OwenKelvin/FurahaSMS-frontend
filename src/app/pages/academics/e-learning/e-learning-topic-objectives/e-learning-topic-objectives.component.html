@@ -36,7 +36,7 @@
         <button type="button" (click)='modalRef.hide()' class="btn btn-secondary mt-2">Cancel</button>
         <app-validate-submit-buttons
           (validationButtonClicked)="triggerValidationSubject$.next(true)"
-          [formItem]="itemForm" [isSubmitting]="submitInProgressAction$ | async"></app-validate-submit-buttons>
+          [formItem]="itemForm" [isSubmitting]="submitInProgressAction$ | ngrxPush"></app-validate-submit-buttons>
       </div>
     </div>
   </form>

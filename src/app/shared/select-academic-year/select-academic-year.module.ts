@@ -5,6 +5,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
 import {RouterModule} from '@angular/router';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -15,7 +16,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     FormsModule,
     ReactiveFormsModule,
     RouterModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveComponentModule
   ],
   exports: [SelectAcademicYearComponent]
 })

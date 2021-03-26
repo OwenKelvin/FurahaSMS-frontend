@@ -7,7 +7,7 @@
       <th scope="col">Actions</th>
     </tr>
   </thead>
-  <tbody *ngIf='students$ | async as students; else loading_students'>
+  <tbody *ngIf='students$ | ngrxPush as students; else loading_students'>
 
     <tr *ngFor='let student of students; let i = index'>
       <th scope="row">{{ i + 1 }}</th>

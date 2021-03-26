@@ -1,5 +1,5 @@
 <h1>View Book Tag</h1>
-<section *ngIf='(tag$ | async) as tag; else loading'>
+<section *ngIf='(tag$ | ngrxPush) as tag; else loading'>
   Name: <strong>{{ tag.name }}</strong>
 </section>
 <ng-template #loading>

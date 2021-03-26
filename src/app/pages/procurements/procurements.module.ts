@@ -37,6 +37,7 @@ import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { ModalModule } from 'ngx-bootstrap/modal';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -76,7 +77,8 @@ import {FormErrorsModule} from '../../shared/form-errors/form-errors.module';
     AppLinksModule,
     ModalModule.forRoot(),
     AppValidateSubmitButtonsModule,
-    FormErrorsModule
+    FormErrorsModule,
+    ReactiveComponentModule
   ],
   entryComponents: [
     CreateProcurementTenderBidComponent,

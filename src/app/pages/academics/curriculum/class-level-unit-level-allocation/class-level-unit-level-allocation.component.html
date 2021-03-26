@@ -1,6 +1,6 @@
 <h1>Class Level - Unit Allocation</h1>
-<!--{{ classLevelsWithUnits$ | async | json }}-->
-<ng-container *ngIf="v$ | async as v; else loading">
+<!--{{ classLevelsWithUnits$ | ngrxPush | json }}-->
+<ng-container *ngIf="v$ | ngrxPush as v; else loading">
   <a [routerLink]="['../edit']" class="btn btn-primary" ><span class="icon-edit"></span>Edit Unit Allocations</a>
   <table class="table table-dark">
     <thead>

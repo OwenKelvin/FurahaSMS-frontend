@@ -12,6 +12,7 @@ import { StoreModule } from '@ngrx/store';
 import * as fromTeacherProfile from './store/reducers/teacher-profile.reducer';
 import { EffectsModule } from '@ngrx/effects';
 import { TeacherProfileEffects } from './store/effects/teacher-profile.effects';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -23,6 +24,7 @@ import { TeacherProfileEffects } from './store/effects/teacher-profile.effects';
     AppLoadingBubbleModule,
     StoreModule.forFeature(fromTeacherProfile.teacherProfileFeatureKey, fromTeacherProfile.reducer),
     EffectsModule.forFeature([TeacherProfileEffects]),
+    ReactiveComponentModule,
   ]
 })
 export class TeachersModule { }

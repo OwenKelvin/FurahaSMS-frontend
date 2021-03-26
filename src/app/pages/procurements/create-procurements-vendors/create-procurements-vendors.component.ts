@@ -18,10 +18,10 @@ import {formMixin} from '../../../shared/mixins/form.mixin';
 })
 export class CreateProcurementsVendorsComponent extends subscribedContainerMixin(formMixin())
   implements OnInit, CanComponentDeactivate {
+  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   procurementVendorForm: FormGroup;
   sub: Subscriber<any>[];
   itemCategories$: Observable<any>;
-  @ViewChild('staticTabs', {static: false}) staticTabs: TabsetComponent;
   markTabsWithError: boolean;
   formSubmitted: boolean;
 
@@ -114,7 +114,7 @@ export class CreateProcurementsVendorsComponent extends subscribedContainerMixin
           this.router.navigate(['/procurements/vendors']).then();
         },
         error: () => this.submitInProgressSubject$.next(false)
-      })
+      });
   }
 
   selectTab(tabId: number) {
@@ -122,7 +122,7 @@ export class CreateProcurementsVendorsComponent extends subscribedContainerMixin
   }
 
   validateForm() {
-    this.triggerValidationSubject$.next(true)
+    this.triggerValidationSubject$.next(true);
       this.markTabsWithError = true;
   }
 

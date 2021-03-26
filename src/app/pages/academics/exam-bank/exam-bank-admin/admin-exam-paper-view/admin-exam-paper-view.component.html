@@ -1,4 +1,4 @@
-<section *ngIf='examPaper$ | async as examPaper; else loading'>
+<section *ngIf='examPaper$ | ngrxPush as examPaper; else loading'>
   <h1>Admin Exam View <span class="icon-right-dir"></span> {{ examPaper.name }}</h1>
   <section>
     <button [routerLink]='["../edit"]' type="button" class="btn btn-primary btn-sm btn-xs">

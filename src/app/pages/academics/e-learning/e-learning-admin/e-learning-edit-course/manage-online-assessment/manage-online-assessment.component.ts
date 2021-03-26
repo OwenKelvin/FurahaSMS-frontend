@@ -22,33 +22,27 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
   @Input() assessmentId: number;
   @Output() valid = new EventEmitter();
   @Output() submitChange = new EventEmitter();
+
   store: Store<AppState>;
-  _submitted = new Subject();
+  // _submitted = new Subject();
   itemForm = this.fb.group({
     name: ['', Validators.required],
     availableDateTime: ['', [Validators.required]],
     closedDateTime: ['', [Validators.required]],
     period: ['', [Validators.required]],
-  })
+  });
 
   formChanged$ = this.itemForm.valueChanges.pipe(
     tap(() => this.valid.emit(this.itemForm))
-  )
+  );
 
-  v$ = combineLatest([this.formChanged$])
-  @Input() submitted: Observable<any>
-
-  set(val: Observable<any>) {
-    this._submitted.next()
-    return val
-  }
-
-
-  submission = () => this.onlineAssessmentService.save({
-    topicId: this.topicId,
-    data: this.itemForm.value,
-    assessmentId: this.assessmentId
-  })
+  v$ = combineLatest([this.formChanged$]);
+  // @Input() submitted: Observable<any>;
+  //
+  // set(val: Observable<any>) {
+  //   this._submitted.next();
+  //   return val;
+  // }
 
   constructor(
     modalService: BsModalService,
@@ -56,17 +50,24 @@ export class ManageOnlineAssessmentComponent extends subscribedContainerMixin(fo
     private fb: FormBuilder,
     private onlineAssessmentService: OnlineAssessmentService) {
     super(modalService, store);
-    this.store = store
+    this.store = store;
   }
 
+  submission = () => this.onlineAssessmentService.save({
+    topicId: this.topicId,
+    data: this.itemForm.value,
+    assessmentId: this.assessmentId
+  });
+
+
   submitFormItem() {
-    this.submitChange.emit(true)
+    this.submitChange.emit(true);
     this.submission().pipe(takeUntil(this.destroyed$)).subscribe({
       next: () => {
         this.closeModal();
-        this.store.dispatch(loadCourses({ data: { id: this.courseId }}))
+        this.store.dispatch(loadCourses({data: {id: this.courseId}}));
       },
       error: () => this.submitChange.emit(false)
-    })
+    });
   }
 }

@@ -4,6 +4,7 @@ import { TopicOnlineAssessmentListComponent } from './topic-online-assessment-li
 import {RouterModule} from '@angular/router';
 import {DurationModule} from '../../../../shared/duration/duration.module';
 import {FormsModule} from '@angular/forms';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -16,7 +17,8 @@ import {FormsModule} from '@angular/forms';
     CommonModule,
     RouterModule,
     DurationModule,
-    FormsModule
+    FormsModule,
+    ReactiveComponentModule
   ]
 })
 export class TopicOnlineAssessmentListModule { }

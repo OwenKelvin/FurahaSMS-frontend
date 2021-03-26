@@ -14,15 +14,15 @@ export class ViewTeacherSubjectsComponent {
 
   teacherId$ = (this.route.parent as ActivatedRoute).paramMap.pipe(
     map(params => Number(params.get('id')))
-  )
+  );
 
   teaches$: Observable<any[]> = this.teacherId$.pipe(
     mergeMap(id => this.teacherSubjectService.getSubjects(id))
-  )
+  );
   units$ = this.unitsService.all$;
   teacherUnits$ = combineLatest([this.teaches$, this.units$]).pipe(
     tap(([teaches, units]) => {
-      console.log({teaches, units})
+      console.log({teaches, units});
     }),
     map(
       ([teaches, units]) =>
@@ -36,7 +36,7 @@ export class ViewTeacherSubjectsComponent {
           })
         )
     )
-  )
+  );
 
   constructor(
     private route: ActivatedRoute,

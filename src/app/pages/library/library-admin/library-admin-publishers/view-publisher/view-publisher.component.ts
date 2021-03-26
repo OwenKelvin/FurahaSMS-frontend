@@ -30,7 +30,7 @@ export class ViewPublisherComponent implements OnInit, AfterViewInit {
 
   ) { }
   ngAfterViewInit() {
-    this.placeholderImage()
+    this.placeholderImage();
     this.getProfilePic();
 
   }
@@ -54,7 +54,7 @@ export class ViewPublisherComponent implements OnInit, AfterViewInit {
         tap(publisher => {
           if (publisher) {
             this.profilePicId = publisher.profile_pic_id;
-            this.getProfilePic()
+            this.getProfilePic();
           }
         }),
       );

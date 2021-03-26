@@ -11,6 +11,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import { AccordionModule } from 'ngx-bootstrap/accordion';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { AccordionModule } from 'ngx-bootstrap/accordion';
     FormsModule,
     ReactiveFormsModule,
     AppInputModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class TimeTableAdminModule { }

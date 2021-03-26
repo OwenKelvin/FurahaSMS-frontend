@@ -7,13 +7,13 @@ import {map} from 'rxjs/operators';
   providedIn: 'root'
 })
 export class ProcurementService {
+  allMyRequest$ = this.http.get('api/procurements/my-requests');
 
   constructor(
     private http: HttpClient
   ) {
   }
 
-  allMyRequest$ = this.http.get('api/procurements/my-requests');
 
   getItemCategories(): Observable<any> {
     return this.http.get('api/procurements/item-categories');
@@ -22,9 +22,9 @@ export class ProcurementService {
   saveProcurementRequest(data: any): Observable<any> {
     const submitData = {
       name: data.name,
-      quantity_description: data.quantity,
+      ['quantity_description']: data.quantity,
       description: data.description,
-      procurement_items_category_id: data.category
+      ['procurement_items_category_id']: data.category
     };
     if (data.id === 0) {
       return this.http.post('api/procurements/requests', submitData);
@@ -32,7 +32,7 @@ export class ProcurementService {
     return this.http.patch(`api/procurements/requests/${data.id}`, submitData);
   }
 
-  approveRequest(data: { procurement_request_id: number, approve: boolean; }): Observable<any> {
+  approveRequest(data: { ['procurement_request_id']: number; approve: boolean }): Observable<any> {
     return this.http.post('api/procurements/requests/pending-approval', data);
   }
 
@@ -41,18 +41,18 @@ export class ProcurementService {
   }
 
   getProcurementRequestWithId(id: number): Observable<any> {
-    return this.http.get<any>(`api/procurements/requests/${id}`).pipe(map(this.mapRequest))
+    return this.http.get<any>(`api/procurements/requests/${id}`).pipe(map(this.mapRequest));
   }
 
   mapRequest = (res: any) => ({
     ...res,
     user: res.requesting_user
-  })
+  });
 
   getRequestsPendingApproval(): Observable<any[]> {
     return this.http.get<any[]>(`api/procurements/requests/pending-approval`).pipe(
       map(res => res.map(this.mapRequest))
-    )
+    );
   }
 
   deleteVendor(id: number): Observable<any> {
@@ -70,8 +70,8 @@ export class ProcurementService {
   createNewVendor(data: any): Observable<any> {
     return this.http.post(`api/procurements/vendors`, {
       ...data,
-      physical_address: data.address,
-      procurement_items_categories: data.procurementItemsCategory
+      ['physical_address']: data.address,
+      ['procurement_items_categories']: data.procurementItemsCategory
     });
   }
 
@@ -87,12 +87,12 @@ export class ProcurementService {
     return this.http.get('api/procurements/tenders/?tendered=1');
   }
 
-  createBid({tenderId, data}: { tenderId: number, data: any }) {
+  createBid({tenderId, data}: { tenderId: number; data: any }) {
     return this.http.post(`api/procurements/tenders/${tenderId}/bids`, {
       ...data,
-      unit_description: data.unitDescription,
-      price_per_unit: data.pricePerUnit,
-      vendor_id: data.vendorName,
+      ['unit_description']: data.unitDescription,
+      ['price_per_unit']: data.pricePerUnit,
+      ['vendor_id']: data.vendorName,
     });
   }
 

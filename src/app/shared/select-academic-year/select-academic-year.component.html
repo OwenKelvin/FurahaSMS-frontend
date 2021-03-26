@@ -1,6 +1,6 @@
 <h1>{{ title }}</h1>
 
-<form class="card pb-3" *ngIf='academicYears$ | async as academicYears; else loading'>
+<form class="card pb-3" *ngIf='academicYears$ | ngrxPush as academicYears; else loading'>
   <section class="p-2 d-flex align-items-end">
     <section class="col-lg-4">
       <label for="academic-year">Select Academic Year</label>

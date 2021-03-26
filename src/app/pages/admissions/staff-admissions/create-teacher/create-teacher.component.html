@@ -1,6 +1,6 @@
 <h1>
   Create New {{ (supportStaff !== 0) ? 'Support Staff': 'Teacher'}}
-  <ng-container *ngIf='(staffType$ | async) as staffType'>
+  <ng-container *ngIf='(staffType$ | ngrxPush) as staffType'>
      <span *ngIf='supportStaff !== 0' class="icon-right-dir"></span>
      <span *ngIf='supportStaff !== 0'>{{ staffType.name | titlecase }}</span>
   </ng-container>
@@ -13,7 +13,7 @@
       <section>
         <section class="col-lg-5">
 
-          <app-input [triggerValidation]="triggerValidationAction$ | async" label='Email' id="email" type="email"
+          <app-input [triggerValidation]="triggerValidationAction$ | ngrxPush" label='Email' id="email" type="email"
                      placeholder="Please Enter Email" formControlName="email"></app-input>
         </section>
         <section aria-atomic="true" aria-live="polite" class="col-sm-12 col-md-12 col-lg-7" *ngIf="confirmData">
@@ -29,12 +29,12 @@
       <legend>Name</legend>
       <section class='d-flex flex-wrap'>
         <section class='col-lg-4 col-sm-6 col-xs-12'>
-          <app-input [triggerValidation]='triggerValidationAction$ | async' placeholder='Enter First Name' id='firstName'
+          <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' placeholder='Enter First Name' id='firstName'
                      label='First Name' formControlName='firstName'>
           </app-input>
         </section>
         <section class='col-lg-4 col-sm-6 col-xs-12'>
-          <app-input [triggerValidation]='triggerValidationAction$ | async' placeholder='Enter Last Name' id='lastName'
+          <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' placeholder='Enter Last Name' id='lastName'
                      label='Last Name' formControlName='lastName'>
           </app-input>
         </section>
@@ -53,13 +53,13 @@
       <section class='d-flex flex-wrap'>
         <section class='col-lg-3 col-md-6 col-sm-12 col-xs-12'>
           <app-input type='date'
-                     [triggerValidation]='triggerValidationAction$ | async' placeholder='Enter Date Of Birth' id='dateOfBirth'
+                     [triggerValidation]='triggerValidationAction$ | ngrxPush' placeholder='Enter Date Of Birth' id='dateOfBirth'
                      label='Date Of Birth' formControlName='dateOfBirth'>
           </app-input>
         </section>
         <section class='col-lg-4 col-md-6 col-sm-6 col-xs-12 d-flex flex-wrap mt-xs-1 mt-sm-0 p-0'>
           <app-tel-input id='tel' formControlName='phone'
-                         [triggerValidation]='triggerValidationAction$ | async' label='Phone' placeholder='Enter Phone Number' type='tel'>
+                         [triggerValidation]='triggerValidationAction$ | ngrxPush' label='Phone' placeholder='Enter Phone Number' type='tel'>
           </app-tel-input>
         </section>
         <section class='col-lg-3 col-md-6 col-sm-6 col-xs-12'>
@@ -68,7 +68,7 @@
           </label>
           <section class="col-12 p-0">
             <select formControlName='gender' id="genderField" class="custom-select">
-              <ng-container *ngIf='(genders$ | async) as genders'>
+              <ng-container *ngIf='(genders$ | ngrxPush) as genders'>
                 <ng-container *ngIf='genders[0]?.id; else genderLoading'>
                   <option value=''>Select Gender</option>
                   <ng-container *ngFor='let gender of genders'>
@@ -88,7 +88,7 @@
           </label>
           <section class="col-12 p-0">
             <select formControlName='religion' id="religionField" class="custom-select">
-              <ng-container *ngIf='(religions$ | async) as religions' )>
+              <ng-container *ngIf='(religions$ | ngrxPush) as religions' )>
                 <ng-container *ngIf='religions[0]?.id; else religionLoading'>
                   <option value=''>Select Religion</option>
                   <ng-container *ngFor='let religion of religions'>
@@ -108,7 +108,7 @@
     </fieldset>
 
     <section class="p-2">
-      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                    (validationButtonClicked)='triggerValidationSubject$.next(true)' [formItem]='newTeacherForm'>
         <!-- Create Teacher -->
       </app-validate-submit-buttons>

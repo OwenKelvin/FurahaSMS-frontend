@@ -4,6 +4,7 @@ import {SelectLibraryClassComponent} from '../components/select-library-class/se
 import {SelectLibrarySubClassComponent} from '../components/select-library-sub-class/select-library-sub-class.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -16,7 +17,8 @@ import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    AppLoadingBubbleModule
+    AppLoadingBubbleModule,
+    ReactiveComponentModule
   ],
   exports: [
     SelectLibraryClassComponent,

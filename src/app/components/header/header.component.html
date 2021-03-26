@@ -12,15 +12,15 @@
     </button>
   </section>
   <section class="col-10 col-sm-9 col-md-10 col-lg-10 text-right">
-    <button *ngIf='isSmallDevice$ | async' type="button" class="btn btn-secondary btn-sm mr-2 mt-1"
+    <button *ngIf='isSmallDevice$ | ngrxPush' type="button" class="btn btn-secondary btn-sm mr-2 mt-1"
       (click)="isCollapsed = !isCollapsed" [attr.aria-expanded]="!isCollapsed" aria-controls="collapseBasic"><span
         class="icon-align-justify"></span>
     </button>
     <div style="position: relative;" class="d-flex justify-content-end flex-wrap">
-      <div *ngIf='isSmallDevice$ | async' id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
+      <div *ngIf='isSmallDevice$ | ngrxPush' id="collapseBasic" [collapse]="isCollapsed" [isAnimated]="true">
         <app-header-collapse></app-header-collapse>
       </div>
-      <div *ngIf='(isSmallDevice$ | async) === false'>
+      <div *ngIf='(isSmallDevice$ | ngrxPush) === false'>
         <app-header-collapse></app-header-collapse>
       </div>
     </div>

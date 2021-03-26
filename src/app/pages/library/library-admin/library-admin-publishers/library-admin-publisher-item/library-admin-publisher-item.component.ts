@@ -21,7 +21,7 @@ export class LibraryAdminPublisherItemComponent implements OnInit {
         map(params => Number(params.get('id'))),
         mergeMap(id => this.libraryPublisherService.loadItem(id))
       )
-      .subscribe()
+      .subscribe();
 
   }
 

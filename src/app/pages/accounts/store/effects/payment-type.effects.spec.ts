@@ -12,7 +12,7 @@ describe('PaymentTypeEffects', () => {
   let effects: PaymentTypeEffects;
 
   beforeEach(() => {
-    actions$ = of(createAction('[Test Action]'))
+    actions$ = of(createAction('[Test Action]'));
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

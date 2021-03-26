@@ -9,7 +9,7 @@
       <th>Actions</th>
     </tr>
   </thead>
-  <tbody *ngIf='(procurementItems$ | async) as procurementItems; else loading'>
+  <tbody *ngIf='(procurementItems$ | ngrxPush) as procurementItems; else loading'>
     <tr *ngFor='let procurementItem of procurementItems'>
       <td>{{ procurementItem.name }}</td>
       <td>{{ procurementItem.quantity_description }}</td>

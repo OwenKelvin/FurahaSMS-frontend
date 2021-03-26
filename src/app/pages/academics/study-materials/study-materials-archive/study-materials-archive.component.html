@@ -1,5 +1,5 @@
 <h1>Study Materials Archives</h1>
-<ng-container *ngIf='studyMaterials$ | async; else loading'>
+<ng-container *ngIf='studyMaterials$ | ngrxPush; else loading'>
   <div class="container">
     <label for="searchMaterial" class="control-label">Search Materials</label>
     <input [(ngModel)]='filterString' type="search" id="searchMaterial" class="form-control">

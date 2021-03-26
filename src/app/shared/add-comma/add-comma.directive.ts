@@ -33,13 +33,13 @@ export class AddCommaDirective {
        default:
          break;
       }
-      value = value.substr(0, value.length - 1)
+      value = value.substr(0, value.length - 1);
     }
 
     if (isNaN(Number(value.replace(/,/g, '')))) {
-      this.element.value = initialValue
+      this.element.value = initialValue;
     } else {
-      this.element.value = (Number(value.replace(/,/g, '')) * concatValue).toLocaleString()
+      this.element.value = (Number(value.replace(/,/g, '')) * concatValue).toLocaleString();
     }
 
   }

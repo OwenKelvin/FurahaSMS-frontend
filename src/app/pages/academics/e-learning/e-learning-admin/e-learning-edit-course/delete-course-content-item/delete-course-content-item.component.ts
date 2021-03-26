@@ -12,6 +12,10 @@ import {modalMixin} from '../../../../../../shared/mixins/modal.mixin';
   styleUrls: ['./delete-course-content-item.component.css']
 })
 export class DeleteCourseContentItemComponent extends formMixin(modalMixin()) {
+  @Input() id: number;
+  @Input() topicId: number;
+  @Input() courseId: number;
+  @Input() learningContent: any;
   store: Store;
   contentId = '';
 
@@ -20,14 +24,8 @@ export class DeleteCourseContentItemComponent extends formMixin(modalMixin()) {
     this.store = store;
   }
 
-  @Input() id: number;
-  @Input() topicId: number;
-  @Input() courseId: number;
-  @Input() learningContent: any;
-
   deleteCourseContentItem() {
-    console.log(this.learningContent)
-    this.submitInProgressSubject$.next(true)
+    this.submitInProgressSubject$.next(true);
     this.eLearningService.deleteCourseContent({
       contentId: this.learningContent.id,
       topicId: this.topicId,
@@ -37,10 +35,10 @@ export class DeleteCourseContentItemComponent extends formMixin(modalMixin()) {
         next: () => {
           this.submitInProgressSubject$.next(false);
           this.closeModal();
-          this.store.dispatch(loadCourses({data: {id: this.courseId}}))
+          this.store.dispatch(loadCourses({data: {id: this.courseId}}));
         },
         error: () => this.submitInProgressSubject$.next(false)
-      })
+      });
   }
 }
 

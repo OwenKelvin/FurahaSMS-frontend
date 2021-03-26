@@ -12,7 +12,7 @@ describe('StudentFeeStatementEffects', () => {
   let effects: StudentFeeStatementEffects;
 
   beforeEach(() => {
-    actions$ = of({})
+    actions$ = of({});
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule,

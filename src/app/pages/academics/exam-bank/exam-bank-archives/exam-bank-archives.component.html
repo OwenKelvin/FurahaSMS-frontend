@@ -8,7 +8,7 @@
   <section class="col-lg-5">
     <fieldset>
       <legend>Recent Exam Posts</legend>
-      <section *ngIf='examPapers$ | async as examPapers; else loading'>
+      <section *ngIf='examPapers$ | ngrxPush as examPapers; else loading'>
         <ul class="list-group">
           <li *ngFor='let examPaper of examPapers' class="list-group-item bg-dark text-light">
             <a class="btn-block" [routerLink]='["/academics", "exam-bank", "archives", "exams", examPaper.id]'>{{ examPaper.name }}</a>

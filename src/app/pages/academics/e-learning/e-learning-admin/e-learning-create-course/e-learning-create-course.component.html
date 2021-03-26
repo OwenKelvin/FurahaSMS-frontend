@@ -1,10 +1,10 @@
 <h1>E-Learning Course Maintenance</h1>
-<div class="card p-2" *ngIf="v$ | async as v">
-  <section *ngIf='(editorInitializedAction$ | async) === false'>
+<div class="card p-2" *ngIf="v$ | ngrxPush as v">
+  <section *ngIf='(editorInitializedAction$ | ngrxPush) === false'>
     <app-loading-bubble></app-loading-bubble>
   </section>
   <form (submit)='submitCourseForm()' [formGroup]='newCourseForm' class="d-flex flex-wrap"
-        [class.sr-only]='(editorInitializedAction$ | async) === false'>
+        [class.sr-only]='(editorInitializedAction$ | ngrxPush) === false'>
     <div class="col-12 mt-2 pt-1">
       <app-label-star-required></app-label-star-required>
     </div>
@@ -41,7 +41,7 @@
           </select>
         </section>
         <section class="col-lg-4 col-sm-6">
-          <app-input [triggerValidation]='triggerValidationAction$ | async' label='Course Name'
+          <app-input [triggerValidation]='triggerValidationAction$ | ngrxPush' label='Course Name'
                      placeholder='Enter Course Name' id='name'
                      formControlName='name'></app-input>
         </section>
@@ -49,7 +49,7 @@
           <label class="col-12" for="unitLevel">
             <app-star-required></app-star-required>
             Unit Level</label>
-          <ng-select formControlName="unitLevel" id="unitLevel" [items]="unitLevels$ | async" bindValue="id" bindLabel="name"></ng-select>
+          <ng-select formControlName="unitLevel" id="unitLevel" [items]="unitLevels$ | ngrxPush" bindValue="id" bindLabel="name"></ng-select>
         </section>
         <section class="col-lg-12">
           <label for="description">Course Description</label>
@@ -135,7 +135,7 @@
                   <section class="col-lg-12">
                     <app-input id='newTopicName' placeholder="Topic Description" formControlName="name"
                                label="Topic Description"
-                               [triggerValidation]='triggerValidationAction$ | async'></app-input>
+                               [triggerValidation]='triggerValidationAction$ | ngrxPush'></app-input>
                   </section>
 
                   <section class="col-lg-5">
@@ -206,7 +206,7 @@
       </section>
     </fieldset>
     <section class="col-lg-12">
-      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | async'
+      <app-validate-submit-buttons [isSubmitting]='submitInProgressAction$ | ngrxPush'
                                    (validationButtonClicked)='triggerValidationSubject$.next(true)'
                                    [formItem]='newCourseForm'>
         <span *ngIf="!v.course">Create Course</span>
@@ -216,7 +216,7 @@
   </form>
 
   <datalist id='numbering-list'>
-    <option *ngFor='let numberingStyle of numberingStyles$ | async' [value]='numberingStyle.name'>
+    <option *ngFor='let numberingStyle of numberingStyles$ | ngrxPush' [value]='numberingStyle.name'>
     </option>
   </datalist>
 

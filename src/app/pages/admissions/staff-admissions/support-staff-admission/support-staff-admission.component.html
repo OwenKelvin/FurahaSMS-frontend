@@ -4,7 +4,7 @@
     <section class="col-lg-4 col-md-7">
       <label for="staffTypes" class="control-label">Select Staff Type</label>
       <select class="custom-select" formControlName='staffTypeId' id='staffTypes'>
-        <ng-container *ngIf='staffTypes$ | async as staffTypes;'>
+        <ng-container *ngIf='staffTypes$ | ngrxPush as staffTypes;'>
           <ng-container *ngIf='staffTypes.length > 1; else loading'>
             <option value="" selected>--Please Select--</option>
             <option *ngFor='let staffType of staffTypes' [value]="staffType.id">{{ staffType.name | titlecase }}</option>

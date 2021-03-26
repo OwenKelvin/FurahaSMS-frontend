@@ -10,8 +10,7 @@ import * as AccountActions from '../actions/account.actions';
 @Injectable()
 export class AccountEffects {
 
-  loadAccounts$ = createEffect(() => {
-    return this.actions$.pipe(
+  loadAccounts$ = createEffect(() => this.actions$.pipe(
 
       ofType(AccountActions.loadAccounts),
       concatMap(() =>
@@ -20,8 +19,7 @@ export class AccountEffects {
           map(data => AccountActions.loadAccountsSuccess({ data })),
           catchError(error => of(AccountActions.loadAccountsFailure({ error }))))
       )
-    );
-  });
+    ));
 
 
 

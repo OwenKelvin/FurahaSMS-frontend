@@ -32,19 +32,19 @@ export class BreadcrumbComponent implements OnInit {
   navigationEventEnd$ = this.navigationEvent$.pipe(
     filter(event => event instanceof NavigationEnd || event instanceof NavigationCancel),
     tap(() => {
-      this.showSpinnerSubject$.next(false)
+      this.showSpinnerSubject$.next(false);
       this.breadcrumbs = this.getBreadcrumbs(this.activatedRoute.root);
     })
   );
   navigationEventStart$ = this.navigationEvent$.pipe(
     filter(event => event instanceof NavigationStart),
     tap(() => this.showSpinnerSubject$.next(true)),
-  )
+  );
   v$ = combineLatest([
       this.navigationEventStart$,
       this.navigationEventEnd$,
     ]
-  )
+  );
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -56,6 +56,10 @@ export class BreadcrumbComponent implements OnInit {
   ngOnInit() {
     this.breadcrumbs = this.getBreadcrumbs(this.router.routerState.root);
   }
+  backClicked = () => this.location.back();
+
+  goFullScreen = () =>
+    (document.querySelector('#main') as HTMLElement).requestFullscreen().then();
 
   private getBreadcrumbs(
     route: ActivatedRoute, url: string = '',
@@ -90,10 +94,4 @@ export class BreadcrumbComponent implements OnInit {
     }
     return [];
   }
-
-  backClicked = () => this.location.back();
-
-  goFullScreen = () =>
-    (document.querySelector('#main') as HTMLElement).requestFullscreen().then();
-
 }

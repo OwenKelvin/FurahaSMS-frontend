@@ -6,6 +6,7 @@ import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { PasswordMeterModule } from '../../pages/login/password-meter/password-meter.module';
 import { ShowPasswordDirective } from './directives/show-password.directive';
 import {AppStarLabelRequiredModule} from '../label-star-required/app-star-label-required';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import {AppStarLabelRequiredModule} from '../label-star-required/app-star-label-
         ReactiveFormsModule,
         CommonModule,
         PasswordMeterModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
     ]
 })
 export class AppInputModule { }

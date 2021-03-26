@@ -13,6 +13,7 @@ import { TimeTableAcademicYearDashboardComponent } from './time-table-academic-y
 import { CreateAcademicYearTimeTableComponent } from './create-academic-year-time-table/create-academic-year-time-table.component';
 import { AppInputModule } from 'src/app/components/input/app-input.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -33,7 +34,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     NgSelectModule,
     ReactiveFormsModule,
     AppInputModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class AcademicYearsModule { }

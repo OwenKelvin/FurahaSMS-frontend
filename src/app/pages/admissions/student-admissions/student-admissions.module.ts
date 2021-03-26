@@ -14,6 +14,7 @@ import { AppStarLabelRequiredModule } from 'src/app/components/label-star-requir
 import { AppLinksModule } from 'src/app/shared/links/links.module';
 import { AppRecentlyCreatedStudent } from './students-recently-created/students-recently-created.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 
@@ -35,7 +36,8 @@ import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-subm
     AppLinksModule,
     AppRecentlyCreatedStudent,
     StudentSearchModule,
-    AppValidateSubmitButtonsModule
+    AppValidateSubmitButtonsModule,
+    ReactiveComponentModule
   ]
 })
 export class StudentAdmissionsModule { }

@@ -54,8 +54,8 @@ describe('CrudComponent', () => {
   });
 
   it('should call itemService submit function', () => {
-    Object.assign(component, { ...component, itemService: {}})
-    Object.assign(component.itemService, {submit: true})
+    Object.assign(component, { ...component, itemService: {}});
+    Object.assign(component.itemService, {submit: true});
     const itemService = spyOn(component.itemService, 'submit').and.returnValue({ subscribe: () => true});
     spyOnProperty(component.itemForm, 'valid').and.returnValue(true);
     component.submitForm();

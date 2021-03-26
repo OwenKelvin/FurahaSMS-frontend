@@ -1,4 +1,4 @@
-<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(profile$ | async) as profile; else content_loading'>
+<section class='d-flex flex-wrap name-field  mt-4' *ngIf='(profile$ | ngrxPush) as profile; else content_loading'>
   <section class='col-lg-6 col-md-10 col-sm-12 mt-3'>
     <section class='d-flex flex-wrap'>
       <span class='label-name col-xs-12 col-sm-4 col-md-5 col-lg-4'>Email:</span>

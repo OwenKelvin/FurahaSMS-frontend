@@ -23,6 +23,4 @@ const libraryBookClassificationReducer = createReducer(
   on(LibraryBookClassificationActions.loadBookClassificationsSuccess, (state, _action) => state),
 );
 
-export function reducer(state: State[] | undefined, action: Action) {
-  return libraryBookClassificationReducer(state, action);
-}
+export const reducer = (state: State[] | undefined, action: Action) => libraryBookClassificationReducer(state, action);

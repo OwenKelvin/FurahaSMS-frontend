@@ -18,16 +18,14 @@ export class ClassLevelCategoryService {
 
 
 
-  get(data: { id: number, classLevel?: 0 | 1}) {
+  get(data: { id: number; classLevel?: 0 | 1}) {
     const { id, classLevel } = data;
     let url = `${this.url}/${id}`;
     if (classLevel === 1) {
       url += '/?class_level=1';
     }
     return this.http.get<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
   submit(data: ClassLevelCategoryInterface) {
@@ -35,24 +33,18 @@ export class ClassLevelCategoryService {
     if (data.id) {
       url += '/' + data.id;
       return this.http.patch<any>(url, { ...data }).pipe(
-        map(res => {
-          return res;
-        })
+        map(res => res)
       );
     } else {
       return this.http.post<any>(url, { ...data}).pipe(
-        map(res => {
-          return res;
-        })
+        map(res => res)
       );
     }
   }
   delete(id: number): Observable<any> {
     const url = `${this.url}/${id}`;
     return this.http.delete<any>(url).pipe(
-      map(res => {
-        return res;
-      })
+      map(res => res)
     );
   }
   deleteItem(id: number): Observable<any> {

@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { TelInputComponent } from '../components/tel-input/tel-input.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgSelectModule } from '@ng-select/ng-select';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -17,7 +18,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     CommonModule,
     FormsModule,
     ReactiveFormsModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveComponentModule
   ]
 })
 export class AppTelInputModule { }

@@ -6,13 +6,13 @@ export const academicYearPlanFeatureKey = 'academicYearPlan';
 export interface State {
   [id: number]: {
     academicYear: {
-      id: number,
-      name?: string,
-      startDate?: string,
+      id: number;
+      name?: string;
+      startDate?: string;
       endDate?: string;
     };
-    financialYearPlan: object;
-  }
+    financialYearPlan: any[];
+  };
 }
 
 export const initialState: State = {
@@ -20,7 +20,7 @@ export const initialState: State = {
     academicYear: {
       id: 0
     },
-    financialYearPlan: {}
+    financialYearPlan: []
   }
 };
 
@@ -30,19 +30,15 @@ const academicYearPlanReducer = createReducer(
   on(AcademicYearPlanActions.loadAcademicYearPlans, (state, payload) => {
     const {name, id, start_date: startDate, end_date: endDate} = payload;
     if (name) {
-      return {...state, [id]: {academicYear: {id, name, startDate, endDate}, financialYearPlan: {}}};
+      return {...state, [id]: {academicYear: {id, name, startDate, endDate}, financialYearPlan: []}};
     }
     return state;
   }),
-  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => {
-    return {
+  on(AcademicYearPlanActions.loadAcademicYearPlansSuccess, (state, action) => ({
       ...state,
       [action.academicYearId]: {...state?.[action.academicYearId], financialYearPlan: action.data}
-    };
-  }),
+    })),
   on(AcademicYearPlanActions.loadAcademicYearPlansFailure, (state, _action) => state),
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return academicYearPlanReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => academicYearPlanReducer(state, action);

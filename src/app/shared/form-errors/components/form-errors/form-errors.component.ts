@@ -16,12 +16,13 @@ export class FormErrorsComponent implements OnInit {
   @Input() form: FormGroup;
   @Input() validated: boolean;
   @Input() messages: { [id: string ]: string };
+  errors: AllValidationErrors[];
   constructor(
   ) {
     this.errors = [];
     this.messages = { };
   }
-  errors: AllValidationErrors[];
+
   ngOnInit(): void {
     this.form.valueChanges.subscribe(() => {
       this.errors = [];
@@ -51,9 +52,8 @@ export class FormErrorsComponent implements OnInit {
     });
 
     // This removes duplicates
-    this.errors = this.errors.filter((error, index, self) => self.findIndex(t => {
-      return t.controlName === error.controlName && t.errorName === error.errorName;
-    }) === index);
+    this.errors = this.errors.filter((error, index, self) =>
+      self.findIndex(t => t.controlName === error.controlName && t.errorName === error.errorName) === index);
     return this.errors;
   }
 

@@ -19,6 +19,4 @@ const libraryBookReducer = createReducer(
   on(LibraryBookAuthorActions.loadBookAuthorsSuccess, (state, _action) => state),
 );
 
-export function reducer(state: State[] | undefined, action: Action) {
-  return libraryBookReducer(state, action);
-}
+export const reducer = (state: State[] | undefined, action: Action) => libraryBookReducer(state, action);

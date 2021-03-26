@@ -1,13 +1,14 @@
 import { createAction, props } from '@ngrx/store';
+import {IUserProfile} from '../../../../interfaces/user-profile.interface';
 
 export const loadGuardianProfiles = createAction(
   '[GuardianProfile] Load GuardianProfiles',
-  props<{ data: any; }>()
+  props<{ data: IUserProfile }>()
 );
 
 export const loadGuardianProfilesSuccess = createAction(
   '[GuardianProfile] Load GuardianProfiles Success',
-  props<{ data: any }>()
+  props<{ data: IUserProfile }>()
 );
 
 export const loadGuardianProfilesFailure = createAction(

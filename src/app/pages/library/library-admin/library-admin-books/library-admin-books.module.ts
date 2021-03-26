@@ -14,6 +14,7 @@ import { LibraryAdminBooksRoutingModule } from './library-admin-books-routing.mo
 import { AppBarcodeModule } from 'src/app/shared/barcode/barcode.module';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {NgSelectModule} from '@ng-select/ng-select';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -35,7 +36,8 @@ import {NgSelectModule} from '@ng-select/ng-select';
     AppLinksModule,
     AppBarcodeModule,
     AppValidateSubmitButtonsModule,
-    NgSelectModule
+    NgSelectModule,
+    ReactiveComponentModule
   ]
 })
 export class LibraryAdminBooksModule { }

@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LoadingBubbleComponent } from '../components/loading-bubble/loading-bubble.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -13,6 +14,7 @@ import { LoadingBubbleComponent } from '../components/loading-bubble/loading-bub
 
   imports: [
     CommonModule,
+    ReactiveComponentModule,
   ]
 })
 export class AppLoadingBubbleModule { }

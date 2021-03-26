@@ -10,9 +10,9 @@ export class TimetableEditorDirective {
     this.element = elementRef.nativeElement;
   }
   @HostListener('mouseenter') onMouseOver() {
-    this.element.querySelector('button')?.removeAttribute('hidden')
+    this.element.querySelector('button')?.removeAttribute('hidden');
   }
   @HostListener('mouseleave') onMouseOut() {
-    this.element.querySelector('button')?.setAttribute('hidden', 'hidden')
+    this.element.querySelector('button')?.setAttribute('hidden', 'hidden');
   }
 }

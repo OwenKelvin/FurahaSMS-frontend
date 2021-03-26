@@ -48,7 +48,7 @@
   <span class="icon-plus-circled"></span>Add Cost
 </button>
 
-<table *ngIf="financialCosts$ | async as financialCosts; else loading"
+<table *ngIf="financialCosts$ | ngrxPush as financialCosts; else loading"
        class="table table-dark text-light table-bordered">
   <thead>
   <tr>

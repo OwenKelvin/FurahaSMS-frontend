@@ -15,10 +15,10 @@ import { takeWhile } from 'rxjs/operators';
   styleUrls: ['./create-procurement-tender-bid.component.css']
 })
 export class CreateProcurementTenderBidComponent implements OnInit, OnDestroy {
+  @Input() tenderId: number;
   newBidForm: FormGroup;
   isSubmitting: boolean;
   triggerValidation: boolean;
-  @Input() tenderId: number;
   errorBody$: Observable<any>;
   componentIsActive: boolean;
   constructor(

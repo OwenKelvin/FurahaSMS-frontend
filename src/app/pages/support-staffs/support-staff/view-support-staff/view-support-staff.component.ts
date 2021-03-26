@@ -15,7 +15,7 @@ export class ViewSupportStaffComponent {
     .pipe(
       map(params => Number(params.get('id'))),
       mergeMap(id => this.supportStaffService.loadStaffWithId$(id)),
-    )
+    );
 
   constructor(
     private route: ActivatedRoute,
@@ -23,7 +23,7 @@ export class ViewSupportStaffComponent {
   ) { }
 
   changeProfile($event: any) {
-    console.log($event)
+    console.log($event);
   }
 
 }

@@ -1,4 +1,4 @@
-<ng-container *ngIf='guardians$ | async as guardians; else loading_guardians'>
+<ng-container *ngIf='guardians$ | ngrxPush as guardians; else loading_guardians'>
   <button class="btn btn-primary btn-sm mt-2 mb-1" [routerLink]='["/students", studentId, "guardians", "create"]'>
     <span class="icon-plus-circled"></span>
     Add Student Guardian

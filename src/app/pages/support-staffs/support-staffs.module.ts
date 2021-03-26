@@ -13,6 +13,7 @@ import { AppUserProfileModule } from 'src/app/components/user-profile/user-profi
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { ErrorModule } from 'src/app/components/error/error.module';
 import { ViewSupportStaffRolesComponent } from './view-support-staff-roles/view-support-staff-roles.component';
+import { ReactiveComponentModule } from '@ngrx/component';
 
 
 @NgModule({
@@ -29,7 +30,8 @@ import { ViewSupportStaffRolesComponent } from './view-support-staff-roles/view-
     EffectsModule.forFeature([SupportStaffEffects]),
     AppUserProfileModule,
     AppLoadingBubbleModule,
-    ErrorModule
+    ErrorModule,
+    ReactiveComponentModule
   ]
 })
 export class SupportStaffsModule { }

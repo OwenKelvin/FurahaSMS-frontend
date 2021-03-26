@@ -1,5 +1,5 @@
 <h1>E Learning Courses</h1>
-<ng-container *ngIf="filteredCourses$ | async as filteredCourses; else contentLoading">
+<ng-container *ngIf="filteredCourses$ | ngrxPush as filteredCourses; else contentLoading">
   <section class="d-flex justify-content-around align-items-center">
 
     <section class="col-lg-12">

@@ -4,7 +4,7 @@ import * as fromPaymentType from './payment-type.reducer';
 
 
 export interface State {
-  [fromPaymentType.paymentTypeFeatureKey]: fromPaymentType.State
+  [fromPaymentType.paymentTypeFeatureKey]: fromPaymentType.State;
 }
 
 export const initialState: State = {
@@ -20,6 +20,4 @@ const accountReducer = createReducer(
 
 );
 
-export function reducer(state: State | undefined, action: Action) {
-  return accountReducer(state, action);
-}
+export const reducer = (state: State | undefined, action: Action) => accountReducer(state, action);
