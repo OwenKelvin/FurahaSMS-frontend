@@ -7,6 +7,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {reducerProvider} from 'src/app/store/reducers';
 import {NgSelectModule} from '@ng-select/ng-select';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('SelectAcademicYearComponent', () => {
   let component: SelectAcademicYearComponent;
@@ -20,7 +21,8 @@ describe('SelectAcademicYearComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         RouterTestingModule,
-        NgSelectModule
+        NgSelectModule,
+        ReactiveComponentModule
       ],
       declarations: [SelectAcademicYearComponent],
       providers: [reducerProvider]

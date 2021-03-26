@@ -1,12 +1,13 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { DeleteCourseContentItemComponent } from './delete-course-content-item.component';
+import {DeleteCourseContentItemComponent} from './delete-course-content-item.component';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../../../store/reducers';
 import {academicsFeatureKey, reducers} from '../../../../store/reducers';
 import {ModalModule} from 'ngx-bootstrap/modal';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FormsModule} from '@angular/forms';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('DeleteCourseContentItemComponent', () => {
   let component: DeleteCourseContentItemComponent;
@@ -25,12 +26,13 @@ describe('DeleteCourseContentItemComponent', () => {
         }),
         StoreModule.forFeature(academicsFeatureKey, reducers),
         ModalModule.forRoot(),
-        FormsModule
+        FormsModule,
+        ReactiveComponentModule
       ],
-      declarations: [ DeleteCourseContentItemComponent ],
+      declarations: [DeleteCourseContentItemComponent],
       providers: [reducerProvider]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

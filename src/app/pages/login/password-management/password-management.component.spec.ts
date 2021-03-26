@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {PasswordManagementComponent} from './password-management.component';
 import {UserPasswordChangeModule} from '../user-password-change/user-password-change.module';
@@ -13,6 +13,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {MyProfileService} from '../../my-profile/services/my-profile.service';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('PasswordManagementComponent', () => {
   let component: PasswordManagementComponent;
@@ -35,6 +36,7 @@ describe('PasswordManagementComponent', () => {
           }
         }),
         EffectsModule.forRoot([]),
+        ReactiveComponentModule
       ],
       providers: [
         reducerProvider,

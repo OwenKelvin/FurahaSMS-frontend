@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {LoginTokenComponent} from './login-token.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
@@ -9,6 +9,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {RouterTestingModule} from '@angular/router/testing';
 import {EffectsModule} from '@ngrx/effects';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('LoginTokenComponent', () => {
   let component: LoginTokenComponent;
@@ -30,7 +31,8 @@ describe('LoginTokenComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([]),
+        ReactiveComponentModule
       ],
       providers: [reducerProvider],
       declarations: [LoginTokenComponent]

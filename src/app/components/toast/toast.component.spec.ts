@@ -3,6 +3,7 @@ import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {ToastComponent} from './toast.component';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ToastComponent', () => {
   let component: ToastComponent;
@@ -16,7 +17,9 @@ describe('ToastComponent', () => {
           strictStateImmutability: true,
           strictActionImmutability: true,
         }
-      })],
+      }),
+        ReactiveComponentModule
+      ],
       declarations: [ToastComponent],
       providers: [reducerProvider]
     })

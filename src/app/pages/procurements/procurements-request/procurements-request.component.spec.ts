@@ -12,6 +12,7 @@ import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading
 import {ValidateSubmitButtonsComponent} from '../../../components/validate-submit-buttons/validate-submit-buttons.component';
 import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ProcurementsRequestComponent', () => {
   let component: ProcurementsRequestComponent;
@@ -31,7 +32,11 @@ describe('ProcurementsRequestComponent', () => {
       }),
         FormErrorsModule,
         FormsModule,
-        ReactiveFormsModule, RouterTestingModule, HttpClientTestingModule],
+        ReactiveFormsModule,
+        RouterTestingModule,
+        HttpClientTestingModule,
+        ReactiveComponentModule
+      ],
       declarations: [
         ProcurementsRequestComponent,
         SelectComponent,

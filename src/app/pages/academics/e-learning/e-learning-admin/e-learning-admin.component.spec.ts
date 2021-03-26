@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { RouterTestingModule } from '@angular/router/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningAdminComponent', () => {
   let component: ELearningAdminComponent;
@@ -16,7 +17,8 @@ describe('ELearningAdminComponent', () => {
         FormsModule,
         HttpClientTestingModule,
         AppLoadingBubbleModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [ ELearningAdminComponent ]
     })

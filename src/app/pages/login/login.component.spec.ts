@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {LoginComponent} from './login.component';
 import {InputComponent} from '../../components/input/input.component';
@@ -10,6 +10,7 @@ import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from 'src/app/store/reducers';
 import {ErrorModule} from 'src/app/components/error/error.module';
 import {AppStarLabelRequiredModule} from '../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -30,7 +31,8 @@ describe('LoginComponent', () => {
           }
         }),
         ErrorModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [LoginComponent, FullWithCenterComponent, InputComponent],
       providers: [reducerProvider]

@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {TimeTableAcademicYearEditComponent} from './time-table-academic-year-edit.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -12,6 +12,7 @@ import {of} from 'rxjs';
 import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
 import {StoreModule} from '@ngrx/store';
 import {metaReducers, REDUCER_TOKEN, reducerProvider} from '../../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('TimeTableAcademicYearEditComponent', () => {
   let component: TimeTableAcademicYearEditComponent;
@@ -34,7 +35,8 @@ describe('TimeTableAcademicYearEditComponent', () => {
         BrowserAnimationsModule,
         FormsModule,
         ReactiveFormsModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [TimeTableAcademicYearEditComponent],
       providers: [
@@ -42,9 +44,9 @@ describe('TimeTableAcademicYearEditComponent', () => {
         {
           provide: ActivatedRoute,
           useValue: {
-            parent: {paramMap: of({get: ()=> 1})},
-            paramMap: of({get: ()=> 1}),
-            snapshot: { }
+            parent: {paramMap: of({get: () => 1})},
+            paramMap: of({get: () => 1}),
+            snapshot: {}
           }
         },
       ]

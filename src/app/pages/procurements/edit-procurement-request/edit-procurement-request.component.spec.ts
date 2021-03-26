@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { EditProcurementRequestComponent } from './edit-procurement-request.component';
 import { Store, StoreModule } from '@ngrx/store';
@@ -13,13 +13,14 @@ import { ValidateSubmitButtonsComponent } from '../../../components/validate-sub
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import {FormErrorsModule} from '../../../shared/form-errors/form-errors.module';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('EditProcurementRequestComponent', () => {
   let component: EditProcurementRequestComponent;
   let fixture: ComponentFixture<EditProcurementRequestComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -34,7 +35,8 @@ describe('EditProcurementRequestComponent', () => {
         ReactiveFormsModule,
         HttpClientTestingModule,
         FormErrorsModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [
         EditProcurementRequestComponent,
@@ -47,8 +49,8 @@ describe('EditProcurementRequestComponent', () => {
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+     TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(EditProcurementRequestComponent);

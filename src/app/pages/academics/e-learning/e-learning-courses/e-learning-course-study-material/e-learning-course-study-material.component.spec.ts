@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ELearningCourseStudyMaterialComponent} from './e-learning-course-study-material.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -11,6 +11,7 @@ import {FileExtensionModule} from 'src/app/shared/file-extention/file-extension.
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {academicsFeatureKey, reducers} from '../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningCourseStudyMaterialComponent', () => {
   let component: ELearningCourseStudyMaterialComponent;
@@ -31,7 +32,8 @@ describe('ELearningCourseStudyMaterialComponent', () => {
         }),
         StoreModule.forFeature(academicsFeatureKey, reducers),
         AppFilesizeModule,
-        FileExtensionModule
+        FileExtensionModule,
+        ReactiveComponentModule
       ],
       declarations: [ELearningCourseStudyMaterialComponent],
       providers: [

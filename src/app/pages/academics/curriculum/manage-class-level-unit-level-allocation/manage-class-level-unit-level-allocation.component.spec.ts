@@ -1,27 +1,29 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ManageClassLevelUnitLevelAllocationComponent } from './manage-class-level-unit-level-allocation.component';
+import {ManageClassLevelUnitLevelAllocationComponent} from './manage-class-level-unit-level-allocation.component';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {AppLoadingBubbleModule} from '../../../../modules/app-loading-bubble';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ManageClassLevelUnitLevelAllocationComponent', () => {
   let component: ManageClassLevelUnitLevelAllocationComponent;
   let fixture: ComponentFixture<ManageClassLevelUnitLevelAllocationComponent>;
 
-  beforeEach(async () => {
-    await TestBed.configureTestingModule({
+  beforeEach(waitForAsync(() => {
+    TestBed.configureTestingModule({
       imports: [
         RouterTestingModule,
         HttpClientTestingModule,
         ReactiveFormsModule, FormsModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
-      declarations: [ ManageClassLevelUnitLevelAllocationComponent ]
+      declarations: [ManageClassLevelUnitLevelAllocationComponent]
     })
-    .compileComponents();
-  });
+      .compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ManageClassLevelUnitLevelAllocationComponent);

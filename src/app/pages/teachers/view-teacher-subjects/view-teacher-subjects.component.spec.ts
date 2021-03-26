@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ViewTeacherSubjectsComponent} from './view-teacher-subjects.component';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
@@ -6,6 +6,7 @@ import {AppLoadingBubbleModule} from '../../../modules/app-loading-bubble';
 import {RouterTestingModule} from '@angular/router/testing';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewTeacherSubjectsComponent', () => {
   let component: ViewTeacherSubjectsComponent;
@@ -16,7 +17,8 @@ describe('ViewTeacherSubjectsComponent', () => {
       imports: [
         HttpClientTestingModule,
         AppLoadingBubbleModule,
-        RouterTestingModule
+        RouterTestingModule,
+        ReactiveComponentModule
 
       ],
       declarations: [ViewTeacherSubjectsComponent],
@@ -25,7 +27,7 @@ describe('ViewTeacherSubjectsComponent', () => {
           provide: ActivatedRoute,
           useValue: {
             parent: {
-              paramMap: of({ get: () => 1 })
+              paramMap: of({get: () => 1})
             }
           }
         }

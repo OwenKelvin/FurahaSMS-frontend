@@ -7,6 +7,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { reducerProvider } from 'src/app/store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('FinancialPlanComponent', () => {
   let component: FinancialPlanComponent;
@@ -19,7 +20,8 @@ describe('FinancialPlanComponent', () => {
         ReactiveFormsModule,
         RouterTestingModule,
         AppLoadingBubbleModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+        ReactiveComponentModule
       ],
       declarations: [FinancialPlanComponent, SelectAcademicYearComponent],
       providers: [reducerProvider]

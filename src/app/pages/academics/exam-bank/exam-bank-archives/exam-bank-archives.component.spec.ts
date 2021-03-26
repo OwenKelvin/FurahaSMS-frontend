@@ -1,9 +1,10 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ExamBankArchivesComponent } from './exam-bank-archives.component';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {ExamBankArchivesComponent} from './exam-bank-archives.component';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ExamBankArchivesComponent', () => {
   let component: ExamBankArchivesComponent;
@@ -11,10 +12,15 @@ describe('ExamBankArchivesComponent', () => {
 
   beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
-      imports: [AppLoadingBubbleModule, HttpClientTestingModule, RouterTestingModule],
-      declarations: [ ExamBankArchivesComponent ]
+      imports: [
+        AppLoadingBubbleModule,
+        HttpClientTestingModule,
+        RouterTestingModule,
+        ReactiveComponentModule
+      ],
+      declarations: [ExamBankArchivesComponent]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

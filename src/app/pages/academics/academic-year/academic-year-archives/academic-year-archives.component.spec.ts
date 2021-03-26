@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { AcademicYearArchivesComponent } from './academic-year-archives.component';
 import { Store, StoreModule } from '@ngrx/store';
@@ -6,13 +6,14 @@ import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/
 import { RouterTestingModule } from '@angular/router/testing';
 import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('AcademicYearArchivesComponent', () => {
   let component: AcademicYearArchivesComponent;
   let fixture: ComponentFixture<AcademicYearArchivesComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -24,14 +25,15 @@ describe('AcademicYearArchivesComponent', () => {
         }),
         HttpClientTestingModule,
         RouterTestingModule,
-        AppLoadingBubbleModule
+        AppLoadingBubbleModule,
+        ReactiveComponentModule
       ],
       declarations: [AcademicYearArchivesComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(AcademicYearArchivesComponent);

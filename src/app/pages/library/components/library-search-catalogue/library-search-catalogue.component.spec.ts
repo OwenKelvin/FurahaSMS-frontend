@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {LibrarySearchCatalogueComponent} from './library-search-catalogue.component';
 import {Store, StoreModule} from '@ngrx/store';
@@ -7,13 +7,14 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {TypeaheadModule} from 'ngx-bootstrap/typeahead';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('LibrarySearchCatalogueComponent', () => {
   let component: LibrarySearchCatalogueComponent;
   let fixture: ComponentFixture<LibrarySearchCatalogueComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -27,7 +28,8 @@ describe('LibrarySearchCatalogueComponent', () => {
         HttpClientTestingModule,
         FormsModule,
         ReactiveFormsModule,
-        TypeaheadModule.forRoot()
+        TypeaheadModule.forRoot(),
+        ReactiveComponentModule
       ],
       declarations: [
         LibrarySearchCatalogueComponent
@@ -35,8 +37,8 @@ describe('LibrarySearchCatalogueComponent', () => {
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(LibrarySearchCatalogueComponent);

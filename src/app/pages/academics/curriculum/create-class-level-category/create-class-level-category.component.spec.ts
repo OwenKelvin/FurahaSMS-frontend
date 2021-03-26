@@ -14,6 +14,7 @@ import {ActivatedRoute, Router} from '@angular/router';
 import {EditorModule} from '@tinymce/tinymce-angular';
 import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
 import {AppStarLabelRequiredModule} from '../../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateClassLevelCategoryComponent', () => {
   let component: CreateClassLevelCategoryComponent;
@@ -36,7 +37,8 @@ describe('CreateClassLevelCategoryComponent', () => {
         RouterTestingModule,
         EditorModule,
         AppLoadingBubbleModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [CreateClassLevelCategoryComponent, InputComponent, ErrorComponent],
       providers: [

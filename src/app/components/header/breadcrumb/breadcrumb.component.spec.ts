@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {BreadcrumbComponent} from './breadcrumb.component';
 import {Store, StoreModule} from '@ngrx/store';
@@ -7,6 +7,7 @@ import {HttpClientTestingModule} from '@angular/common/http/testing';
 import {RouterTestingModule} from '@angular/router/testing';
 import {PRIMARY_OUTLET, Router} from '@angular/router';
 import {of} from 'rxjs';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('BreadcrumbComponent', () => {
   let component: BreadcrumbComponent;
@@ -15,14 +16,15 @@ describe('BreadcrumbComponent', () => {
 
   const mockRouter = {
     events: of(true),
-    createUrlTree: () => {},
+    createUrlTree: () => {
+    },
     serializeUrl: () => 'home',
     routerState: {
       root: {
         children: [
           {
             snapshot: {
-              url: [{ segment: 'home' }],
+              url: [{segment: 'home'}],
               data: {
                 breadcrumb: 'Home'
               }
@@ -35,7 +37,7 @@ describe('BreadcrumbComponent', () => {
     }
   };
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -46,7 +48,9 @@ describe('BreadcrumbComponent', () => {
           }
         }),
         HttpClientTestingModule,
-        RouterTestingModule],
+        RouterTestingModule,
+        ReactiveComponentModule
+      ],
       declarations: [BreadcrumbComponent, BreadcrumbComponent],
       providers: [
         reducerProvider,
@@ -57,8 +61,8 @@ describe('BreadcrumbComponent', () => {
       ]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(BreadcrumbComponent);

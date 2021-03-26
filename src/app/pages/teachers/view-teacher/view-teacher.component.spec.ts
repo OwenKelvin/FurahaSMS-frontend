@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ViewTeacherComponent} from './view-teacher.component';
 import {StoreModule} from '@ngrx/store';
@@ -9,6 +9,7 @@ import {AppUserProfileModule} from 'src/app/components/user-profile/user-profile
 import {REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
 import {teacherProfileFeatureKey, reducer} from '../store/reducers/teacher-profile.reducer';
 import {appFeatureKey, reducers} from '../../../store/reducers/app.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewTeacherComponent', () => {
   let component: ViewTeacherComponent;
@@ -29,7 +30,8 @@ describe('ViewTeacherComponent', () => {
           }
         }),
         StoreModule.forFeature(teacherProfileFeatureKey, reducer),
-        StoreModule.forFeature(appFeatureKey, reducers)
+        StoreModule.forFeature(appFeatureKey, reducers),
+        ReactiveComponentModule
       ],
       declarations: [ViewTeacherComponent],
       providers: [reducerProvider]

@@ -12,6 +12,7 @@ import {RouterTestingModule} from '@angular/router/testing';
 import {TabsModule} from 'ngx-bootstrap/tabs';
 import {NgSelectModule} from '@ng-select/ng-select';
 import {AppStarLabelRequiredModule} from '../../../components/label-star-required/app-star-label-required';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateProcurementsVendorsComponent', () => {
   let component: CreateProcurementsVendorsComponent;
@@ -34,7 +35,8 @@ describe('CreateProcurementsVendorsComponent', () => {
         RouterTestingModule,
         TabsModule.forRoot(),
         NgSelectModule,
-        AppStarLabelRequiredModule
+        AppStarLabelRequiredModule,
+        ReactiveComponentModule
       ],
       declarations: [
         CreateProcurementsVendorsComponent,

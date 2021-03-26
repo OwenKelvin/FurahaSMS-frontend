@@ -1,4 +1,4 @@
-import {ComponentFixture, TestBed} from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {CreatePublisherComponent} from './create-publisher.component';
 import {Store, StoreModule} from '@ngrx/store';
@@ -13,13 +13,14 @@ import {AppValidateSubmitButtonsModule} from 'src/app/components/validate-submit
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {libraryFeatureKey, reducers} from '../../../store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreatePublisherComponent', () => {
   let component: CreatePublisherComponent;
   let fixture: ComponentFixture<CreatePublisherComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -37,27 +38,25 @@ describe('CreatePublisherComponent', () => {
         HttpClientTestingModule,
         RouterTestingModule,
         EditorModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        ReactiveComponentModule
       ],
       declarations: [CreatePublisherComponent],
-      providers
-  :
-    [
-      reducerProvider,
-      {
-        provide: ActivatedRoute,
-        useValue: {
-          parent: {
-            paramMap: of({get: () => 1})
+      providers: [
+        reducerProvider,
+        {
+          provide: ActivatedRoute,
+          useValue: {
+            parent: {
+              paramMap: of({get: () => 1})
+            }
           }
         }
-      }
-    ]
-  })
-    ;
+      ]
+    });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreatePublisherComponent);

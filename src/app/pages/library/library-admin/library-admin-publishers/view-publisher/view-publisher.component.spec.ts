@@ -1,18 +1,19 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ViewPublisherComponent } from './view-publisher.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { AppLoadingBubbleModule } from 'src/app/modules/app-loading-bubble';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { RouterTestingModule } from '@angular/router/testing';
+import {ViewPublisherComponent} from './view-publisher.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {AppLoadingBubbleModule} from 'src/app/modules/app-loading-bubble';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {RouterTestingModule} from '@angular/router/testing';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewPublisherComponent', () => {
   let component: ViewPublisherComponent;
   let fixture: ComponentFixture<ViewPublisherComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       imports: [
         StoreModule.forRoot(REDUCER_TOKEN, {
@@ -24,14 +25,15 @@ describe('ViewPublisherComponent', () => {
         }),
         AppLoadingBubbleModule,
         HttpClientTestingModule,
-        RouterTestingModule
-       ],
+        RouterTestingModule,
+        ReactiveComponentModule
+      ],
       declarations: [ViewPublisherComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(ViewPublisherComponent);

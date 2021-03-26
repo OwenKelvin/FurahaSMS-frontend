@@ -1,14 +1,15 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed} from '@angular/core/testing';
 
-import { CreateUnitComponent } from './create-unit.component';
-import { Store, StoreModule } from '@ngrx/store';
-import { AppState, REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
-import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { RouterTestingModule } from '@angular/router/testing';
-import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { AppInputModule } from 'src/app/components/input/app-input.module';
-import { ErrorComponent } from 'src/app/components/error/error.component';
+import {CreateUnitComponent} from './create-unit.component';
+import {Store, StoreModule} from '@ngrx/store';
+import {AppState, REDUCER_TOKEN, metaReducers, reducerProvider} from 'src/app/store/reducers';
+import {FormsModule, ReactiveFormsModule} from '@angular/forms';
+import {RouterTestingModule} from '@angular/router/testing';
+import {HttpClientTestingModule} from '@angular/common/http/testing';
+import {AppInputModule} from 'src/app/components/input/app-input.module';
+import {ErrorComponent} from 'src/app/components/error/error.component';
 import {AppValidateSubmitButtonsModule} from '../../../../components/validate-submit-buttons/validate-submit-buttons.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateUnitComponent', () => {
   let component: CreateUnitComponent;
@@ -30,7 +31,8 @@ describe('CreateUnitComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         AppInputModule,
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        ReactiveComponentModule
       ],
       declarations: [
         CreateUnitComponent,

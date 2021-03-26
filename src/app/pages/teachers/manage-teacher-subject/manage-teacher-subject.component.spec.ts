@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import {ManageTeacherSubjectComponent} from './manage-teacher-subject.component';
 import {RouterTestingModule} from '@angular/router/testing';
@@ -9,6 +9,7 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {ActivatedRoute} from '@angular/router';
 import {of} from 'rxjs';
 import {teacherProfileFeatureKey, reducer} from '../store/reducers/teacher-profile.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ManageTeacherSubjectComponent', () => {
   let component: ManageTeacherSubjectComponent;
@@ -27,7 +28,8 @@ describe('ManageTeacherSubjectComponent', () => {
         StoreModule.forFeature(teacherProfileFeatureKey, reducer),
         RouterTestingModule, HttpClientTestingModule,
         ReactiveFormsModule,
-        FormsModule
+        FormsModule,
+        ReactiveComponentModule
       ],
       declarations: [ManageTeacherSubjectComponent],
       providers: [

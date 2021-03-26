@@ -5,6 +5,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { StoreModule } from '@ngrx/store';
 import { REDUCER_TOKEN, metaReducers, reducerProvider } from 'src/app/store/reducers';
 import { EffectsModule } from '@ngrx/effects';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningAdminCourseComponent', () => {
   let component: ELearningAdminCourseComponent;
@@ -21,7 +22,8 @@ describe('ELearningAdminCourseComponent', () => {
             strictActionImmutability: true,
           }
         }),
-        EffectsModule.forRoot([])
+        EffectsModule.forRoot([]),
+        ReactiveComponentModule
       ],
       declarations: [ELearningAdminCourseComponent],
       providers: [reducerProvider]

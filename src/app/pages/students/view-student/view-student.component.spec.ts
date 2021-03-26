@@ -9,6 +9,7 @@ import {LoadingBubbleComponent} from '../../../components/loading-bubble/loading
 import {AppUserProfileModule} from 'src/app/components/user-profile/user-profile.module';
 import {reducer} from '../store/reducers/student-profile.reducer';
 import {reducers} from '../../../store/reducers/app.reducer';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ViewStudentComponent', () => {
   let component: ViewStudentComponent;
@@ -29,7 +30,8 @@ describe('ViewStudentComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         StoreModule.forFeature('studentProfiles', reducer),
-        StoreModule.forFeature('app', reducers)
+        StoreModule.forFeature('app', reducers),
+        ReactiveComponentModule
       ],
       declarations: [ViewStudentComponent, LoadingBubbleComponent],
       providers: [reducerProvider]

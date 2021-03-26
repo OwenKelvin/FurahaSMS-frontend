@@ -9,7 +9,7 @@ describe('AcademicYearPlan Selectors', () => {
           academicYear: {
             id: 0
           },
-          financialYearPlan: {}
+          financialYearPlan: []
         }
       }
     });
@@ -19,7 +19,7 @@ describe('AcademicYearPlan Selectors', () => {
         academicYear: {
           id: 0
         },
-        financialYearPlan: {}
+        financialYearPlan: []
       }
     });
   });

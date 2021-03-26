@@ -1,9 +1,10 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
-import { ELearningCourseItemComponent } from './e-learning-course-item.component';
-import { RouterTestingModule } from '@angular/router/testing';
-import { StoreModule } from '@ngrx/store';
-import { REDUCER_TOKEN, reducerProvider, metaReducers } from 'src/app/store/reducers';
+import {ELearningCourseItemComponent} from './e-learning-course-item.component';
+import {RouterTestingModule} from '@angular/router/testing';
+import {StoreModule} from '@ngrx/store';
+import {REDUCER_TOKEN, reducerProvider, metaReducers} from 'src/app/store/reducers';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('ELearningCourseItemComponent', () => {
   let component: ELearningCourseItemComponent;
@@ -19,14 +20,15 @@ describe('ELearningCourseItemComponent', () => {
             strictStateImmutability: true,
             strictActionImmutability: true,
           }
-        })
+        }),
+        ReactiveComponentModule
       ],
       declarations: [ELearningCourseItemComponent],
       providers: [
         reducerProvider,
       ]
     })
-    .compileComponents();
+      .compileComponents();
   }));
 
   beforeEach(() => {

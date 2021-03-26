@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { StudentPaymentStatementComponent } from './student-payment-statement.component';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -14,6 +14,7 @@ import { accountFeatureKey } from '../../store/reducers';
 import { reducer } from '../../store/reducers/account.reducer';
 import { of } from 'rxjs';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('StudentPaymentStatementComponent', () => {
   let component: StudentPaymentStatementComponent;
@@ -36,7 +37,8 @@ describe('StudentPaymentStatementComponent', () => {
           }
         }),
         StoreModule.forFeature(accountFeatureKey, reducer),
-        AppValidateSubmitButtonsModule
+        AppValidateSubmitButtonsModule,
+        ReactiveComponentModule
       ],
       declarations: [
         StudentPaymentStatementComponent,

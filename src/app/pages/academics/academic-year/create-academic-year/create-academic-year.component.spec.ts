@@ -1,4 +1,4 @@
-import { ComponentFixture, TestBed } from '@angular/core/testing';
+import {ComponentFixture, TestBed, waitForAsync} from '@angular/core/testing';
 
 import { CreateAcademicYearComponent } from './create-academic-year.component';
 import { Store, StoreModule } from '@ngrx/store';
@@ -12,13 +12,14 @@ import { ErrorModule } from 'src/app/components/error/error.module';
 import { EffectsModule } from '@ngrx/effects';
 import { AppValidateSubmitButtonsModule } from 'src/app/components/validate-submit-buttons/validate-submit-buttons.module';
 import {FormErrorsModule} from '../../../../shared/form-errors/form-errors.module';
+import {ReactiveComponentModule} from '@ngrx/component';
 
 describe('CreateAcademicYearComponent', () => {
   let component: CreateAcademicYearComponent;
   let fixture: ComponentFixture<CreateAcademicYearComponent>;
   let store: Store<AppState>;
 
-  beforeEach(async () => {
+  beforeEach(waitForAsync( () => {
     TestBed.configureTestingModule({
       imports: [
         AcademicsModule,
@@ -37,14 +38,15 @@ describe('CreateAcademicYearComponent', () => {
         RouterTestingModule,
         ErrorModule,
         AppValidateSubmitButtonsModule,
-        FormErrorsModule
+        FormErrorsModule,
+        ReactiveComponentModule
       ],
       declarations: [CreateAcademicYearComponent],
       providers: [reducerProvider]
     });
 
-    await TestBed.compileComponents();
-  });
+    TestBed.compileComponents();
+  }));
 
   beforeEach(() => {
     fixture = TestBed.createComponent(CreateAcademicYearComponent);
