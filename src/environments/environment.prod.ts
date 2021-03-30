@@ -3,7 +3,7 @@ export const environment = {
   apiUrl: 'https://test-fsms-100-backend.furahacapital.com',
   passportClient: {
     grantType: 'password',
-    clientSecret: 'sw5G4BAztwr0OtNpgsnFSAS4Oa2iA7UVFn1J94FP',
+    clientSecret: 'duK0bplTPn2BeyrsjX1939Y9OPIjPytEFUUNwjqD',
     clientId: '2'
   }
 };
