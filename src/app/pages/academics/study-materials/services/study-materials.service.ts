@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
 import {Observable} from 'rxjs';
 import {HttpClient, HttpHeaders} from '@angular/common/http';
-import {stringify} from 'querystring';
 
 @Injectable({
   providedIn: 'root'
@@ -10,12 +9,13 @@ export class StudyMaterialsService {
   constructor(private http: HttpClient) {
   }
   downloadDocumentWithFilePath(filePath: any) {
-    const queryStringParams = stringify({['file_path']: filePath});
     const headers = new HttpHeaders();
     headers.append('Accept', 'application/octet-stream');
     headers.append('Content-Type', 'application/octet-stream');
 
-    return this.http.get(`api/study-materials/document-uploads?${queryStringParams}`, {headers, responseType: 'blob'});
+    return this.http.get(`api/study-materials/document-uploads`, {
+      params: {['file_path']: filePath},
+      headers, responseType: 'blob'});
   }
 
   getMaterialWithId(id: number): any {

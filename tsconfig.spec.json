@@ -5,8 +5,7 @@
     "types": [
       "jasmine",
       "node",
-      "mathjax",
-      "jest"
+      "mathjax"
     ]
   },
   "files": [
