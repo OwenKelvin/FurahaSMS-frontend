@@ -25,7 +25,7 @@
   "private": true,
   "dependencies": {
     "@angular-devkit/architect": "^0.1102.6",
-    "@angular-devkit/build-angular": "~0.1102.11",
+    "@angular-devkit/build-angular": "~13.2.0",
     "@angular/animations": "~11.2.7",
     "@angular/cdk": "^11.2.6",
     "@angular/cli": "~11.2.6",
@@ -63,7 +63,7 @@
     "pouchdb": "^7.2.2",
     "quagga": "^0.12.1",
     "rxjs": "~6.6.3",
-    "snyk": "^1.401.0",
+    "snyk": "^1.685.0",
     "tinymce": "^5.4.2",
     "tslib": "^2.0.1",
     "tslint": "^6.1.3",
