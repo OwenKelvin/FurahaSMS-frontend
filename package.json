@@ -55,7 +55,7 @@
     "flag-icon-css": "^3.5.0",
     "google-libphonenumber": "^3.2.19",
     "mathjax": "^3.1.2",
-    "ng2-pdf-viewer": "^6.3.2",
+    "ng2-pdf-viewer": "^10.3.0",
     "ngx-bootstrap": "^6.1.0",
     "ngx-duration-picker": "^3.2.0",
     "ngx-mathjax": "0.0.13",
