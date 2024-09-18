@@ -51,7 +51,7 @@
     "@types/mathjax": "0.0.36",
     "@types/pouchdb": "^6.4.0",
     "bootstrap": "^4.5.2",
-    "express": "^4.17.1",
+    "express": "^4.20.0",
     "flag-icon-css": "^3.5.0",
     "google-libphonenumber": "^3.2.19",
     "mathjax": "^3.1.2",
